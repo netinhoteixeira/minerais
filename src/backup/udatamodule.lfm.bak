@@ -1,0 +1,72 @@
+object Dados: TDados
+  OnDestroy = DataModuleDestroy
+  OldCreateOrder = False
+  Height = 308
+  HorizontalOffset = 613
+  VerticalOffset = 110
+  Width = 414
+  object Sqlite3DatasetGeral: TSqlite3Dataset
+    PrimaryKey = 'id'
+    SaveOnClose = True
+    SQL = 'Select * from minerais;'
+    TableName = 'minerais'
+    left = 56
+    top = 8
+  end
+  object Sqlite3DatasetDidatico: TSqlite3Dataset
+    SaveOnClose = True
+    SQL = 'Select * from mineralogia;'
+    TableName = 'mineralogia'
+    left = 56
+    top = 64
+  end
+  object DatasourceGeral: TDatasource
+    DataSet = Sqlite3DatasetGeral
+    left = 160
+    top = 8
+  end
+  object DatasourceDidatico: TDatasource
+    DataSet = Sqlite3DatasetDidatico
+    left = 160
+    top = 64
+  end
+  object frReport1: TfrReport
+    Dataset = frDBDataSet1
+    InitialZoom = pzDefault
+    Options = []
+    Preview = FormImpressao.frPreview1
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
+    DataType = dtDataSet
+    Title = 'Imprimir'
+    left = 56
+    top = 248
+    ReportForm = {
+      19000000
+    }
+  end
+  object frDBDataSet1: TfrDBDataSet
+    DataSet = Sqlite3DatasetGeral
+    DataSource = DatasourceReport
+    left = 56
+    top = 184
+  end
+  object DatasourceReport: TDatasource
+    DataSet = Sqlite3DatasetGeral
+    left = 160
+    top = 184
+  end
+  object frTNPDFExport1: TfrTNPDFExport
+    left = 160
+    top = 248
+  end
+  object Sqlite3DatasetCombobox: TSqlite3Dataset
+    TableName = 'minerais'
+    left = 56
+    top = 128
+  end
+  object DatasourceCombobox: TDatasource
+    DataSet = Sqlite3DatasetCombobox
+    left = 160
+    top = 128
+  end
+end

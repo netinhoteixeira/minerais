@@ -1,0 +1,151 @@
+object FormImpressao: TFormImpressao
+  Left = 65
+  Height = 492
+  Top = 154
+  Width = 809
+  Caption = 'Imprimir'
+  ClientHeight = 492
+  ClientWidth = 809
+  LCLVersion = '0.9.30'
+  object Panel1: TPanel
+    Left = 0
+    Height = 442
+    Top = 0
+    Width = 314
+    Align = alLeft
+    ClientHeight = 442
+    ClientWidth = 314
+    TabOrder = 0
+    object RadioGroup1: TRadioGroup
+      Left = 1
+      Height = 127
+      Top = 1
+      Width = 287
+      AutoFill = True
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.TopBottomSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 109
+      ClientWidth = 283
+      TabOrder = 0
+      object RadioButtonSelecionado: TRadioButton
+        Left = 6
+        Height = 33
+        Top = 6
+        Width = 271
+        Caption = 'Mineral Selecionado'
+        TabOrder = 0
+      end
+      object RadioButtonLista: TRadioButton
+        Left = 6
+        Height = 33
+        Top = 39
+        Width = 271
+        Caption = 'Todos da Lista'
+        TabOrder = 1
+      end
+      object RadioButtonBranco: TRadioButton
+        Left = 6
+        Height = 31
+        Top = 72
+        Width = 271
+        Caption = 'Ficha em Branco'
+        TabOrder = 2
+      end
+    end
+    object CheckGroup1: TCheckGroup
+      Left = 1
+      Height = 144
+      Top = 136
+      Width = 290
+      AutoFill = True
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.TopBottomSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      TabOrder = 1
+      object CheckBox1: TCheckBox
+        Left = 6
+        Height = 57
+        Top = 6
+        Width = 274
+        Caption = 'Propriedades Gerais, Físicas e Cristalográficas'
+        TabOrder = 0
+      end
+      object CheckBox2: TCheckBox
+        Left = 6
+        Height = 57
+        Top = 63
+        Width = 274
+        Caption = 'Propriedades Ópticas'
+        TabOrder = 1
+      end
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Height = 50
+    Top = 442
+    Width = 809
+    Align = alBottom
+    ClientHeight = 50
+    ClientWidth = 809
+    TabOrder = 1
+    object BitBtnImprimir: TBitBtn
+      Left = 168
+      Height = 30
+      Top = 10
+      Width = 120
+      Caption = 'Imprimir'
+      OnClick = BitBtnImprimirClick
+      TabOrder = 0
+    end
+    object BitBtnCancelar: TBitBtn
+      Left = 64
+      Height = 30
+      Top = 10
+      Width = 88
+      Caption = 'Cancelar'
+      TabOrder = 1
+    end
+  end
+  object Panel3: TPanel
+    Left = 564
+    Height = 326
+    Top = 79
+    Width = 770
+    Caption = 'Panel3'
+    TabOrder = 2
+  end
+  object GroupBox1: TGroupBox
+    Left = 314
+    Height = 442
+    Top = 0
+    Width = 495
+    Align = alClient
+    Caption = 'GroupBox1'
+    ClientHeight = 424
+    ClientWidth = 491
+    TabOrder = 3
+    object frPreview1: TfrPreview
+      Left = 0
+      Height = 424
+      Top = 0
+      Width = 491
+      Align = alClient
+      BevelOuter = bvLowered
+      Caption = 'frPreview1'
+      TabOrder = 0
+      ScrollBars = ssBoth
+    end
+  end
+end
