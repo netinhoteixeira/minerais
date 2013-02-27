@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Minerais</string>
+    <string name="menu_settings">Settings</string>
+    <string name="StrDureza">Dureza</string>
+    <string name="StrDensidade">Densidade</string>
+    <string name="StrFiltro">Filtro</string>
+    <string name="StrEspecies">Espécies Minerais:</string>
+
+</resources>

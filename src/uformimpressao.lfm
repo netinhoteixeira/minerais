@@ -1,5 +1,5 @@
 object FormImpressao: TFormImpressao
-  Left = 65
+  Left = 87
   Height = 492
   Top = 154
   Width = 809

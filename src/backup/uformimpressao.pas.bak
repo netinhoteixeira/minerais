@@ -48,8 +48,8 @@ begin
   Begin
       // dados.frReport1.FileName:=GetCurrentDir+'\Data\Report1.lrf';
        dados.frReport1.LoadFromFile(GetCurrentDir+'\Data\Report1.lrf');
-       dados.frReport1.PrepareReport;
-            //dados.frReport1.ShowReport;
+       //dados.frReport1.PrepareReport;
+       dados.frReport1.ShowReport;
        {if FileExists(dados.frReport1.FileName) then
        begin
             dados.frDBDataSet1.Open;
