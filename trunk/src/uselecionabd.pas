@@ -121,15 +121,20 @@ end;
 procedure TFormSelecionaBD.FormShow(Sender: TObject);
 var Diretorio, BD:String;
 begin
+     ListboxSeleciona.Clear;
      ListBoxSeleciona.Items.AddStrings(FindAllFiles(GetCurrentDir,'All Files | *.s3db; *.sqlite; *.db;', true));
      Diretorio:=GetCurrentDir+'\Data';
      if (not DirectoryExists(Diretorio)) then
      MkDir(Diretorio);
      Diretorio:=GetCurrentDir+'\Data\BD.dat';
      AssignFile(Arquivo, Diretorio);
+     if (FileSize(diretorio)>0) then
+     Begin
      Reset(Arquivo);
      Readln(Arquivo, BD);
      StatusBar1.SimpleText:='Banco de Dados Padrão: '+BD;
+     end;
+     //closefile(arquivo);
 end;
 
 procedure TFormSelecionaBD.MenuItemSairClick(Sender: TObject);

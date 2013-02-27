@@ -1,5 +1,5 @@
 object FormAjuda: TFormAjuda
-  Left = 363
+  Left = 484
   Height = 376
   Top = 130
   Width = 505

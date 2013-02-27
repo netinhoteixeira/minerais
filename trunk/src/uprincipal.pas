@@ -16,6 +16,7 @@ type
 
   TFormPrincipal = class(TForm)
     BGRALabel1: TBGRALabel;
+    BGRALabel2: TBGRALabel;
     BGRALabelFXAssociacao: TBGRALabelFX;
     BGRALabelFXOcorrencia: TBGRALabelFX;
     BGRAPanel1: TBGRAPanel;
@@ -1455,11 +1456,13 @@ begin
 end;
 
 procedure TFormPrincipal.AtualizaImagem;
+var nome_mineral:string;
 begin
+  nome_mineral:= ListboxMinerais.GetselectedText;
   if (ListBoxMinerais.GetSelectedText <> EmptyStr) then
   begin       //diminuir tamanho do codigo, usando um try e um sldb.gettable
        try       //deu erro na linha abaixo, dataset fechado ao deletar e criar novo mineral
-       sltb := sldb.GetTable('SELECT imagem1 FROM minerais WHERE nome = "' + Dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
+       sltb := sldb.GetTable('SELECT imagem1 FROM minerais WHERE nome = "' + nome_mineral+'"');
        if (sltb.Count >0) then
        begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem1']);
@@ -1486,7 +1489,7 @@ begin
        end;
 
        try
-       sltb := sldb.GetTable('SELECT imagem2 FROM minerais where nome = "' + Dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
+       sltb := sldb.GetTable('SELECT imagem2 FROM minerais where nome = "' + nome_mineral+'"');
        if (sltb.Count >0) then
        begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem2']);
@@ -1509,7 +1512,7 @@ begin
        end;
 
        try
-       sltb := sldb.GetTable('SELECT imagem3 FROM minerais where nome = "' + Dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
+       sltb := sldb.GetTable('SELECT imagem3 FROM minerais where nome = "' + nome_mineral+'"');
        if (sltb.Count >0) then
        begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem3']);
@@ -1532,7 +1535,7 @@ begin
        end;
 
        try
-       sltb := sldb.GetTable('SELECT imagem4 FROM minerais where nome = "' + Dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
+       sltb := sldb.GetTable('SELECT imagem4 FROM minerais where nome = "' + nome_mineral+'"');
        if (sltb.Count >0) then
        begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem4']);
@@ -1555,7 +1558,7 @@ begin
        end;
 
        try
-       sltb := sldb.GetTable('SELECT imagem5 FROM minerais where nome = "' + Dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
+       sltb := sldb.GetTable('SELECT imagem5 FROM minerais where nome = "' + nome_mineral+'"');
        if (sltb.Count >0) then
        begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem5']);
@@ -1578,7 +1581,7 @@ begin
        end;
 
        try
-       sltb := sldb.GetTable('SELECT imagemCristalografia1 FROM minerais where nome = "' + Dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
+       sltb := sldb.GetTable('SELECT imagemCristalografia1 FROM minerais where nome = "' + nome_mineral+'"');
        if (sltb.Count >0) then
        begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia1']);
@@ -1600,7 +1603,7 @@ begin
        end;
 
        try
-       sltb := sldb.GetTable('SELECT imagemCristalografia2 FROM minerais where nome = "' + Dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
+       sltb := sldb.GetTable('SELECT imagemCristalografia2 FROM minerais where nome = "' + nome_mineral+'"');
        if (sltb.Count >0) then
        begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia2']);
@@ -1814,11 +1817,6 @@ begin
      SelecionaImagem('5');
 end;
 
-procedure TFormPrincipal.Image5DblClick(Sender: TObject);
-begin
-  Adiciona_Imagem('5');
-end;
-
 procedure TFormPrincipal.ImageCristalografia1Click(Sender: TObject);
 begin
        if (ListboxMinerais.GetSelectedText<> EmptyStr) then
@@ -1852,6 +1850,16 @@ begin
   Adiciona_Cristalografia('1');
 end;
 
+procedure TFormPrincipal.ImageCristalografia2DblClick(Sender: TObject);
+begin
+  Adiciona_Cristalografia('2');
+end;
+
+procedure TFormPrincipal.Image5DblClick(Sender: TObject);
+begin
+  Adiciona_Imagem('5');
+end;
+
 procedure TFormPrincipal.ImageCristalografia2Click(Sender: TObject);
 begin
        if (ListboxMinerais.GetSelectedText<> EmptyStr) then
@@ -1877,11 +1885,6 @@ begin
        end;
        end;
        Imagem_Selecionada:='7';
-end;
-
-procedure TFormPrincipal.ImageCristalografia2DblClick(Sender: TObject);
-begin
-  Adiciona_Cristalografia('2');
 end;
 
 

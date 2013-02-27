@@ -2,7 +2,7 @@ object Dados: TDados
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
   Height = 308
-  HorizontalOffset = 613
+  HorizontalOffset = 792
   VerticalOffset = 110
   Width = 414
   object Sqlite3DatasetGeral: TSqlite3Dataset

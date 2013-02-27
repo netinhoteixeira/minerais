@@ -20,7 +20,6 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Panel1: TPanel;
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
   private
     { private declarations }
   public
@@ -35,11 +34,6 @@ implementation
 {$R *.lfm}
 
 { TFormAjuda }
-
-procedure TFormAjuda.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  FormAjuda.Close;
-end;
 
 end.
 

@@ -6,7 +6,6 @@ object FormAjuda: TFormAjuda
   Caption = 'Ajuda'
   ClientHeight = 376
   ClientWidth = 505
-  OnClose = FormClose
   LCLVersion = '0.9.30'
   object Panel1: TPanel
     Left = 0

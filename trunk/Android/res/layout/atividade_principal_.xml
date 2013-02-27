@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AtividadePrincipal" >
+
+    <TextView
+        android:id="@+id/textViewEspecies"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.49"
+        android:text="@string/StrEspecies"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ListView
+        android:id="@+id/listViewEspecies"
+        android:layout_width="match_parent"
+        android:layout_height="245dp"
+        android:layout_weight="1.34" >
+
+    </ListView>
+
+    <RadioGroup
+        android:id="@+id/RadioGroupOrdem"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.38"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/StrDureza" />
+
+        <RadioButton
+            android:id="@+id/RadioButtonDureza"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="@string/StrDensidade" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.28"
+        android:text="@string/StrFiltro" />
+
+</LinearLayout>

@@ -46,7 +46,6 @@ object Dados: TDados
   end
   object frDBDataSet1: TfrDBDataSet
     DataSet = Sqlite3DatasetGeral
-    DataSource = DatasourceReport
     left = 56
     top = 184
   end
