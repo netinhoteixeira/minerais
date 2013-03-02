@@ -43,10 +43,12 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btnFiltro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.28"
-        android:text="@string/StrFiltro" />
+        android:text="@string/StrFiltro" 
+        android:onClick="@layout/filtro"
+        />
+    
 
 </LinearLayout>
