@@ -3,7 +3,7 @@ package com.example.minerais;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.*;
-import android.content.*;
+//import android.content.*;
 import android.widget.*;
 
 
@@ -22,12 +22,12 @@ public class AtividadePrincipal extends Activity {
     	 
     	@Override
     	public void onClick(View arg0) {
-    	 
-    	Intent verFiltro = new
-    	Intent(AtividadePrincipal.this,Filtro.class);
-    	AtividadePrincipal.this.startActivity(verFiltro);
-    	//AtividadePrincipal.this.finish();
-    	 
+    	
+    		setContentView(R.layout.filtro); 
+    		Button btnAplicar = (Button) findViewById(R.id.btnAplicar);
+    		
+    		
+  
     	}
    	});
     }
