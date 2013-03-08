@@ -17,8 +17,8 @@ public final class R {
         public static final int Filtro=0x7f070006;
         public static final int RadioButtonDureza=0x7f070004;
         public static final int RadioGroupOrdem=0x7f070002;
+        public static final int btnAplicar=0x7f070007;
         public static final int btnFiltro=0x7f070005;
-        public static final int btnVoltar=0x7f070007;
         public static final int listViewEspecies=0x7f070001;
         public static final int menu_settings=0x7f070008;
         public static final int radioButton1=0x7f070003;
