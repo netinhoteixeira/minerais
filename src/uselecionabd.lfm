@@ -22,10 +22,11 @@ object FormSelecionaBD: TFormSelecionaBD
     TabOrder = 0
     object ListBoxSeleciona: TListBox
       Left = 1
-      Height = 209
+      Height = 241
       Hint = 'Duplo Clique Para Selecionar'
       Top = 1
-      Width = 305
+      Width = 318
+      Align = alClient
       ItemHeight = 0
       OnDblClick = BitBtnSelecionarClick
       TabOrder = 0
@@ -108,8 +109,8 @@ object FormSelecionaBD: TFormSelecionaBD
     Panels = <>
   end
   object MainMenu1: TMainMenu
-    left = 104
-    top = 88
+    left = 96
+    top = 232
     object MenuItemArquivo: TMenuItem
       Caption = 'Arquivo'
       object MenuItemSair: TMenuItem

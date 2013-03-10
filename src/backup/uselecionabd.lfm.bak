@@ -1,5 +1,5 @@
 object FormSelecionaBD: TFormSelecionaBD
-  Left = 265
+  Left = 354
   Height = 286
   Top = 203
   Width = 487

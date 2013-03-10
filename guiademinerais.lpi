@@ -77,10 +77,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uprincipal"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="677"/>
-        <CursorPos X="42" Y="688"/>
+        <TopLine Value="1295"/>
+        <CursorPos X="1" Y="1236"/>
         <UsageCount Value="290"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -107,11 +108,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uselecionabd"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="119"/>
-        <CursorPos X="40" Y="133"/>
+        <TopLine Value="1"/>
+        <CursorPos X="34" Y="102"/>
         <UsageCount Value="290"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -184,123 +184,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="142" Column="13" TopLine="133"/>
+        <Caret Line="359" Column="66" TopLine="359"/>
       </Position1>
       <Position2>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="64" Column="36" TopLine="51"/>
+        <Filename Value="src\uformimpressao.pas"/>
+        <Caret Line="51" Column="10" TopLine="40"/>
       </Position2>
       <Position3>
-        <Filename Value="guiademinerais.lpr"/>
-        <Caret Line="8" Column="94" TopLine="2"/>
+        <Filename Value="src\uformimpressao.pas"/>
+        <Caret Line="52" Column="10" TopLine="41"/>
       </Position3>
       <Position4>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="130" Column="27" TopLine="115"/>
+        <Filename Value="src\uformimpressao.pas"/>
+        <Caret Line="53" Column="10" TopLine="42"/>
       </Position4>
       <Position5>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="68" Column="26" TopLine="65"/>
+        <Filename Value="src\uformimpressao.pas"/>
+        <Caret Line="54" Column="10" TopLine="43"/>
       </Position5>
       <Position6>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="110" Column="29" TopLine="39"/>
+        <Filename Value="src\uformimpressao.pas"/>
+        <Caret Line="55" Column="10" TopLine="44"/>
       </Position6>
       <Position7>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="132" Column="39" TopLine="120"/>
+        <Filename Value="src\uformimpressao.pas"/>
+        <Caret Line="54" Column="10" TopLine="43"/>
       </Position7>
       <Position8>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="59" Column="27" TopLine="51"/>
+        <Filename Value="src\uformimpressao.pas"/>
+        <Caret Line="53" Column="10" TopLine="42"/>
       </Position8>
       <Position9>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="122" Column="35" TopLine="111"/>
+        <Filename Value="src\uformimpressao.pas"/>
+        <Caret Line="52" Column="10" TopLine="41"/>
       </Position9>
       <Position10>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="316" Column="66" TopLine="295"/>
+        <Filename Value="src\uformimpressao.pas"/>
+        <Caret Line="51" Column="10" TopLine="40"/>
       </Position10>
       <Position11>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="389" Column="37" TopLine="374"/>
+        <Caret Line="688" Column="42" TopLine="677"/>
       </Position11>
       <Position12>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="412" Column="67" TopLine="391"/>
+        <Caret Line="687" Column="42" TopLine="676"/>
       </Position12>
       <Position13>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="575" Column="45" TopLine="554"/>
+        <Caret Line="686" Column="42" TopLine="675"/>
       </Position13>
       <Position14>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1879" Column="44" TopLine="1843"/>
+        <Caret Line="685" Column="42" TopLine="674"/>
       </Position14>
       <Position15>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1778" Column="39" TopLine="1655"/>
+        <Caret Line="684" Column="42" TopLine="673"/>
       </Position15>
       <Position16>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1462" Column="110" TopLine="1449"/>
+        <Caret Line="683" Column="42" TopLine="672"/>
       </Position16>
       <Position17>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="13" Column="17" TopLine="1"/>
+        <Caret Line="682" Column="42" TopLine="671"/>
       </Position17>
       <Position18>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="136" Column="25" TopLine="120"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="681" Column="42" TopLine="670"/>
       </Position18>
       <Position19>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="130" Column="25" TopLine="117"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="680" Column="42" TopLine="669"/>
       </Position19>
       <Position20>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="358" Column="66" TopLine="501"/>
+        <Caret Line="679" Column="42" TopLine="668"/>
       </Position20>
       <Position21>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="359" Column="66" TopLine="359"/>
+        <Caret Line="678" Column="42" TopLine="667"/>
       </Position21>
       <Position22>
-        <Filename Value="src\uformimpressao.pas"/>
-        <Caret Line="51" Column="10" TopLine="40"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="677" Column="42" TopLine="666"/>
       </Position22>
       <Position23>
-        <Filename Value="src\uformimpressao.pas"/>
-        <Caret Line="52" Column="10" TopLine="41"/>
+        <Filename Value="src\uselecionabd.pas"/>
+        <Caret Line="133" Column="40" TopLine="119"/>
       </Position23>
       <Position24>
-        <Filename Value="src\uformimpressao.pas"/>
-        <Caret Line="53" Column="10" TopLine="42"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="9" Column="70" TopLine="1"/>
       </Position24>
       <Position25>
-        <Filename Value="src\uformimpressao.pas"/>
-        <Caret Line="54" Column="10" TopLine="43"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="676" Column="39" TopLine="665"/>
       </Position25>
       <Position26>
-        <Filename Value="src\uformimpressao.pas"/>
-        <Caret Line="55" Column="10" TopLine="44"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="700" Column="15" TopLine="679"/>
       </Position26>
       <Position27>
-        <Filename Value="src\uformimpressao.pas"/>
-        <Caret Line="54" Column="10" TopLine="43"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="754" Column="12" TopLine="733"/>
       </Position27>
       <Position28>
-        <Filename Value="src\uformimpressao.pas"/>
-        <Caret Line="53" Column="10" TopLine="42"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="823" Column="16" TopLine="802"/>
       </Position28>
       <Position29>
-        <Filename Value="src\uformimpressao.pas"/>
-        <Caret Line="52" Column="10" TopLine="41"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="885" Column="17" TopLine="864"/>
       </Position29>
       <Position30>
-        <Filename Value="src\uformimpressao.pas"/>
-        <Caret Line="51" Column="10" TopLine="40"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="1214" Column="42" TopLine="1193"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

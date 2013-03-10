@@ -66,8 +66,6 @@ object FormPrincipal: TFormPrincipal
       Top = 1
       Width = 168
       Align = alTop
-      ClientHeight = 58
-      ClientWidth = 168
       TabOrder = 2
       Gradient.StartColor = 13744513
       Gradient.EndColor = 8677935
@@ -75,37 +73,6 @@ object FormPrincipal: TFormPrincipal
       Gradient.Point1YPercent = 0
       Gradient.Point2XPercent = 0
       Gradient.Point2YPercent = 100
-      object BGRALabel1: TBGRALabel
-        Left = 7
-        Height = 33
-        Top = 15
-        Width = 160
-        AutoSize = False
-        Background.Color = clBtnFace
-        Background.Gradient1.StartColor = 15722194
-        Background.Gradient1.EndColor = 13137169
-        Background.Gradient1.Point1XPercent = 0
-        Background.Gradient1.Point1YPercent = 0
-        Background.Gradient1.Point2XPercent = 0
-        Background.Gradient1.Point2YPercent = 100
-        Background.Gradient2.StartColor = 13137169
-        Background.Gradient2.EndColor = 15722194
-        Background.Gradient2.Point1XPercent = 0
-        Background.Gradient2.Point1YPercent = 0
-        Background.Gradient2.Point2XPercent = 0
-        Background.Gradient2.Point2YPercent = 100
-        Background.Gradient1EndPercent = 35
-        Background.LightWidth = 0
-        Background.LightOpacity = 64
-        Caption = 'Espécies Minerais:'
-        ParentColor = False
-        TextShadowColorOpacity = 255
-        GlobalOpacity = 255
-        TextApplyGlobalOpacity = False
-        Font.Color = clWhite
-        Font.Height = -13
-        Font.Style = [fsBold]
-      end
     end
   end
   object BGRAPanelFiltro: TBGRAPanel
@@ -133,90 +100,6 @@ object FormPrincipal: TFormPrincipal
       ClientWidth = 164
       ParentFont = False
       TabOrder = 0
-      object BGRALabelFXClasse: TBGRALabelFX
-        Left = 6
-        Height = 34
-        Top = 93
-        Width = 61
-        AutoSize = True
-        Caption = 'Classe'
-        Font.Height = 24
-        Font.Style = [fsBold]
-        Outline.Alpha = 255
-        Outline.Color = clWhite
-        Outline.OffsetX = 0
-        Outline.OffsetY = 0
-        Outline.Visible = True
-        Shadow.Alpha = 255
-        Shadow.Color = clBlack
-        Shadow.OffsetX = 0
-        Shadow.OffsetY = 0
-        Shadow.Visible = True
-        Shadow.Radius = 5
-      end
-      object BGRALabelFXSubclasse: TBGRALabelFX
-        Left = 6
-        Height = 34
-        Top = 157
-        Width = 90
-        AutoSize = True
-        Caption = 'Subclasse'
-        Font.Height = 24
-        Font.Style = [fsBold]
-        Outline.Alpha = 255
-        Outline.Color = clWhite
-        Outline.OffsetX = 0
-        Outline.OffsetY = 0
-        Outline.Visible = True
-        Shadow.Alpha = 255
-        Shadow.Color = clBlack
-        Shadow.OffsetX = 0
-        Shadow.OffsetY = 0
-        Shadow.Visible = True
-        Shadow.Radius = 5
-      end
-      object BGRALabelFXGrupo: TBGRALabelFX
-        Left = 6
-        Height = 34
-        Top = 221
-        Width = 62
-        AutoSize = True
-        Caption = 'Grupo'
-        Font.Height = 24
-        Font.Style = [fsBold]
-        Outline.Alpha = 255
-        Outline.Color = clWhite
-        Outline.OffsetX = 0
-        Outline.OffsetY = 0
-        Outline.Visible = True
-        Shadow.Alpha = 255
-        Shadow.Color = clBlack
-        Shadow.OffsetX = 0
-        Shadow.OffsetY = 0
-        Shadow.Visible = True
-        Shadow.Radius = 5
-      end
-      object BGRALabelFXSubgrupo: TBGRALabelFX
-        Left = 6
-        Height = 34
-        Top = 285
-        Width = 93
-        AutoSize = True
-        Caption = 'Subgrupo'
-        Font.Height = 24
-        Font.Style = [fsBold]
-        Outline.Alpha = 255
-        Outline.Color = clWhite
-        Outline.OffsetX = 0
-        Outline.OffsetY = 0
-        Outline.Visible = True
-        Shadow.Alpha = 255
-        Shadow.Color = clBlack
-        Shadow.OffsetX = 0
-        Shadow.OffsetY = 0
-        Shadow.Visible = True
-        Shadow.Radius = 5
-      end
       object ComboBoxClasse: TComboBox
         Left = 6
         Height = 23
@@ -256,48 +139,6 @@ object FormPrincipal: TFormPrincipal
         OnChange = ComboBoxSubgrupoChange
         Style = csDropDownList
         TabOrder = 3
-      end
-      object BGRALabelFXDureza: TBGRALabelFX
-        Left = 6
-        Height = 34
-        Top = 345
-        Width = 69
-        AutoSize = True
-        Caption = 'Dureza'
-        Font.Height = 24
-        Font.Style = [fsBold]
-        Outline.Alpha = 255
-        Outline.Color = clWhite
-        Outline.OffsetX = 0
-        Outline.OffsetY = 0
-        Outline.Visible = True
-        Shadow.Alpha = 255
-        Shadow.Color = clBlack
-        Shadow.OffsetX = 0
-        Shadow.OffsetY = 0
-        Shadow.Visible = True
-        Shadow.Radius = 5
-      end
-      object BGRALabelFXDensidade: TBGRALabelFX
-        Left = 6
-        Height = 34
-        Top = 426
-        Width = 98
-        AutoSize = True
-        Caption = 'Densidade'
-        Font.Height = 24
-        Font.Style = [fsBold]
-        Outline.Alpha = 255
-        Outline.Color = clWhite
-        Outline.OffsetX = 0
-        Outline.OffsetY = 0
-        Outline.Visible = True
-        Shadow.Alpha = 255
-        Shadow.Color = clBlack
-        Shadow.OffsetX = 0
-        Shadow.OffsetY = 0
-        Shadow.Visible = True
-        Shadow.Radius = 5
       end
       object ComboBoxDureza_min: TComboBox
         Left = 6
@@ -389,69 +230,6 @@ object FormPrincipal: TFormPrincipal
         OnEditingDone = EditNomeEditingDone
         TabOrder = 8
       end
-      object Nome: TBGRALabelFX
-        Left = 6
-        Height = 34
-        Top = 29
-        Width = 61
-        AutoSize = True
-        Caption = 'Nome'
-        Font.Height = 24
-        Font.Style = [fsBold]
-        Outline.Alpha = 255
-        Outline.Color = clWhite
-        Outline.OffsetX = 0
-        Outline.OffsetY = 0
-        Outline.Visible = True
-        Shadow.Alpha = 255
-        Shadow.Color = clBlack
-        Shadow.OffsetX = 0
-        Shadow.OffsetY = 0
-        Shadow.Visible = True
-        Shadow.Radius = 5
-      end
-      object BGRALabelFXOcorrencia: TBGRALabelFX
-        Left = 6
-        Height = 34
-        Top = 501
-        Width = 101
-        AutoSize = True
-        Caption = 'Ocorrência'
-        Font.Height = 24
-        Font.Style = [fsBold]
-        Outline.Alpha = 255
-        Outline.Color = clWhite
-        Outline.OffsetX = 0
-        Outline.OffsetY = 0
-        Outline.Visible = True
-        Shadow.Alpha = 255
-        Shadow.Color = clBlack
-        Shadow.OffsetX = 0
-        Shadow.OffsetY = 0
-        Shadow.Visible = True
-        Shadow.Radius = 5
-      end
-      object BGRALabelFXAssociacao: TBGRALabelFX
-        Left = 6
-        Height = 34
-        Top = 557
-        Width = 101
-        AutoSize = True
-        Caption = 'Associação'
-        Font.Height = 24
-        Font.Style = [fsBold]
-        Outline.Alpha = 255
-        Outline.Color = clWhite
-        Outline.OffsetX = 0
-        Outline.OffsetY = 0
-        Outline.Visible = True
-        Shadow.Alpha = 255
-        Shadow.Color = clBlack
-        Shadow.OffsetX = 0
-        Shadow.OffsetY = 0
-        Shadow.Visible = True
-        Shadow.Radius = 5
-      end
       object EditOcorrencia: TEdit
         Left = 6
         Height = 23
@@ -504,36 +282,6 @@ object FormPrincipal: TFormPrincipal
         ParentColor = False
         ParentFont = False
       end
-      object BGRALabel2: TBGRALabel
-        Left = 59
-        Height = 33
-        Top = 7
-        Width = 123
-        AutoSize = False
-        Background.Color = clBtnFace
-        Background.Gradient1.StartColor = 15722194
-        Background.Gradient1.EndColor = 13137169
-        Background.Gradient1.Point1XPercent = 0
-        Background.Gradient1.Point1YPercent = 0
-        Background.Gradient1.Point2XPercent = 0
-        Background.Gradient1.Point2YPercent = 100
-        Background.Gradient2.StartColor = 13137169
-        Background.Gradient2.EndColor = 15722194
-        Background.Gradient2.Point1XPercent = 0
-        Background.Gradient2.Point1YPercent = 0
-        Background.Gradient2.Point2XPercent = 0
-        Background.Gradient2.Point2YPercent = 100
-        Background.Gradient1EndPercent = 35
-        Background.LightWidth = 0
-        Background.LightOpacity = 64
-        Caption = 'Filtro'
-        ParentColor = False
-        TextShadowColorOpacity = 255
-        GlobalOpacity = 255
-        TextApplyGlobalOpacity = False
-        Font.Color = clWhite
-        Font.Style = [fsBold, fsItalic]
-      end
     end
   end
   object PanelFicha: TPanel
@@ -550,9 +298,9 @@ object FormPrincipal: TFormPrincipal
       Height = 645
       Top = 1
       Width = 492
-      ActivePage = TabSheetInf_Gerais
+      ActivePage = TabSheetImagem
       Align = alClient
-      TabIndex = 0
+      TabIndex = 4
       TabOrder = 0
       object TabSheetInf_Gerais: TTabSheet
         Caption = 'Informações Gerais'
@@ -1481,20 +1229,20 @@ object FormPrincipal: TFormPrincipal
       end
       object TabSheetImagem: TTabSheet
         Caption = 'Imagem'
-        ClientHeight = 615
+        ClientHeight = 617
         ClientWidth = 484
         object GroupBoxImagemAmpliada: TGroupBox
           Left = 0
-          Height = 573
+          Height = 575
           Top = 0
           Width = 484
           Align = alClient
-          ClientHeight = 555
+          ClientHeight = 557
           ClientWidth = 480
           TabOrder = 0
           object ImageAmpliada: TImage
             Left = 0
-            Height = 555
+            Height = 557
             Top = 0
             Width = 480
             Align = alClient
@@ -1504,7 +1252,7 @@ object FormPrincipal: TFormPrincipal
         object PanelImagem: TPanel
           Left = 0
           Height = 42
-          Top = 573
+          Top = 575
           Width = 484
           Align = alBottom
           ClientHeight = 42
@@ -1758,7 +1506,7 @@ object FormPrincipal: TFormPrincipal
   end
   object Timer1: TTimer
     Enabled = False
-    Interval = 1500
+    Interval = 500
     OnTimer = Timer1Timer
     left = 80
     top = 600
