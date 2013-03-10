@@ -92,6 +92,7 @@ begin
      Diretorio:=GetCurrentDir+'\Data\'+EditButtonNovo.Text+'.s3db';
      if (not FileExists(diretorio)) then
      begin
+     Dados.Sqlite3DatasetGeral.Close();
      Try
      sldb:= TSQLiteDatabase.Create(Diretorio);
      Dados.Sqlite3DatasetGeral.FileName:=Diretorio;
@@ -104,6 +105,7 @@ begin
      ExecSQL:='CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] VARCHAR, [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB);';
      Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
      finally
+     Dados.Sqlite3DatasetGeral.Open();
      sldb.free;
      end;
     // sldb.Create(ExecSQL);

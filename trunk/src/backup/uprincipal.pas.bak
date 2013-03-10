@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  StdCtrls, ExtCtrls, ComCtrls, DbCtrls, ExtDlgs, Buttons, BGRAPanel, BGRALabel,
-  BGRALabelFX, RichMemo, uFormImpressao, uSelecionaBD, SQLite3mod, SQLite3tablemod,
+  StdCtrls, ExtCtrls, ComCtrls, DbCtrls, ExtDlgs, Buttons, BGRAPanel,
+  RichMemo, uFormImpressao, uSelecionaBD, SQLite3mod, SQLite3tablemod,
   uBibliografia, UnitAjuda;
 
 type
@@ -15,10 +15,6 @@ type
   { TFormPrincipal }
 
   TFormPrincipal = class(TForm)
-    BGRALabel1: TBGRALabel;
-    BGRALabel2: TBGRALabel;
-    BGRALabelFXAssociacao: TBGRALabelFX;
-    BGRALabelFXOcorrencia: TBGRALabelFX;
     BGRAPanel1: TBGRAPanel;
     BGRAPanel2: TBGRAPanel;
     BitBtnAdImagem: TBitBtn;
@@ -110,13 +106,6 @@ type
     MenuItemSelecionaBD: TMenuItem;
     MenuItemExcluir: TMenuItem;
     MenuItemModoEdicao: TMenuItem;
-    Nome: TBGRALabelFX;
-    BGRALabelFXDensidade: TBGRALabelFX;
-    BGRALabelFXDureza: TBGRALabelFX;
-    BGRALabelFXSubclasse: TBGRALabelFX;
-    BGRALabelFXGrupo: TBGRALabelFX;
-    BGRALabelFXSubgrupo: TBGRALabelFX;
-    BGRALabelFXClasse: TBGRALabelFX;
     BGRAPanelImagens: TBGRAPanel;
     BGRAPanelFiltro: TBGRAPanel;
     BGRAPanelListbox: TBGRAPanel;
@@ -382,7 +371,14 @@ end;
 
 procedure TFormPrincipal.BitBtnRemImagemClick(Sender: TObject);
 begin
-
+  if (ListBoxMinerais.GetSelectedText<> EmptyStr) then
+  begin
+       if Imagem_Selecionada = '6' then Dados.Sqlite3DatasetGeral.FieldByName('ImagemCristalografia1').Clear
+       else
+       if Imagem_Selecionada = '7' then Dados.Sqlite3DatasetGeral.FieldByName('ImagemCristalografia2').Clear
+       else
+       Dados.Sqlite3DatasetGeral.FieldByName('imagem'+Imagem_Selecionada).Clear;
+  end;
 end;
 
 procedure TFormPrincipal.BitBtnAdImagemClick(Sender: TObject);
@@ -1219,6 +1215,18 @@ procedure TFormPrincipal.AtualizaRichMemo;
 var fonte, fontenormal, fonte2:tfontparams;
   aux:string; i,j:integer;
 begin
+  if (MenuItemNormal.Checked) then
+  begin
+       Fonte.Size:=Normal;
+       Fonte2.Size:=Normal;
+       FonteNormal.Size:=Normal;
+  end
+  else
+  begin
+       Fonte.Size:=Grande;
+       Fonte2.Size:=Grande;
+       FonteNormal.Size:=Grande;
+  end;
 
   fonte.Style := [fsitalic];
   fonte.Color := 1;
