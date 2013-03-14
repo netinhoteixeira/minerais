@@ -9,7 +9,7 @@ object FormPrincipal: TFormPrincipal
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
-  LCLVersion = '0.9.30'
+  LCLVersion = '0.9.30.4'
   object BGRAPanelListbox: TBGRAPanel
     Left = 0
     Height = 647

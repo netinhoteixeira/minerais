@@ -248,6 +248,8 @@ type
 
   const
     lista_formatos:string ='All Files| *.jpg; *.jpeg;'; //ver se *.mpeg é compatível
+    grande: integer = 13;
+    normal: integer = 9;
 
 var
   FormPrincipal: TFormPrincipal;
@@ -671,7 +673,22 @@ begin
 end;
 
 procedure TFormPrincipal.MenuItemImprimirClick(Sender: TObject);
+          function strNome(i:integer):string;
+          begin
+            if i>=1 then
+            result:=' nome="'+ListBoxMinerais.Items.Strings[i]+'" and '
+            else
+            if i=0 then
+            result:=' nome="'+ListBoxMinerais.Items.Strings[i]+'" );';
+          end;
+var i: Integer;
 begin
+     Dados.Sqlite3DatasetPrinter.SQL:='SELECT * FROM minerais WHERE(';
+     for i:=(ListBoxMinerais.Items.Count-1)  DownTo 0 do
+     begin
+     Dados.Sqlite3DatasetPrinter.SQL:=
+     Dados.Sqlite3DatasetPrinter.SQL+strNome(i);
+     end;
      FormImpressao.Show;
 end;
 
@@ -790,8 +807,6 @@ begin
 end;
 
 procedure TFormPrincipal.MenuItemNormalClick(Sender: TObject);
-const grande: integer = 13;
-      normal: integer = 9;
 begin
   if (MenuItemNormal.Checked) then
   Begin
@@ -813,6 +828,7 @@ begin
        GroupBoxCristalografia.Font.Size:=normal;
        GroupBoxLista.Font.Size:=normal;
   end;
+      AtualizaRichMemo;
 end;
 
 procedure TFormPrincipal.MenuItemNovoClick(Sender: TObject);
@@ -1230,13 +1246,10 @@ begin
 
   fonte.Style := [fsitalic];
   fonte.Color := 1;
-  fonte.Size :=1;
 
-  fonte2.Size:=12;
   fonte2.Color := 1;
   fonte2.Style := [];
 
-  fontenormal.size:=12;
   fontenormal.style:=[fsbold];
   fontenormal.Color := 1;
 

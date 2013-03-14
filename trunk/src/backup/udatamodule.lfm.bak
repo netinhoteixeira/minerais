@@ -1,11 +1,12 @@
 object Dados: TDados
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
-  Height = 308
-  HorizontalOffset = 613
-  VerticalOffset = 110
+  Height = 390
+  HorizontalOffset = 325
+  VerticalOffset = 143
   Width = 414
   object Sqlite3DatasetGeral: TSqlite3Dataset
+    FileName = 'C:\Users\elidio\Documents\Minerais\Data\Mineraisbd.s3db'
     PrimaryKey = 'id'
     SaveOnClose = True
     SQL = 'Select * from minerais;'
@@ -37,7 +38,6 @@ object Dados: TDados
     Preview = FormImpressao.frPreview1
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
     DataType = dtDataSet
-    Title = 'Imprimir'
     left = 56
     top = 248
     ReportForm = {
@@ -45,7 +45,8 @@ object Dados: TDados
     }
   end
   object frDBDataSet1: TfrDBDataSet
-    DataSet = Sqlite3DatasetGeral
+    CloseDataSource = True
+    DataSet = Sqlite3DatasetPrinter
     left = 56
     top = 184
   end
@@ -53,10 +54,6 @@ object Dados: TDados
     DataSet = Sqlite3DatasetGeral
     left = 160
     top = 184
-  end
-  object frTNPDFExport1: TfrTNPDFExport
-    left = 160
-    top = 248
   end
   object Sqlite3DatasetCombobox: TSqlite3Dataset
     TableName = 'minerais'
@@ -67,5 +64,19 @@ object Dados: TDados
     DataSet = Sqlite3DatasetCombobox
     left = 160
     top = 128
+  end
+  object frTNPDFExport1: TfrTNPDFExport
+    left = 160
+    top = 248
+  end
+  object Sqlite3DatasetPrinter: TSqlite3Dataset
+    TableName = 'minerais'
+    left = 56
+    top = 320
+  end
+  object DatasourcePrinter: TDatasource
+    DataSet = Sqlite3DatasetPrinter
+    left = 160
+    top = 320
   end
 end

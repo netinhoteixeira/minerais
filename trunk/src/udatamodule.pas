@@ -5,14 +5,14 @@ unit udatamodule;
 interface
 
 uses
-  Classes, SysUtils, Sqlite3DS, db, FileUtil, LR_Class, LR_DBSet,
-  lr_e_pdf;
+  Classes, SysUtils, Sqlite3DS, db, FileUtil, LR_Class, LR_DBSet, lr_e_pdf;
 
 type
 
   { TDados }
 
   TDados = class(TDataModule)
+    DatasourcePrinter: TDatasource;
     DatasourceReport: TDatasource;
     DatasourceCombobox: TDatasource;
     DatasourceGeral: TDatasource;
@@ -20,6 +20,7 @@ type
     frDBDataSet1: TfrDBDataSet;
     frReport1: TfrReport;
     frTNPDFExport1: TfrTNPDFExport;
+    Sqlite3DatasetPrinter: TSqlite3Dataset;
     Sqlite3DatasetCombobox: TSqlite3Dataset;
     Sqlite3DatasetDidatico: TSqlite3Dataset;
     Sqlite3DatasetGeral: TSqlite3Dataset;
@@ -61,6 +62,10 @@ begin
   begin
   Filename:=diretorio;
   Open();
+  end;
+  with SQLite3DatasetPrinter do
+  begin
+  Filename:=diretorio;
   end;
 end;
 
