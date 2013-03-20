@@ -16,6 +16,7 @@ type
     BitBtnSalvar: TBitBtn;
     BitBtnEditar: TBitBtn;
     BitBtnSair: TBitBtn;
+    Edit1: TEdit;
     Memo1: TMemo;
     Panel1: TPanel;
     Panel2: TPanel;
@@ -36,7 +37,7 @@ var
   Diretorio, Texto:String;
 
 implementation
-
+uses uDatamodule;
 {$R *.lfm}
 
 { TFormBibliografia }
@@ -62,7 +63,17 @@ begin
 end;
 
 procedure TFormBibliografia.FormShow(Sender: TObject);
+var StrBD:String; i, Tamanho:Integer;  R:Boolean;
 begin
+  i:=Length(Dados.Sqlite3DatasetGeral.FileName);
+  R:=False;
+  repeat
+        Edit1.Text:=Copy(Dados.Sqlite3DatasetGeral.FileName, i-1,i);
+        StrBd:=Copy(Dados.Sqlite3DatasetGeral.FileName, i-1,i);
+        if StrBd = '\' then R:=True;
+        i:=i-1;
+  until R=true;
+
   Memo1.Clear;
   Diretorio:=GetCurrentDir+'\Data\Bibliografia.Dat';
   if (FileExists(Diretorio)) then

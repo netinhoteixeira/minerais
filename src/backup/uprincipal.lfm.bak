@@ -298,9 +298,9 @@ object FormPrincipal: TFormPrincipal
       Height = 645
       Top = 1
       Width = 492
-      ActivePage = TabSheetImagem
+      ActivePage = TabSheetInf_Gerais
       Align = alClient
-      TabIndex = 4
+      TabIndex = 0
       TabOrder = 0
       object TabSheetInf_Gerais: TTabSheet
         Caption = 'Informações Gerais'
@@ -1427,8 +1427,8 @@ object FormPrincipal: TFormPrincipal
     SimplePanel = False
   end
   object MainMenu1: TMainMenu
-    left = 40
-    top = 600
+    left = 16
+    top = 608
     object MenuItemArquivo: TMenuItem
       Caption = '&Arquivo'
       object MenuItemImprimir: TMenuItem
@@ -1501,14 +1501,14 @@ object FormPrincipal: TFormPrincipal
     end
   end
   object OpenPictureDialog1: TOpenPictureDialog
-    left = 120
-    top = 600
+    left = 112
+    top = 608
   end
   object Timer1: TTimer
     Enabled = False
     Interval = 500
     OnTimer = Timer1Timer
-    left = 80
-    top = 600
+    left = 64
+    top = 608
   end
 end
