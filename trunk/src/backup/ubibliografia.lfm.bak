@@ -1,5 +1,5 @@
 object FormBibliografia: TFormBibliografia
-  Left = 200
+  Left = 201
   Height = 339
   Top = 164
   Width = 629
@@ -8,7 +8,7 @@ object FormBibliografia: TFormBibliografia
   ClientWidth = 629
   OnClose = FormClose
   OnShow = FormShow
-  LCLVersion = '0.9.30'
+  LCLVersion = '0.9.30.4'
   object Panel1: TPanel
     Left = 0
     Height = 296
@@ -27,6 +27,14 @@ object FormBibliografia: TFormBibliografia
       ReadOnly = True
       ScrollBars = ssBoth
       TabOrder = 0
+    end
+    object Edit1: TEdit
+      Left = 37
+      Height = 23
+      Top = 179
+      Width = 227
+      TabOrder = 1
+      Text = 'Edit1'
     end
   end
   object Panel2: TPanel

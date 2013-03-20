@@ -36,7 +36,6 @@ var
   Diretorio, Texto:String;
 
 implementation
-
 {$R *.lfm}
 
 { TFormBibliografia }
@@ -62,6 +61,7 @@ begin
 end;
 
 procedure TFormBibliografia.FormShow(Sender: TObject);
+var StrBD:String; i, Tamanho:Integer;  R:Boolean;
 begin
   Memo1.Clear;
   Diretorio:=GetCurrentDir+'\Data\Bibliografia.Dat';

@@ -7,8 +7,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   StdCtrls, ExtCtrls, ComCtrls, DbCtrls, ExtDlgs, Buttons, BGRAPanel,
-  RichMemo, uFormImpressao, uSelecionaBD, SQLite3mod, SQLite3tablemod,
-  uBibliografia, UnitAjuda;
+  BGRAButton, RichMemo, uFormImpressao, uSelecionaBD, SQLite3mod,
+  SQLite3tablemod, uBibliografia, UnitAjuda;
 
 type
 

@@ -13,6 +13,7 @@ type
   { TFormImpressao }
 
   TFormImpressao = class(TForm)
+    BitBtn1: TBitBtn;
     BitBtnCancelar: TBitBtn;
     BitBtnImprimir: TBitBtn;
     Button1: TButton;
@@ -29,6 +30,7 @@ type
     RadioButtonBranco: TRadioButton;
     RadioGroup1: TRadioGroup;
     SpinEdit1: TSpinEdit;
+    procedure BitBtn1Click(Sender: TObject);
     procedure BitBtnCancelarClick(Sender: TObject);
     procedure BitBtnImprimirClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -76,12 +78,18 @@ end;
 procedure TFormImpressao.Button1Click(Sender: TObject);
 begin
       if Dados.frReport1.PrepareReport then
-      Dados.frReport1.ExportTo(TfrTNPDFExportFilterClass, 'C:\Minerais');
+      Dados.frReport1.ExportTo(TFrTNPDFExportFilter, 'C:\Minerais');
 end;
 
 procedure TFormImpressao.BitBtnCancelarClick(Sender: TObject);
 begin
   FormImpressao.Visible:=False;
+end;
+
+procedure TFormImpressao.BitBtn1Click(Sender: TObject);
+begin
+  if (MessageDLG('Confirmar', 'É nescessário conhecimentos avançados para modificar o formato do relatório, deseja continuar?', mtConfirmation, [mbYes, mbCancel],0) = mrYes) then
+  Dados.frReport1.DesignReport;
 end;
 
 procedure TFormImpressao.FormClose(Sender: TObject;
