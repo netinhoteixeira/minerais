@@ -577,8 +577,71 @@ begin
     if (Dados.SQLite3DatasetGeral.active) then Dados.SQLite3DatasetGeral.applyupdates
     else Dados.SQLite3DatasetGeral.open();
 
-      //usado para nao bugar quando o nome for editado
-    Dados.SQLite3DatasetGeral.first;
+    if Listboxminerais.GetSelectedText <> emptyStr then
+    Begin
+         if (ListBoxMinerais.Items.IndexOf(Trim(ListBoxMinerais.GetSelectedText)) > 15) and
+         (ListBoxMinerais.Items.IndexOf(Trim(ListBoxMinerais.GetSelectedText)) < ListBoxMinerais.Items.Count-15)
+        then
+        begin
+             if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
+             > ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText ) then
+             begin
+             repeat
+             Dados.SQLite3DatasetGeral.Prior;
+             until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
+             end
+             else
+             if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
+             < ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText)  then
+             begin
+             repeat
+             Dados.SQLite3DatasetGeral.Next;
+             until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
+             end;
+        end
+        else
+        begin
+
+          if (ListboxMinerais.GetSelectedText) <> Dados.SQLite3DatasetGeral.FieldByName('nome').asstring then
+          begin;
+             if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString) <=15 then
+             begin
+             Dados.SQLite3DatasetGeral.First;
+             repeat
+             Dados.SQLite3DatasetGeral.Next;
+             until Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring = Nome_Mineral;
+             end
+             else
+             begin
+             Dados.SQLite3DatasetGeral.Last;
+             repeat
+             Dados.SQLite3DatasetGeral.Prior;
+             until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
+             end;
+          end;
+
+        end;
+    end
+    else
+    begin
+         Dados.SQLite3DatasetGeral.first;
+         if (Dados.SQLite3DatasetGeral.FieldByName('nome').AsString <> Nome_Mineral) then
+         begin                                                                         //cor azul $00FF952B
+           repeat                                                                    //azul do panel filtro: $00BB5E00 e $00FF8000
+             Dados.SQLite3DatasetGeral.next();
+           until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring = Nome_Mineral);
+         end;
+    end;
+
+
+   { if (Trim(ListboxMinerais.GetSelectedText) <> Trim(Dados.SQLite3DatasetGeral.FieldByName('nome').asstring)) then
+    begin
+         preenche_lista;
+         aux:=ListboxMinerais.Items.IndexOf(Nome_Mineral);
+         ListboxMinerais.Selected[aux]:=true;
+    end; }
+      //////////
+ {   Dados.SQLite3DatasetGeral.first;
     if (Dados.SQLite3DatasetGeral.FieldByName('nome').AsString <> Nome_Mineral) then
     begin                                                                         //cor azul $00FF952B
            repeat                                                                    //azul do panel filtro: $00BB5E00 e $00FF8000
@@ -592,7 +655,7 @@ begin
            aux:=ListboxMinerais.Items.IndexOf(Nome_Mineral);
            ListboxMinerais.Selected[aux]:=true;
            end;
-    end;
+    end;          }
    atualizarichmemo;
    editaDD;
    AtualizaImagem;
@@ -1069,8 +1132,7 @@ Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+Combob
        if Filtro_Nome = false then
        if Filtro_Ocorrencia = false then
        if Filtro_Associacao = false then
-      ListboxMinerais.Items.add(Dados.SQLite3DatasetGeral.FieldByName('nome').AsString);
-    end;
+      ListboxMinerais.Items.add(Dados.SQLite3DatasetGeral.FieldByName('nome').AsString);    end;
     Dados.SQLite3DatasetGeral.Next();
    end;
    Dados.SQLite3DatasetGeral.Close;

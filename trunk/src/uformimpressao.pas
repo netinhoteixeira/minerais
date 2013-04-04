@@ -77,8 +77,8 @@ end;
 
 procedure TFormImpressao.Button1Click(Sender: TObject);
 begin
-      if Dados.frReport1.PrepareReport then
-      Dados.frReport1.ExportTo(TFrTNPDFExportFilter, 'C:\Minerais');
+  //    if Dados.frReport1.PrepareReport then
+    //  Dados.frReport1.ExportTo(TFrTNPDFExportFilter, 'C:\Minerais');
 end;
 
 procedure TFormImpressao.BitBtnCancelarClick(Sender: TObject);

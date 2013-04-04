@@ -1,10 +1,10 @@
 object Dados: TDados
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
-  Height = 390
+  Height = 428
   HorizontalOffset = 325
   VerticalOffset = 143
-  Width = 414
+  Width = 430
   object Sqlite3DatasetGeral: TSqlite3Dataset
     FileName = 'C:\Users\elidio\Documents\Minerais\Data\Mineraisbd.s3db'
     PrimaryKey = 'id'

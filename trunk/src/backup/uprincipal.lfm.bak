@@ -43,6 +43,7 @@ object FormPrincipal: TFormPrincipal
         ItemHeight = 0
         OnClick = ListBoxMineraisClick
         OnDblClick = ListBoxMineraisDblClick
+        Style = lbOwnerDrawFixed
         TabOrder = 0
       end
     end
