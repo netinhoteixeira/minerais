@@ -37,7 +37,7 @@ var
 
 implementation
 {$R *.lfm}
-
+uses udatamodule; //coloca do apos o proc formshow usar o filename do dataset
 { TFormBibliografia }
 
 procedure TFormBibliografia.BitBtnSairClick(Sender: TObject);
@@ -63,9 +63,10 @@ end;
 procedure TFormBibliografia.FormShow(Sender: TObject);
 var StrBD:String; i, Tamanho:Integer;  R:Boolean;
 begin
-  Memo1.Clear;
-  Diretorio:=GetCurrentDir+'\Data\Bibliografia.Dat';
-  if (FileExists(Diretorio)) then
+  Memo1.Clear;    //mudar para o filename do dataset alterado o formato do arquivo(.s3db para .dat)
+  //if filename *.s3db ou .sqlite, etc...
+  Diretorio:=Copy(Dados.SQlite3DatasetGeral.filename, 0, length(Dados.SQlite3DatasetGeral.filename)-5)+'.dat';
+  if (FileExists(Diretorio)) then                //a subtração acima vai depender do formato do banco de dados
   Begin
        AssignFile(Bibliografia, Diretorio);
        Reset(Bibliografia);

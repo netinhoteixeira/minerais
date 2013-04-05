@@ -1,7 +1,7 @@
 object FormImpressao: TFormImpressao
-  Left = 160
+  Left = 209
   Height = 483
-  Top = 109
+  Top = 110
   Width = 970
   Caption = 'Imprimir'
   ClientHeight = 483

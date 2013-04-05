@@ -109,7 +109,7 @@ begin
        Dados.frReport1.ShowReport;
   end
   else
-      ShowMessage('O arquivo de impressão "'+Diretorio+'" nao foi encontrado.');
+      ShowMessage('O arquivo de gerar relatório "'+Diretorio+'" não foi encontrado.');
 end;
 
 { TFormImpressao }

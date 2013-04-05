@@ -299,9 +299,9 @@ object FormPrincipal: TFormPrincipal
       Height = 645
       Top = 1
       Width = 492
-      ActivePage = TabSheetInf_Gerais
+      ActivePage = TabSheetImagem
       Align = alClient
-      TabIndex = 0
+      TabIndex = 4
       TabOrder = 0
       object TabSheetInf_Gerais: TTabSheet
         Caption = 'Informações Gerais'
@@ -315,18 +315,15 @@ object FormPrincipal: TFormPrincipal
           Align = alClient
           ClientHeight = 599
           ClientWidth = 480
-          Font.Height = -12
-          ParentFont = False
           TabOrder = 0
+          OnClick = GroupBoxInf_GeraisClick
           object Label1: TLabel
             Left = 15
             Height = 16
             Top = 11
-            Width = 46
+            Width = 45
             Caption = 'Fórmula'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object DBMemoFormula: TDBMemo
             Left = 125
@@ -355,11 +352,9 @@ object FormPrincipal: TFormPrincipal
             Left = 15
             Height = 16
             Top = 39
-            Width = 35
+            Width = 34
             Caption = 'Nome'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label2: TLabel
             Left = 15
@@ -367,49 +362,39 @@ object FormPrincipal: TFormPrincipal
             Top = 79
             Width = 34
             Caption = 'Classe'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label3: TLabel
             Left = 15
             Height = 16
             Top = 111
-            Width = 54
+            Width = 52
             Caption = 'Subclasse'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label4: TLabel
             Left = 15
             Height = 16
             Top = 143
-            Width = 36
+            Width = 34
             Caption = 'Grupo'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label5: TLabel
             Left = 15
             Height = 16
             Top = 175
-            Width = 55
+            Width = 53
             Caption = 'Subgrupo'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label6: TLabel
             Left = 15
             Height = 16
             Top = 215
-            Width = 62
+            Width = 59
             Caption = 'Ocorrência'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label7: TLabel
             Left = 15
@@ -417,29 +402,23 @@ object FormPrincipal: TFormPrincipal
             Top = 295
             Width = 60
             Caption = 'Associação'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label8: TLabel
             Left = 15
             Height = 16
             Top = 375
-            Width = 52
+            Width = 50
             Caption = 'Distinção'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label9: TLabel
             Left = 15
             Height = 16
             Top = 455
-            Width = 54
+            Width = 51
             Caption = 'Alteração'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label10: TLabel
             Left = 15
@@ -447,9 +426,7 @@ object FormPrincipal: TFormPrincipal
             Top = 535
             Width = 53
             Caption = 'Aplicação'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object DBMemoClasse: TDBMemo
             Left = 125
@@ -565,18 +542,16 @@ object FormPrincipal: TFormPrincipal
       end
       object TabSheetProp_Fisicas: TTabSheet
         Caption = 'Propriedades Físicas'
-        ClientHeight = 615
+        ClientHeight = 617
         ClientWidth = 484
         object GroupBoxProp_Fisicas: TGroupBox
           Left = 0
-          Height = 615
+          Height = 617
           Top = 0
           Width = 484
           Align = alClient
-          ClientHeight = 597
+          ClientHeight = 599
           ClientWidth = 480
-          Font.Height = -12
-          ParentFont = False
           TabOrder = 0
           object EditDureza: TEdit
             Left = 125
@@ -767,21 +742,17 @@ object FormPrincipal: TFormPrincipal
             Left = 15
             Height = 16
             Top = 15
-            Width = 41
+            Width = 37
             Caption = 'Dureza'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label25: TLabel
             Left = 15
             Height = 16
             Top = 87
-            Width = 59
+            Width = 56
             Caption = 'Densidade'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label26: TLabel
             Left = 15
@@ -789,100 +760,84 @@ object FormPrincipal: TFormPrincipal
             Top = 159
             Width = 20
             Caption = 'Cor'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label27: TLabel
             Left = 15
             Height = 16
             Top = 231
-            Width = 32
+            Width = 31
             Caption = 'Traço'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label28: TLabel
             Left = 15
             Height = 16
             Top = 303
-            Width = 34
+            Width = 32
             Caption = 'Brilho'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label29: TLabel
             Left = 15
             Height = 16
             Top = 375
-            Width = 52
+            Width = 51
             Caption = 'Clivagem'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label30: TLabel
             Left = 15
             Height = 16
             Top = 447
-            Width = 41
+            Width = 38
             Caption = 'Fratura'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label31: TLabel
             Left = 15
             Height = 16
             Top = 519
-            Width = 70
+            Width = 68
             Caption = 'Magnetismo'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label32: TLabel
             Left = 15
             Height = 16
             Top = 559
-            Width = 82
+            Width = 80
             Caption = 'Luminescência'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
         end
       end
       object TabSheetOticas: TTabSheet
         Caption = 'Propriedades Óticas'
-        ClientHeight = 615
+        ClientHeight = 617
         ClientWidth = 484
         object GroupBoxOpticas: TGroupBox
           Left = 0
-          Height = 615
+          Height = 617
           Top = 0
           Width = 484
           Align = alClient
-          ClientHeight = 597
+          ClientHeight = 599
           ClientWidth = 480
           TabOrder = 0
           object Label23: TLabel
             Left = 15
             Height = 16
             Top = 527
-            Width = 48
+            Width = 45
             Caption = 'Extinção'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object DBMemoDifaneidade: TDBMemo
-            Left = 130
+            Left = 160
             Height = 45
             Top = 23
-            Width = 340
+            Width = 310
             DataField = 'difaneidade'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -890,10 +845,10 @@ object FormPrincipal: TFormPrincipal
             TabOrder = 0
           end
           object DBMemoSinal_Optico: TDBMemo
-            Left = 130
+            Left = 160
             Height = 45
             Top = 79
-            Width = 340
+            Width = 310
             DataField = 'Sinal_optico'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -901,10 +856,10 @@ object FormPrincipal: TFormPrincipal
             TabOrder = 1
           end
           object DBMemoIndice_Refracao: TDBMemo
-            Left = 130
+            Left = 160
             Height = 45
             Top = 135
-            Width = 340
+            Width = 310
             DataField = 'indice_refracao'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -912,10 +867,10 @@ object FormPrincipal: TFormPrincipal
             TabOrder = 2
           end
           object DBMemoAngulo: TDBMemo
-            Left = 130
+            Left = 160
             Height = 45
             Top = 191
-            Width = 340
+            Width = 310
             DataField = 'angulo'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -923,10 +878,10 @@ object FormPrincipal: TFormPrincipal
             TabOrder = 3
           end
           object DBMemoCor_interferencia: TDBMemo
-            Left = 130
+            Left = 160
             Height = 45
             Top = 247
-            Width = 340
+            Width = 310
             DataField = 'cor_interferencia'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -934,10 +889,10 @@ object FormPrincipal: TFormPrincipal
             TabOrder = 4
           end
           object DBMemoSinal_Elongacao: TDBMemo
-            Left = 130
+            Left = 160
             Height = 45
             Top = 359
-            Width = 340
+            Width = 310
             DataField = 'sinal_elongacao'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -945,10 +900,10 @@ object FormPrincipal: TFormPrincipal
             TabOrder = 6
           end
           object DBMemoBirrefringencia: TDBMemo
-            Left = 130
+            Left = 160
             Height = 45
             Top = 415
-            Width = 340
+            Width = 310
             DataField = 'birrefringencia'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -956,10 +911,10 @@ object FormPrincipal: TFormPrincipal
             TabOrder = 7
           end
           object DBMemoRelevo: TDBMemo
-            Left = 130
+            Left = 160
             Height = 45
             Top = 471
-            Width = 340
+            Width = 310
             DataField = 'relevo'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -967,10 +922,10 @@ object FormPrincipal: TFormPrincipal
             TabOrder = 8
           end
           object DBMemoExtincao: TDBMemo
-            Left = 130
+            Left = 160
             Height = 45
             Top = 527
-            Width = 340
+            Width = 310
             DataField = 'extincao'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -981,81 +936,65 @@ object FormPrincipal: TFormPrincipal
             Left = 15
             Height = 16
             Top = 23
-            Width = 68
+            Width = 64
             Caption = 'Difaneidade'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label16: TLabel
             Left = 15
             Height = 16
             Top = 79
-            Width = 67
+            Width = 65
             Caption = 'Sinal Óptico'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label17: TLabel
             Left = 15
             Height = 16
             Top = 135
-            Width = 88
+            Width = 82
             Caption = 'Índice Refração'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label18: TLabel
             Left = 15
             Height = 16
             Top = 191
-            Width = 58
+            Width = 56
             Caption = 'Ângulo 2V'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label19: TLabel
             Left = 15
             Height = 16
             Top = 247
-            Width = 114
+            Width = 105
             Caption = 'Cor de Interferência'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label20: TLabel
             Left = 15
             Height = 16
             Top = 359
-            Width = 102
+            Width = 100
             Caption = 'Sinal de Elongação'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label21: TLabel
             Left = 15
             Height = 16
             Top = 415
-            Width = 85
+            Width = 78
             Caption = 'Birrefringência'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label22: TLabel
             Left = 15
             Height = 16
             Top = 471
-            Width = 40
+            Width = 36
             Caption = 'Relevo'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object Label37: TLabel
             Left = 15
@@ -1063,15 +1002,13 @@ object FormPrincipal: TFormPrincipal
             Top = 303
             Width = 78
             Caption = 'Cor da Lâmina'
-            Font.Style = [fsBold]
             ParentColor = False
-            ParentFont = False
           end
           object DBMemoCor_Lamina: TDBMemo
-            Left = 130
+            Left = 160
             Height = 45
             Top = 303
-            Width = 340
+            Width = 310
             DataField = 'cor_lamina'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -1082,15 +1019,15 @@ object FormPrincipal: TFormPrincipal
       end
       object TabSheetCristalografia: TTabSheet
         Caption = 'Cristalografia'
-        ClientHeight = 615
+        ClientHeight = 617
         ClientWidth = 484
         object GroupBox1: TGroupBox
           Left = 0
-          Height = 615
+          Height = 617
           Top = 0
           Width = 484
           Align = alClient
-          ClientHeight = 597
+          ClientHeight = 599
           ClientWidth = 480
           TabOrder = 0
           object GroupBoxCristalografia1: TGroupBox
@@ -1169,41 +1106,33 @@ object FormPrincipal: TFormPrincipal
               Left = 15
               Height = 16
               Top = 24
-              Width = 99
+              Width = 95
               Caption = 'Sistema Cristalino'
-              Font.Style = [fsBold]
               ParentColor = False
-              ParentFont = False
             end
             object Label12: TLabel
               Left = 15
               Height = 16
               Top = 64
-              Width = 87
+              Width = 86
               Caption = 'Classe Cristalina'
-              Font.Style = [fsBold]
               ParentColor = False
-              ParentFont = False
             end
             object Label13: TLabel
               Left = 15
               Height = 16
               Top = 104
-              Width = 62
+              Width = 61
               Caption = 'Simbologia'
-              Font.Style = [fsBold]
               ParentColor = False
-              ParentFont = False
             end
             object Label14: TLabel
               Left = 15
               Height = 16
               Top = 146
-              Width = 38
+              Width = 37
               Caption = 'Hábito'
-              Font.Style = [fsBold]
               ParentColor = False
-              ParentFont = False
             end
           end
           object GroupBoxCristalografia2: TGroupBox
