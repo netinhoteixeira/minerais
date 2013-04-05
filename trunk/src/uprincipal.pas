@@ -195,6 +195,7 @@ type
     procedure EditOcorrenciaEditingDone(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure GroupBoxInf_GeraisClick(Sender: TObject);
     procedure Image1Click(Sender: TObject);
     procedure Image1DblClick(Sender: TObject);
     procedure Image2Click(Sender: TObject);
@@ -372,15 +373,9 @@ begin
 end;
 
 procedure TFormPrincipal.BitBtnRemImagemClick(Sender: TObject);
-begin
-  if (ListBoxMinerais.GetSelectedText<> EmptyStr) then
-  begin
-       if Imagem_Selecionada = '6' then Dados.Sqlite3DatasetGeral.FieldByName('ImagemCristalografia1').Clear
-       else
-       if Imagem_Selecionada = '7' then Dados.Sqlite3DatasetGeral.FieldByName('ImagemCristalografia2').Clear
-       else
-       Dados.Sqlite3DatasetGeral.FieldByName('imagem'+Imagem_Selecionada).Clear;
-  end;
+begin     ////////mudar banco de dados, imagem5 eimagem 7 no lugar de imagemcristalografica 1 e 2
+  sldb.ExecSQL('Update minerais set Imagem'+Imagem_selecionada+' = null');
+  AtualizaImagem;
 end;
 
 procedure TFormPrincipal.BitBtnAdImagemClick(Sender: TObject);
@@ -550,6 +545,11 @@ begin
   openpicturedialog1.Filter:=lista_formatos;
 end;
 
+procedure TFormPrincipal.GroupBoxInf_GeraisClick(Sender: TObject);
+begin
+
+end;
+
 procedure TFormPrincipal.Timer1Timer(Sender: TObject);
 begin
   if (FormSelecionaBD.Visible = False) then
@@ -574,59 +574,62 @@ begin
    Nome_Mineral:=ListboxMinerais.GetSelectedText;
    if Nome_Mineral <> emptystr then
    begin
-    if (Dados.SQLite3DatasetGeral.active) then Dados.SQLite3DatasetGeral.applyupdates
-    else Dados.SQLite3DatasetGeral.open();
+        if (Dados.SQLite3DatasetGeral.active) then
+        Dados.SQLite3DatasetGeral.applyupdates
+        else Dados.SQLite3DatasetGeral.open();
 
-    if Listboxminerais.GetSelectedText <> emptyStr then
-    Begin
-         if (ListBoxMinerais.Items.IndexOf(Trim(ListBoxMinerais.GetSelectedText)) > 15) and
-         (ListBoxMinerais.Items.IndexOf(Trim(ListBoxMinerais.GetSelectedText)) < ListBoxMinerais.Items.Count-15)
-        then
-        begin
-             if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
-             > ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText ) then
+        if Listboxminerais.GetSelectedText <> emptyStr then
+        Begin
+             if (ListBoxMinerais.Items.IndexOf(Trim(ListBoxMinerais.GetSelectedText)) > 15)
+             and
+             (ListBoxMinerais.Items.IndexOf(Trim(ListBoxMinerais.GetSelectedText)) < ListBoxMinerais.Items.Count-15)
+             then
              begin
-             repeat
-             Dados.SQLite3DatasetGeral.Prior;
-             until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
-             end
-             else
-             if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
-             < ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText)  then
-             begin
-             repeat
-             Dados.SQLite3DatasetGeral.Next;
-             until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
-             end;
-        end
-        else
-        begin
-          if ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText) = 0 then
-          Dados.SQLite3DatasetGeral.First
-          else
-          if ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText) = ListBoxminerais.Count-1 then
-          Dados.SQLite3DatasetGeral.Last
-          else
-          begin
-          if (ListboxMinerais.GetSelectedText) <> Dados.SQLite3DatasetGeral.FieldByName('nome').asstring then
-          begin;
-             if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString) <=15 then
-             begin
-             Dados.SQLite3DatasetGeral.First;
-             repeat
-             Dados.SQLite3DatasetGeral.Next;
-             until Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring = Nome_Mineral;
+                  if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
+                  >
+                  ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText ) then
+                  begin
+                       repeat
+                       Dados.SQLite3DatasetGeral.Prior;
+                       until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
+                  end
+                  else
+                  if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
+                  < ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText)  then
+                  begin
+                       repeat
+                       Dados.SQLite3DatasetGeral.Next;
+                       until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
+                  end;
              end
              else
              begin
-             Dados.SQLite3DatasetGeral.Last;
-             repeat
-             Dados.SQLite3DatasetGeral.Prior;
-             until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
+                  if ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText) = 0 then
+                  Dados.SQLite3DatasetGeral.First
+                  else
+                  if ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText) = ListBoxminerais.Count-1 then
+                  Dados.SQLite3DatasetGeral.Last
+                  else
+                  begin
+                       if (ListboxMinerais.GetSelectedText) <> Dados.SQLite3DatasetGeral.FieldByName('nome').asstring then
+                       begin;
+                             if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString) <=15 then
+                       begin
+                            Dados.SQLite3DatasetGeral.First;
+                            repeat
+                            Dados.SQLite3DatasetGeral.Next;
+                            until Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring = Nome_Mineral;
+                       end
+                       else
+                       begin
+                            Dados.SQLite3DatasetGeral.Last;
+                            repeat
+                            Dados.SQLite3DatasetGeral.Prior;
+                            until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
+                       end;
+                       end;
+                  end;
              end;
-          end;
-          end;
-        end;
     end
     else
     begin
@@ -638,30 +641,6 @@ begin
            until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring = Nome_Mineral);
          end;
     end;
-
-
-   { if (Trim(ListboxMinerais.GetSelectedText) <> Trim(Dados.SQLite3DatasetGeral.FieldByName('nome').asstring)) then
-    begin
-         preenche_lista;
-         aux:=ListboxMinerais.Items.IndexOf(Nome_Mineral);
-         ListboxMinerais.Selected[aux]:=true;
-    end; }
-      //////////
- {   Dados.SQLite3DatasetGeral.first;
-    if (Dados.SQLite3DatasetGeral.FieldByName('nome').AsString <> Nome_Mineral) then
-    begin                                                                         //cor azul $00FF952B
-           repeat                                                                    //azul do panel filtro: $00BB5E00 e $00FF8000
-             Dados.SQLite3DatasetGeral.next();
-           until (trim(Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral);
-           //Quando dureza ou densidade é editado a ordem muda no banco de dados, mas nao na listbox
-           //o comando abaixo evita que ocorra erro
-           if (Trim(ListboxMinerais.GetSelectedText) <> Trim(Dados.SQLite3DatasetGeral.FieldByName('nome').asstring)) then
-           begin
-           preenche_lista;
-           aux:=ListboxMinerais.Items.IndexOf(Nome_Mineral);
-           ListboxMinerais.Selected[aux]:=true;
-           end;
-    end;          }
    atualizarichmemo;
    editaDD;
    AtualizaImagem;
@@ -759,6 +738,7 @@ begin
      Dados.Sqlite3DatasetPrinter.SQL+strNome(i);
      end;
      FormImpressao.Show;
+      Dados.Sqlite3DatasetPrinter.Open();
 end;
 
 procedure TFormPrincipal.MenuItemModoEdicaoClick(Sender: TObject);
@@ -881,6 +861,7 @@ begin
   Begin
        MenuItemNormal.Checked:=False;
        MenuItemGrande.Checked:=True;
+       PanelFicha.Font.Size:=Grande;
        GroupBoxInf_Gerais.Font.Size:=grande;
        GroupBoxProp_Fisicas.Font.Size:=grande;
        GroupBoxOpticas.Font.Size:=grande;
@@ -891,6 +872,7 @@ begin
   Begin
        MenuItemNormal.Checked:=True;
        MenuItemGrande.Checked:=False;
+       PanelFicha.Font.Size:=Normal;
        GroupBoxInf_Gerais.Font.Size:=normal;
        GroupBoxProp_Fisicas.Font.Size:=normal;
        GroupBoxOpticas.Font.Size:=normal;
@@ -955,7 +937,6 @@ begin
             ListboxMinerais.Selected[indice]:=true;
        end;
   end;
-
   AtualizaImagem;
   barra_status;
 end;
@@ -1551,245 +1532,129 @@ begin
   if (ListBoxMinerais.GetSelectedText <> EmptyStr) then
   begin       //diminuir tamanho do codigo, usando um try e um sldb.gettable
        try       //deu erro na linha abaixo, dataset fechado ao deletar e criar novo mineral
-       sltb := sldb.GetTable('SELECT imagem1 FROM minerais WHERE nome = "' + nome_mineral+'"');
-       if (sltb.Count >0) then
-       begin
+       sltb := sldb.GetTable('SELECT imagem1, Imagem2, Imagem3, Imagem4, Imagem5, imagemCristalografia1, imagemCristalografia2 FROM minerais WHERE nome = "' + nome_mineral+'"');
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem1']);
        if (ms <> nil) then
        begin
        ms.Position := 0;
-
        pic := TJPEGImage.Create;
        pic.LoadFromStream(ms);
        self.Image1.Picture.Graphic := pic;
        self.ImageAmpliada.Picture.Graphic := pic;
-
-       pic.Free;
-
+       pic.free;
        end
        else
        begin
        image1.Picture.Clear;
        ImageAmpliada.Picture.Clear;
        end;
-       end;
        finally
-       sltb.Free;
+
        end;
 
        try
-       sltb := sldb.GetTable('SELECT imagem2 FROM minerais where nome = "' + nome_mineral+'"');
-       if (sltb.Count >0) then
-       begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem2']);
        if (ms <> nil) then
        begin
        ms.Position := 0;
-
        pic := TJPEGImage.Create;
        pic.LoadFromStream(ms);
-
        self.Image2.Picture.Graphic := pic;
-
-       pic.Free;
+       pic.free
        end
        else
        image2.Picture.Clear;
-       end;
        finally
-       sltb.Free;
+
        end;
 
        try
-       sltb := sldb.GetTable('SELECT imagem3 FROM minerais where nome = "' + nome_mineral+'"');
-       if (sltb.Count >0) then
-       begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem3']);
        if (ms <> nil) then
        begin
        ms.Position := 0;
-
        pic := TJPEGImage.Create;
        pic.LoadFromStream(ms);
-
        self.Image3.Picture.Graphic := pic;
-
        pic.Free;
        end
        else
        image3.Picture.Clear;
-       end;
        finally
-       sltb.Free;
+
        end;
 
        try
-       sltb := sldb.GetTable('SELECT imagem4 FROM minerais where nome = "' + nome_mineral+'"');
-       if (sltb.Count >0) then
-       begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem4']);
        if (ms <> nil) then
        begin
        ms.Position := 0;
-
        pic := TJPEGImage.Create;
        pic.LoadFromStream(ms);
-
        self.Image4.Picture.Graphic := pic;
-
        pic.Free;
        end
        else
        image4.Picture.Clear;
-       end;
        finally
-       sltb.Free;
+
        end;
 
        try
-       sltb := sldb.GetTable('SELECT imagem5 FROM minerais where nome = "' + nome_mineral+'"');
-       if (sltb.Count >0) then
-       begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem5']);
        if (ms <> nil) then
        begin
        ms.Position := 0;
-
        pic := TJPEGImage.Create;
        pic.LoadFromStream(ms);
-
        self.Image5.Picture.Graphic := pic;
-
        pic.Free;
        end
        else
        image5.Picture.Clear;
-       end;
        finally
-       sltb.Free;
+
        end;
 
        try
-       sltb := sldb.GetTable('SELECT imagemCristalografia1 FROM minerais where nome = "' + nome_mineral+'"');
-       if (sltb.Count >0) then
-       begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia1']);
        if (ms <> nil) then
        begin
        ms.Position := 0;
        pic := TJPEGImage.Create;
        pic.LoadFromStream(ms);
-
        self.ImageCristalografia1.Picture.Graphic := pic;
-
        pic.Free;
        end
        else
        ImageCristalografia1.Picture.Clear;
-       end;
        finally
-       sltb.Free;
+
        end;
 
        try
-       sltb := sldb.GetTable('SELECT imagemCristalografia2 FROM minerais where nome = "' + nome_mineral+'"');
-       if (sltb.Count >0) then
-       begin
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia2']);
        if (ms <> nil) then
        begin
        ms.Position := 0;
        pic := TJPEGImage.Create;
        pic.LoadFromStream(ms);
-
        self.ImageCristalografia2.Picture.Graphic := pic;
-
        pic.Free;
        end
        else
        ImageCristalografia2.Picture.Clear;
-       end;
        finally
-       sltb.Free;
+
        end;
   end
   else
   Begin
-      Try
-      sltb2:=sldb.GetTable('SELECT imagem1, imagem2, imagem3, imagem4, imagem5 FROM mineralogia WHERE campo = "'+Nome_Didatico+'";');
-      if (sltb2.Count > 0) then
-      begin   //nos procedimentos acima o sldb.count é checado antes de carregar cada imagem, aqui so é checado uma vez
-      ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem1']);
-      if (ms <> nil) then
-      begin
-      ms.Position:=0;
-      pic:=TJPEGImage.Create;
-      pic.LoadFromStream(ms);
-      self.Image1.Picture.Graphic:= pic;
-      pic.Free;
-      end
-      else
-      Image1.Picture.Clear;
-
-      ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem2']);
-      if (ms <> nil) then
-      begin
-      ms.Position:=0;
-      pic:=TJPEGImage.Create;
-      pic.LoadFromStream(ms);
-      self.Image2.Picture.Graphic:= pic;
-      pic.Free;
-      end
-      else
-      Image2.Picture.Clear;
-
-      ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem3']);
-      if (ms <> nil) then
-      begin
-      ms.Position:=0;
-      pic:=TJPEGImage.Create;
-      pic.LoadFromStream(ms);
-      self.Image3.Picture.Graphic:= pic;
-      pic.Free;
-      end
-      else
-      Image3.Picture.Clear;
-
-      ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem4']);
-      if (ms <> nil) then
-      begin
-      ms.Position:=0;
-      pic:=TJPEGImage.Create;
-      pic.LoadFromStream(ms);
-      self.Image4.Picture.Graphic:= pic;
-      pic.Free;
-      end
-      else
-      Image4.Picture.Clear;
-
-      ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem5']);
-      if (ms <> nil) then
-      begin
-      ms.Position:=0;
-      pic:=TJPEGImage.Create;
-      pic.LoadFromStream(ms);
-      self.Image5.Picture.Graphic:= pic;
-      pic.Free;
-      end
-      else
-      Image5.Picture.Clear;
-      end
-      else
-      begin
       Image1.Picture.Clear;
       Image2.Picture.Clear;
       Image3.Picture.Clear;
       Image4.Picture.Clear;
       Image5.Picture.Clear;
-      end;
-      finally
-      sltb2.Free;
-      end;
   end;
 end;
 
