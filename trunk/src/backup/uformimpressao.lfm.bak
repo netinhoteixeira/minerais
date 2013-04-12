@@ -1,21 +1,21 @@
 object FormImpressao: TFormImpressao
-  Left = 160
-  Height = 483
-  Top = 109
+  Left = 0
+  Height = 524
+  Top = 0
   Width = 970
   Caption = 'Imprimir'
-  ClientHeight = 483
+  ClientHeight = 524
   ClientWidth = 970
   OnClose = FormClose
   OnShow = FormShow
   LCLVersion = '0.9.30.4'
   object Panel1: TPanel
     Left = 0
-    Height = 483
+    Height = 524
     Top = 0
     Width = 274
     Align = alLeft
-    ClientHeight = 483
+    ClientHeight = 524
     ClientWidth = 274
     TabOrder = 0
     object RadioGroup1: TRadioGroup
@@ -118,7 +118,7 @@ object FormImpressao: TFormImpressao
     object Panel2: TPanel
       Left = 1
       Height = 50
-      Top = 432
+      Top = 473
       Width = 272
       Align = alBottom
       ClientHeight = 50
@@ -153,10 +153,10 @@ object FormImpressao: TFormImpressao
       TabOrder = 4
     end
     object BitBtn1: TBitBtn
-      Left = 124
-      Height = 23
+      Left = 136
+      Height = 21
       Top = 400
-      Width = 140
+      Width = 128
       Caption = 'Modificar Relatório'
       OnClick = BitBtn1Click
       TabOrder = 5
@@ -164,16 +164,16 @@ object FormImpressao: TFormImpressao
   end
   object GroupBox1: TGroupBox
     Left = 274
-    Height = 483
+    Height = 524
     Top = 0
     Width = 696
     Align = alClient
-    ClientHeight = 465
+    ClientHeight = 506
     ClientWidth = 692
     TabOrder = 1
     object frPreview1: TfrPreview
       Left = 0
-      Height = 465
+      Height = 506
       Top = 0
       Width = 692
       Align = alClient

@@ -410,12 +410,15 @@ begin
 end;
 
 procedure TFormPrincipal.DBMemoNomeKeyPress(Sender: TObject; var Key: char);
+var aux:Integer;
 begin
+  aux:=ListboxMinerais.items.IndexOf(ListboxMinerais.getselectedtext);
   if (Key = #13) then
   begin                //prestar atencao, potencial de existir bugs aqui
   sltb:=sldb.GetTable('UPDATE minerais SET nome = "'+Copy(DBMemoNome.Text, 0, Length(DBMemoNome.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
   Preenche_Lista;
   end;
+  ListBoxMinerais.Selected[aux]:=True;
 end;
 
 procedure TFormPrincipal.DBMemoSistemaKeyPress(Sender: TObject; var Key: char);
@@ -696,10 +699,7 @@ begin
   end
   else
   begin
- // if (not dados.SQLite3DatasetGeral.Active) then  //nao precisa, se listbox tiver selecionado entao ja ta aberto
- // dados.SQLite3DatasetGeral.open();
   nome_exclusao:=ListboxMinerais.GetSelectedText;
-
   if (dados.SQLite3DatasetGeral.FieldByName('nome').asstring <> ListboxMinerais.GetSelectedText) then
   begin
      dados.SQLite3DatasetGeral.first;
@@ -724,7 +724,7 @@ procedure TFormPrincipal.MenuItemImprimirClick(Sender: TObject);
           function strNome(i:integer):string;
           begin
             if i>=1 then
-            result:=' nome="'+ListBoxMinerais.Items.Strings[i]+'" and '
+            result:=' nome="'+ListBoxMinerais.Items.Strings[i]+'" or '
             else
             if i=0 then
             result:=' nome="'+ListBoxMinerais.Items.Strings[i]+'" );';
@@ -738,7 +738,6 @@ begin
      Dados.Sqlite3DatasetPrinter.SQL+strNome(i);
      end;
      FormImpressao.Show;
-      Dados.Sqlite3DatasetPrinter.Open();
 end;
 
 procedure TFormPrincipal.MenuItemModoEdicaoClick(Sender: TObject);
@@ -943,7 +942,8 @@ end;
 
 procedure TFormPrincipal.MenuItemSelecionaBDClick(Sender: TObject);
 begin
-  FormSelecionaBD.Show;
+     FormSelecionaBD.Show;
+     Timer1.Enabled:=True;
 end;
 
 procedure TFormPrincipal.preenche_lista;

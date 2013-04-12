@@ -698,7 +698,7 @@
           <Typ Value="gtPicture"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="252"/>
+            <Left Value="228"/>
             <Top Value="72"/>
             <Width Value="20"/>
             <Height Value="18"/>
@@ -728,7 +728,7 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="288"/>
+            <Left Value="256"/>
             <Top Value="72"/>
             <Width Value="216"/>
             <Height Value="22"/>

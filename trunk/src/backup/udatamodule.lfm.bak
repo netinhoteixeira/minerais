@@ -1,10 +1,10 @@
 object Dados: TDados
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
-  Height = 428
+  Height = 390
   HorizontalOffset = 325
   VerticalOffset = 143
-  Width = 430
+  Width = 414
   object Sqlite3DatasetGeral: TSqlite3Dataset
     FileName = 'C:\Users\elidio\Documents\Minerais\Data\Mineraisbd.s3db'
     PrimaryKey = 'id'
@@ -38,6 +38,7 @@ object Dados: TDados
     Preview = FormImpressao.frPreview1
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
     DataType = dtDataSet
+    Title = 'Impressão'
     left = 56
     top = 248
     ReportForm = {
@@ -51,7 +52,7 @@ object Dados: TDados
     top = 184
   end
   object DatasourceReport: TDatasource
-    DataSet = Sqlite3DatasetGeral
+    DataSet = Sqlite3DatasetPrinter
     left = 160
     top = 184
   end
@@ -70,6 +71,7 @@ object Dados: TDados
     top = 248
   end
   object Sqlite3DatasetPrinter: TSqlite3Dataset
+    PrimaryKey = 'id'
     TableName = 'minerais'
     left = 56
     top = 320

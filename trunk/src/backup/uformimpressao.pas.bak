@@ -101,6 +101,7 @@ end;
 procedure TFormImpressao.FormShow(Sender: TObject);
 var Diretorio:String;
 begin
+  memo1.Append(Dados.Sqlite3DatasetPrinter.SQL);
      Dados.Sqlite3DatasetPrinter.Open();
      Diretorio:=GetCurrentDir+'\Data\report1.lrf';
   if (FileExists(Diretorio)) then
