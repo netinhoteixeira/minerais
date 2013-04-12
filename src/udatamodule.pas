@@ -50,6 +50,9 @@ end;
 
 procedure TDados.determinaBD(diretorio: string);
 begin
+  if SQLite3DatasetGeral.Active Then  SQLite3DatasetGeral.Close;
+  if SQLite3DatasetCombobox.Active Then  SQLite3DatasetComboBox.Close;
+  if SQLite3DatasetDidatico.Active Then  SQLite3DatasetDidatico.Close;
   with SQLite3DatasetGeral do
   begin
   FileName:=diretorio;

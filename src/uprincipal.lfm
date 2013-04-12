@@ -283,6 +283,14 @@ object FormPrincipal: TFormPrincipal
         ParentColor = False
         ParentFont = False
       end
+      object ToggleBox1: TToggleBox
+        Left = 6
+        Height = 23
+        Top = -1
+        Width = 150
+        Caption = 'Ativar Filtro'
+        TabOrder = 11
+      end
     end
   end
   object PanelFicha: TPanel
@@ -299,9 +307,9 @@ object FormPrincipal: TFormPrincipal
       Height = 645
       Top = 1
       Width = 492
-      ActivePage = TabSheetImagem
+      ActivePage = TabSheetProp_Fisicas
       Align = alClient
-      TabIndex = 4
+      TabIndex = 1
       TabOrder = 0
       object TabSheetInf_Gerais: TTabSheet
         Caption = 'Informações Gerais'
@@ -433,6 +441,7 @@ object FormPrincipal: TFormPrincipal
             Height = 27
             Top = 79
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'classe'
             DataSource = Dados.DatasourceGeral
             OnKeyPress = DBMemoClasseKeyPress
@@ -534,6 +543,7 @@ object FormPrincipal: TFormPrincipal
             Width = 340
             Font.Height = -12
             HideSelection = False
+            ParentBidiMode = False
             ParentFont = False
             ReadOnly = True
             TabOrder = 11
@@ -583,6 +593,7 @@ object FormPrincipal: TFormPrincipal
             ClientWidth = 165
             Enabled = False
             TabOrder = 2
+            Visible = False
             object DBEditDureza_Min: TDBEdit
               Left = 14
               Height = 23
@@ -627,6 +638,7 @@ object FormPrincipal: TFormPrincipal
             ClientWidth = 165
             Enabled = False
             TabOrder = 3
+            Visible = False
             object DBEditDensidade_Min: TDBEdit
               Left = 14
               Height = 23
@@ -1035,7 +1047,6 @@ object FormPrincipal: TFormPrincipal
             Height = 200
             Top = 39
             Width = 200
-            Caption = 'Imagem Cristalográfica 1'
             ClientHeight = 182
             ClientWidth = 196
             TabOrder = 0
@@ -1140,7 +1151,6 @@ object FormPrincipal: TFormPrincipal
             Height = 200
             Top = 39
             Width = 200
-            Caption = 'Imagem Cristalográfica 2'
             ClientHeight = 182
             ClientWidth = 196
             TabOrder = 2
@@ -1230,7 +1240,6 @@ object FormPrincipal: TFormPrincipal
       Height = 120
       Top = 1
       Width = 150
-      Caption = 'Imagem 1'
       ClientHeight = 102
       ClientWidth = 146
       Font.Color = clWhite
@@ -1253,7 +1262,6 @@ object FormPrincipal: TFormPrincipal
       Height = 120
       Top = 127
       Width = 150
-      Caption = 'Imagem 2'
       ClientHeight = 102
       ClientWidth = 146
       Font.Color = clWhite
@@ -1276,7 +1284,6 @@ object FormPrincipal: TFormPrincipal
       Height = 120
       Top = 255
       Width = 150
-      Caption = 'Imagem 3'
       ClientHeight = 102
       ClientWidth = 146
       Font.Color = clWhite
@@ -1299,7 +1306,6 @@ object FormPrincipal: TFormPrincipal
       Height = 120
       Top = 383
       Width = 150
-      Caption = 'Imagem 4'
       ClientHeight = 102
       ClientWidth = 146
       Font.Color = clWhite
@@ -1322,7 +1328,6 @@ object FormPrincipal: TFormPrincipal
       Height = 120
       Top = 511
       Width = 150
-      Caption = 'Imagem 5'
       ClientHeight = 102
       ClientWidth = 146
       Font.Color = clWhite

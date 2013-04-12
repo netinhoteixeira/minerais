@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, StdCtrls, ComCtrls, Menus, EditBtn, SQLite3TableMod, SQLite3Mod;
+  Buttons, StdCtrls, ComCtrls, Menus, EditBtn, SQLite3TableMod,
+  SQLite3Mod;
                                     //excluir SQLite3TableMod
 type
 
@@ -50,9 +51,10 @@ uses udatamodule;
 
 
 procedure TFormSelecionaBD.BitBtnPadraoClick(Sender: TObject);
+var nomeBD: String;
 begin
-     closeFile(arquivo);
-     BD:=ListBoxSeleciona.GetSelectedText;
+     NomeBD:=ListBoxSeleciona.GetSelectedText;
+     BD:=NomeBD;
 
 
      Diretorio:=GetCurrentDir+'\Data\BD.dat';
@@ -60,16 +62,15 @@ begin
      begin
           AssignFile(Arquivo, Diretorio);
           FileMode:=2;
-          Reset(Arquivo);
+          ReWrite(Arquivo);//Reset
           //Append(Arquivo);
      end
      else
      Begin
           AssignFile(Arquivo, Diretorio);
           ReWrite(Arquivo);
-          Append(Arquivo);
+         //ppend(Arquivo); //com ou sem da bug
      end;
-
      Writeln(Arquivo, BD);
      CloseFile(Arquivo);
      StatusBar1.SimpleText:='Banco de Dados Padrão: '+BD;
@@ -135,8 +136,8 @@ begin
      Reset(Arquivo);
      Readln(Arquivo, BD);
      StatusBar1.SimpleText:='Banco de Dados Padrão: '+BD;
+     closefile(arquivo);
      end;
-     //closefile(arquivo);
 end;
 
 procedure TFormSelecionaBD.MenuItemSairClick(Sender: TObject);
