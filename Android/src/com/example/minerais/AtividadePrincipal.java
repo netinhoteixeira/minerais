@@ -6,9 +6,14 @@ import android.view.*;
 //import android.content.*;
 import android.widget.*;
 
+import java.util.List;
+
 
 public class AtividadePrincipal extends Activity {
+	
+	private dados dd;
 	Button btnFiltro;
+	ListView listaEspecies;
 	 
     @Override //protected void
     public void onCreate(Bundle savedInstanceState) {
@@ -17,17 +22,28 @@ public class AtividadePrincipal extends Activity {
         
         btnFiltro = (Button)
         findViewById(R.id.btnFiltro);
-                
+        
+        listaEspecies = (ListView) 
+        findViewById(R.id.listViewEspecies);
+        
+        List<String> names = this.dd.selecionarTodos();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Espécies:");
+        for (String name : names) {
+        	sb.append(name +"\n");
+        }
+        
+        this.listaEspecies.addTouchables(views)
+         
         btnFiltro.setOnClickListener(new View.OnClickListener() {
     	 
     	@Override
     	public void onClick(View arg0) {
     	
     		setContentView(R.layout.filtro); 
-    		Button btnAplicar = (Button) findViewById(R.id.btnAplicar);
+    	//	Button btnAplicar = (Button) findViewById(R.id.btnAplicar);
     		
-    		
-  
+    	  
     	}
    	});
     }

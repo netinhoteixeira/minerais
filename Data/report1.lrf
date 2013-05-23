@@ -31,7 +31,7 @@
         </Margins>
         <Orientation Value="poPortrait"/>
         <UseMargins Value="True"/>
-        <PrintToPrevPage Value="False"/>
+        <PrintToPrevPage Value="True"/>
         <ColCount Value="1"/>
         <ColGap Value="0"/>
         <LayoutOrder Value="loColumns"/>
@@ -626,7 +626,7 @@
         </Margins>
         <Orientation Value="poPortrait"/>
         <UseMargins Value="True"/>
-        <PrintToPrevPage Value="False"/>
+        <PrintToPrevPage Value="True"/>
         <ColCount Value="1"/>
         <ColGap Value="0"/>
         <LayoutOrder Value="loColumns"/>
@@ -814,8 +814,8 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="44"/>
-            <Top Value="232"/>
+            <Left Value="36"/>
+            <Top Value="596"/>
             <Width Value="676"/>
             <Height Value="416"/>
           </Size>
@@ -857,8 +857,8 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="44"/>
-            <Top Value="876"/>
+            <Left Value="32"/>
+            <Top Value="340"/>
             <Width Value="676"/>
             <Height Value="170"/>
           </Size>
@@ -900,8 +900,8 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="44"/>
-            <Top Value="840"/>
+            <Left Value="28"/>
+            <Top Value="152"/>
             <Width Value="208"/>
             <Height Value="18"/>
           </Size>
@@ -943,8 +943,8 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="44"/>
-            <Top Value="200"/>
+            <Left Value="36"/>
+            <Top Value="552"/>
             <Width Value="156"/>
             <Height Value="18"/>
           </Size>
@@ -986,8 +986,8 @@
           <Typ Value="gtPicture"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="116"/>
-            <Top Value="680"/>
+            <Left Value="88"/>
+            <Top Value="180"/>
             <Width Value="200"/>
             <Height Value="140"/>
           </Size>
@@ -1014,8 +1014,8 @@
           <Typ Value="gtPicture"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="412"/>
-            <Top Value="680"/>
+            <Left Value="372"/>
+            <Top Value="180"/>
             <Width Value="196"/>
             <Height Value="140"/>
           </Size>

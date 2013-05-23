@@ -6,6 +6,8 @@ object FormPrincipal: TFormPrincipal
   Caption = 'Guia de Minerais'
   ClientHeight = 670
   ClientWidth = 1004
+  Constraints.MinHeight = 690
+  Constraints.MinWidth = 500
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
@@ -43,7 +45,8 @@ object FormPrincipal: TFormPrincipal
         ItemHeight = 0
         OnClick = ListBoxMineraisClick
         OnDblClick = ListBoxMineraisDblClick
-        Style = lbOwnerDrawFixed
+        PopupMenu = PopupMenuListbox
+        Style = lbOwnerDrawVariable
         TabOrder = 0
       end
     end
@@ -104,7 +107,7 @@ object FormPrincipal: TFormPrincipal
       object ComboBoxClasse: TComboBox
         Left = 6
         Height = 23
-        Top = 125
+        Top = 86
         Width = 150
         ItemHeight = 15
         OnChange = ComboBoxClasseChange
@@ -114,7 +117,7 @@ object FormPrincipal: TFormPrincipal
       object ComboBoxSubclasse: TComboBox
         Left = 6
         Height = 23
-        Top = 189
+        Top = 150
         Width = 150
         ItemHeight = 15
         OnChange = ComboBoxSubclasseChange
@@ -124,7 +127,7 @@ object FormPrincipal: TFormPrincipal
       object ComboBoxGrupo: TComboBox
         Left = 6
         Height = 23
-        Top = 253
+        Top = 214
         Width = 150
         ItemHeight = 15
         OnChange = ComboBoxGrupoChange
@@ -134,7 +137,7 @@ object FormPrincipal: TFormPrincipal
       object ComboBoxSubgrupo: TComboBox
         Left = 6
         Height = 23
-        Top = 317
+        Top = 278
         Width = 150
         ItemHeight = 15
         OnChange = ComboBoxSubgrupoChange
@@ -144,7 +147,7 @@ object FormPrincipal: TFormPrincipal
       object ComboBoxDureza_min: TComboBox
         Left = 6
         Height = 23
-        Top = 391
+        Top = 352
         Width = 70
         ItemHeight = 15
         ItemIndex = 0
@@ -176,7 +179,7 @@ object FormPrincipal: TFormPrincipal
       object ComboBoxDureza_max: TComboBox
         Left = 86
         Height = 23
-        Top = 391
+        Top = 352
         Width = 70
         ItemHeight = 15
         ItemIndex = 17
@@ -208,7 +211,7 @@ object FormPrincipal: TFormPrincipal
       object EditDensidade_min: TEdit
         Left = 6
         Height = 23
-        Top = 471
+        Top = 432
         Width = 70
         OnEditingDone = EditDensidade_minEditingDone
         TabOrder = 6
@@ -217,7 +220,7 @@ object FormPrincipal: TFormPrincipal
       object EditDensidade_Max: TEdit
         Left = 86
         Height = 23
-        Top = 471
+        Top = 432
         Width = 70
         OnEditingDone = EditDensidade_MaxEditingDone
         TabOrder = 7
@@ -226,7 +229,7 @@ object FormPrincipal: TFormPrincipal
       object EditNome: TEdit
         Left = 6
         Height = 23
-        Top = 61
+        Top = 22
         Width = 150
         OnEditingDone = EditNomeEditingDone
         TabOrder = 8
@@ -234,7 +237,7 @@ object FormPrincipal: TFormPrincipal
       object EditOcorrencia: TEdit
         Left = 6
         Height = 23
-        Top = 533
+        Top = 494
         Width = 150
         OnEditingDone = EditOcorrenciaEditingDone
         TabOrder = 9
@@ -242,7 +245,7 @@ object FormPrincipal: TFormPrincipal
       object EditAssociacao: TEdit
         Left = 6
         Height = 23
-        Top = 589
+        Top = 550
         Width = 150
         OnEditingDone = EditAssociacaoEditingDone
         TabOrder = 10
@@ -250,7 +253,7 @@ object FormPrincipal: TFormPrincipal
       object Label33: TLabel
         Left = 6
         Height = 16
-        Top = 375
+        Top = 336
         Width = 43
         Caption = 'mínimo'
         ParentColor = False
@@ -259,7 +262,7 @@ object FormPrincipal: TFormPrincipal
       object Label34: TLabel
         Left = 86
         Height = 16
-        Top = 374
+        Top = 335
         Width = 44
         Caption = 'máximo'
         ParentColor = False
@@ -268,7 +271,7 @@ object FormPrincipal: TFormPrincipal
       object Label35: TLabel
         Left = 6
         Height = 16
-        Top = 455
+        Top = 416
         Width = 43
         Caption = 'mínimo'
         ParentColor = False
@@ -277,7 +280,7 @@ object FormPrincipal: TFormPrincipal
       object Label36: TLabel
         Left = 86
         Height = 16
-        Top = 454
+        Top = 415
         Width = 44
         Caption = 'máximo'
         ParentColor = False
@@ -286,9 +289,9 @@ object FormPrincipal: TFormPrincipal
       object ToggleBox1: TToggleBox
         Left = 6
         Height = 23
-        Top = -1
+        Top = 591
         Width = 150
-        Caption = 'Ativar Filtro'
+        Caption = 'Desativar Filtro'
         TabOrder = 11
       end
     end
@@ -307,9 +310,9 @@ object FormPrincipal: TFormPrincipal
       Height = 645
       Top = 1
       Width = 492
-      ActivePage = TabSheetProp_Fisicas
+      ActivePage = TabSheetInf_Gerais
       Align = alClient
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       object TabSheetInf_Gerais: TTabSheet
         Caption = 'Informações Gerais'
@@ -338,6 +341,7 @@ object FormPrincipal: TFormPrincipal
             Height = 27
             Top = 11
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'formula'
             DataSource = Dados.DatasourceGeral
             OnKeyPress = DBMemoFormulaKeyPress
@@ -349,6 +353,7 @@ object FormPrincipal: TFormPrincipal
             Height = 27
             Top = 39
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'nome'
             DataSource = Dados.DatasourceGeral
             OnEditingDone = DBMemoNomeEditingDone
@@ -453,6 +458,7 @@ object FormPrincipal: TFormPrincipal
             Height = 27
             Top = 111
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'subclasse'
             DataSource = Dados.DatasourceGeral
             OnKeyPress = DBMemoSubclasseKeyPress
@@ -464,6 +470,7 @@ object FormPrincipal: TFormPrincipal
             Height = 27
             Top = 143
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'grupo'
             DataSource = Dados.DatasourceGeral
             OnKeyPress = DBMemoGrupoKeyPress
@@ -475,6 +482,7 @@ object FormPrincipal: TFormPrincipal
             Height = 27
             Top = 175
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'subgrupo'
             DataSource = Dados.DatasourceGeral
             OnKeyPress = DBMemoSubgrupoKeyPress
@@ -486,6 +494,7 @@ object FormPrincipal: TFormPrincipal
             Height = 70
             Top = 215
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'ocorrencia'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -497,6 +506,7 @@ object FormPrincipal: TFormPrincipal
             Height = 70
             Top = 295
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'associacao'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -508,6 +518,7 @@ object FormPrincipal: TFormPrincipal
             Height = 70
             Top = 375
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'distincao'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -519,6 +530,7 @@ object FormPrincipal: TFormPrincipal
             Height = 70
             Top = 455
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'alteracao'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -530,6 +542,7 @@ object FormPrincipal: TFormPrincipal
             Height = 70
             Top = 535
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'aplicacao'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -541,6 +554,7 @@ object FormPrincipal: TFormPrincipal
             Height = 27
             Top = 11
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             Font.Height = -12
             HideSelection = False
             ParentBidiMode = False
@@ -678,6 +692,7 @@ object FormPrincipal: TFormPrincipal
             Height = 60
             Top = 159
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'cor'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -689,6 +704,7 @@ object FormPrincipal: TFormPrincipal
             Height = 60
             Top = 231
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'traco'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -700,6 +716,7 @@ object FormPrincipal: TFormPrincipal
             Height = 60
             Top = 303
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'brilho'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -711,6 +728,7 @@ object FormPrincipal: TFormPrincipal
             Height = 60
             Top = 375
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'clivagem'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -722,6 +740,7 @@ object FormPrincipal: TFormPrincipal
             Height = 60
             Top = 447
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'fratura'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -733,6 +752,7 @@ object FormPrincipal: TFormPrincipal
             Height = 27
             Top = 519
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'magnetismo'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -744,6 +764,7 @@ object FormPrincipal: TFormPrincipal
             Height = 27
             Top = 559
             Width = 340
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'luminescencia'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -850,6 +871,7 @@ object FormPrincipal: TFormPrincipal
             Height = 45
             Top = 23
             Width = 310
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'difaneidade'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -861,6 +883,7 @@ object FormPrincipal: TFormPrincipal
             Height = 45
             Top = 79
             Width = 310
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'Sinal_optico'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -872,6 +895,7 @@ object FormPrincipal: TFormPrincipal
             Height = 45
             Top = 135
             Width = 310
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'indice_refracao'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -883,6 +907,7 @@ object FormPrincipal: TFormPrincipal
             Height = 45
             Top = 191
             Width = 310
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'angulo'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -894,6 +919,7 @@ object FormPrincipal: TFormPrincipal
             Height = 45
             Top = 247
             Width = 310
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'cor_interferencia'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -905,6 +931,7 @@ object FormPrincipal: TFormPrincipal
             Height = 45
             Top = 359
             Width = 310
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'sinal_elongacao'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -916,6 +943,7 @@ object FormPrincipal: TFormPrincipal
             Height = 45
             Top = 415
             Width = 310
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'birrefringencia'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -927,6 +955,7 @@ object FormPrincipal: TFormPrincipal
             Height = 45
             Top = 471
             Width = 310
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'relevo'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -938,6 +967,7 @@ object FormPrincipal: TFormPrincipal
             Height = 45
             Top = 527
             Width = 310
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'extincao'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -1021,6 +1051,7 @@ object FormPrincipal: TFormPrincipal
             Height = 45
             Top = 303
             Width = 310
+            Anchors = [akTop, akLeft, akRight]
             DataField = 'cor_lamina'
             DataSource = Dados.DatasourceGeral
             ReadOnly = True
@@ -1066,6 +1097,7 @@ object FormPrincipal: TFormPrincipal
             Height = 264
             Top = 295
             Width = 475
+            Anchors = [akTop, akLeft, akRight]
             ClientHeight = 246
             ClientWidth = 471
             TabOrder = 1
@@ -1074,6 +1106,7 @@ object FormPrincipal: TFormPrincipal
               Height = 27
               Top = 24
               Width = 340
+              Anchors = [akTop, akLeft, akRight]
               DataField = 'sistema'
               DataSource = Dados.DatasourceGeral
               OnKeyPress = DBMemoSistemaKeyPress
@@ -1085,6 +1118,7 @@ object FormPrincipal: TFormPrincipal
               Height = 27
               Top = 64
               Width = 340
+              Anchors = [akTop, akLeft, akRight]
               DataField = 'classe_cristalina'
               DataSource = Dados.DatasourceGeral
               OnKeyPress = DBMemoClasse_CristalinaKeyPress
@@ -1096,6 +1130,7 @@ object FormPrincipal: TFormPrincipal
               Height = 27
               Top = 104
               Width = 340
+              Anchors = [akTop, akLeft, akRight]
               DataField = 'h_m'
               DataSource = Dados.DatasourceGeral
               OnKeyPress = DBMemoH_MKeyPress
@@ -1107,6 +1142,7 @@ object FormPrincipal: TFormPrincipal
               Height = 78
               Top = 146
               Width = 340
+              Anchors = [akTop, akLeft, akRight]
               DataField = 'habito'
               DataSource = Dados.DatasourceGeral
               ReadOnly = True
@@ -1445,5 +1481,18 @@ object FormPrincipal: TFormPrincipal
     OnTimer = Timer1Timer
     left = 64
     top = 608
+  end
+  object PopupMenuListbox: TPopupMenu
+    left = 144
+    top = 608
+    object MenuItem2: TMenuItem
+      Caption = 'Adicionar Mineral'
+    end
+    object MenuItem3: TMenuItem
+      Caption = 'Remover Espécie Selecionada da Lista'
+    end
+    object MenuItem4: TMenuItem
+      Caption = 'Excluir Mineral'
+    end
   end
 end
