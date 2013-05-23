@@ -99,6 +99,9 @@ type
     Label37: TLabel;
     Label38: TLabel;
     Label39: TLabel;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
     MenuItemAjuda: TMenuItem;
     MenuItemNormal: TMenuItem;
     MenuItemGrande: TMenuItem;
@@ -159,6 +162,7 @@ type
     PageControlFicha: TPageControl;
     PanelImagem: TPanel;
     PanelFicha: TPanel;
+    PopupMenuListbox: TPopupMenu;
     RichMemoFormula: TRichMemo;
     StatusBar1: TStatusBar;
     TabSheetInf_Gerais: TTabSheet;
@@ -243,6 +247,8 @@ type
     procedure Adiciona_Cristalografia(num:char);
     procedure AtualizaImagem;
     procedure SelecionaImagem(num:char);
+    procedure ProcuraMineral;
+    procedure MemoryStreamParaImagem;
     { private declarations }
   public
     { public declarations }
@@ -252,6 +258,8 @@ type
     lista_formatos:string ='All Files| *.jpg; *.jpeg;'; //ver se *.mpeg é compatível
     grande: integer = 13;
     normal: integer = 9;
+
+
 
 var
   FormPrincipal: TFormPrincipal;
@@ -267,8 +275,10 @@ var
   sltb2:TSQLiteTable;
   slst: Tsqlitestmt;
 
-  //variaveis usadas para nao preencher a lista desnecessariamente:
-  NomeEdit, den_min, den_max, ocorrencia, associacao: string;
+  //variaveis usadas para nao preencher a lista desnecessariamente://transformar em variáveis locais
+  den_min, den_max, ocorrencia, associacao: string;
+  //Usado pelo RichMemo
+  fonte, fontenormal, fonte2:TFontParams;
 
 implementation
 uses udatamodule;
@@ -415,10 +425,11 @@ var aux:Integer;
 begin
   aux:=ListboxMinerais.items.IndexOf(ListboxMinerais.getselectedtext);
   if (Key = #13) then
-  begin                //prestar atencao, potencial de existir bugs aqui
+  begin
   sltb:=sldb.GetTable('UPDATE minerais SET nome = "'+Copy(DBMemoNome.Text, 0, Length(DBMemoNome.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
   Preenche_Lista;
   end;
+  ProcuraMineral;
   ListBoxMinerais.Selected[aux]:=True;
 end;
 
@@ -483,10 +494,12 @@ begin
 end;
 
 procedure TFormPrincipal.EditNomeEditingDone(Sender: TObject);
+var NomeEdit:String;
 begin
   if (NomeEdit <> EditNome.Text) then
   Preenche_lista;
   NomeEdit:=EditNome.Text;
+  ProcuraMineral;
 end;
 
 procedure TFormPrincipal.EditOcorrenciaEditingDone(Sender: TObject);
@@ -506,6 +519,15 @@ procedure TFormPrincipal.FormCreate(Sender: TObject);
 var Padrao: TextFile;
     BancoDados, diretorio:String;
 begin
+     Fonte.Style := [fsitalic];
+     Fonte2.Style := [];
+     FonteNormal.style:=[fsbold];
+    //fonte.Color := 1;
+    //fonte2.Color := 1;
+   //FonteNormal.Color := 1;
+
+
+
   Tipo:=EmptyStr;//ver se precisa, feito para criar o campo geral no inicio e carregar as imagens iniciais
   Imagem_Selecionada:='1';
   limpaDD;
@@ -575,82 +597,7 @@ procedure TFormPrincipal.ListboxMineraisClick(Sender: TObject);
 var aux:integer;
 begin
    limparichmemo;
-   Nome_Mineral:=ListboxMinerais.GetSelectedText;
-   if Nome_Mineral <> emptystr then
-   begin
-        if (Dados.SQLite3DatasetGeral.active) then
-        Dados.SQLite3DatasetGeral.applyupdates
-        else Dados.SQLite3DatasetGeral.open();
-
-        if Listboxminerais.GetSelectedText <> emptyStr then
-        Begin
-             if (ListBoxMinerais.Items.IndexOf(Trim(ListBoxMinerais.GetSelectedText)) > 15)
-             and
-             (ListBoxMinerais.Items.IndexOf(Trim(ListBoxMinerais.GetSelectedText)) < ListBoxMinerais.Items.Count-15)
-             then
-             begin
-                  if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
-                  >
-                  ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText ) then
-                  begin
-                       repeat
-                       Dados.SQLite3DatasetGeral.Prior;
-                       until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
-                  end
-                  else
-                  if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
-                  < ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText)  then
-                  begin
-                       repeat
-                       Dados.SQLite3DatasetGeral.Next;
-                       until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
-                  end;
-             end
-             else
-             begin
-                  if ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText) = 0 then
-                  Dados.SQLite3DatasetGeral.First
-                  else
-                  if ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText) = ListBoxminerais.Count-1 then
-                  Dados.SQLite3DatasetGeral.Last
-                  else
-                  begin
-                       if (ListboxMinerais.GetSelectedText) <> Dados.SQLite3DatasetGeral.FieldByName('nome').asstring then
-                       begin;
-                             if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString) <=15 then
-                       begin
-                            Dados.SQLite3DatasetGeral.First;
-                            repeat
-                            Dados.SQLite3DatasetGeral.Next;
-                            until Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring = Nome_Mineral;
-                       end
-                       else
-                       begin
-                            Dados.SQLite3DatasetGeral.Last;
-                            repeat
-                            Dados.SQLite3DatasetGeral.Prior;
-                            until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
-                       end;
-                       end;
-                  end;
-             end;
-    end
-    else
-    begin
-         Dados.SQLite3DatasetGeral.first;
-         if (Dados.SQLite3DatasetGeral.FieldByName('nome').AsString <> Nome_Mineral) then
-         begin                                                                         //cor azul $00FF952B
-           repeat                                                                    //azul do panel filtro: $00BB5E00 e $00FF8000
-             Dados.SQLite3DatasetGeral.next();
-           until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring = Nome_Mineral);
-         end;
-    end;
-   atualizarichmemo;
-   editaDD;
-   AtualizaImagem;
-   GroupBoxDureza.Visible:=false;
-   GroupBoxDensidade.Visible:=false;
-   end;
+   ProcuraMineral;
 end;
 
 procedure TFormPrincipal.ListBoxMineraisDblClick(Sender: TObject);
@@ -692,7 +639,7 @@ begin
 end;
 
 procedure TFormPrincipal.MenuItemExcluirClick(Sender: TObject);
-var nome_exclusao:string; //esta var pode ser eliminada?
+var nome_exclusao:string; //esta var pode ser eliminada
 begin
   if (ListboxMinerais.GetSelectedText = emptystr) then
   begin
@@ -859,8 +806,8 @@ procedure TFormPrincipal.MenuItemNormalClick(Sender: TObject);
 begin
   if (MenuItemNormal.Checked) then
   Begin
-       MenuItemNormal.Checked:=False;
-       MenuItemGrande.Checked:=True;
+       //MenuItemNormal.Checked:=False;
+       //MenuItemGrande.Checked:=True;
        PanelFicha.Font.Size:=Grande;
        GroupBoxInf_Gerais.Font.Size:=grande;
        GroupBoxProp_Fisicas.Font.Size:=grande;
@@ -870,8 +817,8 @@ begin
   end
   else
   Begin
-       MenuItemNormal.Checked:=True;
-       MenuItemGrande.Checked:=False;
+       //MenuItemNormal.Checked:=True;
+      // MenuItemGrande.Checked:=False;
        PanelFicha.Font.Size:=Normal;
        GroupBoxInf_Gerais.Font.Size:=normal;
        GroupBoxProp_Fisicas.Font.Size:=normal;
@@ -1278,8 +1225,7 @@ begin
 end;
 
 procedure TFormPrincipal.AtualizaRichMemo;
-var fonte, fontenormal, fonte2:tfontparams;
-  aux:string; i,j:integer;
+var aux:string; i,j:integer;
 begin
   if (MenuItemNormal.Checked) then
   begin
@@ -1294,18 +1240,9 @@ begin
        FonteNormal.Size:=Grande;
   end;
 
-  fonte.Style := [fsitalic];
-  fonte.Color := 1;
-
-  fonte2.Color := 1;
-  fonte2.Style := [];
-
-  fontenormal.style:=[fsbold];
-  fontenormal.Color := 1;
-
-     aux:=dbmemoFormula.text;
+     aux:=DBMemoFormula.Text;
      RichMemoFormula.Text:=aux;
-     i:=length(aux);
+     i:=Length(aux);
 
      for j:=1 to i do
      begin
@@ -1357,7 +1294,7 @@ end;
 
 procedure TFormPrincipal.LimpaRichMemo;
 begin
-  richmemoFormula.text:='';
+  RichmemoFormula.Text:='';
 end;
 
 procedure TFormPrincipal.Barra_Status;
@@ -1727,6 +1664,88 @@ begin
        Imagem_Selecionada:=num;
 end;
 
+procedure TFormPrincipal.ProcuraMineral;
+begin
+   Nome_Mineral:= ListboxMinerais.GetSelectedText;
+   if Nome_Mineral <> emptystr then
+   begin
+        PanelFicha.Visible:=False;
+        if (Dados.SQLite3DatasetGeral.active) then
+        Dados.SQLite3DatasetGeral.applyupdates
+        else Dados.SQLite3DatasetGeral.open();
+
+        if (Listboxminerais.GetSelectedText <> emptyStr) then
+        Begin   //Refazer algoritmo de busca (se distancia < x entao)
+             if (ListBoxMinerais.Items.IndexOf(Trim(ListBoxMinerais.GetSelectedText)) > 15)
+             and
+             (ListBoxMinerais.Items.IndexOf(Trim(ListBoxMinerais.GetSelectedText)) < ListBoxMinerais.Items.Count-15)
+             then
+             begin
+                  if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
+                  >
+                  ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText ) then
+                  begin
+                       repeat
+                       Dados.SQLite3DatasetGeral.Prior;
+                       until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
+                  end
+                  else
+                  if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
+                  < ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText)  then
+                  begin
+                       repeat
+                       Dados.SQLite3DatasetGeral.Next;
+                       until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
+                  end;
+             end
+             else
+             begin
+                  if ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText) = 0 then
+                  Dados.SQLite3DatasetGeral.First
+                  else
+                  if ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText) = ListBoxminerais.Count-1 then
+                  Dados.SQLite3DatasetGeral.Last
+                  else
+                  begin
+                       if (ListboxMinerais.GetSelectedText) <> Dados.SQLite3DatasetGeral.FieldByName('nome').asstring then
+                       begin;
+                             if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString) <=15 then
+                       begin
+                            Dados.SQLite3DatasetGeral.First;
+                            repeat
+                            Dados.SQLite3DatasetGeral.Next;
+                            until Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring = Nome_Mineral;
+                       end
+                       else
+                       begin
+                            Dados.SQLite3DatasetGeral.Last;
+                            repeat
+                            Dados.SQLite3DatasetGeral.Prior;
+                            until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
+                       end;
+                       end;
+                  end;
+             end;
+    end
+    else
+    begin
+         Dados.SQLite3DatasetGeral.first;
+         if (Dados.SQLite3DatasetGeral.FieldByName('nome').AsString <> Nome_Mineral) then
+         begin                                                                         //cor azul $00FF952B
+           repeat                                                                    //azul do panel filtro: $00BB5E00 e $00FF8000
+             Dados.SQLite3DatasetGeral.next();
+           until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring = Nome_Mineral);
+         end;
+    end;
+   atualizarichmemo;
+   editaDD;
+   AtualizaImagem;
+   GroupBoxDureza.Visible:=false;
+   GroupBoxDensidade.Visible:=false;
+   PanelFicha.Visible:=True;
+   end;
+end;
+
 procedure TFormPrincipal.Image1Click(Sender: TObject);
 begin
      SelecionaImagem('1');
@@ -1772,34 +1791,6 @@ begin
      SelecionaImagem('5');
 end;
 
-procedure TFormPrincipal.ImageCristalografia1Click(Sender: TObject);
-begin
-       if (ListboxMinerais.GetSelectedText<> EmptyStr) then
-       begin
-       try
-       sltb :=sldb.GetTable('SELECT imagemCristalografia1 FROM minerais where nome = "' + dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
-       ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia1']);
-
-       if (ms <> nil) then
-       begin
-       ms.Position := 0;
-
-       pic := TJPEGImage.Create;
-       pic.LoadFromStream(ms);
-
-       self.ImageAmpliada.Picture.Graphic := pic;
-
-       pic.Free;
-       end
-       else
-       ImageAmpliada.Picture.Clear;
-       finally
-       sltb.free
-       end;
-       end;
-       Imagem_Selecionada:='6';
-end;
-
 procedure TFormPrincipal.ImageCristalografia1DblClick(Sender: TObject);
 begin
   Adiciona_Cristalografia('1');
@@ -1815,6 +1806,34 @@ begin
   Adiciona_Imagem('5');
 end;
 
+procedure TFormPrincipal.MemoryStreamParaImagem;
+begin
+       ms.Position := 0;
+       pic := TJPEGImage.Create;
+       pic.LoadFromStream(ms);
+       self.ImageAmpliada.Picture.Graphic := pic;
+       pic.Free;
+end;
+
+procedure TFormPrincipal.ImageCristalografia1Click(Sender: TObject);
+begin
+       if (ListboxMinerais.GetSelectedText<> EmptyStr) then
+       begin
+       try
+       sltb :=sldb.GetTable('SELECT imagemCristalografia1 FROM minerais where nome = "' + dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
+       ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia1']);
+
+       if (ms <> nil) then
+       MemoryStreamParaImagem
+       else
+       ImageAmpliada.Picture.Clear;
+       finally
+       sltb.free
+       end;
+       end;
+       Imagem_Selecionada:='6';
+end;
+
 procedure TFormPrincipal.ImageCristalografia2Click(Sender: TObject);
 begin
        if (ListboxMinerais.GetSelectedText<> EmptyStr) then
@@ -1823,16 +1842,7 @@ begin
        sltb :=sldb.GetTable('SELECT imagemCristalografia2 FROM minerais where nome = "' + dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
        ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia2']);
        if (ms <> nil) then
-       begin
-       ms.Position := 0;
-
-       pic := TJPEGImage.Create;
-       pic.LoadFromStream(ms);
-
-       self.ImageAmpliada.Picture.Graphic := pic;
-
-       pic.Free;
-       end
+       MemoryStreamParaImagem
        else
        ImageAmpliada.Picture.Clear;
        finally
