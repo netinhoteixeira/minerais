@@ -1,13 +1,13 @@
 object FormPrincipal: TFormPrincipal
-  Left = 4
+  Left = 1
   Height = 690
   Top = 0
-  Width = 1004
+  Width = 1007
   Caption = 'Guia de Minerais'
   ClientHeight = 670
-  ClientWidth = 1004
+  ClientWidth = 1007
   Constraints.MinHeight = 690
-  Constraints.MinWidth = 500
+  Constraints.MinWidth = 510
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
@@ -18,6 +18,7 @@ object FormPrincipal: TFormPrincipal
     Top = 0
     Width = 170
     Align = alLeft
+    BevelOuter = bvNone
     ClientHeight = 647
     ClientWidth = 170
     TabOrder = 0
@@ -27,56 +28,18 @@ object FormPrincipal: TFormPrincipal
     Gradient.Point1YPercent = 0
     Gradient.Point2XPercent = 0
     Gradient.Point2YPercent = 100
-    object GroupBoxLista: TGroupBox
-      Left = 1
-      Height = 533
-      Top = 59
-      Width = 168
-      Align = alClient
-      ClientHeight = 515
-      ClientWidth = 164
+    object ListBoxMinerais: TListBox
+      Left = 8
+      Height = 600
+      Top = 24
+      Width = 152
+      Anchors = [akTop, akLeft, akBottom]
+      ItemHeight = 0
+      OnClick = ListBoxMineraisClick
+      OnDblClick = ListBoxMineraisDblClick
+      PopupMenu = PopupMenuListbox
+      Style = lbOwnerDrawVariable
       TabOrder = 0
-      object ListBoxMinerais: TListBox
-        Left = 0
-        Height = 515
-        Top = 0
-        Width = 164
-        Align = alClient
-        ItemHeight = 0
-        OnClick = ListBoxMineraisClick
-        OnDblClick = ListBoxMineraisDblClick
-        PopupMenu = PopupMenuListbox
-        Style = lbOwnerDrawVariable
-        TabOrder = 0
-      end
-    end
-    object BGRAPanel1: TBGRAPanel
-      Left = 1
-      Height = 54
-      Top = 592
-      Width = 168
-      Align = alBottom
-      TabOrder = 1
-      Gradient.StartColor = 15722194
-      Gradient.EndColor = 8677935
-      Gradient.Point1XPercent = 0
-      Gradient.Point1YPercent = 0
-      Gradient.Point2XPercent = 0
-      Gradient.Point2YPercent = 100
-    end
-    object BGRAPanel2: TBGRAPanel
-      Left = 1
-      Height = 58
-      Top = 1
-      Width = 168
-      Align = alTop
-      TabOrder = 2
-      Gradient.StartColor = 13744513
-      Gradient.EndColor = 8677935
-      Gradient.Point1XPercent = 0
-      Gradient.Point1YPercent = 0
-      Gradient.Point2XPercent = 0
-      Gradient.Point2YPercent = 100
     end
   end
   object BGRAPanelFiltro: TBGRAPanel
@@ -85,249 +48,494 @@ object FormPrincipal: TFormPrincipal
     Top = 0
     Width = 170
     Align = alLeft
+    BevelOuter = bvNone
     ClientHeight = 647
     ClientWidth = 170
     TabOrder = 1
+    Visible = False
     Gradient.StartColor = 8677935
     Gradient.EndColor = 13085822
     Gradient.Point1XPercent = 0
     Gradient.Point1YPercent = 0
     Gradient.Point2XPercent = 0
     Gradient.Point2YPercent = 100
-    object GroupBoxFiltro: TGroupBox
-      Left = 1
-      Height = 645
-      Top = 1
-      Width = 168
-      Align = alClient
-      ClientHeight = 627
-      ClientWidth = 164
-      ParentFont = False
+    object ComboBoxClasse: TComboBox
+      Left = 14
+      Height = 23
+      Top = 120
+      Width = 140
+      ItemHeight = 15
+      OnChange = ComboBoxClasseChange
+      Style = csDropDownList
       TabOrder = 0
-      object ComboBoxClasse: TComboBox
-        Left = 6
-        Height = 23
-        Top = 86
-        Width = 150
-        ItemHeight = 15
-        OnChange = ComboBoxClasseChange
-        Style = csDropDownList
-        TabOrder = 0
-      end
-      object ComboBoxSubclasse: TComboBox
-        Left = 6
-        Height = 23
-        Top = 150
-        Width = 150
-        ItemHeight = 15
-        OnChange = ComboBoxSubclasseChange
-        Style = csDropDownList
-        TabOrder = 1
-      end
-      object ComboBoxGrupo: TComboBox
-        Left = 6
-        Height = 23
-        Top = 214
-        Width = 150
-        ItemHeight = 15
-        OnChange = ComboBoxGrupoChange
-        Style = csDropDownList
-        TabOrder = 2
-      end
-      object ComboBoxSubgrupo: TComboBox
-        Left = 6
-        Height = 23
-        Top = 278
-        Width = 150
-        ItemHeight = 15
-        OnChange = ComboBoxSubgrupoChange
-        Style = csDropDownList
-        TabOrder = 3
-      end
-      object ComboBoxDureza_min: TComboBox
-        Left = 6
-        Height = 23
-        Top = 352
-        Width = 70
-        ItemHeight = 15
-        ItemIndex = 0
-        Items.Strings = (
-          '0'
-          '1'
-          '1.5'
-          '2'
-          '2.5'
-          '3'
-          '3.5'
-          '4'
-          '4.5'
-          '5'
-          '5.5'
-          '6'
-          '6.5'
-          '7'
-          '7.5'
-          '8'
-          '8.5'
-          '9'
-        )
-        OnChange = ComboBoxDureza_minChange
-        Style = csDropDownList
-        TabOrder = 4
-        Text = '0'
-      end
-      object ComboBoxDureza_max: TComboBox
-        Left = 86
-        Height = 23
-        Top = 352
-        Width = 70
-        ItemHeight = 15
-        ItemIndex = 17
-        Items.Strings = (
-          '1.5'
-          '2'
-          '2.5'
-          '3'
-          '3.5'
-          '4'
-          '4.5'
-          '5'
-          '5.5'
-          '6'
-          '6.5'
-          '7'
-          '7.5'
-          '8'
-          '8.5'
-          '9'
-          '9.5'
-          '10'
-        )
-        OnChange = ComboBoxDureza_maxChange
-        Style = csDropDownList
-        TabOrder = 5
-        Text = '10'
-      end
-      object EditDensidade_min: TEdit
-        Left = 6
-        Height = 23
-        Top = 432
-        Width = 70
-        OnEditingDone = EditDensidade_minEditingDone
-        TabOrder = 6
-        Text = '0.0'
-      end
-      object EditDensidade_Max: TEdit
-        Left = 86
-        Height = 23
-        Top = 432
-        Width = 70
-        OnEditingDone = EditDensidade_MaxEditingDone
-        TabOrder = 7
-        Text = '25.0'
-      end
-      object EditNome: TEdit
-        Left = 6
-        Height = 23
-        Top = 22
-        Width = 150
-        OnEditingDone = EditNomeEditingDone
-        TabOrder = 8
-      end
-      object EditOcorrencia: TEdit
-        Left = 6
-        Height = 23
-        Top = 494
-        Width = 150
-        OnEditingDone = EditOcorrenciaEditingDone
-        TabOrder = 9
-      end
-      object EditAssociacao: TEdit
-        Left = 6
-        Height = 23
-        Top = 550
-        Width = 150
-        OnEditingDone = EditAssociacaoEditingDone
-        TabOrder = 10
-      end
-      object Label33: TLabel
-        Left = 6
-        Height = 16
-        Top = 336
-        Width = 43
-        Caption = 'mínimo'
-        ParentColor = False
-        ParentFont = False
-      end
-      object Label34: TLabel
-        Left = 86
-        Height = 16
-        Top = 335
-        Width = 44
-        Caption = 'máximo'
-        ParentColor = False
-        ParentFont = False
-      end
-      object Label35: TLabel
-        Left = 6
-        Height = 16
-        Top = 416
-        Width = 43
-        Caption = 'mínimo'
-        ParentColor = False
-        ParentFont = False
-      end
-      object Label36: TLabel
-        Left = 86
-        Height = 16
-        Top = 415
-        Width = 44
-        Caption = 'máximo'
-        ParentColor = False
-        ParentFont = False
-      end
-      object ToggleBox1: TToggleBox
-        Left = 6
-        Height = 23
-        Top = 591
-        Width = 150
-        Caption = 'Desativar Filtro'
-        TabOrder = 11
-      end
+    end
+    object ComboBoxSubclasse: TComboBox
+      Left = 14
+      Height = 23
+      Top = 184
+      Width = 140
+      ItemHeight = 15
+      OnChange = ComboBoxSubclasseChange
+      Style = csDropDownList
+      TabOrder = 1
+    end
+    object ComboBoxGrupo: TComboBox
+      Left = 14
+      Height = 23
+      Top = 248
+      Width = 140
+      ItemHeight = 15
+      OnChange = ComboBoxGrupoChange
+      Style = csDropDownList
+      TabOrder = 2
+    end
+    object ComboBoxSubgrupo: TComboBox
+      Left = 14
+      Height = 23
+      Top = 312
+      Width = 140
+      ItemHeight = 15
+      OnChange = ComboBoxSubgrupoChange
+      Style = csDropDownList
+      TabOrder = 3
+    end
+    object ComboBoxDureza_min: TComboBox
+      Left = 14
+      Height = 23
+      Top = 386
+      Width = 62
+      ItemHeight = 15
+      ItemIndex = 0
+      Items.Strings = (
+        '0'
+        '1'
+        '1.5'
+        '2'
+        '2.5'
+        '3'
+        '3.5'
+        '4'
+        '4.5'
+        '5'
+        '5.5'
+        '6'
+        '6.5'
+        '7'
+        '7.5'
+        '8'
+        '8.5'
+        '9'
+      )
+      OnChange = ComboBoxDureza_minChange
+      Style = csDropDownList
+      TabOrder = 4
+      Text = '0'
+    end
+    object ComboBoxDureza_max: TComboBox
+      Left = 84
+      Height = 23
+      Top = 386
+      Width = 70
+      ItemHeight = 15
+      ItemIndex = 17
+      Items.Strings = (
+        '1.5'
+        '2'
+        '2.5'
+        '3'
+        '3.5'
+        '4'
+        '4.5'
+        '5'
+        '5.5'
+        '6'
+        '6.5'
+        '7'
+        '7.5'
+        '8'
+        '8.5'
+        '9'
+        '9.5'
+        '10'
+      )
+      OnChange = ComboBoxDureza_maxChange
+      Style = csDropDownList
+      TabOrder = 5
+      Text = '10'
+    end
+    object EditDensidade_min: TEdit
+      Left = 14
+      Height = 23
+      Top = 466
+      Width = 62
+      OnEditingDone = EditDensidade_minEditingDone
+      TabOrder = 6
+      Text = '0.0'
+    end
+    object EditDensidade_Max: TEdit
+      Left = 84
+      Height = 23
+      Top = 466
+      Width = 70
+      OnEditingDone = EditDensidade_MaxEditingDone
+      TabOrder = 7
+      Text = '25.0'
+    end
+    object EditNome: TEdit
+      Left = 14
+      Height = 23
+      Top = 56
+      Width = 140
+      OnEditingDone = EditNomeEditingDone
+      TabOrder = 8
+    end
+    object EditOcorrencia: TEdit
+      Left = 14
+      Height = 23
+      Top = 528
+      Width = 140
+      OnEditingDone = EditOcorrenciaEditingDone
+      TabOrder = 9
+    end
+    object EditAssociacao: TEdit
+      Left = 14
+      Height = 23
+      Top = 584
+      Width = 140
+      OnEditingDone = EditAssociacaoEditingDone
+      TabOrder = 10
+    end
+    object Label33: TLabel
+      Left = 14
+      Height = 16
+      Top = 370
+      Width = 43
+      Caption = 'mínimo'
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label34: TLabel
+      Left = 84
+      Height = 16
+      Top = 369
+      Width = 44
+      Caption = 'máximo'
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label35: TLabel
+      Left = 14
+      Height = 16
+      Top = 450
+      Width = 43
+      Caption = 'mínimo'
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label36: TLabel
+      Left = 84
+      Height = 16
+      Top = 449
+      Width = 44
+      Caption = 'máximo'
+      ParentColor = False
+      ParentFont = False
+    end
+    object BGRALabelNome: TBGRALabel
+      Left = 14
+      Height = 33
+      Top = 27
+      Width = 123
+      AutoSize = False
+      Background.Color = clBtnFace
+      Background.Gradient1.StartColor = 15722194
+      Background.Gradient1.EndColor = 13137169
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient2.StartColor = 13137169
+      Background.Gradient2.EndColor = 15722194
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient1EndPercent = 35
+      Background.LightWidth = 0
+      Background.LightOpacity = 64
+      Caption = 'Nome'
+      ParentColor = False
+      TextShadowColorOpacity = 255
+      GlobalOpacity = 255
+      TextApplyGlobalOpacity = False
+      Font.Color = clNone
+    end
+    object BGRALabelClasse: TBGRALabel
+      Left = 14
+      Height = 33
+      Top = 96
+      Width = 123
+      AutoSize = False
+      Background.Color = clBtnFace
+      Background.Gradient1.StartColor = 15722194
+      Background.Gradient1.EndColor = 13137169
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient2.StartColor = 13137169
+      Background.Gradient2.EndColor = 15722194
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient1EndPercent = 35
+      Background.LightWidth = 0
+      Background.LightOpacity = 64
+      Caption = 'Classe'
+      ParentColor = False
+      TextShadowColorOpacity = 255
+      GlobalOpacity = 255
+      TextApplyGlobalOpacity = False
+      Font.Color = clNone
+    end
+    object BGRALabelSubclasse: TBGRALabel
+      Left = 14
+      Height = 33
+      Top = 160
+      Width = 123
+      AutoSize = False
+      Background.Color = clBtnFace
+      Background.Gradient1.StartColor = 15722194
+      Background.Gradient1.EndColor = 13137169
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient2.StartColor = 13137169
+      Background.Gradient2.EndColor = 15722194
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient1EndPercent = 35
+      Background.LightWidth = 0
+      Background.LightOpacity = 64
+      Caption = 'Subclasse'
+      ParentColor = False
+      TextShadowColorOpacity = 255
+      GlobalOpacity = 255
+      TextApplyGlobalOpacity = False
+      Font.Color = clNone
+    end
+    object BGRALabelGrupo: TBGRALabel
+      Left = 14
+      Height = 33
+      Top = 224
+      Width = 123
+      AutoSize = False
+      Background.Color = clBtnFace
+      Background.Gradient1.StartColor = 15722194
+      Background.Gradient1.EndColor = 13137169
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient2.StartColor = 13137169
+      Background.Gradient2.EndColor = 15722194
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient1EndPercent = 35
+      Background.LightWidth = 0
+      Background.LightOpacity = 64
+      Caption = 'Grupo'
+      ParentColor = False
+      TextShadowColorOpacity = 255
+      GlobalOpacity = 255
+      TextApplyGlobalOpacity = False
+      Font.Color = clNone
+    end
+    object BGRALabelSubgrupo: TBGRALabel
+      Left = 14
+      Height = 33
+      Top = 288
+      Width = 123
+      AutoSize = False
+      Background.Color = clBtnFace
+      Background.Gradient1.StartColor = 15722194
+      Background.Gradient1.EndColor = 13137169
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient2.StartColor = 13137169
+      Background.Gradient2.EndColor = 15722194
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient1EndPercent = 35
+      Background.LightWidth = 0
+      Background.LightOpacity = 64
+      Caption = 'Subgrupo'
+      ParentColor = False
+      TextShadowColorOpacity = 255
+      GlobalOpacity = 255
+      TextApplyGlobalOpacity = False
+      Font.Color = clNone
+    end
+    object BGRALabelDureza: TBGRALabel
+      Left = 14
+      Height = 33
+      Top = 344
+      Width = 123
+      AutoSize = False
+      Background.Color = clBtnFace
+      Background.Gradient1.StartColor = 15722194
+      Background.Gradient1.EndColor = 13137169
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient2.StartColor = 13137169
+      Background.Gradient2.EndColor = 15722194
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient1EndPercent = 35
+      Background.LightWidth = 0
+      Background.LightOpacity = 64
+      Caption = 'Dureza'
+      ParentColor = False
+      TextShadowColorOpacity = 255
+      GlobalOpacity = 255
+      TextApplyGlobalOpacity = False
+      Font.Color = clNone
+    end
+    object BGRALabelDensidade: TBGRALabel
+      Left = 14
+      Height = 33
+      Top = 424
+      Width = 123
+      AutoSize = False
+      Background.Color = clBtnFace
+      Background.Gradient1.StartColor = 15722194
+      Background.Gradient1.EndColor = 13137169
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient2.StartColor = 13137169
+      Background.Gradient2.EndColor = 15722194
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient1EndPercent = 35
+      Background.LightWidth = 0
+      Background.LightOpacity = 64
+      Caption = 'Densidade'
+      ParentColor = False
+      TextShadowColorOpacity = 255
+      GlobalOpacity = 255
+      TextApplyGlobalOpacity = False
+      Font.Color = clNone
+    end
+    object BGRALabelOcorrencia: TBGRALabel
+      Left = 14
+      Height = 33
+      Top = 504
+      Width = 123
+      AutoSize = False
+      Background.Color = clBtnFace
+      Background.Gradient1.StartColor = 15722194
+      Background.Gradient1.EndColor = 13137169
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient2.StartColor = 13137169
+      Background.Gradient2.EndColor = 15722194
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient1EndPercent = 35
+      Background.LightWidth = 0
+      Background.LightOpacity = 64
+      Caption = 'Ocorrência'
+      ParentColor = False
+      TextShadowColorOpacity = 255
+      GlobalOpacity = 255
+      TextApplyGlobalOpacity = False
+      Font.Color = clNone
+    end
+    object BGRALabelAsociacao: TBGRALabel
+      Left = 14
+      Height = 33
+      Top = 560
+      Width = 123
+      AutoSize = False
+      Background.Color = clBtnFace
+      Background.Gradient1.StartColor = 15722194
+      Background.Gradient1.EndColor = 13137169
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient2.StartColor = 13137169
+      Background.Gradient2.EndColor = 15722194
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient1EndPercent = 35
+      Background.LightWidth = 0
+      Background.LightOpacity = 64
+      Caption = 'Associação'
+      ParentColor = False
+      TextShadowColorOpacity = 255
+      GlobalOpacity = 255
+      TextApplyGlobalOpacity = False
+      Font.Color = clNone
     end
   end
   object PanelFicha: TPanel
     Left = 510
     Height = 647
     Top = 0
-    Width = 494
+    Width = 497
     Align = alClient
+    Anchors = [akTop, akRight, akBottom]
+    BevelOuter = bvNone
     ClientHeight = 647
-    ClientWidth = 494
+    ClientWidth = 497
     TabOrder = 2
     object PageControlFicha: TPageControl
-      Left = 1
-      Height = 645
-      Top = 1
-      Width = 492
+      Left = 0
+      Height = 647
+      Top = 0
+      Width = 497
       ActivePage = TabSheetInf_Gerais
       Align = alClient
       TabIndex = 0
       TabOrder = 0
       object TabSheetInf_Gerais: TTabSheet
         Caption = 'Informações Gerais'
-        ClientHeight = 617
-        ClientWidth = 484
+        ClientHeight = 619
+        ClientWidth = 489
         object GroupBoxInf_Gerais: TGroupBox
           Left = 0
-          Height = 617
+          Height = 619
           Top = 0
-          Width = 484
+          Width = 489
           Align = alClient
-          ClientHeight = 599
-          ClientWidth = 480
+          ClientHeight = 601
+          ClientWidth = 485
           TabOrder = 0
-          OnClick = GroupBoxInf_GeraisClick
           object Label1: TLabel
             Left = 15
             Height = 16
@@ -340,7 +548,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 11
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'formula'
             DataSource = Dados.DatasourceGeral
@@ -352,7 +560,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 39
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'nome'
             DataSource = Dados.DatasourceGeral
@@ -445,7 +653,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 79
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'classe'
             DataSource = Dados.DatasourceGeral
@@ -457,7 +665,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 111
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'subclasse'
             DataSource = Dados.DatasourceGeral
@@ -469,7 +677,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 143
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'grupo'
             DataSource = Dados.DatasourceGeral
@@ -481,7 +689,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 175
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'subgrupo'
             DataSource = Dados.DatasourceGeral
@@ -493,7 +701,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 70
             Top = 215
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'ocorrencia'
             DataSource = Dados.DatasourceGeral
@@ -505,7 +713,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 70
             Top = 295
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'associacao'
             DataSource = Dados.DatasourceGeral
@@ -517,7 +725,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 70
             Top = 375
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'distincao'
             DataSource = Dados.DatasourceGeral
@@ -529,7 +737,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 70
             Top = 455
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'alteracao'
             DataSource = Dados.DatasourceGeral
@@ -541,7 +749,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 70
             Top = 535
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'aplicacao'
             DataSource = Dados.DatasourceGeral
@@ -553,7 +761,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 11
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             Font.Height = -12
             HideSelection = False
@@ -561,21 +769,22 @@ object FormPrincipal: TFormPrincipal
             ParentFont = False
             ReadOnly = True
             TabOrder = 11
+            WantReturns = False
           end
         end
       end
       object TabSheetProp_Fisicas: TTabSheet
         Caption = 'Propriedades Físicas'
-        ClientHeight = 617
-        ClientWidth = 484
+        ClientHeight = 619
+        ClientWidth = 489
         object GroupBoxProp_Fisicas: TGroupBox
           Left = 0
-          Height = 617
+          Height = 619
           Top = 0
-          Width = 484
+          Width = 489
           Align = alClient
-          ClientHeight = 599
-          ClientWidth = 480
+          ClientHeight = 601
+          ClientWidth = 485
           TabOrder = 0
           object EditDureza: TEdit
             Left = 125
@@ -691,7 +900,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 60
             Top = 159
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'cor'
             DataSource = Dados.DatasourceGeral
@@ -703,7 +912,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 60
             Top = 231
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'traco'
             DataSource = Dados.DatasourceGeral
@@ -715,7 +924,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 60
             Top = 303
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'brilho'
             DataSource = Dados.DatasourceGeral
@@ -727,7 +936,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 60
             Top = 375
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'clivagem'
             DataSource = Dados.DatasourceGeral
@@ -739,7 +948,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 60
             Top = 447
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'fratura'
             DataSource = Dados.DatasourceGeral
@@ -751,7 +960,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 519
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'magnetismo'
             DataSource = Dados.DatasourceGeral
@@ -763,7 +972,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 559
-            Width = 340
+            Width = 345
             Anchors = [akTop, akLeft, akRight]
             DataField = 'luminescencia'
             DataSource = Dados.DatasourceGeral
@@ -847,16 +1056,16 @@ object FormPrincipal: TFormPrincipal
       end
       object TabSheetOticas: TTabSheet
         Caption = 'Propriedades Óticas'
-        ClientHeight = 617
-        ClientWidth = 484
+        ClientHeight = 619
+        ClientWidth = 489
         object GroupBoxOpticas: TGroupBox
           Left = 0
-          Height = 617
+          Height = 619
           Top = 0
-          Width = 484
+          Width = 489
           Align = alClient
-          ClientHeight = 599
-          ClientWidth = 480
+          ClientHeight = 601
+          ClientWidth = 485
           TabOrder = 0
           object Label23: TLabel
             Left = 15
@@ -870,7 +1079,7 @@ object FormPrincipal: TFormPrincipal
             Left = 160
             Height = 45
             Top = 23
-            Width = 310
+            Width = 315
             Anchors = [akTop, akLeft, akRight]
             DataField = 'difaneidade'
             DataSource = Dados.DatasourceGeral
@@ -882,7 +1091,7 @@ object FormPrincipal: TFormPrincipal
             Left = 160
             Height = 45
             Top = 79
-            Width = 310
+            Width = 315
             Anchors = [akTop, akLeft, akRight]
             DataField = 'Sinal_optico'
             DataSource = Dados.DatasourceGeral
@@ -894,7 +1103,7 @@ object FormPrincipal: TFormPrincipal
             Left = 160
             Height = 45
             Top = 135
-            Width = 310
+            Width = 315
             Anchors = [akTop, akLeft, akRight]
             DataField = 'indice_refracao'
             DataSource = Dados.DatasourceGeral
@@ -906,7 +1115,7 @@ object FormPrincipal: TFormPrincipal
             Left = 160
             Height = 45
             Top = 191
-            Width = 310
+            Width = 315
             Anchors = [akTop, akLeft, akRight]
             DataField = 'angulo'
             DataSource = Dados.DatasourceGeral
@@ -918,7 +1127,7 @@ object FormPrincipal: TFormPrincipal
             Left = 160
             Height = 45
             Top = 247
-            Width = 310
+            Width = 315
             Anchors = [akTop, akLeft, akRight]
             DataField = 'cor_interferencia'
             DataSource = Dados.DatasourceGeral
@@ -930,7 +1139,7 @@ object FormPrincipal: TFormPrincipal
             Left = 160
             Height = 45
             Top = 359
-            Width = 310
+            Width = 315
             Anchors = [akTop, akLeft, akRight]
             DataField = 'sinal_elongacao'
             DataSource = Dados.DatasourceGeral
@@ -942,7 +1151,7 @@ object FormPrincipal: TFormPrincipal
             Left = 160
             Height = 45
             Top = 415
-            Width = 310
+            Width = 315
             Anchors = [akTop, akLeft, akRight]
             DataField = 'birrefringencia'
             DataSource = Dados.DatasourceGeral
@@ -954,7 +1163,7 @@ object FormPrincipal: TFormPrincipal
             Left = 160
             Height = 45
             Top = 471
-            Width = 310
+            Width = 315
             Anchors = [akTop, akLeft, akRight]
             DataField = 'relevo'
             DataSource = Dados.DatasourceGeral
@@ -966,7 +1175,7 @@ object FormPrincipal: TFormPrincipal
             Left = 160
             Height = 45
             Top = 527
-            Width = 310
+            Width = 315
             Anchors = [akTop, akLeft, akRight]
             DataField = 'extincao'
             DataSource = Dados.DatasourceGeral
@@ -1050,7 +1259,7 @@ object FormPrincipal: TFormPrincipal
             Left = 160
             Height = 45
             Top = 303
-            Width = 310
+            Width = 315
             Anchors = [akTop, akLeft, akRight]
             DataField = 'cor_lamina'
             DataSource = Dados.DatasourceGeral
@@ -1062,16 +1271,16 @@ object FormPrincipal: TFormPrincipal
       end
       object TabSheetCristalografia: TTabSheet
         Caption = 'Cristalografia'
-        ClientHeight = 617
-        ClientWidth = 484
+        ClientHeight = 619
+        ClientWidth = 489
         object GroupBox1: TGroupBox
           Left = 0
-          Height = 617
+          Height = 619
           Top = 0
-          Width = 484
+          Width = 489
           Align = alClient
-          ClientHeight = 599
-          ClientWidth = 480
+          ClientHeight = 601
+          ClientWidth = 485
           TabOrder = 0
           object GroupBoxCristalografia1: TGroupBox
             Left = 15
@@ -1096,16 +1305,16 @@ object FormPrincipal: TFormPrincipal
             Left = 3
             Height = 264
             Top = 295
-            Width = 475
+            Width = 480
             Anchors = [akTop, akLeft, akRight]
             ClientHeight = 246
-            ClientWidth = 471
+            ClientWidth = 476
             TabOrder = 1
             object DBMemoSistema: TDBMemo
               Left = 125
               Height = 27
               Top = 24
-              Width = 340
+              Width = 345
               Anchors = [akTop, akLeft, akRight]
               DataField = 'sistema'
               DataSource = Dados.DatasourceGeral
@@ -1117,7 +1326,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 64
-              Width = 340
+              Width = 345
               Anchors = [akTop, akLeft, akRight]
               DataField = 'classe_cristalina'
               DataSource = Dados.DatasourceGeral
@@ -1129,7 +1338,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 104
-              Width = 340
+              Width = 345
               Anchors = [akTop, akLeft, akRight]
               DataField = 'h_m'
               DataSource = Dados.DatasourceGeral
@@ -1141,7 +1350,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 78
               Top = 146
-              Width = 340
+              Width = 345
               Anchors = [akTop, akLeft, akRight]
               DataField = 'habito'
               DataSource = Dados.DatasourceGeral
@@ -1205,22 +1414,22 @@ object FormPrincipal: TFormPrincipal
       end
       object TabSheetImagem: TTabSheet
         Caption = 'Imagem'
-        ClientHeight = 617
-        ClientWidth = 484
+        ClientHeight = 619
+        ClientWidth = 489
         object GroupBoxImagemAmpliada: TGroupBox
           Left = 0
-          Height = 575
+          Height = 577
           Top = 0
-          Width = 484
+          Width = 489
           Align = alClient
-          ClientHeight = 557
-          ClientWidth = 480
+          ClientHeight = 559
+          ClientWidth = 485
           TabOrder = 0
           object ImageAmpliada: TImage
             Left = 0
-            Height = 557
+            Height = 559
             Top = 0
-            Width = 480
+            Width = 485
             Align = alClient
             Proportional = True
           end
@@ -1228,11 +1437,11 @@ object FormPrincipal: TFormPrincipal
         object PanelImagem: TPanel
           Left = 0
           Height = 42
-          Top = 575
-          Width = 484
+          Top = 577
+          Width = 489
           Align = alBottom
           ClientHeight = 42
-          ClientWidth = 484
+          ClientWidth = 489
           TabOrder = 1
           object BitBtnAdImagem: TBitBtn
             Left = 37
@@ -1262,6 +1471,7 @@ object FormPrincipal: TFormPrincipal
     Top = 0
     Width = 170
     Align = alLeft
+    BevelOuter = bvNone
     ClientHeight = 647
     ClientWidth = 170
     TabOrder = 3
@@ -1386,7 +1596,7 @@ object FormPrincipal: TFormPrincipal
     Left = 0
     Height = 23
     Top = 647
-    Width = 1004
+    Width = 1007
     Panels = <    
       item
         Width = 510
@@ -1413,6 +1623,14 @@ object FormPrincipal: TFormPrincipal
       object MenuItem1: TMenuItem
         Caption = 'Sai&r'
         OnClick = MenuItem1Click
+      end
+    end
+    object MenuItemExibir: TMenuItem
+      Caption = 'Exibir'
+      object MenuItemFiltro: TMenuItem
+        Caption = 'Filtro'
+        RadioItem = True
+        OnClick = MenuItemFiltroClick
       end
     end
     object MenuItemEditar: TMenuItem
@@ -1450,12 +1668,14 @@ object FormPrincipal: TFormPrincipal
       object MenuItemFonte: TMenuItem
         Caption = 'Fonte'
         object MenuItemNormal: TMenuItem
+          AutoCheck = True
           Caption = 'Normal'
           Checked = True
           RadioItem = True
           OnClick = MenuItemNormalClick
         end
         object MenuItemGrande: TMenuItem
+          AutoCheck = True
           Caption = 'Grande'
           RadioItem = True
           OnClick = MenuItemNormalClick
@@ -1485,14 +1705,17 @@ object FormPrincipal: TFormPrincipal
   object PopupMenuListbox: TPopupMenu
     left = 144
     top = 608
-    object MenuItem2: TMenuItem
+    object MenuItemAdicionar: TMenuItem
       Caption = 'Adicionar Mineral'
+      OnClick = MenuItemAdicionarClick
     end
-    object MenuItem3: TMenuItem
-      Caption = 'Remover Espécie Selecionada da Lista'
+    object MenuItemRetira: TMenuItem
+      Caption = 'Remover Espécie Selecionada'
+      OnClick = MenuItemRetiraClick
     end
-    object MenuItem4: TMenuItem
+    object MenuItemExclui: TMenuItem
       Caption = 'Excluir Mineral'
+      OnClick = MenuItemExcluiClick
     end
   end
 end

@@ -39,7 +39,6 @@ implementation
 {$R *.lfm}
 uses udatamodule; //coloca do apos o proc formshow usar o filename do dataset
 { TFormBibliografia }
-
 procedure TFormBibliografia.BitBtnSairClick(Sender: TObject);
 begin
   FormBibliografia.Close;

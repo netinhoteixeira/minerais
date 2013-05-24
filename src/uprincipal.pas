@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   StdCtrls, ExtCtrls, ComCtrls, DbCtrls, ExtDlgs, Buttons, BGRAPanel,
-  BGRAButton, RichMemo, uFormImpressao, uSelecionaBD, SQLite3mod,
+  BGRAButton, BGRALabel, RichMemo, uFormImpressao, uSelecionaBD, SQLite3mod,
   SQLite3tablemod, uBibliografia, UnitAjuda;
 
 type
@@ -15,10 +15,23 @@ type
   { TFormPrincipal }
 
   TFormPrincipal = class(TForm)
-    BGRAPanel1: TBGRAPanel;
-    BGRAPanel2: TBGRAPanel;
+    BGRALabelNome: TBGRALabel;
+    BGRALabelClasse: TBGRALabel;
+    BGRALabelSubclasse: TBGRALabel;
+    BGRALabelGrupo: TBGRALabel;
+    BGRALabelSubgrupo: TBGRALabel;
+    BGRALabelDureza: TBGRALabel;
+    BGRALabelDensidade: TBGRALabel;
+    BGRALabelOcorrencia: TBGRALabel;
+    BGRALabelAsociacao: TBGRALabel;
     BitBtnAdImagem: TBitBtn;
     BitBtnRemImagem: TBitBtn;
+    ComboBoxClasse: TComboBox;
+    ComboBoxDureza_max: TComboBox;
+    ComboBoxDureza_min: TComboBox;
+    ComboBoxGrupo: TComboBox;
+    ComboBoxSubclasse: TComboBox;
+    ComboBoxSubgrupo: TComboBox;
     DBEditDureza_Min: TDBEdit;
     DBEditDureza_Max: TDBEdit;
     DBEditDensidade_Min: TDBEdit;
@@ -44,10 +57,13 @@ type
     DBMemoTraco: TDBMemo;
     DBMemoBrilho: TDBMemo;
     DBMemoClivagem: TDBMemo;
+    EditAssociacao: TEdit;
+    EditDensidade_Max: TEdit;
+    EditDensidade_min: TEdit;
     EditDureza: TEdit;
     EditDensidade: TEdit;
+    EditNome: TEdit;
     EditOcorrencia: TEdit;
-    EditAssociacao: TEdit;
     GroupBox1: TGroupBox;
     GroupBoxCristalografia2: TGroupBox;
     GroupBoxImagem2: TGroupBox;
@@ -99,9 +115,12 @@ type
     Label37: TLabel;
     Label38: TLabel;
     Label39: TLabel;
-    MenuItem2: TMenuItem;
-    MenuItem3: TMenuItem;
-    MenuItem4: TMenuItem;
+    ListBoxMinerais: TListBox;
+    MenuItemAdicionar: TMenuItem;
+    MenuItemFiltro: TMenuItem;
+    MenuItemExibir: TMenuItem;
+    MenuItemRetira: TMenuItem;
+    MenuItemExclui: TMenuItem;
     MenuItemAjuda: TMenuItem;
     MenuItemNormal: TMenuItem;
     MenuItemGrande: TMenuItem;
@@ -112,12 +131,6 @@ type
     BGRAPanelImagens: TBGRAPanel;
     BGRAPanelFiltro: TBGRAPanel;
     BGRAPanelListbox: TBGRAPanel;
-    ComboBoxDureza_max: TComboBox;
-    ComboBoxDureza_min: TComboBox;
-    ComboBoxClasse: TComboBox;
-    ComboBoxSubclasse: TComboBox;
-    ComboBoxGrupo: TComboBox;
-    ComboBoxSubgrupo: TComboBox;
     DBMemoClasse: TDBMemo;
     DBMemoSubclasse: TDBMemo;
     DBMemoGrupo: TDBMemo;
@@ -129,11 +142,6 @@ type
     DBMemoAplicacao: TDBMemo;
     DBMemoNome: TDBMemo;
     DBMemoFormula: TDBMemo;
-    EditNome: TEdit;
-    EditDensidade_min: TEdit;
-    EditDensidade_Max: TEdit;
-    GroupBoxFiltro: TGroupBox;
-    GroupBoxLista: TGroupBox;
     GroupBoxInf_Gerais: TGroupBox;
     Label1: TLabel;
     Label10: TLabel;
@@ -146,7 +154,6 @@ type
     Label8: TLabel;
     Label9: TLabel;
     LabelNome: TLabel;
-    ListBoxMinerais: TListBox;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItemBD: TMenuItem;
@@ -171,7 +178,6 @@ type
     TabSheetProp_Fisicas: TTabSheet;
     TabSheetOticas: TTabSheet;
     Timer1: TTimer;
-    ToggleBox1: TToggleBox;
     procedure BitBtnAdImagemClick(Sender: TObject);
     procedure BitBtnFiltrarClick(Sender: TObject);
     procedure BitBtnRemImagemClick(Sender: TObject);
@@ -200,7 +206,6 @@ type
     procedure EditOcorrenciaEditingDone(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
-    procedure GroupBoxInf_GeraisClick(Sender: TObject);
     procedure Image1Click(Sender: TObject);
     procedure Image1DblClick(Sender: TObject);
     procedure Image2Click(Sender: TObject);
@@ -218,6 +223,10 @@ type
     procedure ListBoxMineraisClick(Sender: TObject);
     procedure ListBoxMineraisDblClick(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
+    procedure MenuItemAdicionarClick(Sender: TObject);
+    procedure MenuItemExcluiClick(Sender: TObject);
+    procedure MenuItemFiltroClick(Sender: TObject);
+    procedure MenuItemRetiraClick(Sender: TObject);
     procedure MenuItemAjudaClick(Sender: TObject);
     procedure MenuItemBibliografiaClick(Sender: TObject);
     procedure MenuItemDurezaClick(Sender: TObject);
@@ -249,6 +258,9 @@ type
     procedure SelecionaImagem(num:char);
     procedure ProcuraMineral;
     procedure MemoryStreamParaImagem;
+    procedure AdicionaMineral;
+    procedure RetiraDaLista;
+    procedure ExcluiMineral;
     { private declarations }
   public
     { public declarations }
@@ -571,11 +583,6 @@ begin
   openpicturedialog1.Filter:=lista_formatos;
 end;
 
-procedure TFormPrincipal.GroupBoxInf_GeraisClick(Sender: TObject);
-begin
-
-end;
-
 procedure TFormPrincipal.Timer1Timer(Sender: TObject);
 begin
   if (FormSelecionaBD.Visible = False) then
@@ -600,17 +607,45 @@ begin
    ProcuraMineral;
 end;
 
-procedure TFormPrincipal.ListBoxMineraisDblClick(Sender: TObject);
+procedure TFormPrincipal.RetiraDaLista;
 begin
-  if (ListBoxMinerais.GetSelectedText <> EmptyStr) then
+     if (ListBoxMinerais.GetSelectedText <> EmptyStr) then
   begin
      ListBoxMinerais.Items.Delete(ListBoxMinerais.ItemIndex);
   end;
 end;
 
+procedure TFormPrincipal.ListBoxMineraisDblClick(Sender: TObject);
+begin
+     RetiraDaLista;
+end;
+
+procedure TFormPrincipal.MenuItemRetiraClick(Sender: TObject);
+begin
+     RetiraDaLista;
+end;
+
 procedure TFormPrincipal.MenuItem1Click(Sender: TObject);
 begin
   Application.Terminate;
+end;
+
+procedure TFormPrincipal.MenuItemAdicionarClick(Sender: TObject);
+begin
+     AdicionaMineral;
+end;
+
+procedure TFormPrincipal.MenuItemExcluiClick(Sender: TObject);
+begin
+     ExcluiMineral;
+end;
+
+procedure TFormPrincipal.MenuItemFiltroClick(Sender: TObject);
+begin
+  if BGRAPanelFiltro.Visible then
+  BGRAPanelFiltro.Visible:=False
+  else
+  BGRAPanelFiltro.Visible:=True
 end;
 
 procedure TFormPrincipal.MenuItemAjudaClick(Sender: TObject);
@@ -638,7 +673,7 @@ begin
   Preenche_Lista;
 end;
 
-procedure TFormPrincipal.MenuItemExcluirClick(Sender: TObject);
+procedure TFormPrincipal.ExcluiMineral;
 var nome_exclusao:string; //esta var pode ser eliminada
 begin
   if (ListboxMinerais.GetSelectedText = emptystr) then
@@ -655,7 +690,7 @@ begin
       dados.SQLite3DatasetGeral.Next;
      until (dados.SQLite3DatasetGeral.FieldByName('nome').AsString = nome_exclusao);
   end;
-  // fazer form de exclusão     08/12
+  // fazer form de exclusão
   if (QuestionDlg('Confirmação', 'Deseja realmente remover "' + UpCase(nome_exclusao) + '"?',
        mtConfirmation, [mrNo, mrYes], 0) = mrYes) then
     begin
@@ -666,6 +701,11 @@ begin
       Barra_Status;
     end;
   end;
+end;
+
+procedure TFormPrincipal.MenuItemExcluirClick(Sender: TObject);
+begin
+  ExcluiMineral;
 end;
 
 procedure TFormPrincipal.MenuItemImprimirClick(Sender: TObject);
@@ -679,23 +719,21 @@ procedure TFormPrincipal.MenuItemImprimirClick(Sender: TObject);
           end;
 var i: Integer;
 begin
+  if (ListboxMinerais.Items.Count -1) > 0 then
+  begin
      Dados.Sqlite3DatasetPrinter.SQL:='SELECT * FROM minerais WHERE(';
      for i:=(ListBoxMinerais.Items.Count-1)  DownTo 0 do
      begin
      Dados.Sqlite3DatasetPrinter.SQL:=
      Dados.Sqlite3DatasetPrinter.SQL+strNome(i);
      end;
-     FormImpressao.Show;
+  end;
+  FormImpressao.Show;
 end;
 
 procedure TFormPrincipal.MenuItemModoEdicaoClick(Sender: TObject);
 begin
-   if (not dados.SQLite3DatasetGeral.Active) then
-  begin
-     {dados.SQLite3DatasetGeral.Open();
-     dados.SQLite3DatasetGeral.clearfields;}
-  end
-  else
+  if (dados.SQLite3DatasetGeral.Active) then
   dados.SQLite3DatasetGeral.applyupdates();
 
   if (MenuItemModoEdicao.checked) then
@@ -804,38 +842,36 @@ end;
 
 procedure TFormPrincipal.MenuItemNormalClick(Sender: TObject);
 begin
-  if (MenuItemNormal.Checked) then
+  if (MenuItemNormal.Checked = true) then
   Begin
-       //MenuItemNormal.Checked:=False;
-       //MenuItemGrande.Checked:=True;
+       MenuItemNormal.Checked:=False;
+       MenuItemGrande.Checked:=True;
        PanelFicha.Font.Size:=Grande;
        GroupBoxInf_Gerais.Font.Size:=grande;
        GroupBoxProp_Fisicas.Font.Size:=grande;
        GroupBoxOpticas.Font.Size:=grande;
        GroupBoxCristalografia.Font.Size:=grande;
-       GroupBoxLista.Font.Size:=grande;
+       ListBoxMinerais.Font.Size:=grande;
   end
   else
   Begin
-       //MenuItemNormal.Checked:=True;
-      // MenuItemGrande.Checked:=False;
+       MenuItemNormal.Checked:=True;
+       MenuItemGrande.Checked:=False;
        PanelFicha.Font.Size:=Normal;
        GroupBoxInf_Gerais.Font.Size:=normal;
        GroupBoxProp_Fisicas.Font.Size:=normal;
        GroupBoxOpticas.Font.Size:=normal;
        GroupBoxCristalografia.Font.Size:=normal;
-       GroupBoxLista.Font.Size:=normal;
+       ListBoxMinerais.Font.Size:=normal;
   end;
       AtualizaRichMemo;
 end;
 
-procedure TFormPrincipal.MenuItemNovoClick(Sender: TObject);
+procedure TFormPrincipal.AdicionaMineral;
 var indice:integer;  SQL, SQL2: String;
 begin
-
   LimpaDD;
   LimpaRichMemo;
-
   if (EditNome.Text<>EmptyStr) then
   begin
        sltb:=sldb.GetTable('SELECT nome FROM minerais WHERE (nome = "'+EditNome.Text+'");');
@@ -888,6 +924,11 @@ begin
   barra_status;
 end;
 
+procedure TFormPrincipal.MenuItemNovoClick(Sender: TObject);
+begin
+     AdicionaMineral;
+end;
+
 procedure TFormPrincipal.MenuItemSelecionaBDClick(Sender: TObject);
 begin
      FormSelecionaBD.Show;
@@ -897,7 +938,9 @@ end;
 procedure TFormPrincipal.preenche_lista;
 begin
    limparichmemo;
+   ListboxMinerais.Visible:=False;
    ListboxMinerais.clear();
+   PanelFicha.Visible:=False;
    limpaDD;
    if (Dados.SQLite3DatasetGeral.Active) then Dados.SQLite3DatasetGeral.Close();
 
@@ -932,7 +975,7 @@ Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (grupo = "'+Combobo
 Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (grupo = "'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
                   end
                   else
-                  begin     //combobox grupo e subgrupo   4
+                  begin     //combobox BGRALabelGrupo e subgrupo   4
                        if (MenuItemDureza.Checked) then
 Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (grupo = "'+ComboboxGrupo.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
                        else
@@ -962,14 +1005,14 @@ Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subclasse = "'+Com
              else
              begin
                   if (ComboboxSubgrupo.text = emptystr) then
-                  begin   //combobox subclasse e grupo   7
+                  begin   //combobox subclasse e BGRALabelGrupo   7
                       if (MenuItemDureza.Checked) then
 Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subclasse = "'+ComboboxSubclasse.text+'" and grupo ="'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
                       else
 Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subclasse = "'+ComboboxSubclasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
                   end
                   else
-                  begin   //subclasse grupo subgrupo      8
+                  begin   //subclasse BGRALabelGrupo subgrupo      8
                        if (MenuItemDureza.checked) then
 Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subclasse = "'+ComboboxSubclasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
                   else
@@ -1008,7 +1051,7 @@ Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+Combob
                      else
 Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
                 end
-                else    //classe grupo subgrupo     12
+                else    //classe BGRALabelGrupo subgrupo     12
                 begin
                     if (MenuItemDureza.checked) then
 Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
@@ -1037,7 +1080,7 @@ Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+Combob
                  end;
             end
             else
-            begin   //classe subclasse grupo      15
+            begin   //classe subclasse BGRALabelGrupo      15
                 if (ComboboxSubgrupo.text = emptystr) then
                 begin
                     if (MenuItemDureza.checked) then
@@ -1045,7 +1088,7 @@ Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+Combob
                      else
 Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and subclasse = "'+ComboboxSubclasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
                 end
-                else    //classe subclasse grupo subgrupo    16
+                else    //classe subclasse BGRALabelGrupo subgrupo    16
                 begin
                     if (MenuItemDureza.checked) then
 Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and subclasse = "'+ComboboxSubclasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
@@ -1070,10 +1113,12 @@ Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+Combob
       ListboxMinerais.Items.add(Dados.SQLite3DatasetGeral.FieldByName('nome').AsString);    end;
     Dados.SQLite3DatasetGeral.Next();
    end;
+   PanelFicha.Visible:=True;
    Dados.SQLite3DatasetGeral.Close;
    Barra_status;
    AtualizaImagem;
    end;
+   ListboxMinerais.Visible:=True;
 end;
 
 procedure TFormPrincipal.Preenche_Classes;
