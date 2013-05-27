@@ -1,3 +1,5 @@
+
+{ This is the unit sqlite3table, with name modified for compatibility reasons}
 unit sqlite3tablemod;
 
 

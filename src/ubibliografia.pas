@@ -62,7 +62,7 @@ end;
 procedure TFormBibliografia.FormShow(Sender: TObject);
 var StrBD:String; i, Tamanho:Integer;  R:Boolean;
 begin
-  Memo1.Clear;    //mudar para o filename do dataset alterado o formato do arquivo(.s3db para .dat)
+  Memo1.Clear;
   //if filename *.s3db ou .sqlite, etc...
   Diretorio:=Copy(Dados.SQlite3DatasetGeral.filename, 0, length(Dados.SQlite3DatasetGeral.filename)-5)+'.dat';
   if (FileExists(Diretorio)) then                //a subtração acima vai depender do formato do banco de dados

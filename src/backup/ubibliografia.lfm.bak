@@ -1,7 +1,7 @@
 object FormBibliografia: TFormBibliografia
-  Left = 201
+  Left = 42
   Height = 339
-  Top = 164
+  Top = 80
   Width = 629
   Caption = 'Bibliografia'
   ClientHeight = 339
