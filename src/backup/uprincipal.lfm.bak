@@ -1499,6 +1499,7 @@ object FormPrincipal: TFormPrincipal
         Top = 0
         Width = 146
         Align = alClient
+        Center = True
         OnClick = Image1Click
         OnDblClick = Image1DblClick
         Proportional = True
@@ -1521,6 +1522,7 @@ object FormPrincipal: TFormPrincipal
         Top = 0
         Width = 146
         Align = alClient
+        Center = True
         OnClick = Image2Click
         OnDblClick = Image2DblClick
         Proportional = True
@@ -1543,6 +1545,7 @@ object FormPrincipal: TFormPrincipal
         Top = 0
         Width = 146
         Align = alClient
+        Center = True
         OnClick = Image3Click
         OnDblClick = Image3DblClick
         Proportional = True
@@ -1565,6 +1568,7 @@ object FormPrincipal: TFormPrincipal
         Top = 0
         Width = 146
         Align = alClient
+        Center = True
         OnClick = Image4Click
         OnDblClick = Image4DblClick
         Proportional = True
@@ -1587,6 +1591,7 @@ object FormPrincipal: TFormPrincipal
         Top = 0
         Width = 146
         Align = alClient
+        Center = True
         OnClick = Image5Click
         OnDblClick = Image5DblClick
         Proportional = True
