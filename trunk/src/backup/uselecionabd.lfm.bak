@@ -1,11 +1,11 @@
 object FormSelecionaBD: TFormSelecionaBD
-  Left = 354
-  Height = 286
-  Top = 203
-  Width = 487
+  Left = 95
+  Height = 238
+  Top = 178
+  Width = 609
   Caption = 'FormSelecionaBD'
-  ClientHeight = 266
-  ClientWidth = 487
+  ClientHeight = 218
+  ClientWidth = 609
   Menu = MainMenu1
   OnShow = FormShow
   PopupMode = pmExplicit
@@ -13,19 +13,19 @@ object FormSelecionaBD: TFormSelecionaBD
   LCLVersion = '0.9.30.4'
   object Panel1: TPanel
     Left = 0
-    Height = 243
+    Height = 195
     Top = 0
-    Width = 320
+    Width = 442
     Align = alClient
-    ClientHeight = 243
-    ClientWidth = 320
+    ClientHeight = 195
+    ClientWidth = 442
     TabOrder = 0
     object ListBoxSeleciona: TListBox
       Left = 1
-      Height = 241
+      Height = 193
       Hint = 'Duplo Clique Para Selecionar'
       Top = 1
-      Width = 318
+      Width = 440
       Align = alClient
       ItemHeight = 0
       OnDblClick = BitBtnSelecionarClick
@@ -33,47 +33,48 @@ object FormSelecionaBD: TFormSelecionaBD
     end
   end
   object Panel2: TPanel
-    Left = 320
-    Height = 243
+    Left = 442
+    Height = 195
     Top = 0
     Width = 167
     Align = alRight
-    ClientHeight = 243
+    ClientHeight = 195
     ClientWidth = 167
     TabOrder = 1
     object GroupBox1: TGroupBox
       Left = 1
-      Height = 241
+      Height = 193
       Top = 1
       Width = 165
       Align = alClient
-      ClientHeight = 223
+      ClientHeight = 175
       ClientWidth = 161
       TabOrder = 0
       object BitBtnPadrao: TBitBtn
         Left = 5
-        Height = 33
-        Top = 79
-        Width = 100
+        Height = 25
+        Top = 103
+        Width = 148
         Caption = 'Fixar como padrão'
         OnClick = BitBtnPadraoClick
         TabOrder = 0
       end
       object BitBtnSelecionar: TBitBtn
         Left = 5
-        Height = 30
-        Top = 127
-        Width = 100
+        Height = 25
+        Top = 143
+        Width = 150
         Caption = 'Selecionar'
         OnClick = BitBtnSelecionarClick
         TabOrder = 1
       end
       object BitBtn1: TBitBtn
-        Left = 5
-        Height = 30
-        Top = 183
-        Width = 93
+        Left = 4
+        Height = 25
+        Top = 63
+        Width = 149
         Caption = 'Procurar...'
+        OnClick = BitBtn1Click
         TabOrder = 2
       end
       object GroupBox2: TGroupBox
@@ -104,8 +105,8 @@ object FormSelecionaBD: TFormSelecionaBD
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
-    Top = 243
-    Width = 487
+    Top = 195
+    Width = 609
     Panels = <>
   end
   object MainMenu1: TMainMenu
@@ -118,5 +119,9 @@ object FormSelecionaBD: TFormSelecionaBD
         OnClick = MenuItemSairClick
       end
     end
+  end
+  object OpenDialog1: TOpenDialog
+    left = 256
+    top = 161
   end
 end

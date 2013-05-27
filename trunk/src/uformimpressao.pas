@@ -88,7 +88,6 @@ end;
 
 procedure TFormImpressao.BitBtn1Click(Sender: TObject);
 begin
-  if (MessageDLG('Confirmar', 'É nescessário conhecimentos avançados para modificar o formato do relatório, deseja continuar?', mtConfirmation, [mbYes, mbCancel],0) = mrYes) then
   Dados.frReport1.DesignReport;
 end;
 

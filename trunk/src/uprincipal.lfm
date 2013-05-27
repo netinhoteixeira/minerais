@@ -519,9 +519,9 @@ object FormPrincipal: TFormPrincipal
       Height = 647
       Top = 0
       Width = 497
-      ActivePage = TabSheetInf_Gerais
+      ActivePage = TabSheetImagem
       Align = alClient
-      TabIndex = 0
+      TabIndex = 4
       TabOrder = 0
       object TabSheetInf_Gerais: TTabSheet
         Caption = 'Informações Gerais'
@@ -1431,6 +1431,7 @@ object FormPrincipal: TFormPrincipal
             Top = 0
             Width = 485
             Align = alClient
+            Center = True
             Proportional = True
           end
         end
@@ -1498,6 +1499,7 @@ object FormPrincipal: TFormPrincipal
         Top = 0
         Width = 146
         Align = alClient
+        Center = True
         OnClick = Image1Click
         OnDblClick = Image1DblClick
         Proportional = True
@@ -1520,6 +1522,7 @@ object FormPrincipal: TFormPrincipal
         Top = 0
         Width = 146
         Align = alClient
+        Center = True
         OnClick = Image2Click
         OnDblClick = Image2DblClick
         Proportional = True
@@ -1542,6 +1545,7 @@ object FormPrincipal: TFormPrincipal
         Top = 0
         Width = 146
         Align = alClient
+        Center = True
         OnClick = Image3Click
         OnDblClick = Image3DblClick
         Proportional = True
@@ -1564,6 +1568,7 @@ object FormPrincipal: TFormPrincipal
         Top = 0
         Width = 146
         Align = alClient
+        Center = True
         OnClick = Image4Click
         OnDblClick = Image4DblClick
         Proportional = True
@@ -1586,6 +1591,7 @@ object FormPrincipal: TFormPrincipal
         Top = 0
         Width = 146
         Align = alClient
+        Center = True
         OnClick = Image5Click
         OnDblClick = Image5DblClick
         Proportional = True
