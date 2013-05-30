@@ -14,12 +14,12 @@ object FormPrincipal: TFormPrincipal
   LCLVersion = '0.9.30.4'
   object BGRAPanelListbox: TBGRAPanel
     Left = 0
-    Height = 647
+    Height = 627
     Top = 0
     Width = 170
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 647
+    ClientHeight = 627
     ClientWidth = 170
     TabOrder = 0
     Gradient.StartColor = 8677935
@@ -30,7 +30,7 @@ object FormPrincipal: TFormPrincipal
     Gradient.Point2YPercent = 100
     object ListBoxMinerais: TListBox
       Left = 8
-      Height = 600
+      Height = 580
       Top = 24
       Width = 152
       Anchors = [akTop, akLeft, akBottom]
@@ -44,12 +44,12 @@ object FormPrincipal: TFormPrincipal
   end
   object BGRAPanelFiltro: TBGRAPanel
     Left = 170
-    Height = 647
+    Height = 627
     Top = 0
     Width = 170
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 647
+    ClientHeight = 627
     ClientWidth = 170
     TabOrder = 1
     Visible = False
@@ -505,18 +505,18 @@ object FormPrincipal: TFormPrincipal
   end
   object PanelFicha: TPanel
     Left = 510
-    Height = 647
+    Height = 627
     Top = 0
     Width = 497
     Align = alClient
     Anchors = [akTop, akRight, akBottom]
     BevelOuter = bvNone
-    ClientHeight = 647
+    ClientHeight = 627
     ClientWidth = 497
     TabOrder = 2
     object PageControlFicha: TPageControl
       Left = 0
-      Height = 647
+      Height = 627
       Top = 0
       Width = 497
       ActivePage = TabSheetImagem
@@ -525,15 +525,15 @@ object FormPrincipal: TFormPrincipal
       TabOrder = 0
       object TabSheetInf_Gerais: TTabSheet
         Caption = 'Informações Gerais'
-        ClientHeight = 619
+        ClientHeight = 599
         ClientWidth = 489
         object GroupBoxInf_Gerais: TGroupBox
           Left = 0
-          Height = 619
+          Height = 599
           Top = 0
           Width = 489
           Align = alClient
-          ClientHeight = 601
+          ClientHeight = 581
           ClientWidth = 485
           TabOrder = 0
           object Label1: TLabel
@@ -1414,20 +1414,20 @@ object FormPrincipal: TFormPrincipal
       end
       object TabSheetImagem: TTabSheet
         Caption = 'Imagem'
-        ClientHeight = 619
+        ClientHeight = 599
         ClientWidth = 489
         object GroupBoxImagemAmpliada: TGroupBox
           Left = 0
-          Height = 577
+          Height = 557
           Top = 0
           Width = 489
           Align = alClient
-          ClientHeight = 559
+          ClientHeight = 539
           ClientWidth = 485
           TabOrder = 0
           object ImageAmpliada: TImage
             Left = 0
-            Height = 559
+            Height = 539
             Top = 0
             Width = 485
             Align = alClient
@@ -1438,7 +1438,7 @@ object FormPrincipal: TFormPrincipal
         object PanelImagem: TPanel
           Left = 0
           Height = 42
-          Top = 577
+          Top = 557
           Width = 489
           Align = alBottom
           ClientHeight = 42
@@ -1458,6 +1458,7 @@ object FormPrincipal: TFormPrincipal
             Height = 30
             Top = 5
             Width = 150
+            Anchors = [akTop, akRight]
             Caption = 'Remover Imagem'
             OnClick = BitBtnRemImagemClick
             TabOrder = 1
@@ -1468,12 +1469,12 @@ object FormPrincipal: TFormPrincipal
   end
   object BGRAPanelImagens: TBGRAPanel
     Left = 340
-    Height = 647
+    Height = 627
     Top = 0
     Width = 170
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 647
+    ClientHeight = 627
     ClientWidth = 170
     TabOrder = 3
     Gradient.StartColor = 8677935
@@ -1612,6 +1613,15 @@ object FormPrincipal: TFormPrincipal
         Width = 250
       end>
     SimplePanel = False
+  end
+  object ProgressBar1: TProgressBar
+    Left = 0
+    Height = 20
+    Top = 627
+    Width = 1007
+    Align = alBottom
+    TabOrder = 5
+    Visible = False
   end
   object MainMenu1: TMainMenu
     left = 16

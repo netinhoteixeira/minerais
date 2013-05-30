@@ -231,6 +231,7 @@ type
     PanelImagem: TPanel;
     PanelFicha: TPanel;
     PopupMenuListbox: TPopupMenu;
+    ProgressBar1: TProgressBar;
     RichMemoFormula: TRichMemo;
     StatusBar1: TStatusBar;
     TabSheetInf_Gerais: TTabSheet;
@@ -599,8 +600,6 @@ begin
     //fonte2.Color := 1;
    //FonteNormal.Color := 1;
 
-
-
   Tipo:=EmptyStr;//ver se precisa, feito para criar o campo geral no inicio e carregar as imagens iniciais
   Imagem_Selecionada:='1';
   limpaDD;
@@ -619,7 +618,8 @@ begin
     sldb := TSQLiteDatabase.Create(BancoDados);
     //acho q nao precisa definir a tabela aqui//
     //sltb := sldb.GetTable('SELECT imagem1,imagem2,imagem3, imagem4,imagem5,imagemCristalografia1, ImagemCristalografia2 FROM minerais');
-    //sltb2:= sldb.GetTable('SELECT campo, imagem1, imagem2, imagem3, imagem4, imagem5 FROM mineralogia');
+    sltb2:= sldb.GetTable('SELECT campo, imagem1, imagem2, imagem3, imagem4, imagem5 FROM mineralogia;');
+    if sltb2.Count = 0 then sldb.ExecSQL('INSERT INTO mineralogia values( campo="geral");');
     Preenche_Classes;
     Preenche_SubClasses;
     Preenche_Grupos;
@@ -998,6 +998,7 @@ begin
 end;
 
 procedure TFormPrincipal.preenche_lista;
+var num:Integer;
 begin
    limparichmemo;
    ListboxMinerais.Visible:=False;
@@ -1163,6 +1164,9 @@ Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+Combob
    end;
    if FileExists(Dados.SQLite3DatasetGeral.FileName) then ///precisa?
    Begin
+      num:=0;
+      Progressbar1.Position:=0;
+      Progressbar1.Visible:=True;
    Dados.SQLite3DatasetGeral.open();
    Dados.SQLite3DatasetGeral.first();
    while (not Dados.SQLite3DatasetGeral.EOF) do
@@ -1174,7 +1178,10 @@ Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+Combob
        if Filtro_Associacao = false then
       ListboxMinerais.Items.add(Dados.SQLite3DatasetGeral.FieldByName('nome').AsString);    end;
     Dados.SQLite3DatasetGeral.Next();
+    inc(num);
+    ProgressBar1.Position:=Round(100*(num/Dados.SQLite3DatasetGeral.RecNo));
    end;
+   ProgressBar1.Visible:=False;
    PanelFicha.Visible:=True;
    Dados.SQLite3DatasetGeral.Close;
    Barra_status;
@@ -1185,6 +1192,7 @@ end;
 
 procedure TFormPrincipal.Preenche_Classes;
 begin
+   ComboBoxClasse.Items.Clear;
   ComboBoxClasse.Items.add(emptystr);
     Dados.SQLite3DatasetComboBox.SQL:='SELECT DISTINCT classe FROM minerais ORDER BY classe ASC';
     Dados.SQLite3DatasetComboBox.Open();
@@ -1554,7 +1562,7 @@ begin
 end;
 
 procedure TFormPrincipal.AtualizaImagem;
-var nome_mineral:string;
+var nome_mineral, aux:string;
 begin
   nome_mineral:= ListboxMinerais.GetselectedText;
   if (ListBoxMinerais.GetSelectedText <> EmptyStr) then
@@ -1678,11 +1686,85 @@ begin
   end
   else
   Begin
-      Image1.Picture.Clear;
-      Image2.Picture.Clear;
-      Image3.Picture.Clear;
-      Image4.Picture.Clear;
-      Image5.Picture.Clear;
+        Image1.Picture.Clear;
+        Image2.Picture.Clear;
+        Image3.Picture.Clear;
+        Image4.Picture.Clear;
+        Image5.Picture.Clear;
+       sltb2.MoveFirst;
+       aux:=Nome_Didatico;
+       While (not sltb2.EOF) do
+       Begin
+            if (sltb2.FieldByName['campo'] = aux) then
+            begin
+                 try
+                    ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem1']);
+                    if (ms <> nil) then
+                    begin
+                    ms.position:=0;
+                    pic:=TJPEGImage.Create;
+                    pic.LoadFromStream(ms);
+                    self.Image1.Picture.Graphic:=pic;
+                    pic.Free;
+                    end;
+                 finally
+                 end;
+
+                 try
+                    ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem2']);
+                    if (ms <> nil) then
+                    begin
+                    ms.position:=0;
+                    pic:=TJPEGImage.Create;
+                    pic.LoadFromStream(ms);
+                    self.Image2.Picture.Graphic:=pic;
+                    pic.Free;
+                    end;
+                 finally
+                 end;
+
+                 try
+                    ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem3']);
+                    if (ms <> nil) then
+                    begin
+                    ms.position:=0;
+                    pic:=TJPEGImage.Create;
+                    pic.LoadFromStream(ms);
+                    self.Image3.Picture.Graphic:=pic;
+                    pic.Free;
+                    end;
+                 finally
+                 end;
+
+                 try
+                    ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem4']);
+                    if (ms <> nil) then
+                    begin
+                    ms.position:=0;
+                    pic:=TJPEGImage.Create;
+                    pic.LoadFromStream(ms);
+                    self.Image4.Picture.Graphic:=pic;
+                    pic.Free;
+                    end;
+                 finally
+                 end;
+
+                 try
+                    ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem5']);
+                    if (ms <> nil) then
+                    begin
+                    ms.position:=0;
+                    pic:=TJPEGImage.Create;
+                    pic.LoadFromStream(ms);
+                    self.Image5.Picture.Graphic:=pic;
+                    pic.Free;
+                    end;
+                 finally
+                 end;
+
+            end;
+            sltb2.Next;
+      end;
   end;
 end;
 
