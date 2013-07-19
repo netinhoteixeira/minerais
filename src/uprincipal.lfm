@@ -775,15 +775,15 @@ object FormPrincipal: TFormPrincipal
       end
       object TabSheetProp_Fisicas: TTabSheet
         Caption = 'Propriedades Físicas'
-        ClientHeight = 619
+        ClientHeight = 599
         ClientWidth = 489
         object GroupBoxProp_Fisicas: TGroupBox
           Left = 0
-          Height = 619
+          Height = 599
           Top = 0
           Width = 489
           Align = alClient
-          ClientHeight = 601
+          ClientHeight = 581
           ClientWidth = 485
           TabOrder = 0
           object EditDureza: TEdit
@@ -1056,15 +1056,15 @@ object FormPrincipal: TFormPrincipal
       end
       object TabSheetOticas: TTabSheet
         Caption = 'Propriedades Óticas'
-        ClientHeight = 619
+        ClientHeight = 599
         ClientWidth = 489
         object GroupBoxOpticas: TGroupBox
           Left = 0
-          Height = 619
+          Height = 599
           Top = 0
           Width = 489
           Align = alClient
-          ClientHeight = 601
+          ClientHeight = 581
           ClientWidth = 485
           TabOrder = 0
           object Label23: TLabel
@@ -1271,15 +1271,15 @@ object FormPrincipal: TFormPrincipal
       end
       object TabSheetCristalografia: TTabSheet
         Caption = 'Cristalografia'
-        ClientHeight = 619
+        ClientHeight = 599
         ClientWidth = 489
         object GroupBox1: TGroupBox
           Left = 0
-          Height = 619
+          Height = 599
           Top = 0
           Width = 489
           Align = alClient
-          ClientHeight = 601
+          ClientHeight = 581
           ClientWidth = 485
           TabOrder = 0
           object GroupBoxCristalografia1: TGroupBox

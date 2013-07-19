@@ -5,6 +5,7 @@
     <PathDelim Value="\"/>
     <General>
       <MainUnit Value="0"/>
+      <Title Value="Guia de Minerais"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
@@ -66,7 +67,7 @@
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="14" Y="19"/>
+        <CursorPos X="14" Y="20"/>
         <UsageCount Value="290"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -80,8 +81,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1677"/>
-        <CursorPos X="33" Y="1690"/>
+        <TopLine Value="526"/>
+        <CursorPos X="91" Y="540"/>
         <UsageCount Value="290"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -125,8 +126,8 @@
         <UnitName Value="ubibliografia"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="56"/>
-        <CursorPos X="19" Y="65"/>
+        <TopLine Value="35"/>
+        <CursorPos X="86" Y="61"/>
         <UsageCount Value="289"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -136,8 +137,8 @@
         <UnitName Value="sqlite3tablemod"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="289"/>
-        <CursorPos X="58" Y="303"/>
+        <TopLine Value="1075"/>
+        <CursorPos X="3" Y="1078"/>
         <UsageCount Value="133"/>
         <Loaded Value="True"/>
       </Unit5>
@@ -151,7 +152,7 @@
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="6" Y="90"/>
+        <CursorPos X="14" Y="25"/>
         <UsageCount Value="272"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -242,130 +243,130 @@
         <WindowIndex Value="0"/>
         <TopLine Value="7"/>
         <CursorPos X="53" Y="9"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit16>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1690" Column="12" TopLine="1677"/>
+        <Caret Line="593" Column="78" TopLine="583"/>
       </Position1>
       <Position2>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1673" Column="14" TopLine="1660"/>
+        <Caret Line="762" Column="20" TopLine="740"/>
       </Position2>
       <Position3>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1657" Column="14" TopLine="1644"/>
+        <Caret Line="985" Column="16" TopLine="963"/>
       </Position3>
       <Position4>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1697" Column="48" TopLine="1672"/>
+        <Caret Line="1188" Column="17" TopLine="1166"/>
       </Position4>
       <Position5>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1712" Column="29" TopLine="1690"/>
+        <Caret Line="1534" Column="22" TopLine="1512"/>
       </Position5>
       <Position6>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1697" Column="25" TopLine="1690"/>
+        <Caret Line="1559" Column="22" TopLine="1537"/>
       </Position6>
       <Position7>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1694" Column="17" TopLine="1689"/>
+        <Caret Line="270" Column="27" TopLine="263"/>
       </Position7>
       <Position8>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1692" Column="19" TopLine="1687"/>
+        <Caret Line="616" Column="47" TopLine="600"/>
       </Position8>
       <Position9>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1690" Column="8" TopLine="1685"/>
+        <Caret Line="470" Column="21" TopLine="454"/>
       </Position9>
       <Position10>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1673" Column="14" TopLine="1660"/>
+        <Caret Line="341" Column="3" TopLine="328"/>
       </Position10>
       <Position11>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1657" Column="14" TopLine="1644"/>
+        <Caret Line="572" Column="6" TopLine="561"/>
       </Position11>
       <Position12>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1641" Column="14" TopLine="1628"/>
+        <Caret Line="169" Column="37" TopLine="157"/>
       </Position12>
       <Position13>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1625" Column="14" TopLine="1612"/>
+        <Caret Line="624" Column="99" TopLine="602"/>
       </Position13>
       <Position14>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1609" Column="14" TopLine="1596"/>
+        <Caret Line="98" Column="63" TopLine="91"/>
       </Position14>
       <Position15>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1593" Column="14" TopLine="1580"/>
+        <Caret Line="16" Column="62" TopLine="10"/>
       </Position15>
       <Position16>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1573" Column="14" TopLine="1560"/>
+        <Caret Line="1976" Column="26" TopLine="1961"/>
       </Position16>
       <Position17>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1572" Column="8" TopLine="1560"/>
+        <Caret Line="1971" Column="3" TopLine="1961"/>
       </Position17>
       <Position18>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="965" Column="12" TopLine="958"/>
+        <Caret Line="321" Column="29" TopLine="304"/>
       </Position18>
       <Position19>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="964" Column="8" TopLine="958"/>
+        <Caret Line="507" Column="17" TopLine="485"/>
       </Position19>
       <Position20>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="941" Column="12" TopLine="928"/>
+        <Caret Line="577" Column="22" TopLine="555"/>
       </Position20>
       <Position21>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="940" Column="8" TopLine="928"/>
+        <Caret Line="673" Column="18" TopLine="651"/>
       </Position21>
       <Position22>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="620" Column="90" TopLine="610"/>
+        <Caret Line="1865" Column="61" TopLine="1850"/>
       </Position22>
       <Position23>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="624" Column="94" TopLine="604"/>
+        <Caret Line="673" Column="66" TopLine="664"/>
       </Position23>
       <Position24>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="593" Column="78" TopLine="583"/>
+        <Caret Line="1886" Column="29" TopLine="1867"/>
       </Position24>
       <Position25>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="762" Column="20" TopLine="740"/>
+        <Caret Line="1880" Column="56" TopLine="1868"/>
       </Position25>
       <Position26>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="985" Column="16" TopLine="963"/>
+        <Caret Line="472" Column="39" TopLine="467"/>
       </Position26>
       <Position27>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1188" Column="17" TopLine="1166"/>
+        <Caret Line="470" Column="63" TopLine="458"/>
       </Position27>
       <Position28>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1534" Column="22" TopLine="1512"/>
+        <Caret Line="463" Column="34" TopLine="450"/>
       </Position28>
       <Position29>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1559" Column="22" TopLine="1537"/>
+        <Filename Value="src\uformimpressao.pas"/>
+        <Caret Line="90" Column="6" TopLine="1"/>
       </Position29>
       <Position30>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1705" Column="20" TopLine="1761"/>
+        <Filename Value="src\uformimpressao.pas"/>
+        <Caret Line="89" Column="6" TopLine="63"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -373,7 +374,7 @@
     <Version Value="9"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="guiademinerais"/>
+      <Filename Value="Guia de Minerais"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
