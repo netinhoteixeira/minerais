@@ -37,7 +37,7 @@ object FormImpressao: TFormImpressao
       TabOrder = 0
       object RadioButtonSelecionado: TRadioButton
         Left = 6
-        Height = 33
+        Height = 49
         Top = 6
         Width = 247
         Caption = 'Mineral Selecionado'
@@ -45,21 +45,13 @@ object FormImpressao: TFormImpressao
       end
       object RadioButtonLista: TRadioButton
         Left = 6
-        Height = 33
-        Top = 39
+        Height = 48
+        Top = 55
         Width = 247
         Caption = 'Todos da Lista'
         Checked = True
         TabOrder = 1
         TabStop = True
-      end
-      object RadioButtonBranco: TRadioButton
-        Left = 6
-        Height = 31
-        Top = 72
-        Width = 247
-        Caption = 'Ficha em Branco'
-        TabOrder = 2
       end
     end
     object CheckGroup1: TCheckGroup

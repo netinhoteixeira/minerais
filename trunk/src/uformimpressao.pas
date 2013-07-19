@@ -27,7 +27,6 @@ type
     Panel2: TPanel;
     RadioButtonSelecionado: TRadioButton;
     RadioButtonLista: TRadioButton;
-    RadioButtonBranco: TRadioButton;
     RadioGroup1: TRadioGroup;
     SpinEdit1: TSpinEdit;
     procedure BitBtn1Click(Sender: TObject);

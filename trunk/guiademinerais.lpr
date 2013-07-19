@@ -14,6 +14,7 @@ uses
 {$R *.res}
 
 begin
+  Application.Title:='Guia de Minerais';
   Application.Initialize;
   Application.CreateForm(TDados, Dados);
   Application.CreateForm(TFormPrincipal, FormPrincipal);

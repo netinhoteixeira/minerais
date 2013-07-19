@@ -340,6 +340,7 @@ var
   Nome_Mineral:string;
   Imagem_Selecionada:Char;
   Tipo: String;
+  UltimaPesquisa:String;
 
   ms:TMemoryStream;
   pic:TJPEGImage;
@@ -458,8 +459,17 @@ begin
 end;
 
 procedure TFormPrincipal.BitBtnRemImagemClick(Sender: TObject);
-begin     ////////mudar banco de dados, imagem5 eimagem 7 no lugar de imagemcristalografica 1 e 2
-  sldb.ExecSQL('Update minerais set Imagem'+Imagem_selecionada+' = null');
+begin     ////////mudar banco de dados, imagem6 e imagem 7 no lugar de imagemcristalografica 1 e 2
+  if StrToInt(Imagem_Selecionada) <= 5 then
+     sldb.ExecSQL('Update minerais set Imagem'+Imagem_selecionada+' = null ;')
+  else
+  begin
+       if StrToInt(Imagem_Selecionada) = 6 then
+       sldb.ExecSQL('Update minerais set ImagemCristalografia1 = null ;')
+       else
+       sldb.ExecSQL('Update minerais set ImagemCristalografia2 = null ;')
+  end;
+  Imagem_Selecionada:='1';
   AtualizaImagem;
 end;
 
@@ -568,12 +578,13 @@ begin
 end;
 
 procedure TFormPrincipal.EditNomeEditingDone(Sender: TObject);
-var NomeEdit:String;
 begin
-  if (NomeEdit <> EditNome.Text) then
-  Preenche_lista;
-  NomeEdit:=EditNome.Text;
-  ProcuraMineral;
+  if (UltimaPesquisa <> EditNome.Text) then
+  begin
+       Preenche_lista;
+       UltimaPesquisa:=EditNome.Text;
+       ProcuraMineral;
+  end;
 end;
 
 procedure TFormPrincipal.EditOcorrenciaEditingDone(Sender: TObject);
@@ -605,6 +616,8 @@ begin
   limpaDD;
   LimpaRichMemo;
   Application.CreateForm(TFormSelecionaBD, FormSelecionaBD);
+  If (not DirectoryExists(GetCurrentDir+'\Data') ) then
+  mkDir(GetCurrentDir+'\Data');
   Diretorio:=GetCurrentDir+'\Data\bd.dat';
   if FileExists(Diretorio) then
   begin
@@ -663,7 +676,6 @@ begin
 end;
 
 procedure TFormPrincipal.ListboxMineraisClick(Sender: TObject);
-var aux:integer;
 begin
    limparichmemo;
    ProcuraMineral;
@@ -1847,56 +1859,21 @@ begin
 
         if (Listboxminerais.GetSelectedText <> emptyStr) then
         Begin   //Refazer algoritmo de busca (se distancia < x entao)
-             if (ListBoxMinerais.Items.IndexOf(Trim(ListBoxMinerais.GetSelectedText)) > 15)
-             and
-             (ListBoxMinerais.Items.IndexOf(Trim(ListBoxMinerais.GetSelectedText)) < ListBoxMinerais.Items.Count-15)
-             then
-             begin
-                  if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
-                  >
-                  ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText ) then
-                  begin
-                       repeat
-                       Dados.SQLite3DatasetGeral.Prior;
-                       until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
-                  end
-                  else
-                  if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
-                  < ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText)  then
-                  begin
-                       repeat
-                       Dados.SQLite3DatasetGeral.Next;
-                       until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
-                  end;
-             end
-             else
-             begin
-                  if ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText) = 0 then
-                  Dados.SQLite3DatasetGeral.First
-                  else
-                  if ListBoxMinerais.Items.IndexOf(ListBoxMinerais.GetSelectedText) = ListBoxminerais.Count-1 then
-                  Dados.SQLite3DatasetGeral.Last
-                  else
-                  begin
-                       if (ListboxMinerais.GetSelectedText) <> Dados.SQLite3DatasetGeral.FieldByName('nome').asstring then
-                       begin;
-                             if ListboxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString) <=15 then
-                       begin
-                            Dados.SQLite3DatasetGeral.First;
-                            repeat
-                            Dados.SQLite3DatasetGeral.Next;
-                            until Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring = Nome_Mineral;
-                       end
-                       else
-                       begin
-                            Dados.SQLite3DatasetGeral.Last;
-                            repeat
-                            Dados.SQLite3DatasetGeral.Prior;
-                            until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring) = Nome_Mineral;
-                       end;
-                       end;
-                  end;
-             end;
+                if ListBoxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
+                > ListBoxMinerais.Items.IndexOf(Nome_Mineral) then
+                begin
+                     repeat
+                           Dados.Sqlite3DatasetGeral.Prior;
+                     until Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString = Nome_Mineral;
+                end
+                else
+                if ListBoxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
+                < ListBoxMinerais.Items.IndexOf(Nome_Mineral) then
+                begin
+                     repeat
+                           Dados.Sqlite3DatasetGeral.Next;
+                     until Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString = Nome_Mineral;
+                end;
     end
     else
     begin
