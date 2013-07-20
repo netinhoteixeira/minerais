@@ -1,7 +1,7 @@
 object FormSelecionaBD: TFormSelecionaBD
-  Left = 95
+  Left = 2
   Height = 238
-  Top = 178
+  Top = 3
   Width = 609
   Caption = 'FormSelecionaBD'
   ClientHeight = 218

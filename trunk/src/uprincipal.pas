@@ -68,8 +68,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   StdCtrls, ExtCtrls, ComCtrls, DbCtrls, ExtDlgs, Buttons, BGRAPanel,
-  BGRAButton, BGRALabel, RichMemo, uFormImpressao, uSelecionaBD, SQLite3mod,
-  SQLite3tablemod, uBibliografia, UnitAjuda;
+  BGRALabel, RichMemo, uFormImpressao, uSelecionaBD, SQLite3mod,
+  SQLite3tablemod, uBibliografia, UnitAjuda, IniFiles;
 
 type
 
@@ -601,8 +601,9 @@ begin
 end;
 
 procedure TFormPrincipal.FormCreate(Sender: TObject);
-var Padrao: TextFile;
-    BancoDados, diretorio:String;
+var
+    BancoDados, Diretorio:String;
+    Config:TIniFile;
 begin
      Fonte.Style := [fsitalic];
      Fonte2.Style := [];
@@ -616,44 +617,29 @@ begin
   limpaDD;
   LimpaRichMemo;
   Application.CreateForm(TFormSelecionaBD, FormSelecionaBD);
-  If (not DirectoryExists(GetCurrentDir+'\Data') ) then
-  mkDir(GetCurrentDir+'\Data');
-  Diretorio:=GetCurrentDir+'\Data\bd.dat';
-  if FileExists(Diretorio) then
-  begin
-    AssignFile(Padrao, Diretorio);
-    Reset(Padrao);
-    While Not EOF(Padrao) do
-    Readln(Padrao, BancoDados);
+  Diretorio:=GetCurrentDir+'\Data\config.ini';
+  Config:=TIniFile.Create(Diretorio);
+  BancoDados:=Config.ReadString('Configuracoes', 'BD', '');
+  Config.Free;
     if FileExists(BancoDados) then
     begin
-    Dados.DeterminaBD(BancoDados);
-    sldb := TSQLiteDatabase.Create(BancoDados);
+         Dados.DeterminaBD(BancoDados);
+         sldb := TSQLiteDatabase.Create(BancoDados);
     //acho q nao precisa definir a tabela aqui//
     //sltb := sldb.GetTable('SELECT imagem1,imagem2,imagem3, imagem4,imagem5,imagemCristalografia1, ImagemCristalografia2 FROM minerais');
-    sltb2:= sldb.GetTable('SELECT campo, imagem1, imagem2, imagem3, imagem4, imagem5 FROM mineralogia;');
-    if sltb2.Count = 0 then sldb.ExecSQL('INSERT INTO mineralogia values( campo="geral");');
-    Preenche_Classes;
-    Preenche_SubClasses;
-    Preenche_Grupos;
-    Preenche_SubGrupos;
-    Preenche_Lista;
-    CloseFile(Padrao);
+           sltb2:= sldb.GetTable('SELECT campo, imagem1, imagem2, imagem3, imagem4, imagem5 FROM mineralogia;');
+           if sltb2.Count = 0 then sldb.ExecSQL('INSERT INTO mineralogia values( campo="geral");');
+           Preenche_Classes;
+           Preenche_SubClasses;
+           Preenche_Grupos;
+           Preenche_SubGrupos;
+           Preenche_Lista;
     end
     else
     begin
-       CloseFile(Padrao);
        FormSelecionaBD.Show;
        Timer1.Enabled:=true;
     end;
-  end
-  else
-  begin
-    AssignFile(Padrao, Diretorio);
-    ReWrite(Padrao);
-    CloseFile(Padrao);
-    FormSelecionaBD.Show;
-  end;
   openpicturedialog1.Filter:=lista_formatos;
 end;
 
