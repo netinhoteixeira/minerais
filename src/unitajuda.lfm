@@ -1,7 +1,7 @@
 object FormAjuda: TFormAjuda
-  Left = 484
+  Left = 3
   Height = 376
-  Top = 130
+  Top = 2
   Width = 505
   Caption = 'Ajuda'
   ClientHeight = 376

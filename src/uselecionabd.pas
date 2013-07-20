@@ -67,7 +67,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, StdCtrls, ComCtrls, Menus, EditBtn, SQLite3TableMod,
-  SQLite3Mod;
+  IniFiles;
                                     //excluir SQLite3TableMod
 type
 
@@ -103,37 +103,25 @@ type
 var
   FormSelecionaBD: TFormSelecionaBD;
   sldb: TSQLiteDataBase;
-  Arquivo:TextFile;
-  Diretorio, BD:String;
+  Config:TIniFIle;
+  nomeBD, Diretorio:String;
 
 implementation
 uses udatamodule;
 
 { TFormSelecionaBD }
 
-
 procedure TFormSelecionaBD.BitBtnPadraoClick(Sender: TObject);
-var nomeBD: String;
+var Diretorio:String;
 begin
-     NomeBD:=ListBoxSeleciona.GetSelectedText;
-     BD:=NomeBD;
-     Diretorio:=GetCurrentDir+'\Data\BD.dat';
-     if (FileExists(Diretorio)) Then
-     begin
-          AssignFile(Arquivo, Diretorio);
-          FileMode:=2;
-          ReWrite(Arquivo);//Reset
-          //Append(Arquivo);
-     end
-     else
-     Begin
-          AssignFile(Arquivo, Diretorio);
-          ReWrite(Arquivo);
-         //ppend(Arquivo); //com ou sem da bug
-     end;
-     Writeln(Arquivo, BD);
-     CloseFile(Arquivo);
-     StatusBar1.SimpleText:='Banco de Dados Padrão: '+BD;
+  if ListBoxSeleciona.GetSelectedText <> EmptyStr then
+  begin
+       Diretorio:=GetCurrentDir+'\Data\config.ini';
+       Config:=TINIFile.Create(Diretorio);
+       Config.WriteString('Configuracoes', 'BD', ListBoxSeleciona.GetSelectedText );
+       Config.Free;
+       StatusBar1.SimpleText:='Banco de Dados Padrão: '+ListBoxSeleciona.GetSelectedText;
+  end;
 end;
 
 procedure TFormSelecionaBD.BitBtn1Click(Sender: TObject);
@@ -188,23 +176,20 @@ begin
 end;
 
 procedure TFormSelecionaBD.FormShow(Sender: TObject);
-var Diretorio, BD:String;
 begin
-     ListboxSeleciona.Clear;
+     ListBoxSeleciona.Clear;
      ListBoxSeleciona.Items.AddStrings(FindAllFiles(GetCurrentDir,'All Files | *.s3db; *.sqlite; *.db;', true));
      Diretorio:=GetCurrentDir+'\Data';
      if (not DirectoryExists(Diretorio)) then
      MkDir(Diretorio);
-     Diretorio:=GetCurrentDir+'\Data\BD.dat';
-     AssignFile(Arquivo, Diretorio);
-     if (FileSize(diretorio)>0) then
-     Begin
-     Reset(Arquivo);
-     Readln(Arquivo, BD);
-     if FileExists(BD) then ListBoxSeleciona.Items.Append(BD);
-     StatusBar1.SimpleText:='Banco de Dados Padrão: '+BD;
-     closefile(arquivo);
-     end;
+     Diretorio:=GetCurrentDir+'\Data\config.ini';
+     Config:=TINIFile.Create(Diretorio);
+     nomeBD:=Config.ReadString('Configuracoes', 'BD', '');
+     if FileExists(nomeBD) then
+     StatusBar1.SimpleText:='Banco de Dados Padrão: '+nomeBD
+     else
+     Config.WriteString('Configuracoes', 'BD','');
+     Config.Free;
 end;
 
 procedure TFormSelecionaBD.MenuItemSairClick(Sender: TObject);
