@@ -177,6 +177,7 @@ type
     Label38: TLabel;
     Label39: TLabel;
     ListBoxMinerais: TListBox;
+    MenuItemImagens: TMenuItem;
     MenuItemAdicionar: TMenuItem;
     MenuItemFiltro: TMenuItem;
     MenuItemExibir: TMenuItem;
@@ -288,6 +289,7 @@ type
     procedure MenuItemAdicionarClick(Sender: TObject);
     procedure MenuItemExcluiClick(Sender: TObject);
     procedure MenuItemFiltroClick(Sender: TObject);
+    procedure MenuItemImagensClick(Sender: TObject);
     procedure MenuItemRetiraClick(Sender: TObject);
     procedure MenuItemAjudaClick(Sender: TObject);
     procedure MenuItemBibliografiaClick(Sender: TObject);
@@ -727,6 +729,20 @@ begin
   begin
     BGRAPanelFiltro.Visible := True;
     MenuItemFiltro.Checked:=True;
+  end;
+end;
+
+procedure TFormPrincipal.MenuItemImagensClick(Sender: TObject);
+begin
+  if MenuItemImagens.Checked then
+  begin
+    BGRAPanelImagens.Visible:=False;
+    MenuItemImagens.Checked:=False;
+  end
+  else
+  begin
+    BGRAPanelImagens.Visible:=True;
+    MenuItemImagens.Checked:=True;
   end;
 end;
 
@@ -1813,6 +1829,8 @@ procedure TFormPrincipal.AtualizaImagem;
 var
   nome_mineral, aux: string;
 begin
+  if MenuItemImagens.Checked then
+  begin
   nome_mineral := ListboxMinerais.GetselectedText;
   if (ListBoxMinerais.GetSelectedText <> EmptyStr) then
   begin       //diminuir tamanho do codigo, usando um try e um sldb.gettable
@@ -2019,6 +2037,7 @@ begin
       sltb2.Next;
     end;
         }
+  end;
   end;
 end;
 

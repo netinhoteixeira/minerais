@@ -1649,6 +1649,10 @@ object FormPrincipal: TFormPrincipal
         RadioItem = True
         OnClick = MenuItemFiltroClick
       end
+      object MenuItemImagens: TMenuItem
+        Caption = 'Imagens'
+        OnClick = MenuItemImagensClick
+      end
     end
     object MenuItemEditar: TMenuItem
       Caption = 'Editar'
@@ -1728,7 +1732,7 @@ object FormPrincipal: TFormPrincipal
       OnClick = MenuItemAdicionarClick
     end
     object MenuItemRetira: TMenuItem
-      Caption = 'Remover Espécie Selecionada'
+      Caption = 'Remover Seleção'
       OnClick = MenuItemRetiraClick
     end
     object MenuItemExclui: TMenuItem

@@ -1478,6 +1478,7 @@ object FormPrincipal: TFormPrincipal
     ClientHeight = 627
     ClientWidth = 170
     TabOrder = 3
+    Visible = False
     Gradient.StartColor = 8677935
     Gradient.EndColor = 13085822
     Gradient.Point1XPercent = 0
@@ -1646,8 +1647,11 @@ object FormPrincipal: TFormPrincipal
       Caption = 'Exibir'
       object MenuItemFiltro: TMenuItem
         Caption = 'Filtro'
-        RadioItem = True
         OnClick = MenuItemFiltroClick
+      end
+      object MenuItemImagens: TMenuItem
+        Caption = 'Imagens'
+        OnClick = MenuItemImagensClick
       end
     end
     object MenuItemEditar: TMenuItem
