@@ -68,7 +68,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   Buttons, StdCtrls, ComCtrls, Menus, EditBtn, SQLite3TableMod,
   IniFiles;
-                                    //excluir SQLite3TableMod
+//excluir SQLite3TableMod
 type
 
   { TFormSelecionaBD }
@@ -98,98 +98,110 @@ type
     { private declarations }
   public
     { public declarations }
-  end; 
+  end;
 
 var
   FormSelecionaBD: TFormSelecionaBD;
   sldb: TSQLiteDataBase;
-  Config:TIniFIle;
-  nomeBD, Diretorio:String;
+  Config: TIniFIle;
+  nomeBD, Diretorio: string;
 
 implementation
+
 uses udatamodule;
 
 { TFormSelecionaBD }
 
 procedure TFormSelecionaBD.BitBtnPadraoClick(Sender: TObject);
-var Diretorio:String;
+var
+  Diretorio: string;
 begin
   if ListBoxSeleciona.GetSelectedText <> EmptyStr then
   begin
-       Diretorio:=GetCurrentDir+'\Data\config.ini';
-       Config:=TINIFile.Create(Diretorio);
-       Config.WriteString('Configuracoes', 'BD', ListBoxSeleciona.GetSelectedText );
-       Config.Free;
-       StatusBar1.SimpleText:='Banco de Dados Padrão: '+ListBoxSeleciona.GetSelectedText;
+    Diretorio := GetCurrentDir + '\Data\config.ini';
+    Config := TINIFile.Create(Diretorio);
+    Config.WriteString('Configuracoes', 'BD', ListBoxSeleciona.GetSelectedText);
+    Config.Free;
+    StatusBar1.SimpleText :=
+      'Banco de Dados Padrão: ' + ListBoxSeleciona.GetSelectedText;
   end;
 end;
 
 procedure TFormSelecionaBD.BitBtn1Click(Sender: TObject);
 begin
   if OpenDialog1.Execute then
-  ListBoxSeleciona.Items.Append(OpenDialog1.FileName);
+    ListBoxSeleciona.Items.Append(OpenDialog1.FileName);
 end;
 
 procedure TFormSelecionaBD.BitBtnSelecionarClick(Sender: TObject);
 begin
-     if (ListBoxSeleciona.GetSelectedText <> EmptyStr) then
-     begin
-     Dados.determinaBD(ListBoxSeleciona.GetSelectedText);
-     FormSelecionaBd.Visible:=False;
-     end;
+  if (ListBoxSeleciona.GetSelectedText <> EmptyStr) then
+  begin
+    Dados.determinaBD(ListBoxSeleciona.GetSelectedText);
+    FormSelecionaBd.Visible := False;
+  end;
 end;
 
 procedure TFormSelecionaBD.EditButtonNovoButtonClick(Sender: TObject);
-var ExecSQL:String; Diretorio:String;
+var
+  ExecSQL: string;
+  Diretorio: string;
 begin
-     if (EditButtonNovo.Text <> EmptyStr) Then
-     begin
-     Diretorio:=GetCurrentDir+'\Data\'+EditButtonNovo.Text+'.s3db';
-     if (not FileExists(diretorio)) then
-     begin
-     Dados.Sqlite3DatasetGeral.Close();
-     Try
-     sldb:= TSQLiteDatabase.Create(Diretorio);
-     Dados.Sqlite3DatasetGeral.FileName:=Diretorio;
-     ExecSQL:='CREATE TABLE minerais ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT UNIQUE  NOT NULL, [formula] TEXT, [classe] TEXT, [subclasse] TEXT, [grupo] TEXT, [subgrupo] TEXT, [ocorrencia] TEXT, [associacao] TEXT, [distincao] TEXT,';
-     ExecSQL:=ExecSQL+' [aplicacao] TEXT, [alteracao] TEXT, [dureza_min] FLOAT, [dureza_max] FLOAT, [densidade_min] FLOAT, [densidade_max] FLOAT, [cor] TEXT, [brilho] TEXT, [traco] TEXT, [fratura] TEXT, [clivagem] TEXT, ';
-     ExecSQL:=ExecSQL+' [luminescencia] TEXT, [magnetismo] TEXT, [difaneidade] TEXT, [sinal_optico] TEXT, [indice_refracao] TEXT, [angulo] TEXT, [cor_interferencia] TEXT, [cor_lamina] TEXT, [sinal_elongacao] TEXT, [birrefringencia] TEXT, [relevo] TEXT, ';
-     ExecSQL:=ExecSQL+' [extincao] TEXT, [classe_cristalina] TEXT, [sistema] TEXT, [h_m] TEXT, [habito] TEXT, ';
-     ExecSQL:=ExecSQL+' [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB, [imagemCristalografia1] BLOB, [imagemcristalografia2] BLOB);';
-     Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-     ExecSQL:='CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] VARCHAR, [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB);';
-     Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-     finally
-     Dados.Sqlite3DatasetGeral.Open();
-     sldb.free;
-     end;
-    // sldb.Create(ExecSQL);
-     //sldb.free;
-     end
-     else
-     ShowMessage('Já existe um Banco de Dados com esse nome');
-     end
-     else
-     ShowMessage('Você deve especificar um nome para o Banco de Dados');
+  if (EditButtonNovo.Text <> EmptyStr) then
+  begin
+    Diretorio := GetCurrentDir + '\Data\' + EditButtonNovo.Text + '.s3db';
+    if (not FileExists(diretorio)) then
+    begin
+      Dados.Sqlite3DatasetGeral.Close();
+      try
+        sldb := TSQLiteDatabase.Create(Diretorio);
+        Dados.Sqlite3DatasetGeral.FileName := Diretorio;
+        ExecSQL :=
+          'CREATE TABLE minerais ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT UNIQUE  NOT NULL, [formula] TEXT, [classe] TEXT, [subclasse] TEXT, [grupo] TEXT, [subgrupo] TEXT, [ocorrencia] TEXT, [associacao] TEXT, [distincao] TEXT,';
+        ExecSQL := ExecSQL +
+          ' [aplicacao] TEXT, [alteracao] TEXT, [dureza_min] FLOAT, [dureza_max] FLOAT, [densidade_min] FLOAT, [densidade_max] FLOAT, [cor] TEXT, [brilho] TEXT, [traco] TEXT, [fratura] TEXT, [clivagem] TEXT, ';
+        ExecSQL := ExecSQL +
+          ' [luminescencia] TEXT, [magnetismo] TEXT, [difaneidade] TEXT, [sinal_optico] TEXT, [indice_refracao] TEXT, [angulo] TEXT, [cor_interferencia] TEXT, [cor_lamina] TEXT, [sinal_elongacao] TEXT, [birrefringencia] TEXT, [relevo] TEXT, ';
+        ExecSQL := ExecSQL +
+          ' [extincao] TEXT, [classe_cristalina] TEXT, [sistema] TEXT, [h_m] TEXT, [habito] TEXT, ';
+        ExecSQL := ExecSQL +
+          ' [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB, [imagemCristalografia1] BLOB, [imagemcristalografia2] BLOB);';
+        Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+        ExecSQL :=
+          'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] TEXT, [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB);';
+        Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      finally
+        Dados.Sqlite3DatasetGeral.Open();
+        sldb.Free;
+      end;
+      // sldb.Create(ExecSQL);
+      //sldb.free;
+    end
+    else
+      ShowMessage('Já existe um Banco de Dados com esse nome');
+  end
+  else
+    ShowMessage('Você deve especificar um nome para o Banco de Dados');
 
-     ListBoxSeleciona.Items.Append(Diretorio);
+  ListBoxSeleciona.Items.Append(Diretorio);
 end;
 
 procedure TFormSelecionaBD.FormShow(Sender: TObject);
 begin
-     ListBoxSeleciona.Clear;
-     ListBoxSeleciona.Items.AddStrings(FindAllFiles(GetCurrentDir,'All Files | *.s3db; *.sqlite; *.db;', true));
-     Diretorio:=GetCurrentDir+'\Data';
-     if (not DirectoryExists(Diretorio)) then
-     MkDir(Diretorio);
-     Diretorio:=GetCurrentDir+'\Data\config.ini';
-     Config:=TINIFile.Create(Diretorio);
-     nomeBD:=Config.ReadString('Configuracoes', 'BD', '');
-     if FileExists(nomeBD) then
-     StatusBar1.SimpleText:='Banco de Dados Padrão: '+nomeBD
-     else
-     Config.WriteString('Configuracoes', 'BD','');
-     Config.Free;
+  ListBoxSeleciona.Clear;
+  ListBoxSeleciona.Items.AddStrings(
+    FindAllFiles(GetCurrentDir, 'All Files | *.s3db; *.sqlite; *.db;', True));
+  Diretorio := GetCurrentDir + '\Data';
+  if (not DirectoryExists(Diretorio)) then
+    MkDir(Diretorio);
+  Diretorio := GetCurrentDir + '\Data\config.ini';
+  Config := TINIFile.Create(Diretorio);
+  nomeBD := Config.ReadString('Configuracoes', 'BD', '');
+  if FileExists(nomeBD) then
+    StatusBar1.SimpleText := 'Banco de Dados Padrão: ' + nomeBD
+  else
+    Config.WriteString('Configuracoes', 'BD', '');
+  Config.Free;
 end;
 
 procedure TFormSelecionaBD.MenuItemSairClick(Sender: TObject);
@@ -202,4 +214,3 @@ end;
 {$R *.lfm}
 
 end.
-

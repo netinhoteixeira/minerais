@@ -5,7 +5,7 @@ unit udatamodule;
 interface
 
 uses
-  Classes, SysUtils, Sqlite3DS, db, FileUtil, LR_Class, LR_DBSet, lr_e_pdf;
+  Classes, SysUtils, Sqlite3DS, db, FileUtil, LR_Class, LR_DBSet;
 
 type
 

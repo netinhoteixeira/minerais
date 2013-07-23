@@ -5,7 +5,7 @@ unit udatamodule;
 interface
 
 uses
-  Classes, SysUtils, Sqlite3DS, db, FileUtil, LR_Class, LR_DBSet, lr_e_pdf;
+  Classes, SysUtils, Sqlite3DS, db, FileUtil, LR_Class, LR_DBSet;
 
 type
 
@@ -19,7 +19,6 @@ type
     DatasourceDidatico: TDatasource;
     frDBDataSet1: TfrDBDataSet;
     frReport1: TfrReport;
-    frTNPDFExport1: TfrTNPDFExport;
     Sqlite3DatasetPrinter: TSqlite3Dataset;
     Sqlite3DatasetCombobox: TSqlite3Dataset;
     Sqlite3DatasetDidatico: TSqlite3Dataset;
