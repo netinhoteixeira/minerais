@@ -394,20 +394,9 @@ var
 begin
   if (Key = #13) then
   begin
-    Especie := ListBoxMinerais.GetSelectedText;
-    i := ListBoxMinerais.Items.IndexOf(especie);
-    preenche_Lista;
-    ListBoxMinerais.Selected[i] := True;
-    Dados.Sqlite3DatasetGeral.Open;
-    Dados.Sqlite3DatasetGeral.First;
-    if (Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString <> Especie) then
-      repeat
-        Dados.Sqlite3DatasetGeral.Next();
-      until (Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString = Especie);
-    AtualizaRichMemo;
-    EditaDD;
-    Preenche_Classes;
-    //sltb:=sldb.GetTable('UPDATE minerais SET classe = "'+Copy(DBMemoClasse.Text, 0, Length(DBMemoClasse.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
+    sltb:=sldb.GetTable('UPDATE minerais SET classe = "'
+    +Copy(DBMemoClasse.Text, 0, Length(DBMemoClasse.Text))
+    +'" WHERE nome = "'+DBMemoNome.Text+'";');
   end;
 end;
 
@@ -653,9 +642,9 @@ begin
     //acho q nao precisa definir a tabela aqui//
     //sltb := sldb.GetTable('SELECT imagem1,imagem2,imagem3, imagem4,imagem5,imagemCristalografia1, ImagemCristalografia2 FROM minerais');
     sltb2 := sldb.GetTable(
-      'SELECT campo, imagem1, imagem2, imagem3, imagem4, imagem5 FROM mineralogia;');
+      'SELECT campo, mineralogiaimagem1, mineralogiaimagem2, mineralogiaimagem3, mineralogiaimagem4, mineralogiaimagem5 FROM mineralogia;');
     if sltb2.Count = 0 then
-      sldb.ExecSQL('INSERT INTO mineralogia ( campo ) values ("geral");');
+      sldb.ExecSQL('INSERT INTO mineralogia (campo) values ("geral");');
     Preenche_Classes;
     Preenche_SubClasses;
     Preenche_Grupos;
@@ -730,9 +719,15 @@ end;
 procedure TFormPrincipal.MenuItemFiltroClick(Sender: TObject);
 begin
   if BGRAPanelFiltro.Visible then
-    BGRAPanelFiltro.Visible := False
+  begin
+    BGRAPanelFiltro.Visible := False;
+    MenuItemFiltro.Checked:=False;
+  end
   else
+  begin
     BGRAPanelFiltro.Visible := True;
+    MenuItemFiltro.Checked:=True;
+  end;
 end;
 
 procedure TFormPrincipal.MenuItemAjudaClick(Sender: TObject);
@@ -747,7 +742,7 @@ end;
 
 procedure TFormPrincipal.MenuItemDurezaClick(Sender: TObject);
 begin
-  {if (MenuItemDureza.Checked) Then
+  if (MenuItemDureza.Checked) Then
   begin
      MenuItemDureza.Checked:=False;
      MenuItemDensidade.Checked:=True;
@@ -756,7 +751,7 @@ begin
   Begin
      MenuItemDureza.Checked:=True;
      MenuItemDensidade.Checked:=False;
-  end;  }
+  end;
   Preenche_Lista;
 end;
 
@@ -820,6 +815,10 @@ begin
         Dados.Sqlite3DatasetPrinter.SQL + strNome(i);
     end;
   end;
+  if ListboxMinerais.GetSelectedText = EmptyStr then
+  FormImpressao.RadioButtonSelecionado.Enabled:=False
+  else
+  FormImpressao.RadioButtonSelecionado.Enabled:=True;
   FormImpressao.Show;
 end;
 
@@ -840,12 +839,14 @@ begin
     ImageCristalografia1.Hint := '';
     ImageCristalografia2.Hint := '';
 
+    MenuItemModoEdicao.Checked := False;
+
     richmemoformula.Visible := True;
     dbmemoformula.Visible := False;
 
     GroupBoxDureza.Enabled := False;
     GroupBoxDensidade.Enabled := False;
-    MenuItemModoEdicao.Checked := False;
+
     dbmemonome.ReadOnly := True;
     dbmemoocorrencia.ReadOnly := True;
     dbmemoassociacao.ReadOnly := True;
@@ -894,10 +895,11 @@ begin
     GroupBoxDureza.Enabled := True;
     GroupBoxDensidade.Enabled := True;
 
+    MenuItemModoEdicao.Checked := True;
+
     richmemoformula.Visible := False;
     dbmemoformula.Visible := True;
 
-    MenuItemModoEdicao.Checked := True;
     dbmemonome.ReadOnly := False;
     dbmemoocorrencia.ReadOnly := False;
     dbmemoassociacao.ReadOnly := False;
@@ -934,7 +936,7 @@ end;
 
 procedure TFormPrincipal.MenuItemNormalClick(Sender: TObject);
 begin
-  if (MenuItemNormal.Checked = True) then
+  if (MenuItemNormal.Checked = False) then
   begin
     MenuItemNormal.Checked := False;
     MenuItemGrande.Checked := True;
@@ -1043,7 +1045,6 @@ var
   num: integer;
 begin
   limparichmemo;
-  ListboxMinerais.Visible := False;
   ListboxMinerais.Clear();
   limpaDD;
   if (Dados.SQLite3DatasetGeral.Active) then
@@ -1385,7 +1386,6 @@ begin
     Barra_status;
     AtualizaImagem;
   end;
-  ListboxMinerais.Visible := True;
 end;
 
 procedure TFormPrincipal.Preenche_Classes;
@@ -1938,11 +1938,12 @@ begin
   end
   else
   begin
-    Image1.Picture.Clear;
+    {Image1.Picture.Clear;
     Image2.Picture.Clear;
     Image3.Picture.Clear;
     Image4.Picture.Clear;
     Image5.Picture.Clear;
+
     sltb2.MoveFirst;
     aux := Nome_Didatico;
     while (not sltb2.EOF) do
@@ -1950,7 +1951,7 @@ begin
       if (sltb2.FieldByName['campo'] = aux) then
       begin
         try
-          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem1']);
+          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['mineralogiaimagem1']);
           if (ms <> nil) then
           begin
             ms.position := 0;
@@ -1963,7 +1964,7 @@ begin
         end;
 
         try
-          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem2']);
+          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['mineralogiaimagem2']);
           if (ms <> nil) then
           begin
             ms.position := 0;
@@ -1976,7 +1977,7 @@ begin
         end;
 
         try
-          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem3']);
+          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['mineralogiaimagem3']);
           if (ms <> nil) then
           begin
             ms.position := 0;
@@ -1989,7 +1990,7 @@ begin
         end;
 
         try
-          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem4']);
+          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['mineralogiaimagem4']);
           if (ms <> nil) then
           begin
             ms.position := 0;
@@ -2002,7 +2003,7 @@ begin
         end;
 
         try
-          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem5']);
+          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['mineralogiaimagem5']);
           if (ms <> nil) then
           begin
             ms.position := 0;
@@ -2017,6 +2018,7 @@ begin
       end;
       sltb2.Next;
     end;
+        }
   end;
 end;
 
@@ -2067,7 +2069,7 @@ begin
         sltb2 := sldb.GetTable('SELECT imagem' + num +
           ' FROM mineralogia where campo = "' + Nome_Didatico + '"');
       end;
-      ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem' + num]);
+      ms := sltb2.FieldAsBlob(sltb2.FieldIndex['mineralogiaimagem' + num]);
     end;
     if (ms <> nil) then
     begin
@@ -2115,34 +2117,18 @@ begin
       Dados.Sqlite3DatasetGeral.SQL:=SelectSQL;
       Dados.SQLite3DatasetGeral.Open();
     end;
-
-     { if ListBoxMinerais.Items.IndexOf(
-        Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString) >
-        ListBoxMinerais.Items.IndexOf(Nome_Mineral) then
-      begin
-        repeat
-          Dados.Sqlite3DatasetGeral.Prior;
-        until Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString =
-          Nome_Mineral;
-      end
-      else
-      if ListBoxMinerais.Items.IndexOf(
-        Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString) <
-        ListBoxMinerais.Items.IndexOf(Nome_Mineral) then
-      begin
-        repeat
-          Dados.Sqlite3DatasetGeral.Next;
-        until Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString =
-          Nome_Mineral;
-      end;    }
     atualizarichmemo;
     editaDD;
     AtualizaImagem;
     GroupBoxDureza.Visible := False;
     GroupBoxDensidade.Visible := False;
+    if MenuItemModoEdicao.Checked then RichMemoFormula.Visible:=True
+    else
+    RichMemoFormula.Visible:=False;
   end
   else
-  Dados.Sqlite3DatasetGeral.Close();
+  if Dados.Sqlite3DatasetGeral.Active then
+  Dados.Sqlite3DatasetGeral.ClearFields;
 end;
 
 procedure TFormPrincipal.Image1Click(Sender: TObject);

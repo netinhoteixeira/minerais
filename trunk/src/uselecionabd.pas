@@ -176,14 +176,13 @@ begin
       end;
       // sldb.Create(ExecSQL);
       //sldb.free;
+      ListBoxSeleciona.Items.Append(Diretorio);
     end
     else
       ShowMessage('Já existe um Banco de Dados com esse nome');
   end
   else
     ShowMessage('Você deve especificar um nome para o Banco de Dados');
-
-  ListBoxSeleciona.Items.Append(Diretorio);
 end;
 
 procedure TFormSelecionaBD.FormShow(Sender: TObject);
