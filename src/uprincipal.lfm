@@ -11,7 +11,7 @@ object FormPrincipal: TFormPrincipal
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
-  LCLVersion = '0.9.30.4'
+  LCLVersion = '1.0.10.0'
   object BGRAPanelListbox: TBGRAPanel
     Left = 0
     Height = 627
@@ -519,9 +519,9 @@ object FormPrincipal: TFormPrincipal
       Height = 627
       Top = 0
       Width = 497
-      ActivePage = TabSheetInf_Gerais
+      ActivePage = TabSheetCristalografia
       Align = alClient
-      TabIndex = 0
+      TabIndex = 3
       TabOrder = 0
       object TabSheetInf_Gerais: TTabSheet
         Caption = 'Informações Gerais'
@@ -1669,6 +1669,7 @@ object FormPrincipal: TFormPrincipal
       end
       object MenuItemOrdem: TMenuItem
         Caption = 'Ordem'
+        RadioItem = True
         object MenuItemDureza: TMenuItem
           Caption = 'Dureza'
           Checked = True

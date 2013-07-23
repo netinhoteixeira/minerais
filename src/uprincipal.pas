@@ -67,7 +67,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  StdCtrls, ExtCtrls, ComCtrls, DbCtrls, ExtDlgs, Buttons, BGRAPanel,
+  StdCtrls, ExtCtrls, ComCtrls, DBCtrls, ExtDlgs, Buttons, BGRAPanel,
   BGRALabel, RichMemo, uFormImpressao, uSelecionaBD, SQLite3mod,
   SQLite3tablemod, uBibliografia, UnitAjuda, IniFiles;
 
@@ -305,19 +305,19 @@ type
     procedure Preenche_SubClasses;
     procedure Preenche_Grupos;
     procedure Preenche_SubGrupos;
-    function Filtro_Nome:boolean;
-    function Filtro_Ocorrencia:boolean;
-    function Filtro_Associacao:Boolean;
-    function Nome_Didatico: String;
+    function Filtro_Nome: boolean;
+    function Filtro_Ocorrencia: boolean;
+    function Filtro_Associacao: boolean;
+    function Nome_Didatico: string;
     procedure AtualizaRichMemo;
     procedure LimpaRichMemo;
     procedure Barra_Status;
     procedure EditaDD;
     procedure LimpaDD;
-    procedure Adiciona_Imagem(num:Char);
-    procedure Adiciona_Cristalografia(num:char);
+    procedure Adiciona_Imagem(num: char);
+    procedure Adiciona_Cristalografia(num: char);
     procedure AtualizaImagem;
-    procedure SelecionaImagem(num:char);
+    procedure SelecionaImagem(num: char);
     procedure ProcuraMineral;
     procedure MemoryStreamParaImagem;
     procedure AdicionaMineral;
@@ -328,35 +328,35 @@ type
     { public declarations }
   end;
 
-  const
-    lista_formatos:string ='All Files| *.jpg; *.jpeg;'; //ver se *.mpeg é compatível
-    grande: integer = 13;
-    normal: integer = 9;
-
-
+const
+  lista_formatos: string = 'All Files| *.jpg; *.jpeg;'; //ver se *.mpeg é compatível
+  grande: integer = 13;
+  normal: integer = 9;
 
 var
   FormPrincipal: TFormPrincipal;
-  Nome_Mineral:string;
-  Imagem_Selecionada:Char;
-  Tipo: String;
-  UltimaPesquisa:String;
+  Nome_Mineral: string;
+  Imagem_Selecionada: char;
+  Tipo: string;
+  UltimaPesquisa: string;
 
-  ms:TMemoryStream;
-  pic:TJPEGImage;
+  ms: TMemoryStream;
+  pic: TJPEGImage;
 
   sldb: TSQLiteDatabase;
   sltb: TSQLiteTable;
-  sltb2:TSQLiteTable;
+  sltb2: TSQLiteTable;
   slst: Tsqlitestmt;  //nao usada
 
   //variaveis usadas para nao preencher a lista desnecessariamente://transformar em variáveis locais
   den_min, den_max, ocorrencia, associacao: string;
   //Usado pelo RichMemo
-  fonte, fontenormal, fonte2:TFontParams;
+  fonte, fontenormal, fonte2: TFontParams;
 
 implementation
+
 uses udatamodule;
+
 {$R *.lfm}
 
 { TFormPrincipal }
@@ -388,24 +388,26 @@ begin
 end;
 
 procedure TFormPrincipal.DBMemoClasseKeyPress(Sender: TObject; var Key: char);
-var i:integer; especie: String;
+var
+  i: integer;
+  especie: string;
 begin
   if (Key = #13) then
   begin
-  Especie:=ListBoxMinerais.GetSelectedText;
-  i:=ListBoxMinerais.Items.IndexOf(especie);
-  preenche_Lista;
-  ListBoxMinerais.Selected[i]:=True;
-  Dados.Sqlite3DatasetGeral.Open;
-  Dados.Sqlite3DatasetGeral.First;
-  if  (Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString <> Especie) then
-  repeat
+    Especie := ListBoxMinerais.GetSelectedText;
+    i := ListBoxMinerais.Items.IndexOf(especie);
+    preenche_Lista;
+    ListBoxMinerais.Selected[i] := True;
+    Dados.Sqlite3DatasetGeral.Open;
+    Dados.Sqlite3DatasetGeral.First;
+    if (Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString <> Especie) then
+      repeat
         Dados.Sqlite3DatasetGeral.Next();
-  Until (Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString = Especie);
-  AtualizaRichMemo;
-  EditaDD;
-  Preenche_Classes;
-  //sltb:=sldb.GetTable('UPDATE minerais SET classe = "'+Copy(DBMemoClasse.Text, 0, Length(DBMemoClasse.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
+      until (Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString = Especie);
+    AtualizaRichMemo;
+    EditaDD;
+    Preenche_Classes;
+    //sltb:=sldb.GetTable('UPDATE minerais SET classe = "'+Copy(DBMemoClasse.Text, 0, Length(DBMemoClasse.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
   end;
 end;
 
@@ -414,7 +416,9 @@ procedure TFormPrincipal.DBMemoClasse_CristalinaKeyPress(Sender: TObject;
 begin
   if (Key = #13) then
   begin
-  sltb:=sldb.GetTable('UPDATE minerais SET classe_cristalina = "'+Copy(DBMemoClasse_Cristalina.Text, 0, Length(DBMemoClasse_Cristalina.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
+    sltb := sldb.GetTable('UPDATE minerais SET classe_cristalina = "' +
+      Copy(DBMemoClasse_Cristalina.Text, 0, Length(DBMemoClasse_Cristalina.Text)) +
+      '" WHERE nome = "' + DBMemoNome.Text + '";');
   end;
 end;
 
@@ -422,7 +426,8 @@ procedure TFormPrincipal.DBMemoFormulaKeyPress(Sender: TObject; var Key: char);
 begin
   if (Key = #13) then
   begin
-  sltb:=sldb.GetTable('UPDATE formula SET formula = "'+Copy(DBMemoFormula.Text, 0, Length(DBMemoFormula.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
+    sltb := sldb.GetTable('UPDATE formula SET formula = "' + Copy(DBMemoFormula.Text,
+      0, Length(DBMemoFormula.Text)) + '" WHERE nome = "' + DBMemoNome.Text + '";');
   end;
 end;
 
@@ -430,8 +435,9 @@ procedure TFormPrincipal.DBMemoGrupoKeyPress(Sender: TObject; var Key: char);
 begin
   if (Key = #13) then
   begin
-  sltb:=sldb.GetTable('UPDATE minerais SET grupo = "'+Copy(DBMemoGrupo.Text, 0, Length(DBMemoGrupo.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
-  Preenche_Grupos;
+    sltb := sldb.GetTable('UPDATE minerais SET grupo = "' + Copy(DBMemoGrupo.Text,
+      0, Length(DBMemoGrupo.Text)) + '" WHERE nome = "' + DBMemoNome.Text + '";');
+    Preenche_Grupos;
   end;
 end;
 
@@ -439,7 +445,8 @@ procedure TFormPrincipal.DBMemoH_MKeyPress(Sender: TObject; var Key: char);
 begin
   if (Key = #13) then
   begin
-  sltb:=sldb.GetTable('UPDATE minerais SET h_m = "'+Copy(DBMemoH_M.Text, 0, Length(DBMemoH_M.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
+    sltb := sldb.GetTable('UPDATE minerais SET h_m = "' + Copy(DBMemoH_M.Text, 0,
+      Length(DBMemoH_M.Text)) + '" WHERE nome = "' + DBMemoNome.Text + '";');
   end;
 end;
 
@@ -455,83 +462,95 @@ end;
 
 procedure TFormPrincipal.BitBtnFiltrarClick(Sender: TObject);
 begin
-     Preenche_Lista;
+  Preenche_Lista;
 end;
 
 procedure TFormPrincipal.BitBtnRemImagemClick(Sender: TObject);
 begin     ////////mudar banco de dados, imagem6 e imagem 7 no lugar de imagemcristalografica 1 e 2
   if StrToInt(Imagem_Selecionada) <= 5 then
-     sldb.ExecSQL('Update minerais set Imagem'+Imagem_selecionada+' = null ;')
+    sldb.ExecSQL('Update minerais set Imagem' + Imagem_selecionada + ' = null ;')
   else
   begin
-       if StrToInt(Imagem_Selecionada) = 6 then
-       sldb.ExecSQL('Update minerais set ImagemCristalografia1 = null ;')
-       else
-       sldb.ExecSQL('Update minerais set ImagemCristalografia2 = null ;')
+    if StrToInt(Imagem_Selecionada) = 6 then
+      sldb.ExecSQL('Update minerais set ImagemCristalografia1 = null ;')
+    else
+      sldb.ExecSQL('Update minerais set ImagemCristalografia2 = null ;');
   end;
-  Imagem_Selecionada:='1';
+  Imagem_Selecionada := '1';
   AtualizaImagem;
 end;
 
 procedure TFormPrincipal.BitBtnAdImagemClick(Sender: TObject);
 begin
-     if (ListBoxMinerais.GetSelectedText = EmptyStr) then
-     Begin
-          if (Imagem_Selecionada = '6') then
-          ShowMessage('Só é possível adicionar Imagens Cristalográficas se tiver algum mineral selecionado na lista')
-          else
-          if (Imagem_Selecionada = '7') then
-          ShowMessage('Só é possível adicionar Imagens Cristalográficas se tiver algum mineral selecionado na lista')
-          else
-          Adiciona_Imagem(Imagem_Selecionada);
-     end
-     else
-     Begin
-          if Imagem_Selecionada = '6' then Adiciona_Cristalografia('1')
-          else
-          if Imagem_Selecionada = '7' then Adiciona_Cristalografia('2')
-          else
-          Adiciona_Imagem(Imagem_Selecionada);
-     end;
+  if (ListBoxMinerais.GetSelectedText = EmptyStr) then
+  begin
+    if (Imagem_Selecionada = '6') then
+      ShowMessage(
+        'Só é possível adicionar Imagens Cristalográficas se tiver algum mineral selecionado na lista')
+    else
+    if (Imagem_Selecionada = '7') then
+      ShowMessage(
+        'Só é possível adicionar Imagens Cristalográficas se tiver algum mineral selecionado na lista')
+    else
+      Adiciona_Imagem(Imagem_Selecionada);
+  end
+  else
+  begin
+    if Imagem_Selecionada = '6' then
+      Adiciona_Cristalografia('1')
+    else
+    if Imagem_Selecionada = '7' then
+      Adiciona_Cristalografia('2')
+    else
+      Adiciona_Imagem(Imagem_Selecionada);
+  end;
 end;
 
 procedure TFormPrincipal.DBMemoNomeEditingDone(Sender: TObject);
-var novo, velho:integer;
+var
+  novo, velho: integer;
 begin
-  velho:=ListboxMinerais.items.IndexOf(ListboxMinerais.getselectedtext);
-  novo:=ListboxMinerais.Items.Add(dados.SQLite3datasetgeral.FieldByName('nome').asstring);
+  velho := ListboxMinerais.items.IndexOf(ListboxMinerais.getselectedtext);
+  novo := ListboxMinerais.Items.Add(dados.SQLite3datasetgeral.FieldByName(
+    'nome').AsString);
   ListboxMinerais.items.Exchange(novo, velho);
   ListboxMinerais.Items.Delete(novo);
 end;
 
 procedure TFormPrincipal.DBMemoNomeKeyPress(Sender: TObject; var Key: char);
-var aux:Integer;
+var
+  aux: integer;
 begin
-  aux:=ListboxMinerais.items.IndexOf(ListboxMinerais.getselectedtext);
-  if (Key = #13) then
+  {if (Key = #13) then
   begin
-  sltb:=sldb.GetTable('UPDATE minerais SET nome = "'+Copy(DBMemoNome.Text, 0, Length(DBMemoNome.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
-  Preenche_Lista;
-  end;
-  ProcuraMineral;
-  ListBoxMinerais.Selected[aux]:=True;
+    aux := ListboxMinerais.items.IndexOf(ListboxMinerais.getselectedtext);
+    {sltb := sldb.GetTable('UPDATE minerais SET nome = "' + Copy(DBMemoNome.Text, 0,
+      Length(DBMemoNome.Text)-1) + '" WHERE nome = "' + DBMemoNome.Text + '";');
+      }
+      sltb := sldb.GetTable('UPDATE minerais SET nome = "' + DBMemoNome.Text + '" WHERE nome = "' + DBMemoNome.Text + '";');
+    Preenche_Lista;
+    ProcuraMineral;
+    ListBoxMinerais.Selected[aux] := True;
+  end; }
 end;
 
 procedure TFormPrincipal.DBMemoSistemaKeyPress(Sender: TObject; var Key: char);
 begin
   if (Key = #13) then
   begin
-  sltb:=sldb.GetTable('UPDATE minerais SET sistema = "'+Copy(DBMemoSistema.Text, 0, Length(DBMemoSistema.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
+    sltb := sldb.GetTable('UPDATE minerais SET sistema = "' + Copy(DBMemoSistema.Text,
+      0, Length(DBMemoSistema.Text)) + '" WHERE nome = "' + DBMemoNome.Text + '";');
   end;
 end;
 
-procedure TFormPrincipal.DBMemoSubclasseKeyPress(Sender: TObject; var Key: char
-  );
+procedure TFormPrincipal.DBMemoSubclasseKeyPress(Sender: TObject; var Key: char);
 begin
   if (Key = #13) then
   begin
-  sltb:=sldb.GetTable('UPDATE minerais SET subclasse = "'+Copy(DBMemoSubClasse.Text, 0, Length(DBMemoSubClasse.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
-  Preenche_SubClasses;
+    sltb := sldb.GetTable('UPDATE minerais SET subclasse = "' + Copy(
+      DBMemoSubClasse.Text, 0, Length(DBMemoSubClasse.Text)) + '" WHERE nome = "' +
+      DBMemoNome.Text + '";');
+    Preenche_SubClasses;
   end;
 end;
 
@@ -539,123 +558,131 @@ procedure TFormPrincipal.DBMemoSubgrupoKeyPress(Sender: TObject; var Key: char);
 begin
   if (Key = #13) then
   begin
-  sltb:=sldb.GetTable('UPDATE minerais SET subgrupo = "'+Copy(DBMemoSubGrupo.Text, 0, Length(DBMemoSubGrupo.Text))+'" WHERE nome = "'+DBMemoNome.Text+'";');
-  Preenche_SubGrupos;
+    sltb := sldb.GetTable('UPDATE minerais SET subgrupo = "' + Copy(
+      DBMemoSubGrupo.Text, 0, Length(DBMemoSubGrupo.Text)) + '" WHERE nome = "' +
+      DBMemoNome.Text + '";');
+    Preenche_SubGrupos;
   end;
 end;
 
 procedure TFormPrincipal.EditAssociacaoEditingDone(Sender: TObject);
 begin
   if (EditAssociacao.Text <> Associacao) then
-  Preenche_Lista;
-  Associacao:=EditAssociacao.Text;
+    Preenche_Lista;
+  Associacao := EditAssociacao.Text;
 end;
 
 procedure TFormPrincipal.EditDensidadeClick(Sender: TObject);
 begin
-  if (GroupBoxDensidade.visible) then GroupBoxDensidade.Visible:=false
-  else GroupBoxDensidade.Visible:=true;
+  if (GroupBoxDensidade.Visible) then
+    GroupBoxDensidade.Visible := False
+  else
+    GroupBoxDensidade.Visible := True;
 end;
 
 procedure TFormPrincipal.EditDensidade_MaxEditingDone(Sender: TObject);
 begin
   if (EditDensidade_Max.Text <> Den_Max) then
-  Preenche_Lista;
-  Den_Max:=EditDensidade_Max.Text;
+    Preenche_Lista;
+  Den_Max := EditDensidade_Max.Text;
 end;
 
 procedure TFormPrincipal.EditDensidade_minEditingDone(Sender: TObject);
 begin
   if (EditDensidade_Min.Text <> Den_Min) then
-  Preenche_Lista;
-  Den_Min:=EditDensidade_Min.Text;
+    Preenche_Lista;
+  Den_Min := EditDensidade_Min.Text;
 end;
 
 procedure TFormPrincipal.EditDurezaClick(Sender: TObject);
 begin
-  if (GroupBoxDureza.visible) then GroupBoxDureza.Visible:=false
-  else GroupBoxDureza.Visible:=true;
+  if (GroupBoxDureza.Visible) then
+    GroupBoxDureza.Visible := False
+  else
+    GroupBoxDureza.Visible := True;
 end;
 
 procedure TFormPrincipal.EditNomeEditingDone(Sender: TObject);
 begin
   if (UltimaPesquisa <> EditNome.Text) then
   begin
-       Preenche_lista;
-       UltimaPesquisa:=EditNome.Text;
-       ProcuraMineral;
+    Preenche_lista;
+    UltimaPesquisa := EditNome.Text;
+    ProcuraMineral;
   end;
 end;
 
 procedure TFormPrincipal.EditOcorrenciaEditingDone(Sender: TObject);
 begin
   if (EditOcorrencia.Text <> Ocorrencia) then
-  Preenche_Lista;
-  Ocorrencia:=EditOcorrencia.Text;
+    Preenche_Lista;
+  Ocorrencia := EditOcorrencia.Text;
 end;
 
-procedure TFormPrincipal.FormClose(Sender: TObject;
-  var CloseAction: TCloseAction);
+procedure TFormPrincipal.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   sldb.Free;
 end;
 
 procedure TFormPrincipal.FormCreate(Sender: TObject);
 var
-    BancoDados, Diretorio:String;
-    Config:TIniFile;
+  BancoDados, Diretorio: string;
+  Config: TIniFile;
 begin
-     Fonte.Style := [fsitalic];
-     Fonte2.Style := [];
-     FonteNormal.style:=[fsbold];
-    //fonte.Color := 1;
-    //fonte2.Color := 1;
-   //FonteNormal.Color := 1;
+  Fonte.Style := [fsitalic];
+  Fonte2.Style := [];
+  FonteNormal.style := [fsbold];
+  //fonte.Color := 1;
+  //fonte2.Color := 1;
+  //FonteNormal.Color := 1;
 
-  Tipo:=EmptyStr;//ver se precisa, feito para criar o campo geral no inicio e carregar as imagens iniciais
-  Imagem_Selecionada:='1';
+  Tipo := EmptyStr;
+  //ver se precisa, feito para criar o campo geral no inicio e carregar as imagens iniciais
+  Imagem_Selecionada := '1';
   limpaDD;
   LimpaRichMemo;
   Application.CreateForm(TFormSelecionaBD, FormSelecionaBD);
-  Diretorio:=GetCurrentDir+'\Data\config.ini';
-  Config:=TIniFile.Create(Diretorio);
-  BancoDados:=Config.ReadString('Configuracoes', 'BD', '');
+  Diretorio := GetCurrentDir + '\Data\config.ini';
+  Config := TIniFile.Create(Diretorio);
+  BancoDados := Config.ReadString('Configuracoes', 'BD', '');
   Config.Free;
-    if FileExists(BancoDados) then
-    begin
-         Dados.DeterminaBD(BancoDados);
-         sldb := TSQLiteDatabase.Create(BancoDados);
+  if FileExists(BancoDados) then
+  begin
+    Dados.DeterminaBD(BancoDados);
+    sldb := TSQLiteDatabase.Create(BancoDados);
     //acho q nao precisa definir a tabela aqui//
     //sltb := sldb.GetTable('SELECT imagem1,imagem2,imagem3, imagem4,imagem5,imagemCristalografia1, ImagemCristalografia2 FROM minerais');
-           sltb2:= sldb.GetTable('SELECT campo, imagem1, imagem2, imagem3, imagem4, imagem5 FROM mineralogia;');
-           if sltb2.Count = 0 then sldb.ExecSQL('INSERT INTO mineralogia values( campo="geral");');
-           Preenche_Classes;
-           Preenche_SubClasses;
-           Preenche_Grupos;
-           Preenche_SubGrupos;
-           Preenche_Lista;
-    end
-    else
-    begin
-       FormSelecionaBD.Show;
-       Timer1.Enabled:=true;
-    end;
-  openpicturedialog1.Filter:=lista_formatos;
+    sltb2 := sldb.GetTable(
+      'SELECT campo, imagem1, imagem2, imagem3, imagem4, imagem5 FROM mineralogia;');
+    if sltb2.Count = 0 then
+      sldb.ExecSQL('INSERT INTO mineralogia ( campo ) values ("geral");');
+    Preenche_Classes;
+    Preenche_SubClasses;
+    Preenche_Grupos;
+    Preenche_SubGrupos;
+    Preenche_Lista;
+  end
+  else
+  begin
+    FormSelecionaBD.Show;
+    Timer1.Enabled := True;
+  end;
+  openpicturedialog1.Filter := lista_formatos;
 end;
 
 procedure TFormPrincipal.Timer1Timer(Sender: TObject);
 begin
   if (FormSelecionaBD.Visible = False) then
   begin
-    Timer1.Enabled:=False;
+    Timer1.Enabled := False;
     if (FileExists(Dados.Sqlite3DatasetGeral.FileName)) then
     begin
-    sldb := TSQLiteDatabase.Create(Dados.Sqlite3DatasetGeral.FileName);
-    Preenche_Classes;
-    Preenche_SubClasses;
-    Preenche_Grupos;
-    Preenche_SubGrupos;
-    Preenche_Lista;
+      sldb := TSQLiteDatabase.Create(Dados.Sqlite3DatasetGeral.FileName);
+      Preenche_Classes;
+      Preenche_SubClasses;
+      Preenche_Grupos;
+      Preenche_SubGrupos;
+      Preenche_Lista;
     end;
     FormPrincipal.Show;
   end;
@@ -663,26 +690,26 @@ end;
 
 procedure TFormPrincipal.ListboxMineraisClick(Sender: TObject);
 begin
-   limparichmemo;
-   ProcuraMineral;
+  limparichmemo;
+  ProcuraMineral;
 end;
 
 procedure TFormPrincipal.RetiraDaLista;
 begin
-     if (ListBoxMinerais.GetSelectedText <> EmptyStr) then
+  if (ListBoxMinerais.GetSelectedText <> EmptyStr) then
   begin
-     ListBoxMinerais.Items.Delete(ListBoxMinerais.ItemIndex);
+    ListBoxMinerais.Items.Delete(ListBoxMinerais.ItemIndex);
   end;
 end;
 
 procedure TFormPrincipal.ListBoxMineraisDblClick(Sender: TObject);
 begin
-     RetiraDaLista;
+  RetiraDaLista;
 end;
 
 procedure TFormPrincipal.MenuItemRetiraClick(Sender: TObject);
 begin
-     RetiraDaLista;
+  RetiraDaLista;
 end;
 
 procedure TFormPrincipal.MenuItem1Click(Sender: TObject);
@@ -692,20 +719,20 @@ end;
 
 procedure TFormPrincipal.MenuItemAdicionarClick(Sender: TObject);
 begin
-     AdicionaMineral;
+  AdicionaMineral;
 end;
 
 procedure TFormPrincipal.MenuItemExcluiClick(Sender: TObject);
 begin
-     ExcluiMineral;
+  ExcluiMineral;
 end;
 
 procedure TFormPrincipal.MenuItemFiltroClick(Sender: TObject);
 begin
   if BGRAPanelFiltro.Visible then
-  BGRAPanelFiltro.Visible:=False
+    BGRAPanelFiltro.Visible := False
   else
-  BGRAPanelFiltro.Visible:=True
+    BGRAPanelFiltro.Visible := True;
 end;
 
 procedure TFormPrincipal.MenuItemAjudaClick(Sender: TObject);
@@ -720,7 +747,7 @@ end;
 
 procedure TFormPrincipal.MenuItemDurezaClick(Sender: TObject);
 begin
-  if (MenuItemDureza.Checked) Then
+  {if (MenuItemDureza.Checked) Then
   begin
      MenuItemDureza.Checked:=False;
      MenuItemDensidade.Checked:=True;
@@ -729,30 +756,32 @@ begin
   Begin
      MenuItemDureza.Checked:=True;
      MenuItemDensidade.Checked:=False;
-  end;
+  end;  }
   Preenche_Lista;
 end;
 
 procedure TFormPrincipal.ExcluiMineral;
-var nome_exclusao:string; //esta var pode ser eliminada
+var
+  nome_exclusao: string; //esta var pode ser eliminada
 begin
   if (ListboxMinerais.GetSelectedText = emptystr) then
   begin
-     showmessage('Não há mineral selecionado');
+    ShowMessage('Não há mineral selecionado');
   end
   else
   begin
-  nome_exclusao:=ListboxMinerais.GetSelectedText;
-  if (dados.SQLite3DatasetGeral.FieldByName('nome').asstring <> ListboxMinerais.GetSelectedText) then
-  begin
-     dados.SQLite3DatasetGeral.first;
-     repeat
-      dados.SQLite3DatasetGeral.Next;
-     until (dados.SQLite3DatasetGeral.FieldByName('nome').AsString = nome_exclusao);
-  end;
-  // fazer form de exclusão
-  if (QuestionDlg('Confirmação', 'Deseja realmente remover "' + UpCase(nome_exclusao) + '"?',
-       mtConfirmation, [mrNo, mrYes], 0) = mrYes) then
+    nome_exclusao := ListboxMinerais.GetSelectedText;
+    if (dados.SQLite3DatasetGeral.FieldByName('nome').AsString <>
+      ListboxMinerais.GetSelectedText) then
+    begin
+      dados.SQLite3DatasetGeral.First;
+      repeat
+        dados.SQLite3DatasetGeral.Next;
+      until (dados.SQLite3DatasetGeral.FieldByName('nome').AsString = nome_exclusao);
+    end;
+    // fazer form de exclusão
+    if (QuestionDlg('Confirmação', 'Deseja realmente remover "' +
+      UpCase(nome_exclusao) + '"?', mtConfirmation, [mrNo, mrYes], 0) = mrYes) then
     begin
       dados.SQLite3DatasetGeral.Delete();
       dados.SQLite3DatasetGeral.ApplyUpdates;
@@ -769,24 +798,27 @@ begin
 end;
 
 procedure TFormPrincipal.MenuItemImprimirClick(Sender: TObject);
-          function strNome(i:integer):string;
-          begin
-            if i>=1 then
-            result:=' nome="'+ListBoxMinerais.Items.Strings[i]+'" or '
-            else
-            if i=0 then
-            result:=' nome="'+ListBoxMinerais.Items.Strings[i]+'" );';
-          end;
-var i: Integer;
-begin
-  if (ListboxMinerais.Items.Count -1) > 0 then
+
+  function strNome(i: integer): string;
   begin
-     Dados.Sqlite3DatasetPrinter.SQL:='SELECT * FROM minerais WHERE(';
-     for i:=(ListBoxMinerais.Items.Count-1)  DownTo 0 do
-     begin
-     Dados.Sqlite3DatasetPrinter.SQL:=
-     Dados.Sqlite3DatasetPrinter.SQL+strNome(i);
-     end;
+    if i >= 1 then
+      Result := ' nome="' + ListBoxMinerais.Items.Strings[i] + '" or '
+    else
+    if i = 0 then
+      Result := ' nome="' + ListBoxMinerais.Items.Strings[i] + '" );';
+  end;
+
+var
+  i: integer;
+begin
+  if (ListboxMinerais.Items.Count - 1) > 0 then
+  begin
+    Dados.Sqlite3DatasetPrinter.SQL := 'SELECT * FROM minerais WHERE(';
+    for i := (ListBoxMinerais.Items.Count - 1) downto 0 do
+    begin
+      Dados.Sqlite3DatasetPrinter.SQL :=
+        Dados.Sqlite3DatasetPrinter.SQL + strNome(i);
+    end;
   end;
   FormImpressao.Show;
 end;
@@ -794,191 +826,202 @@ end;
 procedure TFormPrincipal.MenuItemModoEdicaoClick(Sender: TObject);
 begin
   if (dados.SQLite3DatasetGeral.Active) then
-  dados.SQLite3DatasetGeral.applyupdates();
+    dados.SQLite3DatasetGeral.applyupdates();
 
-  if (MenuItemModoEdicao.checked) then
+  if (MenuItemModoEdicao.Checked) then
   begin
-       statusbar1.Panels.Items[1].Text:='';
-      image1.Hint := '';
-      image2.Hint := '';
-      image3.Hint := '';
-      image4.Hint := '';
-      image5.Hint := '';
+    statusbar1.Panels.Items[1].Text := '';
+    image1.Hint := '';
+    image2.Hint := '';
+    image3.Hint := '';
+    image4.Hint := '';
+    image5.Hint := '';
 
-      ImageCristalografia1.Hint := '';
-      ImageCristalografia2.Hint := '';
+    ImageCristalografia1.Hint := '';
+    ImageCristalografia2.Hint := '';
 
-      richmemoformula.visible:=true;
-      dbmemoformula.visible:=false;
+    richmemoformula.Visible := True;
+    dbmemoformula.Visible := False;
 
-      GroupBoxDureza.enabled:=false;
-      GroupBoxDensidade.enabled:=false;
-      MenuItemModoEdicao.checked:=false;
-      dbmemonome.ReadOnly := true;
-      dbmemoocorrencia.ReadOnly := true;
-      dbmemoassociacao.ReadOnly := true;
-      dbmemoclasse.ReadOnly := true;
-      dbmemosubclasse.ReadOnly := true;
-      dbmemogrupo.ReadOnly := true;
-      dbmemoSubgrupo.ReadOnly := true;
-      dbmemoAplicacao.ReadOnly := true;
-      dbmemoAlteracao.ReadOnly := true;
-      dbmemoDistincao.readonly:=true;
-      dbmemoCor.ReadOnly := true;
-      dbmemoTraco.ReadOnly := true;
-      dbmemoclivagem.ReadOnly := true;
-      dbmemofratura.ReadOnly := true;
-      dbmemoBrilho.ReadOnly := true;
-      dbmemoMagnetismo.ReadOnly := true;
-      dbmemoLuminescencia.ReadOnly := true;
-      dbmemoDifaneidade.ReadOnly := true;
-      dbmemoSinal_optico.ReadOnly := true;
-      dbmemoIndice_Refracao.ReadOnly := true;
-      dbmemoAngulo.ReadOnly := true;
-      dbmemoCor_Interferencia.ReadOnly := true;
-      dbmemoSinal_Elongacao.ReadOnly := true;
-      dbmemoBirrefringencia.ReadOnly := true;
-      dbmemoRelevo.ReadOnly := true;
-      dbmemoExtincao.ReadOnly := true;
-      dbmemoSistema.ReadOnly := true;
-      dbmemoH_M.ReadOnly := true;
-      DBMemoHabito.ReadOnly := true;
-      dbmemoClasse_Cristalina.ReadOnly := true;
-      DBMemoCor_Lamina.ReadOnly:=true;
+    GroupBoxDureza.Enabled := False;
+    GroupBoxDensidade.Enabled := False;
+    MenuItemModoEdicao.Checked := False;
+    dbmemonome.ReadOnly := True;
+    dbmemoocorrencia.ReadOnly := True;
+    dbmemoassociacao.ReadOnly := True;
+    dbmemoclasse.ReadOnly := True;
+    dbmemosubclasse.ReadOnly := True;
+    dbmemogrupo.ReadOnly := True;
+    dbmemoSubgrupo.ReadOnly := True;
+    dbmemoAplicacao.ReadOnly := True;
+    dbmemoAlteracao.ReadOnly := True;
+    dbmemoDistincao.ReadOnly := True;
+    dbmemoCor.ReadOnly := True;
+    dbmemoTraco.ReadOnly := True;
+    dbmemoclivagem.ReadOnly := True;
+    dbmemofratura.ReadOnly := True;
+    dbmemoBrilho.ReadOnly := True;
+    dbmemoMagnetismo.ReadOnly := True;
+    dbmemoLuminescencia.ReadOnly := True;
+    dbmemoDifaneidade.ReadOnly := True;
+    dbmemoSinal_optico.ReadOnly := True;
+    dbmemoIndice_Refracao.ReadOnly := True;
+    dbmemoAngulo.ReadOnly := True;
+    dbmemoCor_Interferencia.ReadOnly := True;
+    dbmemoSinal_Elongacao.ReadOnly := True;
+    dbmemoBirrefringencia.ReadOnly := True;
+    dbmemoRelevo.ReadOnly := True;
+    dbmemoExtincao.ReadOnly := True;
+    dbmemoSistema.ReadOnly := True;
+    dbmemoH_M.ReadOnly := True;
+    DBMemoHabito.ReadOnly := True;
+    dbmemoClasse_Cristalina.ReadOnly := True;
+    DBMemoCor_Lamina.ReadOnly := True;
   end
   else
   begin
 
-   statusbar1.Panels.Items[1].Text:='Modo de Edição';
+    statusbar1.Panels.Items[1].Text := 'Modo de Edição';
 
-   image1.Hint := 'Duplo clique para alterar';
-   image2.Hint := 'Duplo clique para alterar';
-   image3.Hint := 'Duplo clique para alterar';
-   image4.Hint := 'Duplo clique para alterar';
-   image5.Hint := 'Duplo clique para alterar';
-   ImageCristalografia1.Hint := 'Duplo clique para alterar';
-   ImageCristalografia2.Hint := 'Duplo clique para alterar';
+    image1.Hint := 'Duplo clique para alterar';
+    image2.Hint := 'Duplo clique para alterar';
+    image3.Hint := 'Duplo clique para alterar';
+    image4.Hint := 'Duplo clique para alterar';
+    image5.Hint := 'Duplo clique para alterar';
+    ImageCristalografia1.Hint := 'Duplo clique para alterar';
+    ImageCristalografia2.Hint := 'Duplo clique para alterar';
 
-   GroupBoxDureza.enabled:=true;
-   GroupBoxDensidade.enabled:=true;
+    GroupBoxDureza.Enabled := True;
+    GroupBoxDensidade.Enabled := True;
 
-   richmemoformula.visible:=false;
-   dbmemoformula.visible:=true;
+    richmemoformula.Visible := False;
+    dbmemoformula.Visible := True;
 
-   MenuItemModoEdicao.checked:=true;
-   dbmemonome.ReadOnly := false;
-   dbmemoocorrencia.ReadOnly := false;
-   dbmemoassociacao.ReadOnly := false;
-   dbmemoclasse.ReadOnly := false;
-   dbmemosubclasse.ReadOnly := false;
-   dbmemogrupo.ReadOnly := false;
-   dbmemoSubgrupo.ReadOnly := false;
-   dbmemoaplicacao.ReadOnly := false;
-   dbmemoalteracao.ReadOnly := false;
-   dbmemodistincao.readonly:=false;
-   dbmemocor.ReadOnly := false;
-   dbmemoTraco.ReadOnly := false;
-   dbmemoClivagem.ReadOnly := false;
-   dbmemoFratura.ReadOnly := false;
-   dbmemoBrilho.ReadOnly := false;
-   dbmemoMagnetismo.ReadOnly := false;
-   dbmemoLuminescencia.ReadOnly := false;
-   dbmemoDifaneidade.ReadOnly := false;
-   dbmemoSinal_Optico.ReadOnly := false;
-   dbmemoIndice_Refracao.ReadOnly := false;
-   dbmemoAngulo.ReadOnly := false;
-   dbmemoCor_Interferencia.ReadOnly := false;
-   dbmemoSinal_Elongacao.ReadOnly := false;
-   dbmemoBirrefringencia.ReadOnly := false;
-   dbmemoRelevo.ReadOnly := false;
-   dbmemoExtincao.ReadOnly := false;
-   dbmemoSistema.ReadOnly := false;
-   dbmemoH_M.ReadOnly := false;
-   DBMemoHabito.ReadOnly := false;
-   dbmemoClasse_Cristalina.ReadOnly := false;
-   DBMemoCor_Lamina.ReadOnly:=false;
+    MenuItemModoEdicao.Checked := True;
+    dbmemonome.ReadOnly := False;
+    dbmemoocorrencia.ReadOnly := False;
+    dbmemoassociacao.ReadOnly := False;
+    dbmemoclasse.ReadOnly := False;
+    dbmemosubclasse.ReadOnly := False;
+    dbmemogrupo.ReadOnly := False;
+    dbmemoSubgrupo.ReadOnly := False;
+    dbmemoaplicacao.ReadOnly := False;
+    dbmemoalteracao.ReadOnly := False;
+    dbmemodistincao.ReadOnly := False;
+    dbmemocor.ReadOnly := False;
+    dbmemoTraco.ReadOnly := False;
+    dbmemoClivagem.ReadOnly := False;
+    dbmemoFratura.ReadOnly := False;
+    dbmemoBrilho.ReadOnly := False;
+    dbmemoMagnetismo.ReadOnly := False;
+    dbmemoLuminescencia.ReadOnly := False;
+    dbmemoDifaneidade.ReadOnly := False;
+    dbmemoSinal_Optico.ReadOnly := False;
+    dbmemoIndice_Refracao.ReadOnly := False;
+    dbmemoAngulo.ReadOnly := False;
+    dbmemoCor_Interferencia.ReadOnly := False;
+    dbmemoSinal_Elongacao.ReadOnly := False;
+    dbmemoBirrefringencia.ReadOnly := False;
+    dbmemoRelevo.ReadOnly := False;
+    dbmemoExtincao.ReadOnly := False;
+    dbmemoSistema.ReadOnly := False;
+    dbmemoH_M.ReadOnly := False;
+    DBMemoHabito.ReadOnly := False;
+    dbmemoClasse_Cristalina.ReadOnly := False;
+    DBMemoCor_Lamina.ReadOnly := False;
   end;
 end;
 
 procedure TFormPrincipal.MenuItemNormalClick(Sender: TObject);
 begin
-  if (MenuItemNormal.Checked = true) then
-  Begin
-       MenuItemNormal.Checked:=False;
-       MenuItemGrande.Checked:=True;
-       PanelFicha.Font.Size:=Grande;
-       GroupBoxInf_Gerais.Font.Size:=grande;
-       GroupBoxProp_Fisicas.Font.Size:=grande;
-       GroupBoxOpticas.Font.Size:=grande;
-       GroupBoxCristalografia.Font.Size:=grande;
-       ListBoxMinerais.Font.Size:=grande;
+  if (MenuItemNormal.Checked = False) then
+  begin
+    MenuItemNormal.Checked := False;
+    MenuItemGrande.Checked := True;
+    PanelFicha.Font.Size := Grande;
+    GroupBoxInf_Gerais.Font.Size := grande;
+    GroupBoxProp_Fisicas.Font.Size := grande;
+    GroupBoxOpticas.Font.Size := grande;
+    GroupBoxCristalografia.Font.Size := grande;
+    ListBoxMinerais.Font.Size := grande;
   end
   else
-  Begin
-       MenuItemNormal.Checked:=True;
-       MenuItemGrande.Checked:=False;
-       PanelFicha.Font.Size:=Normal;
-       GroupBoxInf_Gerais.Font.Size:=normal;
-       GroupBoxProp_Fisicas.Font.Size:=normal;
-       GroupBoxOpticas.Font.Size:=normal;
-       GroupBoxCristalografia.Font.Size:=normal;
-       ListBoxMinerais.Font.Size:=normal;
+  begin
+    MenuItemNormal.Checked := True;
+    MenuItemGrande.Checked := False;
+    PanelFicha.Font.Size := Normal;
+    GroupBoxInf_Gerais.Font.Size := normal;
+    GroupBoxProp_Fisicas.Font.Size := normal;
+    GroupBoxOpticas.Font.Size := normal;
+    GroupBoxCristalografia.Font.Size := normal;
+    ListBoxMinerais.Font.Size := normal;
   end;
-      AtualizaRichMemo;
+  AtualizaRichMemo;
 end;
 
 procedure TFormPrincipal.AdicionaMineral;
-var indice:integer;  SQL, SQL2: String;
+var
+  indice: integer;
+  SQL, SQL2: string;
 begin
   LimpaDD;
   LimpaRichMemo;
-  if (EditNome.Text<>EmptyStr) then
+  if (EditNome.Text <> EmptyStr) then
   begin
-       sltb:=sldb.GetTable('SELECT nome FROM minerais WHERE (nome = "'+EditNome.Text+'");');
-       if (sltb.Count > 0 ) then
-       begin
-            ShowMessage('Mineral já existente no Banco de Dados');
-       end
-       else
-       Begin
-            Try
-            SQL:='INSERT INTO minerais (nome , dureza_min, dureza_max, densidade_min, densidade_max ) VALUES ';
-            SQL:=SQL + ' ("'+EditNome.Text+'", "'+ComboBoxDureza_min.Text+'", "'+ComboBoxDureza_max.Text+'", "'+EditDensidade_min.Text+'", "'+EditDensidade_max.Text+'");';
-            SQL2:='UPDATE minerais SET classe="'+ComboBoxClasse.Text+'", subclasse="'+ComboboxSubClasse.Text+'",';
-            SQL2:=SQL2+'grupo="'+ComboBoxGrupo.Text+'",subgrupo="'+ComboBoxSubgrupo.Text+'" WHERE nome = "'+EditNome.Text+'";';
-            finally
-            sldb.BeginTransaction;
-            sldb.ExecSQL(SQL);
-            sldb.ExecSQL(SQL2);
-            sldb.Commit;
-            end;
-            indice:=ListBoxMinerais.Items.Add(EditNome.Text);
-            ListboxMinerais.Selected[indice]:=true;
-       end;
+    sltb := sldb.GetTable('SELECT nome FROM minerais WHERE (nome = "' +
+      EditNome.Text + '");');
+    if (sltb.Count > 0) then
+    begin
+      ShowMessage('Mineral já existente no Banco de Dados');
+    end
+    else
+    begin
+      try
+        SQL := 'INSERT INTO minerais (nome , dureza_min, dureza_max, densidade_min, densidade_max ) VALUES ';
+        SQL := SQL + ' ("' + EditNome.Text + '", "' + ComboBoxDureza_min.Text +
+          '", "' + ComboBoxDureza_max.Text + '", "' + EditDensidade_min.Text + '", "' +
+          EditDensidade_max.Text + '");';
+        SQL2 := 'UPDATE minerais SET classe="' + ComboBoxClasse.Text +
+          '", subclasse="' + ComboboxSubClasse.Text + '",';
+        SQL2 := SQL2 + 'grupo="' + ComboBoxGrupo.Text + '",subgrupo="' +
+          ComboBoxSubgrupo.Text + '" WHERE nome = "' + EditNome.Text + '";';
+      finally
+        sldb.BeginTransaction;
+        sldb.ExecSQL(SQL);
+        sldb.ExecSQL(SQL2);
+        sldb.Commit;
+      end;
+      indice := ListBoxMinerais.Items.Add(EditNome.Text);
+      ListboxMinerais.Selected[indice] := True;
+    end;
   end
   else
-  Begin
-       sltb:=sldb.GetTable('SELECT nome FROM minerais WHERE (nome = "Novo Mineral");');
-       if (sltb.Count > 0 ) then
-       begin
-            ShowMessage('Mineral já existente no Banco de Dados');
-       end
-       else
-       Begin
-            Try
-            SQL:='INSERT INTO minerais (nome , dureza_min, dureza_max, densidade_min, densidade_max ) VALUES ';
-            SQL:=SQL + ' ("Novo Mineral", "'+ComboBoxDureza_min.Text+'", "'+ComboBoxDureza_max.Text+'", "'+EditDensidade_min.Text+'", "'+EditDensidade_max.Text+'");';
-            SQL2:='UPDATE minerais SET classe="'+ComboBoxClasse.Text+'", subclasse="'+ComboboxSubClasse.Text+'",';
-            SQL2:=SQL2+'grupo="'+ComboBoxGrupo.Text+'",subgrupo="'+ComboBoxSubgrupo.Text+'" WHERE nome = "Novo Mineral";';
-            finally
-            sldb.BeginTransaction;
-            sldb.ExecSQL(SQL);
-            sldb.ExecSQL(SQL2);
-            sldb.Commit;
-            end;
-            indice:=ListBoxMinerais.Items.Add('Novo Mineral');
-            ListboxMinerais.Selected[indice]:=true;
-       end;
+  begin
+    sltb := sldb.GetTable('SELECT nome FROM minerais WHERE (nome = "Novo Mineral");');
+    if (sltb.Count > 0) then
+    begin
+      ShowMessage('Mineral já existente no Banco de Dados');
+    end
+    else
+    begin
+      try
+        SQL := 'INSERT INTO minerais (nome , dureza_min, dureza_max, densidade_min, densidade_max ) VALUES ';
+        SQL := SQL + ' ("Novo Mineral", "' + ComboBoxDureza_min.Text +
+          '", "' + ComboBoxDureza_max.Text + '", "' + EditDensidade_min.Text + '", "' +
+          EditDensidade_max.Text + '");';
+        SQL2 := 'UPDATE minerais SET classe="' + ComboBoxClasse.Text +
+          '", subclasse="' + ComboboxSubClasse.Text + '",';
+        SQL2 := SQL2 + 'grupo="' + ComboBoxGrupo.Text + '",subgrupo="' +
+          ComboBoxSubgrupo.Text + '" WHERE nome = "Novo Mineral";';
+      finally
+        sldb.BeginTransaction;
+        sldb.ExecSQL(SQL);
+        sldb.ExecSQL(SQL2);
+        sldb.Commit;
+      end;
+      indice := ListBoxMinerais.Items.Add('Novo Mineral');
+      ListboxMinerais.Selected[indice] := True;
+    end;
   end;
   AtualizaImagem;
   barra_status;
@@ -986,903 +1029,1125 @@ end;
 
 procedure TFormPrincipal.MenuItemNovoClick(Sender: TObject);
 begin
-     AdicionaMineral;
+  AdicionaMineral;
 end;
 
 procedure TFormPrincipal.MenuItemSelecionaBDClick(Sender: TObject);
 begin
-     FormSelecionaBD.Show;
-     Timer1.Enabled:=True;
+  FormSelecionaBD.Show;
+  Timer1.Enabled := True;
 end;
 
 procedure TFormPrincipal.preenche_lista;
-var num:Integer;
+var
+  num: integer;
 begin
-   limparichmemo;
-   ListboxMinerais.Visible:=False;
-   ListboxMinerais.clear();
-   PanelFicha.Visible:=False;
-   limpaDD;
-   if (Dados.SQLite3DatasetGeral.Active) then Dados.SQLite3DatasetGeral.Close();
+  limparichmemo;
+  ListboxMinerais.Visible := False;
+  ListboxMinerais.Clear();
+  limpaDD;
+  if (Dados.SQLite3DatasetGeral.Active) then
+    Dados.SQLite3DatasetGeral.Close();
 
-   if (ComboboxClasse.text = emptystr) then
-   begin
-        if (ComboboxSubclasse.text = emptystr) then
-        begin
-             if (ComboboxGrupo.text = emptystr) then
-             begin
-                  if (ComboboxSubgrupo.text = emptystr) then
-                  begin     //nenhum combobox selecionado   1
-                       if (MenuItemDureza.Checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                       else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                  end
-                  else
-                  begin  //combobox subgrupos    2
-                      if (MenuItemDureza.Checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                      else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                  end;
-             end
-             else
-             begin
-                  if (ComboboxSubgrupo.text = emptystr) then
-                  begin     // combobox grupos   3
-                       if (menuItemDureza.Checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (grupo = "'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                       else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (grupo = "'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                  end
-                  else
-                  begin     //combobox BGRALabelGrupo e subgrupo   4
-                       if (MenuItemDureza.Checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (grupo = "'+ComboboxGrupo.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                       else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (grupo = "'+ComboboxGrupo.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                  end;
-             end;
-        end
-        else
-        begin
-             if (ComboboxGrupo.text = emptystr) then
-             begin
-                   if (ComboboxSubgrupo.text = emptystr) then
-                   begin           //combobox subclasse 5
-                       if (MenuItemDureza.Checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subclasse = "'+ComboboxSubclasse.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                       else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subclasse = "'+ComboboxSubclasse.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))'
-                   end
-                   else
-                   begin  // combobox subclasse e subgrupo  6
-                      if (MenuITemDureza.Checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subclasse = "'+ComboboxSubclasse.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                      else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subclasse = "'+ComboboxSubclasse.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                   end;
-             end
-             else
-             begin
-                  if (ComboboxSubgrupo.text = emptystr) then
-                  begin   //combobox subclasse e BGRALabelGrupo   7
-                      if (MenuItemDureza.Checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subclasse = "'+ComboboxSubclasse.text+'" and grupo ="'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                      else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subclasse = "'+ComboboxSubclasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                  end
-                  else
-                  begin   //subclasse BGRALabelGrupo subgrupo      8
-                       if (MenuItemDureza.checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subclasse = "'+ComboboxSubclasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                  else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (subclasse = "'+ComboboxSubclasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                  end;
-             end;
-        end;
-   end
-   else
-   begin
-        if (ComboboxSubclasse.text = emptystr) then
-        begin
-            if (ComboboxGrupo.text = emptystr) then
-            begin
-                if (ComboboxSubgrupo.text = emptystr) then
-                begin     //classe      9
-                     if (MenuItemDureza.checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                  else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                end
-                else    //classe subgrupos    10
-                begin
-                    if (MenuItemDureza.checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                  else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                end;
-            end
-            else
-            begin      //classe grupos    11
-                if (ComboboxSubgrupo.text = emptystr) then
-                begin
-                     if (MenuItemDureza.checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                     else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                end
-                else    //classe BGRALabelGrupo subgrupo     12
-                begin
-                    if (MenuItemDureza.checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                                      else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                end;
-            end;
-        end
-        else
-        begin
-            if (ComboboxGrupo.text = emptystr) then
-            begin
-                 if (ComboboxSubgrupo.text = emptystr) then
-                 begin   //classe subclasse     13
-                     if (MenuItemDureza.checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and subclasse = "'+ComboboxSubclasse.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                     else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and subclasse = "'+ComboboxSubclasse.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                 end
-                 else
-                 begin    //classe subclasse subgrupo   14
-                     if (MenuItemDureza.checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and subclasse = "'+ComboboxSubclasse.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                     else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and subclasse = "'+ComboboxSubclasse.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                 end;
-            end
-            else
-            begin   //classe subclasse BGRALabelGrupo      15
-                if (ComboboxSubgrupo.text = emptystr) then
-                begin
-                    if (MenuItemDureza.checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and subclasse = "'+ComboboxSubclasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                     else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and subclasse = "'+ComboboxSubclasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                end
-                else    //classe subclasse BGRALabelGrupo subgrupo    16
-                begin
-                    if (MenuItemDureza.checked) then
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and subclasse = "'+ComboboxSubclasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(dureza_max+1))'
-                     else
-Dados.SQLite3DatasetGeral.SQL:='SELECT * FROM minerais WHERE (classe = "'+ComboboxClasse.text+'" and subclasse = "'+ComboboxSubclasse.text+'" and grupo = "'+ComboboxGrupo.text+'" and subgrupo = "'+ComboboxSubgrupo.text+'" and dureza_min >= "'+comboboxDureza_min.text+'" and dureza_max <= "'+comboboxdureza_max.text+'" and densidade_min >= "'+editDensidade_min.text+'" and densidade_max<= "'+editDensidade_max.text+'") ORDER BY (1/(densidade_max+1))';
-                end;
-            end;
-        end;
-
-   end;
-   if FileExists(Dados.SQLite3DatasetGeral.FileName) then ///precisa?
-   Begin
-      num:=0;
-      Progressbar1.Position:=0;
-      Progressbar1.Visible:=True;
-   Dados.SQLite3DatasetGeral.open();
-   Dados.SQLite3DatasetGeral.first();
-   while (not Dados.SQLite3DatasetGeral.EOF) do
-   begin
-    if (Length(Trim(Dados.SQLite3DatasetGeral.Fields[0].AsString)) > 0) then
+  if (ComboboxClasse.Text = emptystr) then
+  begin
+    if (ComboboxSubclasse.Text = emptystr) then
     begin
-       if Filtro_Nome = false then
-       if Filtro_Ocorrencia = false then
-       if Filtro_Associacao = false then
-      ListboxMinerais.Items.add(Dados.SQLite3DatasetGeral.FieldByName('nome').AsString);    end;
-    Dados.SQLite3DatasetGeral.Next();
-    inc(num);
-    ProgressBar1.Position:=Round(100*(num/Dados.SQLite3DatasetGeral.RecNo));
-   end;
-   ProgressBar1.Visible:=False;
-   PanelFicha.Visible:=True;
-   Dados.SQLite3DatasetGeral.Close;
-   Barra_status;
-   AtualizaImagem;
-   end;
-   ListboxMinerais.Visible:=True;
+      if (ComboboxGrupo.Text = emptystr) then
+      begin
+        if (ComboboxSubgrupo.Text = emptystr) then
+        begin     //nenhum combobox selecionado   1
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (dureza_min >= "' + comboboxDureza_min.Text +
+              '" and dureza_max <= "' + comboboxdureza_max.Text + '" and densidade_min >= "' +
+              editDensidade_min.Text + '" and densidade_max<= "' + editDensidade_max.Text +
+              '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (dureza_min >= "' + comboboxDureza_min.Text +
+              '" and dureza_max <= "' + comboboxdureza_max.Text + '" and densidade_min >= "' +
+              editDensidade_min.Text + '" and densidade_max<= "' + editDensidade_max.Text +
+              '") ORDER BY (1/(densidade_max+1))';
+        end
+        else
+        begin  //combobox subgrupos    2
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (subgrupo = "' + ComboboxSubgrupo.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (subgrupo = "' + ComboboxSubgrupo.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end;
+      end
+      else
+      begin
+        if (ComboboxSubgrupo.Text = emptystr) then
+        begin     // combobox grupos   3
+          if (menuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (grupo = "' + ComboboxGrupo.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (grupo = "' + ComboboxGrupo.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end
+        else
+        begin     //combobox BGRALabelGrupo e subgrupo   4
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (grupo = "' + ComboboxGrupo.Text +
+              '" and subgrupo = "' + ComboboxSubgrupo.Text + '" and dureza_min >= "' +
+              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
+              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
+              editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (grupo = "' + ComboboxGrupo.Text +
+              '" and subgrupo = "' + ComboboxSubgrupo.Text + '" and dureza_min >= "' +
+              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
+              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
+              editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end;
+      end;
+    end
+    else
+    begin
+      if (ComboboxGrupo.Text = emptystr) then
+      begin
+        if (ComboboxSubgrupo.Text = emptystr) then
+        begin           //combobox subclasse 5
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (subclasse = "' + ComboboxSubclasse.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (subclasse = "' + ComboboxSubclasse.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end
+        else
+        begin  // combobox subclasse e subgrupo  6
+          if (MenuITemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (subclasse = "' + ComboboxSubclasse.Text +
+              '" and subgrupo = "' + ComboboxSubgrupo.Text + '" and dureza_min >= "' +
+              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
+              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
+              editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (subclasse = "' + ComboboxSubclasse.Text +
+              '" and subgrupo = "' + ComboboxSubgrupo.Text + '" and dureza_min >= "' +
+              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
+              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
+              editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end;
+      end
+      else
+      begin
+        if (ComboboxSubgrupo.Text = emptystr) then
+        begin   //combobox subclasse e BGRALabelGrupo   7
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (subclasse = "' + ComboboxSubclasse.Text +
+              '" and grupo ="' + ComboboxGrupo.Text + '" and dureza_min >= "' +
+              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
+              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
+              editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (subclasse = "' + ComboboxSubclasse.Text +
+              '" and grupo = "' + ComboboxGrupo.Text + '" and dureza_min >= "' +
+              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
+              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
+              editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end
+        else
+        begin   //subclasse BGRALabelGrupo subgrupo      8
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (subclasse = "' + ComboboxSubclasse.Text +
+              '" and grupo = "' + ComboboxGrupo.Text + '" and subgrupo = "' + ComboboxSubgrupo.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (subclasse = "' + ComboboxSubclasse.Text +
+              '" and grupo = "' + ComboboxGrupo.Text + '" and subgrupo = "' + ComboboxSubgrupo.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end;
+      end;
+    end;
+  end
+  else
+  begin
+    if (ComboboxSubclasse.Text = emptystr) then
+    begin
+      if (ComboboxGrupo.Text = emptystr) then
+      begin
+        if (ComboboxSubgrupo.Text = emptystr) then
+        begin     //classe      9
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end
+        else    //classe subgrupos    10
+        begin
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and subgrupo = "' + ComboboxSubgrupo.Text + '" and dureza_min >= "' +
+              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
+              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
+              editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and subgrupo = "' + ComboboxSubgrupo.Text + '" and dureza_min >= "' +
+              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
+              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
+              editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end;
+      end
+      else
+      begin      //classe grupos    11
+        if (ComboboxSubgrupo.Text = emptystr) then
+        begin
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and grupo = "' + ComboboxGrupo.Text + '" and dureza_min >= "' +
+              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
+              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
+              editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and grupo = "' + ComboboxGrupo.Text + '" and dureza_min >= "' +
+              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
+              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
+              editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end
+        else    //classe BGRALabelGrupo subgrupo     12
+        begin
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and grupo = "' + ComboboxGrupo.Text + '" and subgrupo = "' + ComboboxSubgrupo.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and grupo = "' + ComboboxGrupo.Text + '" and subgrupo = "' + ComboboxSubgrupo.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end;
+      end;
+    end
+    else
+    begin
+      if (ComboboxGrupo.Text = emptystr) then
+      begin
+        if (ComboboxSubgrupo.Text = emptystr) then
+        begin   //classe subclasse     13
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and subclasse = "' + ComboboxSubclasse.Text + '" and dureza_min >= "' +
+              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
+              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
+              editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and subclasse = "' + ComboboxSubclasse.Text + '" and dureza_min >= "' +
+              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
+              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
+              editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end
+        else
+        begin    //classe subclasse subgrupo   14
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and subclasse = "' + ComboboxSubclasse.Text + '" and subgrupo = "' +
+              ComboboxSubgrupo.Text + '" and dureza_min >= "' + comboboxDureza_min.Text +
+              '" and dureza_max <= "' + comboboxdureza_max.Text + '" and densidade_min >= "' +
+              editDensidade_min.Text + '" and densidade_max<= "' + editDensidade_max.Text +
+              '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and subclasse = "' + ComboboxSubclasse.Text + '" and subgrupo = "' +
+              ComboboxSubgrupo.Text + '" and dureza_min >= "' + comboboxDureza_min.Text +
+              '" and dureza_max <= "' + comboboxdureza_max.Text + '" and densidade_min >= "' +
+              editDensidade_min.Text + '" and densidade_max<= "' + editDensidade_max.Text +
+              '") ORDER BY (1/(densidade_max+1))';
+        end;
+      end
+      else
+      begin   //classe subclasse BGRALabelGrupo      15
+        if (ComboboxSubgrupo.Text = emptystr) then
+        begin
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and subclasse = "' + ComboboxSubclasse.Text + '" and grupo = "' +
+              ComboboxGrupo.Text + '" and dureza_min >= "' + comboboxDureza_min.Text +
+              '" and dureza_max <= "' + comboboxdureza_max.Text + '" and densidade_min >= "' +
+              editDensidade_min.Text + '" and densidade_max<= "' + editDensidade_max.Text +
+              '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and subclasse = "' + ComboboxSubclasse.Text + '" and grupo = "' +
+              ComboboxGrupo.Text + '" and dureza_min >= "' + comboboxDureza_min.Text +
+              '" and dureza_max <= "' + comboboxdureza_max.Text + '" and densidade_min >= "' +
+              editDensidade_min.Text + '" and densidade_max<= "' + editDensidade_max.Text +
+              '") ORDER BY (1/(densidade_max+1))';
+        end
+        else    //classe subclasse BGRALabelGrupo subgrupo    16
+        begin
+          if (MenuItemDureza.Checked) then
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and subclasse = "' + ComboboxSubclasse.Text + '" and grupo = "' +
+              ComboboxGrupo.Text + '" and subgrupo = "' + ComboboxSubgrupo.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
+          else
+            Dados.SQLite3DatasetGeral.SQL :=
+              'SELECT * FROM minerais WHERE (classe = "' + ComboboxClasse.Text +
+              '" and subclasse = "' + ComboboxSubclasse.Text + '" and grupo = "' +
+              ComboboxGrupo.Text + '" and subgrupo = "' + ComboboxSubgrupo.Text +
+              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
+              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+        end;
+      end;
+    end;
+
+  end;
+  if FileExists(Dados.SQLite3DatasetGeral.FileName) then ///precisa?
+  begin
+    num := 0;
+    Progressbar1.Position := 0;
+    Progressbar1.Visible := True;
+    Dados.SQLite3DatasetGeral.Open();
+    Dados.SQLite3DatasetGeral.First();
+    while (not Dados.SQLite3DatasetGeral.EOF) do
+    begin
+      if (Length(Trim(Dados.SQLite3DatasetGeral.Fields[0].AsString)) > 0) then
+      begin
+        if Filtro_Nome = False then
+          if Filtro_Ocorrencia = False then
+            if Filtro_Associacao = False then
+              ListboxMinerais.Items.add(Dados.SQLite3DatasetGeral.FieldByName('nome').AsString);
+      end;
+      Dados.SQLite3DatasetGeral.Next();
+      Inc(num);
+      ProgressBar1.Position := Round(100 * (num / Dados.SQLite3DatasetGeral.RecNo));
+    end;
+    ProgressBar1.Visible := False;
+    Dados.SQLite3DatasetGeral.Close;
+    Barra_status;
+    AtualizaImagem;
+  end;
+  ListboxMinerais.Visible := True;
 end;
 
 procedure TFormPrincipal.Preenche_Classes;
 begin
-   ComboBoxClasse.Items.Clear;
+  ComboBoxClasse.Items.Clear;
   ComboBoxClasse.Items.add(emptystr);
-    Dados.SQLite3DatasetComboBox.SQL:='SELECT DISTINCT classe FROM minerais ORDER BY classe ASC';
-    Dados.SQLite3DatasetComboBox.Open();
-    Dados.SQLite3DatasetComboBox.First;
-    While (not Dados.SQLite3DatasetComboBox.Eof) do
+  Dados.SQLite3DatasetComboBox.SQL :=
+    'SELECT DISTINCT classe FROM minerais ORDER BY classe ASC';
+  Dados.SQLite3DatasetComboBox.Open();
+  Dados.SQLite3DatasetComboBox.First;
+  while (not Dados.SQLite3DatasetComboBox.EOF) do
+  begin
+    if (Length(Trim(Dados.SQLite3DatasetComboBox.Fields[0].AsString)) > 0) then
     begin
-        if (Length(Trim(Dados.SQLite3DatasetComboBox.Fields[0].Asstring)) > 0) then
-        begin
-            ComboBoxClasse.Items.Add(dados.SQLite3DatasetComboBox.Fields[0].Asstring);
-        end;
-        dados.SQLite3DatasetComboBox.Next();
+      ComboBoxClasse.Items.Add(dados.SQLite3DatasetComboBox.Fields[0].AsString);
     end;
-    dados.SQLite3DatasetComboBox.close();
+    dados.SQLite3DatasetComboBox.Next();
+  end;
+  dados.SQLite3DatasetComboBox.Close();
 end;
 
 procedure TFormPrincipal.Preenche_SubClasses;
 begin
-  if (ComboBoxClasse.text= emptystr) then
-     begin
-          dados.SQLite3DatasetComboBox.sql:='SELECT DISTINCT subclasse FROM minerais ORDER BY subclasse ASC';
-     end
-     else
-     begin
-        dados.SQLite3DatasetComboBox.sql:='SELECT DISTINCT subclasse FROM minerais WHERE( classe = "'+ComboBoxClasse.Text+'") ORDER BY subclasse ASC';
-     end;
-     ComboBoxSubClasse.clear();
-     ComboBoxSubClasse.Items.add(emptystr);
-     dados.SQLite3DatasetComboBox.Open;
-     Dados.SQLite3DatasetComboBox.First;
-    While (not Dados.SQLite3DatasetComboBox.Eof) do
+  if (ComboBoxClasse.Text = emptystr) then
+  begin
+    dados.SQLite3DatasetComboBox.sql :=
+      'SELECT DISTINCT subclasse FROM minerais ORDER BY subclasse ASC';
+  end
+  else
+  begin
+    dados.SQLite3DatasetComboBox.sql :=
+      'SELECT DISTINCT subclasse FROM minerais WHERE( classe = "' +
+      ComboBoxClasse.Text + '") ORDER BY subclasse ASC';
+  end;
+  ComboBoxSubClasse.Clear();
+  ComboBoxSubClasse.Items.add(emptystr);
+  dados.SQLite3DatasetComboBox.Open;
+  Dados.SQLite3DatasetComboBox.First;
+  while (not Dados.SQLite3DatasetComboBox.EOF) do
+  begin
+    if (Length(Trim(Dados.SQLite3DatasetComboBox.Fields[0].AsString)) > 0) then
     begin
-        if (Length(Trim(Dados.SQLite3DatasetComboBox.Fields[0].Asstring)) > 0) then
-        begin
-            ComboBoxSubClasse.Items.Add(dados.SQLite3DatasetComboBox.Fields[0].Asstring);
-        end;
-        dados.SQLite3DatasetComboBox.Next();
+      ComboBoxSubClasse.Items.Add(dados.SQLite3DatasetComboBox.Fields[0].AsString);
     end;
-     dados.SQLite3DatasetComboBox.close;
+    dados.SQLite3DatasetComboBox.Next();
+  end;
+  dados.SQLite3DatasetComboBox.Close;
 end;
 
 procedure TFormPrincipal.Preenche_Grupos;
 begin
-  if (ComboBoxClasse.text = emptystr) then
+  if (ComboBoxClasse.Text = emptystr) then
+  begin
+    if (ComboBoxSubClasse.Text = emptystr) then
     begin
-         if (ComboBoxSubClasse.text = emptystr) then
-         begin
-             dados.SQLite3DatasetComboBox.sql:='SELECT DISTINCT grupo FROM minerais ORDER BY grupo ASC';
-         end
-         else
-         begin
-            dados.SQLite3DatasetComboBox.sql:='SELECT DISTINCT grupo FROM minerais WHERE (subclasse = "'+ComboBoxSubClasse.Text+'")ORDER BY grupo ASC';
-         end;
+      dados.SQLite3DatasetComboBox.sql :=
+        'SELECT DISTINCT grupo FROM minerais ORDER BY grupo ASC';
     end
     else
     begin
-         if (ComboBoxSubClasse.text = emptystr) then
-         begin
-            dados.SQLite3DatasetComboBox.sql:='SELECT DISTINCT grupo from minerais WHERE (classe = "'+ComboBoxClasse.Text+'") ORDER BY grupo ASC';
-         end
-         else
-         begin
-            dados.SQLite3DatasetComboBox.sql:='SELECT DISTINCT grupo FROM minerais WHERE( classe = "'+ComboBoxClasse.Text+'" and subclasse = "'+ComboBoxSubClasse.Text+'")ORDER BY grupo ASC';
-         end;
+      dados.SQLite3DatasetComboBox.sql :=
+        'SELECT DISTINCT grupo FROM minerais WHERE (subclasse = "' +
+        ComboBoxSubClasse.Text + '")ORDER BY grupo ASC';
     end;
-    ComboBoxGrupo.clear();
-    ComboBoxGrupo.Items.add(emptystr);
-    Dados.SQLite3DatasetComboBox.Open();
-    Dados.SQLite3DatasetComboBox.First;
-    While (not Dados.SQLite3DatasetComboBox.Eof) do
+  end
+  else
+  begin
+    if (ComboBoxSubClasse.Text = emptystr) then
     begin
-        if (Length(Trim(Dados.SQLite3DatasetComboBox.Fields[0].Asstring)) > 0) then
-        begin
-            ComboBoxGrupo.Items.Add(dados.SQLite3DatasetComboBox.Fields[0].Asstring);
-        end;
-        dados.SQLite3DatasetComboBox.Next();
+      dados.SQLite3DatasetComboBox.sql :=
+        'SELECT DISTINCT grupo from minerais WHERE (classe = "' + ComboBoxClasse.Text +
+        '") ORDER BY grupo ASC';
+    end
+    else
+    begin
+      dados.SQLite3DatasetComboBox.sql :=
+        'SELECT DISTINCT grupo FROM minerais WHERE( classe = "' + ComboBoxClasse.Text +
+        '" and subclasse = "' + ComboBoxSubClasse.Text + '")ORDER BY grupo ASC';
     end;
-    dados.SQLite3DatasetComboBox.close;
+  end;
+  ComboBoxGrupo.Clear();
+  ComboBoxGrupo.Items.add(emptystr);
+  Dados.SQLite3DatasetComboBox.Open();
+  Dados.SQLite3DatasetComboBox.First;
+  while (not Dados.SQLite3DatasetComboBox.EOF) do
+  begin
+    if (Length(Trim(Dados.SQLite3DatasetComboBox.Fields[0].AsString)) > 0) then
+    begin
+      ComboBoxGrupo.Items.Add(dados.SQLite3DatasetComboBox.Fields[0].AsString);
+    end;
+    dados.SQLite3DatasetComboBox.Next();
+  end;
+  dados.SQLite3DatasetComboBox.Close;
 end;
 
 procedure TFormPrincipal.Preenche_SubGrupos;
 begin
-  if ComboBoxClasse.text = emptystr then
+  if ComboBoxClasse.Text = emptystr then
+  begin
+    if (ComboBoxSubClasse.Text = emptystr) then
     begin
-       if (ComboBoxSubClasse.text = emptystr) then
-       begin
-           if (ComboBoxGrupo.text = emptystr) then
-           begin
-               dados.SQLite3DatasetComboBox.sql:='SELECT DISTINCT subgrupo FROM minerais ORDER BY subgrupo ASC';
-           end
-           else
-           begin
-               dados.SQLite3DatasetComboBox.sql:='SELECT DISTINCT subgrupo FROM minerais WHERE(grupo = "'+ComboBoxGrupo.Text+'") ORDER BY subgrupo ASC';
-           end;
-       end
-       else
-       begin
-           if (ComboBoxGrupo.text = emptystr) then
-           begin
-            dados.SQLite3DatasetComboBox.sql:='SELECT DISTINCT subgrupo FROM minerais WHERE(subclasse = "'+ComboBoxSubClasse.Text+'") ORDER BY subgrupo ASC'
-           end
-           else
-           begin
-            dados.SQLite3DatasetComboBox.sql:='SELECT DISTINCT subgrupo FROM minerais WHERE(subclasse = "'+ComboBoxSubclasse.Text+'" and grupo = "'+ComboBoxGrupo.Text+'") ORDER BY subgrupo ASC';
-           end;
-       end;
+      if (ComboBoxGrupo.Text = emptystr) then
+      begin
+        dados.SQLite3DatasetComboBox.sql :=
+          'SELECT DISTINCT subgrupo FROM minerais ORDER BY subgrupo ASC';
+      end
+      else
+      begin
+        dados.SQLite3DatasetComboBox.sql :=
+          'SELECT DISTINCT subgrupo FROM minerais WHERE(grupo = "' + ComboBoxGrupo.Text +
+          '") ORDER BY subgrupo ASC';
+      end;
     end
     else
     begin
-         if (ComboBoxSubClasse.text = emptystr) then
-         begin
-              if (ComboBoxGrupo.text = emptystr) then
-              begin
-                 dados.SQLite3DatasetComboBox.sql:= 'SELECT DISTINCT subgrupo FROM minerais WHERE(classe = "'+ComboBoxClasse.Text+'") ORDER BY subgrupo ASC';
-              end
-              else
-              begin
-                 dados.SQLite3DatasetComboBox.sql:= 'SELECT DISTINCT subgrupo FROM minerais WHERE(classe= "'+ComboBoxClasse.Text+'" and grupo= "'+ComboBoxGrupo.Text+'") ORDER BY subgrupo ASC';
-              end;
-         end
-         else
-         begin
-              if (ComboBoxGrupo.text = emptystr) then
-              begin
-                 dados.SQLite3DatasetComboBox.sql:='SELECT DISTINCT subgrupo FROM minerais WHERE(classe = "'+ComboBoxClasse.Text+'" and subclasse = "'+ComboBoxSubClasse.Text+'") ORDER BY subgrupo ASC';
-              end
-              else
-              begin
-                 dados.SQLite3DatasetComboBox.sql:='SELECT DISTINCT subgrupo FROM minerais WHERE(classe = "'+ComboBoxClasse.Text+'" and subclasse = "'+ComboBoxSubClasse.Text+'" and grupo = "'+ComboBoxGrupo.Text+'")ORDER BY subgrupo ASC';
-              end;
-         end;
+      if (ComboBoxGrupo.Text = emptystr) then
+      begin
+        dados.SQLite3DatasetComboBox.sql :=
+          'SELECT DISTINCT subgrupo FROM minerais WHERE(subclasse = "' +
+          ComboBoxSubClasse.Text + '") ORDER BY subgrupo ASC';
+      end
+      else
+      begin
+        dados.SQLite3DatasetComboBox.sql :=
+          'SELECT DISTINCT subgrupo FROM minerais WHERE(subclasse = "' +
+          ComboBoxSubclasse.Text + '" and grupo = "' + ComboBoxGrupo.Text + '") ORDER BY subgrupo ASC';
+      end;
     end;
-    ComboBoxSubGrupo.clear();
-    ComboBoxSubGrupo.Items.add(emptystr);
-    Dados.SQLite3DatasetComboBox.Open();
-    Dados.SQLite3DatasetComboBox.First;
-    While (not Dados.SQLite3DatasetComboBox.Eof) do
-    begin
-        if (Length(Trim(Dados.SQLite3DatasetComboBox.Fields[0].Asstring)) > 0) then
-        begin
-            ComboBoxSubGrupo.Items.Add(dados.SQLite3DatasetComboBox.Fields[0].Asstring);
-        end;
-        dados.SQLite3DatasetComboBox.Next();
-    end;
-    dados.SQLite3DatasetComboBox.Close;
-end;
-
-procedure TFormPrincipal.AtualizaRichMemo;
-var aux:string; i,j:integer;
-begin
-  if (MenuItemNormal.Checked) then
-  begin
-       Fonte.Size:=Normal;
-       Fonte2.Size:=Normal;
-       FonteNormal.Size:=Normal;
   end
   else
   begin
-       Fonte.Size:=Grande;
-       Fonte2.Size:=Grande;
-       FonteNormal.Size:=Grande;
+    if (ComboBoxSubClasse.Text = emptystr) then
+    begin
+      if (ComboBoxGrupo.Text = emptystr) then
+      begin
+        dados.SQLite3DatasetComboBox.sql :=
+          'SELECT DISTINCT subgrupo FROM minerais WHERE(classe = "' + ComboBoxClasse.Text +
+          '") ORDER BY subgrupo ASC';
+      end
+      else
+      begin
+        dados.SQLite3DatasetComboBox.sql :=
+          'SELECT DISTINCT subgrupo FROM minerais WHERE(classe= "' + ComboBoxClasse.Text +
+          '" and grupo= "' + ComboBoxGrupo.Text + '") ORDER BY subgrupo ASC';
+      end;
+    end
+    else
+    begin
+      if (ComboBoxGrupo.Text = emptystr) then
+      begin
+        dados.SQLite3DatasetComboBox.sql :=
+          'SELECT DISTINCT subgrupo FROM minerais WHERE(classe = "' + ComboBoxClasse.Text +
+          '" and subclasse = "' + ComboBoxSubClasse.Text + '") ORDER BY subgrupo ASC';
+      end
+      else
+      begin
+        dados.SQLite3DatasetComboBox.sql :=
+          'SELECT DISTINCT subgrupo FROM minerais WHERE(classe = "' + ComboBoxClasse.Text +
+          '" and subclasse = "' + ComboBoxSubClasse.Text + '" and grupo = "' +
+          ComboBoxGrupo.Text + '")ORDER BY subgrupo ASC';
+      end;
+    end;
+  end;
+  ComboBoxSubGrupo.Clear();
+  ComboBoxSubGrupo.Items.add(emptystr);
+  Dados.SQLite3DatasetComboBox.Open();
+  Dados.SQLite3DatasetComboBox.First;
+  while (not Dados.SQLite3DatasetComboBox.EOF) do
+  begin
+    if (Length(Trim(Dados.SQLite3DatasetComboBox.Fields[0].AsString)) > 0) then
+    begin
+      ComboBoxSubGrupo.Items.Add(dados.SQLite3DatasetComboBox.Fields[0].AsString);
+    end;
+    dados.SQLite3DatasetComboBox.Next();
+  end;
+  dados.SQLite3DatasetComboBox.Close;
+end;
+
+procedure TFormPrincipal.AtualizaRichMemo;
+var
+  aux: string;
+  i, j: integer;
+begin
+  if (MenuItemNormal.Checked) then
+  begin
+    Fonte.Size := Normal;
+    Fonte2.Size := Normal;
+    FonteNormal.Size := Normal;
+  end
+  else
+  begin
+    Fonte.Size := Grande;
+    Fonte2.Size := Grande;
+    FonteNormal.Size := Grande;
   end;
 
-     aux:=DBMemoFormula.Text;
-     RichMemoFormula.Text:=aux;
-     i:=Length(aux);
+  aux := DBMemoFormula.Text;
+  RichMemoFormula.Text := aux;
+  i := Length(aux);
 
-     for j:=1 to i do
-     begin
-          if (aux[j] = '0') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte)
-          else
-          if (aux[j] = '1') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte)
-          else
-          if (aux[j] = '2') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte)
-          else
-          if (aux[j] = '3') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte)
-          else
-          if (aux[j] = '4') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte)
-          else
-          if (aux[j] = '5') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte)
-          else
-          if (aux[j] = '6') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte)
-          else
-          if (aux[j] = '7')  then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte)
-          else
-          if (aux[j] = '8') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte)
-          else
-          if (aux[j] = '9') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte)
-          else
-          if (aux[j] = '(') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte2)
-          else
-          if (aux[j] = ')') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte2)
-          else
-          if (aux[j] = '.') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte2)
-          else
-          if (aux[j] = ',') then
-             RichMemoFormula.SetTextAttributes(j-1,1, fonte2)
-          else
-          RichMemoFormula.SetTextAttributes(j-1,1, fontenormal)
-     end;
+  for j := 1 to i do
+  begin
+    if (aux[j] = '0') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte)
+    else
+    if (aux[j] = '1') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte)
+    else
+    if (aux[j] = '2') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte)
+    else
+    if (aux[j] = '3') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte)
+    else
+    if (aux[j] = '4') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte)
+    else
+    if (aux[j] = '5') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte)
+    else
+    if (aux[j] = '6') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte)
+    else
+    if (aux[j] = '7') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte)
+    else
+    if (aux[j] = '8') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte)
+    else
+    if (aux[j] = '9') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte)
+    else
+    if (aux[j] = '(') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte2)
+    else
+    if (aux[j] = ')') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte2)
+    else
+    if (aux[j] = '.') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte2)
+    else
+    if (aux[j] = ',') then
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fonte2)
+    else
+      RichMemoFormula.SetTextAttributes(j - 1, 1, fontenormal);
+  end;
 end;
 
 procedure TFormPrincipal.LimpaRichMemo;
 begin
-  RichmemoFormula.Text:='';
+  RichmemoFormula.Text := '';
 end;
 
 procedure TFormPrincipal.Barra_Status;
-          function ordem:string;
-          begin
-               if (menuitemdureza.checked) then
-               begin
-                    result:='dureza.';
-               end
-               else
-               begin
-                    result:='densidade.';
-               end;
-          end;
+
+  function ordem: string;
+  begin
+    if (menuitemdureza.Checked) then
+    begin
+      Result := 'dureza.';
+    end
+    else
+    begin
+      Result := 'densidade.';
+    end;
+  end;
+
 begin
   if ListboxMinerais.items.Count = 0 then
-  statusbar1.Panels.Items[0].Text:='';
-  if ListboxMinerais.items.count = 1 then
-  statusbar1.Panels.Items[0].Text:= '      1 Mineral encontrado';
-  if ListboxMinerais.items.count > 1 then
-  statusbar1.Panels.Items[0].Text:= '     '+inttostr(ListboxMinerais.Items.Count)+' minerais encontrados listados em ordem decrescente de '+ordem;
+    statusbar1.Panels.Items[0].Text := '';
+  if ListboxMinerais.items.Count = 1 then
+    statusbar1.Panels.Items[0].Text := '      1 Mineral encontrado';
+  if ListboxMinerais.items.Count > 1 then
+    statusbar1.Panels.Items[0].Text :=
+      '     ' + IntToStr(ListboxMinerais.Items.Count) +
+      ' minerais encontrados listados em ordem decrescente de ' + ordem;
 end;
 
 procedure TFormPrincipal.EditaDD;
 begin
-  if (dbeditdureza_min.text = dbeditdureza_max.text) then
+  if (dbeditdureza_min.Text = dbeditdureza_max.Text) then
   begin
-  editdureza.text:=dbeditdureza_min.text;
+    editdureza.Text := dbeditdureza_min.Text;
   end
   else
   begin
-  editDureza.text:=dbeditdureza_min.text+' - '+dbeditdureza_max.text;
+    editDureza.Text := dbeditdureza_min.Text + ' - ' + dbeditdureza_max.Text;
   end;
-  if (dbeditdensidade_min.text = dbeditdensidade_max.text) then
+  if (dbeditdensidade_min.Text = dbeditdensidade_max.Text) then
   begin
-  editdensidade.text:=dbeditdensidade_min.text;
+    editdensidade.Text := dbeditdensidade_min.Text;
   end
   else
   begin
-  editDensidade.text:=dbeditdensidade_min.text+' - '+dbeditdensidade_max.text;
+    editDensidade.Text := dbeditdensidade_min.Text + ' - ' + dbeditdensidade_max.Text;
   end;
 end;
 
 procedure TFormPrincipal.LimpaDD;
 begin
-  editDureza.text:='';
-  editDensidade.text:='';
+  editDureza.Text := '';
+  editDensidade.Text := '';
 end;
 
 function TFormPrincipal.Filtro_Nome: boolean;
-var eliminar:boolean;
+var
+  eliminar: boolean;
 begin
   if (EditNome.Text = Emptystr) then
   begin
-  eliminar:=false;
+    eliminar := False;
   end
   else
   begin
-     if UpCase(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString) = UpCase(EditNome.text) then
-     Eliminar:=False
-     else
-     Eliminar:=True;
+    if UpCase(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString) =
+      UpCase(EditNome.Text) then
+      Eliminar := False
+    else
+      Eliminar := True;
   end;
-  Result:=Eliminar;
+  Result := Eliminar;
 end;
 
 function TFormPrincipal.Filtro_Ocorrencia: boolean;
-var eliminar: boolean; aux: string; i: integer;
+var
+  eliminar: boolean;
+  aux: string;
+  i: integer;
 begin
-     if (EditOcorrencia.Text = EmptyStr) Then
-     eliminar:=False
-     else
-     begin
-          aux:=Dados.SQLite3DatasetGeral.FieldByName('ocorrencia').AsString;
-          eliminar:=true;
-          for i:=0 to (length(aux) -1 ) do
-          Begin
-               if (UpCase(EditOcorrencia.Text) = UpCase(Copy(aux, i, length(Trim(EditOcorrencia.Text))))) then
-               eliminar:=false;
-          end;
-     end;
-     result:=eliminar;
+  if (EditOcorrencia.Text = EmptyStr) then
+    eliminar := False
+  else
+  begin
+    aux := Dados.SQLite3DatasetGeral.FieldByName('ocorrencia').AsString;
+    eliminar := True;
+    for i := 0 to (length(aux) - 1) do
+    begin
+      if (UpCase(EditOcorrencia.Text) =
+        UpCase(Copy(aux, i, length(Trim(EditOcorrencia.Text))))) then
+        eliminar := False;
+    end;
+  end;
+  Result := eliminar;
 end;
 
-function TFormPrincipal.Filtro_Associacao: Boolean;
-var eliminar: boolean; aux: string; i: integer;
+function TFormPrincipal.Filtro_Associacao: boolean;
+var
+  eliminar: boolean;
+  aux: string;
+  i: integer;
 begin
-     if (EditAssociacao.Text = EmptyStr) Then
-     eliminar:=False
-     else
-     begin
-          aux:=Dados.SQLite3DatasetGeral.FieldByName('associacao').AsString;
-          eliminar:=true;
-          for i:=0 to (length(aux) -1 ) do
-          Begin
-               if (UpCase(EditAssociacao.Text) = UpCase(Copy(aux, i, length(Trim(EditAssociacao.Text))))) then
-               eliminar:=false;
-          end;
-     end;
-     result:=eliminar;
+  if (EditAssociacao.Text = EmptyStr) then
+    eliminar := False
+  else
+  begin
+    aux := Dados.SQLite3DatasetGeral.FieldByName('associacao').AsString;
+    eliminar := True;
+    for i := 0 to (length(aux) - 1) do
+    begin
+      if (UpCase(EditAssociacao.Text) =
+        UpCase(Copy(aux, i, length(Trim(EditAssociacao.Text))))) then
+        eliminar := False;
+    end;
+  end;
+  Result := eliminar;
 end;
 
 procedure TFormPrincipal.Adiciona_Imagem(num: char);
-var fs:tfilestream;
+var
+  fs: tfilestream;
 begin
-        OpenPictureDialog1.FileName :=emptystr;
-        OpenPictureDialog1.Execute;
-        if (OpenPictureDialog1.FileName <> emptystr) then
-        begin
-           try
-              fs := TFileStream.Create(OpenPictureDialog1.FileName ,fmOpenRead);
-              if (ListboxMinerais.GetSelectedText <> emptystr) then
-              sldb.UpdateBlob('UPDATE minerais set imagem'+num+' = ? WHERE nome = "'+dados.SQLite3DatasetGeral.FieldByName('nome').asstring+'"' ,fs)
-              else
-              begin       //colocar procedimento de checar campo
-              sldb.UpdateBlob('UPDATE mineralogia set imagem'+num+' = ? WHERE campo = "'+Nome_Didatico+'"' ,fs);
-              end;
-           finally
-              fs.free;
-           end;
-        Imagem_Selecionada:=num;
-        AtualizaImagem;
-        end;
-end;
-
-procedure TFormPrincipal.Adiciona_Cristalografia(num:char);
-var fs:tfilestream;
-begin
-   if (MenuItemModoEdicao.Checked) then
-   begin
-    if (ListboxMinerais.GetSelectedText <> emptystr) then
-    begin
-        OpenPictureDialog1.FileName :=emptystr;
-        OpenPictureDialog1.Execute;
-        if (OpenPictureDialog1.FileName <> emptystr) then
-           begin
-               try
-                 fs := TFileStream.Create(OpenPictureDialog1.FileName ,fmOpenRead);
-                 sldb.UpdateBlob('UPDATE minerais set imagemCristalografia'+num+' = ? WHERE nome = "'+Dados.SQLite3DatasetGeral.FieldByName('nome').asstring+'"' ,fs);
-               finally
-                  fs.free;
-               end;
-           end;
-        if (num = '1') then Imagem_Selecionada:='6'
-        else
-        Imagem_Selecionada:='7';
-        AtualizaImagem;
-    end;
-   end;
-end;
-
-procedure TFormPrincipal.AtualizaImagem;
-var nome_mineral, aux:string;
-begin
-  nome_mineral:= ListboxMinerais.GetselectedText;
-  if (ListBoxMinerais.GetSelectedText <> EmptyStr) then
-  begin       //diminuir tamanho do codigo, usando um try e um sldb.gettable
-       try       //deu erro na linha abaixo, dataset fechado ao deletar e criar novo mineral
-       sltb := sldb.GetTable('SELECT imagem1, Imagem2, Imagem3, Imagem4, Imagem5, imagemCristalografia1, imagemCristalografia2 FROM minerais WHERE nome = "' + nome_mineral+'"');
-       ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem1']);
-       if (ms <> nil) then
-       begin
-       ms.Position := 0;
-       pic := TJPEGImage.Create;
-       pic.LoadFromStream(ms);
-       self.Image1.Picture.Graphic := pic;
-       self.ImageAmpliada.Picture.Graphic := pic;
-       pic.free;
-       end
-       else
-       begin
-       image1.Picture.Clear;
-       ImageAmpliada.Picture.Clear;
-       end;
-       finally
-
-       end;
-
-       try
-       ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem2']);
-       if (ms <> nil) then
-       begin
-       ms.Position := 0;
-       pic := TJPEGImage.Create;
-       pic.LoadFromStream(ms);
-       self.Image2.Picture.Graphic := pic;
-       pic.free
-       end
-       else
-       image2.Picture.Clear;
-       finally
-
-       end;
-
-       try
-       ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem3']);
-       if (ms <> nil) then
-       begin
-       ms.Position := 0;
-       pic := TJPEGImage.Create;
-       pic.LoadFromStream(ms);
-       self.Image3.Picture.Graphic := pic;
-       pic.Free;
-       end
-       else
-       image3.Picture.Clear;
-       finally
-
-       end;
-
-       try
-       ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem4']);
-       if (ms <> nil) then
-       begin
-       ms.Position := 0;
-       pic := TJPEGImage.Create;
-       pic.LoadFromStream(ms);
-       self.Image4.Picture.Graphic := pic;
-       pic.Free;
-       end
-       else
-       image4.Picture.Clear;
-       finally
-
-       end;
-
-       try
-       ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem5']);
-       if (ms <> nil) then
-       begin
-       ms.Position := 0;
-       pic := TJPEGImage.Create;
-       pic.LoadFromStream(ms);
-       self.Image5.Picture.Graphic := pic;
-       pic.Free;
-       end
-       else
-       image5.Picture.Clear;
-       finally
-
-       end;
-
-       try
-       ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia1']);
-       if (ms <> nil) then
-       begin
-       ms.Position := 0;
-       pic := TJPEGImage.Create;
-       pic.LoadFromStream(ms);
-       self.ImageCristalografia1.Picture.Graphic := pic;
-       pic.Free;
-       end
-       else
-       ImageCristalografia1.Picture.Clear;
-       finally
-
-       end;
-
-       try
-       ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia2']);
-       if (ms <> nil) then
-       begin
-       ms.Position := 0;
-       pic := TJPEGImage.Create;
-       pic.LoadFromStream(ms);
-       self.ImageCristalografia2.Picture.Graphic := pic;
-       pic.Free;
-       end
-       else
-       ImageCristalografia2.Picture.Clear;
-       finally
-
-       end;
-  end
-  else
-  Begin
-        Image1.Picture.Clear;
-        Image2.Picture.Clear;
-        Image3.Picture.Clear;
-        Image4.Picture.Clear;
-        Image5.Picture.Clear;
-       sltb2.MoveFirst;
-       aux:=Nome_Didatico;
-       While (not sltb2.EOF) do
-       Begin
-            if (sltb2.FieldByName['campo'] = aux) then
-            begin
-                 try
-                    ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem1']);
-                    if (ms <> nil) then
-                    begin
-                    ms.position:=0;
-                    pic:=TJPEGImage.Create;
-                    pic.LoadFromStream(ms);
-                    self.Image1.Picture.Graphic:=pic;
-                    pic.Free;
-                    end;
-                 finally
-                 end;
-
-                 try
-                    ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem2']);
-                    if (ms <> nil) then
-                    begin
-                    ms.position:=0;
-                    pic:=TJPEGImage.Create;
-                    pic.LoadFromStream(ms);
-                    self.Image2.Picture.Graphic:=pic;
-                    pic.Free;
-                    end;
-                 finally
-                 end;
-
-                 try
-                    ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem3']);
-                    if (ms <> nil) then
-                    begin
-                    ms.position:=0;
-                    pic:=TJPEGImage.Create;
-                    pic.LoadFromStream(ms);
-                    self.Image3.Picture.Graphic:=pic;
-                    pic.Free;
-                    end;
-                 finally
-                 end;
-
-                 try
-                    ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem4']);
-                    if (ms <> nil) then
-                    begin
-                    ms.position:=0;
-                    pic:=TJPEGImage.Create;
-                    pic.LoadFromStream(ms);
-                    self.Image4.Picture.Graphic:=pic;
-                    pic.Free;
-                    end;
-                 finally
-                 end;
-
-                 try
-                    ms:=sltb2.FieldAsBlob(sltb2.FieldIndex['imagem5']);
-                    if (ms <> nil) then
-                    begin
-                    ms.position:=0;
-                    pic:=TJPEGImage.Create;
-                    pic.LoadFromStream(ms);
-                    self.Image5.Picture.Graphic:=pic;
-                    pic.Free;
-                    end;
-                 finally
-                 end;
-
-            end;
-            sltb2.Next;
+  OpenPictureDialog1.FileName := emptystr;
+  OpenPictureDialog1.Execute;
+  if (OpenPictureDialog1.FileName <> emptystr) then
+  begin
+    try
+      fs := TFileStream.Create(OpenPictureDialog1.FileName, fmOpenRead);
+      if (ListboxMinerais.GetSelectedText <> emptystr) then
+        sldb.UpdateBlob('UPDATE minerais set imagem' + num +
+          ' = ? WHERE nome = "' + dados.SQLite3DatasetGeral.FieldByName('nome').AsString + '"', fs)
+      else
+      begin       //colocar procedimento de checar campo
+        sldb.UpdateBlob('UPDATE mineralogia set imagem' + num +
+          ' = ? WHERE campo = "' + Nome_Didatico + '"', fs);
       end;
+    finally
+      fs.Free;
+    end;
+    Imagem_Selecionada := num;
+    AtualizaImagem;
   end;
 end;
 
-function TFormPrincipal.Nome_Didatico: String;
-Begin
-     if (ComboBoxSubGrupo.Text = EmptyStr) then
-     begin
-          if (ComboBoxGrupo.Text = EmptyStr) then
-          Begin
-               if (ComboBoxSubClasse.Text = EmptyStr) then
-               begin
-                    if (ComboBoxClasse.Text = EmptyStr) then
-                    begin
-                         Result:='Geral';
-                    end
-                    else
-                        Result:=ComboBoxClasse.Text;
-                end
-                else
-                    Result:=ComboBoxSubClasse.Text;
-          end
-          else
-              Result:=ComboBoxGrupo.Text;
+procedure TFormPrincipal.Adiciona_Cristalografia(num: char);
+var
+  fs: tfilestream;
+begin
+  if (MenuItemModoEdicao.Checked) then
+  begin
+    if (ListboxMinerais.GetSelectedText <> emptystr) then
+    begin
+      OpenPictureDialog1.FileName := emptystr;
+      OpenPictureDialog1.Execute;
+      if (OpenPictureDialog1.FileName <> emptystr) then
+      begin
+        try
+          fs := TFileStream.Create(OpenPictureDialog1.FileName, fmOpenRead);
+          sldb.UpdateBlob('UPDATE minerais set imagemCristalografia' +
+            num + ' = ? WHERE nome = "' + Dados.SQLite3DatasetGeral.FieldByName(
+            'nome').AsString + '"', fs);
+        finally
+          fs.Free;
+        end;
+      end;
+      if (num = '1') then
+        Imagem_Selecionada := '6'
+      else
+        Imagem_Selecionada := '7';
+      AtualizaImagem;
+    end;
+  end;
+end;
+
+procedure TFormPrincipal.AtualizaImagem;
+var
+  nome_mineral, aux: string;
+begin
+  nome_mineral := ListboxMinerais.GetselectedText;
+  if (ListBoxMinerais.GetSelectedText <> EmptyStr) then
+  begin       //diminuir tamanho do codigo, usando um try e um sldb.gettable
+    try       //deu erro na linha abaixo, dataset fechado ao deletar e criar novo mineral
+      sltb := sldb.GetTable(
+        'SELECT imagem1, Imagem2, Imagem3, Imagem4, Imagem5, imagemCristalografia1, imagemCristalografia2 FROM minerais WHERE nome = "'
+        +
+        nome_mineral + '"');
+      ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem1']);
+      if (ms <> nil) then
+      begin
+        ms.Position := 0;
+        pic := TJPEGImage.Create;
+        pic.LoadFromStream(ms);
+        self.Image1.Picture.Graphic := pic;
+        self.ImageAmpliada.Picture.Graphic := pic;
+        pic.Free;
       end
       else
-          Result:=ComboBoxSubGrupo.Text;
+      begin
+        image1.Picture.Clear;
+        ImageAmpliada.Picture.Clear;
+      end;
+    finally
+
+    end;
+
+    try
+      ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem2']);
+      if (ms <> nil) then
+      begin
+        ms.Position := 0;
+        pic := TJPEGImage.Create;
+        pic.LoadFromStream(ms);
+        self.Image2.Picture.Graphic := pic;
+        pic.Free;
+      end
+      else
+        image2.Picture.Clear;
+    finally
+
+    end;
+
+    try
+      ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem3']);
+      if (ms <> nil) then
+      begin
+        ms.Position := 0;
+        pic := TJPEGImage.Create;
+        pic.LoadFromStream(ms);
+        self.Image3.Picture.Graphic := pic;
+        pic.Free;
+      end
+      else
+        image3.Picture.Clear;
+    finally
+
+    end;
+
+    try
+      ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem4']);
+      if (ms <> nil) then
+      begin
+        ms.Position := 0;
+        pic := TJPEGImage.Create;
+        pic.LoadFromStream(ms);
+        self.Image4.Picture.Graphic := pic;
+        pic.Free;
+      end
+      else
+        image4.Picture.Clear;
+    finally
+
+    end;
+
+    try
+      ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem5']);
+      if (ms <> nil) then
+      begin
+        ms.Position := 0;
+        pic := TJPEGImage.Create;
+        pic.LoadFromStream(ms);
+        self.Image5.Picture.Graphic := pic;
+        pic.Free;
+      end
+      else
+        image5.Picture.Clear;
+    finally
+
+    end;
+
+    try
+      ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia1']);
+      if (ms <> nil) then
+      begin
+        ms.Position := 0;
+        pic := TJPEGImage.Create;
+        pic.LoadFromStream(ms);
+        self.ImageCristalografia1.Picture.Graphic := pic;
+        pic.Free;
+      end
+      else
+        ImageCristalografia1.Picture.Clear;
+    finally
+
+    end;
+
+    try
+      ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia2']);
+      if (ms <> nil) then
+      begin
+        ms.Position := 0;
+        pic := TJPEGImage.Create;
+        pic.LoadFromStream(ms);
+        self.ImageCristalografia2.Picture.Graphic := pic;
+        pic.Free;
+      end
+      else
+        ImageCristalografia2.Picture.Clear;
+    finally
+
+    end;
+  end
+  else
+  begin
+    Image1.Picture.Clear;
+    Image2.Picture.Clear;
+    Image3.Picture.Clear;
+    Image4.Picture.Clear;
+    Image5.Picture.Clear;
+    sltb2.MoveFirst;
+    aux := Nome_Didatico;
+    while (not sltb2.EOF) do
+    begin
+      if (sltb2.FieldByName['campo'] = aux) then
+      begin
+        try
+          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem1']);
+          if (ms <> nil) then
+          begin
+            ms.position := 0;
+            pic := TJPEGImage.Create;
+            pic.LoadFromStream(ms);
+            self.Image1.Picture.Graphic := pic;
+            pic.Free;
+          end;
+        finally
+        end;
+
+        try
+          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem2']);
+          if (ms <> nil) then
+          begin
+            ms.position := 0;
+            pic := TJPEGImage.Create;
+            pic.LoadFromStream(ms);
+            self.Image2.Picture.Graphic := pic;
+            pic.Free;
+          end;
+        finally
+        end;
+
+        try
+          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem3']);
+          if (ms <> nil) then
+          begin
+            ms.position := 0;
+            pic := TJPEGImage.Create;
+            pic.LoadFromStream(ms);
+            self.Image3.Picture.Graphic := pic;
+            pic.Free;
+          end;
+        finally
+        end;
+
+        try
+          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem4']);
+          if (ms <> nil) then
+          begin
+            ms.position := 0;
+            pic := TJPEGImage.Create;
+            pic.LoadFromStream(ms);
+            self.Image4.Picture.Graphic := pic;
+            pic.Free;
+          end;
+        finally
+        end;
+
+        try
+          ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem5']);
+          if (ms <> nil) then
+          begin
+            ms.position := 0;
+            pic := TJPEGImage.Create;
+            pic.LoadFromStream(ms);
+            self.Image5.Picture.Graphic := pic;
+            pic.Free;
+          end;
+        finally
+        end;
+
+      end;
+      sltb2.Next;
+    end;
+  end;
 end;
 
-procedure TFormPrincipal.SelecionaImagem(num:char);
-var SQL: String;
+function TFormPrincipal.Nome_Didatico: string;
 begin
-       try
-       if (ListboxMinerais.GetSelectedText<> EmptyStr) then
-       begin
-       sltb :=sldb.GetTable('SELECT imagem'+num+' FROM minerais where nome = "' + dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
-       ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem'+num]);
-       end
-       else
-       begin
-       sltb2 :=sldb.GetTable('SELECT imagem'+num+' FROM mineralogia where campo = "' +Nome_Didatico+'"');
-       if (sltb2.Count = 0) then
-       begin
-            SQL:='INSERT INTO mineralogia (campo) VALUES ("'+Nome_Didatico+'");';
-            sldb.ExecSQL(SQL);
-            sltb2 :=sldb.GetTable('SELECT imagem'+num+' FROM mineralogia where campo = "' +Nome_Didatico+'"');
-       end;
-       ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem'+num]);
-       end;
-       if (ms <> nil) then
-       begin
-       ms.Position := 0;
-
-       pic := TJPEGImage.Create;
-       pic.LoadFromStream(ms);
-
-       self.ImageAmpliada.Picture.Graphic := pic;
-
-       pic.Free;
-       end
-       else
-       ImageAmpliada.Picture.Clear;
-       finally
-       if (ListboxMinerais.GetSelectedText<> EmptyStr) then
-       sltb.free
-       else
-       sltb2.Free;
-       end;
-       Imagem_Selecionada:=num;
+  if (ComboBoxSubGrupo.Text = EmptyStr) then
+  begin
+    if (ComboBoxGrupo.Text = EmptyStr) then
+    begin
+      if (ComboBoxSubClasse.Text = EmptyStr) then
+      begin
+        if (ComboBoxClasse.Text = EmptyStr) then
+        begin
+          Result := 'Geral';
+        end
+        else
+          Result := ComboBoxClasse.Text;
+      end
+      else
+        Result := ComboBoxSubClasse.Text;
+    end
+    else
+      Result := ComboBoxGrupo.Text;
+  end
+  else
+    Result := ComboBoxSubGrupo.Text;
 end;
 
-procedure TFormPrincipal.ProcuraMineral;
+procedure TFormPrincipal.SelecionaImagem(num: char);
+var
+  SQL: string;
 begin
-   Nome_Mineral:= ListboxMinerais.GetSelectedText;
-   if Nome_Mineral <> emptystr then
-   begin
-        PanelFicha.Visible:=False;
-        if (Dados.SQLite3DatasetGeral.active) then
-        Dados.SQLite3DatasetGeral.applyupdates
-        else Dados.SQLite3DatasetGeral.open();
-
-        if (Listboxminerais.GetSelectedText <> emptyStr) then
-        Begin
-                if ListBoxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
-                > ListBoxMinerais.Items.IndexOf(Nome_Mineral) then
-                begin
-                     repeat
-                           Dados.Sqlite3DatasetGeral.Prior;
-                     until Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString = Nome_Mineral;
-                end
-                else
-                if ListBoxMinerais.Items.IndexOf(Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString)
-                < ListBoxMinerais.Items.IndexOf(Nome_Mineral) then
-                begin
-                     repeat
-                           Dados.Sqlite3DatasetGeral.Next;
-                     until Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString = Nome_Mineral;
-                end;
+  try
+    if (ListboxMinerais.GetSelectedText <> EmptyStr) then
+    begin
+      sltb := sldb.GetTable('SELECT imagem' + num + ' FROM minerais where nome = "' +
+        dados.SQLite3DatasetGeral.FieldByName('nome').AsString + '"');
+      ms := sltb.FieldAsBlob(sltb.FieldIndex['imagem' + num]);
     end
     else
     begin
-         Dados.SQLite3DatasetGeral.first;
-         if (Dados.SQLite3DatasetGeral.FieldByName('nome').AsString <> Nome_Mineral) then
-         begin
-           repeat
-             Dados.SQLite3DatasetGeral.next();
-           until (Dados.SQLite3DatasetGeral.Fieldbyname('nome').asstring = Nome_Mineral);
-         end;
+      sltb2 := sldb.GetTable('SELECT imagem' + num + ' FROM mineralogia where campo = "'
+        + Nome_Didatico + '"');
+      if (sltb2.Count = 0) then
+      begin
+        SQL := 'INSERT INTO mineralogia (campo) VALUES ("' + Nome_Didatico + '");';
+        sldb.ExecSQL(SQL);
+        sltb2 := sldb.GetTable('SELECT imagem' + num +
+          ' FROM mineralogia where campo = "' + Nome_Didatico + '"');
+      end;
+      ms := sltb2.FieldAsBlob(sltb2.FieldIndex['imagem' + num]);
     end;
-   atualizarichmemo;
-   editaDD;
-   AtualizaImagem;
-   GroupBoxDureza.Visible:=false;
-   GroupBoxDensidade.Visible:=false;
-   PanelFicha.Visible:=True;
-   end;
+    if (ms <> nil) then
+    begin
+      ms.Position := 0;
+
+      pic := TJPEGImage.Create;
+      pic.LoadFromStream(ms);
+
+      self.ImageAmpliada.Picture.Graphic := pic;
+
+      pic.Free;
+    end
+    else
+      ImageAmpliada.Picture.Clear;
+  finally
+    if (ListboxMinerais.GetSelectedText <> EmptyStr) then
+      sltb.Free
+    else
+      sltb2.Free;
+  end;
+  Imagem_Selecionada := num;
+end;
+
+procedure TFormPrincipal.ProcuraMineral;
+var SelectSQL:String;
+begin
+  Nome_Mineral := ListboxMinerais.GetSelectedText;
+  if Nome_Mineral <> emptystr then
+  begin
+    SelectSQL:='SELECT nome, formula, classe, subclasse, grupo, subgrupo, ocorrencia, associacao,';
+      SelectSQL:=SelectSQL+' distincao, alteracao, aplicacao, dureza_min, dureza_max, ';
+      SelectSQL:=SelectSQl+' densidade_min, densidade_max, cor, traco, brilho, clivagem, fratura, magnetismo, ';
+      SelectSQL:=SelectSQL+' luminescencia, difaneidade, sinal_optico, indice_refracao, angulo, cor_interferencia,';
+      SelectSQL:=SelectSQL+'cor_lamina, sinal_elongacao, birrefringencia, relevo, extincao,';
+      SelectSQL:=SelectSQL+'sistema, classe_cristalina, h_m, habito FROM minerais WHERE nome="'+Nome_Mineral+'";';
+    if (Dados.SQLite3DatasetGeral.active) then
+    begin
+      Dados.SQLite3DatasetGeral.applyupdates;
+      Dados.Sqlite3DatasetGeral.Close;
+      Dados.Sqlite3DatasetGeral.SQL:=SelectSQL;
+      Dados.SQLite3DatasetGeral.Open();
+    end
+    else
+    begin
+      Dados.Sqlite3DatasetGeral.SQL:=SelectSQL;
+      Dados.SQLite3DatasetGeral.Open();
+    end;
+
+     { if ListBoxMinerais.Items.IndexOf(
+        Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString) >
+        ListBoxMinerais.Items.IndexOf(Nome_Mineral) then
+      begin
+        repeat
+          Dados.Sqlite3DatasetGeral.Prior;
+        until Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString =
+          Nome_Mineral;
+      end
+      else
+      if ListBoxMinerais.Items.IndexOf(
+        Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString) <
+        ListBoxMinerais.Items.IndexOf(Nome_Mineral) then
+      begin
+        repeat
+          Dados.Sqlite3DatasetGeral.Next;
+        until Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString =
+          Nome_Mineral;
+      end;    }
+    atualizarichmemo;
+    editaDD;
+    AtualizaImagem;
+    GroupBoxDureza.Visible := False;
+    GroupBoxDensidade.Visible := False;
+  end
+  else
+  Dados.Sqlite3DatasetGeral.Close();
 end;
 
 procedure TFormPrincipal.Image1Click(Sender: TObject);
 begin
-     SelecionaImagem('1');
+  SelecionaImagem('1');
 end;
 
 procedure TFormPrincipal.Image1DblClick(Sender: TObject);
@@ -1892,7 +2157,7 @@ end;
 
 procedure TFormPrincipal.Image2Click(Sender: TObject);
 begin
-     SelecionaImagem('2');
+  SelecionaImagem('2');
 end;
 
 procedure TFormPrincipal.Image2DblClick(Sender: TObject);
@@ -1902,7 +2167,7 @@ end;
 
 procedure TFormPrincipal.Image3Click(Sender: TObject);
 begin
-     SelecionaImagem('3');
+  SelecionaImagem('3');
 end;
 
 procedure TFormPrincipal.Image3DblClick(Sender: TObject);
@@ -1912,7 +2177,7 @@ end;
 
 procedure TFormPrincipal.Image4Click(Sender: TObject);
 begin
-     SelecionaImagem('4');
+  SelecionaImagem('4');
 end;
 
 procedure TFormPrincipal.Image4DblClick(Sender: TObject);
@@ -1922,7 +2187,7 @@ end;
 
 procedure TFormPrincipal.Image5Click(Sender: TObject);
 begin
-     SelecionaImagem('5');
+  SelecionaImagem('5');
 end;
 
 procedure TFormPrincipal.ImageCristalografia1DblClick(Sender: TObject);
@@ -1942,50 +2207,50 @@ end;
 
 procedure TFormPrincipal.MemoryStreamParaImagem;
 begin
-       ms.Position := 0;
-       pic := TJPEGImage.Create;
-       pic.LoadFromStream(ms);
-       self.ImageAmpliada.Picture.Graphic := pic;
-       pic.Free;
+  ms.Position := 0;
+  pic := TJPEGImage.Create;
+  pic.LoadFromStream(ms);
+  self.ImageAmpliada.Picture.Graphic := pic;
+  pic.Free;
 end;
 
 procedure TFormPrincipal.ImageCristalografia1Click(Sender: TObject);
 begin
-       if (ListboxMinerais.GetSelectedText<> EmptyStr) then
-       begin
-       try
-       sltb :=sldb.GetTable('SELECT imagemCristalografia1 FROM minerais where nome = "' + dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
-       ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia1']);
+  if (ListboxMinerais.GetSelectedText <> EmptyStr) then
+  begin
+    try
+      sltb := sldb.GetTable('SELECT imagemCristalografia1 FROM minerais where nome = "' +
+        dados.SQLite3DatasetGeral.FieldByName('nome').AsString + '"');
+      ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia1']);
 
-       if (ms <> nil) then
-       MemoryStreamParaImagem
-       else
-       ImageAmpliada.Picture.Clear;
-       finally
-       sltb.free
-       end;
-       end;
-       Imagem_Selecionada:='6';
+      if (ms <> nil) then
+        MemoryStreamParaImagem
+      else
+        ImageAmpliada.Picture.Clear;
+    finally
+      sltb.Free
+    end;
+  end;
+  Imagem_Selecionada := '6';
 end;
 
 procedure TFormPrincipal.ImageCristalografia2Click(Sender: TObject);
 begin
-       if (ListboxMinerais.GetSelectedText<> EmptyStr) then
-       begin
-       Try
-       sltb :=sldb.GetTable('SELECT imagemCristalografia2 FROM minerais where nome = "' + dados.SQLite3DatasetGeral.fieldbyname('nome').asstring+'"');
-       ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia2']);
-       if (ms <> nil) then
-       MemoryStreamParaImagem
-       else
-       ImageAmpliada.Picture.Clear;
-       finally
-       sltb.free
-       end;
-       end;
-       Imagem_Selecionada:='7';
+  if (ListboxMinerais.GetSelectedText <> EmptyStr) then
+  begin
+    try
+      sltb := sldb.GetTable('SELECT imagemCristalografia2 FROM minerais where nome = "' +
+        dados.SQLite3DatasetGeral.FieldByName('nome').AsString + '"');
+      ms := sltb.FieldAsBlob(sltb.FieldIndex['imagemCristalografia2']);
+      if (ms <> nil) then
+        MemoryStreamParaImagem
+      else
+        ImageAmpliada.Picture.Clear;
+    finally
+      sltb.Free
+    end;
+  end;
+  Imagem_Selecionada := '7';
 end;
 
-
 end.
-

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, StdCtrls, Spin, LR_View;
+  Buttons, StdCtrls, Spin{, LR_View};
 
 type
 
@@ -27,7 +27,6 @@ type
     Panel2: TPanel;
     RadioButtonSelecionado: TRadioButton;
     RadioButtonLista: TRadioButton;
-    RadioButtonBranco: TRadioButton;
     RadioGroup1: TRadioGroup;
     SpinEdit1: TSpinEdit;
     procedure BitBtn1Click(Sender: TObject);
