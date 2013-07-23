@@ -41,9 +41,6 @@ object Dados: TDados
     Title = 'Impressão'
     left = 56
     top = 248
-    ReportForm = {
-      19000000
-    }
   end
   object frDBDataSet1: TfrDBDataSet
     CloseDataSource = True
