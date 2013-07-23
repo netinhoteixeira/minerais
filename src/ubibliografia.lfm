@@ -8,7 +8,7 @@ object FormBibliografia: TFormBibliografia
   ClientWidth = 629
   OnClose = FormClose
   OnShow = FormShow
-  LCLVersion = '0.9.30.4'
+  LCLVersion = '1.0.10.0'
   object Panel1: TPanel
     Left = 0
     Height = 296

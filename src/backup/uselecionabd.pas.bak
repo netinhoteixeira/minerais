@@ -168,7 +168,7 @@ begin
           ' [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB, [imagemCristalografia1] BLOB, [imagemcristalografia2] BLOB);';
         Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
         ExecSQL :=
-          'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] TEXT UNIQUE, [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB);';
+          'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] TEXT, [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB);';
         Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
       finally
         Dados.Sqlite3DatasetGeral.Open();
@@ -176,14 +176,13 @@ begin
       end;
       // sldb.Create(ExecSQL);
       //sldb.free;
+      ListBoxSeleciona.Items.Append(Diretorio);
     end
     else
       ShowMessage('Já existe um Banco de Dados com esse nome');
   end
   else
     ShowMessage('Você deve especificar um nome para o Banco de Dados');
-
-  ListBoxSeleciona.Items.Append(Diretorio);
 end;
 
 procedure TFormSelecionaBD.FormShow(Sender: TObject);

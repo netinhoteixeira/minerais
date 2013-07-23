@@ -1,11 +1,11 @@
 object FormPrincipal: TFormPrincipal
-  Left = 1
+  Left = 2
   Height = 690
   Top = 0
-  Width = 1007
+  Width = 1006
   Caption = 'Guia de Minerais'
   ClientHeight = 670
-  ClientWidth = 1007
+  ClientWidth = 1006
   Constraints.MinHeight = 690
   Constraints.MinWidth = 510
   Menu = MainMenu1
@@ -507,34 +507,34 @@ object FormPrincipal: TFormPrincipal
     Left = 510
     Height = 627
     Top = 0
-    Width = 497
+    Width = 496
     Align = alClient
     Anchors = [akTop, akRight, akBottom]
     BevelOuter = bvNone
     ClientHeight = 627
-    ClientWidth = 497
+    ClientWidth = 496
     TabOrder = 2
     object PageControlFicha: TPageControl
       Left = 0
       Height = 627
       Top = 0
-      Width = 497
-      ActivePage = TabSheetCristalografia
+      Width = 496
+      ActivePage = TabSheetInf_Gerais
       Align = alClient
-      TabIndex = 3
+      TabIndex = 0
       TabOrder = 0
       object TabSheetInf_Gerais: TTabSheet
         Caption = 'Informações Gerais'
         ClientHeight = 599
-        ClientWidth = 489
+        ClientWidth = 488
         object GroupBoxInf_Gerais: TGroupBox
           Left = 0
           Height = 599
           Top = 0
-          Width = 489
+          Width = 488
           Align = alClient
           ClientHeight = 581
-          ClientWidth = 485
+          ClientWidth = 484
           TabOrder = 0
           object Label1: TLabel
             Left = 15
@@ -548,7 +548,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 11
-            Width = 345
+            Width = 344
             Anchors = [akTop, akLeft, akRight]
             DataField = 'formula'
             DataSource = Dados.DatasourceGeral
@@ -560,7 +560,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 39
-            Width = 345
+            Width = 344
             Anchors = [akTop, akLeft, akRight]
             DataField = 'nome'
             DataSource = Dados.DatasourceGeral
@@ -653,7 +653,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 79
-            Width = 345
+            Width = 344
             Anchors = [akTop, akLeft, akRight]
             DataField = 'classe'
             DataSource = Dados.DatasourceGeral
@@ -665,7 +665,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 111
-            Width = 345
+            Width = 344
             Anchors = [akTop, akLeft, akRight]
             DataField = 'subclasse'
             DataSource = Dados.DatasourceGeral
@@ -677,7 +677,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 143
-            Width = 345
+            Width = 344
             Anchors = [akTop, akLeft, akRight]
             DataField = 'grupo'
             DataSource = Dados.DatasourceGeral
@@ -689,7 +689,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 175
-            Width = 345
+            Width = 344
             Anchors = [akTop, akLeft, akRight]
             DataField = 'subgrupo'
             DataSource = Dados.DatasourceGeral
@@ -701,7 +701,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 70
             Top = 215
-            Width = 345
+            Width = 344
             Anchors = [akTop, akLeft, akRight]
             DataField = 'ocorrencia'
             DataSource = Dados.DatasourceGeral
@@ -713,7 +713,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 70
             Top = 295
-            Width = 345
+            Width = 344
             Anchors = [akTop, akLeft, akRight]
             DataField = 'associacao'
             DataSource = Dados.DatasourceGeral
@@ -725,7 +725,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 70
             Top = 375
-            Width = 345
+            Width = 344
             Anchors = [akTop, akLeft, akRight]
             DataField = 'distincao'
             DataSource = Dados.DatasourceGeral
@@ -737,7 +737,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 70
             Top = 455
-            Width = 345
+            Width = 344
             Anchors = [akTop, akLeft, akRight]
             DataField = 'alteracao'
             DataSource = Dados.DatasourceGeral
@@ -749,7 +749,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 70
             Top = 535
-            Width = 345
+            Width = 344
             Anchors = [akTop, akLeft, akRight]
             DataField = 'aplicacao'
             DataSource = Dados.DatasourceGeral
@@ -761,7 +761,7 @@ object FormPrincipal: TFormPrincipal
             Left = 125
             Height = 27
             Top = 11
-            Width = 345
+            Width = 344
             Anchors = [akTop, akLeft, akRight]
             Font.Height = -12
             HideSelection = False
@@ -769,6 +769,7 @@ object FormPrincipal: TFormPrincipal
             ParentFont = False
             ReadOnly = True
             TabOrder = 11
+            TabStop = False
             WantReturns = False
           end
         end
@@ -1603,7 +1604,7 @@ object FormPrincipal: TFormPrincipal
     Left = 0
     Height = 23
     Top = 647
-    Width = 1007
+    Width = 1006
     Panels = <    
       item
         Width = 510
@@ -1618,7 +1619,7 @@ object FormPrincipal: TFormPrincipal
     Left = 0
     Height = 20
     Top = 627
-    Width = 1007
+    Width = 1006
     Align = alBottom
     TabOrder = 5
     Visible = False

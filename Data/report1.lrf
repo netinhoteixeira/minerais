@@ -205,7 +205,7 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value=" Dureza: [Sqlite3DatasetPrinter.&quot;dureza_min&quot;] - [Sqlite3DatasetPrinter.&quot;dureza_max&quot;]       Densidade: [Sqlite3DatasetPrinter.&quot;densidade_min&quot;] - [Sqlite3DatasetPrinter.&quot;densidade_max&quot;]&#xD;&#xA;&#xD;&#xA; Cor: [Sqlite3DatasetPrinter.&quot;cor&quot;]&#xD;&#xA;&#xD;&#xA; Cor do Traço: [Sqlite3DatasetPrinter.&quot;traco&quot;]&#xD;&#xA;&#xD;&#xA; Brilho: [Sqlite3DatasetPrinter.&quot;brilho&quot;]&#xD;&#xA;&#xD;&#xA; Clivagem: [Sqlite3DatasetPrinter.&quot;clivagem&quot;]       &#xD;&#xA;&#xD;&#xA; Fratura:  [Sqlite3DatasetPrinter.&quot;fratura&quot;]&#xD;&#xA;&#xD;&#xA; Magnetismo: [Sqlite3DatasetPrinter.&quot;magnetismo&quot;]      &#xD;&#xA;&#xD;&#xA; Luminescência: [Sqlite3DatasetPrinter.&quot;luminescencia&quot;]&#xD;&#xA;"/>
+            <Memo Value=" Dureza: [Sqlite3DatasetPrinter.&quot;dureza_min&quot;] - [Sqlite3DatasetPrinter.&quot;dureza_max&quot;]             Densidade: [Sqlite3DatasetPrinter.&quot;densidade_min&quot;] - [Sqlite3DatasetPrinter.&quot;densidade_max&quot;]&#xD;&#xA;&#xD;&#xA; Cor: [Sqlite3DatasetPrinter.&quot;cor&quot;]&#xD;&#xA;&#xD;&#xA; Cor do Traço: [Sqlite3DatasetPrinter.&quot;traco&quot;]&#xD;&#xA;&#xD;&#xA; Brilho: [Sqlite3DatasetPrinter.&quot;brilho&quot;]&#xD;&#xA;&#xD;&#xA; Clivagem: [Sqlite3DatasetPrinter.&quot;clivagem&quot;]       &#xD;&#xA;&#xD;&#xA; Fratura:  [Sqlite3DatasetPrinter.&quot;fratura&quot;]&#xD;&#xA;&#xD;&#xA; Magnetismo: [Sqlite3DatasetPrinter.&quot;magnetismo&quot;]      &#xD;&#xA;&#xD;&#xA; Luminescência: [Sqlite3DatasetPrinter.&quot;luminescencia&quot;]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
           <Font>
@@ -291,7 +291,7 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value=" Classe: [Sqlite3DatasetPrinter.&quot;classe&quot;]&#xD;&#xA; Subclasse: [Sqlite3DatasetPrinter.&quot;subclasse&quot;]&#xD;&#xA; Grupo: [Sqlite3DatasetPrinter.&quot;grupo&quot;]&#xD;&#xA; Subgrupo: [Sqlite3DatasetPrinter.&quot;subgrupo&quot;]&#xD;&#xA;"/>
+            <Memo Value=" Classe: [Sqlite3DatasetPrinter.&quot;classe&quot;]&#xD;&#xA;&#xD;&#xA; Subclasse: [Sqlite3DatasetPrinter.&quot;subclasse&quot;]&#xD;&#xA;&#xD;&#xA; Grupo: [Sqlite3DatasetPrinter.&quot;grupo&quot;]&#xD;&#xA;&#xD;&#xA; Subgrupo: [Sqlite3DatasetPrinter.&quot;subgrupo&quot;]&#xD;&#xA;"/>
             <Script Value=""/>
           </Data>
           <Font>
@@ -630,7 +630,7 @@
         <ColCount Value="1"/>
         <ColGap Value="0"/>
         <LayoutOrder Value="loColumns"/>
-        <ObjectCount Value="12"/>
+        <ObjectCount Value="13"/>
         <Object1>
           <Name Value="Band1"/>
           <ClassName Value="TfrBandView"/>
@@ -900,8 +900,8 @@
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="28"/>
-            <Top Value="152"/>
+            <Left Value="32"/>
+            <Top Value="244"/>
             <Width Value="208"/>
             <Height Value="18"/>
           </Size>
@@ -986,8 +986,8 @@
           <Typ Value="gtPicture"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="88"/>
-            <Top Value="180"/>
+            <Left Value="264"/>
+            <Top Value="192"/>
             <Width Value="200"/>
             <Height Value="140"/>
           </Size>
@@ -1014,8 +1014,8 @@
           <Typ Value="gtPicture"/>
           <StreamMode Value="0"/>
           <Size>
-            <Left Value="372"/>
-            <Top Value="180"/>
+            <Left Value="504"/>
+            <Top Value="192"/>
             <Width Value="196"/>
             <Height Value="140"/>
           </Size>
@@ -1035,6 +1035,49 @@
             <Type Value="0"/>
           </Picture>
         </Object12>
+        <Object13>
+          <Name Value="Memo15"/>
+          <ClassName Value="TfrMemoView"/>
+          <Visible Value="1"/>
+          <Typ Value="gtMemo"/>
+          <StreamMode Value="0"/>
+          <Size>
+            <Left Value="32"/>
+            <Top Value="160"/>
+            <Width Value="204"/>
+            <Height Value="18"/>
+          </Size>
+          <Flags Value="3"/>
+          <FillColor Value="clNone"/>
+          <Frames>
+            <FrameColor Value="clBlack"/>
+            <FrameStyle Value="frsSolid"/>
+            <FrameWidth Value="1"/>
+            <FrameBorders Value=""/>
+          </Frames>
+          <Data>
+            <Format Value="556"/>
+            <FormatStr Value=""/>
+            <Memo Value="Espécie: [Sqlite3DatasetPrinter.&quot;nome&quot;]&#xD;&#xA;"/>
+            <Script Value=""/>
+          </Data>
+          <Font>
+            <Name Value="Arial"/>
+            <Size Value="10"/>
+            <Color Value="clBlack"/>
+            <Charset Value="0"/>
+            <Style Value="fsBold"/>
+          </Font>
+          <Highlight>
+            <FontStyle Value="2"/>
+            <FontColor Value="clBlack"/>
+            <FillColor Value="clWhite"/>
+            <HighlightStr Value=""/>
+          </Highlight>
+          <Alignment Value="taLeftJustify"/>
+          <Layout Value="tlTop"/>
+          <Angle Value="0"/>
+        </Object13>
       </Page2>
       <FVal>
         <Count Value="0"/>
