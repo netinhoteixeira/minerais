@@ -11,6 +11,7 @@ object FormPrincipal: TFormPrincipal
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
+  OnResize = FormResize
   LCLVersion = '1.0.10.0'
   object BGRAPanelListbox: TBGRAPanel
     Left = 0
@@ -519,9 +520,9 @@ object FormPrincipal: TFormPrincipal
       Height = 627
       Top = 0
       Width = 496
-      ActivePage = TabSheetInf_Gerais
+      ActivePage = TabSheetImagem
       Align = alClient
-      TabIndex = 0
+      TabIndex = 4
       TabOrder = 0
       object TabSheetInf_Gerais: TTabSheet
         Caption = 'Informações Gerais'
@@ -1273,15 +1274,15 @@ object FormPrincipal: TFormPrincipal
       object TabSheetCristalografia: TTabSheet
         Caption = 'Cristalografia'
         ClientHeight = 599
-        ClientWidth = 489
+        ClientWidth = 488
         object GroupBox1: TGroupBox
           Left = 0
           Height = 599
           Top = 0
-          Width = 489
+          Width = 488
           Align = alClient
           ClientHeight = 581
-          ClientWidth = 485
+          ClientWidth = 484
           TabOrder = 0
           object GroupBoxCristalografia1: TGroupBox
             Left = 15
@@ -1306,16 +1307,16 @@ object FormPrincipal: TFormPrincipal
             Left = 3
             Height = 264
             Top = 295
-            Width = 480
+            Width = 479
             Anchors = [akTop, akLeft, akRight]
             ClientHeight = 246
-            ClientWidth = 476
+            ClientWidth = 475
             TabOrder = 1
             object DBMemoSistema: TDBMemo
               Left = 125
               Height = 27
               Top = 24
-              Width = 345
+              Width = 344
               Anchors = [akTop, akLeft, akRight]
               DataField = 'sistema'
               DataSource = Dados.DatasourceGeral
@@ -1327,7 +1328,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 64
-              Width = 345
+              Width = 344
               Anchors = [akTop, akLeft, akRight]
               DataField = 'classe_cristalina'
               DataSource = Dados.DatasourceGeral
@@ -1339,7 +1340,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 104
-              Width = 345
+              Width = 344
               Anchors = [akTop, akLeft, akRight]
               DataField = 'h_m'
               DataSource = Dados.DatasourceGeral
@@ -1351,7 +1352,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 78
               Top = 146
-              Width = 345
+              Width = 344
               Anchors = [akTop, akLeft, akRight]
               DataField = 'habito'
               DataSource = Dados.DatasourceGeral
@@ -1416,21 +1417,21 @@ object FormPrincipal: TFormPrincipal
       object TabSheetImagem: TTabSheet
         Caption = 'Imagem'
         ClientHeight = 599
-        ClientWidth = 489
+        ClientWidth = 488
         object GroupBoxImagemAmpliada: TGroupBox
           Left = 0
           Height = 557
           Top = 0
-          Width = 489
+          Width = 488
           Align = alClient
           ClientHeight = 539
-          ClientWidth = 485
+          ClientWidth = 484
           TabOrder = 0
           object ImageAmpliada: TImage
             Left = 0
             Height = 539
             Top = 0
-            Width = 485
+            Width = 484
             Align = alClient
             Center = True
             Proportional = True
@@ -1440,10 +1441,10 @@ object FormPrincipal: TFormPrincipal
           Left = 0
           Height = 42
           Top = 557
-          Width = 489
+          Width = 488
           Align = alBottom
           ClientHeight = 42
-          ClientWidth = 489
+          ClientWidth = 488
           TabOrder = 1
           object BitBtnAdImagem: TBitBtn
             Left = 37
@@ -1455,7 +1456,7 @@ object FormPrincipal: TFormPrincipal
             TabOrder = 0
           end
           object BitBtnRemImagem: TBitBtn
-            Left = 293
+            Left = 292
             Height = 30
             Top = 5
             Width = 150
@@ -1478,6 +1479,7 @@ object FormPrincipal: TFormPrincipal
     ClientHeight = 627
     ClientWidth = 170
     TabOrder = 3
+    Visible = False
     Gradient.StartColor = 8677935
     Gradient.EndColor = 13085822
     Gradient.Point1XPercent = 0
@@ -1646,7 +1648,6 @@ object FormPrincipal: TFormPrincipal
       Caption = 'Exibir'
       object MenuItemFiltro: TMenuItem
         Caption = 'Filtro'
-        RadioItem = True
         OnClick = MenuItemFiltroClick
       end
       object MenuItemImagens: TMenuItem
@@ -1677,7 +1678,6 @@ object FormPrincipal: TFormPrincipal
         RadioItem = True
         object MenuItemDureza: TMenuItem
           Caption = 'Dureza'
-          Checked = True
           RadioItem = True
           OnClick = MenuItemDurezaClick
         end
@@ -1692,7 +1692,6 @@ object FormPrincipal: TFormPrincipal
         object MenuItemNormal: TMenuItem
           AutoCheck = True
           Caption = 'Normal'
-          Checked = True
           RadioItem = True
           OnClick = MenuItemNormalClick
         end

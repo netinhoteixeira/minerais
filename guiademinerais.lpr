@@ -9,16 +9,21 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, uprincipal, bgracontrols, udatamodule, sqlite3laz, richmemopackage,
   lazreport, uselecionabd, ubibliografia, uformimpressao,
-  UnitAjuda;
+  UnitAjuda, unitSplash, crt, unitImagem;
 
 {$R *.res}
 
 begin
   Application.Title:='Guia de Minerais';
   Application.Initialize;
+  FormSplash:=TFormSplash.Create(nil);
+  FormSplash.Show;
+  FormSplash.Update;
   Application.CreateForm(TDados, Dados);
+  Delay(1000);
+  FormSplash.Hide;
+  FormSplash.Free;
   Application.CreateForm(TFormPrincipal, FormPrincipal);
-  //Application.CreateForm(TFormSelecionaBD, FormSelecionaBD);
   Application.CreateForm(TFormBibliografia, FormBibliografia);
   Application.CreateForm(TFormImpressao, FormImpressao);
   Application.CreateForm(TFormAjuda, FormAjuda);
