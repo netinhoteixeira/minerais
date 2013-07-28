@@ -9,7 +9,6 @@ object Dados: TDados
     FileName = 'C:\Users\elidio\Documents\Minerais\Data\Mineraisbd.s3db'
     PrimaryKey = 'id'
     SaveOnClose = True
-    SQL = 'Select * from minerais;'
     TableName = 'minerais'
     left = 56
     top = 8

@@ -3,7 +3,7 @@ object FormSelecionaBD: TFormSelecionaBD
   Height = 238
   Top = 3
   Width = 609
-  Caption = 'FormSelecionaBD'
+  Caption = 'Selecionar Banco de Dados'
   ClientHeight = 218
   ClientWidth = 609
   Menu = MainMenu1

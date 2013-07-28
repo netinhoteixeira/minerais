@@ -5,7 +5,8 @@ unit udatamodule;
 interface
 
 uses
-  Classes, SysUtils, Sqlite3DS, db, FileUtil, LR_Class, LR_DBSet;
+  Classes, SysUtils, Sqlite3DS, DB, FileUtil, LR_Class, LR_DBSet, SQLite3mod,
+  SQLite3tablemod;
 
 type
 
@@ -27,12 +28,16 @@ type
   private
     { private declarations }
   public
-    procedure determinaBD(diretorio:string);
+    sldb: TSQLiteDatabase;
+  sltb: TSQLiteTable;
+    function determinaBD(diretorio: string): boolean;
     { public declarations }
-  end; 
+  end;
 
 var
   Dados: TDados;
+
+
 implementation
 
 {$R *.lfm}
@@ -42,34 +47,60 @@ implementation
 procedure TDados.DataModuleDestroy(Sender: TObject);
 begin
   if SQLite3DatasetGeral.Active then
-  SQLite3DatasetGeral.Close;
+    SQLite3DatasetGeral.Close;
   if SQLite3DatasetDidatico.Active then
-  SQLite3DatasetDidatico.Close;
+    SQLite3DatasetDidatico.Close;
 end;
 
-procedure TDados.determinaBD(diretorio: string);
+function TDados.determinaBD(diretorio: string): boolean;
 begin
-  if SQLite3DatasetGeral.Active Then  SQLite3DatasetGeral.Close;
-  if SQLite3DatasetCombobox.Active Then  SQLite3DatasetComboBox.Close;
-  if SQLite3DatasetDidatico.Active Then  SQLite3DatasetDidatico.Close;
+  if SQLite3DatasetGeral.Active then
+    SQLite3DatasetGeral.Close;
+  if SQLite3DatasetCombobox.Active then
+    SQLite3DatasetComboBox.Close;
+  if SQLite3DatasetDidatico.Active then
+    SQLite3DatasetDidatico.Close;
   with SQLite3DatasetGeral do
   begin
-  FileName:=diretorio;
+    FileName := diretorio;
   end;
   with SQLite3DatasetCombobox do
   begin
-  Filename:=diretorio;
+    Filename := diretorio;
   end;
   with SQLite3DatasetDidatico do
   begin
-  Filename:=diretorio;
-  Open();
+    Filename := diretorio;
   end;
   with SQLite3DatasetPrinter do
   begin
-  Filename:=diretorio;
+    Filename := diretorio;
   end;
+    sldb := TSQLiteDatabase.Create(Diretorio);
+  //Checa se a Tabela é compatível
+  if SQLite3DatasetGeral.TableExists('minerais') then
+  begin
+    if SQLite3DatasetGeral.TableExists('mineralogia') then
+    begin
+      Result := True;
+    end
+    else
+      Result := False;
+  end
+  else
+    Result := False;
+
+
+
+  {SQLite3DatasetGeral.FindField();
+
+  if SQLite3DatasetGeral.TableExists('minerais') then
+    if SQLite3DatasetGeral.TableExists('mineralogia') then
+      if SQLite3DatasetGeral.Fields.FindField('nome') then
+        if SQLite3DatasetGeral.Fields.FindField('formula') then
+        Result:=True;
+        else
+        Result:=False;  }
 end;
 
 end.
-

@@ -120,7 +120,7 @@ begin
   begin
     Diretorio := GetCurrentDir + '\Data\config.ini';
     Config := TINIFile.Create(Diretorio);
-    Config.WriteString('Configuracoes', 'BD', ListBoxSeleciona.GetSelectedText);
+    Config.WriteString('Configuracoes', 'BD', Trim(ListBoxSeleciona.GetSelectedText));
     Config.Free;
     StatusBar1.SimpleText :=
       'Banco de Dados Padrão: ' + ListBoxSeleciona.GetSelectedText;
@@ -137,8 +137,10 @@ procedure TFormSelecionaBD.BitBtnSelecionarClick(Sender: TObject);
 begin
   if (ListBoxSeleciona.GetSelectedText <> EmptyStr) then
   begin
-    Dados.determinaBD(ListBoxSeleciona.GetSelectedText);
-    FormSelecionaBd.Visible := False;
+    if Dados.determinaBD(ListBoxSeleciona.GetSelectedText) then
+    FormSelecionaBd.Visible := False
+    else
+    ShowMessage('O banco de dados selecionado não é compatível.');
   end;
 end;
 
@@ -165,7 +167,7 @@ begin
         ExecSQL := ExecSQL +
           ' [extincao] TEXT, [classe_cristalina] TEXT, [sistema] TEXT, [h_m] TEXT, [habito] TEXT, ';
         ExecSQL := ExecSQL +
-          ' [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB, [imagemCristalografia1] BLOB, [imagemcristalografia2] BLOB);';
+          ' [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB, [imagemCristalografia1] BLOB, [imagemcristalografia2] BLOB), [imagem6] BLOB, [imagem7] BLOB;';
         Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
         ExecSQL :=
           'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] TEXT, [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB);';
