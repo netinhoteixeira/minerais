@@ -3,7 +3,7 @@ object FormImpressao: TFormImpressao
   Height = 477
   Top = 2
   Width = 1035
-  Caption = 'Imprimir'
+  Caption = 'Impresão'
   ClientHeight = 477
   ClientWidth = 1035
   OnClose = FormClose
@@ -26,7 +26,6 @@ object FormImpressao: TFormImpressao
       Align = alClient
       Alignment = taRightJustify
       BevelOuter = bvLowered
-      Caption = 'frPreview1'
       TabOrder = 0
       ScrollBars = ssBoth
     end
@@ -140,9 +139,10 @@ object FormImpressao: TFormImpressao
     object BitBtn1: TBitBtn
       Left = 8
       Height = 21
-      Top = 368
-      Width = 160
-      Caption = 'Modificar Relatório'
+      Top = 384
+      Width = 248
+      Anchors = [akTop, akLeft, akBottom]
+      Caption = 'Modificar Formato de Relatório'
       OnClick = BitBtn1Click
       TabOrder = 3
     end
