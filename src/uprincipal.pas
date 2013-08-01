@@ -84,7 +84,7 @@ type
     BGRALabelDureza: TBGRALabel;
     BGRALabelDensidade: TBGRALabel;
     BGRALabelOcorrencia: TBGRALabel;
-    BGRALabelAsociacao: TBGRALabel;
+    BGRALabelAssociacao: TBGRALabel;
     BitBtnAdImagem: TBitBtn;
     BitBtnRemImagem: TBitBtn;
     ComboBoxClasse: TComboBox;
@@ -134,18 +134,18 @@ type
     GroupBoxImagem1: TGroupBox;
     GroupBoxCristalografia: TGroupBox;
     GroupBoxCristalografia1: TGroupBox;
+    GroupBoxImagemAmpliada: TGroupBox;
     GroupBoxOpticas: TGroupBox;
     GroupBoxDureza: TGroupBox;
     GroupBoxDensidade: TGroupBox;
     GroupBoxProp_Fisicas: TGroupBox;
-    GroupBoxImagemAmpliada: TGroupBox;
     Image1: TImage;
     Image2: TImage;
     Image3: TImage;
     Image4: TImage;
     Image5: TImage;
-    ImageCristalografia2: TImage;
     ImageAmpliada: TImage;
+    ImageCristalografia2: TImage;
     ImageCristalografia1: TImage;
     Label11: TLabel;
     Label12: TLabel;
@@ -285,7 +285,6 @@ type
     procedure ImageCristalografia2Click(Sender: TObject);
     procedure ImageCristalografia2DblClick(Sender: TObject);
     procedure ListBoxMineraisClick(Sender: TObject);
-    procedure ListBoxMineraisDblClick(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItemAdicionarClick(Sender: TObject);
     procedure MenuItemExcluiClick(Sender: TObject);
@@ -358,6 +357,8 @@ var
   den_min, den_max, ocorrencia, associacao: string;
   //Usado pelo RichMemo
   fonte, fontenormal, fonte2: TFontParams;
+
+  DatasetFileName: String;
 
 implementation
 
@@ -637,10 +638,15 @@ begin
   if Config.ReadString('Configuracoes', 'Fonte', '') = 'Grande' then
   MenuItemGrande.Checked:=True else
   MenuItemNormal.Checked:=True;
+  if Config.ReadBool('Configuracoes', 'PainelFiltro', False) then
+  begin
+    BGRAPanelFiltro.Visible:=True;
+    MenuItemFiltro.Checked:=True;
+  end;
   if Config.ReadBool('Configuracoes', 'PainelImagem', True) then
   begin
-  BGRAPanelImagens.Visible:=True;
   MenuItemimagens.Checked:=True;
+  BGRAPanelImagens.Visible:=True;
   end;
   Config.Free;
   MudarFonte;
@@ -668,6 +674,7 @@ begin
   else
   begin
     FormSelecionaBD.Show;
+    DatasetFileName:=Dados.Sqlite3DatasetGeral.Filename;
     Timer1.Enabled := True;
   end;
   openpicturedialog1.Filter := lista_formatos;
@@ -676,6 +683,33 @@ end;
 procedure TFormPrincipal.FormResize(Sender: TObject);
 var Comprimento, Altura: Integer;
 begin
+  BGRALabelClasse.Top:=Trunc(BGRAPanelFiltro.Height*0.153);
+  ComboboxClasse.Top:=Trunc(BGRAPanelFiltro.Height*0.191);
+  BGRALabelSubClasse.Top:=Trunc(BGRAPanelFiltro.Height*0.255);
+  ComboboxSubClasse.Top:=Trunc(BGRAPanelFiltro.Height*0.293);
+  BGRALabelGrupo.Top:=Trunc(BGRAPanelFiltro.Height*0.357);
+  ComboboxGrupo.Top:=Trunc(BGRAPanelFiltro.Height*0.395);
+  BGRALabelSubGrupo.Top:=Trunc(BGRAPanelFiltro.Height*0.459);
+  ComboboxSubGrupo.Top:=Trunc(BGRAPanelFiltro.Height*0.507);
+  BGRALAbelDureza.Top:=Trunc(BGRAPanelFiltro.Height*0.548);
+  Label33.Top:=Trunc(BGRAPanelFiltro.Height*0.59);
+  Label34.Top:=Trunc(BGRAPanelFiltro.Height*0.615);
+  ComboboxDureza_min.Top:=Trunc(BGRAPanelFiltro.Height*0.615);
+  ComboboxDureza_max.top:=Trunc(BGRAPanelFiltro.Height*0.615);
+  BGRALabelDensidade.Top:=Trunc(BGRAPanelFiltro.Height*0.676);
+  Label35.Top:=Trunc(BGRAPanelFiltro.Height*0.717);
+  Label36.Top:=Trunc(BGRAPanelFiltro.Height*0.743);
+  EditDensidade_min.Top:=Trunc(BGRAPanelFiltro.Height*0.743);
+  EditDensidade_max.Top:=Trunc(BGRAPanelFiltro.Height*0.743);
+  BGRALabelOcorrencia.Top:=Trunc(BGRAPanelFiltro.Height*0.803);
+  EditOcorrencia.Top:=Trunc(BGRAPanelFiltro.Height*0.842);
+  BGRALabelAssociacao.Top:=Trunc(BGRAPanelFiltro.Height*0.893);
+  EditAssociacao.Top:=Trunc(BGRAPanelFiltro.Height*0.931);
+  GroupBoxImagem2.Top:=Trunc(BGRAPanelFiltro.Height*0.202);
+  GroupBoxImagem3.Top:=Trunc(BGRAPanelFiltro.Height*0.403);
+  GroupBoxImagem4.Top:=Trunc(BGRAPanelFiltro.Height*0.606);
+  GroupBoxImagem5.Top:=Trunc(BGRAPanelFiltro.Height*0.807);
+
   Config:=TINIFile.Create(GetCurrentDir + '\Data\config.ini');
   Comprimento:=FormPrincipal.Width;
   Config.WriteString('Configuracoes', 'Comprimento', IntToStr(FormPrincipal.Width));
@@ -691,15 +725,18 @@ begin
     Timer1.Enabled := False;
      //obs essa funcao analisa o filename do dataset e determina novamente o mesmo
      //pode haver erros aqui
-    if (Dados.DeterminaBD(Dados.Sqlite3DatasetGeral.FileName)) then
-    begin
-      sldb := TSQLiteDatabase.Create(Dados.Sqlite3DatasetGeral.FileName);
-      Preenche_Classes;
-      Preenche_SubClasses;
-      Preenche_Grupos;
-      Preenche_SubGrupos;
-      Preenche_Lista;
-    end;
+     if DatasetFileName <> Dados.Sqlite3DatasetGeral.FileName then
+     begin
+       if (Dados.DeterminaBD(Dados.Sqlite3DatasetGeral.FileName)) then
+       begin
+        sldb := TSQLiteDatabase.Create(Dados.Sqlite3DatasetGeral.FileName);
+        Preenche_Classes;
+        Preenche_SubClasses;
+        Preenche_Grupos;
+        Preenche_SubGrupos;
+        Preenche_Lista;
+      end;
+     end;
     FormPrincipal.Show;
   end;
 end;
@@ -716,11 +753,6 @@ begin
   begin
     ListBoxMinerais.Items.Delete(ListBoxMinerais.ItemIndex);
   end;
-end;
-
-procedure TFormPrincipal.ListBoxMineraisDblClick(Sender: TObject);
-begin
-  RetiraDaLista;
 end;
 
 procedure TFormPrincipal.MenuItemRetiraClick(Sender: TObject);
@@ -745,15 +777,18 @@ end;
 
 procedure TFormPrincipal.MenuItemFiltroClick(Sender: TObject);
 begin
+  Config:=TIniFile.Create(GetCurrentDir + '\Data\config.ini');
   if BGRAPanelFiltro.Visible then
   begin
     BGRAPanelFiltro.Visible := False;
     MenuItemFiltro.Checked:=False;
+    Config.WriteBool('Configuracoes', 'PainelFiltro', False);
   end
   else
   begin
     BGRAPanelFiltro.Visible := True;
     MenuItemFiltro.Checked:=True;
+    Config.WriteBool('Configuracoes', 'PainelFiltro', True);
   end;
 end;
 
@@ -1645,7 +1680,8 @@ begin
     Fonte2.Size := Grande;
     FonteNormal.Size := Grande;
   end;
-
+  if MenuItemModoEdicao.Checked then
+  begin
   aux := DBMemoFormula.Text;
   RichMemoFormula.Text := aux;
   i := Length(aux);
@@ -1695,6 +1731,7 @@ begin
       RichMemoFormula.SetTextAttributes(j - 1, 1, fonte2)
     else
       RichMemoFormula.SetTextAttributes(j - 1, 1, fontenormal);
+  end;
   end;
 end;
 
@@ -1969,9 +2006,9 @@ begin
     AtualizaImagem;
     GroupBoxDureza.Visible := False;
     GroupBoxDensidade.Visible := False;
-    if MenuItemModoEdicao.Checked then RichMemoFormula.Visible:=True
+    if MenuItemModoEdicao.Checked then RichMemoFormula.Visible:=False
     else
-    RichMemoFormula.Visible:=False;
+    RichMemoFormula.Visible:=True;
   end
   else
   if Dados.Sqlite3DatasetGeral.Active then
