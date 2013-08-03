@@ -147,36 +147,37 @@ type
     ImageAmpliada: TImage;
     ImageCristalografia2: TImage;
     ImageCristalografia1: TImage;
-    Label11: TLabel;
-    Label12: TLabel;
-    Label13: TLabel;
-    Label14: TLabel;
-    Label15: TLabel;
-    Label16: TLabel;
-    Label17: TLabel;
-    Label18: TLabel;
-    Label19: TLabel;
-    Label20: TLabel;
-    Label21: TLabel;
-    Label22: TLabel;
-    Label23: TLabel;
+    LabelSistema_Cristalino: TLabel;
+    LabelClasse_Cristalina: TLabel;
+    LabelSimbologia: TLabel;
+    LabelHabito: TLabel;
+    LabelDifaneidade: TLabel;
+    LabelSinal_optico: TLabel;
+    LabelIndice_Refracao: TLabel;
+    LabelAngulo_2V: TLabel;
+    LabelCor_Interferencia: TLabel;
+    LabelSInal_Elongacao: TLabel;
+    LabelBirrefringencia: TLabel;
+    LabelRelevo: TLabel;
+    LabelExtincao: TLabel;
     Label24: TLabel;
     Label25: TLabel;
-    Label26: TLabel;
-    Label27: TLabel;
-    Label28: TLabel;
-    Label29: TLabel;
-    Label30: TLabel;
-    Label31: TLabel;
-    Label32: TLabel;
+    LabelCor: TLabel;
+    LabelTraco: TLabel;
+    LabelBrilho: TLabel;
+    LabelClivagem: TLabel;
+    LabelFratura: TLabel;
+    LabelMagnetismo: TLabel;
+    LabelLuminescencia: TLabel;
     Label33: TLabel;
     Label34: TLabel;
     Label35: TLabel;
     Label36: TLabel;
-    Label37: TLabel;
+    LabelCor_Lamina: TLabel;
     Label38: TLabel;
     Label39: TLabel;
     ListBoxMinerais: TListBox;
+    MenuItemAlfabetica: TMenuItem;
     MenuItemImagens: TMenuItem;
     MenuItemAdicionar: TMenuItem;
     MenuItemFiltro: TMenuItem;
@@ -206,15 +207,15 @@ type
     DBMemoFormula: TDBMemo;
     GroupBoxInf_Gerais: TGroupBox;
     Label1: TLabel;
-    Label10: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
-    Label9: TLabel;
+    LabelAplicacao: TLabel;
+    LabelClasse: TLabel;
+    LabelSubClasse: TLabel;
+    LabelGrupo: TLabel;
+    LabelSubGrupo: TLabel;
+    LabelOcorrencia: TLabel;
+    LabelAssociacao: TLabel;
+    LabelDistincao: TLabel;
+    LabelAlteracao: TLabel;
     LabelNome: TLabel;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
@@ -250,16 +251,118 @@ type
     procedure ComboBoxGrupoChange(Sender: TObject);
     procedure ComboBoxSubclasseChange(Sender: TObject);
     procedure ComboBoxSubgrupoChange(Sender: TObject);
-    procedure DBMemoClasseKeyPress(Sender: TObject; var Key: char);
-    procedure DBMemoClasse_CristalinaKeyPress(Sender: TObject; var Key: char);
+    procedure DBEditDensidade_MaxEditingDone(Sender: TObject);
+    procedure DBEditDensidade_MaxKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBEditDensidade_MinEditingDone(Sender: TObject);
+    procedure DBEditDensidade_MinKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBEditDureza_MaxEditingDone(Sender: TObject);
+    procedure DBEditDureza_MaxKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBEditDureza_MinEditingDone(Sender: TObject);
+    procedure DBEditDureza_MinKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoAlteracaoEditingDone(Sender: TObject);
+    procedure DBMemoAlteracaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoAnguloEditingDone(Sender: TObject);
+    procedure DBMemoAnguloKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoAplicacaoEditingDone(Sender: TObject);
+    procedure DBMemoAplicacaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoAssociacaoEditingDone(Sender: TObject);
+    procedure DBMemoAssociacaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoBirrefringenciaEditingDone(Sender: TObject);
+    procedure DBMemoBirrefringenciaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoBrilhoEditingDone(Sender: TObject);
+    procedure DBMemoBrilhoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoClasseEditingDone(Sender: TObject);
+    procedure DBMemoClasseKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoClasse_CristalinaEditingDone(Sender: TObject);
+    procedure DBMemoClasse_CristalinaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoClivagemEditingDone(Sender: TObject);
+    procedure DBMemoClivagemKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoCorEditingDone(Sender: TObject);
+    procedure DBMemoCorKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
+      );
+    procedure DBMemoCor_interferenciaEditingDone(Sender: TObject);
+    procedure DBMemoCor_interferenciaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoCor_LaminaEditingDone(Sender: TObject);
+    procedure DBMemoCor_LaminaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoDifaneidadeEditingDone(Sender: TObject);
+    procedure DBMemoDifaneidadeKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoDistincaoEditingDone(Sender: TObject);
+    procedure DBMemoDistincaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoExtincaoEditingDone(Sender: TObject);
+    procedure DBMemoExtincaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoFormulaEditingDone(Sender: TObject);
     procedure DBMemoFormulaKeyPress(Sender: TObject; var Key: char);
-    procedure DBMemoGrupoKeyPress(Sender: TObject; var Key: char);
+    procedure DBMemoFormulaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoFraturaEditingDone(Sender: TObject);
+    procedure DBMemoFraturaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoGrupoEditingDone(Sender: TObject);
+    procedure DBMemoGrupoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoHabitoEditingDone(Sender: TObject);
+    procedure DBMemoHabitoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoH_MEditingDone(Sender: TObject);
     procedure DBMemoH_MKeyPress(Sender: TObject; var Key: char);
+    procedure DBMemoH_MKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
+      );
+    procedure DBMemoIndice_RefracaoEditingDone(Sender: TObject);
+    procedure DBMemoIndice_RefracaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoLuminescenciaEditingDone(Sender: TObject);
+    procedure DBMemoLuminescenciaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoMagnetismoEditingDone(Sender: TObject);
+    procedure DBMemoMagnetismoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure DBMemoNomeEditingDone(Sender: TObject);
     procedure DBMemoNomeKeyPress(Sender: TObject; var Key: char);
+    procedure DBMemoOCorrenciaEditingDone(Sender: TObject);
+    procedure DBMemoOCorrenciaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoRelevoEditingDone(Sender: TObject);
+    procedure DBMemoRelevoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoSinal_ElongacaoEditingDone(Sender: TObject);
+    procedure DBMemoSinal_ElongacaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoSinal_OpticoEditingDone(Sender: TObject);
+    procedure DBMemoSinal_OpticoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoSistemaEditingDone(Sender: TObject);
     procedure DBMemoSistemaKeyPress(Sender: TObject; var Key: char);
+    procedure DBMemoSistemaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoSubclasseEditingDone(Sender: TObject);
     procedure DBMemoSubclasseKeyPress(Sender: TObject; var Key: char);
+    procedure DBMemoSubclasseKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoSubgrupoEditingDone(Sender: TObject);
     procedure DBMemoSubgrupoKeyPress(Sender: TObject; var Key: char);
+    procedure DBMemoSubgrupoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoTracoEditingDone(Sender: TObject);
+    procedure DBMemoTracoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure EditAssociacaoEditingDone(Sender: TObject);
     procedure EditDensidadeClick(Sender: TObject);
     procedure EditDensidade_MaxEditingDone(Sender: TObject);
@@ -325,7 +428,11 @@ type
     procedure AdicionaMineral;
     procedure RetiraDaLista;
     procedure ExcluiMineral;
-    procedure MudarFonte;
+    procedure MudarFonte;   //UpdateMemos
+    procedure UpdateCampos(Especie:String; Campo:String; objeto :TDBMemo);
+    procedure UpdateEdits(Especie:String; Campo:String; objeto :TDBEdit);
+    procedure ModoEdicao;
+    function DefinirOrdem: String;
     { private declarations }
   public
     { public declarations }
@@ -394,55 +501,373 @@ begin
   Preenche_Lista;
 end;
 
-procedure TFormPrincipal.DBMemoClasseKeyPress(Sender: TObject; var Key: char);
-var
-  especie: string;
+procedure TFormPrincipal.DBEditDensidade_MaxEditingDone(Sender: TObject);
 begin
-  if (Key = #13) then
-  begin
-    sltb:=sldb.GetTable('UPDATE minerais SET classe = "'
-    +Copy(DBMemoClasse.Text, 0, Length(DBMemoClasse.Text))
-    +'" WHERE nome = "'+DBMemoNome.Text+'";');
-  end;
+  UpDateEdits( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    'densidade_max', DBEditDensidade_max);
 end;
 
-procedure TFormPrincipal.DBMemoClasse_CristalinaKeyPress(Sender: TObject;
-  var Key: char);
+procedure TFormPrincipal.DBEditDensidade_MaxKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
 begin
-  if (Key = #13) then
-  begin
-    sltb := sldb.GetTable('UPDATE minerais SET classe_cristalina = "' +
-      Copy(DBMemoClasse_Cristalina.Text, 0, Length(DBMemoClasse_Cristalina.Text)) +
-      '" WHERE nome = "' + DBMemoNome.Text + '";');
-  end;
+  UpDateEdits( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+     'densidade_max', DBEditDensidade_max);
+end;
+
+procedure TFormPrincipal.DBEditDensidade_MinEditingDone(Sender: TObject);
+begin
+  UpDateEdits( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'densidade_min', DBEditDensidade_min);
+end;
+
+procedure TFormPrincipal.DBEditDensidade_MinKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  UpDateEdits( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'densidade_min', DBEditDensidade_min);
+end;
+
+procedure TFormPrincipal.DBEditDureza_MaxEditingDone(Sender: TObject);
+begin
+  UpDateEdits( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'dureza_max', DBEditDureza_max);
+end;
+
+procedure TFormPrincipal.DBEditDureza_MaxKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     UpDateEdits( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'dureza_max', DBEditDureza_max);
+end;
+
+procedure TFormPrincipal.DBEditDureza_MinEditingDone(Sender: TObject);
+begin
+  UpDateEdits( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+     'dureza_min', DBEditDureza_min);
+end;
+
+procedure TFormPrincipal.DBEditDureza_MinKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   UpDateEdits( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'dureza_min', DBEditDureza_min);
+end;
+
+procedure TFormPrincipal.DBMemoAlteracaoEditingDone(Sender: TObject);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'alteracao', DBMemoAlteracao);
+end;
+
+procedure TFormPrincipal.DBMemoAlteracaoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'alteracao', DBMemoAlteracao);
+end;
+
+procedure TFormPrincipal.DBMemoAnguloEditingDone(Sender: TObject);
+begin
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'angulo', DBMemoAngulo);
+end;
+
+procedure TFormPrincipal.DBMemoAnguloKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'angulo', DBMemoAngulo);
+end;
+
+procedure TFormPrincipal.DBMemoAplicacaoEditingDone(Sender: TObject);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'Aplicacao', DBMemoAplicacao);
+end;
+
+procedure TFormPrincipal.DBMemoAplicacaoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'Aplicacao', DBMemoAplicacao);
+end;
+
+procedure TFormPrincipal.DBMemoAssociacaoEditingDone(Sender: TObject);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'associacao', DBMemoAssociacao);
+end;
+
+procedure TFormPrincipal.DBMemoAssociacaoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'associacao', DBMemoAssociacao);
+end;
+
+procedure TFormPrincipal.DBMemoBirrefringenciaEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'birrefringencia', DBMemoBirrefringencia);
+end;
+
+procedure TFormPrincipal.DBMemoBirrefringenciaKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'birrefringencia', DBMemoBirrefringencia);
+end;
+
+procedure TFormPrincipal.DBMemoBrilhoEditingDone(Sender: TObject);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'brilho', DBMemoBrilho);
+end;
+
+procedure TFormPrincipal.DBMemoBrilhoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'brilho', DBMemoBrilho);
+end;
+
+procedure TFormPrincipal.DBMemoClasseEditingDone(Sender: TObject);
+begin
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'classe', DBMemoClasse);
+end;
+
+procedure TFormPrincipal.DBMemoClasseKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'classe', DBMemoClasse);
+end;
+
+procedure TFormPrincipal.DBMemoClasse_CristalinaEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'classe_cristalina', DBMemoClasse_Cristalina);
+end;
+
+procedure TFormPrincipal.DBMemoClasse_CristalinaKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'classe_cristalina', DBMemoClasse_Cristalina);
+end;
+
+procedure TFormPrincipal.DBMemoClivagemEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'clivagem', DBMemoClivagem);
+end;
+
+procedure TFormPrincipal.DBMemoClivagemKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'clivagem', DBMemoClivagem);
+end;
+
+procedure TFormPrincipal.DBMemoCorEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'cor', DBMemoCor);
+end;
+
+procedure TFormPrincipal.DBMemoCorKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'cor', DBMemoCor);
+end;
+
+procedure TFormPrincipal.DBMemoCor_interferenciaEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+     'cor_interferencia', DBMemoCor_Interferencia);
+end;
+
+procedure TFormPrincipal.DBMemoCor_interferenciaKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'cor_interferencia', DBMemoCor_Interferencia);
+end;
+
+procedure TFormPrincipal.DBMemoCor_LaminaEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'cor_lamina', DBMemoCor_lamina);
+end;
+
+procedure TFormPrincipal.DBMemoCor_LaminaKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'cor_lamina', DBMemoCor_lamina);
+end;
+
+procedure TFormPrincipal.DBMemoDifaneidadeEditingDone(Sender: TObject);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'difaneidade', DBMemoDifaneidade);
+end;
+
+procedure TFormPrincipal.DBMemoDifaneidadeKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'difaneidade', DBMemoDifaneidade);
+end;
+
+procedure TFormPrincipal.DBMemoDistincaoEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'distincao', DBMemoDistincao);
+end;
+
+procedure TFormPrincipal.DBMemoDistincaoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'distincao', DBMemoDistincao);
+end;
+
+procedure TFormPrincipal.DBMemoExtincaoEditingDone(Sender: TObject);
+begin
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'extincao', DBMemoExtincao);
+end;
+
+procedure TFormPrincipal.DBMemoExtincaoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    'extincao', DBMemoExtincao);
+end;
+
+procedure TFormPrincipal.DBMemoFormulaEditingDone(Sender: TObject);
+begin
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'formula', DBMemoFormula);
 end;
 
 procedure TFormPrincipal.DBMemoFormulaKeyPress(Sender: TObject; var Key: char);
 begin
-  if (Key = #13) then
-  begin
-    sltb := sldb.GetTable('UPDATE formula SET formula = "' + Copy(DBMemoFormula.Text,
-      0, Length(DBMemoFormula.Text)) + '" WHERE nome = "' + DBMemoNome.Text + '";');
-  end;
+
 end;
 
-procedure TFormPrincipal.DBMemoGrupoKeyPress(Sender: TObject; var Key: char);
+procedure TFormPrincipal.DBMemoFormulaKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
-  if (Key = #13) then
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'formula', DBMemoFormula);
+end;
+
+procedure TFormPrincipal.DBMemoFraturaEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'fratura', DBMemoFratura);
+end;
+
+procedure TFormPrincipal.DBMemoFraturaKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'fratura', DBMemoFratura);
+end;
+
+procedure TFormPrincipal.DBMemoGrupoEditingDone(Sender: TObject);
+begin
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'grupo', DBMemoGrupo);
+end;
+
+procedure TFormPrincipal.DBMemoGrupoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   if (Key = 13) then
   begin
     sltb := sldb.GetTable('UPDATE minerais SET grupo = "' + Copy(DBMemoGrupo.Text,
       0, Length(DBMemoGrupo.Text)) + '" WHERE nome = "' + DBMemoNome.Text + '";');
     Preenche_Grupos;
-  end;
+  end
+  else
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'grupo', DBMemoGrupo);
+end;
+
+procedure TFormPrincipal.DBMemoHabitoEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   'habito', DBMemoHabito);
+end;
+
+procedure TFormPrincipal.DBMemoHabitoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   'habito', DBMemoHabito);
+end;
+
+procedure TFormPrincipal.DBMemoH_MEditingDone(Sender: TObject);
+begin
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   'habito', DBMemoHabito);
 end;
 
 procedure TFormPrincipal.DBMemoH_MKeyPress(Sender: TObject; var Key: char);
 begin
-  if (Key = #13) then
-  begin
-    sltb := sldb.GetTable('UPDATE minerais SET h_m = "' + Copy(DBMemoH_M.Text, 0,
-      Length(DBMemoH_M.Text)) + '" WHERE nome = "' + DBMemoNome.Text + '";');
-  end;
+     UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   'h_m', DBMemoH_M);
+end;
+
+procedure TFormPrincipal.DBMemoH_MKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    'h_m', DBMemoH_M);
+end;
+
+procedure TFormPrincipal.DBMemoIndice_RefracaoEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'indice_refracao', DBMemoIndice_Refracao);
+end;
+
+procedure TFormPrincipal.DBMemoIndice_RefracaoKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'indice_refracao', DBMemoIndice_Refracao);
+end;
+
+procedure TFormPrincipal.DBMemoLuminescenciaEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'luminescencia', DBMemoLuminescencia);
+end;
+
+procedure TFormPrincipal.DBMemoLuminescenciaKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'luminescencia', DBMemoLuminescencia);
+end;
+
+procedure TFormPrincipal.DBMemoMagnetismoEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'magnetismo', DBMemoMagnetismo);
+end;
+
+procedure TFormPrincipal.DBMemoMagnetismoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'magnetismo', DBMemoMagnetismo);
 end;
 
 procedure TFormPrincipal.ComboBoxDureza_maxChange(Sender: TObject);
@@ -519,35 +944,144 @@ begin
   end; }
 end;
 
-procedure TFormPrincipal.DBMemoSistemaKeyPress(Sender: TObject; var Key: char);
+procedure TFormPrincipal.DBMemoOCorrenciaEditingDone(Sender: TObject);
 begin
-  if (Key = #13) then
-  begin
-    sltb := sldb.GetTable('UPDATE minerais SET sistema = "' + Copy(DBMemoSistema.Text,
-      0, Length(DBMemoSistema.Text)) + '" WHERE nome = "' + DBMemoNome.Text + '";');
-  end;
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'ocorrencia', DBMemoOcorrencia);
 end;
 
-procedure TFormPrincipal.DBMemoSubclasseKeyPress(Sender: TObject; var Key: char);
+procedure TFormPrincipal.DBMemoOCorrenciaKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
-  if (Key = #13) then
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'ocorrencia', DBMemoOcorrencia);
+end;
+
+procedure TFormPrincipal.DBMemoRelevoEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'relevo', DBMemoRelevo);
+end;
+
+procedure TFormPrincipal.DBMemoRelevoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'relevo', DBMemoRelevo);
+end;
+
+procedure TFormPrincipal.DBMemoSinal_ElongacaoEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'sinal_elongacao', DBMemoSinal_Elongacao);
+end;
+
+procedure TFormPrincipal.DBMemoSinal_ElongacaoKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'sinal_elongacao', DBMemoSinal_Elongacao);
+end;
+
+procedure TFormPrincipal.DBMemoSinal_OpticoEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'sinal_optico', DBMemoSinal_Optico);
+end;
+
+procedure TFormPrincipal.DBMemoSinal_OpticoKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'sinal_optico', DBMemoSinal_Optico);
+end;
+
+procedure TFormPrincipal.DBMemoSistemaEditingDone(Sender: TObject);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    'sistema', DBMemoSistema);
+end;
+
+procedure TFormPrincipal.DBMemoSistemaKeyPress(Sender: TObject; var Key: char);
+begin
+
+end;
+
+procedure TFormPrincipal.DBMemoSistemaKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    'sistema', DBMemoSistema);
+end;
+
+procedure TFormPrincipal.DBMemoSubclasseEditingDone(Sender: TObject);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'subclasse', DBMemoSubClasse);
+end;
+
+procedure TFormPrincipal.DBMemoSubclasseKeyPress(Sender: TObject; var Key: char
+  );
+begin
+  if MenuItemDureza.Checked then Result:= '(1/(dureza_max+1))'
+  else
+  if MenuItemDensidade.Checked then Result:= '(1/(densidade_max+1))'
+  else
+  if MenuItemAlfabetica.Checked then Result:= 'ASC';
+end;
+
+procedure TFormPrincipal.DBMemoSubclasseKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   if (Key = 13) then
   begin
     sltb := sldb.GetTable('UPDATE minerais SET subclasse = "' + Copy(
-      DBMemoSubClasse.Text, 0, Length(DBMemoSubClasse.Text)) + '" WHERE nome = "' +
+      DBMemoSubClasse.Text, 0, Length(DBMemoSubClasse.Text)-1) + '" WHERE nome = "' +
       DBMemoNome.Text + '";');
     Preenche_SubClasses;
-  end;
+  end
+  else
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'subclasse', DBMemoSubClasse);
+end;
+
+procedure TFormPrincipal.DBMemoSubgrupoEditingDone(Sender: TObject);
+begin
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'subgrupo', DBMemoSubGrupo);
 end;
 
 procedure TFormPrincipal.DBMemoSubgrupoKeyPress(Sender: TObject; var Key: char);
 begin
-  if (Key = #13) then
+
+end;
+
+procedure TFormPrincipal.DBMemoSubgrupoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   if (Key = 13) then
   begin
     sltb := sldb.GetTable('UPDATE minerais SET subgrupo = "' + Copy(
       DBMemoSubGrupo.Text, 0, Length(DBMemoSubGrupo.Text)) + '" WHERE nome = "' +
       DBMemoNome.Text + '";');
     Preenche_SubGrupos;
-  end;
+  end
+  else
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'subgrupo', DBMemoSubGrupo);
+end;
+
+procedure TFormPrincipal.DBMemoTracoEditingDone(Sender: TObject);
+begin
+   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'traco', DBMemoTraco);
+end;
+
+procedure TFormPrincipal.DBMemoTracoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'traco', DBMemoTraco);
 end;
 
 procedure TFormPrincipal.EditAssociacaoEditingDone(Sender: TObject);
@@ -567,16 +1101,22 @@ end;
 
 procedure TFormPrincipal.EditDensidade_MaxEditingDone(Sender: TObject);
 begin
-  if (EditDensidade_Max.Text <> Den_Max) then
+  if (EditDensidade_Max.Text <> Den_Min) then
+  begin
+    Den_Max :=StringReplace(EditDensidade_Max.Text, ',','.',[]);
+    EditDensidade_Max.Text:=Den_Max;
     Preenche_Lista;
-  Den_Max := EditDensidade_Max.Text;
+  end;
 end;
 
 procedure TFormPrincipal.EditDensidade_minEditingDone(Sender: TObject);
 begin
   if (EditDensidade_Min.Text <> Den_Min) then
+  begin
+    Den_Min :=StringReplace(EditDensidade_Min.Text, ',','.',[]);
+    EditDensidade_Min.Text:=Den_Min;
     Preenche_Lista;
-  Den_Min := EditDensidade_Min.Text;
+  end;
 end;
 
 procedure TFormPrincipal.EditDurezaClick(Sender: TObject);
@@ -611,7 +1151,7 @@ end;
 
 procedure TFormPrincipal.FormCreate(Sender: TObject);
 var
-  BancoDados, Diretorio: string;
+  BancoDados, Diretorio, Ordem: string;
 begin
   Fonte.Style := [fsitalic];
   Fonte2.Style := [];
@@ -633,8 +1173,20 @@ begin
   FormPrincipal.Width:=StrToInt(Config.ReadString('Configuracoes', 'Comprimento', ''));
   if Config.ReadString('Configuracoes', 'Altura', '') <> EmptyStr then
   FormPrincipal.Height:=StrToInt(Config.ReadString('Configuracoes', 'Altura', ''));
+
+  Ordem:=Config.ReadString('Configuracoes', 'Ordem','Alfabetica');
+  if Upcase(Trim(Ordem)) = Upcase('Densidade') then
+  MenuItemDensidade.Checked:=True
+  else
+  if  Upcase(Trim(Ordem)) = Upcase('Dureza') then
+  MenuItemDureza.Checked:=True
+  else
+  if Upcase(Trim(Ordem)) = Upcase('Alfabetica') then
+  MenuItemAlfabetica.Checked:=True;
+
   if Config.ReadString('Configuracoes', 'Ordem','') = 'Densidade' then
   MenuItemDensidade.Checked:=True else MenuItemDureza.Checked:=True;
+
   if Config.ReadString('Configuracoes', 'Fonte', '') = 'Grande' then
   MenuItemGrande.Checked:=True else
   MenuItemNormal.Checked:=True;
@@ -647,6 +1199,10 @@ begin
   begin
   MenuItemimagens.Checked:=True;
   BGRAPanelImagens.Visible:=True;
+  end;
+  if Config.ReadBool('Configuracoes', 'ModoEdicao', False) then
+  begin
+  ModoEdicao;
   end;
   Config.Free;
   MudarFonte;
@@ -695,12 +1251,12 @@ begin
   Label33.Top:=Trunc(BGRAPanelFiltro.Height*0.59);
   Label34.Top:=Trunc(BGRAPanelFiltro.Height*0.615);
   ComboboxDureza_min.Top:=Trunc(BGRAPanelFiltro.Height*0.615);
-  ComboboxDureza_max.top:=Trunc(BGRAPanelFiltro.Height*0.615);
+  ComboboxDureza_max.top:=ComboboxDureza_min.Top;
   BGRALabelDensidade.Top:=Trunc(BGRAPanelFiltro.Height*0.676);
   Label35.Top:=Trunc(BGRAPanelFiltro.Height*0.717);
   Label36.Top:=Trunc(BGRAPanelFiltro.Height*0.743);
   EditDensidade_min.Top:=Trunc(BGRAPanelFiltro.Height*0.743);
-  EditDensidade_max.Top:=Trunc(BGRAPanelFiltro.Height*0.743);
+  EditDensidade_max.Top:=EditDensidade_min.Top;
   BGRALabelOcorrencia.Top:=Trunc(BGRAPanelFiltro.Height*0.803);
   EditOcorrencia.Top:=Trunc(BGRAPanelFiltro.Height*0.842);
   BGRALabelAssociacao.Top:=Trunc(BGRAPanelFiltro.Height*0.893);
@@ -709,6 +1265,95 @@ begin
   GroupBoxImagem3.Top:=Trunc(BGRAPanelFiltro.Height*0.403);
   GroupBoxImagem4.Top:=Trunc(BGRAPanelFiltro.Height*0.606);
   GroupBoxImagem5.Top:=Trunc(BGRAPanelFiltro.Height*0.807);
+
+  LabelNome.Top:=Trunc(GroupBoxInf_Gerais.Height*0.066);
+  DBMemoNome.Top:=LabelNome.Top;
+  LabelClasse.Top:=Trunc(GroupBoxInf_Gerais.Height*0.134);
+  DBMemoClasse.Top:=LabelClasse.Top;
+  LabelSubClasse.Top:=Trunc(GroupBoxInf_Gerais.Height*0.188);
+  DBMemoSubClasse.Top:=LabelSubclasse.Top;
+  LabelGrupo.Top:=Trunc(GroupBoxInf_Gerais.Height*0.242);
+  DBMemoGrupo.Top:=LabelGrupo.Top;
+  LabelSubGrupo.Top:=Trunc(GroupBoxInf_Gerais.Height*0.297);
+  DBMemoSubGrupo.Top:=LabelSubGrupo.Top;
+  LabelOcorrencia.Top:=Trunc(GroupBoxInf_Gerais.Height*0.355);
+  DBMemoOcorrencia.Top:=LabelOcorrencia.Top;
+  DBMemoOcorrencia.Height:=Trunc(GroupBoxInf_Gerais.Height*0.11);
+  LabelAssociacao.Top:=Trunc(GroupBoxInf_Gerais.Height*0.48);
+  DBMemoAssociacao.Top:=LabelAssociacao.Top;
+  DBMemoAssociacao.Height:=DBMemoOcorrencia.Height;
+  LabelDistincao.Top:=Trunc(GroupBOxInf_Gerais.Height*0.606);
+  DBMemoDistincao.Top:=LabelDistincao.Top;
+  DBMemoDistincao.Height:=DBMemoOcorrencia.Height;
+  LabelAlteracao.Top:=Trunc(GroupBoxInf_Gerais.Height*0.732);
+  DBMemoAlteracao.Top:=LabelAlteracao.Top;
+  DBMemoAlteracao.Height:=DBMemoOcorrencia.Height;
+  LabelAplicacao.Top:=Trunc(GroupBoxInf_Gerais.Height*0.858);
+  DBMemoAplicacao.Top:=LabelAplicacao.Top;
+  DBMemoAplicacao.Height:=DBMemoOcorrencia.Height;
+
+  LabelCor.Top:=Trunc(GroupBoxProp_Fisicas.Height*0.265);
+  DBMemoCor.Top:=LabelCor.Top;
+  DBMemoCor.Height:=Trunc(GroupBoxProp_Fisicas.Height*0.1);
+  LabelTraco.Top:=Trunc(GroupBoxProp_Fisicas.Height*0.385);
+  DBMemoTraco.Top:=LabelTraco.Top;
+  DBMemoTraco.Height:=DBMemoCor.Height;
+  LabelBrilho.Top:=Trunc(GroupBoxProp_Fisicas.Height*0.505);
+  DBMemoBrilho.Top:=LabelBrilho.Top;
+  DBMemoBrilho.Height:=DBmemoCor.Height;
+  LabelClivagem.Top:=Trunc(GroupBoxProp_Fisicas.Height*0.626);
+  DBMemoClivagem.Top:=LabelClivagem.Top;
+  DBMemoClivagem.Height:=DBMemoCor.Height;
+  LabelFratura.Top:=Trunc(GroupBoxProp_Fisicas.Height*0.746);
+  DBMemoFratura.Top:=LabelFratura.Top;
+  DBMemoFratura.Height:=DBMemoCor.Height;
+  LabelMagnetismo.Top:=Trunc(GroupBOxProp_Fisicas.Height*0.856);
+  DBMemoMagnetismo.Top:=LabelMagnetismo.Top;
+  DBMemoMagnetismo.Height:=Trunc(GroupBoxProp_Fisicas.Height*0.045);
+  LabelLuminescencia.Top:=Trunc(GroupBoxProp_Fisicas.Height*0.923);
+  DBMemoLuminescencia.Top:=LabelLuminescencia.Top;
+  DBMemoLuminescencia.Height:=DBMemoMagnetismo.Height;
+
+  LabelDifaneidade.Top:=Trunc(GroupBoxOpticas.Height*0.038);
+  DBMemoDifaneidade.Top:=LabelDifaneidade.Top;
+  DBMemoDifaneidade.Height:=Trunc(GroupBoxOpticas.Height*0.075);
+  LabelSinal_Optico.Top:=Trunc(GroupBoxOpticas.Height*0.132);
+  DBMemoSinal_Optico.Top:=LabelSinal_Optico.Top;
+  DBMemoSinal_Optico.Height:=DBMemoDifaneidade.Height;
+  LabelIndice_Refracao.Top:=Trunc(GroupBoxOpticas.Height*0.225);
+  DBMemoIndice_Refracao.Top:=LabelIndice_Refracao.Top;
+  DBMemoIndice_Refracao.Height:=DBMemoDifaneidade.Height;
+  LabelAngulo_2v.Top:=Trunc(GroupBoxOpticas.Height*0.318);
+  DBMemoAngulo.Top:=LabelAngulo_2v.Top;
+  DBMemoAngulo.Height:=DBMemoDifaneidade.Height;
+  LabelCor_Interferencia.Top:=Trunc(GroupBoxOpticas.Height*0.412);
+  DBMemoCor_Interferencia.Top:=LabelCor_Interferencia.Top;
+  DBMemoCor_Interferencia.Height:=DBMemoDifaneidade.Height;
+  LabelCor_Lamina.Top:=Trunc(GroupBOxOpticas.Height*0.506);
+  DBMemoCor_Lamina.Top:=LabelCor_Lamina.Top;
+  DBMemoCor_Lamina.Height:=DBMemoDifaneidade.Height;
+  LabelSinal_Elongacao.Top:=Trunc(GroupBoxOpticas.Height*0.6);
+  DBMemoSinal_Elongacao.Top:=LabelSinal_Elongacao.Top;
+  DBMemoSinal_Elongacao.Height:=DBMemoDifaneidade.Height;
+  LabelBirrefringencia.Top:=Trunc(GroupBoxOpticas.Height*0.693);
+  DBMemoBirrefringencia.Top:=LabelBirrefringencia.Top;
+  DBMemoBirrefringencia.Height:=DBMemoDifaneidade.Height;
+  LabelRelevo.Top:=Trunc(GroupBoxOpticas.Height*0.786);
+  DBMemoRelevo.Top:=LabelRelevo.Top;
+  DBMemoRelevo.Height:=DBMemoDifaneidade.Height;
+  LabelExtincao.Top:=Trunc(GroupBoxOpticas.Height*0.880);
+  DBMemoExtincao.Top:=LabelExtincao.Top;
+  DBMemoExtincao.Height:=DBMemoDifaneidade.Height;
+
+  LabelSistema_Cristalino.Top:=Trunc(GroupBoxCristalografia.Height*0.091);
+  DBMemoSistema.Top:=LabelSistema_Cristalino.Top;
+  LabelClasse_Cristalina.Top:=Trunc(GroupBoxCristalografia.Height*0.242);
+  DBMemoClasse_Cristalina.Top:=LabelClasse_Cristalina.Top;
+  LabelSimbologia.Top:=Trunc(GroupboxCristalografia.Height*0.393);
+  DBMemoH_M.Top:=LabelSimbologia.Top;
+  LabelHabito.Top:=Trunc(GroupBoxCristalografia.Height*0.593);
+  DBMemoHabito.Top:=Labelhabito.Top;
+  DBMemoHabito.Height:=Trunc(GroupBOxCristalografia.Height*0.295);
 
   Config:=TINIFile.Create(GetCurrentDir + '\Data\config.ini');
   Comprimento:=FormPrincipal.Width;
@@ -903,6 +1548,146 @@ begin
   Config.Free;
 end;
 
+procedure TFormPrincipal.UpdateCampos(Especie: String; Campo: String;
+  objeto: TDBMemo);
+begin
+     sltb:= sldb.GetTable('UPDATE minerais set '+Campo+' ="'+objeto.Text+
+     '" WHERE nome="'+especie+'";');
+     if UpCase(objeto.Name) = UpCase('DBMemoSubclasse') then
+     Preenche_Subclasses;
+end;
+
+procedure TFormPrincipal.UpdateEdits(Especie: String; Campo: String;
+  objeto: TDBEdit);
+begin
+   sltb:= sldb.GetTable('UPDATE minerais set '+Campo+' ="'+objeto.Text+
+   '" WHERE nome="'+especie+'";');
+   if UpCase(objeto.Name) = UpCase('DBMemoSubclasse') then
+   Preenche_Subclasses;
+end;
+
+procedure TFormPrincipal.ModoEdicao;
+begin
+  if (dados.SQLite3DatasetGeral.Active) then
+    dados.SQLite3DatasetGeral.ApplyUpdates();
+
+  Config := TIniFile.Create(GetCurrentDir + '\Data\config.ini');
+
+  if (MenuItemModoEdicao.Checked) then
+  begin
+    Config.WriteBool('configuracoes', 'modo_edicao', True);
+    statusbar1.Panels.Items[1].Text := '';
+    image1.Hint := '';
+    image2.Hint := '';
+    image3.Hint := '';
+    image4.Hint := '';
+    image5.Hint := '';
+
+    ImageCristalografia1.Hint := '';
+    ImageCristalografia2.Hint := '';
+
+    MenuItemModoEdicao.Checked := False;
+
+    GroupBoxDureza.Enabled := False;
+    GroupBoxDensidade.Enabled := False;
+
+    dbmemonome.ReadOnly := True;
+    dbmemoocorrencia.ReadOnly := True;
+    dbmemoassociacao.ReadOnly := True;
+    dbmemoclasse.ReadOnly := True;
+    dbmemosubclasse.ReadOnly := True;
+    dbmemogrupo.ReadOnly := True;
+    dbmemoSubgrupo.ReadOnly := True;
+    dbmemoAplicacao.ReadOnly := True;
+    dbmemoAlteracao.ReadOnly := True;
+    dbmemoDistincao.ReadOnly := True;
+    dbmemoCor.ReadOnly := True;
+    dbmemoTraco.ReadOnly := True;
+    dbmemoclivagem.ReadOnly := True;
+    dbmemofratura.ReadOnly := True;
+    dbmemoBrilho.ReadOnly := True;
+    dbmemoMagnetismo.ReadOnly := True;
+    dbmemoLuminescencia.ReadOnly := True;
+    dbmemoDifaneidade.ReadOnly := True;
+    dbmemoSinal_optico.ReadOnly := True;
+    dbmemoIndice_Refracao.ReadOnly := True;
+    dbmemoAngulo.ReadOnly := True;
+    dbmemoCor_Interferencia.ReadOnly := True;
+    dbmemoSinal_Elongacao.ReadOnly := True;
+    dbmemoBirrefringencia.ReadOnly := True;
+    dbmemoRelevo.ReadOnly := True;
+    dbmemoExtincao.ReadOnly := True;
+    dbmemoSistema.ReadOnly := True;
+    dbmemoH_M.ReadOnly := True;
+    DBMemoHabito.ReadOnly := True;
+    dbmemoClasse_Cristalina.ReadOnly := True;
+    DBMemoCor_Lamina.ReadOnly := True;
+
+    richmemoformula.Visible := True;
+    //dbmemoformula.Visible := False;
+    AtualizaRichMemo;
+  end
+  else
+  begin
+    Config.WriteBool('configuracoes', 'modo_edicao', False);
+    statusbar1.Panels.Items[1].Text := 'Modo de Edição';
+
+    image1.Hint := 'Duplo clique para alterar';
+    image2.Hint := 'Duplo clique para alterar';
+    image3.Hint := 'Duplo clique para alterar';
+    image4.Hint := 'Duplo clique para alterar';
+    image5.Hint := 'Duplo clique para alterar';
+    ImageCristalografia1.Hint := 'Duplo clique para alterar';
+    ImageCristalografia2.Hint := 'Duplo clique para alterar';
+
+    GroupBoxDureza.Enabled := True;
+    GroupBoxDensidade.Enabled := True;
+
+    MenuItemModoEdicao.Checked := True;
+
+    dbmemonome.ReadOnly := False;
+    dbmemoocorrencia.ReadOnly := False;
+    dbmemoassociacao.ReadOnly := False;
+    dbmemoclasse.ReadOnly := False;
+    dbmemosubclasse.ReadOnly := False;
+    dbmemogrupo.ReadOnly := False;
+    dbmemoSubgrupo.ReadOnly := False;
+    dbmemoaplicacao.ReadOnly := False;
+    dbmemoalteracao.ReadOnly := False;
+    dbmemodistincao.ReadOnly := False;
+    dbmemocor.ReadOnly := False;
+    dbmemoTraco.ReadOnly := False;
+    dbmemoClivagem.ReadOnly := False;
+    dbmemoFratura.ReadOnly := False;
+    dbmemoBrilho.ReadOnly := False;
+    dbmemoMagnetismo.ReadOnly := False;
+    dbmemoLuminescencia.ReadOnly := False;
+    dbmemoDifaneidade.ReadOnly := False;
+    dbmemoSinal_Optico.ReadOnly := False;
+    dbmemoIndice_Refracao.ReadOnly := False;
+    dbmemoAngulo.ReadOnly := False;
+    dbmemoCor_Interferencia.ReadOnly := False;
+    dbmemoSinal_Elongacao.ReadOnly := False;
+    dbmemoBirrefringencia.ReadOnly := False;
+    dbmemoRelevo.ReadOnly := False;
+    dbmemoExtincao.ReadOnly := False;
+    dbmemoSistema.ReadOnly := False;
+    dbmemoH_M.ReadOnly := False;
+    DBMemoHabito.ReadOnly := False;
+    dbmemoClasse_Cristalina.ReadOnly := False;
+    DBMemoCor_Lamina.ReadOnly := False;
+
+    richmemoformula.Visible := False;
+    //dbmemoformula.Visible := True;
+  end;
+  Config.Free;
+end;
+
+function TFormPrincipal.DefinirOrdem: String;
+begin
+
+end;
+
 procedure TFormPrincipal.MenuItemExcluirClick(Sender: TObject);
 begin
   ExcluiMineral;
@@ -940,114 +1725,7 @@ end;
 
 procedure TFormPrincipal.MenuItemModoEdicaoClick(Sender: TObject);
 begin
-  if (dados.SQLite3DatasetGeral.Active) then
-    dados.SQLite3DatasetGeral.applyupdates();
-
-  if (MenuItemModoEdicao.Checked) then
-  begin
-    statusbar1.Panels.Items[1].Text := '';
-    image1.Hint := '';
-    image2.Hint := '';
-    image3.Hint := '';
-    image4.Hint := '';
-    image5.Hint := '';
-
-    ImageCristalografia1.Hint := '';
-    ImageCristalografia2.Hint := '';
-
-    MenuItemModoEdicao.Checked := False;
-
-    richmemoformula.Visible := True;
-    dbmemoformula.Visible := False;
-
-    GroupBoxDureza.Enabled := False;
-    GroupBoxDensidade.Enabled := False;
-
-    dbmemonome.ReadOnly := True;
-    dbmemoocorrencia.ReadOnly := True;
-    dbmemoassociacao.ReadOnly := True;
-    dbmemoclasse.ReadOnly := True;
-    dbmemosubclasse.ReadOnly := True;
-    dbmemogrupo.ReadOnly := True;
-    dbmemoSubgrupo.ReadOnly := True;
-    dbmemoAplicacao.ReadOnly := True;
-    dbmemoAlteracao.ReadOnly := True;
-    dbmemoDistincao.ReadOnly := True;
-    dbmemoCor.ReadOnly := True;
-    dbmemoTraco.ReadOnly := True;
-    dbmemoclivagem.ReadOnly := True;
-    dbmemofratura.ReadOnly := True;
-    dbmemoBrilho.ReadOnly := True;
-    dbmemoMagnetismo.ReadOnly := True;
-    dbmemoLuminescencia.ReadOnly := True;
-    dbmemoDifaneidade.ReadOnly := True;
-    dbmemoSinal_optico.ReadOnly := True;
-    dbmemoIndice_Refracao.ReadOnly := True;
-    dbmemoAngulo.ReadOnly := True;
-    dbmemoCor_Interferencia.ReadOnly := True;
-    dbmemoSinal_Elongacao.ReadOnly := True;
-    dbmemoBirrefringencia.ReadOnly := True;
-    dbmemoRelevo.ReadOnly := True;
-    dbmemoExtincao.ReadOnly := True;
-    dbmemoSistema.ReadOnly := True;
-    dbmemoH_M.ReadOnly := True;
-    DBMemoHabito.ReadOnly := True;
-    dbmemoClasse_Cristalina.ReadOnly := True;
-    DBMemoCor_Lamina.ReadOnly := True;
-  end
-  else
-  begin
-
-    statusbar1.Panels.Items[1].Text := 'Modo de Edição';
-
-    image1.Hint := 'Duplo clique para alterar';
-    image2.Hint := 'Duplo clique para alterar';
-    image3.Hint := 'Duplo clique para alterar';
-    image4.Hint := 'Duplo clique para alterar';
-    image5.Hint := 'Duplo clique para alterar';
-    ImageCristalografia1.Hint := 'Duplo clique para alterar';
-    ImageCristalografia2.Hint := 'Duplo clique para alterar';
-
-    GroupBoxDureza.Enabled := True;
-    GroupBoxDensidade.Enabled := True;
-
-    MenuItemModoEdicao.Checked := True;
-
-    richmemoformula.Visible := False;
-    dbmemoformula.Visible := True;
-
-    dbmemonome.ReadOnly := False;
-    dbmemoocorrencia.ReadOnly := False;
-    dbmemoassociacao.ReadOnly := False;
-    dbmemoclasse.ReadOnly := False;
-    dbmemosubclasse.ReadOnly := False;
-    dbmemogrupo.ReadOnly := False;
-    dbmemoSubgrupo.ReadOnly := False;
-    dbmemoaplicacao.ReadOnly := False;
-    dbmemoalteracao.ReadOnly := False;
-    dbmemodistincao.ReadOnly := False;
-    dbmemocor.ReadOnly := False;
-    dbmemoTraco.ReadOnly := False;
-    dbmemoClivagem.ReadOnly := False;
-    dbmemoFratura.ReadOnly := False;
-    dbmemoBrilho.ReadOnly := False;
-    dbmemoMagnetismo.ReadOnly := False;
-    dbmemoLuminescencia.ReadOnly := False;
-    dbmemoDifaneidade.ReadOnly := False;
-    dbmemoSinal_Optico.ReadOnly := False;
-    dbmemoIndice_Refracao.ReadOnly := False;
-    dbmemoAngulo.ReadOnly := False;
-    dbmemoCor_Interferencia.ReadOnly := False;
-    dbmemoSinal_Elongacao.ReadOnly := False;
-    dbmemoBirrefringencia.ReadOnly := False;
-    dbmemoRelevo.ReadOnly := False;
-    dbmemoExtincao.ReadOnly := False;
-    dbmemoSistema.ReadOnly := False;
-    dbmemoH_M.ReadOnly := False;
-    DBMemoHabito.ReadOnly := False;
-    dbmemoClasse_Cristalina.ReadOnly := False;
-    DBMemoCor_Lamina.ReadOnly := False;
-  end;
+  ModoEdicao;
 end;
 
 procedure TFormPrincipal.MenuItemNormalClick(Sender: TObject);
@@ -2001,14 +2679,22 @@ begin
       Dados.Sqlite3DatasetGeral.SQL:=SelectSQL;
       Dados.SQLite3DatasetGeral.Open();
     end;
-    atualizarichmemo;
+    //atualizarichmemo; //
     editaDD;
     AtualizaImagem;
-    GroupBoxDureza.Visible := False;
-    GroupBoxDensidade.Visible := False;
-    if MenuItemModoEdicao.Checked then RichMemoFormula.Visible:=False
+    if (MenuItemModoEdicao.Checked) then
+    begin
+      GroupBoxDureza.Visible := True;
+      GroupBoxDensidade.Visible := True;
+      RichMemoFormula.Visible:=False;
+    end
     else
-    RichMemoFormula.Visible:=True;
+    begin
+      GroupBoxDureza.Visible := False;
+      GroupBoxDensidade.Visible := False;
+      //RichMemoFormula.Visible:=True;
+      atualizarichmemo;
+    end;
   end
   else
   if Dados.Sqlite3DatasetGeral.Active then
