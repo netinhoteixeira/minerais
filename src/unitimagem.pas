@@ -78,6 +78,7 @@ begin
   begin
     Dados.sltb := Dados.sldb.GetTable('SELECT imagem' + IntToStr(Numero) + ' FROM minerais where nome = "' +
       NomeCampo + '"');
+    //colocar comando para ver se rowcount > 0
     ms := Dados.sltb.FieldAsBlob(Dados.sltb.FieldIndex['imagem' + IntToStr(Numero)]);
   end
   else

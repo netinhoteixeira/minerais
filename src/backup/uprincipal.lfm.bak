@@ -2,10 +2,10 @@ object FormPrincipal: TFormPrincipal
   Left = 2
   Height = 690
   Top = 0
-  Width = 1006
+  Width = 1339
   Caption = 'Guia de Minerais'
   ClientHeight = 670
-  ClientWidth = 1006
+  ClientWidth = 1339
   Constraints.MinHeight = 690
   Constraints.MinWidth = 510
   Menu = MainMenu1
@@ -43,7 +43,7 @@ object FormPrincipal: TFormPrincipal
     end
   end
   object BGRAPanelFiltro: TBGRAPanel
-    Left = 170
+    Left = 340
     Height = 627
     Top = 0
     Width = 170
@@ -503,1037 +503,8 @@ object FormPrincipal: TFormPrincipal
       Font.Color = clNone
     end
   end
-  object PanelFicha: TPanel
-    Left = 510
-    Height = 627
-    Top = 0
-    Width = 496
-    Align = alClient
-    Anchors = [akTop, akRight, akBottom]
-    BevelOuter = bvNone
-    ClientHeight = 627
-    ClientWidth = 496
-    TabOrder = 2
-    object PageControlFicha: TPageControl
-      Left = 0
-      Height = 627
-      Top = 0
-      Width = 496
-      ActivePage = TabSheetInf_Gerais
-      Align = alClient
-      TabIndex = 0
-      TabOrder = 0
-      object TabSheetInf_Gerais: TTabSheet
-        Caption = 'Informações Gerais'
-        ClientHeight = 599
-        ClientWidth = 488
-        object GroupBoxInf_Gerais: TGroupBox
-          Left = 0
-          Height = 599
-          Top = 0
-          Width = 488
-          Align = alClient
-          ClientHeight = 581
-          ClientWidth = 484
-          TabOrder = 0
-          object Label1: TLabel
-            Left = 15
-            Height = 16
-            Top = 9
-            Width = 45
-            Caption = 'Fórmula'
-            ParentColor = False
-          end
-          object DBMemoFormula: TDBMemo
-            Left = 125
-            Height = 27
-            Top = 9
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'formula'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoFormulaEditingDone
-            OnKeyUp = DBMemoFormulaKeyUp
-            ReadOnly = True
-            TabOrder = 0
-          end
-          object DBMemoNome: TDBMemo
-            Left = 125
-            Height = 27
-            Top = 39
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'nome'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoNomeEditingDone
-            OnKeyPress = DBMemoNomeKeyPress
-            ReadOnly = True
-            TabOrder = 1
-          end
-          object LabelNome: TLabel
-            Left = 15
-            Height = 16
-            Top = 39
-            Width = 34
-            Caption = 'Nome'
-            ParentColor = False
-          end
-          object LabelClasse: TLabel
-            Left = 15
-            Height = 16
-            Top = 79
-            Width = 34
-            Caption = 'Classe'
-            ParentColor = False
-          end
-          object LabelSubClasse: TLabel
-            Left = 15
-            Height = 16
-            Top = 111
-            Width = 52
-            Caption = 'Subclasse'
-            ParentColor = False
-          end
-          object LabelGrupo: TLabel
-            Left = 15
-            Height = 16
-            Top = 143
-            Width = 34
-            Caption = 'Grupo'
-            ParentColor = False
-          end
-          object LabelSubGrupo: TLabel
-            Left = 15
-            Height = 16
-            Top = 175
-            Width = 53
-            Caption = 'Subgrupo'
-            ParentColor = False
-          end
-          object LabelOcorrencia: TLabel
-            Left = 15
-            Height = 16
-            Top = 215
-            Width = 59
-            Caption = 'Ocorrência'
-            ParentColor = False
-          end
-          object LabelAssociacao: TLabel
-            Left = 15
-            Height = 16
-            Top = 295
-            Width = 60
-            Caption = 'Associação'
-            ParentColor = False
-          end
-          object LabelDistincao: TLabel
-            Left = 15
-            Height = 16
-            Top = 375
-            Width = 50
-            Caption = 'Distinção'
-            ParentColor = False
-          end
-          object LabelAlteracao: TLabel
-            Left = 15
-            Height = 16
-            Top = 455
-            Width = 51
-            Caption = 'Alteração'
-            ParentColor = False
-          end
-          object LabelAplicacao: TLabel
-            Left = 15
-            Height = 16
-            Top = 535
-            Width = 53
-            Caption = 'Aplicação'
-            ParentColor = False
-          end
-          object DBMemoClasse: TDBMemo
-            Left = 125
-            Height = 27
-            Top = 79
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'classe'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoClasseEditingDone
-            OnKeyUp = DBMemoClasseKeyUp
-            ReadOnly = True
-            TabOrder = 2
-          end
-          object DBMemoSubclasse: TDBMemo
-            Left = 125
-            Height = 27
-            Top = 111
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'subclasse'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoSubclasseEditingDone
-            OnKeyUp = DBMemoSubclasseKeyUp
-            ReadOnly = True
-            TabOrder = 3
-          end
-          object DBMemoGrupo: TDBMemo
-            Left = 125
-            Height = 27
-            Top = 143
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'grupo'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoGrupoEditingDone
-            OnKeyUp = DBMemoGrupoKeyUp
-            ReadOnly = True
-            TabOrder = 4
-          end
-          object DBMemoSubgrupo: TDBMemo
-            Left = 125
-            Height = 27
-            Top = 175
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'subgrupo'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoSubgrupoEditingDone
-            OnKeyUp = DBMemoSubgrupoKeyUp
-            ReadOnly = True
-            TabOrder = 5
-          end
-          object DBMemoOCorrencia: TDBMemo
-            Left = 125
-            Height = 70
-            Top = 215
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'ocorrencia'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoOCorrenciaEditingDone
-            OnKeyUp = DBMemoOCorrenciaKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 6
-          end
-          object DBMemoAssociacao: TDBMemo
-            Left = 125
-            Height = 70
-            Top = 295
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'associacao'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoAssociacaoEditingDone
-            OnKeyUp = DBMemoAssociacaoKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 7
-          end
-          object DBMemoDistincao: TDBMemo
-            Left = 125
-            Height = 70
-            Top = 375
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'distincao'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoDistincaoEditingDone
-            OnKeyUp = DBMemoDistincaoKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 8
-          end
-          object DBMemoAlteracao: TDBMemo
-            Left = 125
-            Height = 70
-            Top = 455
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'alteracao'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoAlteracaoEditingDone
-            OnKeyUp = DBMemoAlteracaoKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 9
-          end
-          object DBMemoAplicacao: TDBMemo
-            Left = 125
-            Height = 70
-            Top = 535
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'aplicacao'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoAplicacaoEditingDone
-            OnKeyUp = DBMemoAplicacaoKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 10
-          end
-          object RichMemoFormula: TRichMemo
-            Left = 125
-            Height = 27
-            Top = 9
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            Font.Height = -12
-            HideSelection = False
-            ParentBidiMode = False
-            ParentFont = False
-            TabOrder = 11
-            WantReturns = False
-          end
-        end
-      end
-      object TabSheetProp_Fisicas: TTabSheet
-        Caption = 'Propriedades Físicas'
-        ClientHeight = 599
-        ClientWidth = 488
-        object GroupBoxProp_Fisicas: TGroupBox
-          Left = 0
-          Height = 599
-          Top = 0
-          Width = 488
-          Align = alClient
-          ClientHeight = 581
-          ClientWidth = 484
-          TabOrder = 0
-          object EditDureza: TEdit
-            Left = 125
-            Height = 23
-            Top = 15
-            Width = 100
-            OnClick = EditDurezaClick
-            ReadOnly = True
-            TabOrder = 0
-            Text = 'EditDureza'
-          end
-          object EditDensidade: TEdit
-            Left = 125
-            Height = 23
-            Top = 87
-            Width = 100
-            OnClick = EditDensidadeClick
-            ReadOnly = True
-            TabOrder = 1
-            Text = 'EditDensidade'
-          end
-          object GroupBoxDureza: TGroupBox
-            Left = 251
-            Height = 72
-            Top = -1
-            Width = 169
-            Anchors = [akTop, akRight]
-            Caption = 'Editar Dureza'
-            ClientHeight = 54
-            ClientWidth = 165
-            Enabled = False
-            TabOrder = 2
-            Visible = False
-            object DBEditDureza_Min: TDBEdit
-              Left = 14
-              Height = 23
-              Top = 16
-              Width = 64
-              DataField = 'dureza_min'
-              DataSource = Dados.DatasourceGeral
-              CharCase = ecNormal
-              MaxLength = 0
-              TabOrder = 0
-              OnEditingDone = DBEditDureza_MinEditingDone
-              OnKeyUp = DBEditDureza_MinKeyUp
-            end
-            object DBEditDureza_Max: TDBEdit
-              Left = 91
-              Height = 23
-              Top = 16
-              Width = 64
-              DataField = 'dureza_max'
-              DataSource = Dados.DatasourceGeral
-              CharCase = ecNormal
-              MaxLength = 0
-              TabOrder = 1
-              OnEditingDone = DBEditDureza_MaxEditingDone
-              OnKeyUp = DBEditDureza_MaxKeyUp
-            end
-            object Label38: TLabel
-              Left = 80
-              Height = 22
-              Top = 16
-              Width = 7
-              Caption = '-'
-              Font.Height = -16
-              Font.Style = [fsBold]
-              ParentColor = False
-              ParentFont = False
-            end
-          end
-          object GroupBoxDensidade: TGroupBox
-            Left = 251
-            Height = 72
-            Top = 79
-            Width = 169
-            Anchors = [akTop, akRight]
-            Caption = 'Editar Densidade'
-            ClientHeight = 54
-            ClientWidth = 165
-            Enabled = False
-            TabOrder = 3
-            Visible = False
-            object DBEditDensidade_Min: TDBEdit
-              Left = 14
-              Height = 23
-              Top = 16
-              Width = 64
-              DataField = 'densidade_min'
-              DataSource = Dados.DatasourceGeral
-              CharCase = ecNormal
-              MaxLength = 0
-              TabOrder = 0
-              OnEditingDone = DBEditDensidade_MinEditingDone
-              OnKeyUp = DBEditDensidade_MinKeyUp
-            end
-            object DBEditDensidade_Max: TDBEdit
-              Left = 91
-              Height = 23
-              Top = 16
-              Width = 64
-              DataField = 'densidade_max'
-              DataSource = Dados.DatasourceGeral
-              CharCase = ecNormal
-              MaxLength = 0
-              TabOrder = 1
-              OnEditingDone = DBEditDensidade_MaxEditingDone
-              OnKeyUp = DBEditDensidade_MaxKeyUp
-            end
-            object Label39: TLabel
-              Left = 80
-              Height = 22
-              Top = 16
-              Width = 7
-              Caption = '-'
-              Font.Height = -16
-              Font.Style = [fsBold]
-              ParentColor = False
-              ParentFont = False
-            end
-          end
-          object DBMemoCor: TDBMemo
-            Left = 125
-            Height = 60
-            Top = 159
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'cor'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoCorEditingDone
-            OnKeyUp = DBMemoCorKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 4
-          end
-          object DBMemoTraco: TDBMemo
-            Left = 125
-            Height = 60
-            Top = 231
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'traco'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoTracoEditingDone
-            OnKeyUp = DBMemoTracoKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 5
-          end
-          object DBMemoBrilho: TDBMemo
-            Left = 125
-            Height = 60
-            Top = 303
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'brilho'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoBrilhoEditingDone
-            OnKeyUp = DBMemoBrilhoKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 6
-          end
-          object DBMemoClivagem: TDBMemo
-            Left = 125
-            Height = 60
-            Top = 375
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'clivagem'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoClivagemEditingDone
-            OnKeyUp = DBMemoClivagemKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 7
-          end
-          object DBMemoFratura: TDBMemo
-            Left = 125
-            Height = 60
-            Top = 447
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'fratura'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoFraturaEditingDone
-            OnKeyUp = DBMemoFraturaKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 8
-          end
-          object DBMemoMagnetismo: TDBMemo
-            Left = 125
-            Height = 27
-            Top = 519
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'magnetismo'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoMagnetismoEditingDone
-            OnKeyUp = DBMemoMagnetismoKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 9
-          end
-          object DBMemoLuminescencia: TDBMemo
-            Left = 125
-            Height = 27
-            Top = 559
-            Width = 344
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'luminescencia'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoLuminescenciaEditingDone
-            OnKeyUp = DBMemoLuminescenciaKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 10
-          end
-          object Label24: TLabel
-            Left = 15
-            Height = 16
-            Top = 15
-            Width = 37
-            Caption = 'Dureza'
-            ParentColor = False
-          end
-          object Label25: TLabel
-            Left = 15
-            Height = 16
-            Top = 87
-            Width = 56
-            Caption = 'Densidade'
-            ParentColor = False
-          end
-          object LabelCor: TLabel
-            Left = 15
-            Height = 16
-            Top = 159
-            Width = 20
-            Caption = 'Cor'
-            ParentColor = False
-          end
-          object LabelTraco: TLabel
-            Left = 15
-            Height = 16
-            Top = 231
-            Width = 31
-            Caption = 'Traço'
-            ParentColor = False
-          end
-          object LabelBrilho: TLabel
-            Left = 15
-            Height = 16
-            Top = 303
-            Width = 32
-            Caption = 'Brilho'
-            ParentColor = False
-          end
-          object LabelClivagem: TLabel
-            Left = 15
-            Height = 16
-            Top = 375
-            Width = 51
-            Caption = 'Clivagem'
-            ParentColor = False
-          end
-          object LabelFratura: TLabel
-            Left = 15
-            Height = 16
-            Top = 447
-            Width = 38
-            Caption = 'Fratura'
-            ParentColor = False
-          end
-          object LabelMagnetismo: TLabel
-            Left = 15
-            Height = 16
-            Top = 519
-            Width = 68
-            Caption = 'Magnetismo'
-            ParentColor = False
-          end
-          object LabelLuminescencia: TLabel
-            Left = 15
-            Height = 16
-            Top = 559
-            Width = 80
-            Caption = 'Luminescência'
-            ParentColor = False
-          end
-        end
-      end
-      object TabSheetOticas: TTabSheet
-        Caption = 'Propriedades Óticas'
-        ClientHeight = 599
-        ClientWidth = 488
-        object GroupBoxOpticas: TGroupBox
-          Left = 0
-          Height = 599
-          Top = 0
-          Width = 488
-          Align = alClient
-          ClientHeight = 581
-          ClientWidth = 484
-          TabOrder = 0
-          object LabelExtincao: TLabel
-            Left = 15
-            Height = 16
-            Top = 527
-            Width = 45
-            Caption = 'Extinção'
-            ParentColor = False
-          end
-          object DBMemoDifaneidade: TDBMemo
-            Left = 172
-            Height = 45
-            Top = 23
-            Width = 302
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'difaneidade'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoDifaneidadeEditingDone
-            OnKeyUp = DBMemoDifaneidadeKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 0
-          end
-          object DBMemoSinal_Optico: TDBMemo
-            Left = 172
-            Height = 45
-            Top = 79
-            Width = 302
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'Sinal_optico'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoSinal_OpticoEditingDone
-            OnKeyUp = DBMemoSinal_OpticoKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 1
-          end
-          object DBMemoIndice_Refracao: TDBMemo
-            Left = 172
-            Height = 45
-            Top = 135
-            Width = 302
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'indice_refracao'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoIndice_RefracaoEditingDone
-            OnKeyUp = DBMemoIndice_RefracaoKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 2
-          end
-          object DBMemoAngulo: TDBMemo
-            Left = 172
-            Height = 45
-            Top = 191
-            Width = 302
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'angulo'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoAnguloEditingDone
-            OnKeyUp = DBMemoAnguloKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 3
-          end
-          object DBMemoCor_interferencia: TDBMemo
-            Left = 172
-            Height = 45
-            Top = 247
-            Width = 302
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'cor_interferencia'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoCor_interferenciaEditingDone
-            OnKeyUp = DBMemoCor_interferenciaKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 4
-          end
-          object DBMemoSinal_Elongacao: TDBMemo
-            Left = 172
-            Height = 45
-            Top = 359
-            Width = 302
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'sinal_elongacao'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoSinal_ElongacaoEditingDone
-            OnKeyUp = DBMemoSinal_ElongacaoKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 6
-          end
-          object DBMemoBirrefringencia: TDBMemo
-            Left = 172
-            Height = 45
-            Top = 415
-            Width = 302
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'birrefringencia'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoBirrefringenciaEditingDone
-            OnKeyUp = DBMemoBirrefringenciaKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 7
-          end
-          object DBMemoRelevo: TDBMemo
-            Left = 172
-            Height = 45
-            Top = 471
-            Width = 302
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'relevo'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoRelevoEditingDone
-            OnKeyUp = DBMemoRelevoKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 8
-          end
-          object DBMemoExtincao: TDBMemo
-            Left = 172
-            Height = 45
-            Top = 527
-            Width = 302
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'extincao'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoExtincaoEditingDone
-            OnKeyUp = DBMemoExtincaoKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 9
-          end
-          object LabelDifaneidade: TLabel
-            Left = 15
-            Height = 16
-            Top = 23
-            Width = 64
-            Caption = 'Difaneidade'
-            ParentColor = False
-          end
-          object LabelSinal_optico: TLabel
-            Left = 15
-            Height = 16
-            Top = 79
-            Width = 65
-            Caption = 'Sinal Óptico'
-            ParentColor = False
-          end
-          object LabelIndice_Refracao: TLabel
-            Left = 15
-            Height = 16
-            Top = 135
-            Width = 82
-            Caption = 'Índice Refração'
-            ParentColor = False
-          end
-          object LabelAngulo_2V: TLabel
-            Left = 15
-            Height = 16
-            Top = 191
-            Width = 56
-            Caption = 'Ângulo 2V'
-            ParentColor = False
-          end
-          object LabelCor_Interferencia: TLabel
-            Left = 15
-            Height = 16
-            Top = 247
-            Width = 105
-            Caption = 'Cor de Interferência'
-            ParentColor = False
-          end
-          object LabelSInal_Elongacao: TLabel
-            Left = 15
-            Height = 16
-            Top = 359
-            Width = 100
-            Caption = 'Sinal de Elongação'
-            ParentColor = False
-          end
-          object LabelBirrefringencia: TLabel
-            Left = 15
-            Height = 16
-            Top = 415
-            Width = 78
-            Caption = 'Birrefringência'
-            ParentColor = False
-          end
-          object LabelRelevo: TLabel
-            Left = 15
-            Height = 16
-            Top = 471
-            Width = 36
-            Caption = 'Relevo'
-            ParentColor = False
-          end
-          object LabelCor_Lamina: TLabel
-            Left = 15
-            Height = 16
-            Top = 303
-            Width = 78
-            Caption = 'Cor da Lâmina'
-            ParentColor = False
-          end
-          object DBMemoCor_Lamina: TDBMemo
-            Left = 172
-            Height = 45
-            Top = 303
-            Width = 302
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'cor_lamina'
-            DataSource = Dados.DatasourceGeral
-            OnEditingDone = DBMemoCor_LaminaEditingDone
-            OnKeyUp = DBMemoCor_LaminaKeyUp
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 5
-          end
-        end
-      end
-      object TabSheetCristalografia: TTabSheet
-        Caption = 'Cristalografia'
-        ClientHeight = 599
-        ClientWidth = 488
-        object GroupBox1: TGroupBox
-          Left = 0
-          Height = 599
-          Top = 0
-          Width = 488
-          Align = alClient
-          ClientHeight = 581
-          ClientWidth = 484
-          TabOrder = 0
-          object GroupBoxCristalografia1: TGroupBox
-            Left = 15
-            Height = 200
-            Top = 39
-            Width = 200
-            ClientHeight = 182
-            ClientWidth = 196
-            TabOrder = 0
-            object ImageCristalografia1: TImage
-              Left = 0
-              Height = 182
-              Top = 0
-              Width = 196
-              Align = alClient
-              OnClick = ImageCristalografia1Click
-              OnDblClick = ImageCristalografia1DblClick
-              Proportional = True
-            end
-          end
-          object GroupBoxCristalografia: TGroupBox
-            Left = 3
-            Height = 264
-            Top = 295
-            Width = 479
-            Anchors = [akTop, akLeft, akRight, akBottom]
-            ClientHeight = 246
-            ClientWidth = 475
-            TabOrder = 1
-            object DBMemoSistema: TDBMemo
-              Left = 157
-              Height = 27
-              Top = 24
-              Width = 312
-              Anchors = [akTop, akLeft, akRight]
-              DataField = 'sistema'
-              DataSource = Dados.DatasourceGeral
-              OnEditingDone = DBMemoSistemaEditingDone
-              OnKeyUp = DBMemoSistemaKeyUp
-              ReadOnly = True
-              TabOrder = 0
-            end
-            object DBMemoClasse_Cristalina: TDBMemo
-              Left = 157
-              Height = 27
-              Top = 64
-              Width = 312
-              Anchors = [akTop, akLeft, akRight]
-              DataField = 'classe_cristalina'
-              DataSource = Dados.DatasourceGeral
-              OnEditingDone = DBMemoClasse_CristalinaEditingDone
-              OnKeyUp = DBMemoClasse_CristalinaKeyUp
-              ReadOnly = True
-              TabOrder = 1
-            end
-            object DBMemoH_M: TDBMemo
-              Left = 157
-              Height = 27
-              Top = 104
-              Width = 312
-              Anchors = [akTop, akLeft, akRight]
-              DataField = 'h_m'
-              DataSource = Dados.DatasourceGeral
-              OnEditingDone = DBMemoH_MEditingDone
-              OnKeyUp = DBMemoH_MKeyUp
-              ReadOnly = True
-              TabOrder = 2
-            end
-            object DBMemoHabito: TDBMemo
-              Left = 157
-              Height = 78
-              Top = 146
-              Width = 314
-              Anchors = [akTop, akLeft, akRight]
-              DataField = 'habito'
-              DataSource = Dados.DatasourceGeral
-              OnEditingDone = DBMemoHabitoEditingDone
-              OnKeyUp = DBMemoHabitoKeyUp
-              ReadOnly = True
-              ScrollBars = ssVertical
-              TabOrder = 3
-            end
-            object LabelSistema_Cristalino: TLabel
-              Left = 15
-              Height = 16
-              Top = 24
-              Width = 95
-              Caption = 'Sistema Cristalino'
-              ParentColor = False
-            end
-            object LabelClasse_Cristalina: TLabel
-              Left = 15
-              Height = 16
-              Top = 64
-              Width = 86
-              Caption = 'Classe Cristalina'
-              ParentColor = False
-            end
-            object LabelSimbologia: TLabel
-              Left = 15
-              Height = 16
-              Top = 104
-              Width = 61
-              Caption = 'Simbologia'
-              ParentColor = False
-            end
-            object LabelHabito: TLabel
-              Left = 15
-              Height = 16
-              Top = 146
-              Width = 37
-              Caption = 'Hábito'
-              ParentColor = False
-            end
-          end
-          object GroupBoxCristalografia2: TGroupBox
-            Left = 267
-            Height = 200
-            Top = 39
-            Width = 200
-            ClientHeight = 182
-            ClientWidth = 196
-            TabOrder = 2
-            object ImageCristalografia2: TImage
-              Left = 0
-              Height = 182
-              Top = 0
-              Width = 196
-              Align = alClient
-              OnClick = ImageCristalografia2Click
-              OnDblClick = ImageCristalografia2DblClick
-              Proportional = True
-            end
-          end
-        end
-      end
-      object TabSheetImagem: TTabSheet
-        Caption = 'Imagem'
-        ClientHeight = 599
-        ClientWidth = 488
-        object PanelImagem: TPanel
-          Left = 0
-          Height = 42
-          Top = 557
-          Width = 488
-          Align = alBottom
-          ClientHeight = 42
-          ClientWidth = 488
-          Color = 13085822
-          ParentColor = False
-          TabOrder = 0
-          object BitBtnAdImagem: TBitBtn
-            Left = 37
-            Height = 30
-            Top = 5
-            Width = 150
-            Caption = 'Adicionar Imagem'
-            OnClick = BitBtnAdImagemClick
-            TabOrder = 0
-          end
-          object BitBtnRemImagem: TBitBtn
-            Left = 292
-            Height = 30
-            Top = 5
-            Width = 150
-            Anchors = [akTop, akRight]
-            Caption = 'Remover Imagem'
-            OnClick = BitBtnRemImagemClick
-            TabOrder = 1
-          end
-        end
-        object GroupBoxImagemAmpliada: TGroupBox
-          Left = 0
-          Height = 557
-          Top = 0
-          Width = 488
-          Align = alClient
-          ClientHeight = 539
-          ClientWidth = 484
-          TabOrder = 1
-          object ImageAmpliada: TImage
-            Left = 0
-            Height = 539
-            Top = 0
-            Width = 484
-            Align = alClient
-            Center = True
-            Proportional = True
-          end
-        end
-      end
-    end
-  end
   object BGRAPanelImagens: TBGRAPanel
-    Left = 340
+    Left = 510
     Height = 627
     Top = 0
     Width = 170
@@ -1541,7 +512,7 @@ object FormPrincipal: TFormPrincipal
     BevelOuter = bvNone
     ClientHeight = 627
     ClientWidth = 170
-    TabOrder = 3
+    TabOrder = 2
     Visible = False
     Gradient.StartColor = 8677935
     Gradient.EndColor = 13085822
@@ -1669,7 +640,7 @@ object FormPrincipal: TFormPrincipal
     Left = 0
     Height = 23
     Top = 647
-    Width = 1006
+    Width = 1339
     Panels = <    
       item
         Width = 510
@@ -1684,10 +655,1445 @@ object FormPrincipal: TFormPrincipal
     Left = 0
     Height = 20
     Top = 627
-    Width = 1006
+    Width = 1339
     Align = alBottom
+    TabOrder = 4
+    Visible = False
+  end
+  object BGRAPanel1: TBGRAPanel
+    Left = 170
+    Height = 627
+    Top = 0
+    Width = 170
+    Align = alLeft
+    BevelOuter = bvNone
+    ClientHeight = 627
+    ClientWidth = 170
     TabOrder = 5
     Visible = False
+    Gradient.StartColor = 8677935
+    Gradient.EndColor = 13085822
+    Gradient.Point1XPercent = 0
+    Gradient.Point1YPercent = 0
+    Gradient.Point2XPercent = 0
+    Gradient.Point2YPercent = 100
+    object BGRALabelId_Rruff: TBGRALabel
+      Left = 8
+      Height = 33
+      Top = 31
+      Width = 123
+      AutoSize = False
+      Background.Color = clBtnFace
+      Background.Gradient1.StartColor = 15722194
+      Background.Gradient1.EndColor = 13137169
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient2.StartColor = 13137169
+      Background.Gradient2.EndColor = 15722194
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient1EndPercent = 35
+      Background.LightWidth = 0
+      Background.LightOpacity = 64
+      Caption = 'Rruff Id:'
+      ParentColor = False
+      TextShadowColorOpacity = 255
+      GlobalOpacity = 255
+      TextApplyGlobalOpacity = False
+      Font.Color = clNone
+    end
+    object ListBoxRruff_id: TListBox
+      Left = 8
+      Height = 508
+      Top = 96
+      Width = 152
+      Anchors = [akTop, akLeft, akBottom]
+      ItemHeight = 0
+      TabOrder = 0
+    end
+    object EditRruff_Id: TEdit
+      Left = 8
+      Height = 23
+      Top = 64
+      Width = 112
+      TabOrder = 1
+    end
+    object EditRruff_num: TEdit
+      Left = 127
+      Height = 23
+      Top = 64
+      Width = 33
+      TabOrder = 2
+    end
+  end
+  object PanelFichas: TPanel
+    Left = 680
+    Height = 627
+    Top = 0
+    Width = 659
+    Align = alClient
+    ClientHeight = 627
+    ClientWidth = 659
+    TabOrder = 6
+    object PanelFicha: TPanel
+      Left = 1
+      Height = 625
+      Top = 1
+      Width = 657
+      Align = alClient
+      Anchors = [akTop, akRight, akBottom]
+      BevelOuter = bvNone
+      ClientHeight = 625
+      ClientWidth = 657
+      TabOrder = 0
+      object PageControlFicha: TPageControl
+        Left = 0
+        Height = 625
+        Top = 0
+        Width = 657
+        ActivePage = TabSheetInf_Gerais
+        Align = alClient
+        TabIndex = 0
+        TabOrder = 0
+        object TabSheetInf_Gerais: TTabSheet
+          Caption = 'Informações Gerais'
+          ClientHeight = 597
+          ClientWidth = 649
+          object GroupBoxInf_Gerais: TGroupBox
+            Left = 0
+            Height = 597
+            Top = 0
+            Width = 649
+            Align = alClient
+            ClientHeight = 579
+            ClientWidth = 645
+            TabOrder = 0
+            object Label1: TLabel
+              Left = 15
+              Height = 16
+              Top = 9
+              Width = 45
+              Caption = 'Fórmula'
+              ParentColor = False
+            end
+            object DBMemoFormula: TDBMemo
+              Left = 125
+              Height = 27
+              Top = 9
+              Width = 505
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'formula'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoFormulaEditingDone
+              OnKeyUp = DBMemoFormulaKeyUp
+              ReadOnly = True
+              TabOrder = 0
+            end
+            object DBMemoNome: TDBMemo
+              Left = 125
+              Height = 27
+              Top = 39
+              Width = 505
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'nome'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoNomeEditingDone
+              OnKeyUp = DBMemoNomeKeyUp
+              ReadOnly = True
+              TabOrder = 1
+            end
+            object LabelNome: TLabel
+              Left = 15
+              Height = 16
+              Top = 39
+              Width = 34
+              Caption = 'Nome'
+              ParentColor = False
+            end
+            object LabelClasse: TLabel
+              Left = 15
+              Height = 16
+              Top = 79
+              Width = 34
+              Caption = 'Classe'
+              ParentColor = False
+            end
+            object LabelSubClasse: TLabel
+              Left = 15
+              Height = 16
+              Top = 111
+              Width = 52
+              Caption = 'Subclasse'
+              ParentColor = False
+            end
+            object LabelGrupo: TLabel
+              Left = 15
+              Height = 16
+              Top = 143
+              Width = 34
+              Caption = 'Grupo'
+              ParentColor = False
+            end
+            object LabelSubGrupo: TLabel
+              Left = 15
+              Height = 16
+              Top = 175
+              Width = 53
+              Caption = 'Subgrupo'
+              ParentColor = False
+            end
+            object LabelOcorrencia: TLabel
+              Left = 15
+              Height = 16
+              Top = 215
+              Width = 59
+              Caption = 'Ocorrência'
+              ParentColor = False
+            end
+            object LabelAssociacao: TLabel
+              Left = 15
+              Height = 16
+              Top = 295
+              Width = 60
+              Caption = 'Associação'
+              ParentColor = False
+            end
+            object LabelDistincao: TLabel
+              Left = 15
+              Height = 16
+              Top = 375
+              Width = 50
+              Caption = 'Distinção'
+              ParentColor = False
+            end
+            object LabelAlteracao: TLabel
+              Left = 15
+              Height = 16
+              Top = 455
+              Width = 51
+              Caption = 'Alteração'
+              ParentColor = False
+            end
+            object LabelAplicacao: TLabel
+              Left = 15
+              Height = 16
+              Top = 535
+              Width = 53
+              Caption = 'Aplicação'
+              ParentColor = False
+            end
+            object DBMemoClasse: TDBMemo
+              Left = 125
+              Height = 27
+              Top = 79
+              Width = 505
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'classe'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoClasseEditingDone
+              OnKeyUp = DBMemoClasseKeyUp
+              ReadOnly = True
+              TabOrder = 2
+            end
+            object DBMemoSubclasse: TDBMemo
+              Left = 125
+              Height = 27
+              Top = 111
+              Width = 505
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'subclasse'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoSubclasseEditingDone
+              OnKeyUp = DBMemoSubclasseKeyUp
+              ReadOnly = True
+              TabOrder = 3
+            end
+            object DBMemoGrupo: TDBMemo
+              Left = 125
+              Height = 27
+              Top = 143
+              Width = 505
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'grupo'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoGrupoEditingDone
+              OnKeyUp = DBMemoGrupoKeyUp
+              ReadOnly = True
+              TabOrder = 4
+            end
+            object DBMemoSubgrupo: TDBMemo
+              Left = 125
+              Height = 27
+              Top = 175
+              Width = 505
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'subgrupo'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoSubgrupoEditingDone
+              OnKeyUp = DBMemoSubgrupoKeyUp
+              ReadOnly = True
+              TabOrder = 5
+            end
+            object DBMemoOCorrencia: TDBMemo
+              Left = 125
+              Height = 70
+              Top = 215
+              Width = 505
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'ocorrencia'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoOCorrenciaEditingDone
+              OnKeyUp = DBMemoOCorrenciaKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 6
+            end
+            object DBMemoAssociacao: TDBMemo
+              Left = 125
+              Height = 70
+              Top = 295
+              Width = 505
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'associacao'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoAssociacaoEditingDone
+              OnKeyUp = DBMemoAssociacaoKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 7
+            end
+            object DBMemoDistincao: TDBMemo
+              Left = 125
+              Height = 70
+              Top = 375
+              Width = 505
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'distincao'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoDistincaoEditingDone
+              OnKeyUp = DBMemoDistincaoKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 8
+            end
+            object DBMemoAlteracao: TDBMemo
+              Left = 125
+              Height = 70
+              Top = 455
+              Width = 505
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'alteracao'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoAlteracaoEditingDone
+              OnKeyUp = DBMemoAlteracaoKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 9
+            end
+            object DBMemoAplicacao: TDBMemo
+              Left = 125
+              Height = 70
+              Top = 535
+              Width = 505
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'aplicacao'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoAplicacaoEditingDone
+              OnKeyUp = DBMemoAplicacaoKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 10
+            end
+            object RichMemoFormula: TRichMemo
+              Left = 125
+              Height = 27
+              Top = 9
+              Width = 505
+              Anchors = [akTop, akLeft, akRight]
+              Font.Height = -12
+              HideSelection = False
+              ParentBidiMode = False
+              ParentFont = False
+              TabOrder = 11
+              WantReturns = False
+            end
+          end
+        end
+        object TabSheetProp_Fisicas: TTabSheet
+          Caption = 'Propriedades Físicas'
+          ClientHeight = 599
+          ClientWidth = 488
+          object GroupBoxProp_Fisicas: TGroupBox
+            Left = 0
+            Height = 599
+            Top = 0
+            Width = 488
+            Align = alClient
+            ClientHeight = 581
+            ClientWidth = 484
+            TabOrder = 0
+            object EditDureza: TEdit
+              Left = 125
+              Height = 23
+              Top = 15
+              Width = 100
+              OnClick = EditDurezaClick
+              ReadOnly = True
+              TabOrder = 0
+              Text = 'EditDureza'
+            end
+            object EditDensidade: TEdit
+              Left = 125
+              Height = 23
+              Top = 87
+              Width = 100
+              OnClick = EditDensidadeClick
+              ReadOnly = True
+              TabOrder = 1
+              Text = 'EditDensidade'
+            end
+            object GroupBoxDureza: TGroupBox
+              Left = 251
+              Height = 72
+              Top = -1
+              Width = 169
+              Anchors = [akTop, akRight]
+              Caption = 'Editar Dureza'
+              ClientHeight = 54
+              ClientWidth = 165
+              Enabled = False
+              TabOrder = 2
+              Visible = False
+              object DBEditDureza_Min: TDBEdit
+                Left = 14
+                Height = 23
+                Top = 16
+                Width = 64
+                DataField = 'dureza_min'
+                DataSource = Dados.DatasourceGeral
+                CharCase = ecNormal
+                MaxLength = 0
+                TabOrder = 0
+                OnEditingDone = DBEditDureza_MinEditingDone
+                OnKeyUp = DBEditDureza_MinKeyUp
+              end
+              object DBEditDureza_Max: TDBEdit
+                Left = 91
+                Height = 23
+                Top = 16
+                Width = 64
+                DataField = 'dureza_max'
+                DataSource = Dados.DatasourceGeral
+                CharCase = ecNormal
+                MaxLength = 0
+                TabOrder = 1
+                OnEditingDone = DBEditDureza_MaxEditingDone
+                OnKeyUp = DBEditDureza_MaxKeyUp
+              end
+              object Label38: TLabel
+                Left = 80
+                Height = 22
+                Top = 16
+                Width = 7
+                Caption = '-'
+                Font.Height = -16
+                Font.Style = [fsBold]
+                ParentColor = False
+                ParentFont = False
+              end
+            end
+            object GroupBoxDensidade: TGroupBox
+              Left = 251
+              Height = 72
+              Top = 79
+              Width = 169
+              Anchors = [akTop, akRight]
+              Caption = 'Editar Densidade'
+              ClientHeight = 54
+              ClientWidth = 165
+              Enabled = False
+              TabOrder = 3
+              Visible = False
+              object DBEditDensidade_Min: TDBEdit
+                Left = 14
+                Height = 23
+                Top = 16
+                Width = 64
+                DataField = 'densidade_min'
+                DataSource = Dados.DatasourceGeral
+                CharCase = ecNormal
+                MaxLength = 0
+                TabOrder = 0
+                OnEditingDone = DBEditDensidade_MinEditingDone
+                OnKeyUp = DBEditDensidade_MinKeyUp
+              end
+              object DBEditDensidade_Max: TDBEdit
+                Left = 91
+                Height = 23
+                Top = 16
+                Width = 64
+                DataField = 'densidade_max'
+                DataSource = Dados.DatasourceGeral
+                CharCase = ecNormal
+                MaxLength = 0
+                TabOrder = 1
+                OnEditingDone = DBEditDensidade_MaxEditingDone
+                OnKeyUp = DBEditDensidade_MaxKeyUp
+              end
+              object Label39: TLabel
+                Left = 80
+                Height = 22
+                Top = 16
+                Width = 7
+                Caption = '-'
+                Font.Height = -16
+                Font.Style = [fsBold]
+                ParentColor = False
+                ParentFont = False
+              end
+            end
+            object DBMemoCor: TDBMemo
+              Left = 125
+              Height = 60
+              Top = 159
+              Width = 344
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'cor'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoCorEditingDone
+              OnKeyUp = DBMemoCorKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 4
+            end
+            object DBMemoTraco: TDBMemo
+              Left = 125
+              Height = 60
+              Top = 231
+              Width = 344
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'traco'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoTracoEditingDone
+              OnKeyUp = DBMemoTracoKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 5
+            end
+            object DBMemoBrilho: TDBMemo
+              Left = 125
+              Height = 60
+              Top = 303
+              Width = 344
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'brilho'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoBrilhoEditingDone
+              OnKeyUp = DBMemoBrilhoKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 6
+            end
+            object DBMemoClivagem: TDBMemo
+              Left = 125
+              Height = 60
+              Top = 375
+              Width = 344
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'clivagem'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoClivagemEditingDone
+              OnKeyUp = DBMemoClivagemKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 7
+            end
+            object DBMemoFratura: TDBMemo
+              Left = 125
+              Height = 60
+              Top = 447
+              Width = 344
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'fratura'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoFraturaEditingDone
+              OnKeyUp = DBMemoFraturaKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 8
+            end
+            object DBMemoMagnetismo: TDBMemo
+              Left = 125
+              Height = 27
+              Top = 519
+              Width = 344
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'magnetismo'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoMagnetismoEditingDone
+              OnKeyUp = DBMemoMagnetismoKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 9
+            end
+            object DBMemoLuminescencia: TDBMemo
+              Left = 125
+              Height = 27
+              Top = 559
+              Width = 344
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'luminescencia'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoLuminescenciaEditingDone
+              OnKeyUp = DBMemoLuminescenciaKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 10
+            end
+            object Label24: TLabel
+              Left = 15
+              Height = 16
+              Top = 15
+              Width = 37
+              Caption = 'Dureza'
+              ParentColor = False
+            end
+            object Label25: TLabel
+              Left = 15
+              Height = 16
+              Top = 87
+              Width = 56
+              Caption = 'Densidade'
+              ParentColor = False
+            end
+            object LabelCor: TLabel
+              Left = 15
+              Height = 16
+              Top = 159
+              Width = 20
+              Caption = 'Cor'
+              ParentColor = False
+            end
+            object LabelTraco: TLabel
+              Left = 15
+              Height = 16
+              Top = 231
+              Width = 31
+              Caption = 'Traço'
+              ParentColor = False
+            end
+            object LabelBrilho: TLabel
+              Left = 15
+              Height = 16
+              Top = 303
+              Width = 32
+              Caption = 'Brilho'
+              ParentColor = False
+            end
+            object LabelClivagem: TLabel
+              Left = 15
+              Height = 16
+              Top = 375
+              Width = 51
+              Caption = 'Clivagem'
+              ParentColor = False
+            end
+            object LabelFratura: TLabel
+              Left = 15
+              Height = 16
+              Top = 447
+              Width = 38
+              Caption = 'Fratura'
+              ParentColor = False
+            end
+            object LabelMagnetismo: TLabel
+              Left = 15
+              Height = 16
+              Top = 519
+              Width = 68
+              Caption = 'Magnetismo'
+              ParentColor = False
+            end
+            object LabelLuminescencia: TLabel
+              Left = 15
+              Height = 16
+              Top = 559
+              Width = 80
+              Caption = 'Luminescência'
+              ParentColor = False
+            end
+          end
+        end
+        object TabSheetOticas: TTabSheet
+          Caption = 'Propriedades Óticas'
+          ClientHeight = 599
+          ClientWidth = 488
+          object GroupBoxOpticas: TGroupBox
+            Left = 0
+            Height = 599
+            Top = 0
+            Width = 488
+            Align = alClient
+            ClientHeight = 581
+            ClientWidth = 484
+            TabOrder = 0
+            object LabelExtincao: TLabel
+              Left = 15
+              Height = 16
+              Top = 527
+              Width = 45
+              Caption = 'Extinção'
+              ParentColor = False
+            end
+            object DBMemoDifaneidade: TDBMemo
+              Left = 172
+              Height = 45
+              Top = 23
+              Width = 302
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'difaneidade'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoDifaneidadeEditingDone
+              OnKeyUp = DBMemoDifaneidadeKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 0
+            end
+            object DBMemoSinal_Optico: TDBMemo
+              Left = 172
+              Height = 45
+              Top = 79
+              Width = 302
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'Sinal_optico'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoSinal_OpticoEditingDone
+              OnKeyUp = DBMemoSinal_OpticoKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 1
+            end
+            object DBMemoIndice_Refracao: TDBMemo
+              Left = 172
+              Height = 45
+              Top = 135
+              Width = 302
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'indice_refracao'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoIndice_RefracaoEditingDone
+              OnKeyUp = DBMemoIndice_RefracaoKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 2
+            end
+            object DBMemoAngulo: TDBMemo
+              Left = 172
+              Height = 45
+              Top = 191
+              Width = 302
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'angulo'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoAnguloEditingDone
+              OnKeyUp = DBMemoAnguloKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 3
+            end
+            object DBMemoCor_interferencia: TDBMemo
+              Left = 172
+              Height = 45
+              Top = 247
+              Width = 302
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'cor_interferencia'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoCor_interferenciaEditingDone
+              OnKeyUp = DBMemoCor_interferenciaKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 4
+            end
+            object DBMemoSinal_Elongacao: TDBMemo
+              Left = 172
+              Height = 45
+              Top = 359
+              Width = 302
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'sinal_elongacao'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoSinal_ElongacaoEditingDone
+              OnKeyUp = DBMemoSinal_ElongacaoKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 6
+            end
+            object DBMemoBirrefringencia: TDBMemo
+              Left = 172
+              Height = 45
+              Top = 415
+              Width = 302
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'birrefringencia'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoBirrefringenciaEditingDone
+              OnKeyUp = DBMemoBirrefringenciaKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 7
+            end
+            object DBMemoRelevo: TDBMemo
+              Left = 172
+              Height = 45
+              Top = 471
+              Width = 302
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'relevo'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoRelevoEditingDone
+              OnKeyUp = DBMemoRelevoKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 8
+            end
+            object DBMemoExtincao: TDBMemo
+              Left = 172
+              Height = 45
+              Top = 527
+              Width = 302
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'extincao'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoExtincaoEditingDone
+              OnKeyUp = DBMemoExtincaoKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 9
+            end
+            object LabelDifaneidade: TLabel
+              Left = 15
+              Height = 16
+              Top = 23
+              Width = 64
+              Caption = 'Difaneidade'
+              ParentColor = False
+            end
+            object LabelSinal_optico: TLabel
+              Left = 15
+              Height = 16
+              Top = 79
+              Width = 65
+              Caption = 'Sinal Óptico'
+              ParentColor = False
+            end
+            object LabelIndice_Refracao: TLabel
+              Left = 15
+              Height = 16
+              Top = 135
+              Width = 82
+              Caption = 'Índice Refração'
+              ParentColor = False
+            end
+            object LabelAngulo_2V: TLabel
+              Left = 15
+              Height = 16
+              Top = 191
+              Width = 56
+              Caption = 'Ângulo 2V'
+              ParentColor = False
+            end
+            object LabelCor_Interferencia: TLabel
+              Left = 15
+              Height = 16
+              Top = 247
+              Width = 105
+              Caption = 'Cor de Interferência'
+              ParentColor = False
+            end
+            object LabelSInal_Elongacao: TLabel
+              Left = 15
+              Height = 16
+              Top = 359
+              Width = 100
+              Caption = 'Sinal de Elongação'
+              ParentColor = False
+            end
+            object LabelBirrefringencia: TLabel
+              Left = 15
+              Height = 16
+              Top = 415
+              Width = 78
+              Caption = 'Birrefringência'
+              ParentColor = False
+            end
+            object LabelRelevo: TLabel
+              Left = 15
+              Height = 16
+              Top = 471
+              Width = 36
+              Caption = 'Relevo'
+              ParentColor = False
+            end
+            object LabelCor_Lamina: TLabel
+              Left = 15
+              Height = 16
+              Top = 303
+              Width = 78
+              Caption = 'Cor da Lâmina'
+              ParentColor = False
+            end
+            object DBMemoCor_Lamina: TDBMemo
+              Left = 172
+              Height = 45
+              Top = 303
+              Width = 302
+              Anchors = [akTop, akLeft, akRight]
+              DataField = 'cor_lamina'
+              DataSource = Dados.DatasourceGeral
+              OnEditingDone = DBMemoCor_LaminaEditingDone
+              OnKeyUp = DBMemoCor_LaminaKeyUp
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 5
+            end
+          end
+        end
+        object TabSheetCristalografia: TTabSheet
+          Caption = 'Cristalografia'
+          ClientHeight = 599
+          ClientWidth = 488
+          object GroupBox1: TGroupBox
+            Left = 0
+            Height = 599
+            Top = 0
+            Width = 488
+            Align = alClient
+            ClientHeight = 581
+            ClientWidth = 484
+            TabOrder = 0
+            object GroupBoxCristalografia1: TGroupBox
+              Left = 15
+              Height = 200
+              Top = 39
+              Width = 200
+              ClientHeight = 182
+              ClientWidth = 196
+              TabOrder = 0
+              object ImageCristalografia1: TImage
+                Left = 0
+                Height = 182
+                Top = 0
+                Width = 196
+                Align = alClient
+                OnClick = ImageCristalografia1Click
+                OnDblClick = ImageCristalografia1DblClick
+                Proportional = True
+              end
+            end
+            object GroupBoxCristalografia: TGroupBox
+              Left = 3
+              Height = 264
+              Top = 295
+              Width = 479
+              Anchors = [akTop, akLeft, akRight, akBottom]
+              ClientHeight = 246
+              ClientWidth = 475
+              TabOrder = 1
+              object DBMemoSistema: TDBMemo
+                Left = 157
+                Height = 27
+                Top = 24
+                Width = 312
+                Anchors = [akTop, akLeft, akRight]
+                DataField = 'sistema'
+                DataSource = Dados.DatasourceGeral
+                OnEditingDone = DBMemoSistemaEditingDone
+                OnKeyUp = DBMemoSistemaKeyUp
+                ReadOnly = True
+                TabOrder = 0
+              end
+              object DBMemoClasse_Cristalina: TDBMemo
+                Left = 157
+                Height = 27
+                Top = 64
+                Width = 312
+                Anchors = [akTop, akLeft, akRight]
+                DataField = 'classe_cristalina'
+                DataSource = Dados.DatasourceGeral
+                OnEditingDone = DBMemoClasse_CristalinaEditingDone
+                OnKeyUp = DBMemoClasse_CristalinaKeyUp
+                ReadOnly = True
+                TabOrder = 1
+              end
+              object DBMemoH_M: TDBMemo
+                Left = 157
+                Height = 27
+                Top = 104
+                Width = 312
+                Anchors = [akTop, akLeft, akRight]
+                DataField = 'h_m'
+                DataSource = Dados.DatasourceGeral
+                OnEditingDone = DBMemoH_MEditingDone
+                OnKeyUp = DBMemoH_MKeyUp
+                ReadOnly = True
+                TabOrder = 2
+              end
+              object DBMemoHabito: TDBMemo
+                Left = 157
+                Height = 78
+                Top = 146
+                Width = 314
+                Anchors = [akTop, akLeft, akRight]
+                DataField = 'habito'
+                DataSource = Dados.DatasourceGeral
+                OnEditingDone = DBMemoHabitoEditingDone
+                OnKeyUp = DBMemoHabitoKeyUp
+                ReadOnly = True
+                ScrollBars = ssVertical
+                TabOrder = 3
+              end
+              object LabelSistema_Cristalino: TLabel
+                Left = 15
+                Height = 16
+                Top = 24
+                Width = 95
+                Caption = 'Sistema Cristalino'
+                ParentColor = False
+              end
+              object LabelClasse_Cristalina: TLabel
+                Left = 15
+                Height = 16
+                Top = 64
+                Width = 86
+                Caption = 'Classe Cristalina'
+                ParentColor = False
+              end
+              object LabelSimbologia: TLabel
+                Left = 15
+                Height = 16
+                Top = 104
+                Width = 61
+                Caption = 'Simbologia'
+                ParentColor = False
+              end
+              object LabelHabito: TLabel
+                Left = 15
+                Height = 16
+                Top = 146
+                Width = 37
+                Caption = 'Hábito'
+                ParentColor = False
+              end
+            end
+            object GroupBoxCristalografia2: TGroupBox
+              Left = 267
+              Height = 200
+              Top = 39
+              Width = 200
+              ClientHeight = 182
+              ClientWidth = 196
+              TabOrder = 2
+              object ImageCristalografia2: TImage
+                Left = 0
+                Height = 182
+                Top = 0
+                Width = 196
+                Align = alClient
+                OnClick = ImageCristalografia2Click
+                OnDblClick = ImageCristalografia2DblClick
+                Proportional = True
+              end
+            end
+          end
+        end
+        object TabSheetImagem: TTabSheet
+          Caption = 'Imagem'
+          ClientHeight = 599
+          ClientWidth = 601
+          object PanelImagem: TPanel
+            Left = 0
+            Height = 42
+            Top = 557
+            Width = 601
+            Align = alBottom
+            ClientHeight = 42
+            ClientWidth = 601
+            Color = 13085822
+            ParentColor = False
+            TabOrder = 0
+            object BitBtnAdImagem: TBitBtn
+              Left = 37
+              Height = 30
+              Top = 5
+              Width = 150
+              Caption = 'Adicionar Imagem'
+              OnClick = BitBtnAdImagemClick
+              TabOrder = 0
+            end
+            object BitBtnRemImagem: TBitBtn
+              Left = 405
+              Height = 30
+              Top = 5
+              Width = 150
+              Anchors = [akTop, akRight]
+              Caption = 'Remover Imagem'
+              OnClick = BitBtnRemImagemClick
+              TabOrder = 1
+            end
+          end
+          object GroupBoxImagemAmpliada: TGroupBox
+            Left = 0
+            Height = 557
+            Top = 0
+            Width = 601
+            Align = alClient
+            ClientHeight = 539
+            ClientWidth = 597
+            TabOrder = 1
+            object ImageAmpliada: TImage
+              Left = 0
+              Height = 539
+              Top = 0
+              Width = 597
+              Align = alClient
+              Center = True
+              Proportional = True
+            end
+          end
+        end
+      end
+    end
+    object PanelRRUFF: TPanel
+      Left = 1
+      Height = 625
+      Top = 1
+      Width = 657
+      Align = alClient
+      ClientHeight = 625
+      ClientWidth = 657
+      TabOrder = 1
+      Visible = False
+      object PageControlRruff: TPageControl
+        Left = 1
+        Height = 623
+        Top = 1
+        Width = 655
+        ActivePage = TabSheetRruffBroadScan
+        Align = alClient
+        TabIndex = 3
+        TabOrder = 0
+        object TabSheetRruffGerais: TTabSheet
+          Caption = 'Informações Gerais'
+          ClientHeight = 595
+          ClientWidth = 647
+          object GroupBox3: TGroupBox
+            Left = 0
+            Height = 595
+            Top = 0
+            Width = 647
+            Align = alClient
+            ClientHeight = 577
+            ClientWidth = 643
+            TabOrder = 0
+            object Memo1: TMemo
+              Left = 128
+              Height = 90
+              Top = 46
+              Width = 230
+              Lines.Strings = (
+                'Memo1'
+              )
+              TabOrder = 0
+            end
+            object LabelQuimicaIdeal: TLabel
+              Left = 32
+              Height = 16
+              Top = 46
+              Width = 74
+              Caption = 'Química Ideal'
+              ParentColor = False
+            end
+            object LabelLocalidade: TLabel
+              Left = 37
+              Height = 16
+              Top = 152
+              Width = 58
+              Caption = 'Localidade'
+              ParentColor = False
+            end
+            object Memo2: TMemo
+              Left = 124
+              Height = 90
+              Top = 152
+              Width = 230
+              Lines.Strings = (
+                'Memo2'
+              )
+              TabOrder = 1
+            end
+            object LabelFonte: TLabel
+              Left = 37
+              Height = 16
+              Top = 259
+              Width = 31
+              Caption = 'Fonte'
+              ParentColor = False
+            end
+            object Memo3: TMemo
+              Left = 124
+              Height = 90
+              Top = 257
+              Width = 233
+              Lines.Strings = (
+                'Memo3'
+              )
+              TabOrder = 2
+            end
+            object Label2: TLabel
+              Left = 41
+              Height = 16
+              Top = 356
+              Width = 52
+              Caption = 'Descrição'
+              ParentColor = False
+            end
+            object Memo4: TMemo
+              Left = 128
+              Height = 90
+              Top = 354
+              Width = 230
+              Lines.Strings = (
+                'Memo4'
+              )
+              TabOrder = 3
+            end
+            object Label3: TLabel
+              Left = 44
+              Height = 16
+              Top = 475
+              Width = 46
+              Caption = 'Situação'
+              ParentColor = False
+            end
+            object Memo5: TMemo
+              Left = 128
+              Height = 90
+              Top = 463
+              Width = 237
+              Lines.Strings = (
+                'Memo5'
+              )
+              TabOrder = 4
+            end
+          end
+        end
+        object TabSheetRruffQuimica: TTabSheet
+          Caption = 'Química Ideal'
+          ClientHeight = 595
+          ClientWidth = 647
+          object GroupBox4: TGroupBox
+            Left = 0
+            Height = 595
+            Top = 0
+            Width = 647
+            Align = alClient
+            ClientHeight = 577
+            ClientWidth = 643
+            TabOrder = 0
+            object LabelDescricao2: TLabel
+              Left = 47
+              Height = 16
+              Top = 101
+              Width = 52
+              Caption = 'Descrição'
+              ParentColor = False
+            end
+            object Memo6: TMemo
+              Left = 157
+              Height = 90
+              Top = 101
+              Width = 150
+              Lines.Strings = (
+                'Memo6'
+              )
+              TabOrder = 0
+            end
+            object LabelQuimicaMedida: TLabel
+              Left = 51
+              Height = 16
+              Top = 212
+              Width = 89
+              Caption = 'Química Medida'
+              ParentColor = False
+            end
+            object Memo7: TMemo
+              Left = 157
+              Height = 90
+              Top = 214
+              Width = 150
+              Lines.Strings = (
+                'Memo7'
+              )
+              TabOrder = 1
+            end
+            object Label4: TLabel
+              Left = 52
+              Height = 16
+              Top = 342
+              Width = 165
+              Caption = 'Arquivos de Dados Microprobe'
+              ParentColor = False
+            end
+            object Memo8: TMemo
+              Left = 152
+              Height = 90
+              Top = 364
+              Width = 150
+              Lines.Strings = (
+                'Memo8'
+              )
+              TabOrder = 2
+            end
+          end
+        end
+        object TabSheetRruffRaman: TTabSheet
+          Caption = 'Espectro RAMAN'
+          ClientHeight = 595
+          ClientWidth = 647
+          object GroupBox5: TGroupBox
+            Left = 0
+            Height = 595
+            Top = 0
+            Width = 647
+            Align = alClient
+            ClientHeight = 577
+            ClientWidth = 643
+            TabOrder = 0
+            object LabelDescricao3: TLabel
+              Left = 40
+              Height = 16
+              Top = 286
+              Width = 55
+              Caption = 'Descrição '
+              ParentColor = False
+            end
+            object Memo9: TMemo
+              Left = 155
+              Height = 90
+              Top = 286
+              Width = 150
+              Lines.Strings = (
+                'Memo9'
+              )
+              TabOrder = 0
+            end
+            object LabelPinId: TLabel
+              Left = 40
+              Height = 16
+              Top = 398
+              Width = 89
+              Caption = 'Identificação Pin'
+              ParentColor = False
+            end
+            object Memo10: TMemo
+              Left = 155
+              Height = 40
+              Top = 398
+              Width = 150
+              Lines.Strings = (
+                'Memo10'
+              )
+              TabOrder = 1
+            end
+            object LabelOrientacao: TLabel
+              Left = 43
+              Height = 16
+              Top = 462
+              Width = 59
+              Caption = 'Orientação'
+              ParentColor = False
+            end
+            object Memo11: TMemo
+              Left = 155
+              Height = 90
+              Top = 458
+              Width = 150
+              Lines.Strings = (
+                'Memo11'
+              )
+              TabOrder = 2
+            end
+            object Chart1: TChart
+              Left = 155
+              Height = 200
+              Top = 22
+              Width = 300
+              AxisList = <              
+                item
+                  Minors = <>
+                  Title.LabelFont.Orientation = 900
+                end              
+                item
+                  Alignment = calBottom
+                  Minors = <>
+                end>
+              Foot.Brush.Color = clBtnFace
+              Foot.Font.Color = clBlue
+              Title.Brush.Color = clBtnFace
+              Title.Font.Color = clBlue
+              Title.Text.Strings = (
+                'TAChart'
+              )
+              ParentColor = False
+            end
+          end
+        end
+        object TabSheetRruffBroadScan: TTabSheet
+          Caption = 'Broad Scan with Spectral Artifacts'
+          ClientHeight = 595
+          ClientWidth = 647
+          object GroupBox6: TGroupBox
+            Left = 0
+            Height = 595
+            Top = 0
+            Width = 647
+            Align = alClient
+            TabOrder = 0
+          end
+        end
+        object TabSheetRruffInfra: TTabSheet
+          Caption = 'Espectro Infra-Vermelho'
+          ClientHeight = 595
+          ClientWidth = 647
+          object GroupBox2: TGroupBox
+            Left = 0
+            Height = 595
+            Top = 0
+            Width = 647
+            Align = alClient
+            TabOrder = 0
+          end
+        end
+        object TabSheetRruffDifracao: TTabSheet
+          Caption = 'Powder Diffraction'
+          ClientHeight = 595
+          ClientWidth = 647
+          object GroupBox7: TGroupBox
+            Left = 0
+            Height = 595
+            Top = 0
+            Width = 647
+            Align = alClient
+            TabOrder = 0
+          end
+        end
+      end
+    end
   end
   object MainMenu1: TMainMenu
     left = 16
@@ -1717,6 +2123,10 @@ object FormPrincipal: TFormPrincipal
         Caption = 'Imagens'
         OnClick = MenuItemImagensClick
       end
+      object MenuItemMulAmostras: TMenuItem
+        Caption = 'Múltiplas Amostras'
+        OnClick = MenuItemMulAmostrasClick
+      end
     end
     object MenuItemEditar: TMenuItem
       Caption = 'Editar'
@@ -1742,6 +2152,7 @@ object FormPrincipal: TFormPrincipal
         object MenuItemAlfabetica: TMenuItem
           Caption = 'Alfabética'
           RadioItem = True
+          OnClick = MenuItemAlfabeticaClick
         end
         object MenuItemDureza: TMenuItem
           Caption = 'Dureza'
@@ -1751,7 +2162,7 @@ object FormPrincipal: TFormPrincipal
         object MenuItemDensidade: TMenuItem
           Caption = 'Densidade'
           RadioItem = True
-          OnClick = MenuItemDurezaClick
+          OnClick = MenuItemDensidadeClick
         end
       end
       object MenuItemFonte: TMenuItem
@@ -1775,7 +2186,7 @@ object FormPrincipal: TFormPrincipal
       OnClick = MenuItemBibliografiaClick
     end
     object MenuItemAjuda: TMenuItem
-      Caption = '?'
+      Caption = 'Ajuda'
       OnClick = MenuItemAjudaClick
     end
   end
@@ -1804,6 +2215,17 @@ object FormPrincipal: TFormPrincipal
     object MenuItemExclui: TMenuItem
       Caption = 'Excluir Mineral'
       OnClick = MenuItemExcluiClick
+    end
+  end
+  object PopupMenuRruff: TPopupMenu
+    left = 189
+    top = 608
+    object MenuItemAdicionarAmostra: TMenuItem
+      Caption = 'Adicionar Amostra'
+      OnClick = MenuItemAdicionarAmostraClick
+    end
+    object MenuItemRemoverAmostra: TMenuItem
+      Caption = 'Excluir Amostra'
     end
   end
 end

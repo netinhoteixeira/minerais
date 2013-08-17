@@ -13,6 +13,7 @@ type
   { TDados }
 
   TDados = class(TDataModule)
+    DatasourceAmostras: TDatasource;
     DatasourcePrinter: TDatasource;
     DatasourceReport: TDatasource;
     DatasourceCombobox: TDatasource;
@@ -20,6 +21,7 @@ type
     DatasourceDidatico: TDatasource;
     frDBDataSet1: TfrDBDataSet;
     frReport1: TfrReport;
+    Sqlite3DatasetAmostras: TSqlite3Dataset;
     Sqlite3DatasetPrinter: TSqlite3Dataset;
     Sqlite3DatasetCombobox: TSqlite3Dataset;
     Sqlite3DatasetDidatico: TSqlite3Dataset;

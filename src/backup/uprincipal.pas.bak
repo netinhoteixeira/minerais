@@ -68,7 +68,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   StdCtrls, ExtCtrls, ComCtrls, DBCtrls, ExtDlgs, Buttons, BGRAPanel,
-  BGRALabel, RichMemo, uFormImpressao, uSelecionaBD, SQLite3mod,
+  BGRALabel, RichMemo, TAGraph, uFormImpressao, uSelecionaBD, SQLite3mod,
   SQLite3tablemod, uBibliografia, UnitAjuda, IniFiles, unitImagem;
 
 type
@@ -76,6 +76,7 @@ type
   { TFormPrincipal }
 
   TFormPrincipal = class(TForm)
+    BGRALabelId_Rruff: TBGRALabel;
     BGRALabelNome: TBGRALabel;
     BGRALabelClasse: TBGRALabel;
     BGRALabelSubclasse: TBGRALabel;
@@ -85,59 +86,81 @@ type
     BGRALabelDensidade: TBGRALabel;
     BGRALabelOcorrencia: TBGRALabel;
     BGRALabelAssociacao: TBGRALabel;
+    BGRAPanel1: TBGRAPanel;
     BitBtnAdImagem: TBitBtn;
     BitBtnRemImagem: TBitBtn;
+    Chart1: TChart;
     ComboBoxClasse: TComboBox;
     ComboBoxDureza_max: TComboBox;
     ComboBoxDureza_min: TComboBox;
     ComboBoxGrupo: TComboBox;
     ComboBoxSubclasse: TComboBox;
     ComboBoxSubgrupo: TComboBox;
-    DBEditDureza_Min: TDBEdit;
-    DBEditDureza_Max: TDBEdit;
-    DBEditDensidade_Min: TDBEdit;
     DBEditDensidade_Max: TDBEdit;
-    DBMemoCor_Lamina: TDBMemo;
+    DBEditDensidade_Min: TDBEdit;
+    DBEditDureza_Max: TDBEdit;
+    DBEditDureza_Min: TDBEdit;
+    DBMemoAlteracao: TDBMemo;
     DBMemoAngulo: TDBMemo;
+    DBMemoAplicacao: TDBMemo;
+    DBMemoAssociacao: TDBMemo;
     DBMemoBirrefringencia: TDBMemo;
+    DBMemoBrilho: TDBMemo;
+    DBMemoClasse: TDBMemo;
     DBMemoClasse_Cristalina: TDBMemo;
+    DBMemoClivagem: TDBMemo;
+    DBMemoCor: TDBMemo;
     DBMemoCor_interferencia: TDBMemo;
+    DBMemoCor_Lamina: TDBMemo;
     DBMemoDifaneidade: TDBMemo;
+    DBMemoDistincao: TDBMemo;
     DBMemoExtincao: TDBMemo;
+    DBMemoFormula: TDBMemo;
+    DBMemoFratura: TDBMemo;
+    DBMemoGrupo: TDBMemo;
     DBMemoHabito: TDBMemo;
     DBMemoH_M: TDBMemo;
     DBMemoIndice_Refracao: TDBMemo;
+    DBMemoLuminescencia: TDBMemo;
+    DBMemoMagnetismo: TDBMemo;
+    DBMemoNome: TDBMemo;
+    DBMemoOCorrencia: TDBMemo;
     DBMemoRelevo: TDBMemo;
     DBMemoSinal_Elongacao: TDBMemo;
     DBMemoSinal_Optico: TDBMemo;
-    DBMemoMagnetismo: TDBMemo;
-    DBMemoLuminescencia: TDBMemo;
-    DBMemoFratura: TDBMemo;
-    DBMemoCor: TDBMemo;
     DBMemoSistema: TDBMemo;
+    DBMemoSubclasse: TDBMemo;
+    DBMemoSubgrupo: TDBMemo;
     DBMemoTraco: TDBMemo;
-    DBMemoBrilho: TDBMemo;
-    DBMemoClivagem: TDBMemo;
+    EditRruff_num: TEdit;
+    EditRruff_Id: TEdit;
     EditAssociacao: TEdit;
+    EditDensidade: TEdit;
     EditDensidade_Max: TEdit;
     EditDensidade_min: TEdit;
     EditDureza: TEdit;
-    EditDensidade: TEdit;
     EditNome: TEdit;
     EditOcorrencia: TEdit;
     GroupBox1: TGroupBox;
+    GroupBox2: TGroupBox;
+    GroupBox3: TGroupBox;
+    GroupBox4: TGroupBox;
+    GroupBox5: TGroupBox;
+    GroupBox6: TGroupBox;
+    GroupBox7: TGroupBox;
+    GroupBoxCristalografia: TGroupBox;
+    GroupBoxCristalografia1: TGroupBox;
     GroupBoxCristalografia2: TGroupBox;
+    GroupBoxDensidade: TGroupBox;
+    GroupBoxDureza: TGroupBox;
     GroupBoxImagem2: TGroupBox;
     GroupBoxImagem3: TGroupBox;
     GroupBoxImagem4: TGroupBox;
     GroupBoxImagem5: TGroupBox;
     GroupBoxImagem1: TGroupBox;
-    GroupBoxCristalografia: TGroupBox;
-    GroupBoxCristalografia1: TGroupBox;
     GroupBoxImagemAmpliada: TGroupBox;
+    GroupBoxInf_Gerais: TGroupBox;
     GroupBoxOpticas: TGroupBox;
-    GroupBoxDureza: TGroupBox;
-    GroupBoxDensidade: TGroupBox;
     GroupBoxProp_Fisicas: TGroupBox;
     Image1: TImage;
     Image2: TImage;
@@ -145,38 +168,75 @@ type
     Image4: TImage;
     Image5: TImage;
     ImageAmpliada: TImage;
-    ImageCristalografia2: TImage;
     ImageCristalografia1: TImage;
-    LabelSistema_Cristalino: TLabel;
-    LabelClasse_Cristalina: TLabel;
-    LabelSimbologia: TLabel;
-    LabelHabito: TLabel;
-    LabelDifaneidade: TLabel;
-    LabelSinal_optico: TLabel;
-    LabelIndice_Refracao: TLabel;
-    LabelAngulo_2V: TLabel;
-    LabelCor_Interferencia: TLabel;
-    LabelSInal_Elongacao: TLabel;
-    LabelBirrefringencia: TLabel;
-    LabelRelevo: TLabel;
-    LabelExtincao: TLabel;
+    ImageCristalografia2: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    LabelOrientacao: TLabel;
+    LabelPinId: TLabel;
+    LabelDescricao3: TLabel;
+    LabelQuimicaMedida: TLabel;
+    LabelDescricao2: TLabel;
+    LabelFonte: TLabel;
+    LabelLocalidade: TLabel;
+    LabelQuimicaIdeal: TLabel;
     Label24: TLabel;
     Label25: TLabel;
-    LabelCor: TLabel;
-    LabelTraco: TLabel;
-    LabelBrilho: TLabel;
-    LabelClivagem: TLabel;
-    LabelFratura: TLabel;
-    LabelMagnetismo: TLabel;
-    LabelLuminescencia: TLabel;
     Label33: TLabel;
     Label34: TLabel;
     Label35: TLabel;
     Label36: TLabel;
-    LabelCor_Lamina: TLabel;
     Label38: TLabel;
     Label39: TLabel;
+    LabelAlteracao: TLabel;
+    LabelAngulo_2V: TLabel;
+    LabelAplicacao: TLabel;
+    LabelAssociacao: TLabel;
+    LabelBirrefringencia: TLabel;
+    LabelBrilho: TLabel;
+    LabelClasse: TLabel;
+    LabelClasse_Cristalina: TLabel;
+    LabelClivagem: TLabel;
+    LabelCor: TLabel;
+    LabelCor_Interferencia: TLabel;
+    LabelCor_Lamina: TLabel;
+    LabelDifaneidade: TLabel;
+    LabelDistincao: TLabel;
+    LabelExtincao: TLabel;
+    LabelFratura: TLabel;
+    LabelGrupo: TLabel;
+    LabelHabito: TLabel;
+    LabelIndice_Refracao: TLabel;
+    LabelLuminescencia: TLabel;
+    LabelMagnetismo: TLabel;
+    LabelNome: TLabel;
+    LabelOcorrencia: TLabel;
+    LabelRelevo: TLabel;
+    LabelSimbologia: TLabel;
+    LabelSInal_Elongacao: TLabel;
+    LabelSinal_optico: TLabel;
+    LabelSistema_Cristalino: TLabel;
+    LabelSubClasse: TLabel;
+    LabelSubGrupo: TLabel;
+    LabelTraco: TLabel;
+    ListBoxRruff_id: TListBox;
     ListBoxMinerais: TListBox;
+    Memo1: TMemo;
+    Memo10: TMemo;
+    Memo11: TMemo;
+    Memo2: TMemo;
+    Memo3: TMemo;
+    Memo4: TMemo;
+    Memo5: TMemo;
+    Memo6: TMemo;
+    Memo7: TMemo;
+    Memo8: TMemo;
+    Memo9: TMemo;
+    MenuItemAdicionarAmostra: TMenuItem;
+    MenuItemRemoverAmostra: TMenuItem;
+    MenuItemMulAmostras: TMenuItem;
     MenuItemAlfabetica: TMenuItem;
     MenuItemImagens: TMenuItem;
     MenuItemAdicionar: TMenuItem;
@@ -194,29 +254,6 @@ type
     BGRAPanelImagens: TBGRAPanel;
     BGRAPanelFiltro: TBGRAPanel;
     BGRAPanelListbox: TBGRAPanel;
-    DBMemoClasse: TDBMemo;
-    DBMemoSubclasse: TDBMemo;
-    DBMemoGrupo: TDBMemo;
-    DBMemoSubgrupo: TDBMemo;
-    DBMemoOCorrencia: TDBMemo;
-    DBMemoAssociacao: TDBMemo;
-    DBMemoDistincao: TDBMemo;
-    DBMemoAlteracao: TDBMemo;
-    DBMemoAplicacao: TDBMemo;
-    DBMemoNome: TDBMemo;
-    DBMemoFormula: TDBMemo;
-    GroupBoxInf_Gerais: TGroupBox;
-    Label1: TLabel;
-    LabelAplicacao: TLabel;
-    LabelClasse: TLabel;
-    LabelSubClasse: TLabel;
-    LabelGrupo: TLabel;
-    LabelSubGrupo: TLabel;
-    LabelOcorrencia: TLabel;
-    LabelAssociacao: TLabel;
-    LabelDistincao: TLabel;
-    LabelAlteracao: TLabel;
-    LabelNome: TLabel;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItemBD: TMenuItem;
@@ -229,18 +266,28 @@ type
     MenuItemEditar: TMenuItem;
     MenuItemArquivo: TMenuItem;
     OpenPictureDialog1: TOpenPictureDialog;
+    PageControlRruff: TPageControl;
     PageControlFicha: TPageControl;
-    PanelImagem: TPanel;
+    PanelFichas: TPanel;
+    PanelRRUFF: TPanel;
     PanelFicha: TPanel;
+    PanelImagem: TPanel;
+    PopupMenuRruff: TPopupMenu;
     PopupMenuListbox: TPopupMenu;
     ProgressBar1: TProgressBar;
     RichMemoFormula: TRichMemo;
     StatusBar1: TStatusBar;
-    TabSheetInf_Gerais: TTabSheet;
-    TabSheetImagem: TTabSheet;
+    TabSheetRruffDifracao: TTabSheet;
+    TabSheetRruffInfra: TTabSheet;
+    TabSheetRruffBroadScan: TTabSheet;
+    TabSheetRruffGerais: TTabSheet;
+    TabSheetRruffQuimica: TTabSheet;
+    TabSheetRruffRaman: TTabSheet;
     TabSheetCristalografia: TTabSheet;
-    TabSheetProp_Fisicas: TTabSheet;
+    TabSheetImagem: TTabSheet;
+    TabSheetInf_Gerais: TTabSheet;
     TabSheetOticas: TTabSheet;
+    TabSheetProp_Fisicas: TTabSheet;
     Timer1: TTimer;
     procedure BitBtnAdImagemClick(Sender: TObject);
     procedure BitBtnFiltrarClick(Sender: TObject);
@@ -309,7 +356,6 @@ type
     procedure DBMemoExtincaoKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBMemoFormulaEditingDone(Sender: TObject);
-    procedure DBMemoFormulaKeyPress(Sender: TObject; var Key: char);
     procedure DBMemoFormulaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBMemoFraturaEditingDone(Sender: TObject);
@@ -335,7 +381,8 @@ type
     procedure DBMemoMagnetismoKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBMemoNomeEditingDone(Sender: TObject);
-    procedure DBMemoNomeKeyPress(Sender: TObject; var Key: char);
+    procedure DBMemoNomeKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
+      );
     procedure DBMemoOCorrenciaEditingDone(Sender: TObject);
     procedure DBMemoOCorrenciaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -389,9 +436,14 @@ type
     procedure ImageCristalografia2DblClick(Sender: TObject);
     procedure ListBoxMineraisClick(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
+    procedure MenuItemAdicionarAmostraClick(Sender: TObject);
     procedure MenuItemAdicionarClick(Sender: TObject);
+    procedure MenuItemAlfabeticaClick(Sender: TObject);
+    procedure MenuItemDensidadeClick(Sender: TObject);
+    procedure MenuItemDurezaCick(Sender: TObject);
     procedure MenuItemExcluiClick(Sender: TObject);
     procedure MenuItemFiltroClick(Sender: TObject);
+    procedure MenuItemMulAmostrasClick(Sender: TObject);
     procedure MenuItemImagensClick(Sender: TObject);
     procedure MenuItemRetiraClick(Sender: TObject);
     procedure MenuItemAjudaClick(Sender: TObject);
@@ -433,6 +485,7 @@ type
     procedure UpdateEdits(Especie:String; Campo:String; objeto :TDBEdit);
     procedure ModoEdicao;
     function DefinirOrdem: String;
+    procedure Ordem(MenuItemChecked:String);
     { private declarations }
   public
     { public declarations }
@@ -754,7 +807,8 @@ begin
       'formula', DBMemoFormula);
 end;
 
-procedure TFormPrincipal.DBMemoFormulaKeyPress(Sender: TObject; var Key: char);
+procedure TFormPrincipal.DBMemoSubclasseKeyPress(Sender: TObject; var Key: char
+  );
 begin
 
 end;
@@ -920,28 +974,34 @@ procedure TFormPrincipal.DBMemoNomeEditingDone(Sender: TObject);
 var
   novo, velho: integer;
 begin
-  velho := ListboxMinerais.items.IndexOf(ListboxMinerais.getselectedtext);
-  novo := ListboxMinerais.Items.Add(dados.SQLite3datasetgeral.FieldByName(
-    'nome').AsString);
-  ListboxMinerais.items.Exchange(novo, velho);
-  ListboxMinerais.Items.Delete(novo);
+  if Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString <>
+    ListBoxMinerais.GetSelectedText then
+    begin
+      velho := ListboxMinerais.items.IndexOf(ListboxMinerais.getselectedtext);
+      novo := ListboxMinerais.Items.Add(dados.SQLite3datasetgeral.FieldByName(
+        'nome').AsString);
+      ListboxMinerais.items.Exchange(novo, velho);
+      ListboxMinerais.Items.Delete(novo);
+      UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+        'nome', DBMemoNome);
+    end;
 end;
 
-procedure TFormPrincipal.DBMemoNomeKeyPress(Sender: TObject; var Key: char);
-var
-  aux: integer;
-begin
-  {if (Key = #13) then
+procedure TFormPrincipal.DBMemoNomeKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var aux:Integer;
+begin     /////funcoes para edicao de nome nao estao finalizadas!
+  {if Key = 13 then
   begin
-    aux := ListboxMinerais.items.IndexOf(ListboxMinerais.getselectedtext);
-    {sltb := sldb.GetTable('UPDATE minerais SET nome = "' + Copy(DBMemoNome.Text, 0,
-      Length(DBMemoNome.Text)-1) + '" WHERE nome = "' + DBMemoNome.Text + '";');
-      }
-      sltb := sldb.GetTable('UPDATE minerais SET nome = "' + DBMemoNome.Text + '" WHERE nome = "' + DBMemoNome.Text + '";');
-    Preenche_Lista;
-    ProcuraMineral;
-    ListBoxMinerais.Selected[aux] := True;
-  end; }
+   aux := ListboxMinerais.items.IndexOf(ListboxMinerais.getselectedtext);
+    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'nome', DBMemoNome);
+   Preenche_Lista;
+   ProcuraMineral;
+   ListBoxMinerais.Selected[aux] := True;
+  end;                    }
+  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      'nome', DBMemoNome);
 end;
 
 procedure TFormPrincipal.DBMemoOCorrenciaEditingDone(Sender: TObject);
@@ -1018,16 +1078,6 @@ procedure TFormPrincipal.DBMemoSubclasseEditingDone(Sender: TObject);
 begin
    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'subclasse', DBMemoSubClasse);
-end;
-
-procedure TFormPrincipal.DBMemoSubclasseKeyPress(Sender: TObject; var Key: char
-  );
-begin
-  if MenuItemDureza.Checked then Result:= '(1/(dureza_max+1))'
-  else
-  if MenuItemDensidade.Checked then Result:= '(1/(densidade_max+1))'
-  else
-  if MenuItemAlfabetica.Checked then Result:= 'ASC';
 end;
 
 procedure TFormPrincipal.DBMemoSubclasseKeyUp(Sender: TObject; var Key: Word;
@@ -1151,7 +1201,7 @@ end;
 
 procedure TFormPrincipal.FormCreate(Sender: TObject);
 var
-  BancoDados, Diretorio, Ordem: string;
+  BancoDados, Diretorio, Ordenamento: string;
 begin
   Fonte.Style := [fsitalic];
   Fonte2.Style := [];
@@ -1173,8 +1223,17 @@ begin
   FormPrincipal.Width:=StrToInt(Config.ReadString('Configuracoes', 'Comprimento', ''));
   if Config.ReadString('Configuracoes', 'Altura', '') <> EmptyStr then
   FormPrincipal.Height:=StrToInt(Config.ReadString('Configuracoes', 'Altura', ''));
-  if Config.ReadString('Configuracoes', 'Ordem','') = 'Densidade' then
-  MenuItemDensidade.Checked:=True else MenuItemDureza.Checked:=True;
+
+  Ordenamento:=Config.ReadString('Configuracoes', 'Ordem','Alfabetica');
+  if Upcase(Trim(Ordenamento)) = Upcase('Densidade') then
+  MenuItemDensidade.Checked:=True
+  else
+  if  Upcase(Trim(Ordenamento)) = Upcase('Dureza') then
+  MenuItemDureza.Checked:=True
+  else
+  if Upcase(Trim(Ordenamento)) = Upcase('Alfabetica') then
+  MenuItemAlfabetica.Checked:=True;
+
   if Config.ReadString('Configuracoes', 'Fonte', '') = 'Grande' then
   MenuItemGrande.Checked:=True else
   MenuItemNormal.Checked:=True;
@@ -1398,9 +1457,38 @@ begin
   Application.Terminate;
 end;
 
+procedure TFormPrincipal.MenuItemAdicionarAmostraClick(Sender: TObject);
+var ExecSQL, Rruff_id: String;
+begin
+  Rruff_id:=EditRruff_id.Text+EditRruff_num.Text;
+  if Rruff_id = EmptyStr then
+  Rruff_id:='A00000-0';
+  if ListBoxMinerais.GetSelectedText <> EmptyStr then
+  begin
+    ExecSQL:='INSERT INTO rruff (especie, rruff_id) VALUES("'+ListboxMinerais.GetSelectedText;
+    ExecSQL:=ExecSQL+'" , "'+Rruff_id+'");';
+    Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
+  end;
+end;
+
 procedure TFormPrincipal.MenuItemAdicionarClick(Sender: TObject);
 begin
   AdicionaMineral;
+end;
+
+procedure TFormPrincipal.MenuItemAlfabeticaClick(Sender: TObject);
+begin
+   Ordem('Alfabetica');
+end;
+
+procedure TFormPrincipal.MenuItemDensidadeClick(Sender: TObject);
+begin
+  Ordem('Densidade');
+end;
+
+procedure TFormPrincipal.MenuItemDurezaCick(Sender: TObject);
+begin
+  Ordem('Dureza');
 end;
 
 procedure TFormPrincipal.MenuItemExcluiClick(Sender: TObject);
@@ -1422,6 +1510,26 @@ begin
     BGRAPanelFiltro.Visible := True;
     MenuItemFiltro.Checked:=True;
     Config.WriteBool('Configuracoes', 'PainelFiltro', True);
+  end;
+end;
+
+procedure TFormPrincipal.MenuItemMulAmostrasClick(Sender: TObject);
+begin
+  if (not MenuItemMulAmostras.Checked) then
+  begin
+       PanelFicha.Visible:=False;
+       PanelRruff.Visible:=True;
+       BGRAPanel1.Visible:=True;
+       //Dados.Sqlite3DatasetAmostras.Open;
+       MenuItemMulAmostras.Checked:=True;
+  end
+  else
+  begin
+       PanelRruff.Visible:=False;
+       PanelFicha.Visible:=True;
+       BGRAPanel1.Visible:=False;
+       //Dados.Sqlite3DatasetAmostras.Close;
+       MenuItemMulAmostras.Checked:=False;
   end;
 end;
 
@@ -1456,21 +1564,7 @@ end;
 
 procedure TFormPrincipal.MenuItemDurezaClick(Sender: TObject);
 begin
-  Config:=TIniFile.Create(GetCurrentDir + '\Data\config.ini');
-  if (MenuItemDureza.Checked) Then
-  begin
-     Config.WriteString('Configuracoes', 'Ordem', 'Densidade');
-     MenuItemDureza.Checked:=False;
-     MenuItemDensidade.Checked:=True;
-  end
-  else
-  Begin
-    Config.WriteString('Configuracoes', 'Ordem', 'Dureza');
-     MenuItemDureza.Checked:=True;
-     MenuItemDensidade.Checked:=False;
-  end;
-  Config.Free;
-  Preenche_Lista;
+  Ordem('Dureza');
 end;
 
 procedure TFormPrincipal.ExcluiMineral;
@@ -1673,7 +1767,39 @@ end;
 
 function TFormPrincipal.DefinirOrdem: String;
 begin
+   if MenuItemDureza.Checked then Result:= '(1/(dureza_max+1))'
+  else
+  if MenuItemDensidade.Checked then Result:= '(1/(densidade_max+1))'
+  else
+  if MenuItemAlfabetica.Checked then Result:= 'nome ASC';
+end;
 
+procedure TFormPrincipal.Ordem(MenuItemChecked: String);
+begin
+    Config:=TIniFile.Create(GetCurrentDir + '\Data\config.ini');
+    Config.WriteString('Configuracoes', 'Ordem', MenuItemChecked);
+    Config.Free;
+    if MenuItemChecked = 'Alfabetica' then
+    begin
+         MenuItemAlfabetica.Checked:=True;
+         MenuItemDureza.Checked:=False;
+         MenuItemDensidade.Checked:=False;
+    end
+    else
+    if MenuItemChecked = 'Dureza' then
+    begin
+         MenuItemAlfabetica.Checked:=False;
+         MenuItemDureza.Checked:=True;
+         MenuItemDensidade.Checked:=False;
+    end
+    else
+    if MenuItemChecked = 'Densidade' then
+    begin
+         MenuItemAlfabetica.Checked:=False;
+         MenuItemDureza.Checked:=False;
+         MenuItemDensidade.Checked:=True;
+    end;
+    Preenche_Lista;
 end;
 
 procedure TFormPrincipal.MenuItemExcluirClick(Sender: TObject);
@@ -1823,68 +1949,39 @@ begin
       begin
         if (ComboboxSubgrupo.Text = emptystr) then
         begin     //nenhum combobox selecionado   1
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (dureza_min >= "' + comboboxDureza_min.Text +
               '" and dureza_max <= "' + comboboxdureza_max.Text + '" and densidade_min >= "' +
               editDensidade_min.Text + '" and densidade_max<= "' + editDensidade_max.Text +
-              '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (dureza_min >= "' + comboboxDureza_min.Text +
-              '" and dureza_max <= "' + comboboxdureza_max.Text + '" and densidade_min >= "' +
-              editDensidade_min.Text + '" and densidade_max<= "' + editDensidade_max.Text +
-              '") ORDER BY (1/(densidade_max+1))';
+              '") ORDER BY '+DefinirOrdem+';'
         end
         else
         begin  //combobox subgrupos    2
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (subgrupo = "' + ComboboxSubgrupo.Text +
               '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
               comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (subgrupo = "' + ComboboxSubgrupo.Text +
-              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
-              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY'+DefinirOrdem+';'
         end;
       end
       else
       begin
         if (ComboboxSubgrupo.Text = emptystr) then
         begin     // combobox grupos   3
-          if (menuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (grupo = "' + ComboboxGrupo.Text +
               '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
               comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (grupo = "' + ComboboxGrupo.Text +
-              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
-              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY '+DefinirOrdem+';'
         end
         else
         begin     //combobox BGRALabelGrupo e subgrupo   4
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (grupo = "' + ComboboxGrupo.Text +
               '" and subgrupo = "' + ComboboxSubgrupo.Text + '" and dureza_min >= "' +
               comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
               '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
-              editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (grupo = "' + ComboboxGrupo.Text +
-              '" and subgrupo = "' + ComboboxSubgrupo.Text + '" and dureza_min >= "' +
-              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
-              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
-              editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              editDensidade_max.Text + '") ORDER BY '+DefinirOrdem+';'
         end;
       end;
     end
@@ -1894,72 +1991,41 @@ begin
       begin
         if (ComboboxSubgrupo.Text = emptystr) then
         begin           //combobox subclasse 5
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (subclasse = "' + ComboboxSubclasse.Text +
               '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
               comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (subclasse = "' + ComboboxSubclasse.Text +
-              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
-              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY '+DefinirOrdem+';'
         end
         else
         begin  // combobox subclasse e subgrupo  6
-          if (MenuITemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (subclasse = "' + ComboboxSubclasse.Text +
               '" and subgrupo = "' + ComboboxSubgrupo.Text + '" and dureza_min >= "' +
               comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
               '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
-              editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (subclasse = "' + ComboboxSubclasse.Text +
-              '" and subgrupo = "' + ComboboxSubgrupo.Text + '" and dureza_min >= "' +
-              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
-              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
-              editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              editDensidade_max.Text + '") ORDER BY '+DefinirOrdem+';'
         end;
       end
       else
       begin
         if (ComboboxSubgrupo.Text = emptystr) then
         begin   //combobox subclasse e BGRALabelGrupo   7
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (subclasse = "' + ComboboxSubclasse.Text +
               '" and grupo ="' + ComboboxGrupo.Text + '" and dureza_min >= "' +
               comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
               '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
-              editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (subclasse = "' + ComboboxSubclasse.Text +
-              '" and grupo = "' + ComboboxGrupo.Text + '" and dureza_min >= "' +
-              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
-              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
-              editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              editDensidade_max.Text + '") ORDER BY '+DefinirOrdem+';'
         end
         else
         begin   //subclasse BGRALabelGrupo subgrupo      8
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (subclasse = "' + ComboboxSubclasse.Text +
               '" and grupo = "' + ComboboxGrupo.Text + '" and subgrupo = "' + ComboboxSubgrupo.Text +
               '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
               comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (subclasse = "' + ComboboxSubclasse.Text +
-              '" and grupo = "' + ComboboxGrupo.Text + '" and subgrupo = "' + ComboboxSubgrupo.Text +
-              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
-              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY '+DefinirOrdem+';'
         end;
       end;
     end;
@@ -1972,72 +2038,41 @@ begin
       begin
         if (ComboboxSubgrupo.Text = emptystr) then
         begin     //classe      9
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
               '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
               comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
-              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
-              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY '+DefinirOrdem+';'
         end
         else    //classe subgrupos    10
         begin
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
               '" and subgrupo = "' + ComboboxSubgrupo.Text + '" and dureza_min >= "' +
               comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
               '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
-              editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
-              '" and subgrupo = "' + ComboboxSubgrupo.Text + '" and dureza_min >= "' +
-              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
-              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
-              editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              editDensidade_max.Text + '") ORDER BY '+DefinirOrdem+';'
         end;
       end
       else
       begin      //classe grupos    11
         if (ComboboxSubgrupo.Text = emptystr) then
         begin
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
               '" and grupo = "' + ComboboxGrupo.Text + '" and dureza_min >= "' +
               comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
               '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
-              editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
-              '" and grupo = "' + ComboboxGrupo.Text + '" and dureza_min >= "' +
-              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
-              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
-              editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              editDensidade_max.Text + '") ORDER BY '+DefinirOrdem+';'
         end
         else    //classe BGRALabelGrupo subgrupo     12
         begin
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
               '" and grupo = "' + ComboboxGrupo.Text + '" and subgrupo = "' + ComboboxSubgrupo.Text +
               '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
               comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
-              '" and grupo = "' + ComboboxGrupo.Text + '" and subgrupo = "' + ComboboxSubgrupo.Text +
-              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
-              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY '+DefinirOrdem+';'
         end;
       end;
     end
@@ -2047,80 +2082,45 @@ begin
       begin
         if (ComboboxSubgrupo.Text = emptystr) then
         begin   //classe subclasse     13
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
               '" and subclasse = "' + ComboboxSubclasse.Text + '" and dureza_min >= "' +
               comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
               '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
-              editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
-              '" and subclasse = "' + ComboboxSubclasse.Text + '" and dureza_min >= "' +
-              comboboxDureza_min.Text + '" and dureza_max <= "' + comboboxdureza_max.Text +
-              '" and densidade_min >= "' + editDensidade_min.Text + '" and densidade_max<= "' +
-              editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              editDensidade_max.Text + '") ORDER BY '+DefinirOrdem+';'
         end
         else
         begin    //classe subclasse subgrupo   14
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
               '" and subclasse = "' + ComboboxSubclasse.Text + '" and subgrupo = "' +
               ComboboxSubgrupo.Text + '" and dureza_min >= "' + comboboxDureza_min.Text +
               '" and dureza_max <= "' + comboboxdureza_max.Text + '" and densidade_min >= "' +
               editDensidade_min.Text + '" and densidade_max<= "' + editDensidade_max.Text +
-              '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
-              '" and subclasse = "' + ComboboxSubclasse.Text + '" and subgrupo = "' +
-              ComboboxSubgrupo.Text + '" and dureza_min >= "' + comboboxDureza_min.Text +
-              '" and dureza_max <= "' + comboboxdureza_max.Text + '" and densidade_min >= "' +
-              editDensidade_min.Text + '" and densidade_max<= "' + editDensidade_max.Text +
-              '") ORDER BY (1/(densidade_max+1))';
+              '") ORDER BY '+DefinirOrdem+';'
         end;
       end
       else
       begin   //classe subclasse BGRALabelGrupo      15
         if (ComboboxSubgrupo.Text = emptystr) then
         begin
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
               '" and subclasse = "' + ComboboxSubclasse.Text + '" and grupo = "' +
               ComboboxGrupo.Text + '" and dureza_min >= "' + comboboxDureza_min.Text +
               '" and dureza_max <= "' + comboboxdureza_max.Text + '" and densidade_min >= "' +
               editDensidade_min.Text + '" and densidade_max<= "' + editDensidade_max.Text +
-              '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
-              '" and subclasse = "' + ComboboxSubclasse.Text + '" and grupo = "' +
-              ComboboxGrupo.Text + '" and dureza_min >= "' + comboboxDureza_min.Text +
-              '" and dureza_max <= "' + comboboxdureza_max.Text + '" and densidade_min >= "' +
-              editDensidade_min.Text + '" and densidade_max<= "' + editDensidade_max.Text +
-              '") ORDER BY (1/(densidade_max+1))';
+              '") ORDER BY '+DefinirOrdem+';'
         end
         else    //classe subclasse BGRALabelGrupo subgrupo    16
         begin
-          if (MenuItemDureza.Checked) then
             Dados.SQLite3DatasetGeral.SQL :=
               SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
               '" and subclasse = "' + ComboboxSubclasse.Text + '" and grupo = "' +
               ComboboxGrupo.Text + '" and subgrupo = "' + ComboboxSubgrupo.Text +
               '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
               comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(dureza_max+1))'
-          else
-            Dados.SQLite3DatasetGeral.SQL :=
-              SelectSQL+' WHERE (classe = "' + ComboboxClasse.Text +
-              '" and subclasse = "' + ComboboxSubclasse.Text + '" and grupo = "' +
-              ComboboxGrupo.Text + '" and subgrupo = "' + ComboboxSubgrupo.Text +
-              '" and dureza_min >= "' + comboboxDureza_min.Text + '" and dureza_max <= "' +
-              comboboxdureza_max.Text + '" and densidade_min >= "' + editDensidade_min.Text +
-              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY (1/(densidade_max+1))';
+              '" and densidade_max<= "' + editDensidade_max.Text + '") ORDER BY '+DefinirOrdem+';'
         end;
       end;
     end;
@@ -2408,16 +2408,16 @@ end;
 
 procedure TFormPrincipal.Barra_Status;
 
-  function ordem: string;
+  function StatusBarOrdem: string;
   begin
-    if (menuitemdureza.Checked) then
-    begin
-      Result := 'dureza.';
-    end
+    if MenuItemAlfabetica.Checked then
+       Result:='alfabética.'
     else
-    begin
-      Result := 'densidade.';
-    end;
+    if (menuitemdureza.Checked) then
+      Result := 'decrescente de dureza.'
+    else
+    if MenuItemDensidade.Checked then
+      Result := 'decrescente de densidade.';
   end;
 
 begin
@@ -2428,7 +2428,7 @@ begin
   if ListboxMinerais.items.Count > 1 then
     statusbar1.Panels.Items[0].Text :=
       '     ' + IntToStr(ListboxMinerais.Items.Count) +
-      ' minerais encontrados listados em ordem decrescente de ' + ordem;
+      ' minerais encontrados listados em ordem ' + StatusBarOrdem;
 end;
 
 procedure TFormPrincipal.EditaDD;
