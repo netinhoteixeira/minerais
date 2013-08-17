@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, uprincipal, bgracontrols, udatamodule, sqlite3laz, richmemopackage,
-  lazreport, uselecionabd, ubibliografia, uformimpressao,
+  tachartlazaruspkg, lazreport, uselecionabd, ubibliografia, uformimpressao,
   UnitAjuda, unitSplash, crt, unitImagem;
 
 {$R *.res}

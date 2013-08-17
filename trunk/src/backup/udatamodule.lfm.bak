@@ -73,4 +73,12 @@ object Dados: TDados
     left = 160
     top = 320
   end
+  object Sqlite3DatasetAmostras: TSqlite3Dataset
+    left = 240
+    top = 32
+  end
+  object DatasourceAmostras: TDatasource
+    left = 352
+    top = 32
+  end
 end

@@ -170,7 +170,7 @@ begin
           ' [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB, [imagemCristalografia1] BLOB, [imagemcristalografia2] BLOB), [imagem6] BLOB, [imagem7] BLOB;';
         Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
         ExecSQL :=
-          'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] TEXT, [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB);';
+          'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] TEXT, [mineralogiaimagem1] BLOB, [mineralogiaimagem2] BLOB, [mineralogiaimagem3] BLOB, [mineralogiaimagem4] BLOB, [mineralogiaimagem5] BLOB);';
         Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
       finally
         Dados.Sqlite3DatasetGeral.Open();
