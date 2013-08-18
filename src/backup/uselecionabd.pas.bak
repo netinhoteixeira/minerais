@@ -172,6 +172,12 @@ begin
         ExecSQL :=
           'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] TEXT, [mineralogiaimagem1] BLOB, [mineralogiaimagem2] BLOB, [mineralogiaimagem3] BLOB, [mineralogiaimagem4] BLOB, [mineralogiaimagem5] BLOB);';
         Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+
+        ExecSQL:= 'CREATE TABLE rruff ([id] INTEGER PRIMATY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [numero] INTEGER, [quimicaideal] TEXT, ';
+        ExecSQL:=ExecSQL+' [localidade] TEXT, [fonte] TEXT, [descricao] TEXT, [situacao] TEXT, [quimicamedida] TEXT, [arquivo_microssonda] TEXT, [pin_id] TEXT, ';
+        ExecSQL:=ExecSQL+' [orientacao] TEXT';
+        Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+
       finally
         Dados.Sqlite3DatasetGeral.Open();
         sldb.Free;

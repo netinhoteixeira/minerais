@@ -713,6 +713,8 @@ object FormPrincipal: TFormPrincipal
       Width = 152
       Anchors = [akTop, akLeft, akBottom]
       ItemHeight = 0
+      OnClick = ListBoxRruff_idClick
+      PopupMenu = PopupMenuRruff
       TabOrder = 0
     end
     object EditRruff_Id: TEdit
@@ -1787,8 +1789,8 @@ object FormPrincipal: TFormPrincipal
         Align = alClient
         TabIndex = 2
         TabOrder = 0
-        object TabSheetRruffGerais: TTabSheet
-          Caption = 'Informações Gerais'
+        object TabSheetRruffDescricao: TTabSheet
+          Caption = 'Descrição da Amostra'
           ClientHeight = 595
           ClientWidth = 647
           object GroupBox3: TGroupBox
@@ -1800,16 +1802,6 @@ object FormPrincipal: TFormPrincipal
             ClientHeight = 577
             ClientWidth = 643
             TabOrder = 0
-            object Memo1: TMemo
-              Left = 128
-              Height = 90
-              Top = 46
-              Width = 230
-              Lines.Strings = (
-                'Memo1'
-              )
-              TabOrder = 0
-            end
             object LabelQuimicaIdeal: TLabel
               Left = 32
               Height = 16
@@ -1826,33 +1818,13 @@ object FormPrincipal: TFormPrincipal
               Caption = 'Localidade'
               ParentColor = False
             end
-            object Memo2: TMemo
-              Left = 124
-              Height = 90
-              Top = 152
-              Width = 230
-              Lines.Strings = (
-                'Memo2'
-              )
-              TabOrder = 1
-            end
             object LabelFonte: TLabel
-              Left = 37
+              Left = 40
               Height = 16
               Top = 259
               Width = 31
               Caption = 'Fonte'
               ParentColor = False
-            end
-            object Memo3: TMemo
-              Left = 124
-              Height = 90
-              Top = 257
-              Width = 233
-              Lines.Strings = (
-                'Memo3'
-              )
-              TabOrder = 2
             end
             object Label2: TLabel
               Left = 41
@@ -1862,16 +1834,6 @@ object FormPrincipal: TFormPrincipal
               Caption = 'Descrição'
               ParentColor = False
             end
-            object Memo4: TMemo
-              Left = 128
-              Height = 90
-              Top = 354
-              Width = 230
-              Lines.Strings = (
-                'Memo4'
-              )
-              TabOrder = 3
-            end
             object Label3: TLabel
               Left = 44
               Height = 16
@@ -1880,14 +1842,64 @@ object FormPrincipal: TFormPrincipal
               Caption = 'Situação'
               ParentColor = False
             end
-            object Memo5: TMemo
-              Left = 128
-              Height = 90
-              Top = 463
-              Width = 237
-              Lines.Strings = (
-                'Memo5'
-              )
+            object DBMemoQuimicaIdeal: TDBMemo
+              Left = 161
+              Height = 26
+              Top = 46
+              Width = 426
+              DataField = 'quimicaideal'
+              DataSource = Dados.DatasourceAmostras
+              OnEditingDone = DBMemoQuimicaIdealEditingDone
+              OnKeyUp = DBMemoQuimicaIdealKeyUp
+              ReadOnly = True
+              TabOrder = 0
+            end
+            object DBMemoLocalidade: TDBMemo
+              Left = 163
+              Height = 70
+              Top = 152
+              Width = 426
+              DataField = 'localidade'
+              DataSource = Dados.DatasourceAmostras
+              OnEditingDone = DBMemoLocalidadeEditingDone
+              OnKeyUp = DBMemoLocalidadeKeyUp
+              ReadOnly = True
+              TabOrder = 1
+            end
+            object DBMemoFonte: TDBMemo
+              Left = 163
+              Height = 75
+              Top = 259
+              Width = 419
+              DataField = 'fonte'
+              DataSource = Dados.DatasourceAmostras
+              OnEditingDone = DBMemoFonteEditingDone
+              OnKeyUp = DBMemoFonteKeyUp
+              ReadOnly = True
+              TabOrder = 2
+            end
+            object DBMemoDescricao1: TDBMemo
+              Left = 163
+              Height = 80
+              Top = 358
+              Width = 422
+              DataField = 'descricao'
+              DataSource = Dados.DatasourceAmostras
+              OnEditingDone = DBMemoDescricao1EditingDone
+              OnKeyUp = DBMemoDescricao1KeyUp
+              ReadOnly = True
+              TabOrder = 3
+            end
+            object DBMemoSituacao: TDBMemo
+              Left = 163
+              Height = 75
+              Top = 475
+              Width = 424
+              DataField = 'situacao'
+              DataSource = Dados.DatasourceAmostras
+              OnEditingDone = DBMemoSituacaoEditingDone
+              OnKeyUp = DBMemoSituacaoKeyUp
+              ReadOnly = True
               TabOrder = 4
             end
           end
@@ -1906,58 +1918,106 @@ object FormPrincipal: TFormPrincipal
             ClientWidth = 643
             TabOrder = 0
             object LabelDescricao2: TLabel
-              Left = 47
+              Left = 24
               Height = 16
-              Top = 101
+              Top = 38
               Width = 52
               Caption = 'Descrição'
               ParentColor = False
             end
-            object Memo6: TMemo
-              Left = 157
-              Height = 90
-              Top = 101
-              Width = 150
-              Lines.Strings = (
-                'Memo6'
-              )
-              TabOrder = 0
-            end
             object LabelQuimicaMedida: TLabel
-              Left = 51
+              Left = 24
               Height = 16
-              Top = 212
+              Top = 142
               Width = 89
               Caption = 'Química Medida'
               ParentColor = False
             end
-            object Memo7: TMemo
-              Left = 157
+            object DBMemoDescricao2: TDBMemo
+              Left = 164
               Height = 90
-              Top = 214
-              Width = 150
-              Lines.Strings = (
-                'Memo7'
-              )
+              Top = 38
+              Width = 420
+              DataField = 'descricao'
+              DataSource = Dados.DatasourceAmostras
+              OnEditingDone = DBMemoDescricao2EditingDone
+              OnKeyUp = DBMemoDescricao2KeyUp
+              ReadOnly = True
+              TabOrder = 0
+            end
+            object DBMemoQuimicaMedida: TDBMemo
+              Left = 164
+              Height = 90
+              Top = 142
+              Width = 420
+              DataField = 'quimicamedida'
+              DataSource = Dados.DatasourceAmostras
+              OnEditingDone = DBMemoQuimicaMedidaEditingDone
+              OnKeyUp = DBMemoQuimicaMedidaKeyUp
+              ReadOnly = True
               TabOrder = 1
             end
-            object Label4: TLabel
-              Left = 52
-              Height = 16
-              Top = 342
-              Width = 165
-              Caption = 'Arquivos de Dados Microprobe'
-              ParentColor = False
-            end
-            object Memo8: TMemo
-              Left = 152
-              Height = 90
-              Top = 364
-              Width = 150
-              Lines.Strings = (
-                'Memo8'
-              )
+            object GroupBox9: TGroupBox
+              Left = 14
+              Height = 320
+              Top = 238
+              Width = 613
+              Anchors = [akTop, akLeft, akRight, akBottom]
+              ClientHeight = 302
+              ClientWidth = 609
               TabOrder = 2
+              object DBGrid1: TDBGrid
+                Left = 0
+                Height = 256
+                Top = 0
+                Width = 609
+                Align = alClient
+                AutoFillColumns = True
+                Color = clWindow
+                Columns = <>
+                DataSource = Dados.DatasourcePlanilhaMicrossonda
+                TabOrder = 0
+              end
+              object Panel2: TPanel
+                Left = 0
+                Height = 46
+                Top = 256
+                Width = 609
+                Align = alBottom
+                Caption = 'Panel2'
+                ClientHeight = 46
+                ClientWidth = 609
+                TabOrder = 1
+                object Label4: TLabel
+                  Left = 6
+                  Height = 16
+                  Top = 13
+                  Width = 100
+                  Caption = 'Arquivos de Dados'
+                  ParentColor = False
+                end
+                object DBMemoArquivoMicrossonda: TDBMemo
+                  Left = 126
+                  Height = 31
+                  Top = 5
+                  Width = 354
+                  Anchors = [akTop, akLeft, akRight]
+                  DataField = 'arquivo_microssonda'
+                  DataSource = Dados.DatasourceAmostras
+                  ReadOnly = True
+                  TabOrder = 0
+                end
+                object BitBtnAlterar: TBitBtn
+                  Left = 550
+                  Height = 30
+                  Top = 5
+                  Width = 49
+                  Anchors = [akTop, akRight]
+                  Caption = 'Alterar'
+                  OnClick = BitBtnAlterarClick
+                  TabOrder = 1
+                end
+              end
             end
           end
         end
@@ -2015,7 +2075,7 @@ object FormPrincipal: TFormPrincipal
               Height = 264
               Top = 294
               Width = 567
-              Anchors = [akTop, akLeft, akRight]
+              Anchors = [akLeft, akRight, akBottom]
               ClientHeight = 246
               ClientWidth = 563
               TabOrder = 1
@@ -2026,28 +2086,6 @@ object FormPrincipal: TFormPrincipal
                 Width = 59
                 Caption = 'Orientação'
                 ParentColor = False
-              end
-              object Memo11: TMemo
-                Left = 147
-                Height = 66
-                Top = 160
-                Width = 395
-                Anchors = [akTop, akLeft, akRight]
-                Lines.Strings = (
-                  'Memo11'
-                )
-                TabOrder = 0
-              end
-              object Memo10: TMemo
-                Left = 142
-                Height = 40
-                Top = 88
-                Width = 400
-                Anchors = [akTop, akLeft, akRight]
-                Lines.Strings = (
-                  'Memo10'
-                )
-                TabOrder = 1
               end
               object LabelPinId: TLabel
                 Left = 32
@@ -2065,15 +2103,40 @@ object FormPrincipal: TFormPrincipal
                 Caption = 'Descrição '
                 ParentColor = False
               end
-              object Memo9: TMemo
-                Left = 147
-                Height = 66
+              object DBMemoDescricao3: TDBMemo
+                Left = 146
+                Height = 74
                 Top = 6
-                Width = 395
-                Anchors = [akTop, akLeft, akRight]
-                Lines.Strings = (
-                  'Memo9'
-                )
+                Width = 404
+                DataField = 'descricao'
+                DataSource = Dados.DatasourceAmostras
+                OnEditingDone = DBMemoDescricao3EditingDone
+                OnKeyUp = DBMemoDescricao3KeyUp
+                ReadOnly = True
+                TabOrder = 0
+              end
+              object DBMemoPin_id: TDBMemo
+                Left = 146
+                Height = 39
+                Top = 88
+                Width = 404
+                DataField = 'pin_id'
+                DataSource = Dados.DatasourceAmostras
+                OnEditingDone = DBMemoPin_idEditingDone
+                OnKeyUp = DBMemoPin_idKeyUp
+                ReadOnly = True
+                TabOrder = 1
+              end
+              object DBMemoOrientacao: TDBMemo
+                Left = 146
+                Height = 66
+                Top = 160
+                Width = 406
+                DataField = 'orientacao'
+                DataSource = Dados.DatasourceAmostras
+                OnEditingDone = DBMemoOrientacaoEditingDone
+                OnKeyUp = DBMemoOrientacaoKeyUp
+                ReadOnly = True
                 TabOrder = 2
               end
             end
@@ -2149,9 +2212,9 @@ object FormPrincipal: TFormPrincipal
         Caption = 'Imagens'
         OnClick = MenuItemImagensClick
       end
-      object MenuItemMulAmostras: TMenuItem
-        Caption = 'Múltiplas Amostras'
-        OnClick = MenuItemMulAmostrasClick
+      object MenuItemAmostras: TMenuItem
+        Caption = 'Amostras'
+        OnClick = MenuItemAmostrasClick
       end
     end
     object MenuItemEditar: TMenuItem
@@ -2252,6 +2315,11 @@ object FormPrincipal: TFormPrincipal
     end
     object MenuItemRemoverAmostra: TMenuItem
       Caption = 'Excluir Amostra'
+      OnClick = MenuItemRemoverAmostraClick
     end
+  end
+  object OpenDialog1: TOpenDialog
+    left = 240
+    top = 608
   end
 end
