@@ -5,14 +5,16 @@ unit udatamodule;
 interface
 
 uses
-  Classes, SysUtils, Sqlite3DS, DB, FileUtil, LR_Class, LR_DBSet, SQLite3mod,
-  SQLite3tablemod;
+  Classes, SysUtils, Sqlite3DS, DB, SdfData, FileUtil, LR_Class, LR_DBSet,
+  SQLite3mod, SQLite3tablemod;
 
 type
 
   { TDados }
 
   TDados = class(TDataModule)
+    DatasourcePreencheAmostras: TDatasource;
+    DatasourcePlanilhaMicrossonda: TDatasource;
     DatasourceAmostras: TDatasource;
     DatasourcePrinter: TDatasource;
     DatasourceReport: TDatasource;
@@ -21,6 +23,8 @@ type
     DatasourceDidatico: TDatasource;
     frDBDataSet1: TfrDBDataSet;
     frReport1: TfrReport;
+    SdfDataSetPlanilhaMicrossonda: TSdfDataSet;
+    Sqlite3DatasetPreencheAmostras: TSqlite3Dataset;
     Sqlite3DatasetAmostras: TSqlite3Dataset;
     Sqlite3DatasetPrinter: TSqlite3Dataset;
     Sqlite3DatasetCombobox: TSqlite3Dataset;
@@ -78,13 +82,25 @@ begin
   begin
     Filename := diretorio;
   end;
+  with SQLite3DatasetAmostras do
+  begin
+    Filename := diretorio;
+  end;
+   with SQLite3DatasetPreencheAmostras do
+  begin
+    Filename := diretorio;
+  end;
     sldb := TSQLiteDatabase.Create(Diretorio);
   //Checa se a Tabela é compatível
   if SQLite3DatasetGeral.TableExists('minerais') then
   begin
     if SQLite3DatasetGeral.TableExists('mineralogia') then
     begin
+      if SQLite3DatasetGeral.TableExists('rruff') then
+      begin
       Result := True;
+      end
+      else Result:=False;
     end
     else
       Result := False;

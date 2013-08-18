@@ -74,12 +74,38 @@ object Dados: TDados
     top = 320
   end
   object Sqlite3DatasetAmostras: TSqlite3Dataset
+    SQL = 'SELECT * FROM rruff'
     TableName = 'rruff'
-    left = 240
-    top = 32
+    left = 248
+    top = 56
   end
   object DatasourceAmostras: TDatasource
+    DataSet = Sqlite3DatasetAmostras
     left = 352
-    top = 32
+    top = 56
+  end
+  object SdfDataSetPlanilhaMicrossonda: TSdfDataSet
+    FileMustExist = True
+    ReadOnly = False
+    FieldDefs = <>
+    AllowMultiLine = False
+    Delimiter = ','
+    FirstLineAsSchema = False
+    left = 248
+    top = 105
+  end
+  object DatasourcePlanilhaMicrossonda: TDatasource
+    DataSet = SdfDataSetPlanilhaMicrossonda
+    left = 352
+    top = 104
+  end
+  object Sqlite3DatasetPreencheAmostras: TSqlite3Dataset
+    left = 248
+    top = 14
+  end
+  object DatasourcePreencheAmostras: TDatasource
+    DataSet = Sqlite3DatasetPreencheAmostras
+    left = 353
+    top = 17
   end
 end

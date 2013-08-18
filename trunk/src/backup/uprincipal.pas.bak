@@ -67,7 +67,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  StdCtrls, ExtCtrls, ComCtrls, DBCtrls, ExtDlgs, Buttons, BGRAPanel,
+  StdCtrls, ExtCtrls, ComCtrls, DBCtrls, ExtDlgs, Buttons, DBGrids, BGRAPanel,
   BGRALabel, RichMemo, TAGraph, uFormImpressao, uSelecionaBD, SQLite3mod,
   SQLite3tablemod, uBibliografia, UnitAjuda, IniFiles, unitImagem;
 
@@ -88,6 +88,7 @@ type
     BGRALabelAssociacao: TBGRALabel;
     BGRAPanel1: TBGRAPanel;
     BitBtnAdImagem: TBitBtn;
+    BitBtnAlterar: TBitBtn;
     BitBtnRemImagem: TBitBtn;
     Chart1: TChart;
     ComboBoxClasse: TComboBox;
@@ -100,9 +101,21 @@ type
     DBEditDensidade_Min: TDBEdit;
     DBEditDureza_Max: TDBEdit;
     DBEditDureza_Min: TDBEdit;
+    DBGrid1: TDBGrid;
+    DBMemoPin_id: TDBMemo;
+    DBMemoOrientacao: TDBMemo;
+    DBMemoDescricao3: TDBMemo;
+    DBMemoQuimicaIdeal: TDBMemo;
+    DBMemoLocalidade: TDBMemo;
+    DBMemoFonte: TDBMemo;
+    DBMemoDescricao1: TDBMemo;
+    DBMemoSituacao: TDBMemo;
+    DBMemoDescricao2: TDBMemo;
+    DBMemoQuimicaMedida: TDBMemo;
     DBMemoAlteracao: TDBMemo;
     DBMemoAngulo: TDBMemo;
     DBMemoAplicacao: TDBMemo;
+    DBMemoArquivoMicrossonda: TDBMemo;
     DBMemoAssociacao: TDBMemo;
     DBMemoBirrefringencia: TDBMemo;
     DBMemoBrilho: TDBMemo;
@@ -148,6 +161,8 @@ type
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     GroupBox7: TGroupBox;
+    GroupBox8: TGroupBox;
+    GroupBox9: TGroupBox;
     GroupBoxCristalografia: TGroupBox;
     GroupBoxCristalografia1: TGroupBox;
     GroupBoxCristalografia2: TGroupBox;
@@ -174,11 +189,10 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    LabelDescricao2: TLabel;
+    LabelDescricao3: TLabel;
     LabelOrientacao: TLabel;
     LabelPinId: TLabel;
-    LabelDescricao3: TLabel;
-    LabelQuimicaMedida: TLabel;
-    LabelDescricao2: TLabel;
     LabelFonte: TLabel;
     LabelLocalidade: TLabel;
     LabelQuimicaIdeal: TLabel;
@@ -213,6 +227,7 @@ type
     LabelMagnetismo: TLabel;
     LabelNome: TLabel;
     LabelOcorrencia: TLabel;
+    LabelQuimicaMedida: TLabel;
     LabelRelevo: TLabel;
     LabelSimbologia: TLabel;
     LabelSInal_Elongacao: TLabel;
@@ -223,20 +238,9 @@ type
     LabelTraco: TLabel;
     ListBoxRruff_id: TListBox;
     ListBoxMinerais: TListBox;
-    Memo1: TMemo;
-    Memo10: TMemo;
-    Memo11: TMemo;
-    Memo2: TMemo;
-    Memo3: TMemo;
-    Memo4: TMemo;
-    Memo5: TMemo;
-    Memo6: TMemo;
-    Memo7: TMemo;
-    Memo8: TMemo;
-    Memo9: TMemo;
     MenuItemAdicionarAmostra: TMenuItem;
     MenuItemRemoverAmostra: TMenuItem;
-    MenuItemMulAmostras: TMenuItem;
+    MenuItemAmostras: TMenuItem;
     MenuItemAlfabetica: TMenuItem;
     MenuItemImagens: TMenuItem;
     MenuItemAdicionar: TMenuItem;
@@ -265,9 +269,12 @@ type
     MenuItemBibliografia: TMenuItem;
     MenuItemEditar: TMenuItem;
     MenuItemArquivo: TMenuItem;
+    OpenDialog1: TOpenDialog;
     OpenPictureDialog1: TOpenPictureDialog;
     PageControlRruff: TPageControl;
     PageControlFicha: TPageControl;
+    Panel1: TPanel;
+    Panel2: TPanel;
     PanelFichas: TPanel;
     PanelRRUFF: TPanel;
     PanelFicha: TPanel;
@@ -280,7 +287,7 @@ type
     TabSheetRruffDifracao: TTabSheet;
     TabSheetRruffInfra: TTabSheet;
     TabSheetRruffBroadScan: TTabSheet;
-    TabSheetRruffGerais: TTabSheet;
+    TabSheetRruffDescricao: TTabSheet;
     TabSheetRruffQuimica: TTabSheet;
     TabSheetRruffRaman: TTabSheet;
     TabSheetCristalografia: TTabSheet;
@@ -290,6 +297,7 @@ type
     TabSheetProp_Fisicas: TTabSheet;
     Timer1: TTimer;
     procedure BitBtnAdImagemClick(Sender: TObject);
+    procedure BitBtnAlterarClick(Sender: TObject);
     procedure BitBtnFiltrarClick(Sender: TObject);
     procedure BitBtnRemImagemClick(Sender: TObject);
     procedure ComboBoxClasseChange(Sender: TObject);
@@ -346,6 +354,15 @@ type
     procedure DBMemoCor_LaminaEditingDone(Sender: TObject);
     procedure DBMemoCor_LaminaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemoDescricao1EditingDone(Sender: TObject);
+    procedure DBMemoDescricao1KeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoDescricao2EditingDone(Sender: TObject);
+    procedure DBMemoDescricao2KeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoDescricao3EditingDone(Sender: TObject);
+    procedure DBMemoDescricao3KeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure DBMemoDifaneidadeEditingDone(Sender: TObject);
     procedure DBMemoDifaneidadeKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -354,6 +371,9 @@ type
       Shift: TShiftState);
     procedure DBMemoExtincaoEditingDone(Sender: TObject);
     procedure DBMemoExtincaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoFonteEditingDone(Sender: TObject);
+    procedure DBMemoFonteKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBMemoFormulaEditingDone(Sender: TObject);
     procedure DBMemoFormulaKeyUp(Sender: TObject; var Key: Word;
@@ -374,6 +394,9 @@ type
     procedure DBMemoIndice_RefracaoEditingDone(Sender: TObject);
     procedure DBMemoIndice_RefracaoKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemoLocalidadeEditingDone(Sender: TObject);
+    procedure DBMemoLocalidadeKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure DBMemoLuminescenciaEditingDone(Sender: TObject);
     procedure DBMemoLuminescenciaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -386,6 +409,18 @@ type
     procedure DBMemoOCorrenciaEditingDone(Sender: TObject);
     procedure DBMemoOCorrenciaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemoOrientacaoEditingDone(Sender: TObject);
+    procedure DBMemoOrientacaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoPin_idEditingDone(Sender: TObject);
+    procedure DBMemoPin_idKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoQuimicaIdealEditingDone(Sender: TObject);
+    procedure DBMemoQuimicaIdealKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoQuimicaMedidaEditingDone(Sender: TObject);
+    procedure DBMemoQuimicaMedidaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure DBMemoRelevoEditingDone(Sender: TObject);
     procedure DBMemoRelevoKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -396,15 +431,15 @@ type
     procedure DBMemoSinal_OpticoKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBMemoSistemaEditingDone(Sender: TObject);
-    procedure DBMemoSistemaKeyPress(Sender: TObject; var Key: char);
     procedure DBMemoSistemaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemoSituacaoEditingDone(Sender: TObject);
+    procedure DBMemoSituacaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure DBMemoSubclasseEditingDone(Sender: TObject);
-    procedure DBMemoSubclasseKeyPress(Sender: TObject; var Key: char);
     procedure DBMemoSubclasseKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBMemoSubgrupoEditingDone(Sender: TObject);
-    procedure DBMemoSubgrupoKeyPress(Sender: TObject; var Key: char);
     procedure DBMemoSubgrupoKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBMemoTracoEditingDone(Sender: TObject);
@@ -435,6 +470,7 @@ type
     procedure ImageCristalografia2Click(Sender: TObject);
     procedure ImageCristalografia2DblClick(Sender: TObject);
     procedure ListBoxMineraisClick(Sender: TObject);
+    procedure ListBoxRruff_idClick(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItemAdicionarAmostraClick(Sender: TObject);
     procedure MenuItemAdicionarClick(Sender: TObject);
@@ -443,8 +479,9 @@ type
     procedure MenuItemDurezaCick(Sender: TObject);
     procedure MenuItemExcluiClick(Sender: TObject);
     procedure MenuItemFiltroClick(Sender: TObject);
-    procedure MenuItemMulAmostrasClick(Sender: TObject);
+    procedure MenuItemAmostrasClick(Sender: TObject);
     procedure MenuItemImagensClick(Sender: TObject);
+    procedure MenuItemRemoverAmostraClick(Sender: TObject);
     procedure MenuItemRetiraClick(Sender: TObject);
     procedure MenuItemAjudaClick(Sender: TObject);
     procedure MenuItemBibliografiaClick(Sender: TObject);
@@ -481,17 +518,22 @@ type
     procedure RetiraDaLista;
     procedure ExcluiMineral;
     procedure MudarFonte;   //UpdateMemos
-    procedure UpdateCampos(Especie:String; Campo:String; objeto :TDBMemo);
+    procedure UpdateCampos(BancoDados, Especie, Campo:String; objeto :TDBMemo);
     procedure UpdateEdits(Especie:String; Campo:String; objeto :TDBEdit);
     procedure ModoEdicao;
     function DefinirOrdem: String;
     procedure Ordem(MenuItemChecked:String);
+    procedure PreencheAmostras;
     { private declarations }
   public
     { public declarations }
   end;
 
 const
+  Minerais :String = 'minerais';
+  Mineralogia: String= 'mineralogia';
+  Rruff: String = 'rruff';
+
   lista_formatos: string = 'All Files| *.jpg; *.jpeg;'; //ver se *.mpeg é compatível
   grande: integer = 13;
   normal: integer = 9;
@@ -608,234 +650,280 @@ end;
 
 procedure TFormPrincipal.DBMemoAlteracaoEditingDone(Sender: TObject);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'alteracao', DBMemoAlteracao);
 end;
 
 procedure TFormPrincipal.DBMemoAlteracaoKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos( Minerais,Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'alteracao', DBMemoAlteracao);
 end;
 
 procedure TFormPrincipal.DBMemoAnguloEditingDone(Sender: TObject);
 begin
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos(minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'angulo', DBMemoAngulo);
 end;
 
 procedure TFormPrincipal.DBMemoAnguloKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'angulo', DBMemoAngulo);
 end;
 
 procedure TFormPrincipal.DBMemoAplicacaoEditingDone(Sender: TObject);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'Aplicacao', DBMemoAplicacao);
 end;
 
 procedure TFormPrincipal.DBMemoAplicacaoKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'Aplicacao', DBMemoAplicacao);
 end;
 
 procedure TFormPrincipal.DBMemoAssociacaoEditingDone(Sender: TObject);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'associacao', DBMemoAssociacao);
 end;
 
 procedure TFormPrincipal.DBMemoAssociacaoKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'associacao', DBMemoAssociacao);
 end;
 
 procedure TFormPrincipal.DBMemoBirrefringenciaEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'birrefringencia', DBMemoBirrefringencia);
 end;
 
 procedure TFormPrincipal.DBMemoBirrefringenciaKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'birrefringencia', DBMemoBirrefringencia);
 end;
 
 procedure TFormPrincipal.DBMemoBrilhoEditingDone(Sender: TObject);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'brilho', DBMemoBrilho);
 end;
 
 procedure TFormPrincipal.DBMemoBrilhoKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'brilho', DBMemoBrilho);
 end;
 
 procedure TFormPrincipal.DBMemoClasseEditingDone(Sender: TObject);
 begin
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'classe', DBMemoClasse);
 end;
 
 procedure TFormPrincipal.DBMemoClasseKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'classe', DBMemoClasse);
 end;
 
 procedure TFormPrincipal.DBMemoClasse_CristalinaEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'classe_cristalina', DBMemoClasse_Cristalina);
 end;
 
 procedure TFormPrincipal.DBMemoClasse_CristalinaKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'classe_cristalina', DBMemoClasse_Cristalina);
 end;
 
 procedure TFormPrincipal.DBMemoClivagemEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'clivagem', DBMemoClivagem);
 end;
 
 procedure TFormPrincipal.DBMemoClivagemKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'clivagem', DBMemoClivagem);
 end;
 
 procedure TFormPrincipal.DBMemoCorEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos( Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'cor', DBMemoCor);
 end;
 
 procedure TFormPrincipal.DBMemoCorKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'cor', DBMemoCor);
 end;
 
 procedure TFormPrincipal.DBMemoCor_interferenciaEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
      'cor_interferencia', DBMemoCor_Interferencia);
 end;
 
 procedure TFormPrincipal.DBMemoCor_interferenciaKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'cor_interferencia', DBMemoCor_Interferencia);
 end;
 
 procedure TFormPrincipal.DBMemoCor_LaminaEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'cor_lamina', DBMemoCor_lamina);
 end;
 
 procedure TFormPrincipal.DBMemoCor_LaminaKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-     UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+     UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'cor_lamina', DBMemoCor_lamina);
+end;
+
+procedure TFormPrincipal.DBMemoDescricao1EditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'descricao', DBMemoDescricao1);
+end;
+
+procedure TFormPrincipal.DBMemoDescricao1KeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'descricao', DBMemoDescricao1);
+end;
+
+procedure TFormPrincipal.DBMemoDescricao2EditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'descricao', DBMemoDescricao2);
+end;
+
+procedure TFormPrincipal.DBMemoDescricao2KeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'descricao', DBMemoDescricao2);
+end;
+
+procedure TFormPrincipal.DBMemoDescricao3EditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'descricao', DBMemoDescricao3);
+end;
+
+procedure TFormPrincipal.DBMemoDescricao3KeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'descricao', DBMemoDescricao3);
 end;
 
 procedure TFormPrincipal.DBMemoDifaneidadeEditingDone(Sender: TObject);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'difaneidade', DBMemoDifaneidade);
 end;
 
 procedure TFormPrincipal.DBMemoDifaneidadeKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos( Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'difaneidade', DBMemoDifaneidade);
 end;
 
 procedure TFormPrincipal.DBMemoDistincaoEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'distincao', DBMemoDistincao);
 end;
 
 procedure TFormPrincipal.DBMemoDistincaoKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'distincao', DBMemoDistincao);
 end;
 
 procedure TFormPrincipal.DBMemoExtincaoEditingDone(Sender: TObject);
 begin
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'extincao', DBMemoExtincao);
 end;
 
 procedure TFormPrincipal.DBMemoExtincaoKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos( Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
     'extincao', DBMemoExtincao);
+end;
+
+procedure TFormPrincipal.DBMemoFonteEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'fonte', DBMemoFonte);
+end;
+
+procedure TFormPrincipal.DBMemoFonteKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'fonte', DBMemoFonte);
 end;
 
 procedure TFormPrincipal.DBMemoFormulaEditingDone(Sender: TObject);
 begin
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos( Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'formula', DBMemoFormula);
-end;
-
-procedure TFormPrincipal.DBMemoSubclasseKeyPress(Sender: TObject; var Key: char
-  );
-begin
-
 end;
 
 procedure TFormPrincipal.DBMemoFormulaKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'formula', DBMemoFormula);
 end;
 
 procedure TFormPrincipal.DBMemoFraturaEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'fratura', DBMemoFratura);
 end;
 
 procedure TFormPrincipal.DBMemoFraturaKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'fratura', DBMemoFratura);
 end;
 
 procedure TFormPrincipal.DBMemoGrupoEditingDone(Sender: TObject);
 begin
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'grupo', DBMemoGrupo);
 end;
 
@@ -849,78 +937,91 @@ begin
     Preenche_Grupos;
   end
   else
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'grupo', DBMemoGrupo);
 end;
 
 procedure TFormPrincipal.DBMemoHabitoEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
    'habito', DBMemoHabito);
 end;
 
 procedure TFormPrincipal.DBMemoHabitoKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
    'habito', DBMemoHabito);
 end;
 
 procedure TFormPrincipal.DBMemoH_MEditingDone(Sender: TObject);
 begin
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
    'habito', DBMemoHabito);
 end;
 
 procedure TFormPrincipal.DBMemoH_MKeyPress(Sender: TObject; var Key: char);
 begin
-     UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+     UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
    'h_m', DBMemoH_M);
 end;
 
 procedure TFormPrincipal.DBMemoH_MKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
     'h_m', DBMemoH_M);
 end;
 
 procedure TFormPrincipal.DBMemoIndice_RefracaoEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'indice_refracao', DBMemoIndice_Refracao);
 end;
 
 procedure TFormPrincipal.DBMemoIndice_RefracaoKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'indice_refracao', DBMemoIndice_Refracao);
+end;
+
+procedure TFormPrincipal.DBMemoLocalidadeEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'localidade', DBMemoLocalidade);
+end;
+
+procedure TFormPrincipal.DBMemoLocalidadeKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'localidade', DBMemoLocalidade);
 end;
 
 procedure TFormPrincipal.DBMemoLuminescenciaEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'luminescencia', DBMemoLuminescencia);
 end;
 
 procedure TFormPrincipal.DBMemoLuminescenciaKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'luminescencia', DBMemoLuminescencia);
 end;
 
 procedure TFormPrincipal.DBMemoMagnetismoEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'magnetismo', DBMemoMagnetismo);
 end;
 
 procedure TFormPrincipal.DBMemoMagnetismoKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'magnetismo', DBMemoMagnetismo);
 end;
 
@@ -970,6 +1071,22 @@ begin
   AtualizaImagem;
 end;
 
+procedure TFormPrincipal.BitBtnAlterarClick(Sender: TObject);
+var ExecSQL:String;
+begin
+  if OpenDialog1.Execute then
+  begin
+    if OpenDialog1.FileName <> EmptyStr then
+    begin
+      ExecSQL:='UPDATE rruff SET arquivo_microssonda = "'+OpenDialog1.FileName+'";';
+      Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
+      Dados.SdfDataSetPlanilhaMicrossonda.Close;
+      Dados.SdfDataSetPlanilhaMicrossonda.FileName:=OpenDialog1.FileName;
+      Dados.SdfDataSetPlanilhaMicrossonda.Open;
+    end;
+  end;
+end;
+
 procedure TFormPrincipal.DBMemoNomeEditingDone(Sender: TObject);
 var
   novo, velho: integer;
@@ -982,7 +1099,7 @@ begin
         'nome').AsString);
       ListboxMinerais.items.Exchange(novo, velho);
       ListboxMinerais.Items.Delete(novo);
-      UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+      UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
         'nome', DBMemoNome);
     end;
 end;
@@ -1000,83 +1117,143 @@ begin     /////funcoes para edicao de nome nao estao finalizadas!
    ProcuraMineral;
    ListBoxMinerais.Selected[aux] := True;
   end;                    }
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'nome', DBMemoNome);
 end;
 
 procedure TFormPrincipal.DBMemoOCorrenciaEditingDone(Sender: TObject);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'ocorrencia', DBMemoOcorrencia);
 end;
 
 procedure TFormPrincipal.DBMemoOCorrenciaKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'ocorrencia', DBMemoOcorrencia);
+end;
+
+procedure TFormPrincipal.DBMemoOrientacaoEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'orientacao', DBMemoOrientacao);
+end;
+
+procedure TFormPrincipal.DBMemoOrientacaoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'orientacao', DBMemoOrientacao);
+end;
+
+procedure TFormPrincipal.DBMemoPin_idEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'pin_id', DBMemoPin_id);
+end;
+
+procedure TFormPrincipal.DBMemoPin_idKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'pin_id', DBMemoPin_id);
+end;
+
+procedure TFormPrincipal.DBMemoQuimicaIdealEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'quimicaideal', DBMemoQuimicaIdeal);
+end;
+
+procedure TFormPrincipal.DBMemoQuimicaIdealKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'quimicaideal', DBMemoQuimicaIdeal);
+end;
+
+procedure TFormPrincipal.DBMemoQuimicaMedidaEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'quimicamedida', DBMemoQuimicaMedida);
+end;
+
+procedure TFormPrincipal.DBMemoQuimicaMedidaKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'quimicamedida', DBMemoQuimicaMedida);
 end;
 
 procedure TFormPrincipal.DBMemoRelevoEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'relevo', DBMemoRelevo);
 end;
 
 procedure TFormPrincipal.DBMemoRelevoKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'relevo', DBMemoRelevo);
 end;
 
 procedure TFormPrincipal.DBMemoSinal_ElongacaoEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'sinal_elongacao', DBMemoSinal_Elongacao);
 end;
 
 procedure TFormPrincipal.DBMemoSinal_ElongacaoKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'sinal_elongacao', DBMemoSinal_Elongacao);
 end;
 
 procedure TFormPrincipal.DBMemoSinal_OpticoEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'sinal_optico', DBMemoSinal_Optico);
 end;
 
 procedure TFormPrincipal.DBMemoSinal_OpticoKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'sinal_optico', DBMemoSinal_Optico);
 end;
 
 procedure TFormPrincipal.DBMemoSistemaEditingDone(Sender: TObject);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
     'sistema', DBMemoSistema);
-end;
-
-procedure TFormPrincipal.DBMemoSistemaKeyPress(Sender: TObject; var Key: char);
-begin
-
 end;
 
 procedure TFormPrincipal.DBMemoSistemaKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
     'sistema', DBMemoSistema);
+end;
+
+procedure TFormPrincipal.DBMemoSituacaoEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'situacao', DBMemoSituacao);
+end;
+
+procedure TFormPrincipal.DBMemoSituacaoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'situacao', DBMemoSituacao);
 end;
 
 procedure TFormPrincipal.DBMemoSubclasseEditingDone(Sender: TObject);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'subclasse', DBMemoSubClasse);
 end;
 
@@ -1091,19 +1268,14 @@ begin
     Preenche_SubClasses;
   end
   else
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'subclasse', DBMemoSubClasse);
 end;
 
 procedure TFormPrincipal.DBMemoSubgrupoEditingDone(Sender: TObject);
 begin
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'subgrupo', DBMemoSubGrupo);
-end;
-
-procedure TFormPrincipal.DBMemoSubgrupoKeyPress(Sender: TObject; var Key: char);
-begin
-
 end;
 
 procedure TFormPrincipal.DBMemoSubgrupoKeyUp(Sender: TObject; var Key: Word;
@@ -1117,20 +1289,20 @@ begin
     Preenche_SubGrupos;
   end
   else
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'subgrupo', DBMemoSubGrupo);
 end;
 
 procedure TFormPrincipal.DBMemoTracoEditingDone(Sender: TObject);
 begin
-   UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'traco', DBMemoTraco);
 end;
 
 procedure TFormPrincipal.DBMemoTracoKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
+  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'traco', DBMemoTraco);
 end;
 
@@ -1251,6 +1423,13 @@ begin
   begin
   ModoEdicao;
   end;
+  if Config.ReadBool('Configuracoes', 'PainelAmostras', False) then
+  begin
+    MenuItemAmostras.Checked:=True;
+    BGRAPanel1.Visible:=True;
+    PanelRruff.Visible:=True;
+    PanelFicha.Visible:=False;
+  end;
   Config.Free;
   MudarFonte;
   if FileExists(BancoDados) then
@@ -1281,6 +1460,7 @@ begin
     Timer1.Enabled := True;
   end;
   openpicturedialog1.Filter := lista_formatos;
+  OpenDialog1.Filter:='All Files | *.csv;';
 end;
 
 procedure TFormPrincipal.FormResize(Sender: TObject);
@@ -1437,6 +1617,32 @@ procedure TFormPrincipal.ListboxMineraisClick(Sender: TObject);
 begin
   limparichmemo;
   ProcuraMineral;
+  if MenuItemAmostras.Checked then
+  PreencheAmostras;
+end;
+
+procedure TFormPrincipal.ListBoxRruff_idClick(Sender: TObject);
+var DiretorioArquivo: String;
+begin
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    Dados.Sqlite3DatasetAmostras.Close;
+    Dados.Sqlite3DatasetAmostras.SQL:='Select * FROM rruff WHERE rruff_id ="'+
+      ListboxRruff_id.GetSelectedText+'";';
+    Dados.Sqlite3DatasetAmostras.Open;
+    DiretorioArquivo:=Dados.Sqlite3DatasetAmostras.FieldByName('arquivo_microssonda').AsString;
+    if DiretorioArquivo <> EmptyStr then
+      begin
+        Dados.SdfDataSetPlanilhaMicrossonda.Close;
+        if FileExists(DiretorioArquivo) then Dados.SdfDataSetPlanilhaMicrossonda.FileName:=
+            DiretorioArquivo
+            else
+            DBGrid1.Clear;
+        Dados.SdfDataSetPlanilhaMicrossonda.Open;
+      end;
+  end
+  else
+  DBGrid1.Clear;
 end;
 
 procedure TFormPrincipal.RetiraDaLista;
@@ -1460,7 +1666,7 @@ end;
 procedure TFormPrincipal.MenuItemAdicionarAmostraClick(Sender: TObject);
 var ExecSQL, Rruff_id: String;
 begin
-  Rruff_id:=EditRruff_id.Text+EditRruff_num.Text;
+  Rruff_id:=EditRruff_id.Text+'-'+EditRruff_num.Text;
   if Rruff_id = EmptyStr then
   Rruff_id:='A00000-0';
   if ListBoxMinerais.GetSelectedText <> EmptyStr then
@@ -1468,6 +1674,7 @@ begin
     ExecSQL:='INSERT INTO rruff (especie, rruff_id) VALUES("'+ListboxMinerais.GetSelectedText;
     ExecSQL:=ExecSQL+'" , "'+Rruff_id+'");';
     Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
+    PreencheAmostras;
   end;
 end;
 
@@ -1511,26 +1718,32 @@ begin
     MenuItemFiltro.Checked:=True;
     Config.WriteBool('Configuracoes', 'PainelFiltro', True);
   end;
+  Config.Free;
 end;
 
-procedure TFormPrincipal.MenuItemMulAmostrasClick(Sender: TObject);
+procedure TFormPrincipal.MenuItemAmostrasClick(Sender: TObject);
 begin
-  if (not MenuItemMulAmostras.Checked) then
+  Config:=TIniFile.Create(GetCurrentDir + '\Data\config.ini');
+  if (not MenuItemAmostras.Checked) then
   begin
-       PanelFicha.Visible:=False;
-       PanelRruff.Visible:=True;
-       BGRAPanel1.Visible:=True;
-       //Dados.Sqlite3DatasetAmostras.Open;
-       MenuItemMulAmostras.Checked:=True;
+    PreencheAmostras;
+    Dados.Sqlite3DatasetAmostras.Open;
+    PanelFicha.Visible:=False;
+    PanelRruff.Visible:=True;
+    BGRAPanel1.Visible:=True;
+    MenuItemAmostras.Checked:=True;
+    Config.WriteBool('Configuracoes', 'PainelAmostras', True);
   end
   else
   begin
-       PanelRruff.Visible:=False;
-       PanelFicha.Visible:=True;
-       BGRAPanel1.Visible:=False;
-       //Dados.Sqlite3DatasetAmostras.Close;
-       MenuItemMulAmostras.Checked:=False;
+    PanelRruff.Visible:=False;
+    PanelFicha.Visible:=True;
+    BGRAPanel1.Visible:=False;
+    MenuItemAmostras.Checked:=False;
+    Config.WriteBool('Configuracoes', 'PainelAmostras', False);
+    //Dados.Sqlite3DatasetAmostras.Close;
   end;
+  Config.Free;
 end;
 
 procedure TFormPrincipal.MenuItemImagensClick(Sender: TObject);
@@ -1550,6 +1763,24 @@ begin
     AtualizaImagem;
   end;
   Config.Free;
+end;
+
+procedure TFormPrincipal.MenuItemRemoverAmostraClick(Sender: TObject);
+var NomeEspecie, idRruff: String;
+begin
+  NomeEspecie:=ListboxMinerais.GetSelectedText;
+  idRruff:=ListboxRruff_id.GetSelectedText;
+  if idRruff <> EmptyStr then
+  begin
+    {Dados.Sqlite3DatasetAmostras.Close;
+    Dados.Sqlite3DatasetAmostras.SQL:='SELECT rruff_id, especie FROM rruff WHERE rruff_id="'+
+    idRruff+'" and especie = "'+NomeEspecie+'";';
+    Dados.Sqlite3DatasetAmostras.Open;
+    //Dados.Sqlite3DatasetAmostras.first;
+    Dados.Sqlite3DatasetAmostras.Delete;
+    Dados.Sqlite3DatasetAmostras.ApplyUpdates;
+    PreencheAmostras; }
+  end;
 end;
 
 procedure TFormPrincipal.MenuItemAjudaClick(Sender: TObject);
@@ -1630,13 +1861,22 @@ begin
   Config.Free;
 end;
 
-procedure TFormPrincipal.UpdateCampos(Especie: String; Campo: String;
+procedure TFormPrincipal.UpdateCampos(BancoDados, Especie, Campo: String;
   objeto: TDBMemo);
 begin
+  if BancoDados = Minerais then
+  begin
      sltb:= sldb.GetTable('UPDATE minerais set '+Campo+' ="'+objeto.Text+
      '" WHERE nome="'+especie+'";');
      if UpCase(objeto.Name) = UpCase('DBMemoSubclasse') then
      Preenche_Subclasses;
+  end
+  else
+  if BancoDados = Rruff then
+  begin
+    sltb:= sldb.GetTable('UPDATE rruff set '+Campo+' ="'+objeto.Text+
+     '" WHERE rruff_id="'+especie+'";');
+  end;
 end;
 
 procedure TFormPrincipal.UpdateEdits(Especie: String; Campo: String;
@@ -1650,8 +1890,10 @@ end;
 
 procedure TFormPrincipal.ModoEdicao;
 begin
-  if (dados.SQLite3DatasetGeral.Active) then
-    dados.SQLite3DatasetGeral.ApplyUpdates();
+  if (Dados.SQLite3DatasetGeral.Active) then
+    Dados.SQLite3DatasetGeral.ApplyUpdates();
+  if (Dados.Sqlite3DatasetAmostras.Active) then
+    Dados.Sqlite3DatasetAmostras.ApplyUpdates;
 
   Config := TIniFile.Create(GetCurrentDir + '\Data\config.ini');
 
@@ -1704,6 +1946,17 @@ begin
     DBMemoHabito.ReadOnly := True;
     dbmemoClasse_Cristalina.ReadOnly := True;
     DBMemoCor_Lamina.ReadOnly := True;
+
+    DBMemoQuimicaIdeal.ReadOnly:=True;
+    DBMemoLocalidade.ReadOnly:=True;
+    DBMemoFonte.ReadOnly:=True;
+    DBMemoDescricao1.ReadOnly:=True;
+    DBMemoDescricao2.ReadOnly:=True;
+    DBMemoDescricao3.ReadOnly:=True;
+    DBMemoSituacao.ReadOnly:=True;
+    DBMemoQuimicaMedida.ReadOnly:=True;
+    DBMemoPin_id.ReadOnly:=True;
+    DBMemoOrientacao.ReadOnly:=True;
 
     richmemoformula.Visible := True;
     //dbmemoformula.Visible := False;
@@ -1759,6 +2012,17 @@ begin
     dbmemoClasse_Cristalina.ReadOnly := False;
     DBMemoCor_Lamina.ReadOnly := False;
 
+    DBMemoQuimicaIdeal.ReadOnly:=False;
+    DBMemoLocalidade.ReadOnly:=False;
+    DBMemoFonte.ReadOnly:=False;
+    DBMemoDescricao1.ReadOnly:=False;
+    DBMemoDescricao2.ReadOnly:=False;
+    DBMemoDescricao3.ReadOnly:=False;
+    DBMemoSituacao.ReadOnly:=False;
+    DBMemoQuimicaMedida.ReadOnly:=False;
+    DBMemoPin_id.ReadOnly:=False;
+    DBMemoOrientacao.ReadOnly:=False;
+
     richmemoformula.Visible := False;
     //dbmemoformula.Visible := True;
   end;
@@ -1800,6 +2064,22 @@ begin
          MenuItemDensidade.Checked:=True;
     end;
     Preenche_Lista;
+end;
+
+procedure TFormPrincipal.PreencheAmostras;
+begin
+  ListboxRruff_id.Clear;
+  Dados.Sqlite3DatasetPreencheAmostras.Close;
+  Dados.Sqlite3DatasetPreencheAmostras.SQL:='SELECT rruff_id FROM rruff WHERE especie = "'+ListboxMinerais.GetSelectedText+'" ORDER BY rruff_id ASC;';
+  Dados.Sqlite3DatasetPreencheAmostras.Open;
+  if Dados.Sqlite3DatasetPreencheAmostras.RecNo > 0 then
+  Dados.Sqlite3DatasetPreencheAmostras.First;
+  While (not Dados.Sqlite3DatasetPreencheAmostras.EOF) do
+  begin
+    ListboxRruff_id.Items.Add(Dados.Sqlite3DatasetPreencheAmostras.Fields[0].AsString);
+    Dados.Sqlite3DatasetPreencheAmostras.Next;
+  end;
+  Dados.Sqlite3DatasetPreencheAmostras.Close;
 end;
 
 procedure TFormPrincipal.MenuItemExcluirClick(Sender: TObject);
