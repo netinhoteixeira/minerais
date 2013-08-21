@@ -174,8 +174,9 @@ begin
         Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
 
         ExecSQL:= 'CREATE TABLE rruff ([id] INTEGER PRIMATY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [numero] INTEGER, [quimicaideal] TEXT, ';
-        ExecSQL:=ExecSQL+' [localidade] TEXT, [fonte] TEXT, [descricao] TEXT, [situacao] TEXT, [quimicamedida] TEXT, [arquivo_microssonda] TEXT, [pin_id] TEXT, ';
-        ExecSQL:=ExecSQL+' [orientacao] TEXT);';
+        ExecSQL:=ExecSQL+' [localidade] TEXT, [fonte] TEXT, [descricao_quimica] TEXT, [situacao] TEXT, [quimicamedida] TEXT, [arquivo_microssonda] TEXT, [pin_id] TEXT, ';
+        ExecSQL:=ExecSQL+' [orientacao] TEXT, [microssonda] BLOB, [descricao_raman] TEXT, [raman] BLOB, [comprimento_onda] TEXT, [descricao_broadscan] TEXT, '+
+                           '[instrumento_bs] TEXT, [broad_scan] BLOB, [descricao_infravermelho] TEXT, [instrumento_iv] TEXT, [resolucao] TEXT, [infravermelho] BLOB, [descricao_amostra] TEXT, [direcao_laser] TEXT;';
         Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
 
       finally

@@ -108,4 +108,19 @@ object Dados: TDados
     left = 353
     top = 17
   end
+  object SdfDataSetGraficoRaman: TSdfDataSet
+    FileMustExist = True
+    ReadOnly = False
+    FieldDefs = <>
+    AllowMultiLine = False
+    Delimiter = ','
+    FirstLineAsSchema = False
+    left = 248
+    top = 180
+  end
+  object DatasourceGraficoRaman: TDatasource
+    DataSet = SdfDataSetGraficoRaman
+    left = 353
+    top = 180
+  end
 end

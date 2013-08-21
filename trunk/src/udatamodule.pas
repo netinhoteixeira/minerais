@@ -13,6 +13,7 @@ type
   { TDados }
 
   TDados = class(TDataModule)
+    DatasourceGraficoRaman: TDatasource;
     DatasourcePreencheAmostras: TDatasource;
     DatasourcePlanilhaMicrossonda: TDatasource;
     DatasourceAmostras: TDatasource;
@@ -23,6 +24,7 @@ type
     DatasourceDidatico: TDatasource;
     frDBDataSet1: TfrDBDataSet;
     frReport1: TfrReport;
+    SdfDataSetGraficoRaman: TSdfDataSet;
     SdfDataSetPlanilhaMicrossonda: TSdfDataSet;
     Sqlite3DatasetPreencheAmostras: TSqlite3Dataset;
     Sqlite3DatasetAmostras: TSqlite3Dataset;
@@ -36,14 +38,20 @@ type
   public
     sldb: TSQLiteDatabase;
   sltb: TSQLiteTable;
-    function determinaBD(diretorio: string): boolean;
+    function DeterminaBD(diretorio: string): boolean;
+    function DeterminaArquivo(Especie:String; Rruff_id:String; Tipo:String; DirecaoLaser:String): String;
+    procedure SalvaArquivo(Especie:String; Rruff_id:String; Tipo:String;
+         DiretorioArquivo:String; DirecaoLaser:String);
     { public declarations }
   end;
 
 var
   Dados: TDados;
+  MS:TMemoryStream;
+  FS:TFileStream;
 
-
+  Const Microssonda:String = 'Microssonda';
+        Raman:String = 'RAMAN';
 implementation
 
 {$R *.lfm}
@@ -119,6 +127,57 @@ begin
         Result:=True;
         else
         Result:=False;  }
+end;
+
+function TDados.DeterminaArquivo(Especie: String; Rruff_id: String; Tipo: String;
+ DirecaoLaser:String ): String;
+begin
+  if Tipo = Microssonda then
+  begin
+    sltb:= sldb.GetTable('SELECT especie, rruff_id, microssonda FROM rruff WHERE '+
+    'especie ="'+Especie+'" and rruff_id ="'+Rruff_id+'" ;');
+    MS:=sltb.FieldAsBlob(sltb.FieldIndex['microssonda']);
+    if MS <> nil then
+    begin
+      MS.Position:=0;
+      MS.SaveToFile(GetCurrentDir+'\Data\microssonda.csv');
+      Result:=GetCurrentDir+'\Data\microssonda.csv';
+    end;
+  end
+  else
+  if Tipo = Raman then
+  begin
+    sltb:= sldb.GetTable('SELECT especie, rruff_id, raman, direcao_laser FROM rruff WHERE '+
+    'especie ="'+Especie+'" and rruff_id ="'+Rruff_id+'";');
+    MS:=sltb.FieldAsBlob(sltb.FieldIndex['raman']);
+    if MS <> nil then
+    begin
+      MS.Position:=0;
+      MS.SaveToFile(GetCurrentDir+'\Data\raman.csv');
+      Result:=GetCurrentDir+'\Data\raman.csv';
+    end;
+  end
+  else
+  Result:=EmptyStr;
+end;
+
+procedure TDados.SalvaArquivo(Especie: String; Rruff_id: String; Tipo: String;
+   DiretorioArquivo:String; DirecaoLaser:String);
+begin
+  if Tipo = Microssonda then
+  begin
+    sltb:= sldb.GetTable('SELECT especie, rruff_id, microssonda FROM rruff ;');
+    FS:=TFileStream.Create(DiretorioArquivo, fmOpenRead);
+    sldb.UpdateBlob('UPDATE rruff set microssonda = ? WHERE especie = "'+Especie+'" and rruff_id="'+Rruff_id+'";', fs);
+    FS.Free;
+  end;
+  if Tipo = Raman then  //criar tabela para raman
+  begin
+    sltb:= sldb.GetTable('SELECT especie, rruff_id, raman, direcao_laser FROM rruff ;');
+    FS:=TFileStream.Create(DiretorioArquivo, fmOpenRead);
+    sldb.UpdateBlob('UPDATE rruff set raman = ? WHERE especie = "'+Especie+'" and rruff_id="'+Rruff_id+'";', fs);
+    FS.Free;
+  end;
 end;
 
 end.

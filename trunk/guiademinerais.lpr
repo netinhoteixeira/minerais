@@ -9,7 +9,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, uprincipal, bgracontrols, udatamodule, sqlite3laz, richmemopackage,
   tachartlazaruspkg, sdflaz, lazreport, uselecionabd, ubibliografia,
-  uformimpressao, UnitAjuda, unitSplash, crt, unitImagem;
+  uformimpressao, UnitAjuda, unitSplash, crt, unitImagem, unitgraficos;
 
 {$R *.res}
 
