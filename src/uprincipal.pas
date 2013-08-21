@@ -68,8 +68,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   StdCtrls, ExtCtrls, ComCtrls, DBCtrls, ExtDlgs, Buttons, DBGrids, BGRAPanel,
-  BGRALabel, RichMemo, TAGraph, uFormImpressao, uSelecionaBD, SQLite3mod,
-  SQLite3tablemod, uBibliografia, UnitAjuda, IniFiles, unitImagem;
+  BGRALabel, RichMemo, TAGraph, TASeries, uFormImpressao, uSelecionaBD,
+  SQLite3mod, SQLite3tablemod, uBibliografia, UnitAjuda, IniFiles, unitImagem;
 
 type
 
@@ -87,10 +87,18 @@ type
     BGRALabelOcorrencia: TBGRALabel;
     BGRALabelAssociacao: TBGRALabel;
     BGRAPanel1: TBGRAPanel;
+    BitBtn1: TBitBtn;
+    BitBtnAlterarRaman: TBitBtn;
+    BitBtn3: TBitBtn;
     BitBtnAdImagem: TBitBtn;
     BitBtnAlterar: TBitBtn;
     BitBtnRemImagem: TBitBtn;
-    Chart1: TChart;
+    Chart2LineSeries1: TLineSeries;
+    Chart3LineSeries1: TLineSeries;
+    ChartRaman: TChart;
+    Chart2: TChart;
+    Chart3: TChart;
+    ComboBoxDirecaoLaser: TComboBox;
     ComboBoxClasse: TComboBox;
     ComboBoxDureza_max: TComboBox;
     ComboBoxDureza_min: TComboBox;
@@ -102,20 +110,25 @@ type
     DBEditDureza_Max: TDBEdit;
     DBEditDureza_Min: TDBEdit;
     DBGrid1: TDBGrid;
+    DBMemoDescricaoInfravermelho: TDBMemo;
+    DBMemoInstrumentoIV: TDBMemo;
+    DBMemoResolucao: TDBMemo;
+    DBMemoComprimentoOnda: TDBMemo;
+    DBMemoDescricaoBS: TDBMemo;
+    DBMemoInstrumentoBS: TDBMemo;
     DBMemoPin_id: TDBMemo;
     DBMemoOrientacao: TDBMemo;
-    DBMemoDescricao3: TDBMemo;
+    DBMemoDescricaoRaman: TDBMemo;
     DBMemoQuimicaIdeal: TDBMemo;
     DBMemoLocalidade: TDBMemo;
     DBMemoFonte: TDBMemo;
-    DBMemoDescricao1: TDBMemo;
+    DBMemoDescricaoAmostra: TDBMemo;
     DBMemoSituacao: TDBMemo;
-    DBMemoDescricao2: TDBMemo;
+    DBMemoDescricaoQuimica: TDBMemo;
     DBMemoQuimicaMedida: TDBMemo;
     DBMemoAlteracao: TDBMemo;
     DBMemoAngulo: TDBMemo;
     DBMemoAplicacao: TDBMemo;
-    DBMemoArquivoMicrossonda: TDBMemo;
     DBMemoAssociacao: TDBMemo;
     DBMemoBirrefringencia: TDBMemo;
     DBMemoBrilho: TDBMemo;
@@ -189,6 +202,13 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    Label5: TLabel;
+    LabelDescricaoIV: TLabel;
+    LabelInstrumentoIV: TLabel;
+    LabelResolucao: TLabel;
+    LabelConfiguracaoInstrumento: TLabel;
+    LabelDescricaoBroadScan: TLabel;
+    LabelComprimentodeOnda: TLabel;
     LabelDescricao2: TLabel;
     LabelDescricao3: TLabel;
     LabelOrientacao: TLabel;
@@ -296,8 +316,10 @@ type
     TabSheetOticas: TTabSheet;
     TabSheetProp_Fisicas: TTabSheet;
     Timer1: TTimer;
+    procedure BitBtn1Click(Sender: TObject);
     procedure BitBtnAdImagemClick(Sender: TObject);
     procedure BitBtnAlterarClick(Sender: TObject);
+    procedure BitBtnAlterarRamanClick(Sender: TObject);
     procedure BitBtnFiltrarClick(Sender: TObject);
     procedure BitBtnRemImagemClick(Sender: TObject);
     procedure ComboBoxClasseChange(Sender: TObject);
@@ -345,6 +367,9 @@ type
     procedure DBMemoClivagemEditingDone(Sender: TObject);
     procedure DBMemoClivagemKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemoComprimentoOndaEditingDone(Sender: TObject);
+    procedure DBMemoComprimentoOndaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure DBMemoCorEditingDone(Sender: TObject);
     procedure DBMemoCorKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
       );
@@ -354,14 +379,20 @@ type
     procedure DBMemoCor_LaminaEditingDone(Sender: TObject);
     procedure DBMemoCor_LaminaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure DBMemoDescricao1EditingDone(Sender: TObject);
-    procedure DBMemoDescricao1KeyUp(Sender: TObject; var Key: Word;
+    procedure DBMemoDescricaoAmostraEditingDone(Sender: TObject);
+    procedure DBMemoDescricaoAmostraKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure DBMemoDescricao2EditingDone(Sender: TObject);
-    procedure DBMemoDescricao2KeyUp(Sender: TObject; var Key: Word;
+    procedure DBMemoDescricaoBSEditingDone(Sender: TObject);
+    procedure DBMemoDescricaoBSKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure DBMemoDescricao3EditingDone(Sender: TObject);
-    procedure DBMemoDescricao3KeyUp(Sender: TObject; var Key: Word;
+    procedure DBMemoDescricaoInfravermelhoEditingDone(Sender: TObject);
+    procedure DBMemoDescricaoInfravermelhoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoDescricaoQuimicaEditingDone(Sender: TObject);
+    procedure DBMemoDescricaoQuimicaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoDescricaoRamanEditingDone(Sender: TObject);
+    procedure DBMemoDescricaoRamanKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBMemoDifaneidadeEditingDone(Sender: TObject);
     procedure DBMemoDifaneidadeKeyUp(Sender: TObject; var Key: Word;
@@ -394,6 +425,12 @@ type
     procedure DBMemoIndice_RefracaoEditingDone(Sender: TObject);
     procedure DBMemoIndice_RefracaoKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemoInstrumentoBSEditingDone(Sender: TObject);
+    procedure DBMemoInstrumentoBSKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoInstrumentoIVEditingDone(Sender: TObject);
+    procedure DBMemoInstrumentoIVKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure DBMemoLocalidadeEditingDone(Sender: TObject);
     procedure DBMemoLocalidadeKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -423,6 +460,9 @@ type
       Shift: TShiftState);
     procedure DBMemoRelevoEditingDone(Sender: TObject);
     procedure DBMemoRelevoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoResolucaoEditingDone(Sender: TObject);
+    procedure DBMemoResolucaoKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBMemoSinal_ElongacaoEditingDone(Sender: TObject);
     procedure DBMemoSinal_ElongacaoKeyUp(Sender: TObject; var Key: Word;
@@ -564,7 +604,7 @@ var
 
 implementation
 
-uses udatamodule;
+uses udatamodule, unitgraficos;
 
 {$R *.lfm}
 
@@ -765,6 +805,19 @@ begin
       'clivagem', DBMemoClivagem);
 end;
 
+procedure TFormPrincipal.DBMemoComprimentoOndaEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'comprimento_onda', DBMemoComprimentoOnda);
+end;
+
+procedure TFormPrincipal.DBMemoComprimentoOndaKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'comprimento_onda', DBMemoComprimentoOnda);
+end;
+
 procedure TFormPrincipal.DBMemoCorEditingDone(Sender: TObject);
 begin
   UpDateCampos( Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
@@ -804,43 +857,70 @@ begin
       'cor_lamina', DBMemoCor_lamina);
 end;
 
-procedure TFormPrincipal.DBMemoDescricao1EditingDone(Sender: TObject);
+procedure TFormPrincipal.DBMemoDescricaoAmostraEditingDone(Sender: TObject);
 begin
   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
-    'descricao', DBMemoDescricao1);
+    'descricao_amostra', DBMemoDescricaoAmostra);
 end;
 
-procedure TFormPrincipal.DBMemoDescricao1KeyUp(Sender: TObject; var Key: Word;
+procedure TFormPrincipal.DBMemoDescricaoAmostraKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
-    'descricao', DBMemoDescricao1);
+    'descricao_amostra', DBMemoDescricaoAmostra);
 end;
 
-procedure TFormPrincipal.DBMemoDescricao2EditingDone(Sender: TObject);
+procedure TFormPrincipal.DBMemoDescricaoBSEditingDone(Sender: TObject);
 begin
   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
-    'descricao', DBMemoDescricao2);
+    'descricao_broadscan', DBMemoDescricaoBS);
 end;
 
-procedure TFormPrincipal.DBMemoDescricao2KeyUp(Sender: TObject; var Key: Word;
+procedure TFormPrincipal.DBMemoDescricaoBSKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'descricao_broadscan', DBMemoDescricaoBS);
+end;
+
+procedure TFormPrincipal.DBMemoDescricaoInfravermelhoEditingDone(Sender: TObject
+  );
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'descricao_infravermelho', DBMemoDescricaoInfravermelho);
+end;
+
+procedure TFormPrincipal.DBMemoDescricaoInfravermelhoKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'descricao_infravermelho', DBMemoDescricaoInfravermelho);
+end;
+
+procedure TFormPrincipal.DBMemoDescricaoQuimicaEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'descricao_quimica', DBMemoDescricaoQuimica);
+end;
+
+procedure TFormPrincipal.DBMemoDescricaoQuimicaKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
-    'descricao', DBMemoDescricao2);
+    'descricao_quimica', DBMemoDescricaoQuimica);
 end;
 
-procedure TFormPrincipal.DBMemoDescricao3EditingDone(Sender: TObject);
+procedure TFormPrincipal.DBMemoDescricaoRamanEditingDone(Sender: TObject);
 begin
   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
-    'descricao', DBMemoDescricao3);
+    'descricao_raman', DBMemoDescricaoRaman);
 end;
 
-procedure TFormPrincipal.DBMemoDescricao3KeyUp(Sender: TObject; var Key: Word;
+procedure TFormPrincipal.DBMemoDescricaoRamanKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
-    'descricao', DBMemoDescricao3);
+    'descricao_raman', DBMemoDescricaoRaman);
 end;
 
 procedure TFormPrincipal.DBMemoDifaneidadeEditingDone(Sender: TObject);
@@ -986,6 +1066,32 @@ begin
       'indice_refracao', DBMemoIndice_Refracao);
 end;
 
+procedure TFormPrincipal.DBMemoInstrumentoBSEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'instrumento_bs', DBMemoInstrumentoBS);
+end;
+
+procedure TFormPrincipal.DBMemoInstrumentoBSKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'instrumento_bs', DBMemoInstrumentoBS);
+end;
+
+procedure TFormPrincipal.DBMemoInstrumentoIVEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'instrumento_iv', DBMemoInstrumentoIV);
+end;
+
+procedure TFormPrincipal.DBMemoInstrumentoIVKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'instrumento_iv', DBMemoInstrumentoIV);
+end;
+
 procedure TFormPrincipal.DBMemoLocalidadeEditingDone(Sender: TObject);
 begin
   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
@@ -1071,6 +1177,11 @@ begin
   AtualizaImagem;
 end;
 
+procedure TFormPrincipal.BitBtn1Click(Sender: TObject);
+begin
+
+end;
+
 procedure TFormPrincipal.BitBtnAlterarClick(Sender: TObject);
 var ExecSQL:String;
 begin
@@ -1078,11 +1189,26 @@ begin
   begin
     if OpenDialog1.FileName <> EmptyStr then
     begin
-      ExecSQL:='UPDATE rruff SET arquivo_microssonda = "'+OpenDialog1.FileName+'";';
+      Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+        ListboxRruff_id.GetSelectedText, 'Microssonda', Opendialog1.FileName,'');
+
+      {ExecSQL:='UPDATE rruff SET arquivo_microssonda = "'+OpenDialog1.FileName+'";';
       Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
       Dados.SdfDataSetPlanilhaMicrossonda.Close;
       Dados.SdfDataSetPlanilhaMicrossonda.FileName:=OpenDialog1.FileName;
-      Dados.SdfDataSetPlanilhaMicrossonda.Open;
+      Dados.SdfDataSetPlanilhaMicrossonda.Open;}
+    end;
+  end;
+end;
+
+procedure TFormPrincipal.BitBtnAlterarRamanClick(Sender: TObject);
+begin
+  if OpenDialog1.Execute then
+  begin
+    if OpenDialog1.FileName <> EmptyStr then
+    begin
+      Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+        ListboxRruff_id.GetSelectedText, 'RAMAN', Opendialog1.FileName,ComboboxDirecaoLaser.Text);
     end;
   end;
 end;
@@ -1197,6 +1323,19 @@ procedure TFormPrincipal.DBMemoRelevoKeyUp(Sender: TObject; var Key: Word;
 begin
   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'relevo', DBMemoRelevo);
+end;
+
+procedure TFormPrincipal.DBMemoResolucaoEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'resolucao', DBMemoResolucao);
+end;
+
+procedure TFormPrincipal.DBMemoResolucaoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'resolucao', DBMemoResolucao);
 end;
 
 procedure TFormPrincipal.DBMemoSinal_ElongacaoEditingDone(Sender: TObject);
@@ -1619,6 +1758,7 @@ begin
   ProcuraMineral;
   if MenuItemAmostras.Checked then
   PreencheAmostras;
+  DBGrid1.Clear;
 end;
 
 procedure TFormPrincipal.ListBoxRruff_idClick(Sender: TObject);
@@ -1630,16 +1770,21 @@ begin
     Dados.Sqlite3DatasetAmostras.SQL:='Select * FROM rruff WHERE rruff_id ="'+
       ListboxRruff_id.GetSelectedText+'";';
     Dados.Sqlite3DatasetAmostras.Open;
-    DiretorioArquivo:=Dados.Sqlite3DatasetAmostras.FieldByName('arquivo_microssonda').AsString;
-    if DiretorioArquivo <> EmptyStr then
-      begin
-        Dados.SdfDataSetPlanilhaMicrossonda.Close;
-        if FileExists(DiretorioArquivo) then Dados.SdfDataSetPlanilhaMicrossonda.FileName:=
-            DiretorioArquivo
-            else
-            DBGrid1.Clear;
-        Dados.SdfDataSetPlanilhaMicrossonda.Open;
-      end;
+
+      Dados.SdfDataSetPlanilhaMicrossonda.Close;
+      Dados.SdfDataSetPlanilhaMicrossonda.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Microssonda','');
+      if Dados.SdfDataSetPlanilhaMicrossonda.FileName = EmptyStr then
+      Dados.SdfDataSetPlanilhaMicrossonda.open
+      else
+      DBGrid1.Clear;
+
+      Dados.SdfDataSetGraficoRaman.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'RAMAN',ComboboxDirecaoLaser.Text);
+      if Dados.SdfDataSetGraficoRaman.FileName <> EmptyStr then
+        ChartRaman.AddSeries(GraficoRaman)
+        else
+        ChartRaman.ClearSeries;
   end
   else
   DBGrid1.Clear;
@@ -1950,9 +2095,9 @@ begin
     DBMemoQuimicaIdeal.ReadOnly:=True;
     DBMemoLocalidade.ReadOnly:=True;
     DBMemoFonte.ReadOnly:=True;
-    DBMemoDescricao1.ReadOnly:=True;
-    DBMemoDescricao2.ReadOnly:=True;
-    DBMemoDescricao3.ReadOnly:=True;
+    DBMemoDescricaoAmostra.ReadOnly:=True;
+    DBMemoDescricaoQuimica.ReadOnly:=True;
+    DBMemoDescricaoRaman.ReadOnly:=True;
     DBMemoSituacao.ReadOnly:=True;
     DBMemoQuimicaMedida.ReadOnly:=True;
     DBMemoPin_id.ReadOnly:=True;
@@ -2015,9 +2160,9 @@ begin
     DBMemoQuimicaIdeal.ReadOnly:=False;
     DBMemoLocalidade.ReadOnly:=False;
     DBMemoFonte.ReadOnly:=False;
-    DBMemoDescricao1.ReadOnly:=False;
-    DBMemoDescricao2.ReadOnly:=False;
-    DBMemoDescricao3.ReadOnly:=False;
+    DBMemoDescricaoAmostra.ReadOnly:=False;
+    DBMemoDescricaoQuimica.ReadOnly:=False;
+    DBMemoDescricaoRaman.ReadOnly:=False;
     DBMemoSituacao.ReadOnly:=False;
     DBMemoQuimicaMedida.ReadOnly:=False;
     DBMemoPin_id.ReadOnly:=False;
