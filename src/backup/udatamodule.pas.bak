@@ -13,6 +13,8 @@ type
   { TDados }
 
   TDados = class(TDataModule)
+    DatasourceDifracao: TDatasource;
+    DatasourceInfravermelho: TDatasource;
     DatasourceVarredura: TDatasource;
     DatasourceGraficoRaman: TDatasource;
     DatasourcePreencheAmostras: TDatasource;
@@ -25,6 +27,8 @@ type
     DatasourceDidatico: TDatasource;
     frDBDataSet1: TfrDBDataSet;
     frReport1: TfrReport;
+    SdfDataSetDifracao: TSdfDataSet;
+    SdfDataSetInfravermelho: TSdfDataSet;
     SdfDataSetVarredura: TSdfDataSet;
     SdfDataSetGraficoRaman: TSdfDataSet;
     SdfDataSetPlanilhaMicrossonda: TSdfDataSet;
@@ -56,6 +60,7 @@ var
         Raman:String = 'RAMAN';
         AmplaVarredura:String = 'Ampla Varredura';
         Infravermelho:String ='Espectro Infravermelho';
+        Difracao:String = 'Difracao';
 
 implementation
 
@@ -189,6 +194,19 @@ begin
     end;
   end
   else
+  if Tipo = Difracao then
+  begin
+    sltb:= sldb.GetTable('SELECT especie, rruff_id, difracao FROM rruff WHERE '+
+    'especie ="'+Especie+'" and rruff_id ="'+Rruff_id+'";');
+    MS:=sltb.FieldAsBlob(sltb.FieldIndex['difracao']);
+    if MS <> nil then
+    begin
+      MS.Position:=0;
+      MS.SaveToFile(GetCurrentDir+'\Data\difracao.csv');
+      Result:=GetCurrentDir+'\Data\difracao.csv';
+    end;
+  end
+  else
   Result:=EmptyStr;
 end;
 
@@ -221,6 +239,13 @@ begin
     sltb:= sldb.GetTable('SELECT especie, rruff_id, infravermelho FROM rruff ;');
     FS:=TFileStream.Create(DiretorioArquivo, fmOpenRead);
     sldb.UpdateBlob('UPDATE rruff set infravermelho = ? WHERE especie = "'+Especie+'" and rruff_id="'+Rruff_id+'";', fs);
+    FS.Free;
+  end;
+  if Tipo = Difracao then
+  begin
+    sltb:= sldb.GetTable('SELECT especie, rruff_id, difracao FROM rruff ;');
+    FS:=TFileStream.Create(DiretorioArquivo, fmOpenRead);
+    sldb.UpdateBlob('UPDATE rruff set difracao = ? WHERE especie = "'+Especie+'" and rruff_id="'+Rruff_id+'";', fs);
     FS.Free;
   end;
 end;

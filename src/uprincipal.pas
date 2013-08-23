@@ -76,6 +76,7 @@ type
   { TFormPrincipal }
 
   TFormPrincipal = class(TForm)
+    BGRALabelEspecies: TBGRALabel;
     BGRALabelId_Rruff: TBGRALabel;
     BGRALabelNome: TBGRALabel;
     BGRALabelClasse: TBGRALabel;
@@ -87,19 +88,21 @@ type
     BGRALabelOcorrencia: TBGRALabel;
     BGRALabelAssociacao: TBGRALabel;
     BGRAPanel1: TBGRAPanel;
-    BitBtnArquivoVarredura: TBitBtn;
+    BitBtnAlterarDifracao: TBitBtn;
     BitBtnAlterarRaman: TBitBtn;
-    BitBtnArquivoInfravermelho: TBitBtn;
     BitBtnAdImagem: TBitBtn;
     BitBtnAlterarMicrossonda: TBitBtn;
+    BitBtnArquivoInfravermelho: TBitBtn;
+    BitBtnArquivoVarredura: TBitBtn;
     BitBtnRemImagem: TBitBtn;
-    ChartVarreduraLineSeries1: TLineSeries;
+    ChartDifracao: TChart;
+    ChartInfravermelho: TChart;
     ChartInfravermelhoLineSeries1: TLineSeries;
     ChartRaman: TChart;
     ChartVarredura: TChart;
-    ChartInfravermelho: TChart;
-    ComboBoxDirecaoLaser: TComboBox;
+    ChartVarreduraLineSeries1: TLineSeries;
     ComboBoxClasse: TComboBox;
+    ComboBoxDirecaoLaser: TComboBox;
     ComboBoxDureza_max: TComboBox;
     ComboBoxDureza_min: TComboBox;
     ComboBoxGrupo: TComboBox;
@@ -110,15 +113,33 @@ type
     DBEditDureza_Max: TDBEdit;
     DBEditDureza_Min: TDBEdit;
     DBGrid1: TDBGrid;
+    DBMemo1: TDBMemo;
+    DBMemo10: TDBMemo;
+    DBMemo2: TDBMemo;
+    DBMemo3: TDBMemo;
+    DBMemo4: TDBMemo;
+    DBMemo5: TDBMemo;
+    DBMemo6: TDBMemo;
+    DBMemo7: TDBMemo;
+    DBMemo8: TDBMemo;
+    DBMemo9: TDBMemo;
+    DBMemoA: TDBMemo;
+    DBMemoB: TDBMemo;
+    DBMemoC: TDBMemo;
+    DBMemoAlpha: TDBMemo;
+    DBMemoBeta: TDBMemo;
+    DBMemoGamma: TDBMemo;
+    DBMemoVolume: TDBMemo;
+    DBMemoSistemaCristalino: TDBMemo;
     DBMemoDescricaoInfravermelho: TDBMemo;
+    DBMemoDescricaoRaman: TDBMemo;
     DBMemoInstrumentoIV: TDBMemo;
+    DBMemoOrientacao: TDBMemo;
+    DBMemoPin_id: TDBMemo;
     DBMemoResolucao: TDBMemo;
     DBMemoComprimentoOnda: TDBMemo;
     DBMemoDescricaoBS: TDBMemo;
     DBMemoInstrumentoBS: TDBMemo;
-    DBMemoPin_id: TDBMemo;
-    DBMemoOrientacao: TDBMemo;
-    DBMemoDescricaoRaman: TDBMemo;
     DBMemoQuimicaIdeal: TDBMemo;
     DBMemoLocalidade: TDBMemo;
     DBMemoFonte: TDBMemo;
@@ -158,7 +179,6 @@ type
     DBMemoSubclasse: TDBMemo;
     DBMemoSubgrupo: TDBMemo;
     DBMemoTraco: TDBMemo;
-    EditRruff_num: TEdit;
     EditRruff_Id: TEdit;
     EditAssociacao: TEdit;
     EditDensidade: TEdit;
@@ -174,7 +194,11 @@ type
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     GroupBox7: TGroupBox;
-    GroupBox8: TGroupBox;
+    GroupBoxDadosDifracao: TGroupBox;
+    GroupBoxDifracao: TGroupBox;
+    GroupBoxGraficoInfravermelho: TGroupBox;
+    GroupBoxGraficoVarredura: TGroupBox;
+    GroupBoxGraficoRaman: TGroupBox;
     GroupBox9: TGroupBox;
     GroupBoxCristalografia: TGroupBox;
     GroupBoxCristalografia1: TGroupBox;
@@ -199,20 +223,37 @@ type
     ImageCristalografia1: TImage;
     ImageCristalografia2: TImage;
     Label1: TLabel;
+    Label4: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    LabelId_Quimica: TLabel;
+    LabelGamma: TLabel;
+    LabelId_Quimica1: TLabel;
+    LabelId_Quimica2: TLabel;
+    LabelId_Quimica3: TLabel;
+    LabelId_Quimica4: TLabel;
+    LabelVolume: TLabel;
+    LabelSistemaCristalino: TLabel;
     Label2: TLabel;
     Label3: TLabel;
-    Label4: TLabel;
+    LabelA: TLabel;
     Label5: TLabel;
+    LabelB: TLabel;
+    LabelC: TLabel;
+    LabelAlpha: TLabel;
+    LabelBeta: TLabel;
+    LabelDescricao3: TLabel;
     LabelDescricaoIV: TLabel;
     LabelInstrumentoIV: TLabel;
+    LabelOrientacao: TLabel;
+    LabelPinId: TLabel;
     LabelResolucao: TLabel;
     LabelConfiguracaoInstrumento: TLabel;
     LabelDescricaoBroadScan: TLabel;
     LabelComprimentodeOnda: TLabel;
     LabelDescricao2: TLabel;
-    LabelDescricao3: TLabel;
-    LabelOrientacao: TLabel;
-    LabelPinId: TLabel;
     LabelFonte: TLabel;
     LabelLocalidade: TLabel;
     LabelQuimicaIdeal: TLabel;
@@ -295,6 +336,9 @@ type
     PageControlFicha: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
     PanelFichas: TPanel;
     PanelRRUFF: TPanel;
     PanelFicha: TPanel;
@@ -306,7 +350,7 @@ type
     StatusBar1: TStatusBar;
     TabSheetRruffDifracao: TTabSheet;
     TabSheetRruffInfra: TTabSheet;
-    TabSheetRruffBroadScan: TTabSheet;
+    TabSheetRruffVarredura: TTabSheet;
     TabSheetRruffDescricao: TTabSheet;
     TabSheetRruffQuimica: TTabSheet;
     TabSheetRruffRaman: TTabSheet;
@@ -316,6 +360,7 @@ type
     TabSheetOticas: TTabSheet;
     TabSheetProp_Fisicas: TTabSheet;
     Timer1: TTimer;
+    procedure BitBtnAlterarDifracaoClick(Sender: TObject);
     procedure BitBtnArquivoInfravermelhoClick(Sender: TObject);
     procedure BitBtnArquivoVarreduraClick(Sender: TObject);
     procedure BitBtnAdImagemClick(Sender: TObject);
@@ -342,6 +387,11 @@ type
     procedure DBEditDureza_MinEditingDone(Sender: TObject);
     procedure DBEditDureza_MinKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemoAEditingDone(Sender: TObject);
+    procedure DBMemoAKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure DBMemoAlphaEditingDone(Sender: TObject);
+    procedure DBMemoAlphaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure DBMemoAlteracaoEditingDone(Sender: TObject);
     procedure DBMemoAlteracaoKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -354,12 +404,19 @@ type
     procedure DBMemoAssociacaoEditingDone(Sender: TObject);
     procedure DBMemoAssociacaoKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemoBEditingDone(Sender: TObject);
+    procedure DBMemoBetaEditingDone(Sender: TObject);
+    procedure DBMemoBetaKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
+      );
     procedure DBMemoBirrefringenciaEditingDone(Sender: TObject);
     procedure DBMemoBirrefringenciaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemoBKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBMemoBrilhoEditingDone(Sender: TObject);
     procedure DBMemoBrilhoKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemoCEditingDone(Sender: TObject);
+    procedure DBMemoCKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DBMemoClasseEditingDone(Sender: TObject);
     procedure DBMemoClasseKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -413,6 +470,9 @@ type
       Shift: TShiftState);
     procedure DBMemoFraturaEditingDone(Sender: TObject);
     procedure DBMemoFraturaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoGammaEditingDone(Sender: TObject);
+    procedure DBMemoGammaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBMemoGrupoEditingDone(Sender: TObject);
     procedure DBMemoGrupoKeyUp(Sender: TObject; var Key: Word;
@@ -472,6 +532,9 @@ type
     procedure DBMemoSinal_OpticoEditingDone(Sender: TObject);
     procedure DBMemoSinal_OpticoKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemoSistemaCristalinoEditingDone(Sender: TObject);
+    procedure DBMemoSistemaCristalinoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure DBMemoSistemaEditingDone(Sender: TObject);
     procedure DBMemoSistemaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -486,6 +549,9 @@ type
       Shift: TShiftState);
     procedure DBMemoTracoEditingDone(Sender: TObject);
     procedure DBMemoTracoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBMemoVolumeEditingDone(Sender: TObject);
+    procedure DBMemoVolumeKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure EditAssociacaoEditingDone(Sender: TObject);
     procedure EditDensidadeClick(Sender: TObject);
@@ -695,6 +761,32 @@ begin
       'dureza_min', DBEditDureza_min);
 end;
 
+procedure TFormPrincipal.DBMemoAEditingDone(Sender: TObject);
+begin
+   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'a', DBMemoA);
+end;
+
+procedure TFormPrincipal.DBMemoAKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'a', DBMemoA);
+end;
+
+procedure TFormPrincipal.DBMemoAlphaEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'alpha', DBMemoAlpha);
+end;
+
+procedure TFormPrincipal.DBMemoAlphaKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'alpha', DBMemoAlpha);
+end;
+
 procedure TFormPrincipal.DBMemoAlteracaoEditingDone(Sender: TObject);
 begin
    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
@@ -747,6 +839,25 @@ begin
       'associacao', DBMemoAssociacao);
 end;
 
+procedure TFormPrincipal.DBMemoBEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'b', DBMemoB);
+end;
+
+procedure TFormPrincipal.DBMemoBetaEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'beta', DBMemoBeta);
+end;
+
+procedure TFormPrincipal.DBMemoBetaKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'beta', DBMemoBeta);
+end;
+
 procedure TFormPrincipal.DBMemoBirrefringenciaEditingDone(Sender: TObject);
 begin
   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
@@ -760,6 +871,13 @@ begin
       'birrefringencia', DBMemoBirrefringencia);
 end;
 
+procedure TFormPrincipal.DBMemoBKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'b', DBMemoB);
+end;
+
 procedure TFormPrincipal.DBMemoBrilhoEditingDone(Sender: TObject);
 begin
    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
@@ -771,6 +889,19 @@ procedure TFormPrincipal.DBMemoBrilhoKeyUp(Sender: TObject; var Key: Word;
 begin
    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'brilho', DBMemoBrilho);
+end;
+
+procedure TFormPrincipal.DBMemoCEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'c', DBMemoC);
+end;
+
+procedure TFormPrincipal.DBMemoCKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'c', DBMemoC);
 end;
 
 procedure TFormPrincipal.DBMemoClasseEditingDone(Sender: TObject);
@@ -1008,6 +1139,19 @@ begin
       'fratura', DBMemoFratura);
 end;
 
+procedure TFormPrincipal.DBMemoGammaEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'gamma', DBMemoGamma);
+end;
+
+procedure TFormPrincipal.DBMemoGammaKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'gamma', DBMemoGamma);
+end;
+
 procedure TFormPrincipal.DBMemoGrupoEditingDone(Sender: TObject);
 begin
     UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
@@ -1214,6 +1358,21 @@ begin
   end;
 end;
 
+procedure TFormPrincipal.BitBtnAlterarDifracaoClick(Sender: TObject);
+begin
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    if OpenDialog1.Execute then
+    begin
+      if OpenDialog1.FileName <> EmptyStr then
+      begin
+        Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, 'Difracao', Opendialog1.FileName,'');
+      end;
+    end;
+  end;
+end;
+
 procedure TFormPrincipal.BitBtnAlterarMicrossondaClick(Sender: TObject);
 var ExecSQL:String;
 begin
@@ -1396,6 +1555,19 @@ begin
       'sinal_optico', DBMemoSinal_Optico);
 end;
 
+procedure TFormPrincipal.DBMemoSistemaCristalinoEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'sistema_cristalino', DBMemoSistemaCristalino);
+end;
+
+procedure TFormPrincipal.DBMemoSistemaCristalinoKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'sistema_cristalino', DBMemoSistemaCristalino);
+end;
+
 procedure TFormPrincipal.DBMemoSistemaEditingDone(Sender: TObject);
 begin
   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
@@ -1475,6 +1647,19 @@ procedure TFormPrincipal.DBMemoTracoKeyUp(Sender: TObject; var Key: Word;
 begin
   UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
       'traco', DBMemoTraco);
+end;
+
+procedure TFormPrincipal.DBMemoVolumeEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'volume', DBMemoVolume);
+end;
+
+procedure TFormPrincipal.DBMemoVolumeKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'volume', DBMemoVolume);
 end;
 
 procedure TFormPrincipal.EditAssociacaoEditingDone(Sender: TObject);
@@ -1831,6 +2016,13 @@ begin
         ChartInfravermelho.AddSeries(GraficoInfravermelho)
         else
         ChartInfravermelho.ClearSeries;
+
+      Dados.SdfDataSetDifracao.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Difracao',ComboboxDirecaoLaser.Text);
+      if Dados.SdfDataSetDifracao.FileName <> EmptyStr then
+        ChartDifracao.AddSeries(GraficoDifracao)
+        else
+        ChartDifracao.ClearSeries;
   end
   else
   DBGrid1.Clear;
@@ -1963,14 +2155,14 @@ begin
   idRruff:=ListboxRruff_id.GetSelectedText;
   if idRruff <> EmptyStr then
   begin
-    {Dados.Sqlite3DatasetAmostras.Close;
-    Dados.Sqlite3DatasetAmostras.SQL:='SELECT rruff_id, especie FROM rruff WHERE rruff_id="'+
+    Dados.Sqlite3DatasetAmostras.Close;
+    Dados.Sqlite3DatasetAmostras.SQL:='SELECT * FROM rruff WHERE rruff_id="'+
     idRruff+'" and especie = "'+NomeEspecie+'";';
     Dados.Sqlite3DatasetAmostras.Open;
     //Dados.Sqlite3DatasetAmostras.first;
     Dados.Sqlite3DatasetAmostras.Delete;
-    Dados.Sqlite3DatasetAmostras.ApplyUpdates;
-    PreencheAmostras; }
+   // Dados.Sqlite3DatasetAmostras.ApplyUpdates;
+    PreencheAmostras;
   end;
 end;
 
