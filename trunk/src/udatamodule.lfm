@@ -1,10 +1,10 @@
 object Dados: TDados
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
-  Height = 390
+  Height = 408
   HorizontalOffset = 325
   VerticalOffset = 143
-  Width = 414
+  Width = 422
   object Sqlite3DatasetGeral: TSqlite3Dataset
     FileName = 'C:\Users\elidio\Documents\Minerais\Data\Mineraisbd.s3db'
     PrimaryKey = 'id'
@@ -116,12 +116,12 @@ object Dados: TDados
     Delimiter = ','
     FirstLineAsSchema = False
     left = 248
-    top = 180
+    top = 168
   end
   object DatasourceGraficoRaman: TDatasource
     DataSet = SdfDataSetGraficoRaman
     left = 353
-    top = 180
+    top = 168
   end
   object SdfDataSetVarredura: TSdfDataSet
     FileMustExist = True
@@ -131,12 +131,12 @@ object Dados: TDados
     Delimiter = ','
     FirstLineAsSchema = False
     left = 248
-    top = 254
+    top = 232
   end
   object DatasourceVarredura: TDatasource
     DataSet = SdfDataSetVarredura
-    left = 350
-    top = 254
+    left = 353
+    top = 232
   end
   object SdfDataSetInfravermelho: TSdfDataSet
     FileMustExist = True
@@ -146,11 +146,26 @@ object Dados: TDados
     Delimiter = ','
     FirstLineAsSchema = False
     left = 248
-    top = 322
+    top = 296
   end
   object DatasourceInfravermelho: TDatasource
     DataSet = SdfDataSetInfravermelho
-    left = 352
-    top = 320
+    left = 353
+    top = 296
+  end
+  object SdfDataSetDifracao: TSdfDataSet
+    FileMustExist = True
+    ReadOnly = False
+    FieldDefs = <>
+    AllowMultiLine = False
+    Delimiter = ','
+    FirstLineAsSchema = False
+    left = 248
+    top = 354
+  end
+  object DatasourceDifracao: TDatasource
+    DataSet = SdfDataSetDifracao
+    left = 353
+    top = 354
   end
 end
