@@ -123,4 +123,19 @@ object Dados: TDados
     left = 353
     top = 180
   end
+  object SdfDataSetVarredura: TSdfDataSet
+    FileMustExist = True
+    ReadOnly = False
+    FieldDefs = <>
+    AllowMultiLine = False
+    Delimiter = ','
+    FirstLineAsSchema = False
+    left = 248
+    top = 254
+  end
+  object DatasourceVarredura: TDatasource
+    DataSet = SdfDataSetVarredura
+    left = 350
+    top = 254
+  end
 end

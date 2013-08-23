@@ -13,6 +13,8 @@ type
   { TDados }
 
   TDados = class(TDataModule)
+    DatasourceInfravermelho: TDatasource;
+    DatasourceVarredura: TDatasource;
     DatasourceGraficoRaman: TDatasource;
     DatasourcePreencheAmostras: TDatasource;
     DatasourcePlanilhaMicrossonda: TDatasource;
@@ -24,6 +26,8 @@ type
     DatasourceDidatico: TDatasource;
     frDBDataSet1: TfrDBDataSet;
     frReport1: TfrReport;
+    SdfDataSetInfravermelho: TSdfDataSet;
+    SdfDataSetVarredura: TSdfDataSet;
     SdfDataSetGraficoRaman: TSdfDataSet;
     SdfDataSetPlanilhaMicrossonda: TSdfDataSet;
     Sqlite3DatasetPreencheAmostras: TSqlite3Dataset;
@@ -52,6 +56,9 @@ var
 
   Const Microssonda:String = 'Microssonda';
         Raman:String = 'RAMAN';
+        AmplaVarredura:String = 'Ampla Varredura';
+        Infravermelho:String ='Espectro Infravermelho';
+
 implementation
 
 {$R *.lfm}
@@ -158,6 +165,32 @@ begin
     end;
   end
   else
+  if Tipo = AmplaVarredura then
+  begin
+    sltb:= sldb.GetTable('SELECT especie, rruff_id, varredura FROM rruff WHERE '+
+    'especie ="'+Especie+'" and rruff_id ="'+Rruff_id+'";');
+    MS:=sltb.FieldAsBlob(sltb.FieldIndex['varredura']);
+    if MS <> nil then
+    begin
+      MS.Position:=0;
+      MS.SaveToFile(GetCurrentDir+'\Data\varredura.csv');
+      Result:=GetCurrentDir+'\Data\varredura.csv';
+    end;
+  end
+  else
+  if Tipo = Infravermelho then
+  begin
+    sltb:= sldb.GetTable('SELECT especie, rruff_id, infravermelho FROM rruff WHERE '+
+    'especie ="'+Especie+'" and rruff_id ="'+Rruff_id+'";');
+    MS:=sltb.FieldAsBlob(sltb.FieldIndex['infravermelho']);
+    if MS <> nil then
+    begin
+      MS.Position:=0;
+      MS.SaveToFile(GetCurrentDir+'\Data\infravermelho.csv');
+      Result:=GetCurrentDir+'\Data\infravermelho.csv';
+    end;
+  end
+  else
   Result:=EmptyStr;
 end;
 
@@ -176,6 +209,20 @@ begin
     sltb:= sldb.GetTable('SELECT especie, rruff_id, raman, direcao_laser FROM rruff ;');
     FS:=TFileStream.Create(DiretorioArquivo, fmOpenRead);
     sldb.UpdateBlob('UPDATE rruff set raman = ? WHERE especie = "'+Especie+'" and rruff_id="'+Rruff_id+'";', fs);
+    FS.Free;
+  end;
+  if Tipo = AmplaVarredura then
+  begin
+    sltb:= sldb.GetTable('SELECT especie, rruff_id, varredura FROM rruff ;');
+    FS:=TFileStream.Create(DiretorioArquivo, fmOpenRead);
+    sldb.UpdateBlob('UPDATE rruff set varredura = ? WHERE especie = "'+Especie+'" and rruff_id="'+Rruff_id+'";', fs);
+    FS.Free;
+  end;
+  if Tipo = Infravermelho then
+  begin
+    sltb:= sldb.GetTable('SELECT especie, rruff_id, infravermelho FROM rruff ;');
+    FS:=TFileStream.Create(DiretorioArquivo, fmOpenRead);
+    sldb.UpdateBlob('UPDATE rruff set infravermelho = ? WHERE especie = "'+Especie+'" and rruff_id="'+Rruff_id+'";', fs);
     FS.Free;
   end;
 end;
