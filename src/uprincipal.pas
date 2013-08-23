@@ -87,17 +87,17 @@ type
     BGRALabelOcorrencia: TBGRALabel;
     BGRALabelAssociacao: TBGRALabel;
     BGRAPanel1: TBGRAPanel;
-    BitBtn1: TBitBtn;
+    BitBtnArquivoVarredura: TBitBtn;
     BitBtnAlterarRaman: TBitBtn;
-    BitBtn3: TBitBtn;
+    BitBtnArquivoInfravermelho: TBitBtn;
     BitBtnAdImagem: TBitBtn;
-    BitBtnAlterar: TBitBtn;
+    BitBtnAlterarMicrossonda: TBitBtn;
     BitBtnRemImagem: TBitBtn;
-    Chart2LineSeries1: TLineSeries;
-    Chart3LineSeries1: TLineSeries;
+    ChartVarreduraLineSeries1: TLineSeries;
+    ChartInfravermelhoLineSeries1: TLineSeries;
     ChartRaman: TChart;
-    Chart2: TChart;
-    Chart3: TChart;
+    ChartVarredura: TChart;
+    ChartInfravermelho: TChart;
     ComboBoxDirecaoLaser: TComboBox;
     ComboBoxClasse: TComboBox;
     ComboBoxDureza_max: TComboBox;
@@ -316,13 +316,15 @@ type
     TabSheetOticas: TTabSheet;
     TabSheetProp_Fisicas: TTabSheet;
     Timer1: TTimer;
-    procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtnArquivoInfravermelhoClick(Sender: TObject);
+    procedure BitBtnArquivoVarreduraClick(Sender: TObject);
     procedure BitBtnAdImagemClick(Sender: TObject);
-    procedure BitBtnAlterarClick(Sender: TObject);
+    procedure BitBtnAlterarMicrossondaClick(Sender: TObject);
     procedure BitBtnAlterarRamanClick(Sender: TObject);
     procedure BitBtnFiltrarClick(Sender: TObject);
     procedure BitBtnRemImagemClick(Sender: TObject);
     procedure ComboBoxClasseChange(Sender: TObject);
+    procedure ComboBoxDirecaoLaserChange(Sender: TObject);
     procedure ComboBoxDureza_maxChange(Sender: TObject);
     procedure ComboBoxDureza_minChange(Sender: TObject);
     procedure ComboBoxGrupoChange(Sender: TObject);
@@ -616,6 +618,11 @@ begin
   Preenche_Grupos;
   Preenche_SubGrupos;
   Preenche_Lista;
+end;
+
+procedure TFormPrincipal.ComboBoxDirecaoLaserChange(Sender: TObject);
+begin
+
 end;
 
 procedure TFormPrincipal.ComboBoxGrupoChange(Sender: TObject);
@@ -1177,12 +1184,37 @@ begin
   AtualizaImagem;
 end;
 
-procedure TFormPrincipal.BitBtn1Click(Sender: TObject);
+procedure TFormPrincipal.BitBtnArquivoVarreduraClick(Sender: TObject);
 begin
-
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    if OpenDialog1.Execute then
+    begin
+      if OpenDialog1.FileName <> EmptyStr then
+      begin
+        Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, 'Ampla Varredura', Opendialog1.FileName,'');
+      end;
+    end;
+  end;
 end;
 
-procedure TFormPrincipal.BitBtnAlterarClick(Sender: TObject);
+procedure TFormPrincipal.BitBtnArquivoInfravermelhoClick(Sender: TObject);
+begin
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    if OpenDialog1.Execute then
+    begin
+      if OpenDialog1.FileName <> EmptyStr then
+      begin
+        Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, 'Espectro Infravermelho', Opendialog1.FileName,'');
+      end;
+    end;
+  end;
+end;
+
+procedure TFormPrincipal.BitBtnAlterarMicrossondaClick(Sender: TObject);
 var ExecSQL:String;
 begin
   if OpenDialog1.Execute then
@@ -1774,17 +1806,31 @@ begin
       Dados.SdfDataSetPlanilhaMicrossonda.Close;
       Dados.SdfDataSetPlanilhaMicrossonda.FileName:=
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Microssonda','');
-      if Dados.SdfDataSetPlanilhaMicrossonda.FileName = EmptyStr then
+      if Dados.SdfDataSetPlanilhaMicrossonda.FileName <> EmptyStr then
       Dados.SdfDataSetPlanilhaMicrossonda.open
       else
       DBGrid1.Clear;
-
+         //////////posteriormente mudar para apenas um sdfdataset, implementando o Pagecontrol on change
       Dados.SdfDataSetGraficoRaman.FileName:=
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'RAMAN',ComboboxDirecaoLaser.Text);
       if Dados.SdfDataSetGraficoRaman.FileName <> EmptyStr then
         ChartRaman.AddSeries(GraficoRaman)
         else
         ChartRaman.ClearSeries;
+
+      Dados.SdfDataSetVarredura.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Ampla Varredura',ComboboxDirecaoLaser.Text);
+      if Dados.SdfDataSetVarredura.FileName <> EmptyStr then
+        ChartVarredura.AddSeries(GraficoVarredura)
+        else
+        ChartVarredura.ClearSeries;
+
+      Dados.SdfDataSetInfravermelho.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Espectro Infravermelho',ComboboxDirecaoLaser.Text);
+      if Dados.SdfDataSetInfravermelho.FileName <> EmptyStr then
+        ChartInfravermelho.AddSeries(GraficoInfravermelho)
+        else
+        ChartInfravermelho.ClearSeries;
   end
   else
   DBGrid1.Clear;
@@ -1811,9 +1857,9 @@ end;
 procedure TFormPrincipal.MenuItemAdicionarAmostraClick(Sender: TObject);
 var ExecSQL, Rruff_id: String;
 begin
-  Rruff_id:=EditRruff_id.Text+'-'+EditRruff_num.Text;
+  Rruff_id:=EditRruff_id.Text;//+'-'+EditRruff_num.Text;
   if Rruff_id = EmptyStr then
-  Rruff_id:='A00000-0';
+  Rruff_id:='A00000';
   if ListBoxMinerais.GetSelectedText <> EmptyStr then
   begin
     ExecSQL:='INSERT INTO rruff (especie, rruff_id) VALUES("'+ListboxMinerais.GetSelectedText;

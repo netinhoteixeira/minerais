@@ -707,7 +707,7 @@ object FormPrincipal: TFormPrincipal
       Font.Color = clNone
     end
     object ListBoxRruff_id: TListBox
-      Left = 8
+      Left = 6
       Height = 508
       Top = 96
       Width = 152
@@ -1995,14 +1995,14 @@ object FormPrincipal: TFormPrincipal
                   Caption = 'Arquivos de Dados da Microssonda'
                   ParentColor = False
                 end
-                object BitBtnAlterar: TBitBtn
+                object BitBtnAlterarMicrossonda: TBitBtn
                   Left = 512
                   Height = 30
                   Top = 8
                   Width = 81
                   Anchors = [akTop, akRight]
                   Caption = 'Alterar'
-                  OnClick = BitBtnAlterarClick
+                  OnClick = BitBtnAlterarMicrossondaClick
                   TabOrder = 0
                 end
               end
@@ -2133,8 +2133,18 @@ object FormPrincipal: TFormPrincipal
                 Top = 216
                 Width = 100
                 ItemHeight = 15
+                ItemIndex = 4
+                Items.Strings = (
+                  '0.000'
+                  '45.000 ccw'
+                  '90.000 ccw'
+                  'depolarized'
+                  'Todos os Dados'
+                )
+                OnChange = ComboBoxDirecaoLaserChange
                 Style = csDropDownList
                 TabOrder = 4
+                Text = 'Todos os Dados'
               end
               object Label5: TLabel
                 Left = 262
@@ -2193,16 +2203,16 @@ object FormPrincipal: TFormPrincipal
               Caption = 'Instrumento'
               ParentColor = False
             end
-            object BitBtn1: TBitBtn
+            object BitBtnArquivoVarredura: TBitBtn
               Left = 21
               Height = 22
               Top = -2
               Width = 187
               Caption = 'Alterar Arquivo de Dados'
-              OnClick = BitBtn1Click
+              OnClick = BitBtnArquivoVarreduraClick
               TabOrder = 0
             end
-            object Chart2: TChart
+            object ChartVarredura: TChart
               Left = 24
               Height = 232
               Top = 30
@@ -2223,8 +2233,9 @@ object FormPrincipal: TFormPrincipal
               Title.Text.Strings = (
                 'TAChart'
               )
+              Anchors = [akTop, akLeft, akRight]
               ParentColor = False
-              object Chart2LineSeries1: TLineSeries
+              object ChartVarreduraLineSeries1: TLineSeries
               end
             end
             object DBMemoComprimentoOnda: TDBMemo
@@ -2332,7 +2343,7 @@ object FormPrincipal: TFormPrincipal
               OnKeyUp = DBMemoResolucaoKeyUp
               TabOrder = 2
             end
-            object Chart3: TChart
+            object ChartInfravermelho: TChart
               Left = 32
               Height = 242
               Top = 30
@@ -2353,16 +2364,18 @@ object FormPrincipal: TFormPrincipal
               Title.Text.Strings = (
                 'TAChart'
               )
+              Anchors = [akTop, akLeft, akRight]
               ParentColor = False
-              object Chart3LineSeries1: TLineSeries
+              object ChartInfravermelhoLineSeries1: TLineSeries
               end
             end
-            object BitBtn3: TBitBtn
+            object BitBtnArquivoInfravermelho: TBitBtn
               Left = 32
               Height = 26
               Top = -2
               Width = 159
-              Caption = 'BitBtn3'
+              Caption = 'Alterar Arquivo de Dados'
+              OnClick = BitBtnArquivoInfravermelhoClick
               TabOrder = 4
             end
           end
