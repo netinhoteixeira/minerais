@@ -114,14 +114,14 @@ type
     DBEditDureza_Min: TDBEdit;
     DBGrid1: TDBGrid;
     DBMemo1: TDBMemo;
-    DBMemo10: TDBMemo;
-    DBMemo2: TDBMemo;
+    DBMemoDifracaoId: TDBMemo;
+    DBMemoQuimicaId: TDBMemo;
     DBMemo3: TDBMemo;
-    DBMemo4: TDBMemo;
+    DBMemoRamanId: TDBMemo;
     DBMemo5: TDBMemo;
-    DBMemo6: TDBMemo;
+    DBMemoVarreduraId: TDBMemo;
     DBMemo7: TDBMemo;
-    DBMemo8: TDBMemo;
+    DBMemoInfravermelhoId: TDBMemo;
     DBMemo9: TDBMemo;
     DBMemoA: TDBMemo;
     DBMemoB: TDBMemo;
@@ -600,6 +600,7 @@ type
     procedure MenuItemNormalClick(Sender: TObject);
     procedure MenuItemNovoClick(Sender: TObject);
     procedure MenuItemSelecionaBDClick(Sender: TObject);
+    procedure PageControlRruffChange(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
     procedure Preenche_Lista;
@@ -641,6 +642,9 @@ const
   Minerais :String = 'minerais';
   Mineralogia: String= 'mineralogia';
   Rruff: String = 'rruff';
+  EspectroRAMAN:String = 'Espectro RAMAN';
+  TodosOsDados:String = 'Todos os Dados';
+  Depolarized:String = 'Depolarized';
 
   lista_formatos: string = 'All Files| *.jpg; *.jpeg;'; //ver se *.mpeg é compatível
   grande: integer = 13;
@@ -1340,6 +1344,13 @@ begin
           ListboxRruff_id.GetSelectedText, 'Ampla Varredura', Opendialog1.FileName,'');
       end;
     end;
+    Dados.SdfDataSetGraficos.FileName:=
+      Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+        'Ampla Varredura', '');
+    if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+      ChartVarredura.AddSeries(GraficoVarredura)
+    else
+      ChartVarredura.ClearSeries;
   end;
 end;
 
@@ -1355,6 +1366,13 @@ begin
           ListboxRruff_id.GetSelectedText, 'Espectro Infravermelho', Opendialog1.FileName,'');
       end;
     end;
+    Dados.SdfDataSetGraficos.FileName:=
+      Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+        'Espectro Infravermelho', '');
+    if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+      ChartInfravermelho.AddSeries(GraficoInfravermelho)
+    else
+      ChartInfravermelho.ClearSeries;
   end;
 end;
 
@@ -1370,6 +1388,13 @@ begin
           ListboxRruff_id.GetSelectedText, 'Difracao', Opendialog1.FileName,'');
       end;
     end;
+    Dados.SdfDataSetGraficos.FileName:=
+      Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+        'Difracao', '');
+    if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+      ChartDifracao.AddSeries(GraficoDifracao)
+    else
+      ChartDifracao.ClearSeries;
   end;
 end;
 
@@ -1394,13 +1419,23 @@ end;
 
 procedure TFormPrincipal.BitBtnAlterarRamanClick(Sender: TObject);
 begin
-  if OpenDialog1.Execute then
+  if ListboxRruff_id.GetSelectedText <> EMptyStr then
   begin
-    if OpenDialog1.FileName <> EmptyStr then
+    if OpenDialog1.Execute then
     begin
-      Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
-        ListboxRruff_id.GetSelectedText, 'RAMAN', Opendialog1.FileName,ComboboxDirecaoLaser.Text);
+      if OpenDialog1.FileName <> EmptyStr then
+      begin
+        Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, 'RAMAN', Opendialog1.FileName,ComboboxDirecaoLaser.Text);
+      end;
     end;
+
+    Dados.SdfDataSetGraficos.FileName:=
+    Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, EspectroRAMAN,ComboboxDirecaoLaser.Text);
+    if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+      ChartRaman.AddSeries(GraficoRaman)
+    else
+      ChartRaman.ClearSeries;
   end;
 end;
 
@@ -1975,7 +2010,11 @@ begin
   ProcuraMineral;
   if MenuItemAmostras.Checked then
   PreencheAmostras;
+  Dados.Sqlite3DatasetAmostras.Close;
   DBGrid1.Clear;
+  ChartVarredura.ClearSeries;
+  ChartInfravermelho.ClearSeries;
+  ChartDifracao.ClearSeries;
 end;
 
 procedure TFormPrincipal.ListBoxRruff_idClick(Sender: TObject);
@@ -1988,6 +2027,8 @@ begin
       ListboxRruff_id.GetSelectedText+'";';
     Dados.Sqlite3DatasetAmostras.Open;
 
+    if PageCOntrolRruff.ActivePage.Caption = 'Química Ideal' then
+    begin
       Dados.SdfDataSetPlanilhaMicrossonda.Close;
       Dados.SdfDataSetPlanilhaMicrossonda.FileName:=
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Microssonda','');
@@ -1995,37 +2036,48 @@ begin
       Dados.SdfDataSetPlanilhaMicrossonda.open
       else
       DBGrid1.Clear;
-         //////////posteriormente mudar para apenas um sdfdataset, implementando o Pagecontrol on change
-      Dados.SdfDataSetGraficoRaman.FileName:=
-        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'RAMAN',ComboboxDirecaoLaser.Text);
-      if Dados.SdfDataSetGraficoRaman.FileName <> EmptyStr then
+    end
+    else
+    if PageControlRruff.ActivePage.Caption = EspectroRAMAN then
+    begin
+      Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, EspectroRAMAN,ComboboxDirecaoLaser.Text);
+      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
         ChartRaman.AddSeries(GraficoRaman)
         else
         ChartRaman.ClearSeries;
-
-      Dados.SdfDataSetVarredura.FileName:=
+    end
+    else
+    if PageControlRruff.ActivePage.Caption = 'Ampla Varredura com Artefatos Espectrais' then
+    begin
+      Dados.SdfDataSetGraficos.FileName:=
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Ampla Varredura',ComboboxDirecaoLaser.Text);
-      if Dados.SdfDataSetVarredura.FileName <> EmptyStr then
+      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
         ChartVarredura.AddSeries(GraficoVarredura)
         else
         ChartVarredura.ClearSeries;
-
-      Dados.SdfDataSetInfravermelho.FileName:=
+    end
+    else
+    if PageControlRruff.ActivePage.Caption = 'Espectro Infravermelho' then
+    begin
+      Dados.SdfDataSetGraficos.FileName:=
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Espectro Infravermelho',ComboboxDirecaoLaser.Text);
-      if Dados.SdfDataSetInfravermelho.FileName <> EmptyStr then
+      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
         ChartInfravermelho.AddSeries(GraficoInfravermelho)
         else
         ChartInfravermelho.ClearSeries;
-
-      Dados.SdfDataSetDifracao.FileName:=
+    end
+    else
+    if PageControlRruff.ActivePage.Caption = 'Powder Diffraction' then
+    begin
+      Dados.SdfDataSetGraficos.FileName:=
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Difracao',ComboboxDirecaoLaser.Text);
-      if Dados.SdfDataSetDifracao.FileName <> EmptyStr then
+      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
         ChartDifracao.AddSeries(GraficoDifracao)
         else
         ChartDifracao.ClearSeries;
-  end
-  else
-  DBGrid1.Clear;
+    end;
+  end;
 end;
 
 procedure TFormPrincipal.RetiraDaLista;
@@ -2049,7 +2101,7 @@ end;
 procedure TFormPrincipal.MenuItemAdicionarAmostraClick(Sender: TObject);
 var ExecSQL, Rruff_id: String;
 begin
-  Rruff_id:=EditRruff_id.Text;//+'-'+EditRruff_num.Text;
+  Rruff_id:=EditRruff_id.Text;
   if Rruff_id = EmptyStr then
   Rruff_id:='A00000';
   if ListBoxMinerais.GetSelectedText <> EmptyStr then
@@ -2057,6 +2109,27 @@ begin
     ExecSQL:='INSERT INTO rruff (especie, rruff_id) VALUES("'+ListboxMinerais.GetSelectedText;
     ExecSQL:=ExecSQL+'" , "'+Rruff_id+'");';
     Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
+
+      ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES ("'+ListboxMinerais.GetSelectedText+
+        '" , "'+ListboxRruff_id.GetSelectedText+'" , "0.000");';
+      Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQl);
+
+      ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES ("'+ListboxMinerais.GetSelectedText+
+        '" , "'+ListboxRruff_id.GetSelectedText+'" , "45.000 ccw");';
+      Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
+
+      ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES("'+ListboxMinerais.GetSelectedText +
+        '", "'+ListboxRruff_id.GetSelectedText+'" , "90.000 ccw");';
+      Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
+
+      ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES("'+ListboxMinerais.GetSelectedText +
+        '", "'+ListboxRruff_id.GetSelectedText+'" , "'+depolarized+'");';
+      Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
+
+      ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES("'+ListboxMinerais.GetSelectedText +
+        '", "'+ListboxRruff_id.GetSelectedText+'" , "'+TodosOsDados+'");';
+      Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
+
     PreencheAmostras;
   end;
 end;
@@ -2154,14 +2227,14 @@ begin
   NomeEspecie:=ListboxMinerais.GetSelectedText;
   idRruff:=ListboxRruff_id.GetSelectedText;
   if idRruff <> EmptyStr then
-  begin
+  begin                    //remover da tabela raman também
     Dados.Sqlite3DatasetAmostras.Close;
     Dados.Sqlite3DatasetAmostras.SQL:='SELECT * FROM rruff WHERE rruff_id="'+
     idRruff+'" and especie = "'+NomeEspecie+'";';
     Dados.Sqlite3DatasetAmostras.Open;
     //Dados.Sqlite3DatasetAmostras.first;
     Dados.Sqlite3DatasetAmostras.Delete;
-   // Dados.Sqlite3DatasetAmostras.ApplyUpdates;
+    Dados.Sqlite3DatasetAmostras.ApplyUpdates;
     PreencheAmostras;
   end;
 end;
@@ -2330,6 +2403,26 @@ begin
     dbmemoClasse_Cristalina.ReadOnly := True;
     DBMemoCor_Lamina.ReadOnly := True;
 
+    DBMemoQuimicaId.ReadOnly:=True;
+    DBMemoRamanId.ReadOnly:=True;
+    DBMemoVarreduraId.ReadOnly:=True;
+    DBMemoInfravermelhoId.ReadOnly:=True;
+    DBMemoDifracaoId.ReadOnly:=True;
+    DBMemoComprimentoOnda.ReadOnly:=True;
+    DBMemoDescricaoBS.ReadOnly:=True;
+    DBMemoInstrumentoBS.ReadOnly:=True;
+    DBMemoDescricaoInfravermelho.ReadOnly:=True;
+    DBMemoInstrumentoIV.ReadOnly:=True;
+    DBMemoResolucao.ReadOnly:=True;
+    DBMemoA.ReadOnly:=True;
+    DBMemoB.ReadOnly:=True;
+    DBMemoC.ReadOnly:=True;
+    DBMemoAlpha.ReadOnly:=True;
+    DBMemoBeta.ReadOnly:=True;
+    DBMemoGamma.ReadOnly:=True;
+    DBMemoVolume.ReadOnly:=True;
+    DBMemoSistemaCristalino.ReadOnly:=True;
+
     DBMemoQuimicaIdeal.ReadOnly:=True;
     DBMemoLocalidade.ReadOnly:=True;
     DBMemoFonte.ReadOnly:=True;
@@ -2394,6 +2487,26 @@ begin
     DBMemoHabito.ReadOnly := False;
     dbmemoClasse_Cristalina.ReadOnly := False;
     DBMemoCor_Lamina.ReadOnly := False;
+
+    DBMemoQuimicaId.ReadOnly:=False;
+    DBMemoRamanId.ReadOnly:=False;
+    DBMemoVarreduraId.ReadOnly:=False;
+    DBMemoInfravermelhoId.ReadOnly:=False;
+    DBMemoDifracaoId.ReadOnly:=False;
+    DBMemoComprimentoOnda.ReadOnly:=False;
+    DBMemoDescricaoBS.ReadOnly:=False;
+    DBMemoInstrumentoBS.ReadOnly:=False;
+    DBMemoDescricaoInfravermelho.ReadOnly:=False;
+    DBMemoInstrumentoIV.ReadOnly:=False;
+    DBMemoResolucao.ReadOnly:=False;
+    DBMemoA.ReadOnly:=False;
+    DBMemoB.ReadOnly:=False;
+    DBMemoC.ReadOnly:=False;
+    DBMemoAlpha.ReadOnly:=False;
+    DBMemoBeta.ReadOnly:=False;
+    DBMemoGamma.ReadOnly:=False;
+    DBMemoVolume.ReadOnly:=False;
+    DBMemoSistemaCristalino.ReadOnly:=False;
 
     DBMemoQuimicaIdeal.ReadOnly:=False;
     DBMemoLocalidade.ReadOnly:=False;
@@ -2587,6 +2700,63 @@ procedure TFormPrincipal.MenuItemSelecionaBDClick(Sender: TObject);
 begin
   FormSelecionaBD.Show;
   Timer1.Enabled := True;
+end;
+
+procedure TFormPrincipal.PageControlRruffChange(Sender: TObject);
+begin
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    if PageControlRruff.ActivePage.Caption = 'Química Ideal' then
+    begin
+      Dados.SdfDataSetPlanilhaMicrossonda.Close;
+      Dados.SdfDataSetPlanilhaMicrossonda.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Microssonda','');
+      if Dados.SdfDataSetPlanilhaMicrossonda.FileName <> EmptyStr then
+      Dados.SdfDataSetPlanilhaMicrossonda.Open
+      else
+      DBGrid1.Clear;
+    end
+    else
+    if PageControlRruff.ActivePage.Caption = 'Espectro RAMAN' then
+    begin
+      Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'RAMAN',ComboboxDirecaoLaser.Text);
+      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+        ChartRaman.AddSeries(GraficoRaman)
+        else
+        ChartRaman.ClearSeries;
+    end
+    else
+    if PageControlRruff.ActivePage.Caption = 'Ampla Varredura com Artefatos Espectrais' then
+    begin
+      Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Ampla Varredura',ComboboxDirecaoLaser.Text);
+      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+        ChartVarredura.AddSeries(GraficoVarredura)
+        else
+        ChartVarredura.ClearSeries;
+    end
+    else
+    if PageControlRruff.ActivePage.Caption = 'Espectro Infravermelho' then
+    begin
+      Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Espectro Infravermelho',ComboboxDirecaoLaser.Text);
+      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+        ChartInfravermelho.AddSeries(GraficoInfravermelho)
+        else
+        ChartInfravermelho.ClearSeries;
+    end
+    else
+    if PageControlRruff.ActivePage.Caption = 'Powder Diffraction' then
+    begin
+      Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Difracao',ComboboxDirecaoLaser.Text);
+      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+        ChartDifracao.AddSeries(GraficoDifracao)
+        else
+        ChartDifracao.ClearSeries;
+    end;
+  end;
 end;
 
 procedure TFormPrincipal.preenche_lista;
