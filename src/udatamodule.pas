@@ -13,10 +13,7 @@ type
   { TDados }
 
   TDados = class(TDataModule)
-    DatasourceDifracao: TDatasource;
-    DatasourceInfravermelho: TDatasource;
-    DatasourceVarredura: TDatasource;
-    DatasourceGraficoRaman: TDatasource;
+    DatasourceGraficos: TDatasource;
     DatasourcePreencheAmostras: TDatasource;
     DatasourcePlanilhaMicrossonda: TDatasource;
     DatasourceAmostras: TDatasource;
@@ -27,10 +24,7 @@ type
     DatasourceDidatico: TDatasource;
     frDBDataSet1: TfrDBDataSet;
     frReport1: TfrReport;
-    SdfDataSetDifracao: TSdfDataSet;
-    SdfDataSetInfravermelho: TSdfDataSet;
-    SdfDataSetVarredura: TSdfDataSet;
-    SdfDataSetGraficoRaman: TSdfDataSet;
+    SdfDataSetGraficos: TSdfDataSet;
     SdfDataSetPlanilhaMicrossonda: TSdfDataSet;
     Sqlite3DatasetPreencheAmostras: TSqlite3Dataset;
     Sqlite3DatasetAmostras: TSqlite3Dataset;
@@ -57,7 +51,7 @@ var
   FS:TFileStream;
 
   Const Microssonda:String = 'Microssonda';
-        Raman:String = 'RAMAN';
+        Raman:String = 'Espectro RAMAN';
         AmplaVarredura:String = 'Ampla Varredura';
         Infravermelho:String ='Espectro Infravermelho';
         Difracao:String = 'Difracao';
@@ -74,6 +68,18 @@ begin
     SQLite3DatasetGeral.Close;
   if SQLite3DatasetDidatico.Active then
     SQLite3DatasetDidatico.Close;
+  if SQLite3DatasetCombobox.Active then
+    SQLite3DatasetCombobox.Close;
+  if SQLite3DatasetPrinter.Active then
+    SQLite3DatasetPrinter.Close;
+  if SQLite3DatasetPreencheAmostras.Active then
+    SQLite3DatasetPreencheAmostras.Close;
+  if SQlite3DatasetAmostras.Active then
+    SQLite3DatasetAmostras.Close;
+  if SDFDatasetPlanilhaMicrossonda.Active then
+    SDFDatasetPlanilhaMicrossonda.Close;
+  if SdfDatasetGraficos.Active then
+    SdfDatasetGraficos.Close;
 end;
 
 function TDados.determinaBD(diretorio: string): boolean;
@@ -126,8 +132,6 @@ begin
   else
     Result := False;
 
-
-
   {SQLite3DatasetGeral.FindField();
 
   if SQLite3DatasetGeral.TableExists('minerais') then
@@ -145,7 +149,7 @@ begin
   if Tipo = Microssonda then
   begin
     sltb:= sldb.GetTable('SELECT especie, rruff_id, microssonda FROM rruff WHERE '+
-    'especie ="'+Especie+'" and rruff_id ="'+Rruff_id+'" ;');
+      'especie ="'+Especie+'" and rruff_id ="'+Rruff_id+'" ;');
     MS:=sltb.FieldAsBlob(sltb.FieldIndex['microssonda']);
     if MS <> nil then
     begin
@@ -157,14 +161,17 @@ begin
   else
   if Tipo = Raman then
   begin
-    sltb:= sldb.GetTable('SELECT especie, rruff_id, raman, direcao_laser FROM rruff WHERE '+
-    'especie ="'+Especie+'" and rruff_id ="'+Rruff_id+'";');
-    MS:=sltb.FieldAsBlob(sltb.FieldIndex['raman']);
-    if MS <> nil then
+    sltb:= sldb.GetTable('SELECT especie, rruff_id, arquivo_raman, direcao_polarizacao FROM raman WHERE '+
+      'especie ="'+Especie+'" and rruff_id ="'+Rruff_id+'" and direcao_polarizacao ="'+Tipo+'";');
+    if sltb.ColCount >0 then
     begin
-      MS.Position:=0;
-      MS.SaveToFile(GetCurrentDir+'\Data\raman.csv');
-      Result:=GetCurrentDir+'\Data\raman.csv';
+      MS:=sltb.FieldAsBlob(sltb.FieldIndex['arquivo_raman']);
+      if MS <> nil then
+      begin
+        MS.Position:=0;
+        MS.SaveToFile(GetCurrentDir+'\Data\raman.csv');
+        Result:=GetCurrentDir+'\Data\raman.csv';
+      end;
     end;
   end
   else
@@ -222,9 +229,10 @@ begin
   end;
   if Tipo = Raman then  //criar tabela para raman
   begin
-    sltb:= sldb.GetTable('SELECT especie, rruff_id, raman, direcao_laser FROM rruff ;');
+    sltb:= sldb.GetTable('SELECT especie, rruff_id, arquivo_raman, direcao_polarizacao FROM raman ;');
     FS:=TFileStream.Create(DiretorioArquivo, fmOpenRead);
-    sldb.UpdateBlob('UPDATE rruff set raman = ? WHERE especie = "'+Especie+'" and rruff_id="'+Rruff_id+'";', fs);
+    sldb.UpdateBlob('UPDATE rruff set arquivo_raman = ? WHERE especie = "'+Especie+'" and rruff_id="'+Rruff_id+'"'+
+      ' direcao_polarizacao = "'+DirecaoLaser+'";', fs);
     FS.Free;
   end;
   if Tipo = AmplaVarredura then

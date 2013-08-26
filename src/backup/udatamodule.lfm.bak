@@ -2,8 +2,8 @@ object Dados: TDados
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
   Height = 408
-  HorizontalOffset = 325
-  VerticalOffset = 143
+  HorizontalOffset = 894
+  VerticalOffset = 153
   Width = 422
   object Sqlite3DatasetGeral: TSqlite3Dataset
     FileName = 'C:\Users\elidio\Documents\Minerais\Data\Mineraisbd.s3db'
@@ -108,82 +108,20 @@ object Dados: TDados
     left = 353
     top = 17
   end
-  object SdfDataSetGraficoRaman: TSdfDataSet
+  object SdfDataSetGraficos: TSdfDataSet
     FileMustExist = True
     ReadOnly = False
     FieldDefs = <>
+    Filtered = True
     AllowMultiLine = False
     Delimiter = ','
     FirstLineAsSchema = False
     left = 248
     top = 168
   end
-  object DatasourceGraficoRaman: TDatasource
-    DataSet = SdfDataSetGraficoRaman
+  object DatasourceGraficos: TDatasource
+    DataSet = SdfDataSetGraficos
     left = 353
     top = 168
-  end
-  object SdfDataSetVarredura: TSdfDataSet
-    FileMustExist = True
-    ReadOnly = False
-    FieldDefs = <    
-      item
-        Name = 'SdfDataSetVarreduraField1'
-        DataType = ftUnknown
-        Precision = 0
-        Size = 0
-      end    
-      item
-        Name = 'SdfDataSetVarreduraField2'
-        DataType = ftUnknown
-        Precision = 0
-        Size = 0
-      end    
-      item
-        Name = 'SdfDataSetVarreduraField3'
-        DataType = ftUnknown
-        Precision = 0
-        Size = 0
-      end>
-    AllowMultiLine = False
-    Delimiter = ','
-    FirstLineAsSchema = False
-    left = 248
-    top = 232
-  end
-  object DatasourceVarredura: TDatasource
-    DataSet = SdfDataSetVarredura
-    left = 353
-    top = 232
-  end
-  object SdfDataSetInfravermelho: TSdfDataSet
-    FileMustExist = True
-    ReadOnly = False
-    FieldDefs = <>
-    AllowMultiLine = False
-    Delimiter = ','
-    FirstLineAsSchema = False
-    left = 248
-    top = 296
-  end
-  object DatasourceInfravermelho: TDatasource
-    DataSet = SdfDataSetInfravermelho
-    left = 353
-    top = 296
-  end
-  object SdfDataSetDifracao: TSdfDataSet
-    FileMustExist = True
-    ReadOnly = False
-    FieldDefs = <>
-    AllowMultiLine = False
-    Delimiter = ','
-    FirstLineAsSchema = False
-    left = 248
-    top = 354
-  end
-  object DatasourceDifracao: TDatasource
-    DataSet = SdfDataSetDifracao
-    left = 353
-    top = 354
   end
 end
