@@ -90,10 +90,16 @@ type
     BGRAPanel1: TBGRAPanel;
     BitBtnAlterarDifracao: TBitBtn;
     BitBtnAlterarRaman: TBitBtn;
-    BitBtnAdImagem: TBitBtn;
-    BitBtnAlterarMicrossonda: TBitBtn;
+    BitBtnExcluiDadosInfravermelho: TBitBtn;
+    BitBtnAdicionarImagemAmostra: TBitBtn;
     BitBtnArquivoInfravermelho: TBitBtn;
     BitBtnArquivoVarredura: TBitBtn;
+    BitBtnRemoverImagemAmostra: TBitBtn;
+    BitBtnAdicionarImagemQuimica: TBitBtn;
+    BitBtn2: TBitBtn;
+    BitBtn3: TBitBtn;
+    BitBtnAlterarMicrossonda: TBitBtn;
+    BitBtnAdImagem: TBitBtn;
     BitBtnRemImagem: TBitBtn;
     ChartDifracao: TChart;
     ChartInfravermelho: TChart;
@@ -114,13 +120,15 @@ type
     DBEditDureza_Min: TDBEdit;
     DBGrid1: TDBGrid;
     DBMemo1: TDBMemo;
+    DBMemoProprietario: TDBMemo;
+    DBMemoAmostraRruff_id: TDBMemo;
     DBMemoDifracaoId: TDBMemo;
     DBMemoQuimicaId: TDBMemo;
     DBMemo3: TDBMemo;
     DBMemoRamanId: TDBMemo;
     DBMemo5: TDBMemo;
     DBMemoVarreduraId: TDBMemo;
-    DBMemo7: TDBMemo;
+    DBMemoRruff_idInfravermelho: TDBMemo;
     DBMemoInfravermelhoId: TDBMemo;
     DBMemo9: TDBMemo;
     DBMemoA: TDBMemo;
@@ -194,6 +202,8 @@ type
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     GroupBox7: TGroupBox;
+    GroupBoxImagemQuimica: TGroupBox;
+    GroupBoxImagemAmostra: TGroupBox;
     GroupBoxDadosDifracao: TGroupBox;
     GroupBoxDifracao: TGroupBox;
     GroupBoxGraficoInfravermelho: TGroupBox;
@@ -219,10 +229,15 @@ type
     Image3: TImage;
     Image4: TImage;
     Image5: TImage;
+    ImageAmostra: TImage;
+    ImageQuimica: TImage;
     ImageAmpliada: TImage;
     ImageCristalografia1: TImage;
     ImageCristalografia2: TImage;
     Label1: TLabel;
+    Label10: TLabel;
+    Label5: TLabel;
+    LabelProprietario: TLabel;
     Label4: TLabel;
     Label6: TLabel;
     Label7: TLabel;
@@ -239,7 +254,6 @@ type
     Label2: TLabel;
     Label3: TLabel;
     LabelA: TLabel;
-    Label5: TLabel;
     LabelB: TLabel;
     LabelC: TLabel;
     LabelAlpha: TLabel;
@@ -339,6 +353,7 @@ type
     Panel3: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;
+    Panel6: TPanel;
     PanelFichas: TPanel;
     PanelRRUFF: TPanel;
     PanelFicha: TPanel;
@@ -360,6 +375,8 @@ type
     TabSheetOticas: TTabSheet;
     TabSheetProp_Fisicas: TTabSheet;
     Timer1: TTimer;
+    procedure BitBtnAdicionarImagemAmostraClick(Sender: TObject);
+    procedure BitBtnAdicionarImagemQuimicaClick(Sender: TObject);
     procedure BitBtnAlterarDifracaoClick(Sender: TObject);
     procedure BitBtnArquivoInfravermelhoClick(Sender: TObject);
     procedure BitBtnArquivoVarreduraClick(Sender: TObject);
@@ -643,8 +660,6 @@ const
   Mineralogia: String= 'mineralogia';
   Rruff: String = 'rruff';
   EspectroRAMAN:String = 'Espectro RAMAN';
-  TodosOsDados:String = 'Todos os Dados';
-  Depolarized:String = 'Depolarized';
 
   lista_formatos: string = 'All Files| *.jpg; *.jpeg;'; //ver se *.mpeg é compatível
   grande: integer = 13;
@@ -1398,6 +1413,40 @@ begin
   end;
 end;
 
+procedure TFormPrincipal.BitBtnAdicionarImagemQuimicaClick(Sender: TObject);
+begin
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    OpenPictureDialog1.FileName := EmptyStr;
+    if OpenPictureDialog1.Execute then
+    begin
+      if OpenPictureDialog1.FileName <> EmptyStr then
+      begin
+        self.ImageQuimica.Picture.Graphic:=
+          AdicionaImagemRruff(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+           OpenPictureDialog1.FileName, 'Quimica');
+      end;
+    end;
+  end;
+end;
+
+procedure TFormPrincipal.BitBtnAdicionarImagemAmostraClick(Sender: TObject);
+begin
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    OpenPictureDialog1.FileName := EmptyStr;
+    if OpenPictureDialog1.Execute then
+    begin
+      if OpenPictureDialog1.FileName <> EmptyStr then
+      begin
+        self.ImageAmostra.Picture.Graphic:=
+          AdicionaImagemRruff(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+           OpenPictureDialog1.FileName, 'Amostra');
+      end;
+    end;
+  end;
+end;
+
 procedure TFormPrincipal.BitBtnAlterarMicrossondaClick(Sender: TObject);
 var ExecSQL:String;
 begin
@@ -2027,7 +2076,14 @@ begin
       ListboxRruff_id.GetSelectedText+'";';
     Dados.Sqlite3DatasetAmostras.Open;
 
-    if PageCOntrolRruff.ActivePage.Caption = 'Química Ideal' then
+    if PageControlRruff.ActivePage.Caption = 'Descrição da Amostra' then
+    begin
+      self.ImageAmostra.Picture.Graphic:=
+        SelecionaImagensRruff(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          'Amostra');
+    end;
+
+    if PageControlRruff.ActivePage.Caption = 'Química Ideal' then
     begin
       Dados.SdfDataSetPlanilhaMicrossonda.Close;
       Dados.SdfDataSetPlanilhaMicrossonda.FileName:=
@@ -2036,6 +2092,9 @@ begin
       Dados.SdfDataSetPlanilhaMicrossonda.open
       else
       DBGrid1.Clear;
+      self.ImageQuimica.Picture.Graphic:=
+        SelecionaImagensRruff(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          'Quimica');
     end
     else
     if PageControlRruff.ActivePage.Caption = EspectroRAMAN then
@@ -2099,9 +2158,14 @@ begin
 end;
 
 procedure TFormPrincipal.MenuItemAdicionarAmostraClick(Sender: TObject);
-var ExecSQL, Rruff_id: String;
-begin
-  Rruff_id:=EditRruff_id.Text;
+//var ExecSQL, Rruff_id: String;
+
+ begin
+   if ListBoxMinerais.GetSelectedText <> EmptyStr then
+   begin
+     Dados.AdicionaAmostra(ListboxMinerais.GetSelectedText, EditRruff_id.Text);
+   end;
+ { Rruff_id:=EditRruff_id.Text;
   if Rruff_id = EmptyStr then
   Rruff_id:='A00000';
   if ListBoxMinerais.GetSelectedText <> EmptyStr then
@@ -2110,16 +2174,17 @@ begin
     ExecSQL:=ExecSQL+'" , "'+Rruff_id+'");';
     Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
 
+
       ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES ("'+ListboxMinerais.GetSelectedText+
-        '" , "'+ListboxRruff_id.GetSelectedText+'" , "0.000");';
+        '" , "'+ListboxRruff_id.GetSelectedText+'" , "'+Angulo0+'");';
       Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQl);
 
       ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES ("'+ListboxMinerais.GetSelectedText+
-        '" , "'+ListboxRruff_id.GetSelectedText+'" , "45.000 ccw");';
+        '" , "'+ListboxRruff_id.GetSelectedText+'" , "'+Angulo45+'");';
       Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
 
       ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES("'+ListboxMinerais.GetSelectedText +
-        '", "'+ListboxRruff_id.GetSelectedText+'" , "90.000 ccw");';
+        '", "'+ListboxRruff_id.GetSelectedText+'" , "'+Angulo90+'");';
       Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
 
       ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES("'+ListboxMinerais.GetSelectedText +
@@ -2129,9 +2194,9 @@ begin
       ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES("'+ListboxMinerais.GetSelectedText +
         '", "'+ListboxRruff_id.GetSelectedText+'" , "'+TodosOsDados+'");';
       Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
-
+     }
     PreencheAmostras;
-  end;
+ // end;
 end;
 
 procedure TFormPrincipal.MenuItemAdicionarClick(Sender: TObject);
@@ -2222,19 +2287,10 @@ begin
 end;
 
 procedure TFormPrincipal.MenuItemRemoverAmostraClick(Sender: TObject);
-var NomeEspecie, idRruff: String;
 begin
-  NomeEspecie:=ListboxMinerais.GetSelectedText;
-  idRruff:=ListboxRruff_id.GetSelectedText;
-  if idRruff <> EmptyStr then
-  begin                    //remover da tabela raman também
-    Dados.Sqlite3DatasetAmostras.Close;
-    Dados.Sqlite3DatasetAmostras.SQL:='SELECT * FROM rruff WHERE rruff_id="'+
-    idRruff+'" and especie = "'+NomeEspecie+'";';
-    Dados.Sqlite3DatasetAmostras.Open;
-    //Dados.Sqlite3DatasetAmostras.first;
-    Dados.Sqlite3DatasetAmostras.Delete;
-    Dados.Sqlite3DatasetAmostras.ApplyUpdates;
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    Dados.ExcluiAmostra(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText);
     PreencheAmostras;
   end;
 end;
@@ -2300,6 +2356,8 @@ begin
     GroupBoxOpticas.Font.Size := grande;
     GroupBoxCristalografia.Font.Size := grande;
     ListBoxMinerais.Font.Size := grande;
+    ListBoxRruff_id.Font.Size:=Grande;
+    PageControlRruff.Font.Size:=Grande;
   end
   else
   begin
@@ -2312,6 +2370,8 @@ begin
     GroupBoxOpticas.Font.Size := normal;
     GroupBoxCristalografia.Font.Size := normal;
     ListBoxMinerais.Font.Size := normal;
+    ListBoxRruff_id.Font.Size:= Normal;
+    PageControlRruff.Font.Size:=Normal;
   end;
   AtualizaRichMemo;
   Config.Free;
@@ -2433,6 +2493,8 @@ begin
     DBMemoQuimicaMedida.ReadOnly:=True;
     DBMemoPin_id.ReadOnly:=True;
     DBMemoOrientacao.ReadOnly:=True;
+    DBMemoProprietario.ReadOnly:=True;
+    DBMemoAmostraRruff_id.ReadOnly:=True;
 
     richmemoformula.Visible := True;
     //dbmemoformula.Visible := False;
@@ -2518,6 +2580,8 @@ begin
     DBMemoQuimicaMedida.ReadOnly:=False;
     DBMemoPin_id.ReadOnly:=False;
     DBMemoOrientacao.ReadOnly:=False;
+    DBMemoProprietario.ReadOnly:=False;
+    DBMemoAmostraRruff_id.ReadOnly:=False;
 
     richmemoformula.Visible := False;
     //dbmemoformula.Visible := True;
@@ -2706,6 +2770,12 @@ procedure TFormPrincipal.PageControlRruffChange(Sender: TObject);
 begin
   if ListboxRruff_id.GetSelectedText <> EmptyStr then
   begin
+    if PageControlRruff.ActivePage.Caption = 'Descrição da Amostra' then
+    begin
+      self.ImageAmostra.Picture.Graphic:=
+        SelecionaImagensRruff(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          'Amostra');
+    end;
     if PageControlRruff.ActivePage.Caption = 'Química Ideal' then
     begin
       Dados.SdfDataSetPlanilhaMicrossonda.Close;
@@ -2715,6 +2785,9 @@ begin
       Dados.SdfDataSetPlanilhaMicrossonda.Open
       else
       DBGrid1.Clear;
+      self.ImageQuimica.Picture.Graphic:=
+        SelecionaImagensRruff(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          'Quimica');
     end
     else
     if PageControlRruff.ActivePage.Caption = 'Espectro RAMAN' then

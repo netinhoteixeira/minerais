@@ -37,11 +37,13 @@ type
     { private declarations }
   public
     sldb: TSQLiteDatabase;
-  sltb: TSQLiteTable;
+    sltb: TSQLiteTable;
     function DeterminaBD(diretorio: string): boolean;
     function DeterminaArquivo(Especie:String; Rruff_id:String; Tipo:String; DirecaoLaser:String): String;
     procedure SalvaArquivo(Especie:String; Rruff_id:String; Tipo:String;
          DiretorioArquivo:String; DirecaoLaser:String);
+    procedure AdicionaAmostra(Especie:String; Rruff_id:String);
+    procedure ExcluiAmostra(Especie:String; Rruff_id:String);
     { public declarations }
   end;
 
@@ -55,6 +57,11 @@ var
         AmplaVarredura:String = 'Ampla Varredura';
         Infravermelho:String ='Espectro Infravermelho';
         Difracao:String = 'Difracao';
+        TodosOsDados:String = 'Todos os Dados';
+        Depolarized:String = 'Depolarized';
+        Angulo0:String = '0.000';
+        Angulo45:String = '45.000 ccw';
+        Angulo90:String = '90.000 ccw';
 
 implementation
 
@@ -80,6 +87,7 @@ begin
     SDFDatasetPlanilhaMicrossonda.Close;
   if SdfDatasetGraficos.Active then
     SdfDatasetGraficos.Close;
+  sldb.Free;
 end;
 
 function TDados.determinaBD(diretorio: string): boolean;
@@ -116,18 +124,24 @@ begin
   end;
     sldb := TSQLiteDatabase.Create(Diretorio);
   //Checa se a Tabela é compatível
-  if SQLite3DatasetGeral.TableExists('minerais') then
+  if sldb.TableExists('minerais') then
   begin
-    if SQLite3DatasetGeral.TableExists('mineralogia') then
+    if sldb.TableExists('mineralogia') then
     begin
-      if SQLite3DatasetGeral.TableExists('rruff') then
+      if sldb.TableExists('rruff') then
       begin
-      Result := True;
+        if sldb.TableExists('raman') then
+        begin
+          Result:=True
+        end
+        else
+        Result := False;
       end
-      else Result:=False;
+      else
+      Result := False;
     end
     else
-      Result := False;
+    Result:=False;
   end
   else
     Result := False;
@@ -256,6 +270,37 @@ begin
     sldb.UpdateBlob('UPDATE rruff set difracao = ? WHERE especie = "'+Especie+'" and rruff_id="'+Rruff_id+'";', fs);
     FS.Free;
   end;
+end;
+
+procedure TDados.AdicionaAmostra(Especie: String; Rruff_id: String);
+var ExecSQL:String;
+begin
+  if Rruff_id = EmptyStr then
+  Rruff_id:='A00000';
+  ExecSQL:='INSERT INTO rruff (especie, rruff_id) VALUES("'+Especie;
+  ExecSQL:=ExecSQL+'" , "'+Rruff_id+'");';
+  sldb.ExecSQL(ExecSQL);
+   ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES ("'+Especie+
+     '" , "'+Rruff_id+'" , "'+Angulo0+'");';
+   sldb.ExecSQL(ExecSQl);
+
+   ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES ("'+Especie+
+     '" , "'+Rruff_id+'" , "'+Angulo45+'");';
+   sldb.ExecSQL(ExecSQL);
+
+   ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES("'+Especie +
+     '", "'+Rruff_id+'" , "'+Angulo90+'");';
+   sldb.ExecSQL(ExecSQL);
+
+   ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES("'+Especie +
+     '", "'+Rruff_id+'" , "'+depolarized+'");';
+   sldb.ExecSQL(ExecSQL);
+end;
+
+procedure TDados.ExcluiAmostra(Especie: String; Rruff_id: String);
+begin
+  sldb.ExecSQL('DELETE FROM rruff WHERE (especie="'+Especie+'" and rruff_id ="'+Rruff_id+'");');
+  sldb.ExecSQL('DELETE FROM raman WHERE (especie="'+Especie+'" and rruff_id="'+Rruff_id+'");');
 end;
 
 end.

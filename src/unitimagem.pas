@@ -11,6 +11,8 @@ function ImagemMineral(Nome: string; Numero: integer): TJPEGImage;
 function ImagemDidatica(Campo: string; Numero: integer): TJPEGImage;
 function SelecionarImagem(NomeCampo: string; Tabela: string; Numero: integer): TJPEGImage;
 procedure RemoveImagem(NomeCampo: string; Tabela: string; Numero: integer);
+function AdicionaImagemRruff(Especie: String; Rruff_id: String; Arquivo:String; Tipo:String):TJPEGImage;
+function SelecionaImagensRruff(Especie: String; Rruff_id: String; Tipo:String):TJPEGImage;
 
 var
   ms: TMemoryStream;
@@ -110,6 +112,54 @@ procedure RemoveImagem(NomeCampo: string; Tabela: string; Numero: integer);
 begin
   Dados.sldb.ExecSQL('Update ' + Tabela + ' set ' + NomeCampo + IntToStr(Numero) +
     ' = null ;');
+end;
+
+function AdicionaImagemRruff(Especie: String; Rruff_id: String; Arquivo:String; Tipo:String):TJPEGImage;
+var FS:TFileStream;
+begin
+  Try
+    FS := TFileStream.Create(Arquivo, fmOpenRead);
+    if Tipo = 'Amostra' then
+    begin
+      Dados.sldb.UpdateBlob('UPDATE rruff set imagem_amostra = ? WHERE especie = "'+Especie+'" and '+
+        'rruff_id = "'+Rruff_id+'";', fs)
+    end
+    else
+    if Tipo = 'Quimica' then
+    begin
+      Dados.sldb.UpdateBlob('UPDATE rruff set imagem_quimica = ? WHERE especie = "'+Especie+'" and '+
+        'rruff_id = "'+Rruff_id+'";', fs)
+    end;
+  finally
+    fs.Free;
+    Result:=SelecionaImagensRruff(Especie, Rruff_id, Tipo);
+  end;
+end;
+
+function SelecionaImagensRruff(Especie: String; Rruff_id: String; Tipo:String): TJPEGImage;
+begin
+  if Tipo = 'Amostra' then
+  begin
+    Dados.sltb := Dados.sldb.GetTable('SELECT imagem_amostra FROM rruff where especie = "' +
+      Especie + '" and rruff_id = "' + Rruff_id +'";');
+    ms := Dados.sltb.FieldAsBlob(Dados.sltb.FieldIndex['imagem_amostra']);
+  end
+  else
+  if Tipo =  'Quimica' then
+  begin
+    Dados.sltb := Dados.sldb.GetTable('SELECT  imagem_quimica FROM rruff where especie = "' +
+      Especie + '" and rruff_id = "' + Rruff_id +'";');
+    ms := Dados.sltb.FieldAsBlob(Dados.sltb.FieldIndex['imagem_quimica']);
+  end;
+  if (ms <> nil) then
+  begin
+    ms.Position := 0;
+    pic := TJPEGImage.Create;
+    pic.LoadFromStream(ms);
+    Result := pic;
+  end
+  else
+    Result := nil;
 end;
 
 end.
