@@ -112,7 +112,6 @@ object Dados: TDados
     FileMustExist = True
     ReadOnly = False
     FieldDefs = <>
-    Filtered = True
     AllowMultiLine = False
     Delimiter = ','
     FirstLineAsSchema = False

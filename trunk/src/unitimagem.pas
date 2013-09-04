@@ -10,7 +10,7 @@ uses
 function ImagemMineral(Nome: string; Numero: integer): TJPEGImage;
 function ImagemDidatica(Campo: string; Numero: integer): TJPEGImage;
 function SelecionarImagem(NomeCampo: string; Tabela: string; Numero: integer): TJPEGImage;
-procedure RemoveImagem(NomeCampo: string; Tabela: string; Numero: integer);
+procedure RemoveImagem(NomeCampo: string; Tabela: string; Numero: integer; Rruff_id:String);
 function AdicionaImagemRruff(Especie: String; Rruff_id: String; Arquivo:String; Tipo:String):TJPEGImage;
 function SelecionaImagensRruff(Especie: String; Rruff_id: String; Tipo:String):TJPEGImage;
 
@@ -107,11 +107,19 @@ begin
   else
     Result := nil;
 end;
-
-procedure RemoveImagem(NomeCampo: string; Tabela: string; Numero: integer);
+         ///mudar o procedimento abaixo para udatamodule e mudar o nome
+procedure RemoveImagem(NomeCampo: string; Tabela: string; Numero: integer;Rruff_id:String);
 begin
-  Dados.sldb.ExecSQL('Update ' + Tabela + ' set ' + NomeCampo + IntToStr(Numero) +
-    ' = null ;');
+  if Numero = 0 then
+  begin
+    Dados.sldb.ExecSQL('SELECT '+NomeCampo+' FROM '+Tabela+' WHERE rruff_id ="'+Rruff_id+'";');
+    Dados.sldb.ExecSQL('Update ' + Tabela + ' set '+ NomeCampo +' = null;')
+  end
+  else
+  begin
+    Dados.sldb.ExecSQL('Update ' + Tabela + ' set ' + NomeCampo + IntToStr(Numero) +
+      ' = null ;');
+  end;
 end;
 
 function AdicionaImagemRruff(Especie: String; Rruff_id: String; Arquivo:String; Tipo:String):TJPEGImage;
