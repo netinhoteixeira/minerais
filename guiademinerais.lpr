@@ -9,7 +9,8 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, uprincipal, bgracontrols, udatamodule, sqlite3laz, richmemopackage,
   tachartlazaruspkg, sdflaz, lazreport, uselecionabd, ubibliografia,
-  uformimpressao, UnitAjuda, unitSplash, crt, unitImagem, unitgraficos;
+  uformimpressao, UnitAjuda, unitSplash, crt, unitImagem, unitgraficos,
+unitPlanilha;
 
 {$R *.res}
 
@@ -27,6 +28,7 @@ begin
   Application.CreateForm(TFormBibliografia, FormBibliografia);
   Application.CreateForm(TFormImpressao, FormImpressao);
   Application.CreateForm(TFormAjuda, FormAjuda);
+  Application.CreateForm(TFormPlanilha, FormPlanilha);
   Application.Run;
 end.
 

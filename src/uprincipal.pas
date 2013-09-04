@@ -68,8 +68,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   StdCtrls, ExtCtrls, ComCtrls, DBCtrls, ExtDlgs, Buttons, DBGrids, BGRAPanel,
-  BGRALabel, RichMemo, TAGraph, TASeries, uFormImpressao, uSelecionaBD,
-  SQLite3mod, SQLite3tablemod, uBibliografia, UnitAjuda, IniFiles, unitImagem;
+  BGRALabel, BGRASpeedButton, RichMemo, TAGraph, TASeries, uFormImpressao,
+  uSelecionaBD, SQLite3mod, SQLite3tablemod, uBibliografia, UnitAjuda, IniFiles,
+  unitImagem, unitPlanilha;
 
 type
 
@@ -88,6 +89,10 @@ type
     BGRALabelOcorrencia: TBGRALabel;
     BGRALabelAssociacao: TBGRALabel;
     BGRAPanel1: TBGRAPanel;
+    BitBtn1: TBitBtn;
+    BitBtnVisualizar: TBitBtn;
+    BitBtnRemoverDifracao: TBitBtn;
+    BitBtnRemoverRaman: TBitBtn;
     BitBtnAlterarDifracao: TBitBtn;
     BitBtnAlterarRaman: TBitBtn;
     BitBtnExcluiDadosInfravermelho: TBitBtn;
@@ -96,8 +101,8 @@ type
     BitBtnArquivoVarredura: TBitBtn;
     BitBtnRemoverImagemAmostra: TBitBtn;
     BitBtnAdicionarImagemQuimica: TBitBtn;
-    BitBtn2: TBitBtn;
-    BitBtn3: TBitBtn;
+    BitBtnRemoveImagemQuimica: TBitBtn;
+    BitBtnRemoveArquivoPlanilha: TBitBtn;
     BitBtnAlterarMicrossonda: TBitBtn;
     BitBtnAdImagem: TBitBtn;
     BitBtnRemImagem: TBitBtn;
@@ -118,15 +123,17 @@ type
     DBEditDensidade_Min: TDBEdit;
     DBEditDureza_Max: TDBEdit;
     DBEditDureza_Min: TDBEdit;
-    DBGrid1: TDBGrid;
     DBMemo1: TDBMemo;
+    DBMemo3: TDBMemo;
+    DBMemoDescricaoRaman: TDBMemo;
+    DBMemoOrientacao: TDBMemo;
+    DBMemoPin_id: TDBMemo;
     DBMemoProprietario: TDBMemo;
     DBMemoAmostraRruff_id: TDBMemo;
     DBMemoDifracaoId: TDBMemo;
     DBMemoQuimicaId: TDBMemo;
-    DBMemo3: TDBMemo;
-    DBMemoRamanId: TDBMemo;
     DBMemo5: TDBMemo;
+    DBMemoRamanId: TDBMemo;
     DBMemoVarreduraId: TDBMemo;
     DBMemoRruff_idInfravermelho: TDBMemo;
     DBMemoInfravermelhoId: TDBMemo;
@@ -140,10 +147,7 @@ type
     DBMemoVolume: TDBMemo;
     DBMemoSistemaCristalino: TDBMemo;
     DBMemoDescricaoInfravermelho: TDBMemo;
-    DBMemoDescricaoRaman: TDBMemo;
     DBMemoInstrumentoIV: TDBMemo;
-    DBMemoOrientacao: TDBMemo;
-    DBMemoPin_id: TDBMemo;
     DBMemoResolucao: TDBMemo;
     DBMemoComprimentoOnda: TDBMemo;
     DBMemoDescricaoBS: TDBMemo;
@@ -202,14 +206,13 @@ type
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     GroupBox7: TGroupBox;
+    GroupBox8: TGroupBox;
     GroupBoxImagemQuimica: TGroupBox;
-    GroupBoxImagemAmostra: TGroupBox;
     GroupBoxDadosDifracao: TGroupBox;
     GroupBoxDifracao: TGroupBox;
     GroupBoxGraficoInfravermelho: TGroupBox;
     GroupBoxGraficoVarredura: TGroupBox;
     GroupBoxGraficoRaman: TGroupBox;
-    GroupBox9: TGroupBox;
     GroupBoxCristalografia: TGroupBox;
     GroupBoxCristalografia1: TGroupBox;
     GroupBoxCristalografia2: TGroupBox;
@@ -237,15 +240,18 @@ type
     Label1: TLabel;
     Label10: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
+    LabelDescricao3: TLabel;
+    LabelId_Quimica1: TLabel;
+    LabelOrientacao: TLabel;
+    LabelPinId: TLabel;
     LabelProprietario: TLabel;
     Label4: TLabel;
-    Label6: TLabel;
     Label7: TLabel;
     Label8: TLabel;
     Label9: TLabel;
     LabelId_Quimica: TLabel;
     LabelGamma: TLabel;
-    LabelId_Quimica1: TLabel;
     LabelId_Quimica2: TLabel;
     LabelId_Quimica3: TLabel;
     LabelId_Quimica4: TLabel;
@@ -258,11 +264,8 @@ type
     LabelC: TLabel;
     LabelAlpha: TLabel;
     LabelBeta: TLabel;
-    LabelDescricao3: TLabel;
     LabelDescricaoIV: TLabel;
     LabelInstrumentoIV: TLabel;
-    LabelOrientacao: TLabel;
-    LabelPinId: TLabel;
     LabelResolucao: TLabel;
     LabelConfiguracaoInstrumento: TLabel;
     LabelDescricaoBroadScan: TLabel;
@@ -375,6 +378,9 @@ type
     TabSheetOticas: TTabSheet;
     TabSheetProp_Fisicas: TTabSheet;
     Timer1: TTimer;
+    procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtnExcluiDadosInfravermelhoClick(Sender: TObject);
+    procedure BitBtnRemoveArquivoPlanilhaClick(Sender: TObject);
     procedure BitBtnAdicionarImagemAmostraClick(Sender: TObject);
     procedure BitBtnAdicionarImagemQuimicaClick(Sender: TObject);
     procedure BitBtnAlterarDifracaoClick(Sender: TObject);
@@ -385,6 +391,11 @@ type
     procedure BitBtnAlterarRamanClick(Sender: TObject);
     procedure BitBtnFiltrarClick(Sender: TObject);
     procedure BitBtnRemImagemClick(Sender: TObject);
+    procedure BitBtnRemoveImagemQuimicaClick(Sender: TObject);
+    procedure BitBtnRemoverDifracaoClick(Sender: TObject);
+    procedure BitBtnRemoverImagemAmostraClick(Sender: TObject);
+    procedure BitBtnRemoverRamanClick(Sender: TObject);
+    procedure BitBtnVisualizarClick(Sender: TObject);
     procedure ComboBoxClasseChange(Sender: TObject);
     procedure ComboBoxDirecaoLaserChange(Sender: TObject);
     procedure ComboBoxDureza_maxChange(Sender: TObject);
@@ -531,6 +542,9 @@ type
     procedure DBMemoPin_idEditingDone(Sender: TObject);
     procedure DBMemoPin_idKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemoProprietarioEditingDone(Sender: TObject);
+    procedure DBMemoProprietarioMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure DBMemoQuimicaIdealEditingDone(Sender: TObject);
     procedure DBMemoQuimicaIdealKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -590,10 +604,12 @@ type
     procedure Image4DblClick(Sender: TObject);
     procedure Image5Click(Sender: TObject);
     procedure Image5DblClick(Sender: TObject);
+    procedure ImageAmostraDblClick(Sender: TObject);
     procedure ImageCristalografia1Click(Sender: TObject);
     procedure ImageCristalografia1DblClick(Sender: TObject);
     procedure ImageCristalografia2Click(Sender: TObject);
     procedure ImageCristalografia2DblClick(Sender: TObject);
+    procedure ImageQuimicaDblClick(Sender: TObject);
     procedure ListBoxMineraisClick(Sender: TObject);
     procedure ListBoxRruff_idClick(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
@@ -660,10 +676,17 @@ const
   Mineralogia: String= 'mineralogia';
   Rruff: String = 'rruff';
   EspectroRAMAN:String = 'Espectro RAMAN';
+  AmplaVarredura:String = 'Ampla Varredura com Artefatos Espectrais';
 
   lista_formatos: string = 'All Files| *.jpg; *.jpeg;'; //ver se *.mpeg é compatível
   grande: integer = 13;
   normal: integer = 9;
+
+  TodosOsDados:String = 'Todos os Dados';
+  Depolarizado:String = 'Não polarizado';
+  Angulo0:String = '0.000';
+  Angulo45:String = '45.000 ccw';
+  Angulo90:String = '90.000 ccw';
 
 var
   FormPrincipal: TFormPrincipal;
@@ -707,7 +730,41 @@ end;
 
 procedure TFormPrincipal.ComboBoxDirecaoLaserChange(Sender: TObject);
 begin
+  if ComboboxDirecaoLaser.Text = TodosOsDados then
+      begin
+        Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          EspectroRAMAN, Angulo0);
+        if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+          ChartRaman.AddSeries(GraficoRaman);
 
+        Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          EspectroRAMAN, Angulo45);
+        if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+          ChartRaman.AddSeries(GraficoRaman);
+
+        Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          EspectroRAMAN, Angulo90);
+        if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+          ChartRaman.AddSeries(GraficoRaman);
+
+        Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          EspectroRAMAN, Depolarizado);
+        if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+          ChartRaman.AddSeries(GraficoRaman);
+      end
+      else
+      begin
+        Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          EspectroRAMAN, ComboboxDirecaoLaser.Text);
+   //         EspectroRAMAN, angulo45);   //teste
+        if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+          ChartRaman.AddSeries(GraficoRaman);
+      end;
 end;
 
 procedure TFormPrincipal.ComboBoxGrupoChange(Sender: TObject);
@@ -1320,14 +1377,43 @@ procedure TFormPrincipal.BitBtnRemImagemClick(Sender: TObject);
 begin
   if ListboxMinerais.GetSelectedText <> EmptyStr then
   begin
-  RemoveImagem('Imagem', 'minerais', StrToInt(Imagem_Selecionada));
+  RemoveImagem('Imagem', 'minerais', StrToInt(Imagem_Selecionada), '');
   end
   else
   begin
-    RemoveImagem('MineralogiaImagem', 'mineralogia', StrToInt(Imagem_Selecionada));
+    RemoveImagem('MineralogiaImagem', 'mineralogia', StrToInt(Imagem_Selecionada),'');
   end;
   Imagem_Selecionada := '1';
   AtualizaImagem;
+end;
+
+procedure TFormPrincipal.BitBtnRemoveImagemQuimicaClick(Sender: TObject);
+begin
+  RemoveImagem('imagem_quimica', 'rruff', 0, ListboxRruff_id.GetSelectedText);
+  ImageQuimica.Picture.Clear;
+end;
+
+procedure TFormPrincipal.BitBtnRemoverDifracaoClick(Sender: TObject);
+begin
+  RemoveImagem('difracao', rruff, 0, ListboxRruff_id.GetSelectedText);
+  ChartDifracao.ClearSeries;
+end;
+
+procedure TFormPrincipal.BitBtnRemoverImagemAmostraClick(Sender: TObject);
+begin
+   RemoveImagem('imagem_amostra', 'rruff', 0, ListboxRruff_id.GetSelectedText);
+   ImageAmostra.Picture.Clear;
+end;
+
+procedure TFormPrincipal.BitBtnRemoverRamanClick(Sender: TObject);
+begin
+  RemoveImagem('arquivo_raman', 'raman', 0, ListboxRruff_id.GetSelectedText);
+  ChartRaman.ClearSeries;
+end;
+
+procedure TFormPrincipal.BitBtnVisualizarClick(Sender: TObject);
+begin
+  FormPlanilha.ArquivoMicrossonda( ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText);
 end;
 
 procedure TFormPrincipal.BitBtnAdImagemClick(Sender: TObject);
@@ -1336,11 +1422,11 @@ begin
   begin
     if (Imagem_Selecionada = '6') then
       ShowMessage(
-        'Só é possível adicionar Imagens Cristalográficas se tiver algum mineral selecionado na lista')
+        'Só é possível adicionar Imagens de Cristalografia se tiver algum mineral selecionado na lista')
     else
     if (Imagem_Selecionada = '7') then
       ShowMessage(
-        'Só é possível adicionar Imagens Cristalográficas se tiver algum mineral selecionado na lista')
+        'Só é possível adicionar Imagens de Cristalografia se tiver algum mineral selecionado na lista')
     else
       Adiciona_Imagem(Imagem_Selecionada);
   end;
@@ -1447,6 +1533,23 @@ begin
   end;
 end;
 
+procedure TFormPrincipal.BitBtnRemoveArquivoPlanilhaClick(Sender: TObject);
+begin
+  RemoveImagem('microssonda', 'rruff', 0, ListboxRruff_id.GetSelectedText);
+end;
+
+procedure TFormPrincipal.BitBtnExcluiDadosInfravermelhoClick(Sender: TObject);
+begin
+  RemoveImagem('infravermelho', 'rruff', 0, ListboxRruff_id.GetSelectedText);
+  ChartInfravermelho.ClearSeries;
+end;
+
+procedure TFormPrincipal.BitBtn1Click(Sender: TObject);
+begin
+  RemoveImagem('varredura', 'rruff', 0, ListboxRruff_id.GetSelectedText);
+  ChartVarredura.ClearSeries;
+end;
+
 procedure TFormPrincipal.BitBtnAlterarMicrossondaClick(Sender: TObject);
 var ExecSQL:String;
 begin
@@ -1468,24 +1571,29 @@ end;
 
 procedure TFormPrincipal.BitBtnAlterarRamanClick(Sender: TObject);
 begin
-  if ListboxRruff_id.GetSelectedText <> EMptyStr then
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
   begin
-    if OpenDialog1.Execute then
+    if ComboboxDirecaoLaser.Text <> 'Todos os Dados' then
     begin
-      if OpenDialog1.FileName <> EmptyStr then
+      if OpenDialog1.Execute then
       begin
+        if OpenDialog1.FileName <> EmptyStr then
+        begin
         Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
-          ListboxRruff_id.GetSelectedText, 'RAMAN', Opendialog1.FileName,ComboboxDirecaoLaser.Text);
+           ListboxRruff_id.GetSelectedText, 'RAMAN', Opendialog1.FileName,ComboboxDirecaoLaser.Text);
+        end;
       end;
-    end;
 
-    Dados.SdfDataSetGraficos.FileName:=
-    Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, EspectroRAMAN,ComboboxDirecaoLaser.Text);
-    if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-      ChartRaman.AddSeries(GraficoRaman)
+      Dados.SdfDataSetGraficos.FileName:=
+      Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, EspectroRAMAN,ComboboxDirecaoLaser.Text);
+      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+        ChartRaman.AddSeries(GraficoRaman)
+      else
+        ChartRaman.ClearSeries;
+    end
     else
-      ChartRaman.ClearSeries;
-  end;
+      ShowMessage('Escolha a Direção de Polarização do Laser.');
+   end;
 end;
 
 procedure TFormPrincipal.DBMemoNomeEditingDone(Sender: TObject);
@@ -1559,6 +1667,19 @@ procedure TFormPrincipal.DBMemoPin_idKeyUp(Sender: TObject; var Key: Word;
 begin
   UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
     'pin_id', DBMemoPin_id);
+end;
+
+procedure TFormPrincipal.DBMemoProprietarioEditingDone(Sender: TObject);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'proprietario', DBMemoProprietario);
+end;
+
+procedure TFormPrincipal.DBMemoProprietarioMouseUp(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  UpDateCampos(Rruff, ListboxRruff_id.GetSelectedText,
+    'proprietario', DBMemoProprietario);
 end;
 
 procedure TFormPrincipal.DBMemoQuimicaIdealEditingDone(Sender: TObject);
@@ -2058,9 +2179,8 @@ begin
   limparichmemo;
   ProcuraMineral;
   if MenuItemAmostras.Checked then
-  PreencheAmostras;
+    PreencheAmostras;
   Dados.Sqlite3DatasetAmostras.Close;
-  DBGrid1.Clear;
   ChartVarredura.ClearSeries;
   ChartInfravermelho.ClearSeries;
   ChartDifracao.ClearSeries;
@@ -2081,59 +2201,96 @@ begin
       self.ImageAmostra.Picture.Graphic:=
         SelecionaImagensRruff(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
           'Amostra');
+
     end;
 
     if PageControlRruff.ActivePage.Caption = 'Química Ideal' then
     begin
-      Dados.SdfDataSetPlanilhaMicrossonda.Close;
-      Dados.SdfDataSetPlanilhaMicrossonda.FileName:=
-        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Microssonda','');
-      if Dados.SdfDataSetPlanilhaMicrossonda.FileName <> EmptyStr then
-      Dados.SdfDataSetPlanilhaMicrossonda.open
-      else
-      DBGrid1.Clear;
       self.ImageQuimica.Picture.Graphic:=
         SelecionaImagensRruff(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
           'Quimica');
+      Dados.SdfDataSetPlanilhaMicrossonda.Close;
+      Dados.SdfDataSetPlanilhaMicrossonda.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.
+          GetSelectedText, 'Microssonda', '');
+      if Dados.SdfDataSetPlanilhaMicrossonda.FileName <> EmptyStr then
+        BitbtnVisualizar.Enabled:=True
+      else
+        BitbtnVisualizar.Enabled:=False;
     end
     else
     if PageControlRruff.ActivePage.Caption = EspectroRAMAN then
     begin
-      Dados.SdfDataSetGraficos.FileName:=
-        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, EspectroRAMAN,ComboboxDirecaoLaser.Text);
+      if ComboboxDirecaoLaser.Text = TodosOsDados then
+      begin
+        Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          EspectroRAMAN, Angulo0);
+        if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+          ChartRaman.AddSeries(GraficoRaman);
+
+        Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          EspectroRAMAN, Angulo45);
+        if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+          ChartRaman.AddSeries(GraficoRaman);
+
+        Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          EspectroRAMAN, Angulo90);
+        if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+          ChartRaman.AddSeries(GraficoRaman);
+
+        Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          EspectroRAMAN, Depolarizado);
+        if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+          ChartRaman.AddSeries(GraficoRaman);
+      end
+      else
+      begin
+        Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          EspectroRAMAN, ComboboxDirecaoLaser.Text);
+
+        if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
+          ChartRaman.AddSeries(GraficoRaman);
+      end;
+   {  Dados.SdfDataSetGraficos.FileName:=
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, EspectroRAMAN, ComboboxDirecaoLaser.Text);
       if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
         ChartRaman.AddSeries(GraficoRaman)
-        else
-        ChartRaman.ClearSeries;
+      else
+        ChartRaman.ClearSeries;   }
     end
     else
-    if PageControlRruff.ActivePage.Caption = 'Ampla Varredura com Artefatos Espectrais' then
+    if PageControlRruff.ActivePage.Caption = AmplaVarredura then
     begin
       Dados.SdfDataSetGraficos.FileName:=
-        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Ampla Varredura',ComboboxDirecaoLaser.Text);
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Ampla Varredura','');
       if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
         ChartVarredura.AddSeries(GraficoVarredura)
-        else
+      else
         ChartVarredura.ClearSeries;
     end
     else
     if PageControlRruff.ActivePage.Caption = 'Espectro Infravermelho' then
     begin
       Dados.SdfDataSetGraficos.FileName:=
-        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Espectro Infravermelho',ComboboxDirecaoLaser.Text);
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Espectro Infravermelho','');
       if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
         ChartInfravermelho.AddSeries(GraficoInfravermelho)
-        else
+      else
         ChartInfravermelho.ClearSeries;
     end
     else
     if PageControlRruff.ActivePage.Caption = 'Powder Diffraction' then
     begin
       Dados.SdfDataSetGraficos.FileName:=
-        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Difracao',ComboboxDirecaoLaser.Text);
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Difracao','');
       if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
         ChartDifracao.AddSeries(GraficoDifracao)
-        else
+      else
         ChartDifracao.ClearSeries;
     end;
   end;
@@ -2158,45 +2315,12 @@ begin
 end;
 
 procedure TFormPrincipal.MenuItemAdicionarAmostraClick(Sender: TObject);
-//var ExecSQL, Rruff_id: String;
-
  begin
    if ListBoxMinerais.GetSelectedText <> EmptyStr then
    begin
      Dados.AdicionaAmostra(ListboxMinerais.GetSelectedText, EditRruff_id.Text);
    end;
- { Rruff_id:=EditRruff_id.Text;
-  if Rruff_id = EmptyStr then
-  Rruff_id:='A00000';
-  if ListBoxMinerais.GetSelectedText <> EmptyStr then
-  begin
-    ExecSQL:='INSERT INTO rruff (especie, rruff_id) VALUES("'+ListboxMinerais.GetSelectedText;
-    ExecSQL:=ExecSQL+'" , "'+Rruff_id+'");';
-    Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
-
-
-      ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES ("'+ListboxMinerais.GetSelectedText+
-        '" , "'+ListboxRruff_id.GetSelectedText+'" , "'+Angulo0+'");';
-      Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQl);
-
-      ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES ("'+ListboxMinerais.GetSelectedText+
-        '" , "'+ListboxRruff_id.GetSelectedText+'" , "'+Angulo45+'");';
-      Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
-
-      ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES("'+ListboxMinerais.GetSelectedText +
-        '", "'+ListboxRruff_id.GetSelectedText+'" , "'+Angulo90+'");';
-      Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
-
-      ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES("'+ListboxMinerais.GetSelectedText +
-        '", "'+ListboxRruff_id.GetSelectedText+'" , "'+depolarized+'");';
-      Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
-
-      ExecSQL:='INSERT INTO raman (especie, rruff_id, direcao_polarizacao) VALUES("'+ListboxMinerais.GetSelectedText +
-        '", "'+ListboxRruff_id.GetSelectedText+'" , "'+TodosOsDados+'");';
-      Dados.Sqlite3DatasetAmostras.ExecSQL(ExecSQL);
-     }
     PreencheAmostras;
- // end;
 end;
 
 procedure TFormPrincipal.MenuItemAdicionarClick(Sender: TObject);
@@ -2311,8 +2435,6 @@ begin
 end;
 
 procedure TFormPrincipal.ExcluiMineral;
-var
-  nome_exclusao: string; //esta var pode ser eliminada
 begin
   if (ListboxMinerais.GetSelectedText = emptystr) then
   begin
@@ -2320,21 +2442,12 @@ begin
   end
   else
   begin
-    nome_exclusao := ListboxMinerais.GetSelectedText;
-    if (dados.SQLite3DatasetGeral.FieldByName('nome').AsString <>
-      ListboxMinerais.GetSelectedText) then
-    begin
-      dados.SQLite3DatasetGeral.First;
-      repeat
-        dados.SQLite3DatasetGeral.Next;
-      until (dados.SQLite3DatasetGeral.FieldByName('nome').AsString = nome_exclusao);
-    end;
     // fazer form de exclusão
     if (QuestionDlg('Confirmação', 'Deseja realmente remover "' +
-      UpCase(nome_exclusao) + '"?', mtConfirmation, [mrNo, mrYes], 0) = mrYes) then
+      UpCase(ListboxMinerais.GetSelectedText) + '"?', mtConfirmation, [mrNo, mrYes], 0) = mrYes) then
     begin
-      dados.SQLite3DatasetGeral.Delete();
-      dados.SQLite3DatasetGeral.ApplyUpdates;
+      Dados.ExcluiMineral(ListboxMinerais.GetSelectedText);
+
       Preenche_Lista;
       AtualizaImagem;
       Barra_Status;
@@ -2778,13 +2891,13 @@ begin
     end;
     if PageControlRruff.ActivePage.Caption = 'Química Ideal' then
     begin
-      Dados.SdfDataSetPlanilhaMicrossonda.Close;
+     { Dados.SdfDataSetPlanilhaMicrossonda.Close;
       Dados.SdfDataSetPlanilhaMicrossonda.FileName:=
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText, 'Microssonda','');
       if Dados.SdfDataSetPlanilhaMicrossonda.FileName <> EmptyStr then
       Dados.SdfDataSetPlanilhaMicrossonda.Open
       else
-      DBGrid1.Clear;
+      DBGrid1.Clear; }
       self.ImageQuimica.Picture.Graphic:=
         SelecionaImagensRruff(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
           'Quimica');
@@ -3451,33 +3564,7 @@ begin
     AtualizaImagem;
   end;
 end;
- {
-procedure TFormPrincipal.Adiciona_Cristalografia(num: char);
-var
-  fs: tfilestream;
-begin
-  if (MenuItemModoEdicao.Checked) then
-  begin
-    if (ListboxMinerais.GetSelectedText <> emptystr) then
-    begin
-      OpenPictureDialog1.FileName := emptystr;
-      OpenPictureDialog1.Execute;
-      if (OpenPictureDialog1.FileName <> emptystr) then
-      begin
-        try
-          fs := TFileStream.Create(OpenPictureDialog1.FileName, fmOpenRead);
-          sldb.UpdateBlob('UPDATE minerais set imagem' +
-            num + ' = ? WHERE nome = "' + Dados.SQLite3DatasetGeral.FieldByName(
-            'nome').AsString + '"', fs);
-        finally
-          fs.Free;
-        end;
-      end;
-      AtualizaImagem;
-    end;
-  end;
-end;
-        }
+
 procedure TFormPrincipal.AtualizaImagem;
 var
   nome_mineral, aux: string;
@@ -3650,9 +3737,43 @@ begin
   Adiciona_Imagem('7');
 end;
 
+procedure TFormPrincipal.ImageQuimicaDblClick(Sender: TObject);
+begin
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    OpenPictureDialog1.FileName := EmptyStr;
+    if OpenPictureDialog1.Execute then
+    begin
+      if OpenPictureDialog1.FileName <> EmptyStr then
+      begin
+        self.ImageQuimica.Picture.Graphic:=
+          AdicionaImagemRruff(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+           OpenPictureDialog1.FileName, 'Quimica');
+      end;
+    end;
+  end;
+end;
+
 procedure TFormPrincipal.Image5DblClick(Sender: TObject);
 begin
   Adiciona_Imagem('5');
+end;
+
+procedure TFormPrincipal.ImageAmostraDblClick(Sender: TObject);
+begin
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    OpenPictureDialog1.FileName := EmptyStr;
+    if OpenPictureDialog1.Execute then
+    begin
+      if OpenPictureDialog1.FileName <> EmptyStr then
+      begin
+        self.ImageAmostra.Picture.Graphic:=
+          AdicionaImagemRruff(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+           OpenPictureDialog1.FileName, 'Amostra');
+      end;
+    end;
+  end;
 end;
 
 procedure TFormPrincipal.MemoryStreamParaImagem;
