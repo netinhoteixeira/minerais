@@ -89,7 +89,7 @@ object Dados: TDados
     ReadOnly = False
     FieldDefs = <>
     AllowMultiLine = False
-    Delimiter = ','
+    Delimiter = #0
     FirstLineAsSchema = False
     left = 248
     top = 105
@@ -122,5 +122,17 @@ object Dados: TDados
     DataSet = SdfDataSetGraficos
     left = 353
     top = 168
+  end
+  object Sqlite3DatasetInstrumentos: TSqlite3Dataset
+    PrimaryKey = 'id'
+    SaveOnClose = True
+    TableName = 'instrumentos'
+    left = 248
+    top = 320
+  end
+  object DatasourceInstrumentos: TDatasource
+    DataSet = Sqlite3DatasetInstrumentos
+    left = 352
+    top = 320
   end
 end

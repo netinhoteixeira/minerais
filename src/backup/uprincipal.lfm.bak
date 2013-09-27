@@ -2,10 +2,10 @@ object FormPrincipal: TFormPrincipal
   Left = 2
   Height = 690
   Top = 0
-  Width = 1339
+  Width = 1340
   Caption = 'Guia de Minerais'
   ClientHeight = 670
-  ClientWidth = 1339
+  ClientWidth = 1340
   Constraints.MinHeight = 690
   Constraints.MinWidth = 510
   Menu = MainMenu1
@@ -669,7 +669,7 @@ object FormPrincipal: TFormPrincipal
     Left = 0
     Height = 23
     Top = 647
-    Width = 1339
+    Width = 1340
     Panels = <    
       item
         Width = 510
@@ -684,7 +684,7 @@ object FormPrincipal: TFormPrincipal
     Left = 0
     Height = 20
     Top = 627
-    Width = 1339
+    Width = 1340
     Align = alBottom
     TabOrder = 4
     Visible = False
@@ -758,27 +758,27 @@ object FormPrincipal: TFormPrincipal
     Left = 680
     Height = 627
     Top = 0
-    Width = 659
+    Width = 660
     Align = alClient
     ClientHeight = 627
-    ClientWidth = 659
+    ClientWidth = 660
     TabOrder = 6
     object PanelFicha: TPanel
       Left = 1
       Height = 625
       Top = 1
-      Width = 657
+      Width = 658
       Align = alClient
       Anchors = [akTop, akRight, akBottom]
       BevelOuter = bvNone
       ClientHeight = 625
-      ClientWidth = 657
+      ClientWidth = 658
       TabOrder = 0
       object PageControlFicha: TPageControl
         Left = 0
         Height = 625
         Top = 0
-        Width = 657
+        Width = 658
         ActivePage = TabSheetCristalografia
         Align = alClient
         TabIndex = 3
@@ -1590,15 +1590,15 @@ object FormPrincipal: TFormPrincipal
         object TabSheetCristalografia: TTabSheet
           Caption = 'Cristalografia'
           ClientHeight = 597
-          ClientWidth = 649
+          ClientWidth = 650
           object GroupBox1: TGroupBox
             Left = 0
             Height = 597
             Top = 0
-            Width = 649
+            Width = 650
             Align = alClient
             ClientHeight = 579
-            ClientWidth = 645
+            ClientWidth = 646
             TabOrder = 0
             object GroupBoxCristalografia1: TGroupBox
               Left = 15
@@ -1623,16 +1623,16 @@ object FormPrincipal: TFormPrincipal
               Left = 3
               Height = 262
               Top = 295
-              Width = 640
+              Width = 641
               Anchors = [akTop, akLeft, akRight, akBottom]
               ClientHeight = 244
-              ClientWidth = 636
+              ClientWidth = 637
               TabOrder = 1
               object DBMemoSistema: TDBMemo
                 Left = 157
                 Height = 27
                 Top = 24
-                Width = 473
+                Width = 474
                 Anchors = [akTop, akLeft, akRight]
                 DataField = 'sistema'
                 DataSource = Dados.DatasourceGeral
@@ -1645,7 +1645,7 @@ object FormPrincipal: TFormPrincipal
                 Left = 157
                 Height = 27
                 Top = 64
-                Width = 473
+                Width = 474
                 Anchors = [akTop, akLeft, akRight]
                 DataField = 'classe_cristalina'
                 DataSource = Dados.DatasourceGeral
@@ -1658,7 +1658,7 @@ object FormPrincipal: TFormPrincipal
                 Left = 157
                 Height = 27
                 Top = 104
-                Width = 473
+                Width = 474
                 Anchors = [akTop, akLeft, akRight]
                 DataField = 'h_m'
                 DataSource = Dados.DatasourceGeral
@@ -1671,7 +1671,7 @@ object FormPrincipal: TFormPrincipal
                 Left = 157
                 Height = 78
                 Top = 146
-                Width = 475
+                Width = 476
                 Anchors = [akTop, akLeft, akRight]
                 DataField = 'habito'
                 DataSource = Dados.DatasourceGeral
@@ -1796,34 +1796,34 @@ object FormPrincipal: TFormPrincipal
       Left = 1
       Height = 625
       Top = 1
-      Width = 657
+      Width = 658
       Align = alClient
       ClientHeight = 625
-      ClientWidth = 657
+      ClientWidth = 658
       TabOrder = 1
       Visible = False
       object PageControlRruff: TPageControl
         Left = 1
         Height = 623
         Top = 1
-        Width = 655
-        ActivePage = TabSheetRruffDescricao
+        Width = 656
+        ActivePage = TabSheetRruffVarredura
         Align = alClient
-        TabIndex = 0
+        TabIndex = 3
         TabOrder = 0
         OnChange = PageControlRruffChange
         object TabSheetRruffDescricao: TTabSheet
           Caption = 'Descrição da Amostra'
           ClientHeight = 595
-          ClientWidth = 647
+          ClientWidth = 648
           object GroupBox3: TGroupBox
             Left = 0
             Height = 595
             Top = 0
-            Width = 647
+            Width = 648
             Align = alClient
             ClientHeight = 577
-            ClientWidth = 643
+            ClientWidth = 644
             TabOrder = 0
             object LabelQuimicaIdeal: TLabel
               Left = 16
@@ -1872,21 +1872,20 @@ object FormPrincipal: TFormPrincipal
             object DBMemoQuimicaIdeal: TDBMemo
               Left = 144
               Height = 35
-              Top = 150
-              Width = 168
-              Anchors = [akTop, akLeft, akRight]
+              Top = 158
+              Width = 166
               DataField = 'quimicaideal'
               DataSource = Dados.DatasourceAmostras
               OnEditingDone = DBMemoQuimicaIdealEditingDone
               OnKeyUp = DBMemoQuimicaIdealKeyUp
               ReadOnly = True
-              TabOrder = 0
+              TabOrder = 2
             end
             object DBMemoLocalidade: TDBMemo
               Left = 144
               Height = 55
               Top = 230
-              Width = 480
+              Width = 481
               Anchors = [akLeft, akRight, akBottom]
               DataField = 'localidade'
               DataSource = Dados.DatasourceAmostras
@@ -1894,13 +1893,13 @@ object FormPrincipal: TFormPrincipal
               OnKeyUp = DBMemoLocalidadeKeyUp
               ReadOnly = True
               ScrollBars = ssVertical
-              TabOrder = 1
+              TabOrder = 3
             end
             object DBMemoFonte: TDBMemo
               Left = 144
               Height = 55
               Top = 294
-              Width = 480
+              Width = 481
               Anchors = [akLeft, akRight, akBottom]
               DataField = 'fonte'
               DataSource = Dados.DatasourceAmostras
@@ -1908,13 +1907,13 @@ object FormPrincipal: TFormPrincipal
               OnKeyUp = DBMemoFonteKeyUp
               ReadOnly = True
               ScrollBars = ssVertical
-              TabOrder = 2
+              TabOrder = 4
             end
             object DBMemoDescricaoAmostra: TDBMemo
               Left = 144
               Height = 55
               Top = 422
-              Width = 480
+              Width = 481
               Anchors = [akLeft, akRight, akBottom]
               DataField = 'descricao_amostra'
               DataSource = Dados.DatasourceAmostras
@@ -1922,13 +1921,13 @@ object FormPrincipal: TFormPrincipal
               OnKeyUp = DBMemoDescricaoAmostraKeyUp
               ReadOnly = True
               ScrollBars = ssVertical
-              TabOrder = 3
+              TabOrder = 6
             end
             object DBMemoSituacao: TDBMemo
               Left = 144
               Height = 55
               Top = 486
-              Width = 480
+              Width = 481
               Anchors = [akLeft, akRight, akBottom]
               DataField = 'situacao'
               DataSource = Dados.DatasourceAmostras
@@ -1936,7 +1935,7 @@ object FormPrincipal: TFormPrincipal
               OnKeyUp = DBMemoSituacaoKeyUp
               ReadOnly = True
               ScrollBars = ssVertical
-              TabOrder = 4
+              TabOrder = 7
             end
             object LabelProprietario: TLabel
               Left = 16
@@ -1951,7 +1950,7 @@ object FormPrincipal: TFormPrincipal
               Left = 144
               Height = 55
               Top = 358
-              Width = 480
+              Width = 481
               Anchors = [akLeft, akRight, akBottom]
               DataField = 'proprietario'
               DataSource = Dados.DatasourceAmostras
@@ -1963,7 +1962,7 @@ object FormPrincipal: TFormPrincipal
             object Label10: TLabel
               Left = 16
               Height = 16
-              Top = 70
+              Top = 86
               Width = 40
               Caption = 'Rruff Id'
               ParentColor = False
@@ -1971,26 +1970,25 @@ object FormPrincipal: TFormPrincipal
             object DBMemoAmostraRruff_id: TDBMemo
               Left = 144
               Height = 35
-              Top = 70
+              Top = 86
               Width = 166
-              Anchors = [akTop, akLeft, akRight]
               DataField = 'rruff_id'
               DataSource = Dados.DatasourceAmostras
-              TabOrder = 6
+              TabOrder = 1
             end
             object Panel6: TPanel
               Left = 0
               Height = 32
               Top = 545
-              Width = 643
+              Width = 644
               Align = alBottom
               BevelInner = bvRaised
               ClientHeight = 32
-              ClientWidth = 643
+              ClientWidth = 644
               Color = 13085822
               ParentColor = False
               ParentFont = False
-              TabOrder = 7
+              TabOrder = 8
               object BitBtnAdicionarImagemAmostra: TBitBtn
                 Left = 5
                 Height = 25
@@ -2001,7 +1999,7 @@ object FormPrincipal: TFormPrincipal
                 TabOrder = 0
               end
               object BitBtnRemoverImagemAmostra: TBitBtn
-                Left = 460
+                Left = 461
                 Height = 25
                 Top = 5
                 Width = 180
@@ -2015,26 +2013,44 @@ object FormPrincipal: TFormPrincipal
               Left = 394
               Height = 230
               Top = -6
-              Width = 230
+              Width = 231
               Anchors = [akTop, akLeft, akRight, akBottom]
               Center = True
               OnDblClick = ImageAmostraDblClick
               Proportional = True
+            end
+            object Label1Especie: TLabel
+              Left = 16
+              Height = 16
+              Top = 16
+              Width = 40
+              Caption = 'Espécie'
+              ParentColor = False
+            end
+            object DBMemoEspecie: TDBMemo
+              Left = 144
+              Height = 35
+              Top = 16
+              Width = 166
+              DataField = 'especie'
+              DataSource = Dados.DatasourceAmostras
+              ReadOnly = True
+              TabOrder = 0
             end
           end
         end
         object TabSheetRruffQuimica: TTabSheet
           Caption = 'Química Ideal'
           ClientHeight = 595
-          ClientWidth = 647
+          ClientWidth = 648
           object GroupBox4: TGroupBox
             Left = 0
             Height = 595
             Top = 0
-            Width = 647
+            Width = 648
             Align = alClient
             ClientHeight = 577
-            ClientWidth = 643
+            ClientWidth = 644
             TabOrder = 0
             object LabelDescricao2: TLabel
               Left = 14
@@ -2058,27 +2074,27 @@ object FormPrincipal: TFormPrincipal
               Left = 184
               Height = 80
               Top = 366
-              Width = 432
+              Width = 433
               Anchors = [akLeft, akRight, akBottom]
               DataField = 'descricao_quimica'
               DataSource = Dados.DatasourceAmostras
               OnEditingDone = DBMemoDescricaoQuimicaEditingDone
               OnKeyUp = DBMemoDescricaoQuimicaKeyUp
               ReadOnly = True
-              TabOrder = 0
+              TabOrder = 2
             end
             object DBMemoQuimicaMedida: TDBMemo
               Left = 184
               Height = 82
               Top = 454
-              Width = 432
+              Width = 433
               Anchors = [akLeft, akRight, akBottom]
               DataField = 'quimicamedida'
               DataSource = Dados.DatasourceAmostras
               OnEditingDone = DBMemoQuimicaMedidaEditingDone
               OnKeyUp = DBMemoQuimicaMedidaKeyUp
               ReadOnly = True
-              TabOrder = 1
+              TabOrder = 3
             end
             object LabelId_Quimica: TLabel
               Left = 14
@@ -2098,7 +2114,7 @@ object FormPrincipal: TFormPrincipal
               DataField = 'rruff_id'
               DataSource = Dados.DatasourceAmostras
               ReadOnly = True
-              TabOrder = 2
+              TabOrder = 0
             end
             object DBMemoQuimicaId: TDBMemo
               Left = 376
@@ -2108,7 +2124,9 @@ object FormPrincipal: TFormPrincipal
               Anchors = [akLeft, akBottom]
               DataField = 'rruff_id_quimica'
               DataSource = Dados.DatasourceAmostras
-              TabOrder = 3
+              OnEditingDone = DBMemoQuimicaIdEditingDone
+              OnKeyUp = DBMemoQuimicaIdKeyUp
+              TabOrder = 1
             end
             object Label4: TLabel
               Left = 352
@@ -2145,21 +2163,22 @@ object FormPrincipal: TFormPrincipal
               Left = 0
               Height = 32
               Top = 545
-              Width = 643
+              Width = 644
               Align = alBottom
               BevelInner = bvRaised
               ClientHeight = 32
-              ClientWidth = 643
+              ClientWidth = 644
               Color = 13085822
               ParentColor = False
               ParentFont = False
               TabOrder = 5
               object BitBtnAlterarMicrossonda: TBitBtn
-                Left = 448
+                Left = 449
                 Height = 25
                 Hint = 'Alterar Arquivo de Dados da Microssonda'
                 Top = 5
                 Width = 90
+                Anchors = [akTop, akRight]
                 Caption = 'Alterar Arquivo de Dados'
                 OnClick = BitBtnAlterarMicrossondaClick
                 TabOrder = 0
@@ -2185,11 +2204,12 @@ object FormPrincipal: TFormPrincipal
                 TabOrder = 2
               end
               object BitBtnRemoveArquivoPlanilha: TBitBtn
-                Left = 544
+                Left = 545
                 Height = 25
                 Hint = 'Remover Arquivo de Dados da Microssonda'
                 Top = 5
                 Width = 90
+                Anchors = [akTop, akRight]
                 Caption = 'Remover Dados'
                 OnClick = BitBtnRemoveArquivoPlanilhaClick
                 TabOrder = 3
@@ -2198,9 +2218,10 @@ object FormPrincipal: TFormPrincipal
                 Left = 224
                 Height = 25
                 Top = 5
-                Width = 210
+                Width = 211
                 Anchors = [akTop, akLeft, akRight]
                 Caption = 'Visualizar Planilha'
+                Enabled = False
                 OnClick = BitBtnVisualizarClick
                 TabOrder = 4
               end
@@ -2210,30 +2231,30 @@ object FormPrincipal: TFormPrincipal
         object TabSheetRruffRaman: TTabSheet
           Caption = 'Espectro RAMAN'
           ClientHeight = 595
-          ClientWidth = 647
+          ClientWidth = 648
           object GroupBox5: TGroupBox
             Left = 0
             Height = 595
             Top = 0
-            Width = 647
+            Width = 648
             Align = alClient
             ClientHeight = 577
-            ClientWidth = 643
+            ClientWidth = 644
             TabOrder = 0
             object GroupBoxGraficoRaman: TGroupBox
               Left = 16
               Height = 270
               Top = 22
-              Width = 600
+              Width = 601
               Anchors = [akTop, akLeft, akRight, akBottom]
               ClientHeight = 252
-              ClientWidth = 596
+              ClientWidth = 597
               TabOrder = 0
               object ChartRaman: TChart
                 Left = 0
                 Height = 252
                 Top = 0
-                Width = 596
+                Width = 597
                 AxisList = <                
                   item
                     Minors = <>
@@ -2261,11 +2282,11 @@ object FormPrincipal: TFormPrincipal
               Left = 0
               Height = 32
               Top = 545
-              Width = 643
+              Width = 644
               Align = alBottom
               BevelInner = bvRaised
               ClientHeight = 32
-              ClientWidth = 643
+              ClientWidth = 644
               Color = 13085822
               ParentColor = False
               ParentFont = False
@@ -2280,7 +2301,7 @@ object FormPrincipal: TFormPrincipal
                 TabOrder = 0
               end
               object BitBtnRemoverRaman: TBitBtn
-                Left = 460
+                Left = 461
                 Height = 25
                 Top = 5
                 Width = 180
@@ -2291,7 +2312,7 @@ object FormPrincipal: TFormPrincipal
               end
             end
             object Label5: TLabel
-              Left = 14
+              Left = 16
               Height = 16
               Top = -2
               Width = 167
@@ -2321,9 +2342,10 @@ object FormPrincipal: TFormPrincipal
               Left = 16
               Height = 248
               Top = 294
-              Width = 602
+              Width = 603
+              Anchors = [akLeft, akRight, akBottom]
               ClientHeight = 230
-              ClientWidth = 598
+              ClientWidth = 599
               TabOrder = 3
               object DBMemo3: TDBMemo
                 Left = 158
@@ -2337,7 +2359,7 @@ object FormPrincipal: TFormPrincipal
                 TabOrder = 0
               end
               object Label6: TLabel
-                Left = 326
+                Left = 318
                 Height = 31
                 Top = 0
                 Width = 9
@@ -2347,17 +2369,6 @@ object FormPrincipal: TFormPrincipal
                 Font.Style = [fsBold]
                 ParentColor = False
                 ParentFont = False
-              end
-              object DBMemoRamanId: TDBMemo
-                Left = 350
-                Height = 35
-                Top = 0
-                Width = 47
-                Anchors = [akLeft, akBottom]
-                DataField = 'rruff_id_raman'
-                DataSource = Dados.DatasourceAmostras
-                ReadOnly = True
-                TabOrder = 1
               end
               object LabelId_Quimica1: TLabel
                 Left = 14
@@ -2370,21 +2381,21 @@ object FormPrincipal: TFormPrincipal
               end
               object DBMemoDescricaoRaman: TDBMemo
                 Left = 158
-                Height = 66
-                Top = 48
-                Width = 422
+                Height = 58
+                Top = 40
+                Width = 423
                 Anchors = [akTop, akLeft, akRight]
                 DataField = 'descricao_raman'
                 DataSource = Dados.DatasourceAmostras
                 OnEditingDone = DBMemoDescricaoRamanEditingDone
                 OnKeyUp = DBMemoDescricaoRamanKeyUp
                 ReadOnly = True
-                TabOrder = 2
+                TabOrder = 1
               end
               object LabelDescricao3: TLabel
                 Left = 14
                 Height = 16
-                Top = 48
+                Top = 40
                 Width = 55
                 Caption = 'Descrição '
                 ParentColor = False
@@ -2392,36 +2403,36 @@ object FormPrincipal: TFormPrincipal
               object DBMemoPin_id: TDBMemo
                 Left = 158
                 Height = 35
-                Top = 120
-                Width = 422
+                Top = 112
+                Width = 423
                 Anchors = [akTop, akLeft, akRight]
                 DataField = 'pin_id'
                 DataSource = Dados.DatasourceAmostras
                 OnEditingDone = DBMemoPin_idEditingDone
                 OnKeyUp = DBMemoPin_idKeyUp
                 ReadOnly = True
-                TabOrder = 3
+                TabOrder = 2
               end
               object LabelPinId: TLabel
                 Left = 14
                 Height = 16
-                Top = 120
+                Top = 112
                 Width = 89
                 Caption = 'Identificação Pin'
                 ParentColor = False
               end
               object DBMemoOrientacao: TDBMemo
                 Left = 158
-                Height = 66
+                Height = 34
                 Top = 160
-                Width = 422
+                Width = 423
                 Anchors = [akTop, akLeft, akRight]
                 DataField = 'orientacao'
                 DataSource = Dados.DatasourceAmostras
                 OnEditingDone = DBMemoOrientacaoEditingDone
                 OnKeyUp = DBMemoOrientacaoKeyUp
                 ReadOnly = True
-                TabOrder = 4
+                TabOrder = 3
               end
               object LabelOrientacao: TLabel
                 Left = 14
@@ -2431,21 +2442,51 @@ object FormPrincipal: TFormPrincipal
                 Caption = 'Orientação'
                 ParentColor = False
               end
+              object ComboBoxEquipamentoRaman: TComboBox
+                Left = 158
+                Height = 23
+                Top = 201
+                Width = 423
+                Anchors = [akTop, akLeft, akRight]
+                ItemHeight = 15
+                OnChange = ComboBoxEquipamentoRamanChange
+                Style = csDropDownList
+                TabOrder = 4
+              end
+              object DBMemoRamanId: TDBMemo
+                Left = 332
+                Height = 36
+                Top = 1
+                Width = 45
+                DataField = 'rruff_id_Raman'
+                DataSource = Dados.DatasourceAmostras
+                OnEditingDone = DBMemoRamanIdEditingDone
+                OnKeyUp = DBMemoRamanIdKeyUp
+                TabOrder = 5
+              end
+              object LabelEquipamentoRaman: TLabel
+                Left = 14
+                Height = 16
+                Top = 201
+                Width = 66
+                Caption = 'Instrumento'
+                ParentColor = False
+              end
             end
           end
         end
         object TabSheetRruffVarredura: TTabSheet
           Caption = 'Ampla Varredura com Artefatos Espectrais'
           ClientHeight = 595
-          ClientWidth = 647
+          ClientWidth = 648
           object GroupBox6: TGroupBox
             Left = 0
             Height = 595
             Top = 0
-            Width = 647
+            Width = 648
             Align = alClient
             ClientHeight = 577
-            ClientWidth = 643
+            ClientWidth = 644
             TabOrder = 0
             object LabelComprimentodeOnda: TLabel
               Left = 15
@@ -2478,55 +2519,42 @@ object FormPrincipal: TFormPrincipal
               Left = 208
               Height = 60
               Top = 342
-              Width = 422
-              Anchors = [akLeft, akBottom]
+              Width = 423
+              Anchors = [akLeft, akRight, akBottom]
               DataField = 'comprimento_onda'
               DataSource = Dados.DatasourceAmostras
               OnEditingDone = DBMemoComprimentoOndaEditingDone
               OnKeyUp = DBMemoComprimentoOndaKeyUp
               ReadOnly = True
-              TabOrder = 0
+              TabOrder = 2
             end
             object DBMemoDescricaoBS: TDBMemo
               Left = 208
               Height = 60
               Top = 414
-              Width = 423
-              Anchors = [akLeft, akBottom]
+              Width = 424
+              Anchors = [akLeft, akRight, akBottom]
               DataField = 'descricao_broadscan'
               DataSource = Dados.DatasourceAmostras
               OnEditingDone = DBMemoDescricaoBSEditingDone
               OnKeyUp = DBMemoDescricaoBSKeyUp
               ReadOnly = True
-              TabOrder = 1
-            end
-            object DBMemoInstrumentoBS: TDBMemo
-              Left = 208
-              Height = 60
-              Top = 486
-              Width = 422
-              Anchors = [akLeft, akBottom]
-              DataField = 'instrumento_bs'
-              DataSource = Dados.DatasourceAmostras
-              OnEditingDone = DBMemoInstrumentoBSEditingDone
-              OnKeyUp = DBMemoInstrumentoBSKeyUp
-              ReadOnly = True
-              TabOrder = 2
+              TabOrder = 3
             end
             object GroupBoxGraficoVarredura: TGroupBox
-              Left = 14
+              Left = 15
               Height = 270
-              Top = 14
-              Width = 600
+              Top = 6
+              Width = 601
               Anchors = [akTop, akLeft, akRight, akBottom]
               ClientHeight = 252
-              ClientWidth = 596
-              TabOrder = 3
+              ClientWidth = 597
+              TabOrder = 4
               object ChartVarredura: TChart
                 Left = 0
                 Height = 252
                 Top = 0
-                Width = 596
+                Width = 597
                 AxisList = <                
                   item
                     Minors = <>
@@ -2570,7 +2598,7 @@ object FormPrincipal: TFormPrincipal
               DataField = 'rruff_id'
               DataSource = Dados.DatasourceAmostras
               ReadOnly = True
-              TabOrder = 4
+              TabOrder = 0
             end
             object Label7: TLabel
               Left = 364
@@ -2592,22 +2620,24 @@ object FormPrincipal: TFormPrincipal
               Anchors = [akLeft, akBottom]
               DataField = 'rruff_id_varredura'
               DataSource = Dados.DatasourceAmostras
+              OnEditingDone = DBMemoVarreduraIdEditingDone
+              OnKeyUp = DBMemoVarreduraIdKeyUp
               ReadOnly = True
-              TabOrder = 5
+              TabOrder = 1
             end
             object Panel3: TPanel
               Left = 0
               Height = 32
               Top = 545
-              Width = 643
+              Width = 644
               Align = alBottom
               BevelInner = bvRaised
               ClientHeight = 32
-              ClientWidth = 643
+              ClientWidth = 644
               Color = 13085822
               ParentColor = False
               ParentFont = False
-              TabOrder = 6
+              TabOrder = 5
               object BitBtnArquivoVarredura: TBitBtn
                 Left = 5
                 Height = 25
@@ -2627,20 +2657,30 @@ object FormPrincipal: TFormPrincipal
                 TabOrder = 1
               end
             end
+            object ComboBoxEquipamentoVarredura: TComboBox
+              Left = 208
+              Height = 23
+              Top = 486
+              Width = 422
+              ItemHeight = 15
+              OnChange = ComboBoxEquipamentoVarreduraChange
+              Style = csDropDownList
+              TabOrder = 6
+            end
           end
         end
         object TabSheetRruffInfra: TTabSheet
           Caption = 'Espectro Infravermelho'
           ClientHeight = 595
-          ClientWidth = 647
+          ClientWidth = 648
           object GroupBox2: TGroupBox
             Left = 0
             Height = 595
             Top = 0
-            Width = 647
+            Width = 648
             Align = alClient
             ClientHeight = 577
-            ClientWidth = 643
+            ClientWidth = 644
             TabOrder = 0
             object LabelDescricaoIV: TLabel
               Left = 16
@@ -2654,8 +2694,8 @@ object FormPrincipal: TFormPrincipal
             object LabelInstrumentoIV: TLabel
               Left = 16
               Height = 16
-              Top = 406
-              Width = 66
+              Top = 494
+              Width = 67
               Anchors = [akLeft, akRight, akBottom]
               Caption = 'Instrumento'
               ParentColor = False
@@ -2663,8 +2703,8 @@ object FormPrincipal: TFormPrincipal
             object LabelResolucao: TLabel
               Left = 16
               Height = 16
-              Top = 478
-              Width = 55
+              Top = 406
+              Width = 56
               Anchors = [akLeft, akRight, akBottom]
               Caption = 'Resolução'
               ParentColor = False
@@ -2673,55 +2713,42 @@ object FormPrincipal: TFormPrincipal
               Left = 160
               Height = 64
               Top = 334
-              Width = 470
+              Width = 471
               Anchors = [akLeft, akRight, akBottom]
               DataField = 'descricao_infravermelho'
               DataSource = Dados.DatasourceAmostras
               OnEditingDone = DBMemoDescricaoInfravermelhoEditingDone
               OnKeyUp = DBMemoDescricaoInfravermelhoKeyUp
               ReadOnly = True
-              TabOrder = 0
-            end
-            object DBMemoInstrumentoIV: TDBMemo
-              Left = 160
-              Height = 67
-              Top = 406
-              Width = 470
-              Anchors = [akLeft, akRight, akBottom]
-              DataField = 'instrumento_iv'
-              DataSource = Dados.DatasourceAmostras
-              OnEditingDone = DBMemoInstrumentoIVEditingDone
-              OnKeyUp = DBMemoInstrumentoIVKeyUp
-              ReadOnly = True
-              TabOrder = 1
+              TabOrder = 2
             end
             object DBMemoResolucao: TDBMemo
               Left = 160
               Height = 67
-              Top = 480
-              Width = 470
+              Top = 406
+              Width = 471
               Anchors = [akLeft, akRight, akBottom]
               DataField = 'resolucao'
               DataSource = Dados.DatasourceAmostras
               OnEditingDone = DBMemoResolucaoEditingDone
               OnKeyUp = DBMemoResolucaoKeyUp
               ReadOnly = True
-              TabOrder = 2
+              TabOrder = 3
             end
             object GroupBoxGraficoInfravermelho: TGroupBox
               Left = 16
               Height = 270
               Top = 6
-              Width = 612
+              Width = 613
               Anchors = [akTop, akLeft, akRight, akBottom]
               ClientHeight = 252
-              ClientWidth = 608
-              TabOrder = 3
+              ClientWidth = 609
+              TabOrder = 4
               object ChartInfravermelho: TChart
                 Left = 0
                 Height = 252
                 Top = 0
-                Width = 608
+                Width = 609
                 AxisList = <                
                   item
                     Minors = <>
@@ -2764,7 +2791,7 @@ object FormPrincipal: TFormPrincipal
               DataField = 'rruff_id'
               DataSource = Dados.DatasourceAmostras
               ReadOnly = True
-              TabOrder = 4
+              TabOrder = 0
             end
             object Label8: TLabel
               Left = 320
@@ -2786,22 +2813,24 @@ object FormPrincipal: TFormPrincipal
               Anchors = [akLeft, akBottom]
               DataField = 'rruff_id_infravermelho'
               DataSource = Dados.DatasourceAmostras
+              OnEditingDone = DBMemoInfravermelhoIdEditingDone
+              OnKeyUp = DBMemoInfravermelhoIdKeyUp
               ReadOnly = True
-              TabOrder = 5
+              TabOrder = 1
             end
             object Panel4: TPanel
               Left = 0
               Height = 34
               Top = 543
-              Width = 643
+              Width = 644
               Align = alBottom
               BevelInner = bvRaised
               ClientHeight = 34
-              ClientWidth = 643
+              ClientWidth = 644
               Color = 13085822
               ParentColor = False
               ParentFont = False
-              TabOrder = 6
+              TabOrder = 5
               object BitBtnArquivoInfravermelho: TBitBtn
                 Left = 5
                 Height = 25
@@ -2821,35 +2850,44 @@ object FormPrincipal: TFormPrincipal
                 TabOrder = 1
               end
             end
+            object ComboBoxEquipamentoInfravermelho: TComboBox
+              Left = 160
+              Height = 23
+              Top = 494
+              Width = 468
+              ItemHeight = 15
+              Style = csDropDownList
+              TabOrder = 6
+            end
           end
         end
         object TabSheetRruffDifracao: TTabSheet
           Caption = 'Powder Diffraction'
           ClientHeight = 595
-          ClientWidth = 647
+          ClientWidth = 648
           object GroupBox7: TGroupBox
             Left = 0
             Height = 595
             Top = 0
-            Width = 647
+            Width = 648
             Align = alClient
             ClientHeight = 577
-            ClientWidth = 643
+            ClientWidth = 644
             TabOrder = 0
             object GroupBoxDifracao: TGroupBox
               Left = 15
               Height = 270
               Top = 6
-              Width = 609
+              Width = 610
               Anchors = [akTop, akLeft, akRight, akBottom]
               ClientHeight = 252
-              ClientWidth = 605
-              TabOrder = 0
+              ClientWidth = 606
+              TabOrder = 2
               object ChartDifracao: TChart
                 Left = 0
                 Height = 252
                 Top = 0
-                Width = 605
+                Width = 606
                 AxisList = <                
                   item
                     Minors = <>
@@ -2881,7 +2919,7 @@ object FormPrincipal: TFormPrincipal
               Caption = 'Refinamento Celular:'
               ClientHeight = 217
               ClientWidth = 596
-              TabOrder = 1
+              TabOrder = 3
               object LabelA: TLabel
                 Left = 21
                 Height = 16
@@ -2939,7 +2977,7 @@ object FormPrincipal: TFormPrincipal
                 ParentColor = False
               end
               object LabelSistemaCristalino: TLabel
-                Left = 288
+                Left = 336
                 Height = 16
                 Top = 152
                 Width = 95
@@ -3019,10 +3057,10 @@ object FormPrincipal: TFormPrincipal
                 TabOrder = 5
               end
               object DBMemoVolume: TDBMemo
-                Left = 103
+                Left = 71
                 Height = 35
                 Top = 152
-                Width = 144
+                Width = 120
                 DataField = 'volume'
                 DataSource = Dados.DatasourceAmostras
                 OnEditingDone = DBMemoVolumeEditingDone
@@ -3031,10 +3069,10 @@ object FormPrincipal: TFormPrincipal
                 TabOrder = 6
               end
               object DBMemoSistemaCristalino: TDBMemo
-                Left = 431
+                Left = 455
                 Height = 35
                 Top = 152
-                Width = 144
+                Width = 120
                 DataField = 'sistema_cristalino'
                 DataSource = Dados.DatasourceAmostras
                 OnEditingDone = DBMemoSistemaCristalinoEditingDone
@@ -3061,7 +3099,7 @@ object FormPrincipal: TFormPrincipal
               DataField = 'rruff_id'
               DataSource = Dados.DatasourceAmostras
               ReadOnly = True
-              TabOrder = 2
+              TabOrder = 0
             end
             object Label9: TLabel
               Left = 320
@@ -3083,18 +3121,20 @@ object FormPrincipal: TFormPrincipal
               Anchors = [akLeft, akBottom]
               DataField = 'rruff_id_difracao'
               DataSource = Dados.DatasourceAmostras
+              OnEditingDone = DBMemoDifracaoIdEditingDone
+              OnKeyUp = DBMemoDifracaoIdKeyUp
               ReadOnly = True
-              TabOrder = 3
+              TabOrder = 1
             end
             object Panel5: TPanel
               Left = 0
               Height = 34
               Top = 543
-              Width = 643
+              Width = 644
               Align = alBottom
               BevelInner = bvRaised
               ClientHeight = 34
-              ClientWidth = 643
+              ClientWidth = 644
               Color = 13085822
               ParentColor = False
               ParentFont = False
@@ -3109,7 +3149,7 @@ object FormPrincipal: TFormPrincipal
                 TabOrder = 0
               end
               object BitBtnRemoverDifracao: TBitBtn
-                Left = 460
+                Left = 461
                 Height = 25
                 Top = 5
                 Width = 180
@@ -3155,6 +3195,10 @@ object FormPrincipal: TFormPrincipal
       object MenuItemAmostras: TMenuItem
         Caption = 'Amostras'
         OnClick = MenuItemAmostrasClick
+      end
+      object MenuItemInstrumentos: TMenuItem
+        Caption = 'Instrumentos'
+        OnClick = MenuItemInstrumentosClick
       end
     end
     object MenuItemEditar: TMenuItem
