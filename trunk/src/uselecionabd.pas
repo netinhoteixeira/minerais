@@ -148,7 +148,7 @@ procedure TFormSelecionaBD.EditButtonNovoButtonClick(Sender: TObject);
 var
   ExecSQL: string;
   Diretorio: string;
-begin
+begin                                 //colocar no datamodule
   if (EditButtonNovo.Text <> EmptyStr) then
   begin
     Diretorio := GetCurrentDir + '\Data\' + EditButtonNovo.Text + '.s3db';
@@ -182,6 +182,9 @@ begin
         Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
 
         ExecSQL:= 'CREATE TABLE raman ([id] INTEGER PRIMATY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [direcao_polarizacao] TEXT NOT NULL, [arquivo_raman] BLOB);';
+        Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+
+        ExecSQL:= 'CREATE TABLE instrumentos ([id] INTEGER PRIMATY KEY NOT NULL, [nome] UNIQUE NOT NULL, [descricao] TEXT, [localidade] TEXT);';
         Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
       finally
         Dados.Sqlite3DatasetGeral.Open();
