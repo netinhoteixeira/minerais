@@ -8,6 +8,7 @@ object FormImpressao: TFormImpressao
   ClientWidth = 1035
   OnClose = FormClose
   OnShow = FormShow
+  Position = poDesktopCenter
   LCLVersion = '1.0.10.0'
   object GroupBox1: TGroupBox
     Left = 270

@@ -10,6 +10,7 @@ object FormSelecionaBD: TFormSelecionaBD
   OnShow = FormShow
   PopupMode = pmExplicit
   PopupParent = FormPrincipal.Owner
+  Position = poDesktopCenter
   LCLVersion = '1.0.10.0'
   object Panel1: TPanel
     Left = 0

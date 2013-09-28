@@ -141,7 +141,7 @@ object FormImpressao: TFormImpressao
       Height = 21
       Top = 384
       Width = 248
-      Anchors = [akTop, akLeft, akBottom]
+      Anchors = [akLeft, akBottom]
       Caption = 'Modificar Formato de Relatório'
       OnClick = BitBtn1Click
       TabOrder = 3

@@ -751,6 +751,7 @@ object FormPrincipal: TFormPrincipal
       Height = 23
       Top = 56
       Width = 152
+      PopupMenu = PopupMenuRruff
       TabOrder = 1
     end
   end
@@ -1807,9 +1808,9 @@ object FormPrincipal: TFormPrincipal
         Height = 623
         Top = 1
         Width = 656
-        ActivePage = TabSheetRruffDescricao
+        ActivePage = TabSheetRruffVarredura
         Align = alClient
-        TabIndex = 0
+        TabIndex = 3
         TabOrder = 0
         OnChange = PageControlRruffChange
         object TabSheetRruffDescricao: TTabSheet
@@ -2009,16 +2010,6 @@ object FormPrincipal: TFormPrincipal
                 TabOrder = 1
               end
             end
-            object ImageAmostra: TImage
-              Left = 394
-              Height = 230
-              Top = -6
-              Width = 231
-              Anchors = [akTop, akLeft, akRight, akBottom]
-              Center = True
-              OnDblClick = ImageAmostraDblClick
-              Proportional = True
-            end
             object Label1Especie: TLabel
               Left = 16
               Height = 16
@@ -2036,6 +2027,25 @@ object FormPrincipal: TFormPrincipal
               DataSource = Dados.DatasourceAmostras
               ReadOnly = True
               TabOrder = 0
+            end
+            object GroupBox9: TGroupBox
+              Left = 416
+              Height = 211
+              Top = 3
+              Width = 209
+              ClientHeight = 193
+              ClientWidth = 205
+              TabOrder = 9
+              object ImageAmostra: TImage
+                Left = 0
+                Height = 193
+                Top = 0
+                Width = 205
+                Align = alClient
+                Center = True
+                OnDblClick = ImageAmostraDblClick
+                Proportional = True
+              end
             end
           end
         end
@@ -2390,6 +2400,7 @@ object FormPrincipal: TFormPrincipal
                 OnEditingDone = DBMemoDescricaoRamanEditingDone
                 OnKeyUp = DBMemoDescricaoRamanKeyUp
                 ReadOnly = True
+                ScrollBars = ssAutoVertical
                 TabOrder = 1
               end
               object LabelDescricao3: TLabel
@@ -2432,6 +2443,7 @@ object FormPrincipal: TFormPrincipal
                 OnEditingDone = DBMemoOrientacaoEditingDone
                 OnKeyUp = DBMemoOrientacaoKeyUp
                 ReadOnly = True
+                ScrollBars = ssAutoVertical
                 TabOrder = 3
               end
               object LabelOrientacao: TLabel
@@ -2491,7 +2503,7 @@ object FormPrincipal: TFormPrincipal
             object LabelComprimentodeOnda: TLabel
               Left = 15
               Height = 16
-              Top = 342
+              Top = 302
               Width = 124
               Anchors = [akLeft, akBottom]
               Caption = 'Comprimento de Onda'
@@ -2507,26 +2519,13 @@ object FormPrincipal: TFormPrincipal
               ParentColor = False
             end
             object LabelConfiguracaoInstrumento: TLabel
-              Left = 15
+              Left = 14
               Height = 16
               Top = 486
               Width = 66
               Anchors = [akLeft, akBottom]
               Caption = 'Instrumento'
               ParentColor = False
-            end
-            object DBMemoComprimentoOnda: TDBMemo
-              Left = 208
-              Height = 60
-              Top = 342
-              Width = 423
-              Anchors = [akLeft, akRight, akBottom]
-              DataField = 'comprimento_onda'
-              DataSource = Dados.DatasourceAmostras
-              OnEditingDone = DBMemoComprimentoOndaEditingDone
-              OnKeyUp = DBMemoComprimentoOndaKeyUp
-              ReadOnly = True
-              TabOrder = 2
             end
             object DBMemoDescricaoBS: TDBMemo
               Left = 208
@@ -2539,7 +2538,7 @@ object FormPrincipal: TFormPrincipal
               OnEditingDone = DBMemoDescricaoBSEditingDone
               OnKeyUp = DBMemoDescricaoBSKeyUp
               ReadOnly = True
-              TabOrder = 3
+              TabOrder = 2
             end
             object GroupBoxGraficoVarredura: TGroupBox
               Left = 15
@@ -2549,7 +2548,7 @@ object FormPrincipal: TFormPrincipal
               Anchors = [akTop, akLeft, akRight, akBottom]
               ClientHeight = 252
               ClientWidth = 597
-              TabOrder = 4
+              TabOrder = 3
               object ChartVarredura: TChart
                 Left = 0
                 Height = 252
@@ -2581,9 +2580,9 @@ object FormPrincipal: TFormPrincipal
               end
             end
             object LabelId_Quimica2: TLabel
-              Left = 15
+              Left = 14
               Height = 16
-              Top = 302
+              Top = 358
               Width = 43
               Anchors = [akLeft, akBottom]
               Caption = 'Rruff Id:'
@@ -2592,7 +2591,7 @@ object FormPrincipal: TFormPrincipal
             object DBMemo5: TDBMemo
               Left = 208
               Height = 35
-              Top = 302
+              Top = 358
               Width = 150
               Anchors = [akLeft, akBottom]
               DataField = 'rruff_id'
@@ -2601,9 +2600,9 @@ object FormPrincipal: TFormPrincipal
               TabOrder = 0
             end
             object Label7: TLabel
-              Left = 364
+              Left = 368
               Height = 31
-              Top = 302
+              Top = 358
               Width = 9
               Anchors = [akLeft, akBottom]
               Caption = '-'
@@ -2613,9 +2612,9 @@ object FormPrincipal: TFormPrincipal
               ParentFont = False
             end
             object DBMemoVarreduraId: TDBMemo
-              Left = 380
+              Left = 384
               Height = 35
-              Top = 302
+              Top = 358
               Width = 47
               Anchors = [akLeft, akBottom]
               DataField = 'rruff_id_varredura'
@@ -2637,7 +2636,7 @@ object FormPrincipal: TFormPrincipal
               Color = 13085822
               ParentColor = False
               ParentFont = False
-              TabOrder = 5
+              TabOrder = 4
               object BitBtnArquivoVarredura: TBitBtn
                 Left = 5
                 Height = 25
@@ -2662,10 +2661,27 @@ object FormPrincipal: TFormPrincipal
               Height = 23
               Top = 486
               Width = 422
+              Anchors = [akLeft, akBottom]
               ItemHeight = 15
               OnChange = ComboBoxEquipamentoVarreduraChange
               Style = csDropDownList
+              TabOrder = 5
+            end
+            object ComboBoxVarreduraOnda: TComboBox
+              Left = 208
+              Height = 23
+              Top = 302
+              Width = 99
+              ItemHeight = 15
+              ItemIndex = 0
+              Items.Strings = (
+                '532 nm'
+                '780 nm'
+              )
+              OnChange = ComboBoxVarreduraOndaChange
+              Style = csDropDownList
               TabOrder = 6
+              Text = '532 nm'
             end
           end
         end
@@ -2695,8 +2711,8 @@ object FormPrincipal: TFormPrincipal
               Left = 16
               Height = 16
               Top = 494
-              Width = 67
-              Anchors = [akLeft, akRight, akBottom]
+              Width = 66
+              Anchors = [akLeft, akBottom]
               Caption = 'Instrumento'
               ParentColor = False
             end
@@ -2704,8 +2720,8 @@ object FormPrincipal: TFormPrincipal
               Left = 16
               Height = 16
               Top = 406
-              Width = 56
-              Anchors = [akLeft, akRight, akBottom]
+              Width = 55
+              Anchors = [akLeft, akBottom]
               Caption = 'Resolução'
               ParentColor = False
             end
@@ -2855,6 +2871,7 @@ object FormPrincipal: TFormPrincipal
               Height = 23
               Top = 494
               Width = 468
+              Anchors = [akLeft, akRight, akBottom]
               ItemHeight = 15
               Style = csDropDownList
               TabOrder = 6

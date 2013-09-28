@@ -175,13 +175,18 @@ begin                                 //colocar no datamodule
 
         ExecSQL:= 'CREATE TABLE rruff ([id] INTEGER PRIMATY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [numero] INTEGER, [quimicaideal] TEXT, ';
         ExecSQL:=ExecSQL+' [localidade] TEXT, [fonte] TEXT, [descricao_quimica] TEXT, [situacao] TEXT, [quimicamedida] TEXT, [arquivo_microssonda] TEXT, [pin_id] TEXT, ';
-        ExecSQL:=ExecSQL+' [orientacao] TEXT, [microssonda] BLOB, [descricao_raman] TEXT, [raman] BLOB, [comprimento_onda] TEXT, [descricao_broadscan] TEXT, '+
-                           '[instrumento_bs] TEXT, [varredura] BLOB, [descricao_infravermelho] TEXT, [instrumento_iv] TEXT, [resolucao] TEXT, [infravermelho] BLOB, [descricao_amostra] TEXT, [direcao_laser] TEXT,';
+        ExecSQL:=ExecSQL+' [orientacao] TEXT, [microssonda] BLOB, [descricao_raman] TEXT, [comprimento_onda] TEXT, [descricao_broadscan] TEXT, '+
+                           '[instrumento_bs] TEXT, [descricao_infravermelho] TEXT, [instrumento_iv] TEXT, [resolucao] TEXT, [infravermelho] BLOB, [descricao_amostra] TEXT, [direcao_laser] TEXT,';
         ExecSQL:=ExecSQL+' [a] TEXT, [b] TEXT, [c] TEXT, [alpha] TEXT, [beta] TEXT, [gamma] TEXT, [volume] TEXT, [sistema_cristalino] TEXT, [descricao_difracao] TEXT, [arquivo_difracao] BLOB,';
         ExecSQL:=ExecSQL+' [rruff_id_quimica] TEXT, [rruff_id_raman] TEXT, [rruff_id_varredura] TEXT, [rruff_id_infravermelho] TEXT, [rruff_id_difracao] TEXT, [proprietario] TEXT, [imagem_amostra] BLOB, [imagem_quimica] BLOB;';
         Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
 
-        ExecSQL:= 'CREATE TABLE raman ([id] INTEGER PRIMATY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [direcao_polarizacao] TEXT NOT NULL, [arquivo_raman] BLOB);';
+        ExecSQL:= 'CREATE TABLE raman ([id] INTEGER PRIMATY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [direcao] Integer, [digito_id] Integer, [equipamento_raman] Integer,'+
+          ' [arquivo_raman] BLOB);';
+        Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+
+        ExecSQL:='CREATE TABLE varredura ([id] INTEGER PRIMATY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [comprimento_onda] Integer NOT NULL, [digito_id] INTEGER, '+
+          '[equipamento_varredura] INTEGER, [arquivo_varredura] BLOB );';
         Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
 
         ExecSQL:= 'CREATE TABLE instrumentos ([id] INTEGER PRIMATY KEY NOT NULL, [nome] UNIQUE NOT NULL, [descricao] TEXT, [localidade] TEXT);';
