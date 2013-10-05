@@ -65,8 +65,8 @@ unit udatamodule;
 interface
 
 uses
-  Classes, SysUtils, Sqlite3DS, DB, SdfData, FileUtil, LR_Class, LR_DBSet,
-  SQLite3mod, SQLite3tablemod, Dialogs;
+  Classes, SysUtils, Sqlite3DS, DB, SdfData, FileUtil, TASources, LR_Class,
+  LR_DBSet, SQLite3mod, SQLite3tablemod, Dialogs;
 
 type
 
@@ -86,6 +86,8 @@ type
     frDBDataSet1: TfrDBDataSet;
     frReport1: TfrReport;
     SdfDataSetGraficos: TSdfDataSet;
+    SdfDataSetGraficosValorX: TField;
+    SdfDataSetGraficosValorY: TField;
     SdfDataSetPlanilhaMicrossonda: TSdfDataSet;
     Sqlite3DatasetInstrumentos: TSqlite3Dataset;
     Sqlite3DatasetPreencheAmostras: TSqlite3Dataset;
@@ -94,13 +96,17 @@ type
     Sqlite3DatasetCombobox: TSqlite3Dataset;
     Sqlite3DatasetDidatico: TSqlite3Dataset;
     Sqlite3DatasetGeral: TSqlite3Dataset;
+    procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
     { private declarations }
   public
     sldb: TSQLiteDatabase;
     sltb: TSQLiteTable;
+    Datasource:TDatasource;
+    Dataset:TSQLite3Dataset;
 
+    procedure CriarBD(Diretorio:String);
     function DeterminaBD(diretorio: string): boolean;
     function DeterminaArquivo(Especie: string; Rruff_id: string;
      Tipo: string; Equipamento:String;DirecaoLaser: string): string;
@@ -114,6 +120,7 @@ type
     function ListaRruff_ids(Especie:String; Rruff_id:String): TStrings;
     function Equipamentos:TStrings;
     procedure AtualizaEquipamento(Novo:Boolean; Nome:String; Descricao:String; Localidade:String);
+    procedure CriarDataset(Diretorio:String; Tabela:String);
     { public declarations }
   end;
 
@@ -121,6 +128,8 @@ var
   Dados: TDados;
   MS: TMemoryStream;
   FS: TFileStream;
+
+  num:Integer;
 
 const
   Microssonda: string = 'Microssonda';
@@ -163,6 +172,58 @@ begin
   if SQLite3DatasetInstrumentos.Active then
     SQLite3DatasetInstrumentos.Close;
   sldb.Free;
+end;
+
+procedure TDados.CriarBD(Diretorio:String);
+var ExecSQL: string;
+begin
+  Sqlite3DatasetGeral.Close();
+  try
+    sldb := TSQLiteDatabase.Create(Diretorio);
+    Sqlite3DatasetGeral.FileName := Diretorio;
+    ExecSQL :=
+      'CREATE TABLE minerais ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT UNIQUE  NOT NULL, [formula] TEXT, [classe] TEXT, [subclasse] TEXT, [grupo] TEXT, [subgrupo] TEXT, [ocorrencia] TEXT, [associacao] TEXT, [distincao] TEXT,';
+    ExecSQL := ExecSQL +
+      ' [aplicacao] TEXT, [alteracao] TEXT, [dureza_min] FLOAT, [dureza_max] FLOAT, [densidade_min] FLOAT, [densidade_max] FLOAT, [cor] TEXT, [brilho] TEXT, [traco] TEXT, [fratura] TEXT, [clivagem] TEXT, ';
+    ExecSQL := ExecSQL +
+      ' [luminescencia] TEXT, [magnetismo] TEXT, [difaneidade] TEXT, [sinal_optico] TEXT, [indice_refracao] TEXT, [angulo] TEXT, [cor_interferencia] TEXT, [cor_lamina] TEXT, [sinal_elongacao] TEXT, [birrefringencia] TEXT, [relevo] TEXT, ';
+    ExecSQL := ExecSQL +
+      ' [extincao] TEXT, [classe_cristalina] TEXT, [sistema] TEXT, [h_m] TEXT, [habito] TEXT, ';
+    ExecSQL := ExecSQL +
+      ' [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB, [imagem6] BLOB, [imagem7] BLOB);';
+    Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+    ExecSQL :=
+      'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] TEXT, [mineralogiaimagem1] BLOB, [mineralogiaimagem2] BLOB, [mineralogiaimagem3] BLOB, [mineralogiaimagem4] BLOB, [mineralogiaimagem5] BLOB);';
+    Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+    ExecSQL:= 'CREATE TABLE rruff ([id] INTEGER PRIMARY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [numero] INTEGER, [quimicaideal] TEXT, ';
+    ExecSQL:=ExecSQL+' [localidade] TEXT, [fonte] TEXT, [descricao_quimica] TEXT, [situacao] TEXT, [quimicamedida] TEXT, [arquivo_microssonda] TEXT, [pin_id] TEXT, ';
+    ExecSQL:=ExecSQL+' [orientacao] TEXT, [microssonda] BLOB, [descricao_raman] TEXT, [comprimento_onda] TEXT, [descricao_broadscan] TEXT, '+
+      '[instrumento_bs] TEXT, [descricao_infravermelho] TEXT, [instrumento_iv] TEXT, [resolucao] TEXT, [infravermelho] BLOB, [descricao_amostra] TEXT, [direcao_laser] TEXT,';
+    ExecSQL:=ExecSQL+' [a] TEXT, [b] TEXT, [c] TEXT, [alpha] TEXT, [beta] TEXT, [gamma] TEXT, [volume] TEXT, [sistema_cristalino] TEXT, [descricao_difracao] TEXT, [arquivo_difracao] BLOB,';
+    ExecSQL:=ExecSQL+' [rruff_id_quimica] TEXT, [rruff_id_raman] TEXT, [rruff_id_varredura] TEXT, [rruff_id_infravermelho] TEXT, [rruff_id_difracao] TEXT, [proprietario] TEXT, [imagem_amostra] BLOB, [imagem_quimica] BLOB);';
+    Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+
+      ExecSQL:= 'CREATE TABLE raman ([id] INTEGER PRIMARY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [direcao] Integer, [digito_id] Integer, [equipamento_raman] Integer,'+
+        ' [arquivo_raman] BLOB);';
+      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+
+      ExecSQL:='CREATE TABLE varredura ([id] INTEGER PRIMARY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [comprimento_onda] Integer NOT NULL, [digito_id] INTEGER, '+
+        '[equipamento_varredura] INTEGER, [arquivo_varredura] BLOB );';
+      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+
+      ExecSQL:= 'CREATE TABLE instrumentos ([id] INTEGER PRIMARY KEY NOT NULL, [nome] UNIQUE NOT NULL, [descricao] TEXT, [localidade] TEXT);';
+      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+    finally
+      Sqlite3DatasetGeral.Open();
+      sldb.Free;
+    end;
+      // sldb.Create(ExecSQL);
+      //sldb.free;
+end;
+
+procedure TDados.DataModuleCreate(Sender: TObject);
+begin
+  //SDFDatasetGraficos.Fields.;
 end;
 
 function TDados.determinaBD(diretorio: string): boolean;
@@ -314,8 +375,7 @@ begin
         Result := GetCurrentDir + '\Data\raman.csv';
       end
       else Result:=EmptyStr;
-    end;  //retirar ; se for colocar linha de baixo
-    //else Result:=EmptyStr;
+    end;
   end
   else
   if Tipo = AmplaVarredura then
@@ -646,6 +706,28 @@ begin
       '" WHERE nome = "'+Nome+'" ;';
   end;
   sldb.ExecSQL(ExecSQL);
+end;
+
+procedure TDados.CriarDataset(Diretorio: String; Tabela:String);
+begin
+  Inc(num);
+  Dataset:=TSQLite3Dataset.Create(nil);
+  with Dataset do
+  begin
+    name:='Datasource'+IntToStr(num);
+    Filename:=Diretorio;
+    TableName:=Tabela;
+    SQL:=SQLite3DatasetGeral.SQL;
+  end;
+  Datasource:=TDatasource.Create(nil);
+  with Datasource do
+  begin
+    name:='Dataset'+IntToStr(num);
+    DataSet:=Dataset;
+    Enabled:=True;
+  end;
+  Dataset.Open;
+  Dataset.First;
 end;
 
 end.

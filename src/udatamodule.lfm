@@ -1,4 +1,5 @@
 object Dados: TDados
+  OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
   Height = 408
@@ -111,12 +112,46 @@ object Dados: TDados
   object SdfDataSetGraficos: TSdfDataSet
     FileMustExist = True
     ReadOnly = False
-    FieldDefs = <>
-    AllowMultiLine = False
+    Schema.Strings = (
+      'campo1, campo2'
+    )
+    FieldDefs = <    
+      item
+        Name = 'ValorX'
+        DataType = ftFloat
+        Precision = 0
+        Size = 0
+      end    
+      item
+        Name = 'ValorY'
+        DataType = ftFloat
+        Precision = 0
+        Size = 0
+      end>
     Delimiter = ','
     FirstLineAsSchema = False
     left = 248
     top = 168
+    object SdfDataSetGraficosValorX: TField
+      DisplayWidth = 10
+      FieldKind = fkInternalCalc
+      FieldName = 'ValorX'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SdfDataSetGraficosValorY: TField
+      DisplayWidth = 10
+      FieldKind = fkInternalCalc
+      FieldName = 'ValorY'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
   object DatasourceGraficos: TDatasource
     DataSet = SdfDataSetGraficos

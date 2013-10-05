@@ -68,9 +68,10 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   StdCtrls, ExtCtrls, ComCtrls, DBCtrls, ExtDlgs, Buttons, EditBtn, BGRAPanel,
-  BGRALabel, RichMemo, TAGraph, TASeries, uFormImpressao,
+  BGRALabel, RichMemo, TAGraph, TASeries, TASources, TADbSource, uFormImpressao,
   uSelecionaBD, SQLite3mod, SQLite3tablemod, uBibliografia, UnitAjuda, IniFiles,
-  unitImagem, unitPlanilha, unitequipamentos, unitrruff_id;
+  unitImagem, unitPlanilha, unitequipamentos, unitrruff_id, unitfichaamostra,
+  unitfichaespecie;
 
 type
 
@@ -123,6 +124,7 @@ type
     ComboBoxGrupo: TComboBox;
     ComboBoxSubclasse: TComboBox;
     ComboBoxSubgrupo: TComboBox;
+    DbChartSource1: TDbChartSource;
     DBEditDensidade_Max: TDBEdit;
     DBEditDensidade_Min: TDBEdit;
     DBEditDureza_Max: TDBEdit;
@@ -321,6 +323,9 @@ type
     LabelTraco: TLabel;
     ListBoxRruff_id: TListBox;
     ListBoxMinerais: TListBox;
+    ListChartSource1: TListChartSource;
+    MenuItemFicha: TMenuItem;
+    MenuItemEspecies: TMenuItem;
     MenuItemInstrumentos: TMenuItem;
     MenuItemAdicionarAmostra: TMenuItem;
     MenuItemRemoverAmostra: TMenuItem;
@@ -341,7 +346,7 @@ type
     MenuItemModoEdicao: TMenuItem;
     BGRAPanelImagens: TBGRAPanel;
     BGRAPanelFiltro: TBGRAPanel;
-    BGRAPanelListbox: TBGRAPanel;
+    BGRAPanelEspecies: TBGRAPanel;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItemBD: TMenuItem;
@@ -610,14 +615,18 @@ type
     procedure ImageCristalografia2DblClick(Sender: TObject);
     procedure ImageQuimicaDblClick(Sender: TObject);
     procedure ListBoxMineraisClick(Sender: TObject);
+    procedure ListBoxMineraisDblClick(Sender: TObject);
     procedure ListBoxRruff_idClick(Sender: TObject);
+    procedure ListBoxRruff_idDblClick(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItemAdicionarAmostraClick(Sender: TObject);
     procedure MenuItemAdicionarClick(Sender: TObject);
     procedure MenuItemAlfabeticaClick(Sender: TObject);
     procedure MenuItemDensidadeClick(Sender: TObject);
     procedure MenuItemDurezaCick(Sender: TObject);
+    procedure MenuItemEspeciesClick(Sender: TObject);
     procedure MenuItemExcluiClick(Sender: TObject);
+    procedure MenuItemFichaClick(Sender: TObject);
     procedure MenuItemFiltroClick(Sender: TObject);
     procedure MenuItemAmostrasClick(Sender: TObject);
     procedure MenuItemImagensClick(Sender: TObject);
@@ -707,7 +716,7 @@ var
   sldb: TSQLiteDatabase;
   sltb: TSQLiteTable;
   sltb2: TSQLiteTable;
-  slst: Tsqlitestmt;  //nao usada
+  //slst: Tsqlitestmt;  //nao usada
 
   Config: TIniFile;
 
@@ -717,6 +726,8 @@ var
   fonte, fontenormal, fonte2: TFontParams;
 
   DatasetFileName: string;
+
+  FormFichaEspecie:TForm;
 
 implementation
 
@@ -833,7 +844,8 @@ begin
     ListboxRruff_id.GetSelectedText,
       'Ampla Varredura', ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text);
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-     ChartVarredura.AddSeries(PlotarGrafico)
+     //ChartVarredura.AddSeries(PlotarGrafico)
+    ChartVarredura.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
     else
       ChartVarredura.ClearSeries;
   end;
@@ -1508,9 +1520,10 @@ begin
               ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text, Opendialog1.FileName);
         end
         else
-        if ExtractFileExt(OpenDialog1.FileName) = '.txt' then
         begin
-
+           Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+            ListboxRruff_id.GetSelectedText, 'Ampla Varredura',
+              ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text, ChangeFileExt(OpenDialog1.FileName, '.csv'));
         end;
       end;
     end;
@@ -1519,7 +1532,8 @@ begin
         ListboxRruff_id.GetSelectedText,
           'Ampla Varredura', ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text);
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-      ChartVarredura.AddSeries(PlotarGrafico)
+      //ChartVarredura.AddSeries(PlotarGrafico)
+    ChartVarredura.AddSeries(PlotarGrafico( Dados.SdfDataSetGraficos.FileName))
     else
       ChartVarredura.ClearSeries;
   end
@@ -1535,10 +1549,22 @@ begin
     begin
       if OpenDialog1.FileName <> EmptyStr then
       begin
-        Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
-          ListboxRruff_id.GetSelectedText,
+        if ExtractFileExt(OpenDialog1.FileName) = '.csv' then
+        begin
+          Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+            ListboxRruff_id.GetSelectedText,
             'Espectro Infravermelho',
               ComboboxEquipamentoInfravermelho.Text, '', Opendialog1.FileName);
+        end
+        else
+        begin
+          Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+            ListboxRruff_id.GetSelectedText,
+            'Espectro Infravermelho',
+              ComboboxEquipamentoInfravermelho.Text, '',
+                ChangeFileExt(Opendialog1.FileName, '.csv'));
+        end;
+
       end;
     end;
     Dados.SdfDataSetGraficos.FileName :=
@@ -1546,7 +1572,8 @@ begin
         ListboxRruff_id.GetSelectedText,
           'Espectro Infravermelho', ComboboxEquipamentoInfravermelho.Text, '');
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-      ChartInfravermelho.AddSeries(PlotarGrafico)
+      //ChartInfravermelho.AddSeries(PlotarGrafico)
+       ChartInfravermelho.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
     else
       ChartInfravermelho.ClearSeries;
   end;
@@ -1560,16 +1587,26 @@ begin
     begin
       if OpenDialog1.FileName <> EmptyStr then
       begin
-        Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
-          ListboxRruff_id.GetSelectedText, 'Difracao',
-          '', '', Opendialog1.FileName);
+        if ExtractFileExt(OpenDialog1.FileName) = '.csv' then
+        begin
+          Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+            ListboxRruff_id.GetSelectedText, 'Difracao',
+            '', '', Opendialog1.FileName);
+        end
+        else
+        begin
+          Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+            ListboxRruff_id.GetSelectedText, 'Difracao',
+            '', '', ChangeFileExt(Opendialog1.FileName, '.csv'));
+        end;
       end;
     end;
     Dados.SdfDataSetGraficos.FileName :=
       Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
       ListboxRruff_id.GetSelectedText, 'Difracao', '', '');
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-      ChartDifracao.AddSeries(PlotarGrafico)
+      //ChartDifracao.AddSeries(PlotarGrafico)
+      ChartDifracao.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
     else
       ChartDifracao.ClearSeries;
   end;
@@ -1669,19 +1706,28 @@ begin              {Dados.SalvaArquivo(Especie: string; Rruff_id: string; Digito
       begin
         if OpenDialog1.FileName <> EmptyStr then
         begin
-          Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
-            ListboxRruff_id.GetSelectedText,
-              'RAMAN', ComboboxEquipamentoRaman.Text,
-              ComboboxDirecaoLaser.Text, Opendialog1.FileName);
-
-
-         Dados.SdfDataSetGraficos.FileName :=
-           Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
-            ListboxRruff_id.GetSelectedText, EspectroRAMAN,
+          if ExtractFileExt(OpenDialog1.FileName) = '.csv' then
+          begin
+             Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+               ListboxRruff_id.GetSelectedText,
+                 'RAMAN', ComboboxEquipamentoRaman.Text,
+                ComboboxDirecaoLaser.Text, Opendialog1.FileName);
+          end
+          else
+          begin
+            Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
+              ListboxRruff_id.GetSelectedText,
+               'RAMAN', ComboboxEquipamentoRaman.Text,
+              ComboboxDirecaoLaser.Text, ChangeFileExt(Opendialog1.FileName, '.csv'));
+          end;
+              Dados.SdfDataSetGraficos.FileName :=
+              Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+              ListboxRruff_id.GetSelectedText, EspectroRAMAN,
               ComboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text);
 
           if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-           ChartRaman.AddSeries(PlotarGrafico)
+           //ChartRaman.AddSeries(PlotarGrafico)
+          ChartRaman.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
           else
             ChartRaman.ClearSeries;
         end;
@@ -2315,6 +2361,19 @@ begin
   ChartDifracao.ClearSeries;
 end;
 
+procedure TFormPrincipal.ListBoxMineraisDblClick(Sender: TObject);
+begin
+  if ListboxMinerais.GetSelectedText <> EmptyStr then
+  begin
+    FormFichaEspecie:=TFormFichaEspecie.Create(nil);
+    with FormFichaEspecie do
+    begin
+      Caption:=ListboxMinerais.GetSelectedText;
+      Show;
+    end;
+  end;
+end;
+
 procedure TFormPrincipal.ListBoxRruff_idClick(Sender: TObject);
 var
   DiretorioArquivo, ComprimentoOnda: string;
@@ -2359,7 +2418,8 @@ begin
           ListboxRruff_id.GetSelectedText,
            'RAMAN', ComboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text);
       if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-        ChartRaman.AddSeries(PlotarGrafico)
+        //ChartRaman.AddSeries(PlotarGrafico)
+      ChartRaman.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
       else
         ChartRaman.ClearSeries;
     end
@@ -2372,7 +2432,8 @@ begin
           ListboxRruff_id.GetSelectedText,
            'Ampla Varredura', ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text);
       if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-        ChartVarredura.AddSeries(PlotarGrafico)
+        //ChartVarredura.AddSeries(PlotarGrafico)
+      ChartVarredura.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
       else
         ChartVarredura.ClearSeries;
     end
@@ -2384,7 +2445,8 @@ begin
           ListboxRruff_id.GetSelectedText,
             'Espectro Infravermelho', ComboboxEquipamentoInfravermelho.Text, '');
       if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-        ChartInfravermelho.AddSeries(PlotarGrafico)
+        //ChartInfravermelho.AddSeries(PlotarGrafico)
+      ChartInfravermelho.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
       else
         ChartInfravermelho.ClearSeries;
     end
@@ -2394,10 +2456,24 @@ begin
       Dados.SdfDataSetGraficos.FileName :=
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
         ListboxRruff_id.GetSelectedText, 'Difracao', '', '');
-      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-        ChartDifracao.AddSeries(PlotarGrafico)
+      if (Dados.SdfDataSetGraficos.FileName <> EmptyStr) then
+        //ChartDifracao.AddSeries(PlotarGrafico)
+      ChartDifracao.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
       else
         ChartDifracao.ClearSeries;
+    end;
+  end;
+end;
+
+procedure TFormPrincipal.ListBoxRruff_idDblClick(Sender: TObject);
+begin
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    FormFichaAmostra:=TFormFichaAmostra.Create(nil);
+    with FormFichaAmostra do
+    begin
+      Caption:=ListboxMinerais.GetSelectedText+' - '+ListboxRruff_id.GetSelectedText;
+      Show;
     end;
   end;
 end;
@@ -2449,9 +2525,37 @@ begin
   Ordem('Dureza');
 end;
 
+procedure TFormPrincipal.MenuItemEspeciesClick(Sender: TObject);
+begin         //config.ini
+  if MenuitemEspecies.Checked then
+  begin
+    BGRAPanelEspecies.Visible:=False;
+    MenuitemEspecies.Checked:=False;
+  end
+  else
+  begin
+    BGRAPanelEspecies.Visible:=True;
+    MenuitemEspecies.Checked:=True;
+  end;
+end;
+
 procedure TFormPrincipal.MenuItemExcluiClick(Sender: TObject);
 begin
   ExcluiMineral;
+end;
+
+procedure TFormPrincipal.MenuItemFichaClick(Sender: TObject);
+begin       //config.ini
+  if MenuItemFicha.Checked then
+  begin
+    MenuItemFicha.Checked:=False;
+    PanelFicha.Visible:=False;
+  end
+  else
+  begin
+    MenuItemFicha.Checked:=True;
+    MenuItemFicha.Visible:=True;
+  end;
 end;
 
 procedure TFormPrincipal.MenuItemFiltroClick(Sender: TObject);
@@ -2479,6 +2583,7 @@ begin
   begin
     PreencheAmostras;
     Dados.Sqlite3DatasetAmostras.Open;
+    Dados.Sqlite3DatasetAmostras.ClearFields;
     PanelFicha.Visible := False;
     PanelRruff.Visible := True;
     BGRAPanel1.Visible := True;
@@ -2880,26 +2985,30 @@ begin
       Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
       ListboxRruff_id.GetSelectedText, EspectroRAMAN, Equipamento, Angulo0);
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-      ChartRaman.AddSeries(PlotarGrafico);
+      //ChartRaman.AddSeries(PlotarGrafico);
+    ChartRaman.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName));
 
     Dados.SdfDataSetGraficos.FileName :=
       Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
       ListboxRruff_id.GetSelectedText, EspectroRAMAN, Equipamento, Angulo45);
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-      ChartRaman.AddSeries(PlotarGrafico);
+      //ChartRaman.AddSeries(PlotarGrafico);
+    ChartRaman.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName));
 
     Dados.SdfDataSetGraficos.FileName :=
       Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
       ListboxRruff_id.GetSelectedText, EspectroRAMAN, Equipamento, Angulo90);
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-      ChartRaman.AddSeries(PlotarGrafico);
+      //ChartRaman.AddSeries(PlotarGrafico);
+    ChartRaman.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName));
 
     Dados.SdfDataSetGraficos.FileName :=
       Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
       ListboxRruff_id.GetSelectedText, EspectroRAMAN,
       Equipamento, Depolarizado);
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-      ChartRaman.AddSeries(PlotarGrafico);
+      //ChartRaman.AddSeries(PlotarGrafico);
+    ChartRaman.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName));
   end
   else
   begin
@@ -2909,7 +3018,8 @@ begin
       Equipamento, ComboboxDirecaoLaser.Text);
 
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-      ChartRaman.AddSeries(PlotarGrafico);
+      //ChartRaman.AddSeries(PlotarGrafico);
+    ChartRaman.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName));
   end;
 end;
 
@@ -2988,6 +3098,8 @@ var
 begin
   LimpaDD;
   LimpaRichMemo;
+  if ListboxMinerais.GetSelectedText <> EmptyStr then
+  begin
   if (EditNome.Text <> EmptyStr) then
   begin
     sltb := sldb.GetTable('SELECT nome FROM minerais WHERE (nome = "' +
@@ -3049,6 +3161,11 @@ begin
   end;
   AtualizaImagem;
   barra_status;
+  end
+  else
+  begin
+    ShowMessage('Selecione um mineral da lista para adicionar amostra.')
+  end;
 end;
 
 procedure TFormPrincipal.MenuItemNovoClick(Sender: TObject);
@@ -3095,7 +3212,8 @@ begin
           ListboxRruff_id.GetSelectedText,
            'RAMAN', ComboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text);
       if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-        ChartRaman.AddSeries(PlotarGrafico)
+        //ChartRaman.AddSeries(PlotarGrafico)
+      ChartRaman.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName ))
       else
         ChartRaman.ClearSeries;
      { //AtualizaComboboxEquipamentos(ComboboxEquipamentoRaman);
@@ -3147,8 +3265,8 @@ begin
           ListboxRruff_id.GetSelectedText, 'Ampla Varredura',
             ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text);
       if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-        //ChartVarredura.AddSeries(GraficoVarredura)
-        ChartVarredura.AddSeries(PlotarGrafico)
+        //ChartVarredura.AddSeries(PlotarGrafico)
+      ChartVarredura.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
       else
         ChartVarredura.ClearSeries;
     end
@@ -3160,8 +3278,8 @@ begin
           ListboxRruff_id.GetSelectedText,
             'Espectro Infravermelho', ComboboxEquipamentoInfravermelho.Text, '');
       if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-        //ChartInfravermelho.AddSeries(GraficoInfravermelho)
-        ChartInfravermelho.AddSeries(PlotarGrafico)
+        //ChartInfravermelho.AddSeries(PlotarGrafico)
+      ChartInfravermelho.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
       else
         ChartInfravermelho.ClearSeries;
     end
@@ -3172,8 +3290,8 @@ begin
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
         ListboxRruff_id.GetSelectedText, 'Difracao', '', '');
       if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-       // ChartDifracao.AddSeries(GraficoDifracao)
-        ChartInfravermelho.AddSeries(PlotarGrafico)
+        //ChartDifracao.AddSeries(PlotarGrafico)
+      ChartDifracao.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
       else
         ChartDifracao.ClearSeries;
     end;

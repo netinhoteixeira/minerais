@@ -78,7 +78,7 @@ var InsertSQL: String;
 begin
   if UpCase(Tabela) = UpCase('minerais') then
   begin
-    Dados.sltb := Dados.sldb.GetTable('SELECT imagem' + IntToStr(Numero) + ' FROM minerais where nome = "' +
+    Dados.sltb := Dados.sldb.GetTable('SELECT nome, imagem' + IntToStr(Numero) + ' FROM minerais where nome = "' +
       NomeCampo + '"');
     //colocar comando para ver se rowcount > 0
     ms := Dados.sltb.FieldAsBlob(Dados.sltb.FieldIndex['imagem' + IntToStr(Numero)]);
@@ -148,14 +148,14 @@ function SelecionaImagensRruff(Especie: String; Rruff_id: String; Tipo:String): 
 begin
   if Tipo = 'Amostra' then
   begin
-    Dados.sltb := Dados.sldb.GetTable('SELECT imagem_amostra FROM rruff where especie = "' +
+    Dados.sltb := Dados.sldb.GetTable('SELECT imagem_amostra FROM rruff WHERE especie = "' +
       Especie + '" and rruff_id = "' + Rruff_id +'";');
     ms := Dados.sltb.FieldAsBlob(Dados.sltb.FieldIndex['imagem_amostra']);
   end
   else
   if Tipo =  'Quimica' then
   begin
-    Dados.sltb := Dados.sldb.GetTable('SELECT  imagem_quimica FROM rruff where especie = "' +
+    Dados.sltb := Dados.sldb.GetTable('SELECT  imagem_quimica FROM rruff WHERE especie = "' +
       Especie + '" and rruff_id = "' + Rruff_id +'";');
     ms := Dados.sltb.FieldAsBlob(Dados.sltb.FieldIndex['imagem_quimica']);
   end;
