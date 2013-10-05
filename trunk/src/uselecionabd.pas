@@ -146,7 +146,6 @@ end;
 
 procedure TFormSelecionaBD.EditButtonNovoButtonClick(Sender: TObject);
 var
-  ExecSQL: string;
   Diretorio: string;
 begin                                 //colocar no datamodule
   if (EditButtonNovo.Text <> EmptyStr) then
@@ -154,49 +153,7 @@ begin                                 //colocar no datamodule
     Diretorio := GetCurrentDir + '\Data\' + EditButtonNovo.Text + '.s3db';
     if (not FileExists(diretorio)) then
     begin
-      Dados.Sqlite3DatasetGeral.Close();
-      try
-        sldb := TSQLiteDatabase.Create(Diretorio);
-        Dados.Sqlite3DatasetGeral.FileName := Diretorio;
-        ExecSQL :=
-          'CREATE TABLE minerais ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT UNIQUE  NOT NULL, [formula] TEXT, [classe] TEXT, [subclasse] TEXT, [grupo] TEXT, [subgrupo] TEXT, [ocorrencia] TEXT, [associacao] TEXT, [distincao] TEXT,';
-        ExecSQL := ExecSQL +
-          ' [aplicacao] TEXT, [alteracao] TEXT, [dureza_min] FLOAT, [dureza_max] FLOAT, [densidade_min] FLOAT, [densidade_max] FLOAT, [cor] TEXT, [brilho] TEXT, [traco] TEXT, [fratura] TEXT, [clivagem] TEXT, ';
-        ExecSQL := ExecSQL +
-          ' [luminescencia] TEXT, [magnetismo] TEXT, [difaneidade] TEXT, [sinal_optico] TEXT, [indice_refracao] TEXT, [angulo] TEXT, [cor_interferencia] TEXT, [cor_lamina] TEXT, [sinal_elongacao] TEXT, [birrefringencia] TEXT, [relevo] TEXT, ';
-        ExecSQL := ExecSQL +
-          ' [extincao] TEXT, [classe_cristalina] TEXT, [sistema] TEXT, [h_m] TEXT, [habito] TEXT, ';
-        ExecSQL := ExecSQL +
-          ' [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB, [imagemCristalografia1] BLOB, [imagemcristalografia2] BLOB), [imagem6] BLOB, [imagem7] BLOB;';
-        Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-        ExecSQL :=
-          'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] TEXT, [mineralogiaimagem1] BLOB, [mineralogiaimagem2] BLOB, [mineralogiaimagem3] BLOB, [mineralogiaimagem4] BLOB, [mineralogiaimagem5] BLOB);';
-        Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-
-        ExecSQL:= 'CREATE TABLE rruff ([id] INTEGER PRIMATY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [numero] INTEGER, [quimicaideal] TEXT, ';
-        ExecSQL:=ExecSQL+' [localidade] TEXT, [fonte] TEXT, [descricao_quimica] TEXT, [situacao] TEXT, [quimicamedida] TEXT, [arquivo_microssonda] TEXT, [pin_id] TEXT, ';
-        ExecSQL:=ExecSQL+' [orientacao] TEXT, [microssonda] BLOB, [descricao_raman] TEXT, [comprimento_onda] TEXT, [descricao_broadscan] TEXT, '+
-                           '[instrumento_bs] TEXT, [descricao_infravermelho] TEXT, [instrumento_iv] TEXT, [resolucao] TEXT, [infravermelho] BLOB, [descricao_amostra] TEXT, [direcao_laser] TEXT,';
-        ExecSQL:=ExecSQL+' [a] TEXT, [b] TEXT, [c] TEXT, [alpha] TEXT, [beta] TEXT, [gamma] TEXT, [volume] TEXT, [sistema_cristalino] TEXT, [descricao_difracao] TEXT, [arquivo_difracao] BLOB,';
-        ExecSQL:=ExecSQL+' [rruff_id_quimica] TEXT, [rruff_id_raman] TEXT, [rruff_id_varredura] TEXT, [rruff_id_infravermelho] TEXT, [rruff_id_difracao] TEXT, [proprietario] TEXT, [imagem_amostra] BLOB, [imagem_quimica] BLOB;';
-        Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-
-        ExecSQL:= 'CREATE TABLE raman ([id] INTEGER PRIMATY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [direcao] Integer, [digito_id] Integer, [equipamento_raman] Integer,'+
-          ' [arquivo_raman] BLOB);';
-        Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-
-        ExecSQL:='CREATE TABLE varredura ([id] INTEGER PRIMATY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [comprimento_onda] Integer NOT NULL, [digito_id] INTEGER, '+
-          '[equipamento_varredura] INTEGER, [arquivo_varredura] BLOB );';
-        Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-
-        ExecSQL:= 'CREATE TABLE instrumentos ([id] INTEGER PRIMATY KEY NOT NULL, [nome] UNIQUE NOT NULL, [descricao] TEXT, [localidade] TEXT);';
-        Dados.Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-      finally
-        Dados.Sqlite3DatasetGeral.Open();
-        sldb.Free;
-      end;
-      // sldb.Create(ExecSQL);
-      //sldb.free;
+      Dados.CriarBD(Diretorio);
       ListBoxSeleciona.Items.Append(Diretorio);
     end
     else
