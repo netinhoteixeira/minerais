@@ -55,20 +55,23 @@ function PlotarGrafico(Diretorio:String): TLineSeries;
 
 begin
   Serie := TLineSeries.Create(nil);
-  AssignFile(Arquivo, Diretorio);
-       Reset(Arquivo);
-       While (not EOF(Arquivo)) do
-       Begin
-         Readln(Arquivo, Valores);
-         if Copy(Valores, 0, 1) <> '#' then
-         begin
-           if Valores <> EmptyStr then
-           Serie.AddXY(ExtrairValores(Trim(Valores), True),
-             ExtrairValores(Trim(Valores), False));
-         end;
-       end;
-       CloseFile(Arquivo);
-       Result:=Serie;
+  if Diretorio<> EmptyStr then
+  begin
+    AssignFile(Arquivo, Diretorio);
+    Reset(Arquivo);
+    While (not EOF(Arquivo)) do
+    Begin
+     Readln(Arquivo, Valores);
+     if Copy(Valores, 0, 1) <> '#' then
+     begin
+       if Valores <> EmptyStr then
+       Serie.AddXY(ExtrairValores(Trim(Valores), True),
+         ExtrairValores(Trim(Valores), False));
+     end;
+    end;
+    CloseFile(Arquivo);
+  end;
+  Result:=Serie;
   {Dados.SdfDataSetGraficos.Open;
   Dados.SdfDataSetGraficos.First;
   //if (Dados.SdfDataSetGraficos.RecNo > 0) then

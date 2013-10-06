@@ -39,7 +39,6 @@ object FormPrincipal: TFormPrincipal
       OnClick = ListBoxMineraisClick
       OnDblClick = ListBoxMineraisDblClick
       PopupMenu = PopupMenuListbox
-      Style = lbOwnerDrawVariable
       TabOrder = 0
     end
     object BGRALabelEspecies: TBGRALabel
@@ -1810,9 +1809,9 @@ object FormPrincipal: TFormPrincipal
         Height = 623
         Top = 1
         Width = 656
-        ActivePage = TabSheetRruffDifracao
+        ActivePage = TabSheetRruffDescricao
         Align = alClient
-        TabIndex = 5
+        TabIndex = 0
         TabOrder = 0
         OnChange = PageControlRruffChange
         object TabSheetRruffDescricao: TTabSheet
@@ -2035,6 +2034,7 @@ object FormPrincipal: TFormPrincipal
               Height = 211
               Top = 3
               Width = 209
+              Anchors = [akTop, akRight]
               ClientHeight = 193
               ClientWidth = 205
               TabOrder = 9
@@ -2654,6 +2654,7 @@ object FormPrincipal: TFormPrincipal
                 Height = 25
                 Top = 5
                 Width = 180
+                Anchors = [akTop, akRight]
                 Caption = 'Remover Gráfico'
                 OnClick = BitBtn1Click
                 TabOrder = 1
@@ -2864,6 +2865,7 @@ object FormPrincipal: TFormPrincipal
                 Height = 25
                 Top = 5
                 Width = 180
+                Anchors = [akTop, akRight]
                 Caption = 'Remover Gráfico'
                 OnClick = BitBtnExcluiDadosInfravermelhoClick
                 TabOrder = 1
@@ -3333,18 +3335,8 @@ object FormPrincipal: TFormPrincipal
     end
   end
   object OpenDialog1: TOpenDialog
+    Title = 'Abrir arquivo '
     left = 240
     top = 608
-  end
-  object ListChartSource1: TListChartSource
-    left = 304
-    top = 617
-  end
-  object DbChartSource1: TDbChartSource
-    DataSource = Dados.DatasourceGraficos
-    FieldX = 'ValorX'
-    FieldY = 'ValorY'
-    left = 348
-    top = 617
   end
 end

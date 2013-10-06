@@ -16,9 +16,9 @@ object FormFichaEspecie: TFormFichaEspecie
     Height = 660
     Top = 0
     Width = 673
-    ActivePage = TabSheetImagem
+    ActivePage = TabSheetInf_Gerais
     Align = alClient
-    TabIndex = 4
+    TabIndex = 0
     TabOrder = 0
     object TabSheetInf_Gerais: TTabSheet
       Caption = 'Informações Gerais'
@@ -150,9 +150,6 @@ object FormFichaEspecie: TFormFichaEspecie
           Height = 27
           Top = 40
           Width = 524
-          Lines.Strings = (
-            'MemoNome'
-          )
           TabOrder = 2
         end
         object MemoClasse: TMemo
@@ -160,9 +157,6 @@ object FormFichaEspecie: TFormFichaEspecie
           Height = 27
           Top = 79
           Width = 524
-          Lines.Strings = (
-            'MemoClasse'
-          )
           TabOrder = 3
         end
         object MemoSubclasse: TMemo
@@ -170,9 +164,6 @@ object FormFichaEspecie: TFormFichaEspecie
           Height = 27
           Top = 111
           Width = 524
-          Lines.Strings = (
-            'MemoSubclasse'
-          )
           TabOrder = 4
         end
         object MemoGrupo: TMemo
@@ -180,9 +171,6 @@ object FormFichaEspecie: TFormFichaEspecie
           Height = 27
           Top = 143
           Width = 524
-          Lines.Strings = (
-            'MemoGrupo'
-          )
           TabOrder = 5
         end
         object MemoSubgrupo: TMemo
@@ -190,9 +178,6 @@ object FormFichaEspecie: TFormFichaEspecie
           Height = 27
           Top = 175
           Width = 524
-          Lines.Strings = (
-            'MemoSubgrupo'
-          )
           TabOrder = 6
         end
         object MemoOcorrencia: TMemo
@@ -200,9 +185,6 @@ object FormFichaEspecie: TFormFichaEspecie
           Height = 70
           Top = 216
           Width = 524
-          Lines.Strings = (
-            'MemoOcorrencia'
-          )
           TabOrder = 7
         end
         object MemoAssociacao: TMemo
@@ -210,9 +192,6 @@ object FormFichaEspecie: TFormFichaEspecie
           Height = 70
           Top = 295
           Width = 524
-          Lines.Strings = (
-            'MemoAssociacao'
-          )
           TabOrder = 8
         end
         object MemoDistincao: TMemo
@@ -220,9 +199,6 @@ object FormFichaEspecie: TFormFichaEspecie
           Height = 70
           Top = 375
           Width = 524
-          Lines.Strings = (
-            'MemoDistincao'
-          )
           TabOrder = 9
         end
         object MemoAlteracao: TMemo
@@ -230,9 +206,6 @@ object FormFichaEspecie: TFormFichaEspecie
           Height = 70
           Top = 455
           Width = 524
-          Lines.Strings = (
-            'MemoAlteracao'
-          )
           TabOrder = 10
         end
         object MemoAplicacao: TMemo
@@ -240,9 +213,6 @@ object FormFichaEspecie: TFormFichaEspecie
           Height = 70
           Top = 535
           Width = 524
-          Lines.Strings = (
-            'MemoAplicacao'
-          )
           TabOrder = 11
         end
       end

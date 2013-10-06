@@ -307,7 +307,9 @@ begin
       MS.Position := 0;
       MS.SaveToFile(GetCurrentDir + '\Data\microssonda.csv');
       Result := GetCurrentDir + '\Data\microssonda.csv';
-    end;
+    end
+    else
+    Result:=EmptyStr;
   end
   else
   if Tipo = EspectroRaman then
@@ -397,7 +399,9 @@ begin
       MS.Position := 0;
       MS.SaveToFile(GetCurrentDir + '\Data\varredura.csv');
       Result := GetCurrentDir + '\Data\varredura.csv';
-    end;
+    end
+    else
+    Result:=EmptyStr;
   end
   else
   if Tipo = Infravermelho then
@@ -410,7 +414,9 @@ begin
       MS.Position := 0;
       MS.SaveToFile(GetCurrentDir + '\Data\infravermelho.csv');
       Result := GetCurrentDir + '\Data\infravermelho.csv';
-    end;
+    end
+    else
+    Result:=EmptyStr;
   end
   else
   if Tipo = Difracao then
@@ -423,7 +429,9 @@ begin
       MS.Position := 0;
       MS.SaveToFile(GetCurrentDir + '\Data\difracao.csv');
       Result := GetCurrentDir + '\Data\difracao.csv';
-    end;
+    end
+    else
+    Result:=EmptyStr;
   end
   else
     Result := EmptyStr;

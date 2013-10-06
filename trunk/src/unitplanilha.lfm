@@ -9,6 +9,7 @@ object FormPlanilha: TFormPlanilha
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
+  Position = poDesktopCenter
   LCLVersion = '1.0.10.0'
   object Panel1: TPanel
     Left = 0
