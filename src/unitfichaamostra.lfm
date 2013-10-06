@@ -1,0 +1,1028 @@
+object FormFichaAmostra: TFormFichaAmostra
+  Left = 343
+  Height = 639
+  Top = 40
+  Width = 717
+  Caption = 'FormFichaAmostra'
+  ClientHeight = 639
+  ClientWidth = 717
+  OnClose = FormClose
+  OnCreate = FormCreate
+  Position = poDesktopCenter
+  ShowInTaskBar = stAlways
+  LCLVersion = '1.0.10.0'
+  object PanelRRUFF: TPanel
+    Left = 0
+    Height = 639
+    Top = 0
+    Width = 717
+    Align = alClient
+    ClientHeight = 639
+    ClientWidth = 717
+    TabOrder = 0
+    object PageControlRruff: TPageControl
+      Left = 1
+      Height = 637
+      Top = 1
+      Width = 715
+      ActivePage = TabSheetRruffDescricao
+      Align = alClient
+      TabIndex = 0
+      TabOrder = 0
+      OnChange = PageControlRruffChange
+      object TabSheetRruffDescricao: TTabSheet
+        Caption = 'Descrição da Amostra'
+        ClientHeight = 609
+        ClientWidth = 707
+        object GroupBox3: TGroupBox
+          Left = 0
+          Height = 609
+          Top = 0
+          Width = 707
+          Align = alClient
+          ClientHeight = 591
+          ClientWidth = 703
+          TabOrder = 0
+          object LabelQuimicaIdeal: TLabel
+            Left = 16
+            Height = 16
+            Top = 150
+            Width = 74
+            Caption = 'Química Ideal'
+            ParentColor = False
+          end
+          object LabelLocalidade: TLabel
+            Left = 16
+            Height = 16
+            Top = 244
+            Width = 58
+            Anchors = [akLeft, akBottom]
+            Caption = 'Localidade'
+            ParentColor = False
+          end
+          object LabelFonte: TLabel
+            Left = 16
+            Height = 16
+            Top = 308
+            Width = 31
+            Anchors = [akLeft, akBottom]
+            Caption = 'Fonte'
+            ParentColor = False
+          end
+          object Label2: TLabel
+            Left = 16
+            Height = 16
+            Top = 436
+            Width = 52
+            Anchors = [akLeft, akBottom]
+            Caption = 'Descrição'
+            ParentColor = False
+          end
+          object Label3: TLabel
+            Left = 16
+            Height = 16
+            Top = 500
+            Width = 46
+            Anchors = [akLeft, akBottom]
+            Caption = 'Situação'
+            ParentColor = False
+          end
+          object LabelProprietario: TLabel
+            Left = 16
+            Height = 16
+            Top = 375
+            Width = 63
+            Anchors = [akLeft, akBottom]
+            Caption = 'Proprietário'
+            ParentColor = False
+          end
+          object Label10: TLabel
+            Left = 16
+            Height = 16
+            Top = 86
+            Width = 40
+            Caption = 'Rruff Id'
+            ParentColor = False
+          end
+          object Label1Especie: TLabel
+            Left = 16
+            Height = 16
+            Top = 16
+            Width = 40
+            Caption = 'Espécie'
+            ParentColor = False
+          end
+          object GroupBox9: TGroupBox
+            Left = 416
+            Height = 211
+            Top = 3
+            Width = 248
+            Anchors = [akTop, akLeft, akRight]
+            ClientHeight = 193
+            ClientWidth = 244
+            TabOrder = 0
+            object ImageDescricao: TImage
+              Left = 0
+              Height = 193
+              Top = 0
+              Width = 244
+              Align = alClient
+            end
+          end
+          object MemoEspecie: TMemo
+            Left = 144
+            Height = 35
+            Top = 16
+            Width = 166
+            TabOrder = 1
+          end
+          object MemoRruff_id: TMemo
+            Left = 144
+            Height = 35
+            Top = 86
+            Width = 166
+            TabOrder = 2
+          end
+          object MemoQuimica: TMemo
+            Left = 144
+            Height = 35
+            Top = 150
+            Width = 166
+            TabOrder = 3
+          end
+          object MemoLocalidade: TMemo
+            Left = 144
+            Height = 55
+            Top = 244
+            Width = 540
+            ScrollBars = ssAutoVertical
+            TabOrder = 4
+          end
+          object MemoFonte: TMemo
+            Left = 144
+            Height = 55
+            Top = 308
+            Width = 540
+            ScrollBars = ssAutoVertical
+            TabOrder = 5
+          end
+          object MemoProprietario: TMemo
+            Left = 144
+            Height = 55
+            Top = 375
+            Width = 540
+            ScrollBars = ssAutoVertical
+            TabOrder = 6
+          end
+          object MemoDescricao: TMemo
+            Left = 144
+            Height = 55
+            Top = 436
+            Width = 540
+            ScrollBars = ssAutoVertical
+            TabOrder = 7
+          end
+          object MemoSituacao: TMemo
+            Left = 144
+            Height = 55
+            Top = 500
+            Width = 540
+            Lines.Strings = (
+              ''
+            )
+            ScrollBars = ssAutoVertical
+            TabOrder = 8
+          end
+        end
+      end
+      object TabSheetRruffQuimica: TTabSheet
+        Caption = 'Química Ideal'
+        ClientHeight = 609
+        ClientWidth = 707
+        object GroupBox4: TGroupBox
+          Left = 0
+          Height = 609
+          Top = 0
+          Width = 707
+          Align = alClient
+          ClientHeight = 591
+          ClientWidth = 703
+          TabOrder = 0
+          object LabelDescricao2: TLabel
+            Left = 14
+            Height = 16
+            Top = 380
+            Width = 52
+            Anchors = [akLeft, akBottom]
+            Caption = 'Descrição'
+            ParentColor = False
+          end
+          object LabelQuimicaMedida: TLabel
+            Left = 14
+            Height = 16
+            Top = 468
+            Width = 89
+            Anchors = [akLeft, akBottom]
+            Caption = 'Química Medida'
+            ParentColor = False
+          end
+          object LabelId_Quimica: TLabel
+            Left = 14
+            Height = 16
+            Top = 332
+            Width = 43
+            Anchors = [akLeft, akBottom]
+            Caption = 'Rruff Id:'
+            ParentColor = False
+          end
+          object Label4: TLabel
+            Left = 352
+            Height = 31
+            Top = 332
+            Width = 9
+            Anchors = [akLeft, akBottom]
+            Caption = '-'
+            Font.Height = -21
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object GroupBoxImagemQuimica: TGroupBox
+            Left = 15
+            Height = 300
+            Top = 6
+            Width = 300
+            ClientHeight = 282
+            ClientWidth = 296
+            TabOrder = 0
+            object ImageQuimica: TImage
+              Left = 0
+              Height = 282
+              Top = 0
+              Width = 296
+              Align = alClient
+            end
+          end
+          object MemoQuimicaRruff_id: TMemo
+            Left = 184
+            Height = 35
+            Top = 332
+            Width = 150
+            TabOrder = 1
+          end
+          object MemoQuimicaDigito: TMemo
+            Left = 385
+            Height = 35
+            Top = 332
+            Width = 56
+            TabOrder = 2
+          end
+          object MemoQuimicaDescricao: TMemo
+            Left = 184
+            Height = 80
+            Top = 380
+            Width = 492
+            TabOrder = 3
+          end
+          object MemoQuimicaMedida: TMemo
+            Left = 184
+            Height = 82
+            Top = 468
+            Width = 492
+            TabOrder = 4
+          end
+        end
+      end
+      object TabSheetRruffRaman: TTabSheet
+        Caption = 'Espectro RAMAN'
+        ClientHeight = 609
+        ClientWidth = 707
+        object GroupBox5: TGroupBox
+          Left = 0
+          Height = 609
+          Top = 0
+          Width = 707
+          Align = alClient
+          ClientHeight = 591
+          ClientWidth = 703
+          TabOrder = 0
+          object GroupBoxGraficoRaman: TGroupBox
+            Left = 16
+            Height = 284
+            Top = 22
+            Width = 660
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            ClientHeight = 266
+            ClientWidth = 656
+            TabOrder = 0
+            object ChartRaman: TChart
+              Left = 0
+              Height = 266
+              Top = 0
+              Width = 656
+              AxisList = <              
+                item
+                  Minors = <>
+                  Title.LabelFont.Orientation = 900
+                end              
+                item
+                  Alignment = calBottom
+                  Minors = <>
+                end>
+              BackColor = clNone
+              Foot.Brush.Color = clBtnFace
+              Foot.Font.Color = clBlue
+              Frame.Width = 2
+              Title.Brush.Color = clBtnFace
+              Title.Font.Color = clBlue
+              Title.Text.Strings = (
+                'TAChart'
+              )
+              Align = alClient
+              Anchors = [akTop, akLeft, akRight]
+              ParentColor = False
+            end
+          end
+          object Label5: TLabel
+            Left = 16
+            Height = 16
+            Top = -2
+            Width = 167
+            Caption = 'Direção de Polarização do Laser'
+            ParentColor = False
+          end
+          object ComboBoxDirecaoLaser: TComboBox
+            Left = 288
+            Height = 23
+            Top = -2
+            Width = 144
+            ItemHeight = 15
+            ItemIndex = 4
+            Items.Strings = (
+              '0.000'
+              '45.000 ccw'
+              '90.000 ccw'
+              'Não polarizado'
+              'Todos os Dados'
+            )
+            Style = csDropDownList
+            TabOrder = 1
+            Text = 'Todos os Dados'
+          end
+          object GroupBox8: TGroupBox
+            Left = 16
+            Height = 248
+            Top = 327
+            Width = 662
+            Anchors = [akLeft, akRight, akBottom]
+            ClientHeight = 230
+            ClientWidth = 658
+            TabOrder = 2
+            object Label6: TLabel
+              Left = 318
+              Height = 31
+              Top = 0
+              Width = 9
+              Anchors = [akLeft, akBottom]
+              Caption = '-'
+              Font.Height = -21
+              Font.Style = [fsBold]
+              ParentColor = False
+              ParentFont = False
+            end
+            object LabelId_Quimica1: TLabel
+              Left = 14
+              Height = 16
+              Top = 0
+              Width = 43
+              Anchors = [akLeft, akBottom]
+              Caption = 'Rruff Id:'
+              ParentColor = False
+            end
+            object LabelDescricao3: TLabel
+              Left = 14
+              Height = 16
+              Top = 40
+              Width = 55
+              Caption = 'Descrição '
+              ParentColor = False
+            end
+            object LabelPinId: TLabel
+              Left = 14
+              Height = 16
+              Top = 112
+              Width = 89
+              Caption = 'Identificação Pin'
+              ParentColor = False
+            end
+            object LabelOrientacao: TLabel
+              Left = 14
+              Height = 16
+              Top = 160
+              Width = 59
+              Caption = 'Orientação'
+              ParentColor = False
+            end
+            object ComboBoxEquipamentoRaman: TComboBox
+              Left = 158
+              Height = 23
+              Top = 201
+              Width = 482
+              Anchors = [akTop, akLeft, akRight]
+              ItemHeight = 15
+              Style = csDropDownList
+              TabOrder = 0
+            end
+            object LabelEquipamentoRaman: TLabel
+              Left = 14
+              Height = 16
+              Top = 201
+              Width = 66
+              Caption = 'Instrumento'
+              ParentColor = False
+            end
+            object MemoRamanRruff_id: TMemo
+              Left = 158
+              Height = 34
+              Top = 0
+              Width = 150
+              TabOrder = 1
+            end
+            object MemoRamanDigito: TMemo
+              Left = 343
+              Height = 34
+              Top = 0
+              Width = 45
+              TabOrder = 2
+            end
+            object MemoRamanDescricao: TMemo
+              Left = 158
+              Height = 62
+              Top = 40
+              Width = 482
+              ScrollBars = ssAutoVertical
+              TabOrder = 3
+            end
+            object MemoPin_id: TMemo
+              Left = 158
+              Height = 32
+              Top = 112
+              Width = 482
+              TabOrder = 4
+            end
+            object MemoOrientacao: TMemo
+              Left = 158
+              Height = 34
+              Top = 160
+              Width = 482
+              TabOrder = 5
+            end
+          end
+        end
+      end
+      object TabSheetRruffVarredura: TTabSheet
+        Caption = 'Ampla Varredura com Artefatos Espectrais'
+        ClientHeight = 609
+        ClientWidth = 707
+        object GroupBox6: TGroupBox
+          Left = 0
+          Height = 609
+          Top = 0
+          Width = 707
+          Align = alClient
+          ClientHeight = 591
+          ClientWidth = 703
+          TabOrder = 0
+          object LabelComprimentodeOnda: TLabel
+            Left = 15
+            Height = 16
+            Top = 316
+            Width = 124
+            Anchors = [akLeft, akBottom]
+            Caption = 'Comprimento de Onda'
+            ParentColor = False
+          end
+          object LabelDescricaoBroadScan: TLabel
+            Left = 14
+            Height = 16
+            Top = 428
+            Width = 52
+            Anchors = [akLeft, akBottom]
+            Caption = 'Descrição'
+            ParentColor = False
+          end
+          object LabelConfiguracaoInstrumento: TLabel
+            Left = 14
+            Height = 16
+            Top = 500
+            Width = 66
+            Anchors = [akLeft, akBottom]
+            Caption = 'Instrumento'
+            ParentColor = False
+          end
+          object GroupBoxGraficoVarredura: TGroupBox
+            Left = 15
+            Height = 284
+            Top = 6
+            Width = 660
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            ClientHeight = 266
+            ClientWidth = 656
+            TabOrder = 0
+            object ChartVarredura: TChart
+              Left = 0
+              Height = 266
+              Top = 0
+              Width = 656
+              AxisList = <              
+                item
+                  Minors = <>
+                  Title.LabelFont.Orientation = 900
+                end              
+                item
+                  Alignment = calBottom
+                  Minors = <>
+                end>
+              BackColor = clNone
+              Foot.Brush.Color = clBtnFace
+              Foot.Font.Color = clBlue
+              Frame.Width = 2
+              Title.Brush.Color = clBtnFace
+              Title.Font.Color = clBlue
+              Title.Text.Strings = (
+                'TAChart'
+              )
+              Align = alClient
+              Anchors = [akTop, akLeft, akRight]
+              ParentColor = False
+              object ChartVarreduraLineSeries1: TLineSeries
+              end
+            end
+          end
+          object LabelId_Quimica2: TLabel
+            Left = 14
+            Height = 16
+            Top = 372
+            Width = 43
+            Anchors = [akLeft, akBottom]
+            Caption = 'Rruff Id:'
+            ParentColor = False
+          end
+          object Label7: TLabel
+            Left = 368
+            Height = 31
+            Top = 372
+            Width = 9
+            Anchors = [akLeft, akBottom]
+            Caption = '-'
+            Font.Height = -21
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object ComboBoxEquipamentoVarredura: TComboBox
+            Left = 209
+            Height = 23
+            Top = 500
+            Width = 424
+            Anchors = [akLeft, akBottom]
+            ItemHeight = 15
+            Style = csDropDownList
+            TabOrder = 1
+          end
+          object ComboBoxVarreduraOnda: TComboBox
+            Left = 208
+            Height = 23
+            Top = 316
+            Width = 99
+            Anchors = [akLeft]
+            ItemHeight = 15
+            ItemIndex = 0
+            Items.Strings = (
+              '532 nm'
+              '780 nm'
+            )
+            Style = csDropDownList
+            TabOrder = 2
+            Text = '532 nm'
+          end
+          object Memo1: TMemo
+            Left = 208
+            Height = 35
+            Top = 372
+            Width = 150
+            Anchors = [akLeft]
+            Lines.Strings = (
+              'Memo1'
+            )
+            TabOrder = 3
+          end
+          object Memo2: TMemo
+            Left = 384
+            Height = 35
+            Top = 372
+            Width = 47
+            Anchors = [akLeft]
+            Lines.Strings = (
+              'Memo'
+              '2'
+            )
+            TabOrder = 4
+          end
+          object Memo3: TMemo
+            Left = 208
+            Height = 60
+            Top = 423
+            Width = 424
+            Anchors = [akLeft]
+            Lines.Strings = (
+              'Memo3'
+            )
+            TabOrder = 5
+          end
+        end
+      end
+      object TabSheetRruffInfra: TTabSheet
+        Caption = 'Espectro Infravermelho'
+        ClientHeight = 609
+        ClientWidth = 707
+        object GroupBox2: TGroupBox
+          Left = 0
+          Height = 609
+          Top = 0
+          Width = 707
+          Align = alClient
+          ClientHeight = 591
+          ClientWidth = 703
+          TabOrder = 0
+          object LabelDescricaoIV: TLabel
+            Left = 16
+            Height = 16
+            Top = 348
+            Width = 52
+            Anchors = [akLeft, akBottom]
+            Caption = 'Descrição'
+            ParentColor = False
+          end
+          object LabelInstrumentoIV: TLabel
+            Left = 16
+            Height = 16
+            Top = 508
+            Width = 66
+            Anchors = [akLeft, akBottom]
+            Caption = 'Instrumento'
+            ParentColor = False
+          end
+          object LabelResolucao: TLabel
+            Left = 16
+            Height = 16
+            Top = 420
+            Width = 55
+            Anchors = [akLeft, akBottom]
+            Caption = 'Resolução'
+            ParentColor = False
+          end
+          object GroupBoxGraficoInfravermelho: TGroupBox
+            Left = 16
+            Height = 284
+            Top = 6
+            Width = 672
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            ClientHeight = 266
+            ClientWidth = 668
+            TabOrder = 0
+            object ChartInfravermelho: TChart
+              Left = 0
+              Height = 266
+              Top = 0
+              Width = 668
+              AxisList = <              
+                item
+                  Minors = <>
+                  Title.LabelFont.Orientation = 900
+                end              
+                item
+                  Alignment = calBottom
+                  Minors = <>
+                end>
+              BackColor = clNone
+              Foot.Brush.Color = clBtnFace
+              Foot.Font.Color = clBlue
+              Frame.Width = 2
+              Title.Brush.Color = clBtnFace
+              Title.Font.Color = clBlue
+              Title.Text.Strings = (
+                'TAChart'
+              )
+              Align = alClient
+              ParentColor = False
+              object ChartInfravermelhoLineSeries1: TLineSeries
+              end
+            end
+          end
+          object LabelId_Quimica3: TLabel
+            Left = 16
+            Height = 16
+            Top = 308
+            Width = 43
+            Anchors = [akLeft, akBottom]
+            Caption = 'Rruff Id:'
+            ParentColor = False
+          end
+          object Label8: TLabel
+            Left = 320
+            Height = 31
+            Top = 308
+            Width = 9
+            Anchors = [akLeft, akBottom]
+            Caption = '-'
+            Font.Height = -21
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object ComboBoxEquipamentoInfravermelho: TComboBox
+            Left = 160
+            Height = 23
+            Top = 508
+            Width = 527
+            Anchors = [akLeft, akBottom]
+            ItemHeight = 15
+            Style = csDropDownList
+            TabOrder = 1
+          end
+          object MemoInfravermelhoRruff_id: TMemo
+            Left = 160
+            Height = 35
+            Top = 308
+            Width = 154
+            Anchors = [akLeft, akBottom]
+            Lines.Strings = (
+              'MemoInfravermelhoRruff_'
+              'id'
+            )
+            TabOrder = 2
+          end
+          object MemoInfravermelhoDigito: TMemo
+            Left = 345
+            Height = 35
+            Top = 308
+            Width = 47
+            Anchors = [akLeft, akBottom]
+            Lines.Strings = (
+              'Memo'
+              'Infrav'
+              'ermel'
+              'hoDigi'
+              'to'
+            )
+            TabOrder = 3
+          end
+          object MemoInfravermelhoDescricao: TMemo
+            Left = 160
+            Height = 64
+            Top = 348
+            Width = 530
+            Anchors = [akLeft, akBottom]
+            Lines.Strings = (
+              'MemoInfravermelhoDescricao'
+            )
+            ScrollBars = ssAutoVertical
+            TabOrder = 4
+          end
+          object MemoResolucao: TMemo
+            Left = 160
+            Height = 64
+            Top = 420
+            Width = 530
+            Anchors = [akLeft, akBottom]
+            Lines.Strings = (
+              'MemoResolucao'
+            )
+            ScrollBars = ssAutoVertical
+            TabOrder = 5
+          end
+        end
+      end
+      object TabSheetRruffDifracao: TTabSheet
+        Caption = 'Powder Diffraction'
+        ClientHeight = 609
+        ClientWidth = 707
+        object GroupBox7: TGroupBox
+          Left = 0
+          Height = 609
+          Top = 0
+          Width = 707
+          Align = alClient
+          ClientHeight = 591
+          ClientWidth = 703
+          TabOrder = 0
+          object GroupBoxDifracao: TGroupBox
+            Left = 15
+            Height = 284
+            Top = 6
+            Width = 669
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            ClientHeight = 266
+            ClientWidth = 665
+            TabOrder = 0
+            object ChartDifracao: TChart
+              Left = 0
+              Height = 266
+              Top = 0
+              Width = 665
+              AxisList = <              
+                item
+                  Minors = <>
+                  Title.LabelFont.Orientation = 900
+                end              
+                item
+                  Alignment = calBottom
+                  Minors = <>
+                end>
+              BackColor = clNone
+              Foot.Brush.Color = clBtnFace
+              Foot.Font.Color = clBlue
+              Frame.Width = 2
+              Title.Brush.Color = clBtnFace
+              Title.Font.Color = clBlue
+              Title.Text.Strings = (
+                'TAChart'
+              )
+              Align = alClient
+              ParentColor = False
+            end
+          end
+          object GroupBoxDadosDifracao: TGroupBox
+            Left = 14
+            Height = 235
+            Top = 348
+            Width = 600
+            Anchors = [akLeft, akBottom]
+            Caption = 'Refinamento Celular:'
+            ClientHeight = 217
+            ClientWidth = 596
+            TabOrder = 1
+            object LabelA: TLabel
+              Left = 21
+              Height = 16
+              Top = 16
+              Width = 7
+              Caption = 'a'
+              ParentColor = False
+            end
+            object LabelB: TLabel
+              Left = 224
+              Height = 16
+              Top = 19
+              Width = 8
+              Caption = 'b'
+              ParentColor = False
+            end
+            object LabelC: TLabel
+              Left = 429
+              Height = 16
+              Top = 17
+              Width = 7
+              Caption = 'c'
+              ParentColor = False
+            end
+            object LabelAlpha: TLabel
+              Left = 21
+              Height = 16
+              Top = 87
+              Width = 32
+              Caption = 'Alpha'
+              ParentColor = False
+            end
+            object LabelBeta: TLabel
+              Left = 216
+              Height = 16
+              Top = 87
+              Width = 24
+              Caption = 'Beta'
+              ParentColor = False
+            end
+            object LabelGamma: TLabel
+              Left = 392
+              Height = 16
+              Top = 87
+              Width = 43
+              Caption = 'Gamma'
+              ParentColor = False
+            end
+            object LabelVolume: TLabel
+              Left = 21
+              Height = 16
+              Top = 152
+              Width = 42
+              Caption = 'Volume'
+              ParentColor = False
+            end
+            object LabelSistemaCristalino: TLabel
+              Left = 289
+              Height = 16
+              Top = 152
+              Width = 95
+              Caption = 'Sistema Cristalino'
+              ParentColor = False
+            end
+            object MemoA: TMemo
+              Left = 71
+              Height = 35
+              Top = 19
+              Width = 120
+              TabOrder = 0
+            end
+            object MemoB: TMemo
+              Left = 255
+              Height = 35
+              Top = 19
+              Width = 120
+              TabOrder = 1
+            end
+            object MemoC: TMemo
+              Left = 455
+              Height = 35
+              Top = 16
+              Width = 120
+              TabOrder = 2
+            end
+            object MemoAlpha: TMemo
+              Left = 73
+              Height = 35
+              Top = 87
+              Width = 120
+              TabOrder = 3
+            end
+            object MemoBeta: TMemo
+              Left = 255
+              Height = 35
+              Top = 87
+              Width = 120
+              TabOrder = 4
+            end
+            object MemoGamma: TMemo
+              Left = 455
+              Height = 35
+              Top = 87
+              Width = 120
+              TabOrder = 5
+            end
+            object MemoVolume: TMemo
+              Left = 105
+              Height = 35
+              Top = 152
+              Width = 120
+              TabOrder = 6
+            end
+            object MemoSistemaCristalino: TMemo
+              Left = 455
+              Height = 35
+              Top = 152
+              Width = 120
+              TabOrder = 7
+            end
+          end
+          object LabelId_Quimica4: TLabel
+            Left = 24
+            Height = 16
+            Top = 308
+            Width = 43
+            Anchors = [akLeft, akBottom]
+            Caption = 'Rruff Id:'
+            ParentColor = False
+          end
+          object Label9: TLabel
+            Left = 320
+            Height = 31
+            Top = 308
+            Width = 9
+            Anchors = [akLeft, akBottom]
+            Caption = '-'
+            Font.Height = -21
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object MemoPolvilhoRruff_id: TMemo
+            Left = 161
+            Height = 30
+            Top = 308
+            Width = 150
+            Anchors = [akLeft, akBottom]
+            TabOrder = 2
+          end
+          object MemoPolvilhoDigito: TMemo
+            Left = 337
+            Height = 30
+            Top = 308
+            Width = 47
+            Anchors = [akLeft, akBottom]
+            TabOrder = 3
+          end
+        end
+      end
+    end
+  end
+end

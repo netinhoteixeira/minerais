@@ -68,8 +68,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   StdCtrls, ExtCtrls, ComCtrls, DBCtrls, ExtDlgs, Buttons, EditBtn, BGRAPanel,
-  BGRALabel, RichMemo, TAGraph, TASeries, TASources, TADbSource, uFormImpressao,
-  uSelecionaBD, SQLite3mod, SQLite3tablemod, uBibliografia, UnitAjuda, IniFiles,
+  BGRALabel, RichMemo, TAGraph, TASeries, TADbSource, uFormImpressao,
+  uSelecionaBD, SQLite3tablemod, uBibliografia, UnitAjuda, IniFiles,
   unitImagem, unitPlanilha, unitequipamentos, unitrruff_id, unitfichaamostra,
   unitfichaespecie;
 
@@ -124,7 +124,6 @@ type
     ComboBoxGrupo: TComboBox;
     ComboBoxSubclasse: TComboBox;
     ComboBoxSubgrupo: TComboBox;
-    DbChartSource1: TDbChartSource;
     DBEditDensidade_Max: TDBEdit;
     DBEditDensidade_Min: TDBEdit;
     DBEditDureza_Max: TDBEdit;
@@ -323,7 +322,6 @@ type
     LabelTraco: TLabel;
     ListBoxRruff_id: TListBox;
     ListBoxMinerais: TListBox;
-    ListChartSource1: TListChartSource;
     MenuItemFicha: TMenuItem;
     MenuItemEspecies: TMenuItem;
     MenuItemInstrumentos: TMenuItem;
@@ -1513,19 +1511,19 @@ begin
     begin
       if OpenDialog1.FileName <> EmptyStr then
       begin
-        if  ExtractFileExt(OpenDialog1.FileName) = '.csv' then
+        //if  ExtractFileExt(OpenDialog1.FileName) = '.csv' then
         begin
           Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
             ListboxRruff_id.GetSelectedText, 'Ampla Varredura',
               ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text, Opendialog1.FileName);
-        end
-        else
+        end;
+        {else
         begin
            Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
             ListboxRruff_id.GetSelectedText, 'Ampla Varredura',
               ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text, ChangeFileExt(OpenDialog1.FileName, '.csv'));
         end;
-      end;
+      }end;
     end;
     Dados.SdfDataSetGraficos.FileName :=
       Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
@@ -1549,22 +1547,21 @@ begin
     begin
       if OpenDialog1.FileName <> EmptyStr then
       begin
-        if ExtractFileExt(OpenDialog1.FileName) = '.csv' then
+        //if ExtractFileExt(OpenDialog1.FileName) = '.csv' then
         begin
           Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
             ListboxRruff_id.GetSelectedText,
             'Espectro Infravermelho',
               ComboboxEquipamentoInfravermelho.Text, '', Opendialog1.FileName);
-        end
-        else
+        end ;
+        {else
         begin
           Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
             ListboxRruff_id.GetSelectedText,
             'Espectro Infravermelho',
               ComboboxEquipamentoInfravermelho.Text, '',
                 ChangeFileExt(Opendialog1.FileName, '.csv'));
-        end;
-
+        end;}
       end;
     end;
     Dados.SdfDataSetGraficos.FileName :=
@@ -1587,18 +1584,18 @@ begin
     begin
       if OpenDialog1.FileName <> EmptyStr then
       begin
-        if ExtractFileExt(OpenDialog1.FileName) = '.csv' then
+        //if ExtractFileExt(OpenDialog1.FileName) = '.csv' then
         begin
           Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
             ListboxRruff_id.GetSelectedText, 'Difracao',
             '', '', Opendialog1.FileName);
-        end
-        else
+        end;
+        {else
         begin
           Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
             ListboxRruff_id.GetSelectedText, 'Difracao',
             '', '', ChangeFileExt(Opendialog1.FileName, '.csv'));
-        end;
+        end;}
       end;
     end;
     Dados.SdfDataSetGraficos.FileName :=
@@ -1706,21 +1703,21 @@ begin              {Dados.SalvaArquivo(Especie: string; Rruff_id: string; Digito
       begin
         if OpenDialog1.FileName <> EmptyStr then
         begin
-          if ExtractFileExt(OpenDialog1.FileName) = '.csv' then
+          //if ExtractFileExt(OpenDialog1.FileName) = '.csv' then
           begin
              Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
                ListboxRruff_id.GetSelectedText,
                  'RAMAN', ComboboxEquipamentoRaman.Text,
                 ComboboxDirecaoLaser.Text, Opendialog1.FileName);
-          end
-          else
+          end;
+          {else
           begin
             Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
               ListboxRruff_id.GetSelectedText,
                'RAMAN', ComboboxEquipamentoRaman.Text,
               ComboboxDirecaoLaser.Text, ChangeFileExt(Opendialog1.FileName, '.csv'));
           end;
-              Dados.SdfDataSetGraficos.FileName :=
+           }   Dados.SdfDataSetGraficos.FileName :=
               Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
               ListboxRruff_id.GetSelectedText, EspectroRAMAN,
               ComboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text);
@@ -2195,7 +2192,7 @@ begin
     Timer1.Enabled := True;
   end;
   openpicturedialog1.Filter := lista_formatos;
-  OpenDialog1.Filter := 'All Files | *.csv;';
+  OpenDialog1.Filter := 'All Files | *.csv; *.txt; *.dat; *.*;';
 end;
 
 procedure TFormPrincipal.FormResize(Sender: TObject);
@@ -2203,31 +2200,31 @@ var
   Comprimento, Altura: integer;
 begin
   BGRALabelClasse.Top := Trunc(BGRAPanelFiltro.Height * 0.153);
-  ComboboxClasse.Top := Trunc(BGRAPanelFiltro.Height * 0.191);
+  ComboboxClasse.Top := BGRALabelClasse.Top +24;//Trunc(BGRAPanelFiltro.Height * 0.191);
   BGRALabelSubClasse.Top := Trunc(BGRAPanelFiltro.Height * 0.255);
-  ComboboxSubClasse.Top := Trunc(BGRAPanelFiltro.Height * 0.293);
+  ComboboxSubClasse.Top :=BGRALabelSubClasse.Top+24; //Trunc(BGRAPanelFiltro.Height * 0.293);
   BGRALabelGrupo.Top := Trunc(BGRAPanelFiltro.Height * 0.357);
-  ComboboxGrupo.Top := Trunc(BGRAPanelFiltro.Height * 0.395);
+  ComboboxGrupo.Top := BGRALabelGrupo.Top+ 24; //Trunc(BGRAPanelFiltro.Height * 0.395);
   BGRALabelSubGrupo.Top := Trunc(BGRAPanelFiltro.Height * 0.459);
-  ComboboxSubGrupo.Top := Trunc(BGRAPanelFiltro.Height * 0.507);
+  ComboboxSubGrupo.Top := BGRALabelSubGrupo.Top +24; //Trunc(BGRAPanelFiltro.Height * 0.507);
   BGRALAbelDureza.Top := Trunc(BGRAPanelFiltro.Height * 0.548);
-  Label33.Top := Trunc(BGRAPanelFiltro.Height * 0.59);
-  Label34.Top := Trunc(BGRAPanelFiltro.Height * 0.615);
-  ComboboxDureza_min.Top := Trunc(BGRAPanelFiltro.Height * 0.615);
-  ComboboxDureza_max.top := ComboboxDureza_min.Top;
+  Label33.Top := BGRALAbelDureza.Top+26;//Trunc(BGRAPanelFiltro.Height * 0.59);
+  Label34.Top := BGRALAbelDureza.Top+26;//Trunc(BGRAPanelFiltro.Height * 0.615);
+  ComboboxDureza_min.Top :=BGRALAbelDureza.Top+42;//Trunc(BGRAPanelFiltro.Height * 0.615);
+  ComboboxDureza_max.top :=BGRALAbelDureza.Top+42;//ComboboxDureza_min.Top;
   BGRALabelDensidade.Top := Trunc(BGRAPanelFiltro.Height * 0.676);
-  Label35.Top := Trunc(BGRAPanelFiltro.Height * 0.717);
-  Label36.Top := Trunc(BGRAPanelFiltro.Height * 0.743);
-  EditDensidade_min.Top := Trunc(BGRAPanelFiltro.Height * 0.743);
-  EditDensidade_max.Top := EditDensidade_min.Top;
+  Label35.Top := BGRALabelDensidade.Top+ 26; //Trunc(BGRAPanelFiltro.Height * 0.717);
+  Label36.Top := BGRALabelDensidade.Top+ 26;//Trunc(BGRAPanelFiltro.Height * 0.743);
+  EditDensidade_min.Top := BGRALabelDensidade.Top+ 42;//Trunc(BGRAPanelFiltro.Height * 0.743);
+  EditDensidade_max.Top := BGRALabelDensidade.Top+ 42;
   BGRALabelOcorrencia.Top := Trunc(BGRAPanelFiltro.Height * 0.803);
-  EditOcorrencia.Top := Trunc(BGRAPanelFiltro.Height * 0.842);
+  EditOcorrencia.Top := BGRALabelOcorrencia.Top+24;//Trunc(BGRAPanelFiltro.Height * 0.842);
   BGRALabelAssociacao.Top := Trunc(BGRAPanelFiltro.Height * 0.893);
-  EditAssociacao.Top := Trunc(BGRAPanelFiltro.Height * 0.931);
-  GroupBoxImagem2.Top := Trunc(BGRAPanelFiltro.Height * 0.202);
-  GroupBoxImagem3.Top := Trunc(BGRAPanelFiltro.Height * 0.403);
-  GroupBoxImagem4.Top := Trunc(BGRAPanelFiltro.Height * 0.606);
-  GroupBoxImagem5.Top := Trunc(BGRAPanelFiltro.Height * 0.807);
+  EditAssociacao.Top := BGRALabelAssociacao.Top+24;//Trunc(BGRAPanelFiltro.Height * 0.931);
+  GroupBoxImagem2.Top := Trunc(BGRAPanelFiltro.Height * 0.2);
+  GroupBoxImagem3.Top := Trunc(BGRAPanelFiltro.Height * 0.4);
+  GroupBoxImagem4.Top := Trunc(BGRAPanelFiltro.Height * 0.6);
+  GroupBoxImagem5.Top := Trunc(BGRAPanelFiltro.Height * 0.8);
 
   LabelNome.Top := Trunc(GroupBoxInf_Gerais.Height * 0.066);
   DBMemoNome.Top := LabelNome.Top;
@@ -2409,58 +2406,38 @@ begin
     else
     if PageControlRruff.ActivePage.Caption = 'Espectro RAMAN' then
     begin
-
-     // (False, ComboboxDirecaoLaser);
       DadosRAMAN(ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
       ComboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text);
-      Dados.SdfDataSetGraficos.FileName :=
+
+      ChartRaman.AddSeries(PlotarGrafico(
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
           ListboxRruff_id.GetSelectedText,
-           'RAMAN', ComboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text);
-      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-        //ChartRaman.AddSeries(PlotarGrafico)
-      ChartRaman.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
-      else
-        ChartRaman.ClearSeries;
+           'RAMAN', ComboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text)));
     end
     else
     if PageControlRruff.ActivePage.Caption = AmplaVarredura then
     begin
       AtualizaComboboxEquipamentos(ComboboxEquipamentoVarredura);
-      Dados.SdfDataSetGraficos.FileName :=
+
+      ChartVarredura.AddSeries(PlotarGrafico(
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
           ListboxRruff_id.GetSelectedText,
-           'Ampla Varredura', ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text);
-      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-        //ChartVarredura.AddSeries(PlotarGrafico)
-      ChartVarredura.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
-      else
-        ChartVarredura.ClearSeries;
+           'Ampla Varredura', ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text)));
     end
     else
     if PageControlRruff.ActivePage.Caption = 'Espectro Infravermelho' then
     begin
-      Dados.SdfDataSetGraficos.FileName :=
+      ChartInfravermelho.AddSeries(PlotarGrafico(
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
           ListboxRruff_id.GetSelectedText,
-            'Espectro Infravermelho', ComboboxEquipamentoInfravermelho.Text, '');
-      if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-        //ChartInfravermelho.AddSeries(PlotarGrafico)
-      ChartInfravermelho.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
-      else
-        ChartInfravermelho.ClearSeries;
+            'Espectro Infravermelho', ComboboxEquipamentoInfravermelho.Text, '')));
     end
     else
     if PageControlRruff.ActivePage.Caption = 'Powder Diffraction' then
     begin
-      Dados.SdfDataSetGraficos.FileName :=
-        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
-        ListboxRruff_id.GetSelectedText, 'Difracao', '', '');
-      if (Dados.SdfDataSetGraficos.FileName <> EmptyStr) then
-        //ChartDifracao.AddSeries(PlotarGrafico)
-      ChartDifracao.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName))
-      else
-        ChartDifracao.ClearSeries;
+      ChartDifracao.AddSeries(PlotarGrafico(Dados.DeterminaArquivo(
+        ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+          'Difracao', '', '')));
     end;
   end;
 end;
@@ -2531,11 +2508,31 @@ begin         //config.ini
   begin
     BGRAPanelEspecies.Visible:=False;
     MenuitemEspecies.Checked:=False;
+    if MenuItemAmostras.Checked then
+    begin
+      PanelRruff .Visible := True;
+      BGRAPanel1.Visible := True;
+    end
+    else
+    begin
+      PanelFicha.Visible:=false;
+    end;
   end
   else
   begin
     BGRAPanelEspecies.Visible:=True;
     MenuitemEspecies.Checked:=True;
+    BGRAPanelEspecies.Visible:=True;
+    MenuItemAmostras.Checked:=False;
+    MenuItemAmostras.Checked:=False;;
+    PanelRruff .Visible := False;
+    BGRAPanel1.Visible := False;
+   // if MenuItemAmostras.Checked = False then
+    begin
+      //MenuItemAmostras.Checked:=False;;
+      //PanelRruff .Visible := False;
+    //  BGRAPanel1.Visible := False;
+    end;
   end;
 end;
 
@@ -2549,12 +2546,12 @@ begin       //config.ini
   if MenuItemFicha.Checked then
   begin
     MenuItemFicha.Checked:=False;
-    PanelFicha.Visible:=False;
+    PanelFichas.Visible:=False;
   end
   else
   begin
     MenuItemFicha.Checked:=True;
-    MenuItemFicha.Visible:=True;
+    panelFichas.Visible:=True;
   end;
 end;
 
@@ -2585,6 +2582,7 @@ begin
     Dados.Sqlite3DatasetAmostras.Open;
     Dados.Sqlite3DatasetAmostras.ClearFields;
     PanelFicha.Visible := False;
+    MenuItemEspecies.Checked:=False;
     PanelRruff.Visible := True;
     BGRAPanel1.Visible := True;
     MenuItemAmostras.Checked := True;

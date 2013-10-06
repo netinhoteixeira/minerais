@@ -128,13 +128,14 @@ object Dados: TDados
         Precision = 0
         Size = 0
       end>
+    AllowMultiLine = False
     Delimiter = ','
     FirstLineAsSchema = False
     left = 248
     top = 168
     object SdfDataSetGraficosValorX: TField
       DisplayWidth = 10
-      FieldKind = fkCalculated
+      FieldKind = fkInternalCalc
       FieldName = 'ValorX'
       Index = 0
       LookupCache = False
@@ -144,11 +145,10 @@ object Dados: TDados
     end
     object SdfDataSetGraficosValorY: TField
       DisplayWidth = 10
-      FieldKind = fkCalculated
+      FieldKind = fkInternalCalc
       FieldName = 'ValorY'
       Index = 1
       LookupCache = False
-      LookupDataSet = SdfDataSetGraficos
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False

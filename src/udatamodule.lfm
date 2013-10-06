@@ -128,6 +128,7 @@ object Dados: TDados
         Precision = 0
         Size = 0
       end>
+    AllowMultiLine = False
     Delimiter = ','
     FirstLineAsSchema = False
     left = 248
