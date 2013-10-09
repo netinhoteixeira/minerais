@@ -2979,14 +2979,32 @@ begin
   ChartRaman.ClearSeries;
   if ComboboxDirecaoLaser.Text = TodosOsDados then
   begin
-    Dados.SdfDataSetGraficos.FileName :=
+ {   Dados.SdfDataSetGraficos.FileName :=
       Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
       ListboxRruff_id.GetSelectedText, EspectroRAMAN, Equipamento, Angulo0);
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
-      //ChartRaman.AddSeries(PlotarGrafico);
-    ChartRaman.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName));
+}      //ChartRaman.AddSeries(PlotarGrafico);
+    ChartRaman.AddSeries(PlotarGrafico(
+      Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+        ListboxRruff_id.GetSelectedText, EspectroRAMAN,
+          ComboboxEquipamentoRaman.Text, Angulo0)));
 
-    Dados.SdfDataSetGraficos.FileName :=
+    ChartRaman.AddSeries(PlotarGrafico(
+      Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+        ListboxRruff_id.GetSelectedText, EspectroRAMAN,
+          ComboboxEquipamentoRaman.Text, Angulo45)));
+
+    ChartRaman.AddSeries(PlotarGrafico(
+      Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+        ListboxRruff_id.GetSelectedText, EspectroRAMAN,
+          ComboboxEquipamentoRaman.Text, Angulo90)));
+
+    ChartRaman.AddSeries(PlotarGrafico(
+      Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+        ListboxRruff_id.GetSelectedText, EspectroRAMAN,
+          ComboboxEquipamentoRaman.Text, Depolarizado)));
+
+    {Dados.SdfDataSetGraficos.FileName :=
       Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
       ListboxRruff_id.GetSelectedText, EspectroRAMAN, Equipamento, Angulo45);
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
@@ -3007,10 +3025,11 @@ begin
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
       //ChartRaman.AddSeries(PlotarGrafico);
     ChartRaman.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName));
+                                                }
   end
   else
   begin
-    Dados.SdfDataSetGraficos.FileName :=
+    {Dados.SdfDataSetGraficos.FileName :=
       Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
       ListboxRruff_id.GetSelectedText, EspectroRAMAN,
       Equipamento, ComboboxDirecaoLaser.Text);
@@ -3018,6 +3037,11 @@ begin
     if Dados.SdfDataSetGraficos.FileName <> EmptyStr then
       //ChartRaman.AddSeries(PlotarGrafico);
     ChartRaman.AddSeries(PlotarGrafico(Dados.SdfDataSetGraficos.FileName));
+    }
+    ChartRaman.AddSeries(PlotarGrafico(
+      Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+        ListboxRruff_id.GetSelectedText, EspectroRAMAN,
+          ComboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text)));
   end;
 end;
 
