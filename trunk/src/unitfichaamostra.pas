@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, TAGraph, TASeries, Forms, Controls, Graphics,
-  Dialogs, ExtCtrls, ComCtrls, StdCtrls, DbCtrls, Buttons, unitImagem;
+  Dialogs, ExtCtrls, ComCtrls, StdCtrls, DbCtrls, Buttons, unitImagem, UnitGraficos;
 type
 
   { TFormFichaAmostra }
@@ -217,8 +217,8 @@ begin
     else
     if PageControlRruff.ActivePage.Caption = 'Espectro RAMAN' then
     begin
-      DadosRAMAN(Dados.sltb.FieldByName['especie'], Dados.sltb.FieldByName['rruff_id'],
-      ComboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text);
+     // DadosRAMAN(Dados.sltb.FieldByName['especie'], Dados.sltb.FieldByName['rruff_id'],
+      //ComboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text);
 
       ChartRaman.AddSeries(PlotarGrafico(
         Dados.DeterminaArquivo(Dados.sltb.FieldByName['especie'],
@@ -228,7 +228,7 @@ begin
     else
     if PageControlRruff.ActivePage.Caption = AmplaVarredura then
     begin
-      AtualizaComboboxEquipamentos(ComboboxEquipamentoVarredura);
+      //AtualizaComboboxEquipamentos(ComboboxEquipamentoVarredura);
 
       ChartVarredura.AddSeries(PlotarGrafico(
         Dados.DeterminaArquivo(Dados.sltb.FieldByName['especie'],
