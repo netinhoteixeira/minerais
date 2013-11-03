@@ -90,7 +90,6 @@ type
     StatusBar1: TStatusBar;
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtnPadraoClick(Sender: TObject);
-    procedure BitBtnSelecionarClick(Sender: TObject);
     procedure EditButtonNovoButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure MenuItemSairClick(Sender: TObject);
@@ -131,17 +130,6 @@ procedure TFormSelecionaBD.BitBtn1Click(Sender: TObject);
 begin
   if OpenDialog1.Execute then
     ListBoxSeleciona.Items.Append(OpenDialog1.FileName);
-end;
-
-procedure TFormSelecionaBD.BitBtnSelecionarClick(Sender: TObject);
-begin
-  if (ListBoxSeleciona.GetSelectedText <> EmptyStr) then
-  begin
-    if Dados.determinaBD(ListBoxSeleciona.GetSelectedText) then
-    FormSelecionaBd.Visible := False
-    else
-    ShowMessage('O banco de dados selecionado não é compatível.');
-  end;
 end;
 
 procedure TFormSelecionaBD.EditButtonNovoButtonClick(Sender: TObject);

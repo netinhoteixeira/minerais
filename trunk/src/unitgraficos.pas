@@ -8,14 +8,18 @@ interface
 uses
   Classes, SysUtils, TASeries, Dialogs;
 
-function PlotarGrafico(Diretorio:String):TLineSeries;
-function StringParaReal(Dado: string): real;
+const
+  Azul = $990000;
+  Verde = $009900;
+  Vermelho = $000099;
+
+function PlotarGrafico(Diretorio,Cor:String):TLineSeries;
 
 implementation
 
 uses udatamodule;
 
-function PlotarGrafico(Diretorio:String): TLineSeries;
+function PlotarGrafico(Diretorio,Cor:String): TLineSeries;
   var
   Serie: TLineSeries;
   Arquivo:TextFile;
@@ -52,9 +56,18 @@ function PlotarGrafico(Diretorio:String): TLineSeries;
     else
     Result:=0.0;
   end;
-
 begin
   Serie := TLineSeries.Create(nil);
+  if Cor = 'Azul' then
+    Serie.SeriesColor:=Azul
+  else
+  if Cor= 'Verde' then
+    Serie.SeriesColor:=Verde
+  else
+  if Cor = 'Vermelho' then
+    Serie.SeriesColor:=Vermelho
+    else                          //
+    Serie.SeriesColor:=$444444;  //teste
   if Diretorio<> EmptyStr then
   begin
     AssignFile(Arquivo, Diretorio);
@@ -72,37 +85,6 @@ begin
     CloseFile(Arquivo);
   end;
   Result:=Serie;
-  {Dados.SdfDataSetGraficos.Open;
-  Dados.SdfDataSetGraficos.First;
-  //if (Dados.SdfDataSetGraficos.RecNo > 0) then
-  begin
-    while not Dados.SdfDataSetGraficos.EOF do
-    begin
-      Serie.AddXY(Dados.SdfDataSetGraficosValorX.AsFloat ,
-        Dados.SdfDataSetGraficosValorY.AsFloat);
-
-      Dados.SdfDataSetGraficos.Next;
-    end;
-    Dados.SdfDataSetGraficos.Close;
-  end; }
-  Result := Serie;
-end;
-
-function StringParaReal(Dado: string): real;
-begin
-  if Dado <> EmptyStr then
-  begin
-    begin
-      Dado := StringReplace(Dado, '.', ',', [rfReplaceAll]);
-      Dado:= StringReplace(Dado, '(', '', [rfReplaceAll]);
-      Dado:= StringReplace(Dado, ')', '', [rfReplaceAll]);
-      if Dado = EmptyStr then Result:=0.0
-      else
-      Result := StrToFloat(Dado);
-    end;
-  end
-  else
-    Result := 0.0;
 end;
 
 end.

@@ -1,0 +1,18 @@
+object FormAjuda: TFormAjuda
+  Left = 3
+  Height = 376
+  Top = 2
+  Width = 505
+  Caption = 'Ajuda'
+  ClientHeight = 376
+  ClientWidth = 505
+  LCLVersion = '0.9.30.4'
+  object Panel1: TPanel
+    Left = 0
+    Height = 376
+    Top = 0
+    Width = 505
+    Align = alClient
+    TabOrder = 0
+  end
+end

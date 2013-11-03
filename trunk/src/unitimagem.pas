@@ -11,8 +11,9 @@ function ImagemMineral(Nome: string; Numero: integer): TJPEGImage;
 function ImagemDidatica(Campo: string; Numero: integer): TJPEGImage;
 function SelecionarImagem(NomeCampo: string; Tabela: string; Numero: integer): TJPEGImage;
 procedure RemoveImagem(NomeCampo: string; Tabela: string; Numero: integer; Rruff_id:String);
-function AdicionaImagemRruff(Especie: String; Rruff_id: String; Arquivo:String; Tipo:String):TJPEGImage;
-function SelecionaImagensRruff(Especie: String; Rruff_id: String; Tipo:String):TJPEGImage;
+function AdicionaImagemRruff(Especie: String; Rruff_id: String; Digito:String;
+    Arquivo:String; Tipo:String):TJPEGImage;
+function SelecionaImagensRruff(Especie, Rruff_id, Digito, Tipo:String):TJPEGImage;
 
 var
   ms: TMemoryStream;
@@ -122,7 +123,8 @@ begin
   end;
 end;
 
-function AdicionaImagemRruff(Especie: String; Rruff_id: String; Arquivo:String; Tipo:String):TJPEGImage;
+function AdicionaImagemRruff(Especie: String; Rruff_id: String; Digito:String;
+    Arquivo:String; Tipo:String):TJPEGImage;
 var FS:TFileStream;
 begin
   Try
@@ -136,27 +138,30 @@ begin
     if Tipo = 'Quimica' then
     begin
       Dados.sldb.UpdateBlob('UPDATE rruff set imagem_quimica = ? WHERE especie = "'+Especie+'" and '+
-        'rruff_id = "'+Rruff_id+'";', fs)
+        'rruff_id = "'+Rruff_id+'" AND digito_quimica="'+Digito+'";', fs)
     end;
   finally
     fs.Free;
-    Result:=SelecionaImagensRruff(Especie, Rruff_id, Tipo);
+    Result:=SelecionaImagensRruff(Especie, Rruff_id, Digito,Tipo);
   end;
 end;
 
-function SelecionaImagensRruff(Especie: String; Rruff_id: String; Tipo:String): TJPEGImage;
+function SelecionaImagensRruff(Especie, Rruff_id, Digito, Tipo:String): TJPEGImage;
 begin
   if Tipo = 'Amostra' then
   begin
-    Dados.sltb := Dados.sldb.GetTable('SELECT imagem_amostra FROM rruff WHERE especie = "' +
-      Especie + '" and rruff_id = "' + Rruff_id +'";');
+    Dados.sltb := Dados.sldb.GetTable('SELECT especie, rruff_id, digito_quimica,'+
+      'imagem_amostra FROM rruff WHERE especie = "' +
+        Especie + '" and rruff_id = "' + Rruff_id +'";');
     ms := Dados.sltb.FieldAsBlob(Dados.sltb.FieldIndex['imagem_amostra']);
   end
   else
   if Tipo =  'Quimica' then
   begin
-    Dados.sltb := Dados.sldb.GetTable('SELECT  imagem_quimica FROM rruff WHERE especie = "' +
-      Especie + '" and rruff_id = "' + Rruff_id +'";');
+    Dados.sltb := Dados.sldb.GetTable('SELECT  especie, rruff_id, digito_quimica,'+
+      'imagem_quimica FROM rruff WHERE especie = "' +
+        Especie + '" and rruff_id = "' + Rruff_id +'" AND digito_quimica="'+
+        Digito+'";');
     ms := Dados.sltb.FieldAsBlob(Dados.sltb.FieldIndex['imagem_quimica']);
   end;
   if (ms <> nil) then

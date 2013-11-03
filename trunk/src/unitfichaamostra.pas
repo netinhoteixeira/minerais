@@ -5,8 +5,11 @@ unit unitfichaamostra;
 interface
 
 uses
+
   Classes, SysUtils, FileUtil, TAGraph, TASeries, Forms, Controls, Graphics,
-  Dialogs, ExtCtrls, ComCtrls, StdCtrls, DbCtrls, Buttons, unitImagem, UnitGraficos;
+  Dialogs, ExtCtrls, ComCtrls, StdCtrls, DbCtrls, Buttons, unitImagem,
+  unitGraficos;
+
 type
 
   { TFormFichaAmostra }
@@ -18,11 +21,19 @@ type
     ChartRaman: TChart;
     ChartVarredura: TChart;
     ChartVarreduraLineSeries1: TLineSeries;
+    ComboBoxDifracaoDigito: TComboBox;
     ComboBoxDirecaoLaser: TComboBox;
     ComboBoxEquipamentoInfravermelho: TComboBox;
     ComboBoxEquipamentoRaman: TComboBox;
     ComboBoxEquipamentoVarredura: TComboBox;
+    ComboBoxInfravermelhoDigito: TComboBox;
+    ComboBoxQuimicaDigito: TComboBox;
+    ComboBoxRamanDigito: TComboBox;
+    ComboBoxVarreduraDigito: TComboBox;
     ComboBoxVarreduraOnda: TComboBox;
+    GroupBox1: TGroupBox;
+    GroupBox10: TGroupBox;
+    GroupBox11: TGroupBox;
     GroupBox2: TGroupBox;
     GroupBox3: TGroupBox;
     GroupBox4: TGroupBox;
@@ -37,8 +48,8 @@ type
     GroupBoxGraficoRaman: TGroupBox;
     GroupBoxGraficoVarredura: TGroupBox;
     GroupBoxImagemQuimica: TGroupBox;
+    ImageAmostra: TImage;
     ImageQuimica: TImage;
-    ImageDescricao: TImage;
     Label10: TLabel;
     Label1Especie: TLabel;
     Label2: TLabel;
@@ -78,56 +89,60 @@ type
     LabelResolucao: TLabel;
     LabelSistemaCristalino: TLabel;
     LabelVolume: TLabel;
-    Memo1: TMemo;
-    MemoBeta: TMemo;
-    MemoGamma: TMemo;
-    MemoVolume: TMemo;
-    MemoSistemaCristalino: TMemo;
-    Memo2: TMemo;
-    Memo3: TMemo;
-    MemoPolvilhoRruff_id: TMemo;
-    MemoPolvilhoDigito: TMemo;
-    MemoA: TMemo;
-    MemoB: TMemo;
-    MemoC: TMemo;
-    MemoAlpha: TMemo;
-    MemoInfravermelhoRruff_id: TMemo;
-    MemoInfravermelhoDigito: TMemo;
-    MemoInfravermelhoDescricao: TMemo;
-    MemoResolucao: TMemo;
-    MemoRamanRruff_id: TMemo;
-    MemoRamanDigito: TMemo;
-    MemoRamanDescricao: TMemo;
-    MemoPin_id: TMemo;
-    MemoOrientacao: TMemo;
-    MemoQuimicaRruff_id: TMemo;
-    MemoQuimicaDigito: TMemo;
     MemoQuimicaDescricao: TMemo;
     MemoQuimicaMedida: TMemo;
-    MemoLocalidade: TMemo;
-    MemoFonte: TMemo;
-    MemoProprietario: TMemo;
-    MemoDescricao: TMemo;
+    MemoQuimicaRruff_id: TMemo;
+    MemoVarreduraRruff_id: TMemo;
+    Memoproprietario: TMemo;
+    MemoAmostraDescricao: TMemo;
     MemoSituacao: TMemo;
+    MemoFonte: TMemo;
+    MemoLocalidade: TMemo;
+    MemoAmostraEspecie: TMemo;
+    MemoA: TMemo;
+    MemoAmostraRruff_id: TMemo;
+    MemoAmostraQuimica: TMemo;
+    MemoSistemaCristalino: TMemo;
+    MemoVarreduraDescricao: TMemo;
+    MemoVolume: TMemo;
+    MemoGamma: TMemo;
+    MemoBeta: TMemo;
+    MemoAlpha: TMemo;
+    MemoC: TMemo;
+    MemoB: TMemo;
     MemoRruff_id: TMemo;
-    MemoQuimica: TMemo;
-    MemoEspecie: TMemo;
+    MemoInfravermelhoDescricao: TMemo;
+    MemoInfravermelhoResolucao: TMemo;
+    MemoInfravermelhoRruff_id: TMemo;
+    MemoOrientacao: TMemo;
+    MemoPin_id: TMemo;
+    MemoRamanDescricao: TMemo;
+    MemoRamanRruff_id: TMemo;
     PageControlRruff: TPageControl;
-    PanelRRUFF: TPanel;
+    Panel1: TPanel;
     TabSheetRruffDescricao: TTabSheet;
     TabSheetRruffDifracao: TTabSheet;
     TabSheetRruffInfra: TTabSheet;
     TabSheetRruffQuimica: TTabSheet;
     TabSheetRruffRaman: TTabSheet;
     TabSheetRruffVarredura: TTabSheet;
+    procedure ComboBoxDirecaoLaserChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure PageControlRruffChange(Sender: TObject);
   private
     { private declarations }
   public
+    Especie:String;
+    Rruff_id:String;
+    Digito:String;
+    Indice:Integer;
     { public declarations }
   end;
+
+  const
+    TodosOsDados:String = 'Todos os Dados';
 
 var
   FormFichaAmostra: TFormFichaAmostra;
@@ -140,36 +155,176 @@ uses udatamodule;
 
 procedure TFormFichaAmostra.FormCreate(Sender: TObject);
 begin
-  Dados.sltb:= Dados.sldb.GetTable(Dados.Sqlite3DatasetAmostras.SQL);
-  MemoEspecie.Text:=Dados.sltb.FieldByName['especie'];
-  MemoRruff_id.Text:=Dados.sltb.FieldByName['rruff_id'];
-  MemoQuimica.Text:=Dados.sltb.FieldByName['quimicaideal'];
+
+end;
+
+procedure TFormFichaAmostra.FormShow(Sender: TObject);
+var Cor:String;
+begin
+  ComboboxQuimicaDigito.Items.Clear;
+  Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_raman FROM '+
+      'raman ORDER BY digito_raman ;');
+    if Dados.sltb.MoveFirst then
+      begin
+        ComboboxRamanDigito.Items.Append(Dados.sltb.FieldByName['digito_raman']);
+        Dados.sltb.Next;
+      end;
+
+    ComboboxRamanDigito.Items.Clear;
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_raman FROM '+
+      'raman ORDER BY digito_raman ;');
+    if Dados.sltb.MoveFirst then
+      begin
+        ComboboxRamanDigito.Items.Append(Dados.sltb.FieldByName['digito_raman']);
+        Dados.sltb.Next;
+      end;
+
+    ComboboxVarreduraDigito.Items.Clear;
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_varredura FROM '+
+      'varredura ORDER BY digito_varredura ;');
+    if Dados.sltb.MoveFirst then
+      begin
+        ComboboxVarreduraDigito.Items.Append(Dados.sltb.FieldByName
+          ['digito_varredura']);
+        Dados.sltb.Next;
+      end;
+
+    ComboboxInfravermelhoDigito.Items.Clear;
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_infravermelho FROM '+
+      'infravermelho ORDER BY digito_infravermelho ;');
+    if Dados.sltb.MoveFirst then
+      begin
+        ComboboxInfravermelhoDigito.Items.Append(Dados.sltb.FieldByName
+          ['digito_infravermelho']);
+        Dados.sltb.Next;
+      end;
+
+    ComboboxDifracaoDigito.Items.Clear;
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_difracao FROM '+
+      'difracao ORDER BY digito_difracao ;');
+    if Dados.sltb.MoveFirst then
+      begin
+        ComboboxDifracaoDigito.Items.Append(Dados.sltb.FieldByName
+          ['digito_difracao']);
+        Dados.sltb.Next;
+      end;
+    ComboboxRamanDigito.ItemIndex:=0;
+    ComboboxVarreduraDigito.ItemIndex:=0;
+    ComboboxInfravermelhoDigito.ItemIndex:=0;
+    ComboboxDifracaoDigito.ItemIndex:=0;
+  ////////////
+  Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM rruff WHERE especie ="'+
+    Especie+'" AND rruff_id="'+Rruff_id+'" ;');
+  MemoAmostraEspecie.Text:=Dados.sltb.FieldByName['especie'];
+  MemoAmostraRruff_id.Text:=Dados.sltb.FieldByName['rruff_id'];
+  MemoAmostraQuimica.Text:=Dados.sltb.FieldByName['quimicaideal'];
   MemoLocalidade.Text:=Dados.sltb.FieldByName['localidade'];
   MemoFonte.Text:=Dados.sltb.FieldByName['fonte'];
   MemoProprietario.Text:=Dados.sltb.FieldByName['proprietario'];
-  MemoDescricao.Text:=Dados.sltb.FieldByName['descricao_amostra'];
+  MemoAmostraDescricao.Text:=Dados.sltb.FieldByName['descricao_amostra'];
   MemoSituacao.Text:=Dados.sltb.FieldByName['situacao'];
 
   MemoQuimicaRruff_id.Text:=Dados.sltb.FieldByName['rruff_id'];
-  MemoQuimicaDigito.Text:=Dados.sltb.FieldByName['rruff_id_quimica'];
   MemoQuimicaDescricao.Text:=Dados.sltb.FieldByName['descricao_quimica'];
   MemoQuimicaMedida.Text:=Dados.sltb.FieldByName['quimicamedida'];
 
+  self.ImageAmostra.Picture.Graphic:=
+    SelecionaImagensRruff(Dados.sltb.FieldByName['especie'],
+      dados.sltb.FieldByName['rruff_id'],'', 'Amostra');
+
+  self.ImageQuimica.Picture.Graphic:=
+    SelecionaImagensRruff(Dados.sltb.FieldByName['especie'],
+      dados.sltb.FieldByName['rruff_id'],dados.sltb.FieldByName
+        ['digito_quimica'], 'Quimica');
+
+  Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM raman WHERE especie ="'+
+    Especie+'" AND rruff_id="'+Rruff_id+'" ;');
+
   MemoRamanRruff_id.Text:=Dados.sltb.FieldByName['rruff_id'];
-  MemoRamanDigito.Text:=Dados.sltb.FieldByName['rruff_id_raman'];
   MemoRamanDescricao.Text:=Dados.sltb.FieldByName['descricao_raman'];
   MemoPin_id.Text:=Dados.sltb.FieldByName['pin_id'];
   MemoOrientacao.Text:=Dados.sltb.FieldByName['orientacao'];
 
+  ChartRaman.ClearSeries;
+    if ComboboxDirecaoLaser.Text = TodosOsDados then
+    begin
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Angulo0), 'Azul'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Angulo45), 'Verde'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Angulo90), 'Vermelho'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Depolarizado), ''));
+
+    end
+    else
+    begin
+      if ComboboxDirecaoLaser.Text = Angulo0 then
+        ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text,
+              ComboboxDirecaoLaser.Text), 'Azul'))
+      else
+      if ComboboxDirecaoLaser.Text = Angulo45 then
+        ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text,
+              ComboboxDirecaoLaser.Text), 'Verde'))
+      else
+      if ComboboxDirecaoLaser.Text = Angulo90 then
+        ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text,
+              ComboboxDirecaoLaser.Text), 'Vermelho'))
+      else
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text,
+              ComboboxDirecaoLaser.Text), ''));
+    end;
+
+  Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM varredura WHERE especie ="'+
+    Especie+'" AND rruff_id="'+Rruff_id+'" ;');
+  MemoVarreduraRruff_id.Text:= Dados.sltb.FieldByName['rruff_id'];
+  MemoVarreduraDescricao.Text:= Dados.sltb.FieldByName['descricao_varredura'];
+
+  ChartVarredura.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxVarreduraDigito.Text,
+           'Ampla Varredura', ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text),''));
+
+
+  Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM infravermelho WHERE especie ="'+
+    Especie+'" AND rruff_id="'+Rruff_id+'" ;');
   MemoInfravermelhoRruff_id.Text:=Dados.sltb.FieldByName['rruff_id'];
-  MemoInfravermelhoDigito.Text:=
-    Dados.sltb.FieldByName['rruff_id_infravermelho'];
   MemoInfravermelhoDescricao.Text:=
     Dados.sltb.FieldByName['descricao_infravermelho'];;
-  MemoResolucao.Text:=Dados.sltb.FieldByName['resolucao'];
+  MemoInfravermelhoResolucao.Text:=Dados.sltb.FieldByName['resolucao'];
 
-  MemoPolvilhoRruff_id.Text:=Dados.sltb.FieldByName['rruff_id'];
-  MemoPolvilhoDigito.Text:=Dados.sltb.FieldByName['rruff_id_polvilho'];
+  ChartInfravermelho.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxInfravermelhoDigito.Text,
+            'Espectro Infravermelho', ComboboxEquipamentoInfravermelho.Text,''),''));
+
+  Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM difracao WHERE especie ="'+
+    Especie+'" AND rruff_id="'+Rruff_id+'" ;');
+  MemoRruff_id.Text:=Dados.sltb.FieldByName['rruff_id'];
   MemoA.Text:=Dados.sltb.FieldByName['a'];
   MemoB.Text:=Dados.sltb.FieldByName['b'];
   MemoC.Text:=Dados.sltb.FieldByName['c'];
@@ -179,83 +334,78 @@ begin
   MemoVolume.Text:=Dados.sltb.FieldByName['volume'];
   MemoSistemaCristalino.Text:=Dados.sltb.FieldByName['sistema_cristalino'];
 
-  self.ImageDescricao.Picture.Graphic:=
-    SelecionaImagensRruff(Dados.sltb.FieldByName['especie'],
-      dados.sltb.FieldByName['rruff_id'], 'Amostra');
-
-  self.ImageQuimica.Picture.Graphic:=
-    SelecionaImagensRruff(Dados.sltb.FieldByName['especie'],
-      dados.sltb.FieldByName['rruff_id'], 'quimica');
-
- { Dados.DeterminaArquivo(Dados.sltb.FieldByName['especie'],
-    Dados.sltb.FieldByName['rruff_id'], 'Microssonda', '', '');
-      if Dados.SdfDataSetPlanilhaMicrossonda.FileName <> EmptyStr then
-        BitbtnVisualizar.Enabled := True
-      else
-        BitbtnVisualizar.Enabled := False;     }
-
-
- { Dataset:=Dados.CriarDataset(Dados.Sqlite3DatasetAmostras.FileName, 'Rruff');
-  Dataset.Open; }
+  ChartDifracao.AddSeries(PlotarGrafico(Dados.DeterminaArquivo(
+        Especie, Rruff_id,
+        ComboboxDifracaoDigito.Text, 'Difracao', '', ''),''));
+  PageControlRruff.TabIndex:=Indice;
 end;
 
 procedure TFormFichaAmostra.PageControlRruffChange(Sender: TObject);
 begin
-  if PageControlRruff.ActivePage.Caption = 'Descrição da Amostra' then
-    begin
-      self.ImageDescricao.Picture.Graphic :=
-        SelecionaImagensRruff(Dados.sltb.FieldByName['especie'],
-        Dados.sltb.FieldByName['rruff_id'], 'Amostra');
-    end;
 
-    if PageControlRruff.ActivePage.Caption = 'Química Ideal' then
-    begin
-      self.ImageQuimica.Picture.Graphic :=
-        SelecionaImagensRruff(Dados.sltb.FieldByName['especie'],
-          Dados.sltb.FieldByName['rruff_id'], 'Quimica');
-    end
-    else
-    if PageControlRruff.ActivePage.Caption = 'Espectro RAMAN' then
-    begin
-     // DadosRAMAN(Dados.sltb.FieldByName['especie'], Dados.sltb.FieldByName['rruff_id'],
-      //ComboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text);
-
-      ChartRaman.AddSeries(PlotarGrafico(
-        Dados.DeterminaArquivo(Dados.sltb.FieldByName['especie'],
-          Dados.sltb.FieldByName['rruff_id'],
-           'RAMAN', ComboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text)));
-    end
-    else
-    if PageControlRruff.ActivePage.Caption = AmplaVarredura then
-    begin
-      //AtualizaComboboxEquipamentos(ComboboxEquipamentoVarredura);
-
-      ChartVarredura.AddSeries(PlotarGrafico(
-        Dados.DeterminaArquivo(Dados.sltb.FieldByName['especie'],
-          Dados.sltb.FieldByName['rruff_id'],
-           'Ampla Varredura', ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text)));
-    end
-    else
-    if PageControlRruff.ActivePage.Caption = 'Espectro Infravermelho' then
-    begin
-      ChartInfravermelho.AddSeries(PlotarGrafico(
-        Dados.DeterminaArquivo(Dados.sltb.FieldByName['especie'],
-          Dados.sltb.FieldByName['rruff_id'],
-            'Espectro Infravermelho', ComboboxEquipamentoInfravermelho.Text, '')));
-    end
-    else
-    if PageControlRruff.ActivePage.Caption = 'Powder Diffraction' then
-    begin
-      ChartDifracao.AddSeries(PlotarGrafico(Dados.DeterminaArquivo(
-        Dados.sltb.FieldByName['especie'], Dados.sltb.FieldByName['rruff_id'],
-          'Difracao', '', '')));
-    end;
 end;
 
 procedure TFormFichaAmostra.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
 
+end;
+
+procedure TFormFichaAmostra.ComboBoxDirecaoLaserChange(Sender: TObject);
+begin
+  ChartRaman.ClearSeries;
+    if ComboboxDirecaoLaser.Text = TodosOsDados then
+    begin
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Angulo0), 'Azul'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Angulo45), 'Verde'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Angulo90), 'Vermelho'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Depolarizado), ''));
+
+    end
+    else
+    begin
+      if ComboboxDirecaoLaser.Text = Angulo0 then
+        ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text,
+              ComboboxDirecaoLaser.Text), 'Azul'))
+      else
+      if ComboboxDirecaoLaser.Text = Angulo45 then
+        ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text,
+              ComboboxDirecaoLaser.Text), 'Verde'))
+      else
+      if ComboboxDirecaoLaser.Text = Angulo90 then
+        ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text,
+              ComboboxDirecaoLaser.Text), 'Vermelho'))
+      else
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(Especie,
+          Rruff_id, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text,
+              ComboboxDirecaoLaser.Text), ''));
+    end;
 end;
 
 end.

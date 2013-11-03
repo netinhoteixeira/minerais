@@ -93,8 +93,8 @@ type
     MemoSubclasse: TMemo;
     MemoClasse: TMemo;
     MemoNome: TMemo;
-    PageControlFicha: TPageControl;
     RichMemoFormula: TRichMemo;
+    PageControlFicha: TPageControl;
     TabSheetCristalografia: TTabSheet;
     TabSheetImagem: TTabSheet;
     TabSheetInf_Gerais: TTabSheet;
@@ -107,8 +107,11 @@ type
   private
     { private declarations }
   public
-    Dataset:TSQLite3Dataset;
-    Datasource:TDataSource;
+    Especie: String;
+    Rruff_id: String;
+    Indice: Integer;
+    Dataset: TSQLite3Dataset;
+    Datasource: TDataSource;
     { public declarations }
   end;
 
@@ -123,12 +126,14 @@ uses udatamodule;
 
 procedure TFormFichaEspecie.FormCreate(Sender: TObject);
 begin
+  PageControlFicha.TabIndex:=Indice;
   Dados.sltb:= Dados.sldb.GetTable(Dados.Sqlite3DatasetGeral.SQL);
-  MemoNome.Text:=Dados.sltb.FieldByName['nome'];
-  MemoClasse.Text:=Dados.sltb.FieldByName['classe'];
-  MemoSubClasse.Text:=Dados.sltb.FieldByName['subclasse'];
-  MemoGrupo.Text:=Dados.sltb.FieldByName['grupo'];
-  MemoSubGrupo.Text:=Dados.sltb.FieldByName['subgrupo'];
+  Especie:=Dados.sltb.FieldByName['nome'];
+  MemoNome.Text:= Especie;
+  MemoClasse.Text:= Dados.sltb.FieldByName['classe'];
+  MemoSubClasse.Text:= Dados.sltb.FieldByName['subclasse'];
+  MemoGrupo.Text:= Dados.sltb.FieldByName['grupo'];
+  MemoSubGrupo.Text:= Dados.sltb.FieldByName['subgrupo'];
   MemoGrupo.Text:=Dados.sltb.FieldByName['grupo'];
   MemoSubGrupo.Text:=Dados.sltb.FieldByName['subgrupo'];
   MemoAssociacao.Text:=Dados.sltb.FieldByName['associacao'];
@@ -174,23 +179,23 @@ begin
   Case Section.Index of
   0:begin
      self.Imagem.Picture.Graphic :=
-       SelecionarImagem(Dados.sltb.FieldByName['nome'],'minerais', 1);
+       SelecionarImagem(Especie,'minerais', 1);
   end;
   1:begin
       self.Imagem.Picture.Graphic :=
-       SelecionarImagem(Dados.sltb.FieldByName['nome'],'minerais', 2);
+       SelecionarImagem(Especie,'minerais', 2);
   end;
   2:begin
       self.Imagem.Picture.Graphic :=
-       SelecionarImagem(Dados.sltb.FieldByName['nome'],'minerais', 3);
+       SelecionarImagem(Especie,'minerais', 3);
   end;
   3:begin
       self.Imagem.Picture.Graphic :=
-       SelecionarImagem(Dados.sltb.FieldByName['nome'],'minerais', 4);
+       SelecionarImagem(Especie,'minerais', 4);
   end;
   4:begin
       self.Imagem.Picture.Graphic :=
-       SelecionarImagem(Dados.sltb.FieldByName['nome'],'minerais', 5);
+       SelecionarImagem(Especie,'minerais', 5);
   end;
   end;
 end;

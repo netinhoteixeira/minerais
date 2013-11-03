@@ -3,11 +3,10 @@ object Dados: TDados
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
   Height = 408
-  HorizontalOffset = 894
+  HorizontalOffset = 808
   VerticalOffset = 153
   Width = 422
   object Sqlite3DatasetGeral: TSqlite3Dataset
-    FileName = 'C:\Users\elidio\Documents\Minerais\Data\Mineraisbd.s3db'
     PrimaryKey = 'id'
     SaveOnClose = True
     TableName = 'minerais'
@@ -108,56 +107,6 @@ object Dados: TDados
     DataSet = Sqlite3DatasetPreencheAmostras
     left = 353
     top = 17
-  end
-  object SdfDataSetGraficos: TSdfDataSet
-    FileMustExist = True
-    ReadOnly = False
-    Schema.Strings = (
-      'campo1, campo2'
-    )
-    FieldDefs = <    
-      item
-        Name = 'ValorX'
-        DataType = ftFloat
-        Precision = 0
-        Size = 0
-      end    
-      item
-        Name = 'ValorY'
-        DataType = ftFloat
-        Precision = 0
-        Size = 0
-      end>
-    AllowMultiLine = False
-    Delimiter = ','
-    FirstLineAsSchema = False
-    left = 248
-    top = 168
-    object SdfDataSetGraficosValorX: TField
-      DisplayWidth = 10
-      FieldKind = fkInternalCalc
-      FieldName = 'ValorX'
-      Index = 0
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object SdfDataSetGraficosValorY: TField
-      DisplayWidth = 10
-      FieldKind = fkInternalCalc
-      FieldName = 'ValorY'
-      Index = 1
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-  end
-  object DatasourceGraficos: TDatasource
-    DataSet = SdfDataSetGraficos
-    left = 353
-    top = 168
   end
   object Sqlite3DatasetInstrumentos: TSqlite3Dataset
     PrimaryKey = 'id'

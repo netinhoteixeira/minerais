@@ -1,0 +1,182 @@
+object FormImpressao: TFormImpressao
+  Left = 2
+  Height = 477
+  Top = 2
+  Width = 1035
+  Caption = 'Impresão'
+  ClientHeight = 477
+  ClientWidth = 1035
+  OnClose = FormClose
+  OnShow = FormShow
+  Position = poDesktopCenter
+  LCLVersion = '1.0.10.0'
+  object GroupBox1: TGroupBox
+    Left = 270
+    Height = 477
+    Top = 0
+    Width = 765
+    Align = alClient
+    ClientHeight = 459
+    ClientWidth = 761
+    TabOrder = 0
+    object frPreview1: TfrPreview
+      Left = 0
+      Height = 459
+      Top = 0
+      Width = 761
+      Align = alClient
+      Alignment = taRightJustify
+      BevelOuter = bvLowered
+      TabOrder = 0
+      ScrollBars = ssBoth
+    end
+  end
+  object BGRAPanel1: TBGRAPanel
+    Left = 0
+    Height = 477
+    Top = 0
+    Width = 270
+    Align = alLeft
+    ClientHeight = 477
+    ClientWidth = 270
+    TabOrder = 1
+    Gradient.StartColor = 13085822
+    Gradient.EndColor = 13085822
+    Gradient.Point1XPercent = 0
+    Gradient.Point1YPercent = 0
+    Gradient.Point2XPercent = 0
+    Gradient.Point2YPercent = 100
+    object RadioGroup1: TRadioGroup
+      Left = 8
+      Height = 127
+      Top = 1
+      Width = 248
+      AutoFill = True
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.TopBottomSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 109
+      ClientWidth = 244
+      TabOrder = 0
+      object RadioButtonLista: TRadioButton
+        Left = 6
+        Height = 49
+        Top = 6
+        Width = 232
+        Caption = 'Todos da Lista'
+        Checked = True
+        TabOrder = 0
+        TabStop = True
+      end
+      object RadioButtonSelecionado: TRadioButton
+        Left = 6
+        Height = 48
+        Top = 55
+        Width = 232
+        Caption = 'Mineral Selecionado'
+        TabOrder = 1
+      end
+    end
+    object CheckGroup1: TCheckGroup
+      Left = 8
+      Height = 144
+      Top = 136
+      Width = 248
+      AutoFill = True
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.TopBottomSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 126
+      ClientWidth = 244
+      TabOrder = 1
+      object CheckBox1: TCheckBox
+        Left = 6
+        Height = 57
+        Top = 6
+        Width = 232
+        Caption = 'Propriedades Gerais e Físicas '
+        Checked = True
+        State = cbChecked
+        TabOrder = 0
+      end
+      object CheckBox2: TCheckBox
+        Left = 6
+        Height = 57
+        Top = 63
+        Width = 232
+        Caption = 'Propriedades Ópticas e Cristalográficas'
+        Checked = True
+        State = cbChecked
+        TabOrder = 1
+      end
+    end
+    object Label1: TLabel
+      Left = 8
+      Height = 16
+      Top = 304
+      Width = 100
+      Caption = 'Número de Cópias'
+      ParentColor = False
+    end
+    object SpinEdit1: TSpinEdit
+      Left = 192
+      Height = 23
+      Top = 304
+      Width = 58
+      MinValue = 1
+      TabOrder = 2
+      Value = 1
+    end
+    object BitBtn1: TBitBtn
+      Left = 8
+      Height = 21
+      Top = 384
+      Width = 248
+      Anchors = [akLeft, akBottom]
+      Caption = 'Modificar Formato de Relatório'
+      OnClick = BitBtn1Click
+      TabOrder = 3
+    end
+    object Panel2: TPanel
+      Left = 1
+      Height = 53
+      Top = 423
+      Width = 268
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 53
+      ClientWidth = 268
+      Color = 13085822
+      ParentColor = False
+      TabOrder = 4
+      object BitBtnImprimir: TBitBtn
+        Left = 8
+        Height = 30
+        Top = 9
+        Width = 111
+        Caption = 'Imprimir'
+        OnClick = BitBtnImprimirClick
+        TabOrder = 0
+      end
+      object BitBtnCancelar: TBitBtn
+        Left = 167
+        Height = 30
+        Top = 9
+        Width = 88
+        Caption = 'Cancelar'
+        OnClick = BitBtnCancelarClick
+        TabOrder = 1
+      end
+    end
+  end
+end
