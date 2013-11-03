@@ -146,7 +146,6 @@ end;
 
 procedure TFormSelecionaBD.EditButtonNovoButtonClick(Sender: TObject);
 var
-  ExecSQL: string;
   Diretorio: string;
 begin                                 //colocar no datamodule
   if (EditButtonNovo.Text <> EmptyStr) then

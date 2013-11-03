@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  DBGrids;
+  DBGrids, DB;
 
 type
 
@@ -22,17 +22,19 @@ type
   private
     { private declarations }
   public
-    procedure ArquivoMicrossonda(Especie:String; Rruff_id:String);
+    DatasourcePlanilha:TDatasource;
+    procedure ArquivoMicrossonda(Especie:String; Rruff_id:String; Digito:String);
+    procedure ArquivoPlanilha(Especie:String; Rruff_id:String; Digito:String;
+        Tipo:String; Equipamento, DirecaoLaser:String);
     { public declarations }
   end;
-          {
-  Type
-    Formulario = record
-    Numero: Integer;
-    Ativo:Boolean;
-  end;   }
 
-
+  Const
+  Microssonda: string = 'Microssonda';
+  EspectroRAMAN: string = 'RAMAN';
+  AmplaVarredura: string = 'Ampla Varredura';
+  Infravermelho: string = 'Espectro Infravermelho';
+  Difracao: string = 'Difracao';
 
 var
   FormPlanilha: TFormPlanilha;
@@ -60,11 +62,12 @@ begin
 
 end;
 
-procedure TFormPlanilha.ArquivoMicrossonda(Especie:String; Rruff_Id:String);
+procedure TFormPlanilha.ArquivoMicrossonda(Especie:String; Rruff_Id:String;
+    Digito:String);
 begin
   Dados.SdfDataSetPlanilhaMicrossonda.Close;
   Dados.SdfDataSetPlanilhaMicrossonda.FileName:=
-    Dados.DeterminaArquivo(Especie, Rruff_id,'Microssonda', '', '');
+    Dados.DeterminaArquivo(Especie, Rruff_id,Digito, 'Microssonda', '', '');
   if Dados.SdfDataSetPlanilhaMicrossonda.FileName <> EmptyStr then
   begin
     FormPlanilha.Show;
@@ -72,6 +75,39 @@ begin
   end
   else
     DBGrid1.Clear;
+end;
+
+procedure TFormPlanilha.ArquivoPlanilha(Especie: String; Rruff_id: String;
+  Digito: String; Tipo: String; Equipamento, DirecaoLaser:String);
+var Diretorio:String;
+begin
+  if Tipo = Microssonda then
+  begin
+    Diretorio:=Dados.DeterminaArquivo(Especie,
+       Rruff_id,Digito,'Microssonda', Equipamento , '');
+    DataSourcePlanilha:=Dados.CriarDataset(Diretorio);
+    DBGrid1.DataSource:=DatasourcePlanilha;
+  end
+  else
+  if Tipo = EspectroRaman then
+  begin
+    Diretorio:=Dados.DeterminaArquivo(Especie,
+       Rruff_id,Digito,'RAMAN',Equipamento, DirecaoLaser);
+    DataSourcePlanilha:=Dados.CriarDataset(Diretorio);
+    DBGrid1.DataSource:=DatasourcePlanilha;
+  end
+  else
+  if Tipo = AmplaVarredura then
+  begin
+  end
+  else
+  if Tipo = Infravermelho then
+  begin
+  end
+  else
+  if Tipo = Difracao then
+  begin
+  end;
 end;
 
 {$R *.lfm}

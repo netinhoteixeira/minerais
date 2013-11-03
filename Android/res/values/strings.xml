@@ -7,5 +7,11 @@
     <string name="StrDensidade">Densidade</string>
     <string name="StrFiltro">Filtro</string>
     <string name="StrEspecies">Espécies Minerais:</string>
-
+    <string name="StrEspecie">Espécie Mineral:</string>
+    <string name="adicionar_registro">Adicionar Registro</string>
+    <string name="ver_registro">Ver Registros</string>
+    <string name="pesquisar_registro">Filtrar Registros</string>
+    <string name="id_registro">Identificação do Registro</string>
+    <string name="classe">Classe</string>
+    <string name="salvar_registro">Salvar</string>        	
 </resources>

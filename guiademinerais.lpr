@@ -10,8 +10,8 @@ uses
   Forms, uprincipal, bgracontrols, udatamodule, sqlite3laz, richmemopackage,
   tachartlazaruspkg, sdflaz, lazreport, uselecionabd, ubibliografia,
   uformimpressao, UnitAjuda, unitSplash, crt, unitImagem, unitgraficos,
-unitPlanilha, unitequipamentos, unitrruff_id, unitfichaamostra,
-unitfichaespecie;
+  unitPlanilha, unitequipamentos, unitrruff_id, unitfichaamostra,
+  unitfichaespecie;
 
 {$R *.res}
 
@@ -29,11 +29,8 @@ begin
   Application.CreateForm(TFormBibliografia, FormBibliografia);
   Application.CreateForm(TFormImpressao, FormImpressao);
   Application.CreateForm(TFormAjuda, FormAjuda);
-  Application.CreateForm(TFormPlanilha, FormPlanilha);
   Application.CreateForm(TFormInstrumentos, FormInstrumentos);
-  Application.CreateForm(TFormRruff_id, FormRruff_id);
-  {Application.CreateForm(TFormFichaAmostra, FormFichaAmostra);
-  Application.CreateForm(TFormFichaEspecie, FormFichaEspecie);
-  }Application.Run;
+  Application.CreateForm(TFormAdicionaRruff, FormAdicionaRruff);
+  Application.Run;
 end.
 
