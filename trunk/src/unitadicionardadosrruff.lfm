@@ -1,0 +1,80 @@
+object FormAddImage: TFormAddImage
+  Left = 402
+  Height = 473
+  Top = 140
+  Width = 606
+  Caption = 'FormAddImage'
+  ClientHeight = 473
+  ClientWidth = 606
+  LCLVersion = '1.0.10.0'
+  object Panel1: TPanel
+    Left = 0
+    Height = 59
+    Top = 414
+    Width = 606
+    Align = alBottom
+    ClientHeight = 59
+    ClientWidth = 606
+    TabOrder = 0
+    object BitBtnAdicionar: TBitBtn
+      Left = 15
+      Height = 27
+      Top = 14
+      Width = 86
+      Caption = 'BitBtnAdicionar'
+      TabOrder = 0
+    end
+    object BitBtnEscolher: TBitBtn
+      Left = 324
+      Height = 35
+      Top = 10
+      Width = 87
+      Caption = 'BitBtnEscolher'
+      TabOrder = 1
+    end
+    object BitBtnFechar: TBitBtn
+      Left = 458
+      Height = 28
+      Top = 10
+      Width = 128
+      Caption = 'BitBtnFechar'
+      TabOrder = 2
+    end
+    object Memo1: TMemo
+      Left = 160
+      Height = 29
+      Top = 12
+      Width = 156
+      Lines.Strings = (
+        'Memo1'
+      )
+      TabOrder = 3
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Height = 414
+    Top = 0
+    Width = 606
+    Align = alClient
+    ClientHeight = 414
+    ClientWidth = 606
+    TabOrder = 1
+    object GroupBoxImagemMineral: TGroupBox
+      Left = 0
+      Height = 390
+      Top = 16
+      Width = 257
+      Caption = 'GroupBoxImagemMineral'
+      TabOrder = 0
+    end
+    object GroupBoxImagemCristalografia: TGroupBox
+      Left = 280
+      Height = 182
+      Top = 16
+      Width = 304
+      Caption = 'GroupBoxImagemCristalografia'
+      TabOrder = 1
+    end
+  end
+end

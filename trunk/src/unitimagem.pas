@@ -9,8 +9,12 @@ uses
 
 function ImagemMineral(Nome: string; Numero: integer): TJPEGImage;
 function ImagemDidatica(Campo: string; Numero: integer): TJPEGImage;
-function SelecionarImagem(NomeCampo: string; Tabela: string; Numero: integer): TJPEGImage;
-procedure RemoveImagem(NomeCampo: string; Tabela: string; Numero: integer; Rruff_id:String);
+function SelecionarImagem(NomeCampo: string; Tabela: string; Numero:
+    Integer):TJPEGImage;
+procedure RemoveImagem(NomeCampo: string; Tabela: string; Numero: integer;
+    Rruff_id:String);
+function AddImage(Arquivo,Table, Field, Tipo, Especie, Rruff_id,
+    Digito: String): TJPEGImage;
 function AdicionaImagemRruff(Especie: String; Rruff_id: String; Digito:String;
     Arquivo:String; Tipo:String):TJPEGImage;
 function SelecionaImagensRruff(Especie, Rruff_id, Digito, Tipo:String):TJPEGImage;
@@ -123,32 +127,62 @@ begin
   end;
 end;
 
+function AddImage(Arquivo,Table, Field, Tipo, Especie, Rruff_id,
+    Digito: String): TJPEGImage;
+var FS:TFileStream;
+begin
+  Try
+    FS := TFileStream.Create(Arquivo, fmOpenRead);
+    if Table = 'minerais' then
+    begin
+      Dados.sldb.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE especie = "'+
+        Especie+'"  ;', FS);
+    end
+    else
+    if Table = 'mineralogia' then
+    begin
+      Dados.sldb.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE campo'+
+        ' =  "'+Tipo+'"  ;', FS);
+    end
+    else
+    if Table = 'rruff' then
+    begin
+      Dados.sldb.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE especie = "'+
+        Especie+'" AND rruff_id ="'+Rruff_id+'"  AND digito_quimica='+
+          '"'+Digito+'" ;', FS);
+    end;
+  finally
+    FS.Free;
+  end;
+
+end;
+
 function AdicionaImagemRruff(Especie: String; Rruff_id: String; Digito:String;
     Arquivo:String; Tipo:String):TJPEGImage;
 var FS:TFileStream;
 begin
   Try
     FS := TFileStream.Create(Arquivo, fmOpenRead);
-    if Tipo = 'Amostra' then
+    if Tipo = 'amostra' then
     begin
       Dados.sldb.UpdateBlob('UPDATE rruff set imagem_amostra = ? WHERE especie = "'+Especie+'" and '+
         'rruff_id = "'+Rruff_id+'";', fs)
     end
     else
-    if Tipo = 'Quimica' then
+    if Tipo = 'quimica' then
     begin
       Dados.sldb.UpdateBlob('UPDATE rruff set imagem_quimica = ? WHERE especie = "'+Especie+'" and '+
-        'rruff_id = "'+Rruff_id+'" AND digito_quimica="'+Digito+'";', fs)
+        'rruff_id = "'+Rruff_id+'" AND digito_quimica="'+Digito+'";', FS)
     end;
   finally
-    fs.Free;
+    FS.Free;
     Result:=SelecionaImagensRruff(Especie, Rruff_id, Digito,Tipo);
   end;
 end;
 
 function SelecionaImagensRruff(Especie, Rruff_id, Digito, Tipo:String): TJPEGImage;
 begin
-  if Tipo = 'Amostra' then
+  if Tipo = 'amostra' then
   begin
     Dados.sltb := Dados.sldb.GetTable('SELECT especie, rruff_id, digito_quimica,'+
       'imagem_amostra FROM rruff WHERE especie = "' +
@@ -156,7 +190,7 @@ begin
     ms := Dados.sltb.FieldAsBlob(Dados.sltb.FieldIndex['imagem_amostra']);
   end
   else
-  if Tipo =  'Quimica' then
+  if Tipo =  'quimica' then
   begin
     Dados.sltb := Dados.sldb.GetTable('SELECT  especie, rruff_id, digito_quimica,'+
       'imagem_quimica FROM rruff WHERE especie = "' +

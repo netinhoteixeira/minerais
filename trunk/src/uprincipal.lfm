@@ -33,7 +33,7 @@ object FormPrincipal: TFormPrincipal
     object ListBoxMinerais: TListBox
       Left = 8
       Height = 512
-      Top = 74
+      Top = 73
       Width = 152
       Anchors = [akTop, akLeft, akBottom]
       ItemHeight = 0
@@ -775,7 +775,7 @@ object FormPrincipal: TFormPrincipal
       Background.Gradient1EndPercent = 35
       Background.LightWidth = 0
       Background.LightOpacity = 64
-      Caption = 'Rruff Id:'
+      Caption = 'Amostras'
       ParentColor = False
       TextShadowColorOpacity = 255
       GlobalOpacity = 255
@@ -832,18 +832,19 @@ object FormPrincipal: TFormPrincipal
         Align = alClient
         TabIndex = 2
         TabOrder = 0
+        OnChange = PageControlFichaChange
         object TabSheetInf_Gerais: TTabSheet
           Caption = 'Informações Gerais'
-          ClientHeight = 597
-          ClientWidth = 649
+          ClientHeight = 559
+          ClientWidth = 595
           object GroupBoxInf_Gerais: TGroupBox
             Left = 0
-            Height = 597
+            Height = 559
             Top = 0
-            Width = 649
+            Width = 595
             Align = alClient
-            ClientHeight = 579
-            ClientWidth = 645
+            ClientHeight = 541
+            ClientWidth = 591
             TabOrder = 0
             object Label1: TLabel
               Left = 15
@@ -857,7 +858,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 9
-              Width = 505
+              Width = 451
               Anchors = [akTop, akLeft, akRight]
               DataField = 'formula'
               DataSource = Dados.DatasourceGeral
@@ -868,7 +869,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 39
-              Width = 505
+              Width = 451
               Anchors = [akTop, akLeft, akRight]
               DataField = 'nome'
               DataSource = Dados.DatasourceGeral
@@ -959,7 +960,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 79
-              Width = 505
+              Width = 451
               Anchors = [akTop, akLeft, akRight]
               DataField = 'classe'
               DataSource = Dados.DatasourceGeral
@@ -970,7 +971,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 111
-              Width = 505
+              Width = 451
               Anchors = [akTop, akLeft, akRight]
               DataField = 'subclasse'
               DataSource = Dados.DatasourceGeral
@@ -981,7 +982,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 143
-              Width = 505
+              Width = 451
               Anchors = [akTop, akLeft, akRight]
               DataField = 'grupo'
               DataSource = Dados.DatasourceGeral
@@ -992,7 +993,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 175
-              Width = 505
+              Width = 451
               Anchors = [akTop, akLeft, akRight]
               DataField = 'subgrupo'
               DataSource = Dados.DatasourceGeral
@@ -1003,7 +1004,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 70
               Top = 215
-              Width = 505
+              Width = 451
               Anchors = [akTop, akLeft, akRight]
               DataField = 'ocorrencia'
               DataSource = Dados.DatasourceGeral
@@ -1015,7 +1016,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 70
               Top = 295
-              Width = 505
+              Width = 451
               Anchors = [akTop, akLeft, akRight]
               DataField = 'associacao'
               DataSource = Dados.DatasourceGeral
@@ -1027,7 +1028,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 70
               Top = 375
-              Width = 505
+              Width = 451
               Anchors = [akTop, akLeft, akRight]
               DataField = 'distincao'
               DataSource = Dados.DatasourceGeral
@@ -1039,7 +1040,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 70
               Top = 455
-              Width = 505
+              Width = 451
               Anchors = [akTop, akLeft, akRight]
               DataField = 'alteracao'
               DataSource = Dados.DatasourceGeral
@@ -1051,7 +1052,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 70
               Top = 535
-              Width = 505
+              Width = 451
               Anchors = [akTop, akLeft, akRight]
               DataField = 'aplicacao'
               DataSource = Dados.DatasourceGeral
@@ -1063,7 +1064,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 9
-              Width = 505
+              Width = 451
               Anchors = [akTop, akLeft, akRight]
               Font.Height = -12
               HideSelection = False
@@ -1716,36 +1717,6 @@ object FormPrincipal: TFormPrincipal
           Caption = 'Imagem'
           ClientHeight = 599
           ClientWidth = 601
-          object PanelImagem: TPanel
-            Left = 0
-            Height = 42
-            Top = 557
-            Width = 601
-            Align = alBottom
-            ClientHeight = 42
-            ClientWidth = 601
-            Color = 13085822
-            ParentColor = False
-            TabOrder = 0
-            object BitBtnAdImagem: TBitBtn
-              Left = 37
-              Height = 30
-              Top = 5
-              Width = 150
-              Caption = 'Adicionar Imagem'
-              TabOrder = 0
-            end
-            object BitBtnRemImagem: TBitBtn
-              Left = 405
-              Height = 30
-              Top = 5
-              Width = 150
-              Anchors = [akTop, akRight]
-              Caption = 'Remover Imagem'
-              OnClick = BitBtnRemImagemClick
-              TabOrder = 1
-            end
-          end
           object GroupBoxImagemAmpliada: TGroupBox
             Left = 0
             Height = 557
@@ -1754,7 +1725,7 @@ object FormPrincipal: TFormPrincipal
             Align = alClient
             ClientHeight = 539
             ClientWidth = 597
-            TabOrder = 1
+            TabOrder = 0
             object ImageAmpliada: TImage
               Left = 0
               Height = 539
@@ -1783,22 +1754,22 @@ object FormPrincipal: TFormPrincipal
         Height = 585
         Top = 1
         Width = 601
-        ActivePage = TabSheetRruffDifracao
+        ActivePage = TabSheetRruffVarredura
         Align = alClient
-        TabIndex = 5
+        TabIndex = 3
         TabOrder = 0
         OnChange = PageControlRruffChange
         object TabSheetRruffDescricao: TTabSheet
           Caption = 'Descrição da Amostra'
-          ClientHeight = 563
+          ClientHeight = 557
           ClientWidth = 593
           object GroupBox3: TGroupBox
             Left = 0
-            Height = 563
+            Height = 557
             Top = 0
             Width = 593
             Align = alClient
-            ClientHeight = 545
+            ClientHeight = 539
             ClientWidth = 589
             TabOrder = 0
             object LabelQuimicaIdeal: TLabel
@@ -1812,7 +1783,7 @@ object FormPrincipal: TFormPrincipal
             object LabelLocalidade: TLabel
               Left = 14
               Height = 16
-              Top = 244
+              Top = 238
               Width = 58
               Anchors = [akLeft, akBottom]
               Caption = 'Localidade'
@@ -1821,7 +1792,7 @@ object FormPrincipal: TFormPrincipal
             object LabelFonte: TLabel
               Left = 14
               Height = 16
-              Top = 308
+              Top = 302
               Width = 31
               Anchors = [akLeft, akBottom]
               Caption = 'Fonte'
@@ -1830,7 +1801,7 @@ object FormPrincipal: TFormPrincipal
             object Label2: TLabel
               Left = 14
               Height = 16
-              Top = 436
+              Top = 430
               Width = 52
               Anchors = [akLeft, akBottom]
               Caption = 'Descrição'
@@ -1839,7 +1810,7 @@ object FormPrincipal: TFormPrincipal
             object Label3: TLabel
               Left = 14
               Height = 16
-              Top = 500
+              Top = 494
               Width = 46
               Anchors = [akLeft, akBottom]
               Caption = 'Situação'
@@ -1848,7 +1819,7 @@ object FormPrincipal: TFormPrincipal
             object LabelProprietario: TLabel
               Left = 14
               Height = 16
-              Top = 372
+              Top = 366
               Width = 63
               Anchors = [akLeft, akBottom]
               Caption = 'Proprietário'
@@ -1885,7 +1856,7 @@ object FormPrincipal: TFormPrincipal
                 Width = 205
                 Align = alClient
                 Center = True
-                OnDblClick = ImageAmostraDblClick
+                OnDblClick = ActionImageAmostraDblClickExecute
                 Proportional = True
               end
             end
@@ -1949,15 +1920,15 @@ object FormPrincipal: TFormPrincipal
         end
         object TabSheetRruffQuimica: TTabSheet
           Caption = 'Química'
-          ClientHeight = 563
+          ClientHeight = 557
           ClientWidth = 593
           object GroupBox4: TGroupBox
             Left = 0
-            Height = 563
+            Height = 557
             Top = 0
             Width = 593
             Align = alClient
-            ClientHeight = 545
+            ClientHeight = 539
             ClientWidth = 589
             TabOrder = 0
             object GroupBoxImagemQuimica: TGroupBox
@@ -1975,6 +1946,7 @@ object FormPrincipal: TFormPrincipal
                 Width = 296
                 Align = alClient
                 Center = True
+                OnDblClick = ActionImageQuimicaDblClickExecute
                 Proportional = True
               end
             end
@@ -2058,30 +2030,30 @@ object FormPrincipal: TFormPrincipal
           end
         end
         object TabSheetRruffRaman: TTabSheet
-          Caption = 'Espectro RAMAN'
-          ClientHeight = 563
+          Caption = 'Espectroscopia RAMAN'
+          ClientHeight = 557
           ClientWidth = 593
           object GroupBox5: TGroupBox
             Left = 0
-            Height = 563
+            Height = 557
             Top = 0
             Width = 593
             Align = alClient
-            ClientHeight = 545
+            ClientHeight = 539
             ClientWidth = 589
             TabOrder = 0
             object GroupBoxGraficoRaman: TGroupBox
               Left = 16
-              Height = 238
+              Height = 232
               Top = 22
               Width = 551
               Anchors = [akTop, akLeft, akRight, akBottom]
-              ClientHeight = 220
+              ClientHeight = 214
               ClientWidth = 547
               TabOrder = 0
               object ChartRaman: TChart
                 Left = 0
-                Height = 220
+                Height = 214
                 Top = 0
                 Width = 547
                 AxisList = <                
@@ -2137,7 +2109,7 @@ object FormPrincipal: TFormPrincipal
             object GroupBox8: TGroupBox
               Left = 16
               Height = 248
-              Top = 262
+              Top = 256
               Width = 551
               Anchors = [akLeft, akBottom]
               ClientHeight = 230
@@ -2192,7 +2164,7 @@ object FormPrincipal: TFormPrincipal
                 Left = 158
                 Height = 23
                 Top = 201
-                Width = 332
+                Width = 372
                 Anchors = [akTop, akLeft, akRight]
                 ItemHeight = 15
                 OnChange = ActionComboboxChangeEquipmentExecute
@@ -2228,7 +2200,7 @@ object FormPrincipal: TFormPrincipal
                 Left = 158
                 Height = 58
                 Top = 40
-                Width = 482
+                Width = 372
                 ScrollBars = ssAutoVertical
                 TabOrder = 3
               end
@@ -2236,14 +2208,14 @@ object FormPrincipal: TFormPrincipal
                 Left = 158
                 Height = 35
                 Top = 112
-                Width = 482
+                Width = 372
                 TabOrder = 4
               end
               object MemoOrientacao: TMemo
                 Left = 158
                 Height = 34
                 Top = 160
-                Width = 482
+                Width = 372
                 ScrollBars = ssAutoVertical
                 TabOrder = 5
               end
@@ -2251,7 +2223,7 @@ object FormPrincipal: TFormPrincipal
           end
         end
         object TabSheetRruffVarredura: TTabSheet
-          Caption = 'Ampla Varredura com Artefatos Espectrais'
+          Caption = 'Varredura Ampla com Artefatos Espectrais'
           ClientHeight = 557
           ClientWidth = 593
           object GroupBox6: TGroupBox
@@ -2411,29 +2383,29 @@ object FormPrincipal: TFormPrincipal
         end
         object TabSheetRruffInfra: TTabSheet
           Caption = 'Espectro Infravermelho'
-          ClientHeight = 563
+          ClientHeight = 557
           ClientWidth = 593
           object GroupBox7: TGroupBox
             Left = 0
-            Height = 563
+            Height = 557
             Top = 0
             Width = 593
             Align = alClient
-            ClientHeight = 545
+            ClientHeight = 539
             ClientWidth = 589
             TabOrder = 0
             object GroupBoxGraficoInfravermelho: TGroupBox
               Left = 16
-              Height = 238
+              Height = 232
               Top = 6
               Width = 551
               Anchors = [akTop, akLeft, akRight, akBottom]
-              ClientHeight = 220
+              ClientHeight = 214
               ClientWidth = 547
               TabOrder = 0
               object ChartInfravermelho: TChart
                 Left = 0
-                Height = 220
+                Height = 214
                 Top = 0
                 Width = 547
                 AxisList = <                
@@ -2560,7 +2532,7 @@ object FormPrincipal: TFormPrincipal
           end
         end
         object TabSheetRruffDifracao: TTabSheet
-          Caption = 'Powder Diffraction'
+          Caption = 'Difração do pó mineral'
           ClientHeight = 557
           ClientWidth = 593
           object GroupBox12: TGroupBox
@@ -2806,15 +2778,16 @@ object FormPrincipal: TFormPrincipal
     Top = 0
     Width = 1285
     Align = alTop
+    BevelInner = bvRaised
     ClientHeight = 38
     ClientWidth = 1285
     TabOrder = 7
     object BitBtnAdicionarImagem: TBitBtn
-      Left = 688
+      Left = 336
       Height = 30
       Hint = 'Adicionar Imagem'
       Top = 3
-      Width = 65
+      Width = 50
       Caption = 'BitBtnAdicionarImagem'
       OnClick = ActionAdicionarImagemRruffExecute
       ParentShowHint = False
@@ -2822,41 +2795,41 @@ object FormPrincipal: TFormPrincipal
       TabOrder = 0
     end
     object BitBtnVisualizarTelaCheia: TBitBtn
-      Left = 760
+      Left = 400
       Height = 30
       Hint = 'Visualizar em tela cheia'
       Top = 3
-      Width = 65
+      Width = 50
       Caption = 'BitBtnVisualizarTelaCheia'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
     end
     object BitBtnRemoverImagem: TBitBtn
-      Left = 829
+      Left = 464
       Height = 30
       Hint = 'Excluir imagem do banco de dados'
       Top = 3
-      Width = 65
+      Width = 50
       Caption = 'BitBtnRemoverImagem'
       ParentShowHint = False
       ShowHint = True
       TabOrder = 2
     end
     object BitBtn2: TBitBtn
-      Left = 912
+      Left = 528
       Height = 30
       Top = 3
-      Width = 65
+      Width = 50
       Caption = 'BitBtn2'
       TabOrder = 3
     end
     object BitBtnInstrumentos: TBitBtn
-      Left = 984
+      Left = 592
       Height = 30
       Hint = 'Equipamentos'
       Top = 3
-      Width = 65
+      Width = 50
       Caption = 'BitBtnInstrumentos'
       OnClick = ActionFormEquipmentsExecute
       ParentShowHint = False
@@ -2864,71 +2837,71 @@ object FormPrincipal: TFormPrincipal
       TabOrder = 4
     end
     object BitBtnAdicionarDados: TBitBtn
-      Left = 1062
+      Left = 656
       Height = 30
       Top = 3
-      Width = 65
+      Width = 50
       Caption = 'Adicionar Dados'
       OnClick = ActionAddDataExecute
       TabOrder = 5
     end
     object BitBtnVerDados: TBitBtn
-      Left = 1134
+      Left = 720
       Height = 30
       Top = 3
-      Width = 65
+      Width = 50
       Caption = 'Ver Dados'
       OnClick = ActionCheckDataExecute
       TabOrder = 6
     end
     object BitBtnZerarDados: TBitBtn
-      Left = 1206
+      Left = 784
       Height = 30
       Top = 3
-      Width = 65
+      Width = 50
       Caption = 'Zerar Dados'
       OnClick = ActionRemoveDataExecute
       TabOrder = 7
     end
     object BitBtn1: TBitBtn
-      Left = 13
+      Left = 16
       Height = 30
-      Top = 5
-      Width = 75
+      Top = 3
+      Width = 50
       Caption = 'BitBtnFichaEspecie'
       OnClick = ActionListboxMineraisDoubleClickExecute
       TabOrder = 8
     end
     object BitBtn3: TBitBtn
-      Left = 97
+      Left = 80
       Height = 30
-      Top = 6
-      Width = 75
+      Top = 3
+      Width = 50
       Caption = 'BitBtnFichaAmostra'
       OnClick = ActionListboxRruffDoubleClickExecute
       TabOrder = 9
     end
     object BitBtn4: TBitBtn
-      Left = 224
+      Left = 144
       Height = 30
-      Top = 6
-      Width = 75
+      Top = 3
+      Width = 50
       Caption = 'BitBtnAdicionar'
       TabOrder = 10
     end
     object BitBtn5: TBitBtn
-      Left = 312
+      Left = 205
       Height = 30
-      Top = 6
-      Width = 75
+      Top = 3
+      Width = 50
       Caption = 'BitBtnModoEdicao'
       TabOrder = 11
     end
     object BitBtn6: TBitBtn
-      Left = 392
+      Left = 269
       Height = 30
-      Top = 6
-      Width = 75
+      Top = 3
+      Width = 50
       Caption = 'BitBtnExcluir'
       TabOrder = 12
     end
@@ -3045,12 +3018,12 @@ object FormPrincipal: TFormPrincipal
     end
   end
   object OpenPictureDialog1: TOpenPictureDialog
-    left = 112
+    left = 216
     top = 608
   end
   object PopupMenuListbox: TPopupMenu
-    left = 144
-    top = 608
+    left = 200
+    top = 224
     object MenuItemAdicionar: TMenuItem
       Caption = 'Adicionar Mineral'
       OnClick = MenuItemAdicionarClick
@@ -3065,8 +3038,8 @@ object FormPrincipal: TFormPrincipal
     end
   end
   object PopupMenuRruff: TPopupMenu
-    left = 189
-    top = 608
+    left = 200
+    top = 312
     object MenuItemAdicionarAmostra: TMenuItem
       Caption = 'Adicionar Amostra'
       OnClick = MenuItemAdicionarAmostraClick
@@ -3078,7 +3051,7 @@ object FormPrincipal: TFormPrincipal
   end
   object OpenDialog1: TOpenDialog
     Title = 'Abrir arquivo '
-    left = 240
+    left = 256
     top = 608
   end
   object ActionListListbox: TActionList
@@ -3197,8 +3170,8 @@ object FormPrincipal: TFormPrincipal
     end
   end
   object PopupMenuEditNome: TPopupMenu
-    left = 280
-    top = 608
+    left = 200
+    top = 400
     object MenuItemAdicionar2: TMenuItem
       Caption = 'Adicionar Mineral'
       OnClick = MenuItemAdicionar2Click
@@ -3207,5 +3180,93 @@ object FormPrincipal: TFormPrincipal
       Caption = 'Excluir Mineral'
       OnClick = MenuItemExcluir2Click
     end
+  end
+  object ActionListImage: TActionList
+    left = 77
+    top = 482
+    object ActionImage1Click: TAction
+      Category = 'Image'
+      Caption = 'ActionImage1Click'
+      OnExecute = ActionImage1ClickExecute
+    end
+    object ActionImage1DblClick: TAction
+      Category = 'Image'
+      Caption = 'ActionImage1DblClick'
+      OnExecute = ActionImage1DblClickExecute
+    end
+    object ActionImage2Click: TAction
+      Category = 'Image'
+      Caption = 'ActionImage2Click'
+      OnExecute = ActionImage2ClickExecute
+    end
+    object ActionImage2DblClick: TAction
+      Category = 'Image'
+      Caption = 'ActionImage2DblClick'
+      OnExecute = ActionImage2DblClickExecute
+    end
+    object ActionImage3Click: TAction
+      Category = 'Image'
+      Caption = 'ActionImage3Click'
+      OnExecute = ActionImage3ClickExecute
+    end
+    object ActionImage3DblClick: TAction
+      Category = 'Image'
+      Caption = 'ActionImage3DblClick'
+      OnExecute = ActionImage3DblClickExecute
+    end
+    object ActionImage4Click: TAction
+      Category = 'Image'
+      Caption = 'ActionImage4Click'
+      OnExecute = ActionImage4ClickExecute
+    end
+    object ActionImage4DblClick: TAction
+      Category = 'Image'
+      Caption = 'ActionImage4DblClick'
+      OnExecute = ActionImage4DblClickExecute
+    end
+    object ActionImage5Click: TAction
+      Category = 'Image'
+      Caption = 'ActionImage5Click'
+      OnExecute = ActionImage5ClickExecute
+    end
+    object ActionImage5DblClick: TAction
+      Category = 'Image'
+      Caption = 'ActionImage5DblClick'
+      OnExecute = ActionImage5DblClickExecute
+    end
+    object ActionImage6Click: TAction
+      Category = 'Image'
+      Caption = 'ActionImage6Click'
+      OnExecute = ActionImage6ClickExecute
+    end
+    object ActionImage6DblClick: TAction
+      Category = 'Image'
+      Caption = 'ActionImage6DblClick'
+      OnExecute = ActionImage6DblClickExecute
+    end
+    object ActionImage7Click: TAction
+      Category = 'Image'
+      Caption = 'ActionImage7Click'
+      OnExecute = ActionImage7ClickExecute
+    end
+    object ActionImage7DblClick: TAction
+      Category = 'Image'
+      Caption = 'ActionImage7DblClick'
+      OnExecute = ActionImage7DblClickExecute
+    end
+    object ActionImageAmostraDblClick: TAction
+      Category = 'Image'
+      Caption = 'ActionImageAmostraDblClick'
+      OnExecute = ActionImageAmostraDblClickExecute
+    end
+    object ActionQuimicaDblClick: TAction
+      Category = 'Image'
+      Caption = 'ActionQuimicaDblClick'
+      OnExecute = ActionImageQuimicaDblClickExecute
+    end
+  end
+  object PopupMenuImage: TPopupMenu
+    left = 200
+    top = 484
   end
 end

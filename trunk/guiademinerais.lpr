@@ -11,7 +11,7 @@ uses
   tachartlazaruspkg, sdflaz, lazreport, uselecionabd, ubibliografia,
   uformimpressao, UnitAjuda, unitSplash, crt, unitImagem, unitgraficos,
   unitPlanilha, unitequipamentos, unitrruff_id, unitfichaamostra,
-  unitfichaespecie;
+  unitfichaespecie, unitAdicionarImagem, unitAdicionarDadosrruff;
 
 {$R *.res}
 
@@ -31,6 +31,8 @@ begin
   Application.CreateForm(TFormAjuda, FormAjuda);
   Application.CreateForm(TFormInstrumentos, FormInstrumentos);
   Application.CreateForm(TFormAdicionaRruff, FormAdicionaRruff);
+  Application.CreateForm(TFormAddRruffData, FormAddRruffData);
+  Application.CreateForm(TFormAddImage, FormAddImage);
   Application.Run;
 end.
 

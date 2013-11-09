@@ -13,8 +13,8 @@ public class AdicionarRegistro extends Activity implements
 	private Button btn_adicionar;
 	private EditText editTextNome, editTextClasse,
 	  editTextId;
-	DatabaseHelper db;
-	ProductModel pm;
+	//DatabaseHelper db;
+	//ProductModel pm;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){

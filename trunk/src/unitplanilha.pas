@@ -85,28 +85,36 @@ begin
   begin
     Diretorio:=Dados.DeterminaArquivo(Especie,
        Rruff_id,Digito,'Microssonda', Equipamento , '');
-    DataSourcePlanilha:=Dados.CriarDataset(Diretorio);
-    DBGrid1.DataSource:=DatasourcePlanilha;
   end
   else
   if Tipo = EspectroRaman then
   begin
     Diretorio:=Dados.DeterminaArquivo(Especie,
        Rruff_id,Digito,'RAMAN',Equipamento, DirecaoLaser);
-    DataSourcePlanilha:=Dados.CriarDataset(Diretorio);
-    DBGrid1.DataSource:=DatasourcePlanilha;
   end
   else
   if Tipo = AmplaVarredura then
   begin
+    Diretorio:=Dados.DeterminaArquivo(Especie,
+       Rruff_id,Digito,AmplaVarredura, Equipamento, DirecaoLaser);
   end
   else
   if Tipo = Infravermelho then
   begin
+    Diretorio:=Dados.DeterminaArquivo(Especie,
+       Rruff_id,Digito, Infravermelho, Equipamento, '');
   end
   else
   if Tipo = Difracao then
   begin
+    Diretorio:=Dados.DeterminaArquivo(Especie,
+       Rruff_id,Digito, Difracao, Equipamento, '');
+  end;
+
+  if Diretorio <> EmptyStr then
+  begin
+      DataSourcePlanilha:=Dados.CriarDataset(Diretorio);
+      DBGrid1.DataSource:=DatasourcePlanilha;
   end;
 end;
 

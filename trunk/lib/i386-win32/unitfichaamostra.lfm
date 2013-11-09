@@ -27,9 +27,9 @@ object FormFichaAmostra: TFormFichaAmostra
       Height = 645
       Top = 1
       Width = 717
-      ActivePage = TabSheetRruffQuimica
+      ActivePage = TabSheetRruffDescricao
       Align = alClient
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       OnChange = PageControlRruffChange
       object TabSheetRruffDescricao: TTabSheet

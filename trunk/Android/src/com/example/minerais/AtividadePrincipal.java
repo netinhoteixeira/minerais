@@ -8,7 +8,6 @@ import android.view.View.OnClickListener;
 //import android.content.*;
 import android.widget.*;
 
-import java.util.List;
 
 
 public class AtividadePrincipal extends Activity implements 
@@ -21,7 +20,7 @@ public class AtividadePrincipal extends Activity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.atividade_principal_);   
         
-        btn_adicionar = (Button) finViewById(R.id.btn_adicionar);
+        btn_adicionar = (Button) findViewById(R.id.btn_adicionar);
         btn_ver = (Button) findViewById(R.id.btn_ver);
         btn_pesquisar = (Button) findViewById(R.id.btn_pesquisar);
         btn_adicionar.setOnClickListener(this);

@@ -20,12 +20,15 @@ public final class R {
         public static final int editTextClasse=0x7f070002;
         public static final int editTextId=0x7f070000;
         public static final int editTextNome=0x7f070001;
-        public static final int menu_settings=0x7f070007;
+        public static final int listview=0x7f070008;
+        public static final int menu_settings=0x7f070009;
         public static final int textViewEspecies=0x7f070004;
+        public static final int totalrecords=0x7f070007;
     }
     public static final class layout {
         public static final int acionar_registro=0x7f030000;
         public static final int atividade_principal_=0x7f030001;
+        public static final int verregistros=0x7f030002;
     }
     public static final class menu {
         public static final int atividade_principal_=0x7f060000;
