@@ -77,7 +77,24 @@ type
   { TFormPrincipal }
 
   TFormPrincipal = class(TForm)
+    ActionImage4Click: TAction;
+    ActionQuimicaDblClick: TAction;
+    ActionImage4DblClick: TAction;
+    ActionImage5Click: TAction;
+    ActionImage5DblClick: TAction;
+    ActionImage6Click: TAction;
+    ActionImage6DblClick: TAction;
+    ActionImage7Click: TAction;
+    ActionImage7DblClick: TAction;
+    ActionImageAmostraDblClick: TAction;
+    ActionImage3DblClick: TAction;
+    ActionImage3Click: TAction;
+    ActionImage2DblClick: TAction;
+    ActionImage2Click: TAction;
+    ActionImage1DblClick: TAction;
+    ActionImage1Click: TAction;
     ActionAdd: TAction;
+    ActionListImage: TActionList;
     ActionSelectDatabase: TAction;
     ActionListboxDigito: TAction;
     ActionComboboxAdicionaAmostra: TAction;
@@ -123,9 +140,7 @@ type
     BitBtn6: TBitBtn;
     BitBtnAdicionarDados: TBitBtn;
     BitBtnAdicionarImagem: TBitBtn;
-    BitBtnAdImagem: TBitBtn;
     BitBtnInstrumentos: TBitBtn;
-    BitBtnRemImagem: TBitBtn;
     BitBtnRemoverImagem: TBitBtn;
     BitBtnVerDados: TBitBtn;
     BitBtnVisualizarTelaCheia: TBitBtn;
@@ -395,7 +410,7 @@ type
     PanelFichas: TPanel;
     PanelRRUFF: TPanel;
     PanelFicha: TPanel;
-    PanelImagem: TPanel;
+    PopupMenuImage: TPopupMenu;
     PopupMenuEditNome: TPopupMenu;
     PopupMenuRruff: TPopupMenu;
     PopupMenuListbox: TPopupMenu;
@@ -422,7 +437,23 @@ type
     procedure ActionComboboxSubclasseExecute(Sender: TObject);
     procedure ActionComboboxSubgrupoExecute(Sender: TObject);
     procedure ActionFormEquipmentsExecute(Sender: TObject);
+    procedure ActionImage1ClickExecute(Sender: TObject);
+    procedure ActionImage1DblClickExecute(Sender: TObject);
+    procedure ActionImage2ClickExecute(Sender: TObject);
+    procedure ActionImage2DblClickExecute(Sender: TObject);
+    procedure ActionImage3ClickExecute(Sender: TObject);
+    procedure ActionImage3DblClickExecute(Sender: TObject);
+    procedure ActionImage4ClickExecute(Sender: TObject);
+    procedure ActionImage4DblClickExecute(Sender: TObject);
+    procedure ActionImage5ClickExecute(Sender: TObject);
+    procedure ActionImage5DblClickExecute(Sender: TObject);
+    procedure ActionImage6ClickExecute(Sender: TObject);
+    procedure ActionImage6DblClickExecute(Sender: TObject);
+    procedure ActionImage7ClickExecute(Sender: TObject);
+    procedure ActionImage7DblClickExecute(Sender: TObject);
+    procedure ActionImageAmostraDblClickExecute(Sender: TObject);
     procedure ActionListboxDigitoExecute(Sender: TObject);
+    procedure ActionImageQuimicaDblClickExecute(Sender: TObject);
     procedure ActionRamanDirecaoLaserExecute(Sender: TObject);
     procedure ActionAddDataExecute(Sender: TObject);
     procedure ActionAdicionarImagemRruffExecute(Sender: TObject);
@@ -559,12 +590,10 @@ type
     procedure Image4DblClick(Sender: TObject);
     procedure Image5Click(Sender: TObject);
     procedure Image5DblClick(Sender: TObject);
-    procedure ImageAmostraDblClick(Sender: TObject);
     procedure ImageCristalografia1Click(Sender: TObject);
     procedure ImageCristalografia1DblClick(Sender: TObject);
     procedure ImageCristalografia2Click(Sender: TObject);
     procedure ImageCristalografia2DblClick(Sender: TObject);
-    procedure ImageQuimicaDblClick(Sender: TObject);
     procedure MemoAEditingDone(Sender: TObject);
     procedure MemoAKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MemoAlphaEditingDone(Sender: TObject);
@@ -614,6 +643,7 @@ type
     procedure MenuItemNormalClick(Sender: TObject);
     procedure MenuItemNovoClick(Sender: TObject);
     procedure MenuItemSelecionaBDClick(Sender: TObject);
+    procedure PageControlFichaChange(Sender: TObject);
     procedure PageControlRruffChange(Sender: TObject);
   private
     procedure Preenche_Lista;
@@ -1112,7 +1142,8 @@ begin
   begin
     ComboboxQuimicaDigito.Items.Clear;
     Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_quimica FROM '+
-      'rruff ORDER BY digito_quimica ;');
+      'rruff WHERE rruff_id="'+ListboxRruff_id.GetSelectedText+
+        '" ORDER BY digito_quimica ;');
     if Dados.sltb.MoveFirst then
     While not Dados.sltb.EOF do
       begin
@@ -1123,7 +1154,8 @@ begin
 
     ComboboxRamanDigito.Items.Clear;
     Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_raman FROM '+
-      'raman ORDER BY digito_raman ;');
+      'raman WHERE rruff_id="'+ListboxRruff_id.GetSelectedText+
+        '" ORDER BY digito_raman ;');
     if Dados.sltb.MoveFirst then
     While not Dados.sltb.EOF do
       begin
@@ -1134,7 +1166,8 @@ begin
 
     ComboboxVarreduraDigito.Items.Clear;
     Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_varredura FROM '+
-      'varredura ORDER BY digito_varredura ;');
+      'varredura WHERE rruff_id="'+ListboxRruff_id.GetSelectedText+
+        '" ORDER BY digito_varredura ;');
     if Dados.sltb.MoveFirst then
     While not Dados.sltb.EOF do
       begin
@@ -1146,7 +1179,8 @@ begin
 
     ComboboxInfravermelhoDigito.Items.Clear;
     Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_infravermelho FROM '+
-      'infravermelho ORDER BY digito_infravermelho ;');
+      'infravermelho WHERE rruff_id="'+ListboxRruff_id.GetSelectedText+
+        '" ORDER BY digito_infravermelho ;');
     if Dados.sltb.MoveFirst then
             While not Dados.sltb.EOF do
       begin
@@ -1158,7 +1192,8 @@ begin
 
     ComboboxDifracaoDigito.Items.Clear;
     Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_difracao FROM '+
-      'difracao ORDER BY digito_difracao ;');
+      'difracao WHERE rruff_id="'+ListboxRruff_id.GetSelectedText+
+        '" ORDER BY digito_difracao ;');
     if Dados.sltb.MoveFirst then
     While not Dados.sltb.EOF do
       begin
@@ -1193,12 +1228,12 @@ begin
 
   self.ImageAmostra.Picture.Graphic:=
     SelecionaImagensRruff(Dados.sltb.FieldByName['especie'],
-      dados.sltb.FieldByName['rruff_id'],'', 'Amostra');
+      dados.sltb.FieldByName['rruff_id'],'', 'amostra');
 
   self.ImageQuimica.Picture.Graphic:=
     SelecionaImagensRruff(Dados.sltb.FieldByName['especie'],
       dados.sltb.FieldByName['rruff_id'],dados.sltb.
-        FieldByName['digito_quimica'] ,'Quimica');
+        FieldByName['digito_quimica'] ,'quimica');
 
   Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM raman WHERE especie ="'+
     ListboxMinerais.GetSelectedText+'" AND rruff_id="'+
@@ -1323,7 +1358,9 @@ begin
       Caption:=ListboxMinerais.GetSelectedText+' - '+ListboxRruff_id.GetSelectedText;
       Show;
     end;
-  end;
+  end
+  else
+  ShowMessage('Selecione uma amostra da lista para ver a ficha.');
 end;
 
 procedure TFormPrincipal.ActionPreencheListaExecute(Sender: TObject);
@@ -1402,77 +1439,132 @@ begin
 end;
 
 procedure TFormPrincipal.ActionAdicionarImagemRruffExecute(Sender: TObject);
+//var FindNil:Boolean; I:Integer;
 begin
-  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  //Abrir Form para inserção de imagens
+
+  {if (not PanelRruff.Visible) then
   begin
-    OpenPictureDialog1.FileName := EmptyStr;
-    if OpenPictureDialog1.Execute then
+    if ListBoxMinerais.GetSelectedText <> EmptyStr then
     begin
-      if OpenPictureDialog1.FileName <> EmptyStr then
-      begin
-        if PageControlRruff.ActivePageIndex = 0 then
-        begin
-          self.ImageAmostra.Picture.Graphic :=
-            AdicionaImagemRruff(ListboxMinerais.GetSelectedText,
-              ListboxRruff_id.GetSelectedText,'', OpenPictureDialog1.FileName,
-                'Amostra');
-        end
-        else
-        if PageControlRruff.ActivePageIndex = 1 then
-        begin
-          self.ImageAmostra.Picture.Graphic :=
-            AdicionaImagemRruff(ListboxMinerais.GetSelectedText,
-              ListboxRruff_id.GetSelectedText, ComboboxQuimicaDigito.Text
-                ,OpenPictureDialog1.FileName, 'Quimica');
+      Case PageControlFicha.TabIndex of
+        0..2,4:begin
+            I:=0;
+            while not FindNil do
+            begin
+              Inc(I);
+              if i=6 then FindNil = True;
+              Dados.sltb:=Dados.sldb.GetTable('SELECT imagem'+IntToStr(I)+
+                ' FROM minerais WHERE nome="'+ListboxMinerais.GetSelectedText+
+                  '" ;');
+              MS := sltb.FieldAsBlob(sltb.FieldIndex['imagem'IntToStr(I)]);
+              if MS = nil then
+              begin
+                Adiciona_Imagem(IntToStr(I));
+                FindNil:=True;
+              end;
+            end;
+          end;
+        3:begin
+            I:=5;
+            while not FindNil do
+            begin
+              Inc(I);
+              if i=8 then FindNil = True;
+              Dados.sltb:=Dados.sldb.GetTable('SELECT imagem'+IntToStr(I)+
+                ' FROM minerais WHERE nome="'+ListboxMinerais.GetSelectedText+
+                  '" ;');
+              MS := sltb.FieldAsBlob(sltb.FieldIndex['imagem'IntToStr(I)]);
+              if MS = nil then
+              begin
+                Adiciona_Imagem(IntToStr(I));
+                FindNil:=True;
+              end;
+            end;
         end;
       end;
+    end
+    else
+    begin
+      ///adicionar images didaticas
     end;
   end
   else
-  ShowMessage('Escolha uma amostra para adicionar imagem.');
+  begin
+    if ListboxRruff_id.GetSelectedText <> EmptyStr then
+    begin
+      OpenPictureDialog1.FileName := EmptyStr;
+      if OpenPictureDialog1.Execute then
+      begin
+        if OpenPictureDialog1.FileName <> EmptyStr then
+        begin
+          if PageControlRruff.ActivePageIndex = 0 then
+          begin
+            self.ImageAmostra.Picture.Graphic :=
+              AdicionaImagemRruff(ListboxMinerais.GetSelectedText,
+                ListboxRruff_id.GetSelectedText,'', OpenPictureDialog1.FileName,
+                  'Amostra');
+          end
+          else
+          if PageControlRruff.ActivePageIndex = 1 then
+          begin
+            self.ImageAmostra.Picture.Graphic :=
+              AdicionaImagemRruff(ListboxMinerais.GetSelectedText,
+                ListboxRruff_id.GetSelectedText, ComboboxQuimicaDigito.Text
+                  ,OpenPictureDialog1.FileName, 'Quimica');
+          end;
+        end;
+      end;
+    end
+    else
+    ShowMessage('Escolha uma amostra para adicionar imagem.');
+  end;   }
 end;
 
 procedure TFormPrincipal.ActionCheckDataExecute(Sender: TObject);
 begin
-  if PageControlRruff.ActivePageIndex = 1 then
+  if PageControlRruff.ActivePageIndex <> 0 then
   begin
-    FormPlanilha:=TFormPlanilha.Create(nil);
-    with FormPlanilha do
+     FormPlanilha:=TFormPlanilha.Create(nil);
+     with FormPlanilha do
+     begin
+       Caption:=ListboxMinerais.GetSelectedText+' - '+ListboxRruff_id.GetSelectedText;
+     end;
+    if PageControlRruff.ActivePageIndex = 1 then
     begin
-      Caption:=ListboxMinerais.GetSelectedText+' - '+ListboxRruff_id.GetSelectedText;
-    end;
-    FormPlanilha.ArquivoPlanilha(ListboxMinerais.GetSelectedText,
-      ListboxRruff_id.GetSelectedText, ComboboxQuimicaDigito.Text,'Microssonda',
-        '', '');
-    FormPlanilha.Show;
-  end
-  else
-  if PageControlRruff.ActivePageIndex = 2 then
-  begin
-    FormPlanilha:=TFormPlanilha.Create(nil);
-    with FormPlanilha do
+      FormPlanilha.ArquivoPlanilha(ListboxMinerais.GetSelectedText,
+        ListboxRruff_id.GetSelectedText, ComboboxQuimicaDigito.Text,'Microssonda',
+          '', '');
+    end
+    else
+    if PageControlRruff.ActivePageIndex = 2 then
     begin
-      Caption:=ListboxMinerais.GetSelectedText+' - '+ListboxRruff_id.GetSelectedText;
+      FormPlanilha.ArquivoPlanilha(ListboxMinerais.GetSelectedText,
+        ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,'RAMAN',
+          COmboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text);
+    end
+    else
+    if PageControlRruff.ActivePageIndex = 3 then
+    begin
+      FormPlanilha.ArquivoPlanilha(ListboxMinerais.GetSelectedText,
+        ListboxRruff_id.GetSelectedText, ComboboxVarreduraDigito.Text,'Ampla Varredura',
+         ComboboxEquipamentoVarredura.Text, ComboboxVarreduraOnda.Text);
+    end
+    else
+    if PageControlRruff.ActivePageIndex = 4 then
+    begin
+      FormPlanilha.ArquivoPlanilha(ListboxMinerais.GetSelectedText,
+        ListboxRruff_id.GetSelectedText, ComboboxInfravermelhoDigito.Text,
+          'Espectro Infravermelho', ComboboxEquipamentoInfravermelho.Text, '');
+    end
+    else
+    if PageControlRruff.ActivePageIndex = 5 then
+    begin
+      FormPlanilha.ArquivoPlanilha(ListboxMinerais.GetSelectedText,
+        ListboxRruff_id.GetSelectedText, ComboboxDifracaoDigito.Text,'Difracao',
+         '', '');
     end;
-    FormPlanilha.ArquivoPlanilha(ListboxMinerais.GetSelectedText,
-      ListboxRruff_id.GetSelectedText, ComboboxQuimicaDigito.Text,'RAMAN',
-       COmboboxEquipamentoRaman.Text, ComboboxDirecaoLaser.Text);
     FormPlanilha.Show;
-  end
-  else
-  if PageControlRruff.ActivePageIndex = 3 then
-  begin
-
-  end
-  else
-  if PageControlRruff.ActivePageIndex = 4 then
-  begin
-
-  end
-  else
-  if PageControlRruff.ActivePageIndex = 5 then
-  begin
-
   end;
 end;
 
@@ -1745,16 +1837,93 @@ begin
       end;
     end;
   2:begin
-      if ComboboxRamanDigito.Text = AdicionarAmostra then OpenFormRruff;
+      if ComboboxRamanDigito.Text = AdicionarAmostra then OpenFormRruff
+      else
+      if Trim(ComboboxRamanDigito.Text) = '0' then
+      begin
+        ComboboxDirecaoLaser.Items.Clear;
+        ComboboxDirecaoLaser.Items.Append(Angulo0);
+        ComboboxDirecaoLaser.Items.Append(Angulo45);
+        ComboboxDirecaoLaser.Items.Append(Angulo90);
+        ComboboxDirecaoLaser.Items.Append(Depolarizado);
+        ComboboxDirecaoLaser.ItemIndex:=ComboboxDirecaoLaser.Items.
+          Add(TodosOsDados);
+
+        ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Angulo0), 'Azul'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Angulo45), 'Verde'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Angulo90), 'Vermelho'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Depolarizado), ''));
+      end
+      else
+      begin
+        ComboboxDirecaoLaser.Items.Clear;
+        ComboboxDirecaoLaser.Items.Append(Onda532);
+        ComboboxDirecaoLaser.Items.Append(Onda580);
+        ComboboxDirecaoLaser.Items.Append(Onda732);
+        ComboboxDirecaoLaser.ItemIndex:=ComboboxDirecaoLaser.Items.
+          Add(TodosOsDados);
+
+        ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Onda532), 'Azul'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Onda580), 'Verde'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Onda732), 'Vermelho'));
+      end;
     end;
   3:begin
-      if ComboboxVarreduraDigito.Text = AdicionarAmostra then OpenFormRruff;
+      if ComboboxVarreduraDigito.Text = AdicionarAmostra then OpenFormRruff
+      else
+      begin
+        ChartVarredura.AddSeries(PlotarGrafico(
+          Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+            ListboxRruff_id.GetSelectedText, ComboboxVarreduraDigito.Text,
+             'Ampla Varredura', ComboboxEquipamentoVarredura.Text,
+               ComboboxVarreduraOnda.Text),''));
+      end;
   end;
   4:begin
-      if ComboboxInfravermelhoDigito.Text = AdicionarAmostra then OpenFormRruff;
+      if ComboboxInfravermelhoDigito.Text = AdicionarAmostra then OpenFormRruff
+      else
+      begin
+        ChartInfravermelho.AddSeries(PlotarGrafico(
+          Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+            ListboxRruff_id.GetSelectedText, ComboboxInfravermelhoDigito.Text,
+              'Espectro Infravermelho', ComboboxEquipamentoInfravermelho.Text,
+                ''),''));
+      end;
     end;
   5:begin
-      if ComboboxDifracaoDigito.Text = AdicionarAmostra then OpenFormRruff;
+      if ComboboxDifracaoDigito.Text = AdicionarAmostra then OpenFormRruff
+      else
+      begin
+        ChartDifracao.AddSeries(PlotarGrafico(Dados.DeterminaArquivo(
+          ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
+            ComboboxDifracaoDigito.Text, 'Difracao', '', ''),''));
+      end;
     end;
 end;
 end;
@@ -1779,6 +1948,96 @@ end;
 procedure TFormPrincipal.ActionFormEquipmentsExecute(Sender: TObject);
 begin
 
+end;
+
+procedure TFormPrincipal.ActionImage1ClickExecute(Sender: TObject);
+begin
+  SelecionaImagem('1');
+end;
+
+procedure TFormPrincipal.ActionImage1DblClickExecute(Sender: TObject);
+begin
+  Adiciona_Imagem('1');
+end;
+
+procedure TFormPrincipal.ActionImage2ClickExecute(Sender: TObject);
+begin
+  SelecionaImagem('2');
+end;
+
+procedure TFormPrincipal.ActionImage2DblClickExecute(Sender: TObject);
+begin
+  Adiciona_Imagem('2');
+end;
+
+procedure TFormPrincipal.ActionImage3ClickExecute(Sender: TObject);
+begin
+  SelecionaImagem('3');
+end;
+
+procedure TFormPrincipal.ActionImage3DblClickExecute(Sender: TObject);
+begin
+  Adiciona_Imagem('3');
+end;
+
+procedure TFormPrincipal.ActionImage4ClickExecute(Sender: TObject);
+begin
+  SelecionaImagem('4');
+end;
+
+procedure TFormPrincipal.ActionImage4DblClickExecute(Sender: TObject);
+begin
+  Adiciona_Imagem('4');
+end;
+
+procedure TFormPrincipal.ActionImage5ClickExecute(Sender: TObject);
+begin
+  SelecionaImagem('5');
+end;
+
+procedure TFormPrincipal.ActionImage5DblClickExecute(Sender: TObject);
+begin
+  Adiciona_Imagem('5');
+end;
+
+procedure TFormPrincipal.ActionImage6ClickExecute(Sender: TObject);
+begin
+  SelecionaImagem('6');
+end;
+
+procedure TFormPrincipal.ActionImage6DblClickExecute(Sender: TObject);
+begin
+  Adiciona_Imagem('6');
+end;
+
+procedure TFormPrincipal.ActionImage7ClickExecute(Sender: TObject);
+begin
+  SelecionaImagem('7');
+end;
+
+procedure TFormPrincipal.ActionImage7DblClickExecute(Sender: TObject);
+begin
+  Adiciona_Imagem('7');
+end;
+
+procedure TFormPrincipal.ActionImageAmostraDblClickExecute(Sender: TObject);
+begin
+ if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    OpenPictureDialog1.FileName := EmptyStr;
+    if OpenPictureDialog1.Execute then
+    begin
+      if OpenPictureDialog1.FileName <> EmptyStr then
+      begin
+        self.ImageAmostra.Picture.Graphic :=
+          AdicionaImagemRruff(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ''
+            ,OpenPictureDialog1.FileName, 'amostra');
+      end;
+    end;
+  end
+  else
+  ShowMessage('Escolha uma amostra paa adicionar uma imagem.');
 end;
 
 procedure TFormPrincipal.ActionListboxDigitoExecute(Sender: TObject);
@@ -1858,6 +2117,26 @@ begin
     end;
   end;
   FormAdicionaRruff.Close;
+end;
+
+procedure TFormPrincipal.ActionImageQuimicaDblClickExecute(Sender: TObject);
+begin
+  if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  begin
+    OpenPictureDialog1.FileName := EmptyStr;
+    if OpenPictureDialog1.Execute then
+    begin
+      if OpenPictureDialog1.FileName <> EmptyStr then
+      begin
+        self.ImageQuimica.Picture.Graphic :=
+          AdicionaImagemRruff(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxQuimicaDigito.Text
+            ,OpenPictureDialog1.FileName, 'quimica');
+      end;
+    end;
+  end
+  else
+  ShowMessage('Escolha uma amostra para adicionar uma imagem.');
 end;
 
 procedure TFormPrincipal.DBMemoNomeEditingDone(Sender: TObject);
@@ -2190,6 +2469,10 @@ begin
     ComboboxEquipamentoVarredura.Items:=ComboboxEquipamentoRaman.Items;
     ComboboxEquipamentoInfravermelho.Items:=ComboboxEquipamentoRaman.Items;
   end;
+  if MenuItemEspecies.Checked then BitBtn1.Enabled:=True
+  else BitBtn1.Enabled:=False;
+  if MenuItemAmostras.Checked then BitBtn3.Enabled:=True
+  else BitBtn3.Enabled:=False;
 end;
 
 procedure TFormPrincipal.FormResize(Sender: TObject);
@@ -2504,13 +2787,25 @@ begin         //config.ini
   if MenuitemEspecies.Checked then
   begin
     BGRAPanelEspecies.Visible:=False;
+    BGRAPanelRruff_id.Visible:=True;
     BGRAPanelImagens.Visible:=False;
     BGRAPanelFiltro.Visible:=False;
     MenuitemEspecies.Checked:=False;
+    BitBtn1.Enabled:=True;
     if MenuItemAmostras.Checked then
     begin
       PanelRruff .Visible := True;
       BGRAPanelRruff_id.Visible := True;
+      ListboxRruff_id.Items.Clear;
+      Dados.sltb:= Dados.sldb.GetTable('SELECT DISTINCT rruff_id FROM rruff');
+      if Dados.sltb.MoveFirst then
+      begin
+        While (not Dados.sltb.EOF) do
+        begin
+          ListboxRruff_id.Items.Append(Dados.sltb.FieldByName['rruff_id']);
+          Dados.sltb.Next;
+        end;
+      end;
     end;
   end
   else
@@ -2520,6 +2815,7 @@ begin         //config.ini
     if MenuItemPanelFiltro.Checked then BGRAPanelFiltro.Visible:=True;
     MenuitemEspecies.Checked:=True;
     PanelRruff .Visible := False;
+    BitBtn1.Enabled:=False;
   end;
 end;
 
@@ -2546,6 +2842,7 @@ begin
     BGRAPanelRruff_id.Visible := True;
     MenuItemAmostras.Checked := True;
     Config.WriteBool('Configuracoes', 'PainelAmostras', True);
+    BitBtn3.Enabled:=True;
   end
   else
   begin
@@ -2554,7 +2851,7 @@ begin
     BGRAPanelRruff_id.Visible := False;
     MenuItemAmostras.Checked := False;
     Config.WriteBool('Configuracoes', 'PainelAmostras', False);
-    //Dados.Sqlite3DatasetAmostras.Close;
+    BitBtn3.Enabled:=False;
   end;
   Config.Free;
 end;
@@ -3157,6 +3454,15 @@ end;
 procedure TFormPrincipal.MenuItemSelecionaBDClick(Sender: TObject);
 begin
   FormSelecionaBD.Show;
+end;
+
+procedure TFormPrincipal.PageControlFichaChange(Sender: TObject);
+begin
+  case PageControlFicha.TabIndex of
+    0:Begin
+
+    end;
+  end;
 end;
 
 procedure TFormPrincipal.PageControlRruffChange(Sender: TObject);
@@ -4099,44 +4405,9 @@ begin
   Adiciona_Imagem('7');
 end;
 
-procedure TFormPrincipal.ImageQuimicaDblClick(Sender: TObject);
-begin
-  if ListboxRruff_id.GetSelectedText <> EmptyStr then
-  begin
-    OpenPictureDialog1.FileName := EmptyStr;
-    if OpenPictureDialog1.Execute then
-    begin
-      if OpenPictureDialog1.FileName <> EmptyStr then
-      begin
-        self.ImageQuimica.Picture.Graphic :=
-          AdicionaImagemRruff(ListboxMinerais.GetSelectedText,
-          ListboxRruff_id.GetSelectedText, ComboboxQuimicaDigito.Text
-            ,OpenPictureDialog1.FileName, 'Quimica');
-      end;
-    end;
-  end;
-end;
-
 procedure TFormPrincipal.Image5DblClick(Sender: TObject);
 begin
   Adiciona_Imagem('5');
-end;
-
-procedure TFormPrincipal.ImageAmostraDblClick(Sender: TObject);
-begin
-  if ListboxRruff_id.GetSelectedText <> EmptyStr then
-  begin
-    OpenPictureDialog1.FileName := EmptyStr;
-    if OpenPictureDialog1.Execute then
-    begin
-      if OpenPictureDialog1.FileName <> EmptyStr then
-      begin
-        self.ImageAmostra.Picture.Graphic :=
-          AdicionaImagemRruff(ListboxMinerais.GetSelectedText,
-          ListboxRruff_id.GetSelectedText, '',OpenPictureDialog1.FileName, 'Amostra');
-      end;
-    end;
-  end;
 end;
 
 procedure TFormPrincipal.MemoryStreamParaImagem;
