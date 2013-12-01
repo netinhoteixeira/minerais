@@ -621,7 +621,6 @@ type
     procedure MenuItemImagePanelClick(Sender: TObject);
     procedure MenuItemPanelFiltroClick(Sender: TObject);
     procedure MenuItemAdicionar2Click(Sender: TObject);
-    procedure MenuItemAdicionarAmostraClick(Sender: TObject);
     procedure MenuItemAdicionarClick(Sender: TObject);
     procedure MenuItemAlfabeticaClick(Sender: TObject);
     procedure MenuItemDensidadeClick(Sender: TObject);
@@ -733,8 +732,8 @@ var
   FormFichaEspecie:TForm;
 
 implementation
-
-uses udatamodule, unitgraficos, unitfichaespecie;
+           //mudar o nome da unit unitadicionarimagem
+uses udatamodule, unitgraficos, unitfichaespecie, unitadicionarimagem;
 
 {$R *.lfm}
 
@@ -1137,68 +1136,69 @@ begin
 end;
 
 procedure TFormPrincipal.ActionListboxRruffClickExecute(Sender: TObject);
+var COr:Integer;
 begin
   if ListboxRruff_id.GetSelectedText <> EmptyStr then
   begin
     ComboboxQuimicaDigito.Items.Clear;
-    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_quimica FROM '+
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM '+
       'rruff WHERE rruff_id="'+ListboxRruff_id.GetSelectedText+
-        '" ORDER BY digito_quimica ;');
+        '" ORDER BY digito ;');
     if Dados.sltb.MoveFirst then
     While not Dados.sltb.EOF do
       begin
-        ComboboxQuimicaDigito.Items.Append(Dados.sltb.FieldByName['digito_quimica']);
+        ComboboxQuimicaDigito.Items.Append(Dados.sltb.FieldByName['digito']);
         Dados.sltb.Next;
       end;
     ComboboxQuimicaDigito.Items.Append(AdicionarAmostra);
 
     ComboboxRamanDigito.Items.Clear;
-    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_raman FROM '+
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM '+
       'raman WHERE rruff_id="'+ListboxRruff_id.GetSelectedText+
-        '" ORDER BY digito_raman ;');
+        '" ORDER BY digito ;');
     if Dados.sltb.MoveFirst then
     While not Dados.sltb.EOF do
       begin
-        ComboboxRamanDigito.Items.Append(Dados.sltb.FieldByName['digito_raman']);
+        ComboboxRamanDigito.Items.Append(Dados.sltb.FieldByName['digito']);
         Dados.sltb.Next;
       end;
     ComboboxRamanDigito.Items.Append(AdicionarAmostra);
 
     ComboboxVarreduraDigito.Items.Clear;
-    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_varredura FROM '+
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM '+
       'varredura WHERE rruff_id="'+ListboxRruff_id.GetSelectedText+
-        '" ORDER BY digito_varredura ;');
+        '" ORDER BY digito ;');
     if Dados.sltb.MoveFirst then
     While not Dados.sltb.EOF do
       begin
         ComboboxVarreduraDigito.Items.Append(Dados.sltb.FieldByName
-          ['digito_varredura']);
+          ['digito']);
         Dados.sltb.Next;
       end;
     ComboboxVarreduraDigito.Items.Append(AdicionarAmostra);
 
     ComboboxInfravermelhoDigito.Items.Clear;
-    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_infravermelho FROM '+
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM '+
       'infravermelho WHERE rruff_id="'+ListboxRruff_id.GetSelectedText+
-        '" ORDER BY digito_infravermelho ;');
+        '" ORDER BY digito ;');
     if Dados.sltb.MoveFirst then
-            While not Dados.sltb.EOF do
+      While not Dados.sltb.EOF do
       begin
         ComboboxInfravermelhoDigito.Items.Append(Dados.sltb.FieldByName
-          ['digito_infravermelho']);
+          ['digito']);
         Dados.sltb.Next;
       end;
     ComboboxInfravermelhoDigito.Items.Append(AdicionarAmostra);
 
     ComboboxDifracaoDigito.Items.Clear;
-    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_difracao FROM '+
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM '+
       'difracao WHERE rruff_id="'+ListboxRruff_id.GetSelectedText+
-        '" ORDER BY digito_difracao ;');
+        '" ORDER BY digito ;');
     if Dados.sltb.MoveFirst then
     While not Dados.sltb.EOF do
       begin
         ComboboxDifracaoDigito.Items.Append(Dados.sltb.FieldByName
-          ['digito_difracao']);
+          ['digito']);
         Dados.sltb.Next;
       end;
      ComboboxDifracaoDigito.Items.Append(AdicionarAmostra);
@@ -1211,7 +1211,7 @@ begin
   ////////////
   Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM rruff WHERE especie ="'+
     ListboxMinerais.GetSelectedText+'" AND rruff_id="'+
-      ListboxRruff_id.GetSelectedText+'" AND digito_quimica="'+
+      ListboxRruff_id.GetSelectedText+'" AND digito="'+
         ComboboxQuimicaDigito.Text+'";');
   MemoAmostraEspecie.Text:=Dados.sltb.FieldByName['especie'];
   MemoAmostraRruff_id.Text:=Dados.sltb.FieldByName['rruff_id'];
@@ -1233,11 +1233,11 @@ begin
   self.ImageQuimica.Picture.Graphic:=
     SelecionaImagensRruff(Dados.sltb.FieldByName['especie'],
       dados.sltb.FieldByName['rruff_id'],dados.sltb.
-        FieldByName['digito_quimica'] ,'quimica');
+        FieldByName['digito'] ,'quimica');
 
   Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM raman WHERE especie ="'+
     ListboxMinerais.GetSelectedText+'" AND rruff_id="'+
-      ListboxRruff_id.GetSelectedText+'" AND digito_raman="0";');
+      ListboxRruff_id.GetSelectedText+'" AND digito="0";');
 
   MemoRamanRruff_id.Text:=Dados.sltb.FieldByName['rruff_id'];
   MemoRamanDescricao.Text:=Dados.sltb.FieldByName['descricao_raman'];
@@ -1245,8 +1245,56 @@ begin
   MemoOrientacao.Text:=Dados.sltb.FieldByName['orientacao'];
   ComboboxEquipamentoRaman.Text:=Dados.sltb.FieldByName['equipamento']; ;
 
+  ComboboxDirecaoLaser.Clear;
+  Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT direcao FROM raman WHERE '+
+    'rruff_id="'+ListboxRruff_id.GetSelectedText+'" ;');
+  if Dados.sltb.MoveFirst then
+  begin
+    While not Dados.sltb.EOF do
+      begin
+        ComboboxDirecaoLaser.Items.Append(Dados.sltb.FieldByName['direcao']);
+        Dados.sltb.Next;
+      end;
+    ComboboxDirecaoLaser.ItemIndex:=0;
+  end;
+
   ChartRaman.ClearSeries;
-    if ComboboxDirecaoLaser.Text = TodosOsDados then
+  Dados.sltb:=Dados.sldb.GetTable('SELECT * FROM raman WHERE '+
+    //'arquivo_raman NOT NULL AND
+    'rruff_id="'+ListboxRruff_id.GetSelectedText+'" AND direcao="'+
+      ComboboxDirecaoLaser.Text+'";');
+  if Dados.sltb.MoveFirst then
+  begin
+    Cor:=0;
+    While not Dados.sltb.EOF do
+    begin
+      case Cor of
+      0:ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text,
+              Dados.sltb.FieldByName['direcao']), 'Azul'));
+      1:ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text,
+              Dados.sltb.FieldByName['direcao']), 'Verde'));
+      2:ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text,
+              Dados.sltb.FieldByName['direcao']), 'Vermelho'));
+      3:ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text,
+              Dados.sltb.FieldByName['direcao']), ''));
+      end;
+    Dados.sltb.Next;
+    Inc(Cor);
+    end;
+  end;
+    {if ComboboxDirecaoLaser.Text = TodosOsDados then
     begin
       ChartRaman.AddSeries(PlotarGrafico(
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
@@ -1297,11 +1345,25 @@ begin
           ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
             EspectroRAMAN, ComboboxEquipamentoRaman.Text,
               ComboboxDirecaoLaser.Text), ''));
-    end;
+    end;   }
+
+  ComboboxVarreduraOnda.Clear;
+  Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT comprimento_onda FROM '+
+    'varredura WHERE rruff_id="'+ListboxRruff_id.GetSelectedText+'" ;');
+  if Dados.sltb.MoveFirst then
+  begin
+    While not Dados.sltb.EOF do
+      begin
+        ComboboxVarreduraOnda.Items.Append(Dados.sltb.FieldByName[
+          'comprimento_onda']);
+        Dados.sltb.Next;
+      end;
+    ComboboxVarreduraOnda.ItemIndex:=0;
+  end;
 
   Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM varredura WHERE especie ="'+
     ListboxMinerais.GetSelectedText+'" AND rruff_id="'+
-      ListboxRruff_id.GetSelectedText+'" AND digito_varredura="0";');
+      ListboxRruff_id.GetSelectedText+'" AND digito="0";');
   MemoVarreduraRruff_id.Text:= Dados.sltb.FieldByName['rruff_id'];
   MemoVarreduraDescricao.Text:= Dados.sltb.FieldByName['descricao_varredura'];
   ComboboxEquipamentoVarredura.Text:=Dados.sltb.FieldByName['equipamento']; ;
@@ -1314,7 +1376,7 @@ begin
 
   Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM infravermelho WHERE especie ="'+
     ListboxMinerais.GetSelectedText+'" AND rruff_id="'+
-      ListboxRruff_id.GetSelectedText+'" AND digito_infravermelho="0";');
+      ListboxRruff_id.GetSelectedText+'" AND digito="0";');
   MemoInfravermelhoRruff_id.Text:=Dados.sltb.FieldByName['rruff_id'];
   MemoInfravermelhoDescricao.Text:=
     Dados.sltb.FieldByName['descricao_infravermelho'];;
@@ -1328,7 +1390,7 @@ begin
 
   Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM difracao WHERE especie ="'+
     ListboxMinerais.GetSelectedText+'" AND rruff_id="'+
-      ListboxRruff_id.GetSelectedText+'" AND digito_difracao="0";');
+      ListboxRruff_id.GetSelectedText+'" AND digito="0";');
   MemoRruff_id.Text:=Dados.sltb.FieldByName['rruff_id'];
   MemoA.Text:=Dados.sltb.FieldByName['a'];
   MemoB.Text:=Dados.sltb.FieldByName['b'];
@@ -1570,7 +1632,8 @@ end;
 
 procedure TFormPrincipal.ActionAddDataExecute(Sender: TObject);
 begin
-   if ListboxRruff_id.GetSelectedText <> EmptyStr then
+  FormAddRruffData.Show;
+   {if ListboxRruff_id.GetSelectedText <> EmptyStr then
   begin
     if OpenDialog1.Execute then
     begin
@@ -1581,7 +1644,8 @@ begin
           Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
             ListboxRruff_id.GetSelectedText, '','Microssonda', '',
               '', Opendialog1.FileName);
-        end;
+        end
+        else
         if PageControlRruff.ActivePageIndex = 2 then
         begin
           if ComboboxDirecaoLaser.Text <> 'Todos os Dados' then
@@ -1627,7 +1691,7 @@ begin
         if PageControlRruff.ActivePageIndex  = 5 then
         begin
           Dados.SalvaArquivo(ListboxMinerais.GetSelectedText,
-            ListboxRruff_id.GetSelectedText, COmboboxDifracaoDigito.Text,
+            ListboxRruff_id.GetSelectedText, ComboboxDifracaoDigito.Text,
              'Difracao', '', '', Opendialog1.FileName);
           ChartDifracao.AddSeries(PlotarGrafico(Dados.DeterminaArquivo(
             ListboxMinerais.GetSelectedText, ListboxRruff_id.GetSelectedText,
@@ -1638,6 +1702,7 @@ begin
   end
   else
   ShowMessage('Escolha uma amostra para inserir dados.');
+  }
 end;
 
 procedure TFormPrincipal.ActionRamanDirecaoLaserExecute(Sender: TObject);
@@ -1645,6 +1710,21 @@ begin
    if ListboxRruff_id.GetSelectedText <> EmptyStr then
   begin
     ChartRaman.ClearSeries;
+    if MenuItemEspecies.Checked then
+    begin
+      Dados.sltb:=Dados.sldb.GetTable('SELECT equipamento FROM raman WHERE '+
+        'especie="'+ListboxMinerais.GetSelectedText+'" and rruff_id="'+
+          ListboxRruff_id.GetSelectedText+'" and digito="'+
+            ComboboxRamanDigito.Text+'" ;');
+      ComboboxEquipamentoRaman.Text:=Dados.sltb.FieldByName['equipamento'];
+    end
+    else
+    begin
+      Dados.sltb:=Dados.sldb.GetTable('SELECT equipamento FROM raman WHERE '+
+        'rruff_id="'+ListboxRruff_id.GetSelectedText+'" and digito="'+
+          ComboboxRamanDigito.Text+'" ;');
+      ComboboxEquipamentoRaman.Text:=Dados.sltb.FieldByName['equipamento'];
+    end;
     if ComboboxDirecaoLaser.Text = TodosOsDados then
     begin
       ChartRaman.AddSeries(PlotarGrafico(
@@ -1717,23 +1797,21 @@ begin
       Dados.sldb.ExecSQL('UPDATE raman SET equipamento="'+
         ComboboxEquipamentoRaman.Text+'" WHERE (especie="'+ListboxMinerais.
           GetSelectedText+'" AND rruff_id="'+ ListboxRruff_id.GetSelectedText+
-            '" AND digito_raman="'+ ComboboxRamanDigito.Text+'" AND '+
-              'direcao="'+Dados.RetornaIndiceDirecaoLaser(
-                ComboboxDirecaoLaser.Text)+'");');
+            '" AND digito="'+ ComboboxRamanDigito.Text+'" AND '+
+              'direcao="'+ComboboxDirecaoLaser.Text+'");');
     end;
     3:begin
       Dados.sldb.ExecSQL('UPDATE varredura SET equipamento="'+
         ComboboxEquipamentoVarredura.Text+'" WHERE (especie="'+ListboxMinerais.
           GetSelectedText+'" AND rruff_id="'+ ListboxRruff_id.GetSelectedText+
-            '" AND digito_varredura="'+ ComboboxVarreduraDigito.Text+'" AND '+
-              'comprimento_onda="'+Dados.RetornaIndiceDirecaoLaser(
-                ComboboxVarreduraOnda.Text)+'");');
+            '" AND digito="'+ ComboboxVarreduraDigito.Text+'" AND '+
+              'comprimento_onda="'+ComboboxVarreduraOnda.Text+'");');
     end;
     4:begin
       Dados.sldb.ExecSQL('UPDATE infravermelho SET equipamento="'+
         ComboboxEquipamentoInfravermelho.Text+'" WHERE (especie="'+ListboxMinerais.
           GetSelectedText+'" AND rruff_id="'+ ListboxRruff_id.GetSelectedText+
-            '" AND digito_infravermelho="'+ ComboboxInfravermelhoDigito.Text+'" );');
+            '" AND digito="'+ ComboboxInfravermelhoDigito.Text+'" );');
     end;
     end;
   end;
@@ -1741,8 +1819,12 @@ end;
 
 procedure TFormPrincipal.ActionAddExecute(Sender: TObject);
 begin
-
-  Dados.AdicionaAmostra(ListboxMinerais.GetSelectedText, EditRruff_id.Text);
+  if MenuItemEspecies.Checked then
+  Dados.AdicionaAmostra(True, '', ListboxMinerais.GetSelectedText, EditRruff_id.Text,
+      0, '', '')
+  else
+    Dados.AdicionaAmostra(True, '', '', EditRruff_id.Text, 0, '', '');
+  PreencheAmostras;
 end;
 
 procedure TFormPrincipal.ActionComboboxGrupoExecute(Sender: TObject);
@@ -1759,58 +1841,58 @@ procedure TFormPrincipal.ActionComboboxOnChangeExecute(Sender: TObject);
     FormAdicionaRruff.EditAmostras.Text:='';
 
     FormAdicionaRruff.ListBox1.Clear;
-    Dados.sltb:=Dados.sldb.GetTable('SELECT digito_quimica FROM rruff WHERE '+
-      'digito_quimica != "0";');
+    Dados.sltb:=Dados.sldb.GetTable('SELECT digito FROM rruff WHERE '+
+      'digito != "0";');
     Dados.sltb.MoveFirst;
     While not Dados.sltb.EOF do
     begin
       FormAdicionaRruff.ListBox1.Items.Add(
         FormAdicionaRruff.EditRruff_id.Text+' - '+ Dados.sltb.FieldByName
-          ['digito_quimica']);
+          ['digito']);
       Dados.sltb.Next;
     end;
 
-    Dados.sltb:=Dados.sldb.GetTable('SELECT digito_raman FROM raman WHERE '+
-      'digito_raman != "0";');
+    Dados.sltb:=Dados.sldb.GetTable('SELECT digito FROM raman WHERE '+
+      'digito != "0";');
     Dados.sltb.MoveFirst;
     While not Dados.sltb.EOF do
     begin
       FormAdicionaRruff.ListBox1.Items.Add(
         FormAdicionaRruff.EditRruff_id.Text+' - '+ Dados.sltb.FieldByName
-          ['digito_raman']);
+          ['digito']);
       Dados.sltb.Next;
     end;
 
-    Dados.sltb:=Dados.sldb.GetTable('SELECT digito_varredura FROM varredura '+
-      'WHERE digito_varredura !="0";');
+    Dados.sltb:=Dados.sldb.GetTable('SELECT digito FROM varredura '+
+      'WHERE digito !="0";');
     Dados.sltb.MoveFirst;
     While not Dados.sltb.EOF do
     begin
       FormAdicionaRruff.ListBox1.Items.Add(
         FormAdicionaRruff.EditRruff_id.Text+' - '+ Dados.sltb.FieldByName
-          ['digito_varredura']);
+          ['digito']);
       Dados.sltb.Next;
     end;
 
-    Dados.sltb:=Dados.sldb.GetTable('SELECT digito_infravermelho FROM infravermelho '+
-      'WHERE digito_infravermelho !="0";');
+    Dados.sltb:=Dados.sldb.GetTable('SELECT digito FROM infravermelho '+
+      'WHERE digito != "0";');
     Dados.sltb.MoveFirst;
     While not Dados.sltb.EOF do
     begin
       FormAdicionaRruff.ListBox1.Items.Add(
         FormAdicionaRruff.EditRruff_id.Text+' - '+ Dados.sltb.FieldByName
-          ['digito_infravermelho']);
+          ['digito']);
       Dados.sltb.Next;
     end;
 
-    Dados.sltb:=Dados.sldb.GetTable('SELECT digito_difracao FROM difracao '+
-      'WHERE digito_difracao != "0";');
+    Dados.sltb:=Dados.sldb.GetTable('SELECT digito FROM difracao '+
+      'WHERE digito != "0";');
     Dados.sltb.MoveFirst;
     While not Dados.sltb.EOF do
     begin
       FormAdicionaRruff.ListBox1.Items.Add(
         FormAdicionaRruff.EditRruff_id.Text+' - '+ Dados.sltb.FieldByName
-          ['digito_difracao']);
+          ['digito']);
       Dados.sltb.Next;
     end;
 
@@ -1828,48 +1910,18 @@ begin
       begin
         Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM rruff WHERE especie ="'+
           ListboxMinerais.GetSelectedText+'" AND rruff_id="'+
-            ListboxRruff_id.GetSelectedText+'" AND digito_quimica="'+
+            ListboxRruff_id.GetSelectedText+'" AND digito="'+
               ComboboxQuimicaDigito.Text+'";');
         self.ImageQuimica.Picture.Graphic:=
           SelecionaImagensRruff(Dados.sltb.FieldByName['especie'],
             dados.sltb.FieldByName['rruff_id'],dados.sltb.
-              FieldByName['digito_quimica'] ,'Quimica');
+              FieldByName['digito'] ,'Quimica');
       end;
     end;
   2:begin
       if ComboboxRamanDigito.Text = AdicionarAmostra then OpenFormRruff
       else
-      if Trim(ComboboxRamanDigito.Text) = '0' then
-      begin
-        ComboboxDirecaoLaser.Items.Clear;
-        ComboboxDirecaoLaser.Items.Append(Angulo0);
-        ComboboxDirecaoLaser.Items.Append(Angulo45);
-        ComboboxDirecaoLaser.Items.Append(Angulo90);
-        ComboboxDirecaoLaser.Items.Append(Depolarizado);
-        ComboboxDirecaoLaser.ItemIndex:=ComboboxDirecaoLaser.Items.
-          Add(TodosOsDados);
-
-        ChartRaman.AddSeries(PlotarGrafico(
-        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
-          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
-            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Angulo0), 'Azul'));
-
-      ChartRaman.AddSeries(PlotarGrafico(
-        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
-          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
-            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Angulo45), 'Verde'));
-
-      ChartRaman.AddSeries(PlotarGrafico(
-        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
-          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
-            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Angulo90), 'Vermelho'));
-
-      ChartRaman.AddSeries(PlotarGrafico(
-        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
-          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
-            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Depolarizado), ''));
-      end
-      else
+      if ComboboxRamanDigito.Text = '0' then
       begin
         ComboboxDirecaoLaser.Items.Clear;
         ComboboxDirecaoLaser.Items.Append(Onda532);
@@ -1892,6 +1944,37 @@ begin
         Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
           ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
             EspectroRAMAN, ComboboxEquipamentoRaman.Text, Onda732), 'Vermelho'));
+
+      end
+      else
+      begin
+        ComboboxDirecaoLaser.Items.Clear;
+        ComboboxDirecaoLaser.Items.Append(Angulo0);
+        ComboboxDirecaoLaser.Items.Append(Angulo45);
+        ComboboxDirecaoLaser.Items.Append(Angulo90);
+        ComboboxDirecaoLaser.Items.Append(Depolarizado);
+        ComboboxDirecaoLaser.ItemIndex:=ComboboxDirecaoLaser.Items.
+          Add(TodosOsDados);
+
+        ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Onda532), 'Azul'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Onda580), 'Verde'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Onda732), 'Vermelho'));
+
+      ChartRaman.AddSeries(PlotarGrafico(
+        Dados.DeterminaArquivo(ListboxMinerais.GetSelectedText,
+          ListboxRruff_id.GetSelectedText, ComboboxRamanDigito.Text,
+            EspectroRAMAN, ComboboxEquipamentoRaman.Text, Depolarizado), ''));
       end;
     end;
   3:begin
@@ -2049,69 +2132,79 @@ begin
   Case FormAdicionaRruff.LocalAmostra of
     1:begin
       ComboboxQuimicaDigito.ItemIndex:=ComboboxQuimicaDigito.Items.Add(Aux);
-      Dados.sltb:=Dados.sldb.GetTable('SELECT especie, rruff_id, digito_quimica '+
+      Dados.sltb:=Dados.sldb.GetTable('SELECT especie, rruff_id, digito '+
         'FROM rruff WHERE especie="'+ListboxMinerais.GetSelectedText+'" AND '+
-          'rruff_id="'+ListboxRruff_id.GetSelectedText+'" AND digito_quimica='+
+          'rruff_id="'+ListboxRruff_id.GetSelectedText+'" AND digito='+
             '"'+ComboboxQuimicaDigito.Text+'";');
       if Dados.sltb.RowCount = 0 then
-      Dados.sldb.ExecSQL('INSERT INTO rruff (especie, rruff_id, digito_quimica) VALUES '+
+      begin
+      Dados.sldb.ExecSQL('INSERT INTO rruff (especie, rruff_id, digito) VALUES '+
         '("'+ListboxMinerais.GetSelectedText+'", "'+ListBoxRruff_id.
-          GetSelectedText+'", "'+ComboboxQuimicaDigito.Text+'");')
+          GetSelectedText+'", "'+ComboboxQuimicaDigito.Text+'");');
+      end
       else
       ShowMessage('Já existe uma amostra com essas especificações');
     end;
     2:begin
       ComboboxRamanDigito.ItemIndex:=ComboboxRamanDigito.Items.Add(Aux);
-      Dados.sltb:=Dados.sldb.GetTable('SELECT especie, rruff_id, digito_raman '+
+      Dados.sltb:=Dados.sldb.GetTable('SELECT especie, rruff_id, digito '+
         'FROM raman WHERE especie="'+ListboxMinerais.GetSelectedText+'" AND '+
-          'rruff_id="'+ListboxRruff_id.GetSelectedText+'" AND digito_raman='+
+          'rruff_id="'+ListboxRruff_id.GetSelectedText+'" AND digito='+
             '"'+ComboboxRamanDigito.Text+'";');
       if Dados.sltb.RowCount = 0 then
-      Dados.sldb.ExecSQL('INSERT INTO raman (especie, rruff_id, digito_raman) VALUES '+
+      begin
+      Dados.sldb.ExecSQL('INSERT INTO raman (especie, rruff_id, digito) VALUES '+
         '("'+ListboxMinerais.GetSelectedText+'", "'+ListBoxRruff_id.
-          GetSelectedText+'", "'+ComboboxRamanDigito.Text+'");')
+          GetSelectedText+'", "'+ComboboxRamanDigito.Text+'");');
+      end
       else
       ShowMessage('Já existe uma amostra com essas especificações');
     end;
     3:begin
       ComboboxVarreduraDigito.ItemIndex:=ComboboxVarreduraDigito.Items.Add(Aux);
-      Dados.sltb:=Dados.sldb.GetTable('SELECT especie, rruff_id, digito_varredura '+
+      Dados.sltb:=Dados.sldb.GetTable('SELECT especie, rruff_id, digito '+
         'FROM varredura WHERE especie="'+ListboxMinerais.GetSelectedText+'" AND '+
-          'rruff_id="'+ListboxRruff_id.GetSelectedText+'" AND digito_varredura='+
+          'rruff_id="'+ListboxRruff_id.GetSelectedText+'" AND digito='+
             '"'+ComboboxVarreduraDigito.Text+'";');
       if Dados.sltb.RowCount = 0 then
+      begin
       Dados.sldb.ExecSQL('INSERT INTO varredura (especie, rruff_id, '+
-        'digito_varredura) VALUES ("'+ListboxMinerais.GetSelectedText+'", "'
-          +ListBoxRruff_id.GetSelectedText+'", "'+ComboboxVarreduraDigito.Text+'");')
+        'digito) VALUES ("'+ListboxMinerais.GetSelectedText+'", "'
+          +ListBoxRruff_id.GetSelectedText+'", "'+ComboboxVarreduraDigito.Text+'");');
+      end
       else
       ShowMessage('Já existe uma amostra com essas especificações');
     end;
     4:begin
       ComboboxInfravermelhoDigito.ItemIndex:=ComboboxInfravermelhoDigito.Items.
         Add(Aux);
-      Dados.sltb:=Dados.sldb.GetTable('SELECT especie, rruff_id, digito_infravermelho '+
+      Dados.sltb:=Dados.sldb.GetTable('SELECT especie, rruff_id, digito '+
         'FROM infravermelho WHERE especie="'+ListboxMinerais.GetSelectedText+'" AND '+
-          'rruff_id="'+ListboxRruff_id.GetSelectedText+'" AND digito_infravermelho='+
+          'rruff_id="'+ListboxRruff_id.GetSelectedText+'" AND digito='+
             '"'+ComboboxInfravermelhoDigito.Text+'";');
       if Dados.sltb.RowCount = 0 then
+      begin
       Dados.sldb.ExecSQL('INSERT INTO infravermelho (especie, rruff_id, '+
-        'digito_infravermelho) VALUES ("'+ListboxMinerais.GetSelectedText
+        'digito) VALUES ("'+ListboxMinerais.GetSelectedText
            +'", "'+ListBoxRruff_id.GetSelectedText+'", "'+
-             ComboboxInfravermelhoDigito.Text+'");')
+             ComboboxInfravermelhoDigito.Text+'");');
+      end
       else
       ShowMessage('Já existe uma amostra com essas especificações');
     end;
     5:begin
       ComboboxDifracaoDigito.ItemIndex:=ComboboxDifracaoDigito.Items.
         Add(Aux);
-      Dados.sltb:=Dados.sldb.GetTable('SELECT especie, rruff_id, digito_difracao '+
+      Dados.sltb:=Dados.sldb.GetTable('SELECT especie, rruff_id, digito '+
         'FROM difracao WHERE especie="'+ListboxMinerais.GetSelectedText+'" AND '+
-          'rruff_id="'+ListboxRruff_id.GetSelectedText+'" AND digito_difracao='+
+          'rruff_id="'+ListboxRruff_id.GetSelectedText+'" AND digito='+
             '"'+ComboboxDifracaoDigito.Text+'";');
       if Dados.sltb.RowCount = 0 then
+      begin
       Dados.sldb.ExecSQL('INSERT INTO difracao (especie, rruff_id, '+
-        'digito_difracao) VALUES ("'+ListboxMinerais.GetSelectedText+'", "'+
-          ListBoxRruff_id.GetSelectedText+'", "'+ComboboxDifracaoDigito.Text+'");')
+        'digito) VALUES ("'+ListboxMinerais.GetSelectedText+'", "'+
+          ListBoxRruff_id.GetSelectedText+'", "'+ComboboxDifracaoDigito.Text+'");');
+      end
       else
       ShowMessage('Já existe uma amostra com essas especificações');
     end;
@@ -2753,15 +2846,6 @@ begin
   AdicionaMineral;
 end;
 
-procedure TFormPrincipal.MenuItemAdicionarAmostraClick(Sender: TObject);
-begin
-  if ListBoxMinerais.GetSelectedText <> EmptyStr then
-  begin
-    Dados.AdicionaAmostra(ListboxMinerais.GetSelectedText, EditRruff_id.Text);
-  end;
-  PreencheAmostras;
-end;
-
 procedure TFormPrincipal.MenuItemAdicionarClick(Sender: TObject);
 begin
   AdicionaMineral;
@@ -3247,16 +3331,16 @@ begin
 end;
 
 procedure TFormPrincipal.AtualizaComboboxRruff(Combobox: TCombobox;
-  Campo:String);
+  Campo:String);           //PROCEDIMENTO NAO UTILIZADO
 var Indice:String;
   //esse procedimento vai ser usado tbm para rruff_id e rruff_digito
   // e para comboboxdirecaolaser
 begin
-  Combobox.Clear;
+ { Combobox.Clear;
 
-  if Campo = 'digito_rruff' then
+  if Campo = 'rruff' then
   begin
-    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_rruff FROM rruff ;');
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM rruff ;');
     if Dados.sltb.MoveFirst then
     begin
       While Not Dados.sltb.EOF do
@@ -3267,9 +3351,9 @@ begin
     end;
   end
   else
-  if Campo = 'digito_raman' then
+  if Campo = 'raman' then
   begin
-    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_raman FROM raman ;');
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM raman ;');
     if Dados.sltb.MoveFirst then
     begin
       While Not Dados.sltb.EOF do
@@ -3280,9 +3364,9 @@ begin
     end;
   end
   else
-  if Campo = 'digito_varredura' then
+  if Campo = 'varredura' then
   begin
-    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_varredura FROM varredura ;');
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM varredura ;');
     if Dados.sltb.MoveFirst then
     begin
       While Not Dados.sltb.EOF do
@@ -3296,7 +3380,7 @@ begin
   if Campo = 'equipamento_raman' then
   begin
     Dados.sltb:= Dados.sldb.GetTable('SELECT equipamento FROM raman WHERE '+
-      'rruff_id ="'+ListboxRruff_id.GetSelectedText+'" AND digito_raman ="'+
+      'rruff_id ="'+ListboxRruff_id.GetSelectedText+'" AND digito ="'+
          ComboboxRamanDigito.Text+'" ;');
     if Dados.sltb.Count > 0 then
     begin
@@ -3354,7 +3438,7 @@ begin
     Dados.sltb:=Dados.sldb.GetTable('SELECT nome FROM instrumentos WHERE '+
     ' id="'+(Indice)+'" ;');
     Combobox.Text:=Dados.sltb.FieldByName['nome'];
-  end;
+  end;          }
 end;
 
 procedure TFormPrincipal.MenuItemExcluirClick(Sender: TObject);

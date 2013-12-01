@@ -45,7 +45,7 @@ object FormPrincipal: TFormPrincipal
     object BGRALabelEspecies: TBGRALabel
       Left = 8
       Height = 33
-      Top = 13
+      Top = 10
       Width = 123
       AutoSize = False
       Background.Color = clBtnFace
@@ -99,47 +99,47 @@ object FormPrincipal: TFormPrincipal
     Gradient.Point2XPercent = 0
     Gradient.Point2YPercent = 100
     object ComboBoxClasse: TComboBox
-      Left = 20
+      Left = 6
       Height = 23
       Top = 34
-      Width = 140
+      Width = 154
       ItemHeight = 15
       OnChange = ActionComboboxClasseExecute
       Style = csDropDownList
       TabOrder = 0
     end
     object ComboBoxSubclasse: TComboBox
-      Left = 20
+      Left = 6
       Height = 23
       Top = 90
-      Width = 140
+      Width = 154
       ItemHeight = 15
       OnChange = ActionComboboxSubclasseExecute
       Style = csDropDownList
       TabOrder = 1
     end
     object ComboBoxGrupo: TComboBox
-      Left = 20
+      Left = 6
       Height = 23
       Top = 146
-      Width = 140
+      Width = 154
       ItemHeight = 15
       OnChange = ActionComboboxGrupoExecute
       Style = csDropDownList
       TabOrder = 2
     end
     object ComboBoxSubgrupo: TComboBox
-      Left = 20
+      Left = 6
       Height = 23
       Top = 202
-      Width = 140
+      Width = 150
       ItemHeight = 15
       OnChange = ActionComboboxSubgrupoExecute
       Style = csDropDownList
       TabOrder = 3
     end
     object ComboBoxDureza_min: TComboBox
-      Left = 20
+      Left = 6
       Height = 23
       Top = 274
       Width = 62
@@ -203,7 +203,7 @@ object FormPrincipal: TFormPrincipal
       Text = '10'
     end
     object EditDensidade_min: TEdit
-      Left = 20
+      Left = 6
       Height = 23
       Top = 350
       Width = 62
@@ -221,23 +221,23 @@ object FormPrincipal: TFormPrincipal
       Text = '25.0'
     end
     object EditOcorrencia: TEdit
-      Left = 20
+      Left = 6
       Height = 23
       Top = 404
-      Width = 140
+      Width = 154
       OnEditingDone = EditOcorrenciaEditingDone
       TabOrder = 8
     end
     object EditAssociacao: TEdit
-      Left = 20
+      Left = 6
       Height = 23
       Top = 460
-      Width = 140
+      Width = 154
       OnEditingDone = EditAssociacaoEditingDone
       TabOrder = 9
     end
     object Label33: TLabel
-      Left = 20
+      Left = 6
       Height = 16
       Top = 258
       Width = 43
@@ -246,7 +246,7 @@ object FormPrincipal: TFormPrincipal
       ParentFont = False
     end
     object Label34: TLabel
-      Left = 116
+      Left = 100
       Height = 16
       Top = 258
       Width = 44
@@ -255,7 +255,7 @@ object FormPrincipal: TFormPrincipal
       ParentFont = False
     end
     object Label35: TLabel
-      Left = 20
+      Left = 6
       Height = 16
       Top = 333
       Width = 43
@@ -264,7 +264,7 @@ object FormPrincipal: TFormPrincipal
       ParentFont = False
     end
     object Label36: TLabel
-      Left = 116
+      Left = 100
       Height = 16
       Top = 333
       Width = 44
@@ -273,7 +273,7 @@ object FormPrincipal: TFormPrincipal
       ParentFont = False
     end
     object BGRALabelClasse: TBGRALabel
-      Left = 20
+      Left = 6
       Height = 33
       Top = 10
       Width = 123
@@ -302,7 +302,7 @@ object FormPrincipal: TFormPrincipal
       Font.Color = clNone
     end
     object BGRALabelSubclasse: TBGRALabel
-      Left = 20
+      Left = 6
       Height = 33
       Top = 66
       Width = 123
@@ -331,7 +331,7 @@ object FormPrincipal: TFormPrincipal
       Font.Color = clNone
     end
     object BGRALabelGrupo: TBGRALabel
-      Left = 20
+      Left = 6
       Height = 33
       Top = 122
       Width = 123
@@ -360,10 +360,10 @@ object FormPrincipal: TFormPrincipal
       Font.Color = clNone
     end
     object BGRALabelSubgrupo: TBGRALabel
-      Left = 20
+      Left = 6
       Height = 33
       Top = 178
-      Width = 123
+      Width = 154
       AutoSize = False
       Background.Color = clBtnFace
       Background.Gradient1.StartColor = 15722194
@@ -389,7 +389,7 @@ object FormPrincipal: TFormPrincipal
       Font.Color = clNone
     end
     object BGRALabelDureza: TBGRALabel
-      Left = 20
+      Left = 6
       Height = 33
       Top = 234
       Width = 123
@@ -418,7 +418,7 @@ object FormPrincipal: TFormPrincipal
       Font.Color = clNone
     end
     object BGRALabelDensidade: TBGRALabel
-      Left = 20
+      Left = 6
       Height = 33
       Top = 309
       Width = 123
@@ -447,7 +447,7 @@ object FormPrincipal: TFormPrincipal
       Font.Color = clNone
     end
     object BGRALabelOcorrencia: TBGRALabel
-      Left = 20
+      Left = 6
       Height = 33
       Top = 380
       Width = 123
@@ -476,7 +476,7 @@ object FormPrincipal: TFormPrincipal
       Font.Color = clNone
     end
     object BGRALabelAssociacao: TBGRALabel
-      Left = 20
+      Left = 6
       Height = 33
       Top = 436
       Width = 123
@@ -505,7 +505,7 @@ object FormPrincipal: TFormPrincipal
       Font.Color = clNone
     end
     object BGRALabelCor: TBGRALabel
-      Left = 20
+      Left = 6
       Height = 33
       Top = 491
       Width = 123
@@ -534,15 +534,15 @@ object FormPrincipal: TFormPrincipal
       Font.Color = clNone
     end
     object EditCor: TEdit
-      Left = 20
+      Left = 6
       Height = 23
       Top = 513
-      Width = 140
+      Width = 154
       OnEditingDone = EditAssociacaoEditingDone
       TabOrder = 10
     end
     object BGRALabelBrilho: TBGRALabel
-      Left = 20
+      Left = 6
       Height = 33
       Top = 540
       Width = 123
@@ -571,10 +571,10 @@ object FormPrincipal: TFormPrincipal
       Font.Color = clNone
     end
     object EditBrilho: TEdit
-      Left = 20
+      Left = 6
       Height = 23
       Top = 562
-      Width = 140
+      Width = 154
       OnEditingDone = EditAssociacaoEditingDone
       TabOrder = 11
     end
@@ -754,9 +754,9 @@ object FormPrincipal: TFormPrincipal
     Gradient.Point2XPercent = 0
     Gradient.Point2YPercent = 100
     object BGRALabelId_Rruff: TBGRALabel
-      Left = 8
+      Left = 6
       Height = 33
-      Top = 13
+      Top = 10
       Width = 123
       AutoSize = False
       Background.Color = clBtnFace
@@ -1785,7 +1785,6 @@ object FormPrincipal: TFormPrincipal
               Height = 16
               Top = 238
               Width = 58
-              Anchors = [akLeft, akBottom]
               Caption = 'Localidade'
               ParentColor = False
             end
@@ -1794,7 +1793,6 @@ object FormPrincipal: TFormPrincipal
               Height = 16
               Top = 302
               Width = 31
-              Anchors = [akLeft, akBottom]
               Caption = 'Fonte'
               ParentColor = False
             end
@@ -1803,7 +1801,6 @@ object FormPrincipal: TFormPrincipal
               Height = 16
               Top = 430
               Width = 52
-              Anchors = [akLeft, akBottom]
               Caption = 'Descrição'
               ParentColor = False
             end
@@ -1812,7 +1809,6 @@ object FormPrincipal: TFormPrincipal
               Height = 16
               Top = 494
               Width = 46
-              Anchors = [akLeft, akBottom]
               Caption = 'Situação'
               ParentColor = False
             end
@@ -1821,7 +1817,6 @@ object FormPrincipal: TFormPrincipal
               Height = 16
               Top = 366
               Width = 63
-              Anchors = [akLeft, akBottom]
               Caption = 'Proprietário'
               ParentColor = False
             end
@@ -2077,6 +2072,7 @@ object FormPrincipal: TFormPrincipal
                 Align = alClient
                 Anchors = [akTop, akLeft, akRight]
                 ParentColor = False
+                OnDblClick = ActionAddDataExecute
               end
             end
             object Label5: TLabel
@@ -2093,18 +2089,9 @@ object FormPrincipal: TFormPrincipal
               Top = -2
               Width = 144
               ItemHeight = 15
-              ItemIndex = 0
-              Items.Strings = (
-                '514 nm'
-                '532 nm'
-                '580 nm'
-                '732 nm'
-                '780 nm'
-              )
               OnChange = ActionRamanDirecaoLaserExecute
               Style = csDropDownList
               TabOrder = 1
-              Text = '514 nm'
             end
             object GroupBox8: TGroupBox
               Left = 16
@@ -2182,7 +2169,7 @@ object FormPrincipal: TFormPrincipal
               object ComboBoxRamanDigito: TComboBox
                 Left = 332
                 Height = 23
-                Top = 0
+                Top = 1
                 Width = 186
                 ItemHeight = 15
                 OnChange = ActionComboboxOnChangeExecute
@@ -2270,6 +2257,7 @@ object FormPrincipal: TFormPrincipal
                 Align = alClient
                 Anchors = [akTop, akLeft, akRight]
                 ParentColor = False
+                OnDblClick = ActionAddDataExecute
                 object ChartVarreduraLineSeries1: TLineSeries
                 end
               end
@@ -2326,16 +2314,9 @@ object FormPrincipal: TFormPrincipal
                 Top = 66
                 Width = 99
                 ItemHeight = 15
-                ItemIndex = 1
-                Items.Strings = (
-                  '514 nm'
-                  '532 nm'
-                  '780 nm'
-                )
                 OnChange = ActionVarreduraComprimentoOndaExecute
                 Style = csDropDownList
                 TabOrder = 1
-                Text = '532 nm'
               end
               object LabelDescricaoBroadScan: TLabel
                 Left = 10
@@ -2428,6 +2409,7 @@ object FormPrincipal: TFormPrincipal
                 )
                 Align = alClient
                 ParentColor = False
+                OnDblClick = ActionAddDataExecute
                 object ChartInfravermelhoLineSeries1: TLineSeries
                 end
               end
@@ -2578,6 +2560,7 @@ object FormPrincipal: TFormPrincipal
                 )
                 Align = alClient
                 ParentColor = False
+                OnDblClick = ActionAddDataExecute
               end
             end
             object GroupBoxDadosDifracao: TGroupBox
@@ -3023,7 +3006,7 @@ object FormPrincipal: TFormPrincipal
   end
   object PopupMenuListbox: TPopupMenu
     left = 200
-    top = 224
+    top = 232
     object MenuItemAdicionar: TMenuItem
       Caption = 'Adicionar Mineral'
       OnClick = MenuItemAdicionarClick
@@ -3042,7 +3025,7 @@ object FormPrincipal: TFormPrincipal
     top = 312
     object MenuItemAdicionarAmostra: TMenuItem
       Caption = 'Adicionar Amostra'
-      OnClick = MenuItemAdicionarAmostraClick
+      OnClick = ActionAddExecute
     end
     object MenuItemRemoverAmostra: TMenuItem
       Caption = 'Excluir Amostra'
@@ -3118,7 +3101,7 @@ object FormPrincipal: TFormPrincipal
   end
   object ActionListCombobox: TActionList
     left = 83
-    top = 395
+    top = 400
     object ActionPreencheLista: TAction
       Caption = 'ActionPreencheLista'
       OnExecute = ActionPreencheListaExecute
@@ -3182,8 +3165,8 @@ object FormPrincipal: TFormPrincipal
     end
   end
   object ActionListImage: TActionList
-    left = 77
-    top = 482
+    left = 83
+    top = 488
     object ActionImage1Click: TAction
       Category = 'Image'
       Caption = 'ActionImage1Click'

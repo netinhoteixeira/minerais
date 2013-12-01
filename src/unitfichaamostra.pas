@@ -134,10 +134,10 @@ type
   private
     { private declarations }
   public
-    Especie:String;
-    Rruff_id:String;
-    Digito:String;
-    Indice:Integer;
+    Especie: String;
+    Rruff_id: String;
+    Digito: String;
+    Indice: Integer;
     { public declarations }
   end;
 
@@ -162,50 +162,50 @@ procedure TFormFichaAmostra.FormShow(Sender: TObject);
 var Cor:String;
 begin
   ComboboxQuimicaDigito.Items.Clear;
-  Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_raman FROM '+
-      'raman ORDER BY digito_raman ;');
+  Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM '+
+      'raman ORDER BY digito;');
     if Dados.sltb.MoveFirst then
       begin
-        ComboboxRamanDigito.Items.Append(Dados.sltb.FieldByName['digito_raman']);
+        ComboboxRamanDigito.Items.Append(Dados.sltb.FieldByName['digito']);
         Dados.sltb.Next;
       end;
 
     ComboboxRamanDigito.Items.Clear;
-    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_raman FROM '+
-      'raman ORDER BY digito_raman ;');
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM '+
+      'raman ORDER BY digito ;');
     if Dados.sltb.MoveFirst then
       begin
-        ComboboxRamanDigito.Items.Append(Dados.sltb.FieldByName['digito_raman']);
+        ComboboxRamanDigito.Items.Append(Dados.sltb.FieldByName['digito']);
         Dados.sltb.Next;
       end;
 
     ComboboxVarreduraDigito.Items.Clear;
-    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_varredura FROM '+
-      'varredura ORDER BY digito_varredura ;');
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM '+
+      'varredura ORDER BY digito;');
     if Dados.sltb.MoveFirst then
       begin
         ComboboxVarreduraDigito.Items.Append(Dados.sltb.FieldByName
-          ['digito_varredura']);
+          ['digito']);
         Dados.sltb.Next;
       end;
 
     ComboboxInfravermelhoDigito.Items.Clear;
-    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_infravermelho FROM '+
-      'infravermelho ORDER BY digito_infravermelho ;');
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM '+
+      'infravermelho ORDER BY digito ;');
     if Dados.sltb.MoveFirst then
       begin
         ComboboxInfravermelhoDigito.Items.Append(Dados.sltb.FieldByName
-          ['digito_infravermelho']);
+          ['digito']);
         Dados.sltb.Next;
       end;
 
     ComboboxDifracaoDigito.Items.Clear;
-    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito_difracao FROM '+
-      'difracao ORDER BY digito_difracao ;');
+    Dados.sltb:=Dados.sldb.GetTable('SELECT DISTINCT digito FROM '+
+      'difracao ORDER BY digito ;');
     if Dados.sltb.MoveFirst then
       begin
         ComboboxDifracaoDigito.Items.Append(Dados.sltb.FieldByName
-          ['digito_difracao']);
+          ['digito']);
         Dados.sltb.Next;
       end;
     ComboboxRamanDigito.ItemIndex:=0;
@@ -235,7 +235,7 @@ begin
   self.ImageQuimica.Picture.Graphic:=
     SelecionaImagensRruff(Dados.sltb.FieldByName['especie'],
       dados.sltb.FieldByName['rruff_id'],dados.sltb.FieldByName
-        ['digito_quimica'], 'Quimica');
+        ['digito'], 'Quimica');
 
   Dados.sltb:= Dados.sldb.GetTable('SELECT * FROM raman WHERE especie ="'+
     Especie+'" AND rruff_id="'+Rruff_id+'" ;');
