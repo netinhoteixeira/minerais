@@ -165,14 +165,14 @@ begin
     FS := TFileStream.Create(Arquivo, fmOpenRead);
     if Tipo = 'amostra' then
     begin
-      Dados.sldb.UpdateBlob('UPDATE rruff set imagem_amostra = ? WHERE especie = "'+Especie+'" and '+
-        'rruff_id = "'+Rruff_id+'";', fs)
+      Dados.sldb.UpdateBlob('UPDATE rruff set imagem_amostra = ? WHERE especie = "'+
+        Especie+'" and rruff_id = "'+Rruff_id+'";', FS)
     end
     else
     if Tipo = 'quimica' then
     begin
-      Dados.sldb.UpdateBlob('UPDATE rruff set imagem_quimica = ? WHERE especie = "'+Especie+'" and '+
-        'rruff_id = "'+Rruff_id+'" AND digito_quimica="'+Digito+'";', FS)
+      Dados.sldb.UpdateBlob('UPDATE rruff set imagem_quimica = ? WHERE especie = "'+
+        Especie+'" and rruff_id = "'+Rruff_id+'" AND digito="'+Digito+'";', FS)
     end;
   finally
     FS.Free;
@@ -184,7 +184,7 @@ function SelecionaImagensRruff(Especie, Rruff_id, Digito, Tipo:String): TJPEGIma
 begin
   if Tipo = 'amostra' then
   begin
-    Dados.sltb := Dados.sldb.GetTable('SELECT especie, rruff_id, digito_quimica,'+
+    Dados.sltb := Dados.sldb.GetTable('SELECT especie, rruff_id, digito,'+
       'imagem_amostra FROM rruff WHERE especie = "' +
         Especie + '" and rruff_id = "' + Rruff_id +'";');
     ms := Dados.sltb.FieldAsBlob(Dados.sltb.FieldIndex['imagem_amostra']);
@@ -192,9 +192,9 @@ begin
   else
   if Tipo =  'quimica' then
   begin
-    Dados.sltb := Dados.sldb.GetTable('SELECT  especie, rruff_id, digito_quimica,'+
+    Dados.sltb := Dados.sldb.GetTable('SELECT  especie, rruff_id, digito,'+
       'imagem_quimica FROM rruff WHERE especie = "' +
-        Especie + '" and rruff_id = "' + Rruff_id +'" AND digito_quimica="'+
+        Especie + '" and rruff_id = "' + Rruff_id +'" AND digito="'+
         Digito+'";');
     ms := Dados.sltb.FieldAsBlob(Dados.sltb.FieldIndex['imagem_quimica']);
   end;

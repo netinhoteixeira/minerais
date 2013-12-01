@@ -16,9 +16,9 @@ object FormFichaEspecie: TFormFichaEspecie
     Height = 660
     Top = 0
     Width = 673
-    ActivePage = TabSheetImagem
+    ActivePage = TabSheetInf_Gerais
     Align = alClient
-    TabIndex = 4
+    TabIndex = 0
     TabOrder = 0
     object TabSheetInf_Gerais: TTabSheet
       Caption = 'Informações Gerais'

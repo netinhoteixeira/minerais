@@ -80,27 +80,27 @@ begin
           Case LocalAmostra of
           1:begin
               Dados.sldb.ExecSQL('INSERT INTO rruff (especie, rruff_id,'+
-                'digito_quimica) VALUES ("'+EditNome.Text+'","'+EditRruff_id.Text+'", "'
+                'digito) VALUES ("'+EditNome.Text+'","'+EditRruff_id.Text+'", "'
                   +EditAmostras.Text+'");');
             end;
           2:begin
               Dados.sldb.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
-                'digito_raman) VALUES ("'+EditNome.Text+'","'+EditRruff_id.Text+'", "'
+                'digito) VALUES ("'+EditNome.Text+'","'+EditRruff_id.Text+'", "'
                   +EditAmostras.Text+'");');
             end;
           3:begin
               Dados.sldb.ExecSQL('INSERT INTO varredura (especie, rruff_id,'+
-                'digito_varredura) VALUES ("'+EditNome.Text+'","'+EditRruff_id.Text+'", "'
+                'digito) VALUES ("'+EditNome.Text+'","'+EditRruff_id.Text+'", "'
                   +EditAmostras.Text+'");');
             end;
           4:begin
               Dados.sldb.ExecSQL('INSERT INTO infravermelho (especie, rruff_id,'+
-                'digito_infravermelho) VALUES ("'+EditNome.Text+'","'+EditRruff_id.Text+'", "'
+                'digito) VALUES ("'+EditNome.Text+'","'+EditRruff_id.Text+'", "'
                   +EditAmostras.Text+'");');
             end;
           5:begin
               Dados.sldb.ExecSQL('INSERT INTO difracao (especie, rruff_id,'+
-                'digito_difracao) VALUES ("'+EditNome.Text+'","'+EditRruff_id.Text+'", "'
+                'digito) VALUES ("'+EditNome.Text+'","'+EditRruff_id.Text+'", "'
                   +EditAmostras.Text+'");');
             end;
           end;
@@ -121,7 +121,7 @@ begin
       Statusbar1.Panels.Items[0].Text:='Química';
   end;
   2:begin
-    Statusbar1.Panels.Items[0].Text:='Espectro RAMAN';
+    Statusbar1.Panels.Items[0].Text:='Espectroscopia RAMAN';
     Statusbar1.Panels.Items[1].Text:=DirecaoLaser;
   end;
   3:begin
