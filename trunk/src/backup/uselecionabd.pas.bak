@@ -1,4 +1,4 @@
-{
+﻿{
   GNU LESSER GENERAL PUBLIC LICENSE
 
 Version 3, 29 June 2007
@@ -66,8 +66,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, StdCtrls, ComCtrls, Menus, EditBtn, SQLite3TableMod,
-  IniFiles;
+  Buttons, StdCtrls, ComCtrls, Menus, EditBtn, IniFiles;
 //excluir SQLite3TableMod
 type
 
@@ -75,22 +74,43 @@ type
 
   TFormSelecionaBD = class(TForm)
     BitBtn1: TBitBtn;
-    BitBtnSelecionar: TBitBtn;
-    BitBtnPadrao: TBitBtn;
+    BitBtn2: TBitBtn;
+    BitBtnStandardSampleDb: TBitBtn;
+    BitBtnSelectMineralDb: TBitBtn;
+    BitBtnSelectSampleDb: TBitBtn;
+    BitBtnStandardMineralDb: TBitBtn;
     EditButtonNovo: TEditButton;
+    EditButtonNovo1: TEditButton;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
-    ListBoxSeleciona: TListBox;
+    GroupBox3: TGroupBox;
+    GroupBox4: TGroupBox;
+    GroupBoxSamplesDatabase: TGroupBox;
+    GroupBoxMineralDatabase: TGroupBox;
+    ListBoxSelectMineralDb: TListBox;
+    ListBoxSelectSampleDb: TListBox;
     MainMenu1: TMainMenu;
     MenuItemSair: TMenuItem;
     MenuItemArquivo: TMenuItem;
     OpenDialog1: TOpenDialog;
     Panel1: TPanel;
     Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
+    ProgressBar1: TProgressBar;
     StatusBar1: TStatusBar;
+    StatusBar2: TStatusBar;
+    StatusBar3: TStatusBar;
+    StatusBar4: TStatusBar;
     procedure BitBtn1Click(Sender: TObject);
-    procedure BitBtnPadraoClick(Sender: TObject);
-    procedure BitBtnSelecionarClick(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtnStandardSampleDbClick(Sender: TObject);
+    procedure BitBtnSelecionar1Click(Sender: TObject);
+    procedure BitBtnStandardMineralDbClick(Sender: TObject);
+    procedure EditButtonNovo1ButtonClick(Sender: TObject);
     procedure EditButtonNovoButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure MenuItemSairClick(Sender: TObject);
@@ -102,9 +122,10 @@ type
 
 var
   FormSelecionaBD: TFormSelecionaBD;
-  sldb: TSQLiteDataBase;
   Config: TIniFIle;
-  nomeBD, Diretorio: string;
+  MineralDb,
+  SampleDb,
+  ConfigFilePath: string;
 
 implementation
 
@@ -112,72 +133,133 @@ uses udatamodule;
 
 { TFormSelecionaBD }
 
-procedure TFormSelecionaBD.BitBtnPadraoClick(Sender: TObject);
-var
-  Diretorio: string;
+procedure TFormSelecionaBD.BitBtnStandardMineralDbClick(Sender: TObject);
 begin
-  if ListBoxSeleciona.GetSelectedText <> EmptyStr then
+  if ListBoxSelectMineralDb.GetSelectedText <> EmptyStr then
   begin
-    Diretorio := GetCurrentDir + '\Data\config.ini';
-    Config := TINIFile.Create(Diretorio);
-    Config.WriteString('Configuracoes', 'BD', Trim(ListBoxSeleciona.GetSelectedText));
+    Config := TINIFile.Create(ConfigFilePath);
+    Config.WriteString('Configuracoes', 'MineralBD', Trim(
+      ListBoxSelectMineralDb.GetSelectedText));
     Config.Free;
     StatusBar1.SimpleText :=
-      'Banco de Dados Padrão: ' + ListBoxSeleciona.GetSelectedText;
+      'Banco de Dados Padrão: ' + ListBoxSelectMineralDb.GetSelectedText;
   end;
+end;
+
+procedure TFormSelecionaBD.EditButtonNovo1ButtonClick(Sender: TObject);
+var Diretorio: String;
+begin
+  if (EditButtonNovo1.Text <> EmptyStr) then
+  begin
+    if DirectoryExists(GetCurrentDir+'\Data') then
+      Diretorio := GetCurrentDir + '\Data\' + EditButtonNovo1.Text + '.s3db'
+    else
+      Diretorio := GetCurrentDir + '\' + EditButtonNovo1.Text + '.s3db';
+    Dados.CreateDatabase('amostra', Diretorio);
+    ListBoxSelectSampleDb.Items.Append(Diretorio);
+  end
+  else
+    ShowMessage('Você deve especificar um nome para o Banco de Dados.');
 end;
 
 procedure TFormSelecionaBD.BitBtn1Click(Sender: TObject);
 begin
   if OpenDialog1.Execute then
-    ListBoxSeleciona.Items.Append(OpenDialog1.FileName);
+    ListBoxSelectMineralDb.Items.Append(OpenDialog1.FileName);
 end;
 
-procedure TFormSelecionaBD.BitBtnSelecionarClick(Sender: TObject);
+procedure TFormSelecionaBD.BitBtn2Click(Sender: TObject);
 begin
-  if (ListBoxSeleciona.GetSelectedText <> EmptyStr) then
+  if OpenDialog1.Execute then
+    ListBoxSelectSampleDb.Items.Append(OpenDialog1.FileName);
+end;
+
+procedure TFormSelecionaBD.BitBtnStandardSampleDbClick(Sender: TObject);
+begin
+  if ListBoxSelectSampleDb.GetSelectedText <> EmptyStr then
   begin
-    if Dados.determinaBD(ListBoxSeleciona.GetSelectedText) then
-    FormSelecionaBd.Visible := False
-    else
-    ShowMessage('O banco de dados selecionado não é compatível.');
+    Config := TINIFile.Create(ConfigFilePath);
+    Config.WriteString('Configuracoes', 'AmostraBD', Trim(
+      ListBoxSelectSampleDb.GetSelectedText));
+    Config.Free;
+    StatusBar2.SimpleText :=
+      'Banco de Dados Padrão: ' + ListBoxSelectSampleDb.GetSelectedText;
   end;
 end;
 
+procedure TFormSelecionaBD.BitBtnSelecionar1Click(Sender: TObject);
+begin
+
+end;
+
 procedure TFormSelecionaBD.EditButtonNovoButtonClick(Sender: TObject);
-var
-  Diretorio: string;
-begin                                 //colocar no datamodule
+var Diretorio: String;
+begin
   if (EditButtonNovo.Text <> EmptyStr) then
   begin
-    Diretorio := GetCurrentDir + '\Data\' + EditButtonNovo.Text + '.s3db';
-    if (not FileExists(diretorio)) then
-    begin
-      Dados.CriarBD(Diretorio);
-      ListBoxSeleciona.Items.Append(Diretorio);
-    end
+    if DirectoryExists(GetCurrentDir+'\Data') then
+      Diretorio := GetCurrentDir + '\Data\' + EditButtonNovo.Text + '.s3db'
     else
-      ShowMessage('Já existe um Banco de Dados com esse nome');
+      Diretorio := GetCurrentDir + '\' + EditButtonNovo.Text + '.s3db';
+    Dados.CreateDatabase('mineral', Diretorio);
+    ListBoxSelectMineralDb.Items.Append(Diretorio);
   end
   else
-    ShowMessage('Você deve especificar um nome para o Banco de Dados');
+    ShowMessage('Você deve especificar um nome para o Banco de Dados.');
 end;
 
 procedure TFormSelecionaBD.FormShow(Sender: TObject);
+var I,J: Integer; Databases:TStrings;
 begin
-  ListBoxSeleciona.Clear;
-  ListBoxSeleciona.Items.AddStrings(
+  ListBoxSelectMineralDb.Clear;
+  ListBoxSelectSampleDb.Clear;
+
+  ListBoxSelectMineralDb.Items.AddStrings(FindAllFiles(GetCurrentDir,
+    'All Files | *.s3db; *.sqlite; *.db;', True));
+  Databases:=FindAllFiles(GetCurrentDir,
+      'All Files | *.s3db; *.sqlite; *.db;', True);
+  ListBoxSelectSampleDb.Items.AddStrings(
     FindAllFiles(GetCurrentDir, 'All Files | *.s3db; *.sqlite; *.db;', True));
-  Diretorio := GetCurrentDir + '\Data';
-  if (not DirectoryExists(Diretorio)) then
-    MkDir(Diretorio);
-  Diretorio := GetCurrentDir + '\Data\config.ini';
-  Config := TINIFile.Create(Diretorio);
-  nomeBD := Config.ReadString('Configuracoes', 'BD', '');
-  if FileExists(nomeBD) then
-    StatusBar1.SimpleText := 'Banco de Dados Padrão: ' + nomeBD
+  for I:=0 to Databases.Count-1 do
+  begin
+    J:= ListboxSelectMineralDB.Items.IndexOf(Databases[I]);
+    if J >= 0 then
+    begin
+      if not Dados.ChooseDatabase('minerais', ListboxSelectMineralDB.Items.
+      Strings[J]) then
+      begin
+        ListboxSelectMineralDb.Items.Delete(J);
+      end;
+    end;
+    J:= ListboxSelectSampleDB.Items.IndexOf(Databases[I]);
+    if J >= 0 then
+    begin
+      if not Dados.ChooseDatabase('amostras', ListboxSelectSampleDB.Items.
+         Strings[J]) then
+      begin
+        ListboxSelectSampleDb.Items.Delete(J);
+      end;
+    end;
+  end;
+  Databases.Clear;
+  ConfigFilePath := GetCurrentDir + '\Data';
+  if (not DirectoryExists(ConfigFilePath)) then
+   // MkDir(Diretorio);
+  {faz com que o programa tenha de ser executado como administrador}
+    ConfigFilePath:= GetCurrentDir+'\config.ini'
+    else
+  ConfigFilePath := GetCurrentDir + '\Data\config.ini';
+  Config := TINIFile.Create(ConfigFilePath);
+  mineraldb := Config.ReadString('Configuracoes', 'MineraisBD', '');
+  if FileExists(mineraldb) then
+    StatusBar1.SimpleText := 'Banco de Dados Padrão: ' + mineraldb
   else
-    Config.WriteString('Configuracoes', 'BD', '');
+    Config.WriteString('Configuracoes', 'MineraisBD', '');
+  SampleDb:= Config.ReadString('Configuracoes','AmostrasBD','');
+  if FileExists(SampleDb) then
+    StatusBar2.SimpleText := 'Banco de Dados Padrão: ' + SampleDb
+  else
+    Config.WriteString('Configuracoes', 'AmostrasBD', '');
   Config.Free;
 end;
 

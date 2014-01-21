@@ -1,5 +1,5 @@
 object FormFichaEspecie: TFormFichaEspecie
-  Left = 326
+  Left = 677
   Height = 660
   Top = 23
   Width = 673

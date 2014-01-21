@@ -1,30 +1,31 @@
 object FormAdicionaRruff: TFormAdicionaRruff
-  Left = 163
-  Height = 233
-  Top = 110
+  Left = 343
+  Height = 340
+  Top = 147
   Width = 623
   Caption = 'Adicionar Amostras'
-  ClientHeight = 233
+  ClientHeight = 340
   ClientWidth = 623
   OnCreate = FormCreate
   OnShow = FormShow
   LCLVersion = '1.0.10.0'
   object Panel2: TPanel
     Left = 0
-    Height = 210
+    Height = 317
     Top = 0
     Width = 623
     Align = alClient
-    ClientHeight = 210
+    ClientHeight = 317
     ClientWidth = 623
     TabOrder = 0
     object GroupBoxAdicionarRruff: TGroupBox
-      Left = 312
-      Height = 197
+      Left = 1
+      Height = 281
       Top = 1
       Width = 299
+      Align = alLeft
       Caption = 'Criar Nova Amostragem'
-      ClientHeight = 179
+      ClientHeight = 263
       ClientWidth = 295
       TabOrder = 0
       object LabelEspecies: TLabel
@@ -48,16 +49,19 @@ object FormAdicionaRruff: TFormAdicionaRruff
         Height = 23
         Top = 15
         Width = 176
+        Enabled = False
         TabOrder = 0
         Text = 'EditNome'
       end
-      object EditRruff_id: TEdit
+      object EditSample_id: TEdit
         Left = 101
         Height = 23
         Top = 71
         Width = 176
+        Enabled = False
+        OnEditingDone = EditSample_idEditingDone
         TabOrder = 1
-        Text = 'EditRruff_id'
+        Text = 'EditSample_id'
       end
       object LabelAmostra: TLabel
         Left = 15
@@ -70,56 +74,118 @@ object FormAdicionaRruff: TFormAdicionaRruff
       object EditAmostras: TEdit
         Left = 101
         Height = 23
+        Hint = 'Separar amostras por '','' (vírgula)'
         Top = 123
         Width = 176
+        OnEditingDone = EditAmostrasEditingDone
         TabOrder = 2
-        Text = 'EditAmostras'
+      end
+      object ComboBox1: TComboBox
+        Left = 149
+        Height = 23
+        Top = 175
+        Width = 128
+        ItemHeight = 15
+        ItemIndex = 0
+        Items.Strings = (
+          '0.000'
+          '45.000 ccw'
+          '90.000 ccw'
+          'Não polarizado'
+        )
+        Style = csDropDownList
+        TabOrder = 3
+        Text = '0.000'
+      end
+      object ComboBox2: TComboBox
+        Left = 149
+        Height = 23
+        Top = 223
+        Width = 128
+        ItemHeight = 15
+        ItemIndex = 0
+        Items.Strings = (
+          '514 nm'
+          '532 nm'
+          '580 nm'
+          '732 nm'
+          '780 nm'
+        )
+        Style = csDropDownList
+        TabOrder = 4
+        Text = '514 nm'
+      end
+      object LabelDirecao: TLabel
+        Left = 15
+        Height = 16
+        Top = 175
+        Width = 41
+        Caption = 'Direcao'
+        ParentColor = False
+      end
+      object Label2: TLabel
+        Left = 15
+        Height = 16
+        Top = 223
+        Width = 124
+        Caption = 'Comprimento de Onda'
+        ParentColor = False
       end
     end
     object Panel1: TPanel
       Left = 1
       Height = 34
-      Top = 175
+      Top = 282
       Width = 621
       Align = alBottom
       ClientHeight = 34
       ClientWidth = 621
       TabOrder = 1
       object BitBtn1: TBitBtn
-        Left = 311
+        Left = -1
         Height = 30
-        Top = 2
+        Top = 1
         Width = 299
         Caption = 'Adicionar'
         OnClick = ActionAdicionarExecute
         TabOrder = 0
       end
-      object BitBtnSelecionar: TBitBtn
-        Left = 2
+      object BitBtnCloseForm: TBitBtn
+        Left = 543
         Height = 30
-        Top = 2
-        Width = 295
-        Action = FormPrincipal.ActionListboxDigito
+        Top = 1
+        Width = 76
+        Action = FormPrincipal.ActionAddData
         TabOrder = 1
+      end
+      object BitBtnEraseData: TBitBtn
+        Left = 324
+        Height = 30
+        Top = 1
+        Width = 75
+        Caption = 'Excluir'
+        OnClick = BitBtnEraseDataClick
+        TabOrder = 2
       end
     end
     object GroupBox1: TGroupBox
-      Left = 1
-      Height = 174
+      Left = 323
+      Height = 281
       Top = 1
       Width = 299
-      Align = alLeft
+      Align = alRight
       Caption = 'Selecionar Amostra Existente'
-      ClientHeight = 156
+      ClientHeight = 263
       ClientWidth = 295
       TabOrder = 2
       object ListBox1: TListBox
         Left = 0
-        Height = 156
+        Height = 263
         Top = 0
         Width = 295
         Align = alClient
         ItemHeight = 0
+        MultiSelect = True
         TabOrder = 0
       end
     end
@@ -127,7 +193,7 @@ object FormAdicionaRruff: TFormAdicionaRruff
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
-    Top = 210
+    Top = 317
     Width = 623
     Panels = <    
       item
@@ -147,7 +213,6 @@ object FormAdicionaRruff: TFormAdicionaRruff
     end
     object ActionSelecionar: TAction
       Caption = 'ActionSelecionar'
-      OnExecute = ActionSelecionarExecute
     end
   end
 end

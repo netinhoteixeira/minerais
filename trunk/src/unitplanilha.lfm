@@ -1,5 +1,5 @@
 object FormPlanilha: TFormPlanilha
-  Left = 5
+  Left = 21
   Height = 354
   Top = 7
   Width = 687

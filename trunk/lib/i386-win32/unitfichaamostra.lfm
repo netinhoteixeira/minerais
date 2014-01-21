@@ -1,38 +1,35 @@
 object FormFichaAmostra: TFormFichaAmostra
-  Left = 577
+  Left = 631
   Height = 647
-  Top = 33
+  Top = 28
   Width = 719
   Caption = 'FormFichaAmostra'
   ClientHeight = 647
   ClientWidth = 719
   OnClose = FormClose
   OnCreate = FormCreate
-  OnShow = FormShow
   Position = poDesktopCenter
   ShowInTaskBar = stAlways
   LCLVersion = '1.0.10.0'
-  object Panel1: TPanel
+  object PanelSample: TPanel
     Left = 0
     Height = 647
     Top = 0
     Width = 719
     Align = alClient
-    Caption = 'Panel1'
     ClientHeight = 647
     ClientWidth = 719
     TabOrder = 0
-    object PageControlRruff: TPageControl
+    object PageControlSample: TPageControl
       Left = 1
       Height = 645
       Top = 1
       Width = 717
-      ActivePage = TabSheetRruffQuimica
+      ActivePage = TabSheetSampleDescricao
       Align = alClient
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
-      OnChange = PageControlRruffChange
-      object TabSheetRruffDescricao: TTabSheet
+      object TabSheetSampleDescricao: TTabSheet
         Caption = 'Descrição da Amostra'
         ClientHeight = 617
         ClientWidth = 709
@@ -54,47 +51,42 @@ object FormFichaAmostra: TFormFichaAmostra
             ParentColor = False
           end
           object LabelLocalidade: TLabel
-            Left = 16
+            Left = 14
             Height = 16
-            Top = 252
+            Top = 238
             Width = 58
-            Anchors = [akLeft, akBottom]
             Caption = 'Localidade'
             ParentColor = False
           end
           object LabelFonte: TLabel
-            Left = 16
+            Left = 14
             Height = 16
-            Top = 316
+            Top = 302
             Width = 31
-            Anchors = [akLeft, akBottom]
             Caption = 'Fonte'
             ParentColor = False
           end
           object Label2: TLabel
-            Left = 16
+            Left = 14
             Height = 16
-            Top = 444
+            Top = 430
             Width = 52
-            Anchors = [akLeft, akBottom]
             Caption = 'Descrição'
             ParentColor = False
           end
           object Label3: TLabel
-            Left = 16
+            Left = 14
             Height = 16
-            Top = 508
+            Top = 494
             Width = 46
-            Anchors = [akLeft, akBottom]
             Caption = 'Situação'
             ParentColor = False
           end
           object LabelProprietario: TLabel
-            Left = 16
+            Left = 14
             Height = 16
-            Top = 380
+            Top = 366
             Width = 63
-            Anchors = [akLeft, akBottom]
             Caption = 'Proprietário'
             ParentColor = False
           end
@@ -115,11 +107,10 @@ object FormFichaAmostra: TFormFichaAmostra
             ParentColor = False
           end
           object GroupBox9: TGroupBox
-            Left = 477
+            Left = 360
             Height = 211
             Top = 3
             Width = 209
-            Anchors = [akTop, akRight]
             ClientHeight = 193
             ClientWidth = 205
             TabOrder = 0
@@ -138,13 +129,15 @@ object FormFichaAmostra: TFormFichaAmostra
             Height = 35
             Top = 16
             Width = 166
+            ReadOnly = True
             TabOrder = 1
           end
-          object MemoAmostraRruff_id: TMemo
+          object MemoAmostraSample: TMemo
             Left = 144
             Height = 35
             Top = 86
             Width = 166
+            ReadOnly = True
             TabOrder = 2
           end
           object MemoAmostraQuimica: TMemo
@@ -152,6 +145,7 @@ object FormFichaAmostra: TFormFichaAmostra
             Height = 35
             Top = 150
             Width = 166
+            ReadOnly = True
             TabOrder = 3
           end
           object MemoLocalidade: TMemo
@@ -159,13 +153,15 @@ object FormFichaAmostra: TFormFichaAmostra
             Height = 55
             Top = 244
             Width = 540
+            ReadOnly = True
             TabOrder = 4
           end
           object MemoFonte: TMemo
             Left = 144
             Height = 55
-            Top = 308
+            Top = 311
             Width = 540
+            ReadOnly = True
             TabOrder = 5
           end
           object Memoproprietario: TMemo
@@ -173,6 +169,7 @@ object FormFichaAmostra: TFormFichaAmostra
             Height = 55
             Top = 372
             Width = 540
+            ReadOnly = True
             TabOrder = 6
           end
           object MemoAmostraDescricao: TMemo
@@ -180,6 +177,7 @@ object FormFichaAmostra: TFormFichaAmostra
             Height = 55
             Top = 439
             Width = 540
+            ReadOnly = True
             TabOrder = 7
           end
           object MemoSituacao: TMemo
@@ -187,11 +185,12 @@ object FormFichaAmostra: TFormFichaAmostra
             Height = 55
             Top = 500
             Width = 540
+            ReadOnly = True
             TabOrder = 8
           end
         end
       end
-      object TabSheetRruffQuimica: TTabSheet
+      object TabSheetSampleQuimica: TTabSheet
         Caption = 'Química'
         ClientHeight = 617
         ClientWidth = 709
@@ -222,13 +221,13 @@ object FormFichaAmostra: TFormFichaAmostra
               Proportional = True
             end
           end
-          object GroupBox1: TGroupBox
+          object GroupBox2: TGroupBox
             Left = 15
             Height = 280
             Top = 311
-            Width = 662
+            Width = 550
             ClientHeight = 262
-            ClientWidth = 658
+            ClientWidth = 546
             TabOrder = 1
             object LabelId_Quimica: TLabel
               Left = 14
@@ -238,11 +237,12 @@ object FormFichaAmostra: TFormFichaAmostra
               Caption = 'Rruff Id:'
               ParentColor = False
             end
-            object MemoQuimicaRruff_id: TMemo
+            object MemoQuimicaSample: TMemo
               Left = 158
               Height = 35
               Top = 0
               Width = 150
+              ReadOnly = True
               TabOrder = 0
             end
             object Label4: TLabel
@@ -257,10 +257,10 @@ object FormFichaAmostra: TFormFichaAmostra
               ParentFont = False
             end
             object ComboBoxQuimicaDigito: TComboBox
-              Left = 352
+              Left = 351
               Height = 23
-              Top = 0
-              Width = 56
+              Top = -1
+              Width = 184
               ItemHeight = 15
               Style = csDropDownList
               TabOrder = 1
@@ -268,8 +268,9 @@ object FormFichaAmostra: TFormFichaAmostra
             object MemoQuimicaDescricao: TMemo
               Left = 158
               Height = 80
-              Top = 79
+              Top = 39
               Width = 492
+              ReadOnly = True
               TabOrder = 2
             end
             object LabelDescricao2: TLabel
@@ -291,17 +292,37 @@ object FormFichaAmostra: TFormFichaAmostra
               ParentColor = False
             end
             object MemoQuimicaMedida: TMemo
-              Left = 158
+              Left = 159
               Height = 80
-              Top = 167
+              Top = 127
               Width = 492
+              ReadOnly = True
               TabOrder = 3
+            end
+          end
+          object GroupBox13: TGroupBox
+            Left = 457
+            Height = 79
+            Top = 8
+            Width = 196
+            Anchors = [akTop, akRight]
+            Caption = 'Microssonda'
+            ClientHeight = 61
+            ClientWidth = 192
+            TabOrder = 2
+            object SpeedButton1: TSpeedButton
+              Left = 10
+              Height = 36
+              Top = 11
+              Width = 172
+              Caption = 'Visualizar Dados'
+              NumGlyphs = 0
             end
           end
         end
       end
-      object TabSheetRruffRaman: TTabSheet
-        Caption = 'Espectro RAMAN'
+      object TabSheetSampleRaman: TTabSheet
+        Caption = 'Espectroscopia RAMAN'
         ClientHeight = 617
         ClientWidth = 709
         object GroupBox5: TGroupBox
@@ -317,16 +338,16 @@ object FormFichaAmostra: TFormFichaAmostra
             Left = 16
             Height = 292
             Top = 22
-            Width = 662
+            Width = 667
             Anchors = [akTop, akLeft, akRight, akBottom]
             ClientHeight = 274
-            ClientWidth = 658
+            ClientWidth = 663
             TabOrder = 0
             object ChartRaman: TChart
               Left = 0
               Height = 274
               Top = 0
-              Width = 658
+              Width = 663
               AxisList = <              
                 item
                   Minors = <>
@@ -364,27 +385,18 @@ object FormFichaAmostra: TFormFichaAmostra
             Top = -2
             Width = 144
             ItemHeight = 15
-            ItemIndex = 0
-            Items.Strings = (
-              '514 nm'
-              '532 nm'
-              '580 nm'
-              '732 nm'
-              '780 nm'
-            )
             OnChange = ComboBoxDirecaoLaserChange
             Style = csDropDownList
             TabOrder = 1
-            Text = '514 nm'
           end
           object GroupBox8: TGroupBox
             Left = 16
             Height = 248
             Top = 316
-            Width = 664
-            Anchors = [akLeft, akRight, akBottom]
+            Width = 551
+            Anchors = [akLeft, akBottom]
             ClientHeight = 230
-            ClientWidth = 660
+            ClientWidth = 547
             TabOrder = 2
             object Label6: TLabel
               Left = 318
@@ -431,16 +443,6 @@ object FormFichaAmostra: TFormFichaAmostra
               Caption = 'Orientação'
               ParentColor = False
             end
-            object ComboBoxEquipamentoRaman: TComboBox
-              Left = 158
-              Height = 23
-              Top = 201
-              Width = 445
-              Anchors = [akTop, akLeft, akRight]
-              ItemHeight = 15
-              Style = csDropDownList
-              TabOrder = 0
-            end
             object LabelEquipamentoRaman: TLabel
               Left = 14
               Height = 16
@@ -452,72 +454,88 @@ object FormFichaAmostra: TFormFichaAmostra
             object ComboBoxRamanDigito: TComboBox
               Left = 332
               Height = 23
-              Top = 0
-              Width = 45
+              Top = 1
+              Width = 186
               ItemHeight = 15
+              OnChange = ActionComboboxDigitoChangeExecute
               Style = csDropDownList
-              TabOrder = 1
+              TabOrder = 0
             end
-            object MemoRamanRruff_id: TMemo
+            object MemoRamanSample: TMemo
               Left = 158
               Height = 35
               Top = 1
               Width = 150
-              TabOrder = 2
+              ReadOnly = True
+              TabOrder = 1
             end
             object MemoRamanDescricao: TMemo
               Left = 158
               Height = 58
               Top = 40
-              Width = 482
+              Width = 372
+              ReadOnly = True
               ScrollBars = ssAutoVertical
-              TabOrder = 3
+              TabOrder = 2
             end
-            object MemoPin_id: TMemo
+            object MemoRamanPin_id: TMemo
               Left = 158
               Height = 35
               Top = 112
-              Width = 482
-              TabOrder = 4
+              Width = 372
+              ReadOnly = True
+              TabOrder = 3
             end
-            object MemoOrientacao: TMemo
+            object MemoRamanOrientacao: TMemo
               Left = 158
               Height = 34
               Top = 160
-              Width = 482
+              Width = 372
+              ReadOnly = True
               ScrollBars = ssAutoVertical
+              TabOrder = 4
+            end
+            object MemoRamanEquipment: TMemo
+              Left = 158
+              Height = 34
+              Top = 195
+              Width = 373
+              Lines.Strings = (
+                'MemoRamanEquipment'
+              )
+              ReadOnly = True
               TabOrder = 5
             end
           end
         end
       end
-      object TabSheetRruffVarredura: TTabSheet
-        Caption = 'Ampla Varredura com Artefatos Espectrais'
-        ClientHeight = 609
-        ClientWidth = 707
+      object TabSheetSampleVarredura: TTabSheet
+        Caption = 'Varredura Ampla com Artefatos Espectrais'
+        ClientHeight = 617
+        ClientWidth = 709
         object GroupBox6: TGroupBox
           Left = 0
-          Height = 609
+          Height = 617
           Top = 0
-          Width = 707
+          Width = 709
           Align = alClient
-          ClientHeight = 591
-          ClientWidth = 703
+          ClientHeight = 599
+          ClientWidth = 705
           TabOrder = 0
           object GroupBoxGraficoVarredura: TGroupBox
             Left = 15
-            Height = 284
+            Height = 292
             Top = 6
-            Width = 660
+            Width = 667
             Anchors = [akTop, akLeft, akRight, akBottom]
-            ClientHeight = 266
-            ClientWidth = 656
+            ClientHeight = 274
+            ClientWidth = 663
             TabOrder = 0
-            object ChartVarredura: TChart
+            object ChartBroadScan: TChart
               Left = 0
-              Height = 266
+              Height = 274
               Top = 0
-              Width = 656
+              Width = 663
               AxisList = <              
                 item
                   Minors = <>
@@ -539,25 +557,26 @@ object FormFichaAmostra: TFormFichaAmostra
               Align = alClient
               Anchors = [akTop, akLeft, akRight]
               ParentColor = False
-              object ChartVarreduraLineSeries1: TLineSeries
+              object ChartBroadScanLineSeries1: TLineSeries
               end
             end
           end
           object GroupBox10: TGroupBox
             Left = 15
             Height = 256
-            Top = 311
-            Width = 662
+            Top = 319
+            Width = 550
             Anchors = [akLeft, akBottom]
             ClientHeight = 238
-            ClientWidth = 658
+            ClientWidth = 546
             TabOrder = 1
             object ComboBoxVarreduraDigito: TComboBox
-              Left = 384
+              Left = 383
               Height = 23
               Top = 16
-              Width = 45
+              Width = 159
               ItemHeight = 15
+              OnChange = ActionComboboxDigitoChangeExecute
               Style = csDropDownList
               TabOrder = 0
             end
@@ -594,15 +613,17 @@ object FormFichaAmostra: TFormFichaAmostra
               Top = 66
               Width = 99
               ItemHeight = 15
-              ItemIndex = 1
               Items.Strings = (
                 '514 nm'
                 '532 nm'
+                '580 nm'
+                '714 nm'
+                '732 nm'
                 '780 nm'
               )
+              OnChange = ComboBoxVarreduraOndaChange
               Style = csDropDownList
               TabOrder = 1
-              Text = '532 nm'
             end
             object LabelDescricaoBroadScan: TLabel
               Left = 10
@@ -611,15 +632,6 @@ object FormFichaAmostra: TFormFichaAmostra
               Width = 52
               Caption = 'Descrição'
               ParentColor = False
-            end
-            object ComboBoxEquipamentoVarredura: TComboBox
-              Left = 208
-              Height = 23
-              Top = 112
-              Width = 328
-              ItemHeight = 15
-              Style = csDropDownList
-              TabOrder = 2
             end
             object LabelConfiguracaoInstrumento: TLabel
               Left = 10
@@ -634,46 +646,59 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 76
               Top = 152
               Width = 328
+              ReadOnly = True
               ScrollBars = ssAutoVertical
-              TabOrder = 3
+              TabOrder = 2
             end
-            object MemoVarreduraRruff_id: TMemo
+            object MemoVarreduraSample: TMemo
               Left = 208
               Height = 31
               Top = 16
               Width = 150
+              ReadOnly = True
+              TabOrder = 3
+            end
+            object MemoBroadScanEquipment: TMemo
+              Left = 205
+              Height = 38
+              Top = 101
+              Width = 328
+              Lines.Strings = (
+                'MemoBroadScanEquipment'
+              )
+              ReadOnly = True
               TabOrder = 4
             end
           end
         end
       end
-      object TabSheetRruffInfra: TTabSheet
+      object TabSheetSampleInfrared: TTabSheet
         Caption = 'Espectro Infravermelho'
-        ClientHeight = 609
-        ClientWidth = 707
-        object GroupBox2: TGroupBox
+        ClientHeight = 617
+        ClientWidth = 709
+        object GroupBox7: TGroupBox
           Left = 0
-          Height = 609
+          Height = 617
           Top = 0
-          Width = 707
+          Width = 709
           Align = alClient
-          ClientHeight = 591
-          ClientWidth = 703
+          ClientHeight = 599
+          ClientWidth = 705
           TabOrder = 0
           object GroupBoxGraficoInfravermelho: TGroupBox
             Left = 16
-            Height = 284
+            Height = 292
             Top = 6
-            Width = 672
+            Width = 667
             Anchors = [akTop, akLeft, akRight, akBottom]
-            ClientHeight = 266
-            ClientWidth = 668
+            ClientHeight = 274
+            ClientWidth = 663
             TabOrder = 0
             object ChartInfravermelho: TChart
               Left = 0
-              Height = 266
+              Height = 274
               Top = 0
-              Width = 668
+              Width = 663
               AxisList = <              
                 item
                   Minors = <>
@@ -702,16 +727,18 @@ object FormFichaAmostra: TFormFichaAmostra
             Left = 16
             Height = 277
             Top = 303
-            Width = 662
+            Width = 551
+            Anchors = [akLeft, akBottom]
             ClientHeight = 259
-            ClientWidth = 658
+            ClientWidth = 547
             TabOrder = 1
             object ComboBoxInfravermelhoDigito: TComboBox
               Left = 389
               Height = 23
               Top = 16
-              Width = 45
+              Width = 158
               ItemHeight = 15
+              OnChange = ActionComboboxDigitoChangeExecute
               Style = csDropDownList
               TabOrder = 0
             end
@@ -758,68 +785,73 @@ object FormFichaAmostra: TFormFichaAmostra
               Caption = 'Instrumento'
               ParentColor = False
             end
-            object ComboBoxEquipamentoInfravermelho: TComboBox
-              Left = 208
-              Height = 23
-              Top = 66
-              Width = 350
-              ItemHeight = 15
-              Style = csDropDownList
-              TabOrder = 1
-            end
-            object MemoInfravermelhoRruff_id: TMemo
+            object MemoInfravermelhoSample: TMemo
               Left = 208
               Height = 35
               Top = 16
               Width = 154
-              TabOrder = 2
+              ReadOnly = True
+              TabOrder = 1
             end
             object MemoInfravermelhoResolucao: TMemo
               Left = 208
               Height = 67
               Top = 106
               Width = 350
+              ReadOnly = True
               ScrollBars = ssAutoVertical
-              TabOrder = 3
+              TabOrder = 2
             end
             object MemoInfravermelhoDescricao: TMemo
               Left = 208
               Height = 67
               Top = 181
               Width = 350
+              ReadOnly = True
               ScrollBars = ssAutoVertical
+              TabOrder = 3
+            end
+            object MemoInfraredEquipment: TMemo
+              Left = 207
+              Height = 32
+              Top = 64
+              Width = 336
+              Lines.Strings = (
+                'MemoInfraredEquipment'
+              )
+              ReadOnly = True
               TabOrder = 4
             end
           end
         end
       end
-      object TabSheetRruffDifracao: TTabSheet
-        Caption = 'Powder Diffraction'
-        ClientHeight = 609
-        ClientWidth = 707
-        object GroupBox7: TGroupBox
+      object TabSheetSampleDifraction: TTabSheet
+        Caption = 'Difração do pó mineral'
+        ClientHeight = 617
+        ClientWidth = 709
+        object GroupBox12: TGroupBox
           Left = 0
-          Height = 609
+          Height = 617
           Top = 0
-          Width = 707
+          Width = 709
           Align = alClient
-          ClientHeight = 591
-          ClientWidth = 703
+          ClientHeight = 599
+          ClientWidth = 705
           TabOrder = 0
           object GroupBoxDifracao: TGroupBox
             Left = 15
-            Height = 284
+            Height = 292
             Top = 6
-            Width = 669
+            Width = 671
             Anchors = [akTop, akLeft, akRight, akBottom]
-            ClientHeight = 266
-            ClientWidth = 665
+            ClientHeight = 274
+            ClientWidth = 667
             TabOrder = 0
             object ChartDifracao: TChart
               Left = 0
-              Height = 266
+              Height = 274
               Top = 0
-              Width = 665
+              Width = 667
               AxisList = <              
                 item
                   Minors = <>
@@ -845,7 +877,7 @@ object FormFichaAmostra: TFormFichaAmostra
           object GroupBoxDadosDifracao: TGroupBox
             Left = 14
             Height = 235
-            Top = 340
+            Top = 356
             Width = 662
             Anchors = [akLeft, akBottom]
             Caption = 'Refinamento Celular:'
@@ -921,9 +953,7 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 17
               Width = 120
-              Lines.Strings = (
-                'MemoA'
-              )
+              ReadOnly = True
               TabOrder = 0
             end
             object MemoB: TMemo
@@ -931,6 +961,7 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 17
               Width = 120
+              ReadOnly = True
               TabOrder = 1
             end
             object MemoC: TMemo
@@ -938,6 +969,7 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 19
               Width = 120
+              ReadOnly = True
               TabOrder = 2
             end
             object MemoAlpha: TMemo
@@ -945,6 +977,7 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 87
               Width = 120
+              ReadOnly = True
               TabOrder = 3
             end
             object MemoBeta: TMemo
@@ -952,6 +985,7 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 87
               Width = 120
+              ReadOnly = True
               TabOrder = 4
             end
             object MemoGamma: TMemo
@@ -959,6 +993,7 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 87
               Width = 120
+              ReadOnly = True
               TabOrder = 5
             end
             object MemoVolume: TMemo
@@ -966,6 +1001,7 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 155
               Width = 120
+              ReadOnly = True
               TabOrder = 6
             end
             object MemoSistemaCristalino: TMemo
@@ -973,13 +1009,14 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 152
               Width = 120
+              ReadOnly = True
               TabOrder = 7
             end
           end
           object LabelId_Quimica4: TLabel
             Left = 24
             Height = 16
-            Top = 308
+            Top = 316
             Width = 43
             Anchors = [akLeft, akBottom]
             Caption = 'Rruff Id:'
@@ -988,7 +1025,7 @@ object FormFichaAmostra: TFormFichaAmostra
           object Label9: TLabel
             Left = 320
             Height = 31
-            Top = 308
+            Top = 316
             Width = 9
             Anchors = [akLeft, akBottom]
             Caption = '-'
@@ -1000,22 +1037,33 @@ object FormFichaAmostra: TFormFichaAmostra
           object ComboBoxDifracaoDigito: TComboBox
             Left = 344
             Height = 23
-            Top = 308
-            Width = 56
+            Top = 316
+            Width = 184
             Anchors = [akLeft, akBottom]
             ItemHeight = 15
+            OnChange = ActionComboboxDigitoChangeExecute
             Style = csDropDownList
             TabOrder = 2
           end
-          object MemoRruff_id: TMemo
-            Left = 161
+          object MemoDifracaoSample: TMemo
+            Left = 144
             Height = 30
-            Top = 308
+            Top = 316
             Width = 150
+            Anchors = [akLeft, akBottom]
+            ReadOnly = True
             TabOrder = 3
           end
         end
       end
+    end
+  end
+  object ActionList1: TActionList
+    left = 149
+    top = 399
+    object ActionComboboxDigitoChange: TAction
+      Caption = 'ActionComboboxDigitoChange'
+      OnExecute = ActionComboboxDigitoChangeExecute
     end
   end
 end

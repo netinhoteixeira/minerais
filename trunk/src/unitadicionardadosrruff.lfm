@@ -1,7 +1,7 @@
 object FormAddImage: TFormAddImage
-  Left = 402
+  Left = 744
   Height = 473
-  Top = 140
+  Top = 111
   Width = 606
   Caption = 'FormAddImage'
   ClientHeight = 473
@@ -61,7 +61,7 @@ object FormAddImage: TFormAddImage
     ClientWidth = 606
     TabOrder = 1
     object GroupBoxImagemMineral: TGroupBox
-      Left = 0
+      Left = 8
       Height = 390
       Top = 16
       Width = 257
