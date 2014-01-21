@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, RichMemo, TAGraph, TASeries, Forms, Controls,
-  Graphics, Dialogs, ExtCtrls, ComCtrls, StdCtrls, DbCtrls, Buttons, SQLite3DS,DB, UnitImagem;
+  Graphics, Dialogs, ExtCtrls, ComCtrls, StdCtrls, DbCtrls, Buttons, SQLite3DS,
+  DB, INIFiles;
 
 type
 
@@ -107,70 +108,73 @@ type
   private
     { private declarations }
   public
-    Especie: String;
-    Rruff_id: String;
-    Indice: Integer;
-    Dataset: TSQLite3Dataset;
-    Datasource: TDataSource;
     { public declarations }
   end;
 
+  const
+    FonteGrande:Integer = 13;
+    FontePequena:Integer = 9;
+
 var
   FormFichaEspecie:TFormFichaEspecie;
-
+  Config:TIniFile;
 implementation
-uses udatamodule;
+uses udatamodule, unitBlobFields;
 {$R *.lfm}
 
 { TFormFichaEspecie }
 
 procedure TFormFichaEspecie.FormCreate(Sender: TObject);
+var Diretorio:String;
 begin
-  PageControlFicha.TabIndex:=Indice;
-  Dados.sltb:= Dados.sldb.GetTable(Dados.Sqlite3DatasetGeral.SQL);
-  Especie:=Dados.sltb.FieldByName['nome'];
-  MemoNome.Text:= Especie;
-  MemoClasse.Text:= Dados.sltb.FieldByName['classe'];
-  MemoSubClasse.Text:= Dados.sltb.FieldByName['subclasse'];
-  MemoGrupo.Text:= Dados.sltb.FieldByName['grupo'];
-  MemoSubGrupo.Text:= Dados.sltb.FieldByName['subgrupo'];
-  MemoGrupo.Text:=Dados.sltb.FieldByName['grupo'];
-  MemoSubGrupo.Text:=Dados.sltb.FieldByName['subgrupo'];
-  MemoAssociacao.Text:=Dados.sltb.FieldByName['associacao'];
-  MemoDistincao.Text:=Dados.sltb.FieldByName['distincao'];
-  MemoAlteracao.Text:=Dados.sltb.FieldByName['alteracao'];
-  MemoAplicacao.Text:=Dados.sltb.FieldByName['aplicacao'];
+  if DirectoryExists(GetCurrentDir+'\Data') then
+    Diretorio := GetCurrentDir + '\Data\config.ini'
+  else
+    Diretorio:= GetCurrentDir + '\config.ini';
+  Config:= TIniFile.Create(Diretorio);
+  if Config.ReadString('Configuracoes', 'Fonte', '') = 'Grande' then
+    PageControlFicha.Font.Size:= FonteGrande
+  else
+    PageControlFicha.Font.Size:= FontePequena;
+  Config.Free;
 
-  EditDureza.Text:=Dados.sltb.FieldByName['dureza_min']+
-    ' - '+Dados.sltb.FieldByName['dureza_max'];
-  EditDensidade.Text:=Dados.sltb.FieldByName['densidade_min']+
-    ' - '+Dados.sltb.FieldByName['densidade_max'];
-  MemoCor.Text:=Dados.sltb.FieldByName['cor'];
-  MemoTraco.Text:=Dados.sltb.FieldByName['traco'];
-  MemoBrilho.Text:=Dados.sltb.FieldByName['brilho'];
-  MemoClivagem.Text:=Dados.sltb.FieldByName['clivagem'];
-  MemoFratura.Text:=Dados.sltb.FieldByName['fratura'];
-  MemoMagnetismo.Text:=Dados.sltb.FieldByName['magnetismo'];
-  MemoLuminescencia.Text:=Dados.sltb.FieldByName['luminescencia'];
+  Dados.TableMinerals:= Dados.DatabaseMinerals.GetTable(Dados.Sqlite3DatasetGeral.SQL);
+  MemoNome.Text:= Dados.TableMinerals.FieldByName['nome'];
+  MemoClasse.Text:= Dados.TableMinerals.FieldByName['classe'];
+  MemoSubClasse.Text:= Dados.TableMinerals.FieldByName['subclasse'];
+  MemoGrupo.Text:= Dados.TableMinerals.FieldByName['grupo'];
+  MemoSubGrupo.Text:= Dados.TableMinerals.FieldByName['subgrupo'];
+    MemoAssociacao.Text:=Dados.TableMinerals.FieldByName['ocorrencia'];
+  MemoAssociacao.Text:=Dados.TableMinerals.FieldByName['associacao'];
+  MemoDistincao.Text:=Dados.TableMinerals.FieldByName['distincao'];
+  MemoAlteracao.Text:=Dados.TableMinerals.FieldByName['alteracao'];
+  MemoAplicacao.Text:=Dados.TableMinerals.FieldByName['aplicacao'];
 
-  MemoDifaneidade.Text:=Dados.sltb.FieldByName['difaneidade'];
-  MemoSinalOptico.Text:=Dados.sltb.FieldByName['sinal_optico'];
-  MemoIndiceRefracao.Text:=Dados.sltb.FieldByName['indice_refracao'];
-  MemoAngulo.Text:=Dados.sltb.FieldByName['angulo'];
-  MemoInterferencia.Text:=Dados.sltb.FieldByName['cor_interferencia'];
-  MemoCorLamina.Text:=Dados.sltb.FieldByName['cor_lamina'];
-  MemoSinalElongacao.Text:=Dados.sltb.FieldByName['sinal_elongacao'];
-  MemoBirrefringencia.Text:=Dados.sltb.FieldByName['birrefringencia'];
-  MemoRelevo.Text:=Dados.sltb.FieldByName['relevo'];
-  MemoExtincao.Text:=Dados.sltb.FieldByName['extincao'];
+  EditDureza.Text:=Dados.TableMinerals.FieldByName['dureza_min']+
+    ' - '+Dados.TableMinerals.FieldByName['dureza_max'];
+  EditDensidade.Text:=Dados.TableMinerals.FieldByName['densidade_min']+
+    ' - '+Dados.TableMinerals.FieldByName['densidade_max'];
+  MemoCor.Text:=Dados.TableMinerals.FieldByName['cor'];
+  MemoTraco.Text:=Dados.TableMinerals.FieldByName['traco'];
+  MemoBrilho.Text:=Dados.TableMinerals.FieldByName['brilho'];
+  MemoClivagem.Text:=Dados.TableMinerals.FieldByName['clivagem'];
+  MemoFratura.Text:=Dados.TableMinerals.FieldByName['fratura'];
+  MemoMagnetismo.Text:=Dados.TableMinerals.FieldByName['magnetismo'];
+  MemoLuminescencia.Text:=Dados.TableMinerals.FieldByName['luminescencia'];
 
-  self.Imagem.Picture.Graphic :=
-       SelecionarImagem(Dados.sltb.FieldByName['nome'],'minerais', 1);
- { Dados.CriarDataset(Dados.Sqlite3DatasetGeral.FileName, 'Minerais');
-  DBMemoAssociacao.DataSource:=Dados.Datasource;
-  DBMemoDistincao.DataSource:=Dados.Datasource;
-  DBMemoAlteracao.DataSource:=Dados.Datasource;
-  //Datasource.Enabled:=True;    }
+  MemoDifaneidade.Text:=Dados.TableMinerals.FieldByName['difaneidade'];
+  MemoSinalOptico.Text:=Dados.TableMinerals.FieldByName['sinal_optico'];
+  MemoIndiceRefracao.Text:=Dados.TableMinerals.FieldByName['indice_refracao'];
+  MemoAngulo.Text:=Dados.TableMinerals.FieldByName['angulo'];
+  MemoInterferencia.Text:=Dados.TableMinerals.FieldByName['cor_interferencia'];
+  MemoCorLamina.Text:=Dados.TableMinerals.FieldByName['cor_lamina'];
+  MemoSinalElongacao.Text:=Dados.TableMinerals.FieldByName['sinal_elongacao'];
+  MemoBirrefringencia.Text:=Dados.TableMinerals.FieldByName['birrefringencia'];
+  MemoRelevo.Text:=Dados.TableMinerals.FieldByName['relevo'];
+  MemoExtincao.Text:=Dados.TableMinerals.FieldByName['extincao'];
+
+  self.Imagem.Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
+    'imagem1', Dados.TableMinerals.FieldByName['nome'], EmptyStr, EmptyStr, EmptyStr);
 end;
 
 procedure TFormFichaEspecie.HeaderControl1SectionClick(
@@ -178,24 +182,24 @@ procedure TFormFichaEspecie.HeaderControl1SectionClick(
 begin
   Case Section.Index of
   0:begin
-     self.Imagem.Picture.Graphic :=
-       SelecionarImagem(Especie,'minerais', 1);
+     self.Imagem.Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
+       'imagem1', MemoNome.Text, EmptyStr, EmptyStr, EmptyStr);
   end;
   1:begin
-      self.Imagem.Picture.Graphic :=
-       SelecionarImagem(Especie,'minerais', 2);
+      self.Imagem.Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
+        'imagem2', MemoNome.Text, EmptyStr, EmptyStr, EmptyStr);
   end;
   2:begin
-      self.Imagem.Picture.Graphic :=
-       SelecionarImagem(Especie,'minerais', 3);
+      self.Imagem.Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
+        'imagem3', MemoNome.Text, EmptyStr, EmptyStr, EmptyStr);
   end;
   3:begin
-      self.Imagem.Picture.Graphic :=
-       SelecionarImagem(Especie,'minerais', 4);
+      self.Imagem.Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
+        'imagem4', MemoNome.Text, EmptyStr, EmptyStr, EmptyStr);
   end;
   4:begin
-      self.Imagem.Picture.Graphic :=
-       SelecionarImagem(Especie,'minerais', 5);
+      self.Imagem.Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
+        'imagem5', MemoNome.Text, EmptyStr, EmptyStr, EmptyStr);
   end;
   end;
 end;

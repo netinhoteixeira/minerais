@@ -1,4 +1,4 @@
-unit unitPlanilha;
+﻿unit unitPlanilha;
 
 {$mode objfpc}{$H+}
 
@@ -24,17 +24,10 @@ type
   public
     DatasourcePlanilha:TDatasource;
     procedure ArquivoMicrossonda(Especie:String; Rruff_id:String; Digito:String);
-    procedure ArquivoPlanilha(Especie:String; Rruff_id:String; Digito:String;
-        Tipo:String; Equipamento, DirecaoLaser:String);
+    procedure ArquivoPlanilha(Table, Field, Especie, Rruff_id, Digito,
+      Tipo, Equipamento:String);
     { public declarations }
   end;
-
-  Const
-  Microssonda: string = 'Microssonda';
-  EspectroRAMAN: string = 'RAMAN';
-  AmplaVarredura: string = 'Ampla Varredura';
-  Infravermelho: string = 'Espectro Infravermelho';
-  Difracao: string = 'Difracao';
 
 var
   FormPlanilha: TFormPlanilha;
@@ -42,7 +35,7 @@ var
 implementation
 
 uses
-  udatamodule;
+  udatamodule, unitBlobFields;
 
 { TFormPlanilha }
 
@@ -67,50 +60,56 @@ procedure TFormPlanilha.ArquivoMicrossonda(Especie:String; Rruff_Id:String;
 begin
   Dados.SdfDataSetPlanilhaMicrossonda.Close;
   Dados.SdfDataSetPlanilhaMicrossonda.FileName:=
-    Dados.DeterminaArquivo(Especie, Rruff_id,Digito, 'Microssonda', '', '');
+    SelectBlobFieldToCSVFile('chemistry', 'microprobe_file', Especie, Rruff_id,
+      Digito, EmptyStr, EmptyStr);
   if Dados.SdfDataSetPlanilhaMicrossonda.FileName <> EmptyStr then
   begin
     FormPlanilha.Show;
     Dados.SdfDataSetPlanilhaMicrossonda.Open;
   end
   else
+  begin
+    ShowMessage('Não há arquivo de microssonda para a amostra especificada.');
     DBGrid1.Clear;
+  end;
 end;
 
-procedure TFormPlanilha.ArquivoPlanilha(Especie: String; Rruff_id: String;
-  Digito: String; Tipo: String; Equipamento, DirecaoLaser:String);
+procedure TFormPlanilha.ArquivoPlanilha(Table, Field, Especie, Rruff_id,
+  Digito, Tipo, Equipamento:String);
 var Diretorio:String;
 begin
-  if Tipo = Microssonda then
+  if Table = 'chemistry' then
   begin
-    Diretorio:=Dados.DeterminaArquivo(Especie,
-       Rruff_id,Digito,'Microssonda', Equipamento , '');
+    Diretorio:= SelectBlobFieldToCSVFile('chemistry', 'microprobe_file',
+      Especie, Rruff_id, EmptyStr, EmptyStr, Equipamento);
   end
   else
-  if Tipo = EspectroRaman then
+  if Table = 'raman' then
   begin
-    Diretorio:=Dados.DeterminaArquivo(Especie,
-       Rruff_id,Digito,'RAMAN',Equipamento, DirecaoLaser);
+    Diretorio:= SelectBlobFieldToCSVFile('raman', 'arquivo_raman',
+      Especie, Rruff_id, Digito, Tipo, Equipamento);
   end
   else
-  if Tipo = AmplaVarredura then
+  if Table = 'varredura' then
   begin
-    Diretorio:=Dados.DeterminaArquivo(Especie,
-       Rruff_id,Digito,AmplaVarredura, Equipamento, DirecaoLaser);
+    Diretorio:=
+      SelectBlobFieldToCSVFile('varredura', 'arquivo_varredura', Especie,
+        Rruff_id, Digito, Tipo, Equipamento);
   end
   else
-  if Tipo = Infravermelho then
+  if Table = 'infravermelho' then
   begin
-    Diretorio:=Dados.DeterminaArquivo(Especie,
-       Rruff_id,Digito, Infravermelho, Equipamento, '');
+    Diretorio:=
+    SelectBlobFieldToCSVFile('infravermelho', 'arquivo_infravermelho',
+      Especie, Rruff_id, Digito, EmptyStr, Equipamento);
   end
   else
-  if Tipo = Difracao then
+  if Table = 'difracao' then
   begin
-    Diretorio:=Dados.DeterminaArquivo(Especie,
-       Rruff_id,Digito, Difracao, Equipamento, '');
+    Diretorio:=
+    SelectBlobFieldToCSVFile('infravermelho', 'arquivo_infravermelho',
+      Especie, Rruff_id, Digito, EmptyStr, EmptyStr);
   end;
-
   if Diretorio <> EmptyStr then
   begin
       DataSourcePlanilha:=Dados.CriarDataset(Diretorio);

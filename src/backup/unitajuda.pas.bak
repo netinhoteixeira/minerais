@@ -1,3 +1,4 @@
+
 unit UnitAjuda; 
 
 {$mode objfpc}{$H+}
@@ -5,7 +6,8 @@ unit UnitAjuda;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Classes, SysUtils, FileUtil, IpHtml,
+  Ipfilebroker, Forms, Controls, Dialogs, ExtCtrls,
   StdCtrls;
 
 type
@@ -13,7 +15,11 @@ type
   { TFormAjuda }
 
   TFormAjuda = class(TForm)
+    IpFileDataProvider1: TIpFileDataProvider;
+    IpHtmlPanel1: TIpHtmlPanel;
     Panel1: TPanel;
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { private declarations }
   public
@@ -29,5 +35,15 @@ implementation
 
 { TFormAjuda }
 
-end.
+procedure TFormAjuda.FormShow(Sender: TObject);
+begin
 
+end;
+
+procedure TFormAjuda.FormCreate(Sender: TObject);
+begin
+  if FileExists(GetCurrentDir+'\Ajuda\index.html') then
+    Iphtmlpanel1.OpenURL(GetCurrentDir+'\Ajuda\index.html');
+end;
+
+end.

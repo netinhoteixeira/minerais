@@ -1,5 +1,5 @@
 object FormSplash: TFormSplash
-  Left = 376
+  Left = 1030
   Height = 240
   Top = 191
   Width = 320
