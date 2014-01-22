@@ -1,17 +1,18 @@
 object FormSelecionaBD: TFormSelecionaBD
-  Left = 155
+  Left = 169
   Height = 514
-  Top = 25
+  Top = 120
   Width = 775
   Caption = 'Selecionar Banco de Dados'
   ClientHeight = 494
   ClientWidth = 775
   Menu = MainMenu1
+  OnCreate = FormCreate
   OnShow = FormShow
   PopupMode = pmExplicit
   PopupParent = FormPrincipal.Owner
   Position = poDesktopCenter
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.0.12.0'
   object Panel1: TPanel
     Left = 0
     Height = 494

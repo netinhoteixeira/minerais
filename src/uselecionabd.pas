@@ -112,19 +112,20 @@ type
     procedure BitBtnStandardMineralDbClick(Sender: TObject);
     procedure EditButtonNovo1ButtonClick(Sender: TObject);
     procedure EditButtonNovoButtonClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure MenuItemSairClick(Sender: TObject);
   private
     { private declarations }
   public
+    MineralDb:String;
+    SampleDb:String;
     { public declarations }
   end;
 
 var
   FormSelecionaBD: TFormSelecionaBD;
   Config: TIniFIle;
-  MineralDb,
-  SampleDb,
   ConfigFilePath: string;
 
 implementation
@@ -210,6 +211,12 @@ begin
     ShowMessage('Você deve especificar um nome para o Banco de Dados.');
 end;
 
+procedure TFormSelecionaBD.FormCreate(Sender: TObject);
+begin
+  MineralDB:=EmptyStr;
+  SampleDb:=EmptyStr;
+end;
+
 procedure TFormSelecionaBD.FormShow(Sender: TObject);
 var I,J: Integer; Databases:TStrings;
 begin
@@ -252,16 +259,16 @@ begin
     else
   ConfigFilePath := GetCurrentDir + '\Data\config.ini';
   Config := TINIFile.Create(ConfigFilePath);
-  mineraldb := Config.ReadString('Configuracoes', 'MineraisBD', '');
+  mineraldb := Config.ReadString('Configuracoes', 'MineralBD', '');
   if FileExists(mineraldb) then
     StatusBar1.SimpleText := 'Banco de Dados Padrão: ' + mineraldb
   else
-    Config.WriteString('Configuracoes', 'MineraisBD', '');
-  SampleDb:= Config.ReadString('Configuracoes','AmostrasBD','');
+    Config.WriteString('Configuracoes', 'MineralBD', '');
+  SampleDb:= Config.ReadString('Configuracoes','AmostraBD','');
   if FileExists(SampleDb) then
     StatusBar2.SimpleText := 'Banco de Dados Padrão: ' + SampleDb
   else
-    Config.WriteString('Configuracoes', 'AmostrasBD', '');
+    Config.WriteString('Configuracoes', 'AmostraBD', '');
   Config.Free;
 end;
 

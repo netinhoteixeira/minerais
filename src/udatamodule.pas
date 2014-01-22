@@ -111,7 +111,7 @@ type
     procedure AdicionaEspecie(Nome, Classe, Subclasse, Grupo, Subgrupo,
       Ocorrencia, Associacao, Cor, Brilho: string; Dureza_min, Dureza_max: real;
       Densidade_min, Densidade_max: string);
-    procedure AdicionaAmostra(New:Boolean; Tabela, Especie, Sample_id, Digito,
+    procedure AdicionaAmostra(Tabela, Especie, Sample_id, Digito,
       Direcao, Equipment:String );
     procedure ExcluiAmostra(Especie, Sample_id, Digito: String;
       TabIndex: Integer);
@@ -124,7 +124,6 @@ var
   Dados: TDados;
   MS: TMemoryStream;
   FS: TFileStream;
-
   num: integer;
 
 const
@@ -265,7 +264,7 @@ begin
     Sqlite3DatasetGeral.Close();
     try
       DatabaseSamples := TSQLiteDatabase.Create(Diretorio);
-      Sqlite3DatasetGeral.FileName := Diretorio;
+      //Sqlite3DatasetGeral.FileName := Diretorio;
       ExecSQL :=
       'CREATE TABLE rruff ([id] INTEGER PRIMARY KEY NOT NULL, [especie] TEXT,'+
         ' [rruff_id] TEXT NOT NULL, [quimica_ideal] TEXT, [localidade] TEXT, '+
@@ -302,7 +301,7 @@ begin
         'UNIQUE NOT NULL, [descricao] TEXT, [localidade] TEXT);';
       Sqlite3DatasetGeral.ExecSQL(ExecSQL);
   finally
-    Sqlite3DatasetGeral.Open();
+    //Sqlite3DatasetGeral.Open();
     DatabaseSamples.Free;
   end;
   end;
@@ -419,13 +418,20 @@ begin
     ' nome="' + Nome + '" ;');
 end;
 
-procedure TDados.AdicionaAmostra(New: Boolean; Tabela, Especie, Sample_id,
+procedure TDados.AdicionaAmostra(Tabela, Especie, Sample_id,
   Digito, Direcao, Equipment:String );
 var
   ExecSQL: string;
 begin
     if Sample_id = EmptyStr then
     Sample_id := 'A00000';
+    //
+    if Tabela = 'rruff' then
+    begin
+      ExecSQL:= 'INSERT INTO rruff (especie, rruff_id) VALUES ("'+Especie+'", '+
+        '"'+Sample_id+'") ;';
+      DatabaseSamples.ExecSQL(ExecSQL);
+    end;
     //chemistry
     if Tabela = 'chemistry' then
     begin
@@ -442,57 +448,16 @@ begin
           Direcao + '","");';
       DatabaseSamples.ExecSQL(ExecSQL);
     end;
-    {
-    //532
-    ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito,  direcao, equipment) '
-      +'VALUES ("' + Especie + '" , "' + Sample_id + '", "0", "' +
-        Onda532+ '","");';
-    DatabaseSamples.ExecSQL(ExecSQL);
-    //580
-    ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito,  direcao, '+
-      'equipment) VALUES ("'+ Especie + '" , "' + Sample_id + '", "0", "' +
-        Onda580 + '","");';
-    DatabaseSamples.ExecSQL(ExecSQL);
-    //732
-    ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito,  direcao, '+
-      ' equipment) ' + 'VALUES ("' + Especie + '" , "' + Sample_id + '", "0", "' +
-        Onda732 + '","");';
-    DatabaseSamples.ExecSQL(ExecSQL);
-    //780
-  ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito,  direcao, '+
-   'equipment) VALUES ("'+ Especie + '" , "' + Sample_id + '", "0", "' +
-    Onda780+ '","");';
-  DatabaseSamples.ExecSQL(ExecSQL);
-     }
   if Tabela = 'varredura' then
   begin
-  //varredura       //514nm
+  //varredura
   ExecSql := 'INSERT INTO varredura (especie, rruff_id, digito, '+
   ' comprimento_onda, equipment)'
     + '  VALUES ("' + Especie + '" , "' + Sample_id + '", "'+Digito+'", "' +
     Direcao + '","");';
   DatabaseSamples.ExecSQL(ExecSQL);
   end;
-  //532nm
-  {
-  ExecSql := 'INSERT INTO varredura (especie, rruff_id, digito, '+
-    'comprimento_onda, equipment) VALUES ("'+ Especie + '" , "' + Sample_id +
-      '", "0", "'+ Onda532 + '","");';
-  DatabaseSamples.ExecSQL(ExecSQL);              //580nm
-  ExecSql := 'INSERT INTO varredura (especie, rruff_id, digito, '+
-  'comprimento_onda, equipment) VALUES ("'+ Especie + '" , "' + Sample_id +
-    '", "0", "' + Onda580 + '","");';
-  DatabaseSamples.ExecSQL(ExecSQL);
-  //732nm
-  ExecSql := 'INSERT INTO varredura (especie, rruff_id, digito, '+
-    'comprimento_onda, equipment) VALUES ("'+ Especie + '" , "' + Sample_id +
-      '", "0", "' + Onda732 + '","");';
-  DatabaseSamples.ExecSQL(ExecSQL);              //780nm
-  ExecSql := 'INSERT INTO varredura (especie, rruff_id, digito, '+
-    'comprimento_onda, equipment) VALUES ("'+ Especie + '" , "' + Sample_id +
-      '", "0", "' + Onda780 + '","");';
-  DatabaseSamples.ExecSQL(ExecSQL);
-  }
+
   //infravermelho
   if Tabela = 'infravermelho' then
   begin
@@ -507,13 +472,7 @@ begin
   ExecSQL := 'INSERT INTO difracao (especie, rruff_id, digito)' +
     ' VALUES ("' + Especie + '" , "' + Sample_id + '" , "'+Digito+'");';
   DatabaseSamples.ExecSQL(ExecSQL);
-  end;{
-  else
-  begin
-    ExecSql := 'INSERT INTO '+Tabela+ ' (especie, rruff_id, digito)'+
-      ' VALUES ("'+Especie+'", "'+Sample_id+'", "'+Digito+'"); ';
-    DatabaseSamples.ExecSQL(ExecSQL);
-  end; }
+  end;
 end;
 
 procedure TDados.ExcluiAmostra(Especie, Sample_id, Digito: String;

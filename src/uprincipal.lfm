@@ -13,7 +13,7 @@ object FormPrincipal: TFormPrincipal
   OnCreate = FormCreate
   OnResize = FormResize
   Position = poDesktopCenter
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.0.12.0'
   object BGRAPanelEspecies: TBGRAPanel
     Left = 0
     Height = 589
@@ -1750,9 +1750,9 @@ object FormPrincipal: TFormPrincipal
         Height = 585
         Top = 1
         Width = 601
-        ActivePage = TabSheetRruffVarredura
+        ActivePage = TabSheetRruffQuimica
         Align = alClient
-        TabIndex = 3
+        TabIndex = 1
         TabOrder = 0
         object TabSheetRruffDescricao: TTabSheet
           Caption = 'Descrição da Amostra'
@@ -2003,6 +2003,8 @@ object FormPrincipal: TFormPrincipal
                 Height = 80
                 Top = 39
                 Width = 492
+                OnEditingDone = MemoQuimicaDescricaoEditingDone
+                OnKeyUp = MemoQuimicaDescricaoKeyUp
                 TabOrder = 2
               end
               object LabelDescricao2: TLabel
@@ -2028,6 +2030,8 @@ object FormPrincipal: TFormPrincipal
                 Height = 80
                 Top = 127
                 Width = 492
+                OnEditingDone = MemoQuimicaMedidaEditingDone
+                OnKeyUp = MemoQuimicaMedidaKeyUp
                 TabOrder = 3
               end
             end
@@ -2056,6 +2060,7 @@ object FormPrincipal: TFormPrincipal
                 Top = 16
                 Width = 176
                 Caption = 'Visualizar dados '
+                OnClick = BitBtnEditMicroprobeDataClick
                 TabOrder = 1
               end
               object BitBtnClearMicroprobeData: TBitBtn
@@ -2064,6 +2069,7 @@ object FormPrincipal: TFormPrincipal
                 Top = 96
                 Width = 176
                 Caption = 'Apagar dados'
+                OnClick = BitBtnClearMicroprobeDataClick
                 TabOrder = 2
               end
             end
