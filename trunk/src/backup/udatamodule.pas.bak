@@ -1,4 +1,4 @@
-{
+﻿{
   GNU LESSER GENERAL PUBLIC LICENSE
 
 Version 3, 29 June 2007
@@ -76,7 +76,6 @@ type
     DatasourceInstrumentos: TDatasource;
     DatasourcePreencheAmostras: TDatasource;
     DatasourcePlanilhaMicrossonda: TDatasource;
-    DatasourceAmostras: TDatasource;
     DatasourcePrinter: TDatasource;
     DatasourceReport: TDatasource;
     DatasourceCombobox: TDatasource;
@@ -89,7 +88,6 @@ type
     SdfDataSetPlanilhaMicrossonda: TSdfDataSet;
     Sqlite3DatasetInstrumentos: TSqlite3Dataset;
     Sqlite3DatasetPreencheAmostras: TSqlite3Dataset;
-    Sqlite3DatasetAmostras: TSqlite3Dataset;
     Sqlite3DatasetPrinter: TSqlite3Dataset;
     Sqlite3DatasetCombobox: TSqlite3Dataset;
     Sqlite3DatasetDidatico: TSqlite3Dataset;
@@ -99,27 +97,26 @@ type
   private
     { private declarations }
   public
-    sldb: TSQLiteDatabase;
-    sltb: TSQLiteTable;
+    DatabaseMinerals: TSQLiteDatabase;
+    TableMinerals: TSQLiteTable;
+    DatabaseSamples: TSQLiteDatabase;
+    TableSamples: TSQLiteTable;
     Datasource: TDatasource;
     Dataset: TSDFDataset;
 
-    procedure CriarBD(Diretorio: string);
-    function DeterminaBD(diretorio: string): boolean;
-    function DeterminaArquivo(Especie: string; Rruff_id: string;
-      Digito: string; Tipo: string; Equipamento: string; DirecaoLaser: string): string;
-    procedure SalvaArquivo(Especie: string; Rruff_id: string;
-      Digito: string; Tipo: string; Equipamento: string; DirecaoLaser: string;
-      DiretorioArquivo: string);
+    procedure UpdateField(Table, Field, NewValue, Especie, Sample, Digito,
+      Direction: String);
+    procedure CreateDatabase(Tipo, Diretorio: String);
+    function ChooseDatabase(Tipo, Directory:String): Boolean;
     procedure AdicionaEspecie(Nome, Classe, Subclasse, Grupo, Subgrupo,
       Ocorrencia, Associacao, Cor, Brilho: string; Dureza_min, Dureza_max: real;
       Densidade_min, Densidade_max: string);
-    procedure AdicionaAmostra(New: Boolean; Tabela:String; Especie: string;
-      Rruff_id: string; Digito:Integer; Direcao:String; Equipment:String );
-    procedure ExcluiAmostra(Especie: string; Rruff_id: string);
+    procedure AdicionaAmostra(Tabela, Especie, Sample_id, Digito,
+      Direcao, Equipment:String );
+    procedure ExcluiAmostra(Especie, Sample_id, Digito: String;
+      TabIndex: Integer);
     procedure ExcluiMineral(Especie: string);
     function CriarDataset(Diretorio: string): TDatasource;
-    function RetornaIndiceDirecaoLaser(Direcao: string): string;
     { public declarations }
   end;
 
@@ -127,7 +124,6 @@ var
   Dados: TDados;
   MS: TMemoryStream;
   FS: TFileStream;
-
   num: integer;
 
 const
@@ -137,7 +133,6 @@ const
   Infravermelho: string = 'Espectro Infravermelho';
   Difracao: string = 'Difracao';
   TodosOsDados: string = 'Todos os Dados';
-  Depolarizado: string = 'Não polarizado';
   Angulo0: string = '0.000';
   Angulo45: string = '45.000 ccw';
   Angulo90: string = '90.000 ccw';
@@ -165,73 +160,150 @@ begin
     SQLite3DatasetPrinter.Close;
   if SQLite3DatasetPreencheAmostras.Active then
     SQLite3DatasetPreencheAmostras.Close;
-  if SQlite3DatasetAmostras.Active then
-    SQLite3DatasetAmostras.Close;
   if SDFDatasetPlanilhaMicrossonda.Active then
     SDFDatasetPlanilhaMicrossonda.Close;
   if SQLite3DatasetInstrumentos.Active then
     SQLite3DatasetInstrumentos.Close;
-  sldb.Free;
+  DatabaseMinerals.Free;
+  DatabaseSamples.Free;
 end;
 
-procedure TDados.CriarBD(Diretorio: string);
+procedure TDados.UpdateField(Table, Field, NewValue, Especie, Sample, Digito,
+  Direction: String);
+begin
+  {if Table = 'minerais' then
+  begin
+    TableMinerals:= DatabaseMinerals.GetTable('UPDATE '+Table+' SET '+
+      Field+ ' = "'+NewValue+'" WHERE nome = "'+Especie+'" ; ' );
+  end
+  else
+  if Table = 'rruff' then
+  begin
+    TableSamples := DatabaseSamples.GetTable('UPDATE '+Table+' SET '+
+      Field+' = "'+NewValue+'" WHERE rruff_id = "'+Sample+'" ;');
+  end
+  else
+  if Table = 'chemistry' then
+  begin
+    TableSamples:= DatabaseSamples.GetTable('UPDATE '+Table+' SET '+
+      Field+'= "'+NewValue+'" WHERE rruff_id = "'+Sample+'" ;');
+  end
+  else
+  if Table = 'raman' then
+  begin
+    TableSamples:= DatabaseSamples.GetTable('UPDATE '+Table+ ' SET '+
+      Field+'="'+NewValue+'" WHERE rruff_if="'+Sample+'" AND digito="'+
+        Digito+'" AND direcao="'+Direction+'" ;');
+  end
+  else
+  if Table = 'varredura' then
+  begin
+    TableSamples:= DatabaseSamples.GetTable('UPDATE '+Table+ ' SET '+
+      Field+'="'+NewValue+'" WHERE rruff_if="'+Sample+'" AND digito="'+
+        Digito+'" AND comprimento_onda="'+Direction+'" ;');
+  end
+  else
+  if Table = 'infravermelho' then
+  begin
+    TableSamples:= DatabaseSamples.GetTable('UPDATE '+Table+ ' SET '+
+      Field+'="'+NewValue+'" WHERE rruff_if="'+Sample+'" AND digito="'+
+        Digito+'" ;');
+  end
+  else
+  if Table = 'difracao' then
+  begin
+    TableSamples:= DatabaseSamples.GetTable('UPDATE '+Table+ ' SET '+
+      Field+'="'+NewValue+'" WHERE rruff_if="'+Sample+'" AND digito="'+
+        Digito+'" ;');
+  end;                               }
+end;
+
+procedure TDados.CreateDatabase(Tipo, Diretorio: String);
 var
   ExecSQL: string;
 begin
-  Sqlite3DatasetGeral.Close();
+  if Tipo = 'mineral' then
+  begin
+    Sqlite3DatasetGeral.Close();
   try
-    sldb := TSQLiteDatabase.Create(Diretorio);
+    DatabaseMinerals := TSQLiteDatabase.Create(Diretorio);
     Sqlite3DatasetGeral.FileName := Diretorio;
     ExecSQL :=
-      'CREATE TABLE minerais ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT UNIQUE  NOT NULL, [formula] TEXT, [classe] TEXT, [subclasse] TEXT, [grupo] TEXT, [subgrupo] TEXT, [ocorrencia] TEXT, [associacao] TEXT, [distincao] TEXT,';
+      'CREATE TABLE minerais ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT '+
+        'UNIQUE  NOT NULL, [formula] TEXT, [classe] TEXT, [subclasse] TEXT, '+
+          '[grupo] TEXT, [subgrupo] TEXT, [ocorrencia] TEXT, [associacao] TEXT,'+
+            '[distincao] TEXT,';
     ExecSQL := ExecSQL +
-      ' [aplicacao] TEXT, [alteracao] TEXT, [dureza_min] FLOAT, [dureza_max] FLOAT, [densidade_min] FLOAT, [densidade_max] FLOAT, [cor] TEXT, [brilho] TEXT, [traco] TEXT, [fratura] TEXT, [clivagem] TEXT, ';
+      ' [aplicacao] TEXT, [alteracao] TEXT, [dureza_min] FLOAT, [dureza_max] '+
+        'FLOAT, [densidade_min] FLOAT, [densidade_max] FLOAT, [cor] TEXT,'+
+          '[brilho] TEXT, [traco] TEXT, [fratura] TEXT, [clivagem] TEXT, ';
     ExecSQL := ExecSQL +
-      ' [luminescencia] TEXT, [magnetismo] TEXT, [difaneidade] TEXT, [sinal_optico] TEXT, [indice_refracao] TEXT, [angulo] TEXT, [cor_interferencia] TEXT, [cor_lamina] TEXT, [sinal_elongacao] TEXT, [birrefringencia] TEXT, [relevo] TEXT, ';
+      ' [luminescencia] TEXT, [magnetismo] TEXT, [difaneidade] TEXT, '+
+        '[sinal_optico] TEXT, [indice_refracao] TEXT, [angulo] TEXT, '+
+          '[cor_interferencia] TEXT, [cor_lamina] TEXT, [sinal_elongacao] TEXT,'+
+            '[birrefringencia] TEXT, [relevo] TEXT, ';
     ExecSQL := ExecSQL +
-      ' [extincao] TEXT, [classe_cristalina] TEXT, [sistema] TEXT, [h_m] TEXT, [habito] TEXT, ';
-    ExecSQL := ExecSQL +
-      ' [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, [imagem4] BLOB, [imagem5] BLOB, [imagem6] BLOB, [imagem7] BLOB);';
+      ' [extincao] TEXT, [classe_cristalina] TEXT, [sistema] TEXT, [h_m] TEXT,'+
+        '[habito] TEXT, [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, '+
+          '[imagem4] BLOB, [imagem5] BLOB, [imagem6] BLOB, [imagem7] BLOB);';
     Sqlite3DatasetGeral.ExecSQL(ExecSQL);
     ExecSQL :=
-      'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] TEXT, [mineralogiaimagem1] BLOB, [mineralogiaimagem2] BLOB, [mineralogiaimagem3] BLOB, [mineralogiaimagem4] BLOB, [mineralogiaimagem5] BLOB);';
+      'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] '+
+        'TEXT, [mineralogiaimagem1] BLOB, [mineralogiaimagem2] BLOB, '+
+          '[mineralogiaimagem3] BLOB, [mineralogiaimagem4] BLOB, '+
+            '[mineralogiaimagem5] BLOB);';
     Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-    ExecSQL :=
-      'CREATE TABLE rruff ([id] INTEGER PRIMARY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [numero] INTEGER, [quimicaideal] TEXT, ';
-    ExecSQL := ExecSQL +
-      ' [localidade] TEXT, [fonte] TEXT, [descricao_quimica] TEXT, [situacao] TEXT, [quimicamedida] TEXT, [arquivo_microssonda] TEXT, [pin_id] TEXT, ';
-    ExecSQL := ExecSQL +
-      ' [orientacao] TEXT, [microssonda] BLOB, [descricao_raman] TEXT, [comprimento_onda] TEXT, [descricao_broadscan] TEXT, '
-      +
-      '[instrumento_bs] TEXT, [descricao_infravermelho] TEXT, [instrumento_iv] TEXT, [resolucao] TEXT, [infravermelho] BLOB, [descricao_amostra] TEXT, [direcao_laser] TEXT,';
-    ExecSQL := ExecSQL +
-      ' [a] TEXT, [b] TEXT, [c] TEXT, [alpha] TEXT, [beta] TEXT, [gamma] TEXT, [volume] TEXT, [sistema_cristalino] TEXT, [descricao_difracao] TEXT, [arquivo_difracao] BLOB,';
-    ExecSQL := ExecSQL +
-      ' [rruff_id_quimica] TEXT, [rruff_id_raman] TEXT, [rruff_id_varredura] TEXT, [rruff_id_infravermelho] TEXT, [rruff_id_difracao] TEXT, [proprietario] TEXT, [imagem_amostra] BLOB, [imagem_quimica] BLOB);';
-    Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-
-    ExecSQL :=
-      'CREATE TABLE raman ([id] INTEGER PRIMARY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [direcao] Integer, [digito_id] Integer, [equipamento] TEXT,' + ' [arquivo_raman] BLOB);';
-    Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-
-    ExecSQL :=
-      'CREATE TABLE varredura ([id] INTEGER PRIMARY KEY NOT NULL, [especie] TEXT NOT NULL, [rruff_id] TEXT NOT NULL, [comprimento_onda] Integer NOT NULL, [digito] INTEGER, ' + '[equipamento] TEXT, [arquivo_varredura] BLOB );';
-    Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-
-    ExecSQL := 'CREATE TABLE infravermelho ([id] INTEGER PRUMARY KEY NOT NULL, ' +
-      '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL,' +
-      '[direcao] INTEGER NOT NULL, [orientacao] TEXT, [descricao_raman] TEXT,' +
-      '[equipamento] TEXT, [pin_id] TEXT, [arquivo_raman] BLOB);';
-    Sqlite3DatasetGeral.ExecSQL(ExecSQL);
-
-    //criar tabela difracao
-
-    ExecSQL :=
-      'CREATE TABLE instrumentos ([id] INTEGER PRIMARY KEY NOT NULL, [nome] UNIQUE NOT NULL, [descricao] TEXT, [localidade] TEXT);';
-    Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+    finally
+      Sqlite3DatasetGeral.Open();
+      DatabaseMinerals.Free;
+    end;
+  end
+  else
+  if Tipo = 'amostra' then
+  begin
+    Sqlite3DatasetGeral.Close();
+    try
+      DatabaseSamples := TSQLiteDatabase.Create(Diretorio);
+      //Sqlite3DatasetGeral.FileName := Diretorio;
+      ExecSQL :=
+      'CREATE TABLE rruff ([id] INTEGER PRIMARY KEY NOT NULL, [especie] TEXT,'+
+        ' [rruff_id] TEXT NOT NULL, [quimica_ideal] TEXT, [localidade] TEXT, '+
+          '[fonte] TEXT, [proprietario] TEXT, [situacao] TEXT, [description] '+
+            ' TEXT, [imagem_amostra] BLOB) ;';
+      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      ExecSQL := 'CREATE TABLE chemistry ([id] INTEGER PRIMARY KEY NOT NULL, '+
+      '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL,'+
+        '[quimica_medida] TEXT, [description] TEXT, [image] BLOB, '+
+          '[microprobe_file] BLOB, [microprobe_equipment] TEXT );';
+      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      ExecSQL:= 'CREATE TABLE raman ([id] INTEGER PRIMARY KEY NOT NULL, [especie]'+
+      ' TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL, '+
+        '[direcao] TEXT NOT NULL, [pin_id] TEXT, [orientacao] TEXT,  '+
+          '[equipment] TEXT, [description] TEXT, [arquivo_raman] BLOB );';
+      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      ExecSQL:= 'CREATE TABLE varredura ([id] INTEGER PRIMARY KEY NOT NULL, '+
+      '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL, '+
+        '[comprimento_onda] TEXT NOT NULL, [arquivo_varredura] BLOB, '+
+          '[description] TEXT, [equipment] TEXT ); ';
+      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      ExecSQL := 'CREATE TABLE infravermelho ([id] INTEGER PRIMARY KEY NOT NULL,'+
+      '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL,'+
+        '[resolucao] TEXT, [arquivo_infravermelho] BLOB, [description] TEXT, '+
+          '[equipment] TEXT); ';
+      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      ExecSQL:= 'CREATE TABLE difracao ([id] INTEGER PRIMARY KEY NOT NULL, '+
+      '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL, '+
+        '[arquivo_difracao] BLOB, [a] TEXT, [b] TEXT, [c] TEXT, [alpha] TEXT, '+
+          '[beta] TEXT, [gamma] TEXT, [volume] TEXT, [sistema_cristalino] TEXT);';
+      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      ExecSQL :=
+      'CREATE TABLE instrumentos ([id] INTEGER PRIMARY KEY NOT NULL, [nome] '+
+        'UNIQUE NOT NULL, [descricao] TEXT, [localidade] TEXT);';
+      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
   finally
-    Sqlite3DatasetGeral.Open();
-    sldb.Free;
+    //Sqlite3DatasetGeral.Open();
+    DatabaseSamples.Free;
+  end;
   end;
 end;
 
@@ -240,389 +312,248 @@ begin
 
 end;
 
-function TDados.determinaBD(diretorio: string): boolean;
+function TDados.ChooseDatabase(Tipo, Directory: String): Boolean;
+var Compatible:Boolean;
 begin
-  if SQLite3DatasetGeral.Active then
-    SQLite3DatasetGeral.Close;
-  if SQLite3DatasetCombobox.Active then
-    SQLite3DatasetComboBox.Close;
-  if SQLite3DatasetDidatico.Active then
-    SQLite3DatasetDidatico.Close;
-  with SQLite3DatasetGeral do
+  if Tipo = 'minerais' then
   begin
-    FileName := diretorio;
-  end;
-  with SQLite3DatasetCombobox do
-  begin
-    Filename := diretorio;
-  end;
-  with SQLite3DatasetDidatico do
-  begin
-    Filename := diretorio;
-  end;
-  with SQLite3DatasetPrinter do
-  begin
-    Filename := diretorio;
-  end;
-  with SQLite3DatasetAmostras do
-  begin
-    Filename := diretorio;
-  end;
-  with SQLite3DatasetPreencheAmostras do
-  begin
-    Filename := diretorio;
-  end;
-  with SQLite3DatasetInstrumentos do
-  begin
-    Filename := diretorio;
-  end;
-  sldb := TSQLiteDatabase.Create(Diretorio);
-  //Checa se a Tabela é compatível
-  if sldb.TableExists('minerais') then
-  begin
-    if sldb.TableExists('mineralogia') then
+    DatabaseMinerals := TSQLiteDatabase.Create(Directory);
+    if DatabaseMinerals.TableExists('minerais') then
     begin
-      if sldb.TableExists('rruff') then
+      if DatabaseMinerals.TableExists('mineralogia') then
+        Compatible:=True
+      else
+      Compatible := False;
+    end
+    else
+      Compatible := False;
+    if Compatible then
+    begin
+      if SQLite3DatasetGeral.Active then SQLite3DatasetGeral.Close;
+      if SQLite3DatasetCombobox.Active then SQLite3DatasetComboBox.Close;
+      if SQLite3DatasetDidatico.Active then SQLite3DatasetDidatico.Close;
+      with SQLite3DatasetGeral do
       begin
-        if sldb.TableExists('raman') then
+        FileName := Directory;
+      end;
+      with SQLite3DatasetCombobox do
+      begin
+        Filename := Directory;
+      end;
+      with SQLite3DatasetDidatico do
+      begin
+        Filename := Directory;
+      end;
+      with SQLite3DatasetPrinter do
+      begin
+        Filename := Directory;
+      end;
+    end;
+     Result:= Compatible;
+  end
+  else
+  if Tipo= 'amostras' then
+  begin
+   DatabaseSamples := TSQLiteDatabase.Create(Directory);
+    if DatabaseSamples.TableExists('rruff') then
+    begin
+      if DatabaseSamples.TableExists('raman') then
+      begin
+        if DatabaseSamples.TableExists('varredura') then
         begin
-          if sldb.TableExists('varredura') then
+          if DatabaseSamples.TableExists('infravermelho') then
           begin
-            if sldb.TableExists('instrumentos') then
-              Result := True
+            if DatabaseSamples.TableExists('difracao') then
+            begin
+              if DatabaseSamples.TableExists('instrumentos') then
+              begin
+                if DatabaseSamples.TableExists('chemistry') then
+                  Compatible:= True
+                  else
+                  Compatible:=False;
+              end
+              else Compatible:=False;
+            end
             else
-              Result := False;
+              Compatible:=False;
           end
           else
-            Result := False;
+            Compatible:=False;
         end
         else
-          Result := False;
+          Compatible:=False;
       end
       else
-        Result := False;
+        Compatible:=False;
     end
     else
-      Result := False;
-  end
-  else
-    Result := False;
-end;
-
-function TDados.DeterminaArquivo(Especie: string; Rruff_id: string;
-  Digito: string; Tipo: string; Equipamento: string; DirecaoLaser: string): string;
-begin
-  if Tipo = Microssonda then
-  begin
-    sltb := sldb.GetTable('SELECT especie, rruff_id, microssonda FROM rruff WHERE ' +
-      'especie ="' + Especie + '" and rruff_id ="' + Rruff_id + '" ;');
-    if sltb.RowCount > -1 then
+      Compatible:=False;
+    if Compatible then
     begin
-      MS := sltb.FieldAsBlob(sltb.FieldIndex['microssonda']);
-      if MS <> nil then
+      with SQLite3DatasetPreencheAmostras do
       begin
-        MS.Position := 0;
-        MS.SaveToFile(GetCurrentDir + '\Data\microssonda.csv');
-        Result := GetCurrentDir + '\Data\microssonda.csv';
-      end
-      else
-       Result := EmptyStr;
-    end
-    else
-      Result:=EmptyStr;
-  end
-  else
-  if Tipo = EspectroRaman then
-  begin
-    sltb := sldb.GetTable(
-      'SELECT especie, rruff_id, digito, arquivo_raman, direcao FROM raman WHERE ('
-      +
-      'especie ="' + Especie + '" AND rruff_id ="' + Rruff_id +
-      '" AND digito="' + Digito + '" ' + 'AND direcao ="' +
-      DirecaoLaser + '" );');
-    if sltb.RowCount > -1 then
-    begin
-      MS := sltb.FieldAsBlob(sltb.FieldIndex['arquivo_raman']);
-      if MS <> nil then
+        Filename := Directory;
+      end;
+      with SQLite3DatasetInstrumentos do
       begin
-        MS.Position := 0;
-        MS.SaveToFile(GetCurrentDir + '\Data\raman.csv');
-        Result := GetCurrentDir + '\Data\raman.csv';
-      end
-      else
-        Result := EmptyStr;
-    end
-    else
-      Result:=EmptyStr;
+        Filename := Directory;
+      end;
+    end;
+    Result:=Compatible;
   end
-  else
-  if Tipo = AmplaVarredura then
-  begin
-    sltb := sldb.GetTable(
-      'SELECT especie, rruff_id, arquivo_varredura, comprimento_onda FROM varredura WHERE '
-        + 'especie ="' + Especie + '" and rruff_id ="' + Rruff_id +
-      '" AND digito="'+Digito+'" AND comprimento_onda="' + DirecaoLaser + '";');
-    if sltb.RowCount > -1 then
-    begin
-      MS := sltb.FieldAsBlob(sltb.FieldIndex['arquivo_varredura']);
-      if MS <> nil then
-      begin
-        MS.Position := 0;
-        MS.SaveToFile(GetCurrentDir + '\Data\varredura.csv');
-        Result := GetCurrentDir + '\Data\varredura.csv';
-      end
-      else
-        Result := EmptyStr;
-    end
-    else
-      Result:=EmptyStr;
-  end
-  else
-  if Tipo = Infravermelho then
-  begin
-    sltb := sldb.GetTable('SELECT especie, rruff_id, arquivo_infravermelho FROM ' +
-      ' infravermelho WHERE especie ="' + Especie + '" and rruff_id ="' +
-      Rruff_id + '" AND digito="' + Digito + '" ;');
-    if sltb.RowCount > -1 then
-    begin
-      MS := sltb.FieldAsBlob(sltb.FieldIndex['arquivo_infravermelho']);
-      if MS <> nil then
-      begin
-        MS.Position := 0;
-        MS.SaveToFile(GetCurrentDir + '\Data\infravermelho.csv');
-        Result := GetCurrentDir + '\Data\infravermelho.csv';
-      end
-      else
-        Result := EmptyStr;
-    end
-    else
-    Result :=EmptyStr;
-  end
-  else
-  if Tipo = Difracao then
-  begin
-    sltb := sldb.GetTable(
-      'SELECT especie, rruff_id, digito, arquivo_difracao FROM difracao WHERE ' +
-      'especie ="' + Especie + '" and rruff_id ="' + Rruff_id + '" ' +
-      'AND digito="' + Digito + '" ;');
-    if sltb.RowCount > -1 then
-    begin
-      MS := sltb.FieldAsBlob(sltb.FieldIndex['arquivo_difracao']);
-      if MS <> nil then
-      begin
-        MS.Position := 0;
-        MS.SaveToFile(GetCurrentDir + '\Data\difracao.csv');
-        Result := GetCurrentDir + '\Data\difracao.csv';
-      end
-      else
-        Result := EmptyStr;
-    end
-    else
-    Result:=EmptyStr;
-  end
-  else
-    ShowMessage('Tipo Inválido: '+Tipo);
-end;
-
-procedure TDados.SalvaArquivo(Especie: string; Rruff_id: string;
-  Digito: string; Tipo: string; Equipamento: string; DirecaoLaser: string;
-    DiretorioArquivo: string);
-
-var
-  ComprimentoOnda: string;
-begin
-  if Tipo = Microssonda then
-  begin
-    FS := TFileStream.Create(DiretorioArquivo, fmOpenRead);
-    sldb.UpdateBlob('UPDATE rruff set microssonda = ? WHERE especie = "' +
-      Especie + '" and rruff_id="' + Rruff_id + '";', fs);
-    FS.Free;
-  end;
-  if Tipo = EspectroRaman then
-  begin
-    FS := TFileStream.Create(DiretorioArquivo, fmOpenRead);
-    sldb.UpdateBlob('UPDATE raman set arquivo_raman = ? WHERE especie = "' +
-      Especie + '" and rruff_id="' + Rruff_id + '" AND digito ="' +
-      Digito + '" AND direcao = "' +
-      DirecaoLaser + '"  ;', fs);
-    FS.Free;
-  end;
-  if Tipo = AmplaVarredura then
-  begin
-    FS := TFileStream.Create(DiretorioArquivo, fmOpenRead);
-    sldb.UpdateBlob('UPDATE varredura SET arquivo_varredura = ? WHERE (especie = "' +
-      Especie + '" AND rruff_id="' + Rruff_id + '" AND digito = "' +
-      Digito + '" AND comprimento_onda = "' +
-      DirecaoLaser + '");', fs);
-    FS.Free;
-  end;
-  if Tipo = Infravermelho then
-  begin
-    FS := TFileStream.Create(DiretorioArquivo, fmOpenRead);
-    sldb.UpdateBlob('UPDATE infravermelho set arquivo_infravermelho = ? WHERE especie = "'
-      + Especie + '" and rruff_id="' + Rruff_id + '" AND digito="' +
-      Digito + '" ;', fs);
-    FS.Free;
-  end;
-  if Tipo = Difracao then
-  begin
-    FS := TFileStream.Create(DiretorioArquivo, fmOpenRead);
-    sldb.UpdateBlob('UPDATE difracao set arquivo_difracao = ? WHERE especie = "' +
-      Especie + '" and rruff_id="' + Rruff_id + '" AND digito="' +
-      Digito + '" ;', fs);
-    FS.Free;
-  end;
+  else Result:= False;
 end;
 
 procedure TDados.AdicionaEspecie(Nome, Classe, Subclasse, Grupo,
-  Subgrupo, Ocorrencia, Associacao, Cor, Brilho: string; Dureza_min, Dureza_max: real;
-  Densidade_min, Densidade_max: string);
+  Subgrupo, Ocorrencia, Associacao, Cor, Brilho: string; Dureza_min,
+    Dureza_max: real; Densidade_min, Densidade_max: string);
 begin
-  sldb.ExecSQL('INSERT INTO minerais (nome, dureza_min, dureza_max, ' +
+  DatabaseMinerals.ExecSQL('INSERT INTO minerais (nome, dureza_min, dureza_max, ' +
     'densidade_min,' + 'densidade_max) VALUES ("' + Nome + '", "' + FloatToStr(
-    Dureza_min) + '","' + FloatToStr(Dureza_max) + '", "' + Densidade_min + '", "' +
-    Densidade_max + '");');
-  sldb.ExecSQL('UPDATE minerais SET classe="' + Classe + '", subclasse="' + Subclasse +
+      Dureza_min) + '","' + FloatToStr(Dureza_max) + '", "' + Densidade_min +
+        '", "' + Densidade_max + '");');
+  DatabaseMinerals.ExecSQL('UPDATE minerais SET classe="' + Classe + '", subclasse="' + Subclasse +
     '", grupo="' + Grupo + '", subgrupo="' + Subgrupo + '", ocorrencia="' + Ocorrencia +
     '", associacao="' + Associacao + '", cor="' + Cor + '", brilho="' + Brilho + '" WHERE' +
     ' nome="' + Nome + '" ;');
 end;
 
-procedure TDados.AdicionaAmostra(New: Boolean; Tabela:String; Especie: string;
-  Rruff_id: string; Digito:Integer; Direcao:String; Equipment:String );
+procedure TDados.AdicionaAmostra(Tabela, Especie, Sample_id,
+  Digito, Direcao, Equipment:String );
 var
   ExecSQL: string;
 begin
-  if New then
-  begin
-    if Rruff_id = EmptyStr then
-    Rruff_id := 'A00000';
-    ExecSQL := 'INSERT INTO rruff (especie, rruff_id, digito) VALUES("' + Especie;
-    ExecSQL := ExecSQL + '" , "' + Rruff_id + '","0");';
-    sldb.ExecSQL(ExecSQL);
-
+    if Sample_id = EmptyStr then
+    Sample_id := 'A00000';
+    //
+    if Tabela = 'rruff' then
+    begin
+      ExecSQL:= 'INSERT INTO rruff (especie, rruff_id) VALUES ("'+Especie+'", '+
+        '"'+Sample_id+'") ;';
+      DatabaseSamples.ExecSQL(ExecSQL);
+    end;
+    //chemistry
+    if Tabela = 'chemistry' then
+    begin
+      ExecSQL:= 'INSERT INTO chemistry (especie, rruff_id, digito) VALUES '+
+        ' ("'+Especie+'", "'+Sample_id+'", "0") ;';
+      DatabaseSamples.ExecSQL(ExecSQL);
+    end;
     //raman
-  //514
-  ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito,  direcao, equipamento) '
-    +
-    ' VALUES ("' + Especie + '" , "' + Rruff_id + '", "0", "' +
-    Onda514 + '","");';
-  sldb.ExecSQL(ExecSQl);
-  //532
-  ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito,  direcao, equipamento) '
-    +
-    'VALUES ("' + Especie + '" , "' + Rruff_id + '", "0", "' +
-    Onda532+ '","");';
-  sldb.ExecSQL(ExecSQl);
-  //580
-  ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito,  direcao, '+
-    'equipamento) VALUES ("'+ Especie + '" , "' + Rruff_id + '", "0", "' +
-      Onda580 + '","");';
-  sldb.ExecSQL(ExecSQl);
-  //732
-  ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito,  direcao, '+
-    ' equipamento) ' + 'VALUES ("' + Especie + '" , "' + Rruff_id + '", "0", "' +
-    Onda732 + '","");';
-  sldb.ExecSQL(ExecSQl);
-  //780
-  ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito,  direcao, '+
-   'equipamento) VALUES ("'+ Especie + '" , "' + Rruff_id + '", "0", "' +
-    Onda780+ '","");';
-  sldb.ExecSQL(ExecSQl);
-
-  //varredura       //514nm
+    //514
+    if Tabela = 'raman' then
+    begin
+      ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito,  direcao, equipment) '
+        + ' VALUES ("' + Especie + '" , "' +Sample_id + '", "'+Digito+'", "' +
+          Direcao + '","");';
+      DatabaseSamples.ExecSQL(ExecSQL);
+    end;
+  if Tabela = 'varredura' then
+  begin
+  //varredura
   ExecSql := 'INSERT INTO varredura (especie, rruff_id, digito, '+
-  ' comprimento_onda, equipamento)'
-    + '  VALUES ("' + Especie + '" , "' + Rruff_id + '", "0", "' +
-    Onda514 + '","");';
-  sldb.ExecSQL(ExecSQL);
-  //532nm
-  ExecSql := 'INSERT INTO varredura (especie, rruff_id, digito, '+
-    'comprimento_onda, equipamento) VALUES ("'+ Especie + '" , "' + Rruff_id +
-      '", "0", "'+ Onda532 + '","");';
-  sldb.ExecSQL(ExecSQL);              //580nm
-  ExecSql := 'INSERT INTO varredura (especie, rruff_id, digito, '+
-  'comprimento_onda, equipamento) VALUES ("'+ Especie + '" , "' + Rruff_id +
-    '", "0", "' + Onda580 + '","");';
-  sldb.ExecSQL(ExecSQL);
-  //732nm
-  ExecSql := 'INSERT INTO varredura (especie, rruff_id, digito, '+
-    'comprimento_onda, equipamento) VALUES ("'+ Especie + '" , "' + Rruff_id +
-      '", "0", "' + Onda732 + '","");';
-  sldb.ExecSQL(ExecSQL);              //780nm
-  ExecSql := 'INSERT INTO varredura (especie, rruff_id, digito, '+
-    'comprimento_onda, equipamento) VALUES ("'+ Especie + '" , "' + Rruff_id +
-      '", "0", "' + Onda780 + '","");';
-  sldb.ExecSQL(ExecSQL);
+  ' comprimento_onda, equipment)'
+    + '  VALUES ("' + Especie + '" , "' + Sample_id + '", "'+Digito+'", "' +
+    Direcao + '","");';
+  DatabaseSamples.ExecSQL(ExecSQL);
+  end;
 
   //infravermelho
-  ExecSQL := 'INSERT INTO infravermelho (especie, rruff_id, digito'+
-   ', equipamento) VALUES ("' + Especie + '" , "' + Rruff_id + '" , "0","");';
-  sldb.ExecSQL(ExecSQL);
-  //Difracao
-  ExecSQL := 'INSERT INTO difracao (especie, rruff_id, digito, equipamento)' +
-    ' VALUES ("' + Especie + '" , "' + Rruff_id + '" , "0","");';
-  sldb.ExecSQL(ExecSQL);
-  end
-  else
+  if Tabela = 'infravermelho' then
   begin
-    ExecSql := 'INSERT INTO '+Tabela+ ' (especie, rruff_id, digito, equipamento)'+
-      ' VALUES ("'+Especie+'", "'+Rruff_id+'", "'+IntToStr(Digito)+'", "'+
-        Equipment+'"); ';
-    sldb.ExecSQL(ExecSQL);
+
+  ExecSQL := 'INSERT INTO infravermelho (especie, rruff_id, digito'+
+   ', equipment) VALUES ("' + Especie + '" , "' + Sample_id + '" , "'+Digito+'","");';
+  DatabaseSamples.ExecSQL(ExecSQL);
   end;
-  //raman
-  //angulo0
- { ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito_raman, direcao, equipamento) VALUES ("'
-    + Especie + '" , "' + Rruff_id + '", null, "' +
-    RetornaIndiceDirecaoLaser(Angulo0) + '", "");';
-  sldb.ExecSQL(ExecSQL);
-  //angulo45
-  ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito_raman, direcao, equipamento) VALUES ("'
-    + Especie + '" , "' + Rruff_id + '", null, "' +
-    RetornaIndiceDirecaoLaser(Angulo45) + '","");';
-  sldb.ExecSQL(ExecSQL);
-  //angulo90
-  ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito_raman, direcao,equipamento) VALUES ("'
-    + Especie + '" , "' + Rruff_id + '", null , "' +
-    RetornaIndiceDirecaoLaser(Angulo90) + '","");';
-  sldb.ExecSQL(ExecSQL);
-  //nao polarizado
-  ExecSQL := 'INSERT INTO raman (especie, rruff_id,  digito_raman, direcao, equipamento) VALUES ("'
-    + Especie + '" , "' + Rruff_id + '", null, "' +
-    RetornaIndiceDirecaoLaser(Depolarizado) + '","");';
-  sldb.ExecSQL(ExecSQL);
-  }
+  if Tabela = 'difracao' then
+  begin
+  //Difracao
+  ExecSQL := 'INSERT INTO difracao (especie, rruff_id, digito)' +
+    ' VALUES ("' + Especie + '" , "' + Sample_id + '" , "'+Digito+'");';
+  DatabaseSamples.ExecSQL(ExecSQL);
+  end;
 end;
 
-procedure TDados.ExcluiAmostra(Especie: string; Rruff_id: string);
+procedure TDados.ExcluiAmostra(Especie, Sample_id, Digito: String;
+  TabIndex: Integer);
 begin
-  if Especie = EmptyStr then
+  if Digito = EmptyStr then
   begin
-    sldb.ExecSQL('DELETE FROM rruff WHERE (rruff_id ="' + Rruff_id + '");');
-    sldb.ExecSQL('DELETE FROM raman WHERE (rruff_id="' + Rruff_id + '");');
-    sldb.ExecSQL('DELETE FROM varredura WHERE (rruff_id="' + Rruff_id + '");');
-    sldb.ExecSQL('DELETE FROM difracao WHERE (rruff_id="' + Rruff_id + '");');
-    sldb.ExecSQL('DELETE FROM infravermelho WHERE (rruff_id="' + Rruff_id+'");');
+    if Especie = EmptyStr then
+    begin
+      DatabaseSamples.ExecSQL('DELETE FROM rruff WHERE (rruff_id ="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM chemistry WHERE (rruff_id ="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM raman WHERE (rruff_id="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM varredura WHERE (rruff_id="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM difracao WHERE (rruff_id="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM infravermelho WHERE (rruff_id="' + Sample_id+'");');
+    end
+    else
+    begin
+      DatabaseSamples.ExecSQL('DELETE FROM rruff WHERE (especie="' + Especie +
+        '" and rruff_id ="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM chemistry WHERE (especie="' + Especie +
+        '" and rruff_id ="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM raman WHERE (especie="' + Especie +
+        '" and rruff_id="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM varredura WHERE (especie="' + Especie +
+        '" and rruff_id="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM difracao WHERE (especie="' + Especie +
+        '" and rruff_id="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM infravermelho WHERE (especie="' + Especie +
+        '" and rruff_id="' + Sample_id + '");');
+    end;
   end
   else
   begin
-    sldb.ExecSQL('DELETE FROM rruff WHERE (especie="' + Especie +
-      '" and rruff_id ="' + Rruff_id + '");');
-    sldb.ExecSQL('DELETE FROM raman WHERE (especie="' + Especie +
-      '" and rruff_id="' + Rruff_id + '");');
-    sldb.ExecSQL('DELETE FROM varredura WHERE (especie="' + Especie +
-      '" and rruff_id="' + Rruff_id + '");');
-    sldb.ExecSQL('DELETE FROM difracao WHERE (especie="' + Especie +
-      '" and rruff_id="' + Rruff_id + '");');
-    sldb.ExecSQL('DELETE FROM infravermelho WHERE (especie="' + Especie +
-      '" and rruff_id="' + Rruff_id + '");');
+    if Especie = EmptyStr then
+    begin
+      case TabIndex of
+      1:begin
+          DatabaseSamples.ExecSQL('DELETE FROM chemistry WHERE (rruff_id ="' +
+            Sample_id + '" AND digito="'+Digito+'" );');
+        end;
+      2:begin
+          DatabaseSamples.ExecSQL('DELETE FROM raman WHERE (rruff_id="' +
+            Sample_id + '" AND digito="'+Digito+'" );');
+        end;
+      3:begin
+          DatabaseSamples.ExecSQL('DELETE FROM varredura WHERE (rruff_id="' +
+            Sample_id + '" AND digito="'+Digito+'" );');
+        end;
+      4:begin
+
+          DatabaseSamples.ExecSQL('DELETE FROM difracao WHERE (rruff_id="' +
+            Sample_id + '"AND digito="'+Digito+'" );');
+        end;
+      5:begin
+          DatabaseSamples.ExecSQL('DELETE FROM infravermelho WHERE (rruff_id="' +
+            Sample_id+'" AND digito="'+Digito+'" );');
+        end;
+      end;
+    end
+    else
+    begin
+      DatabaseSamples.ExecSQL('DELETE FROM rruff WHERE (especie="' + Especie +
+        '" and rruff_id ="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM chemistry WHERE (especie="' + Especie +
+        '" and rruff_id ="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM raman WHERE (especie="' + Especie +
+        '" and rruff_id="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM varredura WHERE (especie="' + Especie +
+        '" and rruff_id="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM difracao WHERE (especie="' + Especie +
+        '" and rruff_id="' + Sample_id + '");');
+      DatabaseSamples.ExecSQL('DELETE FROM infravermelho WHERE (especie="' + Especie +
+        '" and rruff_id="' + Sample_id + '");');
+    end;
   end;
 end;
 
 procedure TDados.ExcluiMineral(Especie: string);
 begin
-  sldb.ExecSQL('DELETE FROM minerais WHERE (nome="' + Especie + '");');
+  DatabaseMinerals.ExecSQL('DELETE FROM minerais WHERE (nome="' + Especie + '");');
 end;
 
 function TDados.CriarDataset(Diretorio: string): TDatasource;
@@ -644,39 +575,6 @@ begin
   end;
   Dataset.Open;
   Result := Datasource;
-end;
-
-function TDados.RetornaIndiceDirecaoLaser(Direcao: string): string;
-begin
-  if Direcao = Onda514 then
-    Result := '0'
-  else
-  if Direcao = Onda532 then
-    Result := '1'
-  else
-  if Direcao = Onda580 then
-    Result := '2'
-  else
-  if Direcao = Onda732 then
-    Result := '3'
-  else
-  if Direcao = Onda780 then
-    Result := '4'
-  else
-  if Direcao = Angulo0 then
-    Result := '5'
-  else
-  if Direcao = Angulo45 then
-    Result := '6'
-  else
-  if Direcao = Angulo90 then
-    Result := '7'
-  else
-  if Direcao = Depolarizado then
-    Result := '8'
-  else
-  if Direcao = 'Todos os Dados' then
-    Result := '-1';
 end;
 
 end.

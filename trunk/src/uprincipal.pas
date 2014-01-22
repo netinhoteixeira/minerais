@@ -480,6 +480,8 @@ type
     procedure ActionSelectMIneralDbExecute(Sender: TObject);
     procedure ActionVarreduraComprimentoOndaExecute(Sender: TObject);
     procedure BitBtnAddMicroprobeDataClick(Sender: TObject);
+    procedure BitBtnClearMicroprobeDataClick(Sender: TObject);
+    procedure BitBtnEditMicroprobeDataClick(Sender: TObject);
     procedure BitBtnRemImagemClick(Sender: TObject);
     procedure DBEditDensidade_MaxEditingDone(Sender: TObject);
     procedure DBEditDensidade_MaxKeyUp(Sender: TObject; var Key: word;
@@ -641,6 +643,12 @@ type
       Shift: TShiftState);
     procedure MemoproprietarioEditingDone(Sender: TObject);
     procedure MemoproprietarioKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure MemoQuimicaDescricaoEditingDone(Sender: TObject);
+    procedure MemoQuimicaDescricaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure MemoQuimicaMedidaEditingDone(Sender: TObject);
+    procedure MemoQuimicaMedidaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure MemoSistemaCristalinoEditingDone(Sender: TObject);
     procedure MemoSistemaCristalinoKeyUp(Sender: TObject; var Key: Word;
@@ -1155,7 +1163,7 @@ begin
     ProcuraMineral;
     if MenuItemSample.Checked then
     begin
-      if SampleDB <> EmptyStr then
+      if FormSelecionaBd.SampleDB <> EmptyStr then
       PreencheAmostras;
     end;
   end;
@@ -1546,7 +1554,7 @@ begin
     if Dados.ChooseDatabase('amostras',FormSelecionaBD.ListBoxSelectSampleDb.
       GetSelectedText) then
     begin
-      SampleDB:= FormSelecionaBD.ListBoxSelectSampleDb.GetSelectedText;
+      FormSelecionaBD.SampleDB:= FormSelecionaBD.ListBoxSelectSampleDb.GetSelectedText;
       Dados.DatabaseSamples := TSQLiteDatabase.Create(FormSelecionaBD.ListBoxSelectSampleDb.
         GetSelectedText);
       PreencheAmostras;
@@ -1566,7 +1574,7 @@ begin
     if Dados.ChooseDatabase('minerais',FormSelecionaBD.ListBoxSelectMineralDb.
       GetSelectedText) then
     begin
-      MineralDB:=FormSelecionaBD.ListBoxSelectMineralDb.GetSelectedText;
+      FormSelecionaBd.MineralDB:=FormSelecionaBD.ListBoxSelectMineralDb.GetSelectedText;
     //Dados.Sqlite3DatasetGeral.Close;
     Dados.DatabaseMinerals := TSQLiteDatabase.Create(FormSelecionaBD.ListBoxSelectMineralDb.
       GetSelectedText);
@@ -1601,14 +1609,31 @@ begin
 end;
 
 procedure TFormPrincipal.BitBtnAddMicroprobeDataClick(Sender: TObject);
-var ChemistryDigit:String;
 begin
-  if ComboboxQuimicaDigito.Text = EmptyStr then ChemistryDigit:='0'
-  else
-    ChemistryDigit:=ComboboxQuimicaDigito.Text;
+  {SelectBlobFieldToCSVFile(Table, Field, Especie, Rruff_id, Digito,
+  Tipo, Equipment:String}
+  if OpenDialog1.Execute then
+  begin
+    CSVFileToBlobField(OpenDialog1.FileName, 'chemistry', 'microprobe_file',
+      MemoAmostraEspecie.Text, MemoSample.Text, Trim(ComboboxQuimicaDigito.
+        Text), EmptyStr);
+    FormPlanilha.ArquivoMicrossonda(MemoAmostraEspecie.Text, MemoSample.Text,
+    Trim(ComboboxQuimicaDigito.Text));
+    //FormPlanilha.Show;
+  end;
+end;
+
+procedure TFormPrincipal.BitBtnClearMicroprobeDataClick(Sender: TObject);
+begin
+  ClearBlobField('chemistry', 'microprobe_file', MemoAmostraEspecie.Text,
+    MemoSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
+end;
+
+procedure TFormPrincipal.BitBtnEditMicroprobeDataClick(Sender: TObject);
+begin
   FormPlanilha.ArquivoMicrossonda(MemoAmostraEspecie.Text, MemoSample.Text,
     Trim(ComboboxQuimicaDigito.Text));
-  FormPlanilha.Show;
+  //FormPlanilha.Show;
 end;
 
 procedure TFormPrincipal.ActionListboxMineraisDoubleClickExecute(Sender: TObject
@@ -1695,12 +1720,17 @@ begin
       end;
       Inc(J);
       Case PageControlSample.TabIndex of
-      1:begin end;
+      1:begin
+        ComboboxQuimicaDigito.ItemIndex:= ComboboxQuimicaDigito.Items.Add(
+          Trim(Copy(FormAdicionaRruff.Listbox1.Items.Strings[I], J, 4)));
+        Dados.AdicionaAmostra('chemistry', MemoAmostraEspecie.Text, MemoSample.
+          Text, Trim(ComboboxQuimicaDigito.Text), EmptyStr, EmptyStr);
+      end;
       2:begin
             ComboboxRamanDigito.ItemIndex:= ComboboxRamanDigito.Items.Add(
               Trim(Copy(FormAdicionaRruff.ListBox1.Items.Strings[I],J,4)));
             ComboboxDirecaoLaser.Text:=FormAdicionaRruff.ComboBox1.Text;
-            Dados.AdicionaAmostra(False, 'raman', MemoAmostraEspecie.Text, MemoSample.Text,
+            Dados.AdicionaAmostra('raman', MemoAmostraEspecie.Text, MemoSample.Text,
               Trim(ComboboxRamanDigito.Text), FormAdicionaRruff.ComboBox1.
                 Text, '');
         end;
@@ -1708,20 +1738,20 @@ begin
             ComboboxVarreduraDigito.ItemIndex:= ComboboxVarreduraDigito.Items.Add(
               Trim(Copy(FormAdicionaRruff.ListBox1.Items.Strings[I],J,4)));
             ComboboxVarreduraOnda.Text:=FormAdicionaRruff.ComboBox2.Text;
-            Dados.AdicionaAmostra(False, 'varredura', MemoAmostraEspecie.Text, MemoSample.Text,
+            Dados.AdicionaAmostra('varredura', MemoAmostraEspecie.Text, MemoSample.Text,
               Trim(ComboboxVarreduraDigito.Text), FormAdicionaRruff.ComboBox2.
                 Text, '');
         end;
       4:begin
             ComboboxInfravermelhoDigito.ItemIndex:= ComboboxInfravermelhoDigito.
               Items.Add(Trim(Copy(FormAdicionaRruff.ListBox1.Items.Strings[I],J,4)));
-            Dados.AdicionaAmostra(False, 'infravermelho', MemoAmostraEspecie.Text, MemoSample.Text,
+            Dados.AdicionaAmostra('infravermelho', MemoAmostraEspecie.Text, MemoSample.Text,
               Trim(ComboboxInfravermelhoDigito.Text), EmptyStr, EmptyStr);
         end;
       5:begin
             ComboboxDifracaoDigito.ItemIndex:= ComboboxDifracaoDigito.Items.Add(
               Trim(Copy(FormAdicionaRruff.ListBox1.Items.Strings[I],J,4)));
-            Dados.AdicionaAmostra(False, 'difracao', MemoAmostraEspecie.Text, MemoSample.Text,
+            Dados.AdicionaAmostra('difracao', MemoAmostraEspecie.Text, MemoSample.Text,
               Trim(ComboboxDifracaoDigito.Text), EmptyStr, EmptyStr);
         end;
       end;
@@ -1820,12 +1850,26 @@ end;
 
 procedure TFormPrincipal.ActionAddExecute(Sender: TObject);
 begin
-  if MenuItemMinerais.Checked then
-  Dados.AdicionaAmostra(True, '', ListboxMinerais.GetSelectedText, EditSample_id.Text,
-      '0', '', '')
+  if FormSelecionaBd.SampleDb <> EmptyStr then
+  begin
+    Dados.TableSamples:= Dados.DatabaseSamples.GetTable('SELECT rruff_id FROM '+
+      'rruff WHERE rruff_id = "'+Trim(EditSample_id.Text)+'" ;');
+    if Dados.TableSamples.RowCount >0 then
+    begin
+      ShowMessage('Já existe amostra com essa identificação.');
+    end
+    else
+    begin
+      if MenuItemMinerais.Checked then
+        Dados.AdicionaAmostra('rruff', ListboxMinerais.GetSelectedText, EditSample_id.Text,
+          '0', '', '')
+      else
+        Dados.AdicionaAmostra('rruff', '', EditSample_id.Text, '0', '', '');
+      PreencheAmostras;
+    end;
+  end
   else
-    Dados.AdicionaAmostra(True, '', '', EditSample_id.Text, '0', '', '');
-  PreencheAmostras;
+   ShowMessage('Não há banco de dados de amostras selecionado.');
 end;
 
 procedure TFormPrincipal.ActionChartOnDblClickExecute(Sender: TObject);
@@ -1903,6 +1947,7 @@ procedure TFormPrincipal.ActionComboboxOnChangeExecute(Sender: TObject);
     FormAdicionaRruff.EditSample_id.Text:=MemoSample.Text;
 
     Case PageControlSample.TabIndex of
+    1:TableName:='chemistry';
     2:TableName:='raman';
     3:TableName:='varredura';
     4:TableName:='infravermelho';
@@ -1929,16 +1974,16 @@ procedure TFormPrincipal.ActionComboboxOnChangeExecute(Sender: TObject);
 
 begin
   Case PageControlSample.TabIndex of
- { 1:begin      //obs: nao coloquei em outras funções a opção de
-                //colocar diferentes digitos para microssonda
+  1:begin
       if ComboboxQuimicaDigito.Text = AdicionarAmostra then OpenFormSample
       else
       begin
         self.ImageQuimica.Picture.Graphic:= SelectBlobFieldToJPEGImage(
           'chemistry', 'microprobe_file', ListboxMinerais.GetSelectedText,
             ListboxSample_id.GetSelectedText, ComboboxQuimicaDigito.Text,
-              EmptyStr));
-    end;               }
+              EmptyStr);
+      end;
+    end;
   2:begin
       if ComboboxRamanDigito.Text = AdicionarAmostra then OpenFormSample
       else
@@ -2496,8 +2541,6 @@ begin
   else
     ConfigFilePath:= GetCurrentDir + '\config.ini';
   Config := TIniFile.Create(ConfigFilePath);
-  MineralDb := Config.ReadString('Configuracoes', 'MineralBD', '');
-  SampleDb := Config.ReadString('Configuracoes', 'AmostraBD', '');
   if Config.ReadString('Configuracoes', 'Comprimento', '') <> EmptyStr then
     FormPrincipal.Width := StrToInt(Config.ReadString('Configuracoes', 'Comprimento', ''));
   if Config.ReadString('Configuracoes', 'Altura', '') <> EmptyStr then
@@ -2544,13 +2587,17 @@ begin
     BGRAPanelEspecies.Visible:=True;
   end;
   MudarFonte;
-  if FileExists(MineralDb) then
+  FormSelecionaBD.MineralDb := Config.ReadString('Configuracoes', 'MineralBD', '');
+  FormSelecionaBD.SampleDb := Config.ReadString('Configuracoes', 'AmostraBD', '');
+
+  if FileExists(Trim(FormSelecionaBD.MineralDb)) then
   begin
-    if Dados.ChooseDatabase('minerais', MineralDb) then
+    if Dados.ChooseDatabase('minerais', FormSelecionaBD.MineralDb) then
     begin
-      Dados.DatabaseMinerals := TSQLiteDatabase.Create(MineralDb);
-      Dados.Sqlite3DatasetGeral.FileName:=MineralDb;
-      Dados.Sqlite3DatasetDidatico.FileName:=MineralDb;
+      Dados.DatabaseMinerals := TSQLiteDatabase.Create(FormSelecionaBD.
+        MineralDb);
+      Dados.Sqlite3DatasetGeral.FileName:=FormSelecionaBD.MineralDb;
+      Dados.Sqlite3DatasetDidatico.FileName:=FormSelecionaBD.MineralDb;
       Dados.Sqlite3DatasetDidatico.Open(); //?
       Preenche_Classes;
       Preenche_SubClasses;
@@ -2566,13 +2613,14 @@ begin
     Config.WriteString('Configuracoes','MineralBD','');
    StatusBar1.Panels.Items[0].Text:='Sem dados de minerais.';
   end;
-  if FileExists(SampleDb) then
+
+  if FileExists(Trim(FormSelecionaBD.SampleDb)) then
   begin
-    if Dados.ChooseDatabase('amostras', SampleDb) then
+    if Dados.ChooseDatabase('amostras', FormSelecionaBD.SampleDb) then
     begin
-      Dados.DatabaseSamples:= TSQLiteDatabase.Create(SampleDb);
-      Dados.Sqlite3DatasetPreencheAmostras.FileName:=SampleDb;
-      Dados.Sqlite3DatasetInstrumentos.FileName:=SampleDb;
+      Dados.DatabaseSamples:= TSQLiteDatabase.Create(FormSelecionaBD.SampleDb);
+      Dados.Sqlite3DatasetPreencheAmostras.FileName:=FormSelecionaBD.SampleDb;
+      Dados.Sqlite3DatasetInstrumentos.FileName:=FormSelecionaBD.SampleDb;
       PreencheAmostras;
       EquipmentComboboxes;
     end
@@ -2856,6 +2904,32 @@ procedure TFormPrincipal.MemoproprietarioKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
 
+end;
+
+procedure TFormPrincipal.MemoQuimicaDescricaoEditingDone(Sender: TObject);
+begin
+  UpdateMemos('chemistry','description', MemoQuimicaDescricao.Text, EmptyStr,
+    MemoSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
+end;
+
+procedure TFormPrincipal.MemoQuimicaDescricaoKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  UpdateMemos('chemistry','description', MemoQuimicaDescricao.Text, EmptyStr,
+    MemoSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
+end;
+
+procedure TFormPrincipal.MemoQuimicaMedidaEditingDone(Sender: TObject);
+begin
+  UpdateMemos('chemistry','quimica_medida', MemoQuimicaMedida.Text, EmptyStr, MemoSample.Text,
+    ComboboxQuimicaDigito.Text, EmptyStr);
+end;
+
+procedure TFormPrincipal.MemoQuimicaMedidaKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpdateMemos('chemistry','quimica_medida', MemoQuimicaMedida.Text, EmptyStr, MemoSample.Text,
+    ComboboxQuimicaDigito.Text, EmptyStr);
 end;
 
 procedure TFormPrincipal.MemoSistemaCristalinoEditingDone(Sender: TObject);

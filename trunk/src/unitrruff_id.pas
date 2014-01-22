@@ -257,6 +257,15 @@ end;
 
 procedure TFormAdicionaRruff.BitBtnEraseDataClick(Sender: TObject);
 begin
+  //fazer procedimento para apagar vários ao mesmo tempo
+  Case LocalAmostra of
+  1:Dados.DatabaseSamples.ExecSQL('DELETE FROM chemistry WHERE rruff_id = "'+
+    EditSample_id.Text+'" AND digito ="'++'" ;);        ;
+  2:;
+  3:;
+  4:;
+  5:;
+  end;
 
 end;
 

@@ -6,11 +6,7 @@ object FormPlanilha: TFormPlanilha
   Caption = 'Microssonda'
   ClientHeight = 354
   ClientWidth = 687
-  OnClose = FormClose
-  OnCreate = FormCreate
-  OnShow = FormShow
-  Position = poDesktopCenter
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.0.12.0'
   WindowState = wsMaximized
   object Panel1: TPanel
     Left = 0
@@ -31,6 +27,7 @@ object FormPlanilha: TFormPlanilha
       Color = clWindow
       Columns = <>
       DataSource = Dados.DatasourcePlanilhaMicrossonda
+      ReadOnly = True
       TabOrder = 0
     end
   end

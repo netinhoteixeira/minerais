@@ -64,15 +64,15 @@
         <PackageName Value="LCL"/>
       </Item9>
     </RequiredPackages>
-    <Units Count="54">
+    <Units Count="58">
       <Unit0>
         <Filename Value="guiademinerais.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="guiademinerais"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="9"/>
-        <CursorPos X="1" Y="36"/>
+        <TopLine Value="10"/>
+        <CursorPos X="53" Y="35"/>
         <UsageCount Value="290"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -83,10 +83,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uprincipal"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1157"/>
-        <CursorPos X="3" Y="1141"/>
+        <TopLine Value="1626"/>
+        <CursorPos X="21" Y="1646"/>
         <UsageCount Value="290"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -98,11 +98,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="udatamodule"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="261"/>
-        <CursorPos X="1" Y="274"/>
+        <TopLine Value="540"/>
+        <CursorPos X="31" Y="554"/>
         <UsageCount Value="290"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -114,10 +113,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uselecionabd"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="250"/>
-        <CursorPos X="3" Y="216"/>
+        <TopLine Value="237"/>
+        <CursorPos X="42" Y="251"/>
         <UsageCount Value="290"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -137,10 +136,12 @@
       <Unit5>
         <Filename Value="src\sqlite3tablemod.pas"/>
         <UnitName Value="sqlite3tablemod"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1069"/>
-        <CursorPos X="1" Y="1084"/>
+        <TopLine Value="878"/>
+        <CursorPos X="1" Y="891"/>
         <UsageCount Value="130"/>
+        <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="src\uformimpressao.pas"/>
@@ -156,10 +157,12 @@
       </Unit6>
       <Unit7>
         <Filename Value="C:\lazarus\lcl\include\customform.inc"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="942"/>
-        <CursorPos X="1" Y="954"/>
+        <TopLine Value="2176"/>
+        <CursorPos X="13" Y="2188"/>
         <UsageCount Value="98"/>
+        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="src\unitajuda.pas"/>
@@ -168,7 +171,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UnitAjuda"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="32" Y="9"/>
@@ -327,7 +330,7 @@
         <Filename Value="src\unitgraficos.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unitgraficos"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="61"/>
         <CursorPos X="21" Y="22"/>
@@ -382,8 +385,8 @@
         <UnitName Value="unitPlanilha"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="19"/>
-        <CursorPos X="16" Y="40"/>
+        <TopLine Value="8"/>
+        <CursorPos X="26" Y="28"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -438,7 +441,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="34" Y="56"/>
-        <UsageCount Value="175"/>
+        <UsageCount Value="180"/>
       </Unit39>
       <Unit40>
         <Filename Value="src\unitrruff_id.pas"/>
@@ -447,11 +450,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitrruff_id"/>
-        <EditorIndex Value="6"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="6"/>
-        <CursorPos X="37" Y="112"/>
-        <UsageCount Value="171"/>
+        <TopLine Value="247"/>
+        <CursorPos X="42" Y="263"/>
+        <UsageCount Value="176"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit40>
@@ -470,11 +474,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitfichaamostra"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="383"/>
-        <CursorPos X="52" Y="403"/>
-        <UsageCount Value="135"/>
+        <TopLine Value="389"/>
+        <CursorPos X="11" Y="400"/>
+        <UsageCount Value="140"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit42>
@@ -485,11 +489,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitfichaespecie"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="101"/>
         <CursorPos X="13" Y="112"/>
-        <UsageCount Value="135"/>
+        <UsageCount Value="140"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit43>
@@ -565,144 +569,181 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitAdicionarDadosrruff"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="19" Y="21"/>
-        <UsageCount Value="54"/>
+        <UsageCount Value="59"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit52>
       <Unit53>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32winapi.inc"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2601"/>
         <CursorPos X="12" Y="2615"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit53>
+      <Unit54>
+        <Filename Value="src\unitblobfields.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="unitBlobFields"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="7"/>
+        <CursorPos X="79" Y="20"/>
+        <UsageCount Value="23"/>
+        <Loaded Value="True"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="C:\lazarus\lcl\controls.pp"/>
+        <UnitName Value="Controls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1611"/>
+        <CursorPos X="17" Y="1627"/>
+        <UsageCount Value="10"/>
+      </Unit55>
+      <Unit56>
+        <Filename Value="C:\lazarus\lcl\dbgrids.pas"/>
+        <UnitName Value="DBGrids"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="506"/>
+        <CursorPos X="19" Y="519"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="C:\lazarus\lcl\grids.pas"/>
+        <UnitName Value="Grids"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1041"/>
+        <CursorPos X="40" Y="1052"/>
+        <UsageCount Value="10"/>
+      </Unit57>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1250" Column="1" TopLine="1226"/>
+        <Filename Value="src\unitplanilha.pas"/>
+        <Caret Line="49" Column="3" TopLine="41"/>
       </Position1>
       <Position2>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1265" Column="1" TopLine="1251"/>
+        <Filename Value="guiademinerais.lpr"/>
+        <Caret Line="36" Column="1" TopLine="9"/>
       </Position2>
       <Position3>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1263" Column="6" TopLine="1253"/>
+        <Filename Value="guiademinerais.lpr"/>
+        <Caret Line="10" Column="19" TopLine="1"/>
       </Position3>
       <Position4>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1250" Column="1" TopLine="1236"/>
+        <Caret Line="1628" Column="1" TopLine="1622"/>
       </Position4>
       <Position5>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1265" Column="1" TopLine="1251"/>
+        <Filename Value="src\unitplanilha.pas"/>
+        <Caret Line="45" Column="1" TopLine="31"/>
       </Position5>
       <Position6>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1266" Column="1" TopLine="1251"/>
+        <Filename Value="src\unitplanilha.pas"/>
+        <Caret Line="48" Column="1" TopLine="34"/>
       </Position6>
       <Position7>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1268" Column="1" TopLine="1251"/>
+        <Caret Line="1628" Column="1" TopLine="1622"/>
       </Position7>
       <Position8>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1274" Column="1" TopLine="1251"/>
+        <Filename Value="src\unitplanilha.pas"/>
+        <Caret Line="45" Column="1" TopLine="34"/>
       </Position8>
       <Position9>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1290" Column="48" TopLine="1262"/>
+        <Filename Value="src\unitplanilha.pas"/>
+        <Caret Line="48" Column="1" TopLine="34"/>
       </Position9>
       <Position10>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1250" Column="1" TopLine="1236"/>
+        <Filename Value="src\unitplanilha.pas"/>
+        <Caret Line="49" Column="71" TopLine="31"/>
       </Position10>
       <Position11>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1265" Column="1" TopLine="1251"/>
+        <Caret Line="1628" Column="1" TopLine="1622"/>
       </Position11>
       <Position12>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1266" Column="1" TopLine="1251"/>
+        <Filename Value="src\unitplanilha.pas"/>
+        <Caret Line="45" Column="1" TopLine="31"/>
       </Position12>
       <Position13>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1268" Column="1" TopLine="1251"/>
+        <Filename Value="src\unitplanilha.pas"/>
+        <Caret Line="49" Column="1" TopLine="31"/>
       </Position13>
       <Position14>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1275" Column="1" TopLine="1251"/>
+        <Filename Value="src\unitplanilha.pas"/>
+        <Caret Line="48" Column="48" TopLine="31"/>
       </Position14>
       <Position15>
         <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1292" Column="1" TopLine="1278"/>
+        <Caret Line="1628" Column="1" TopLine="1622"/>
       </Position15>
       <Position16>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="1350" Column="20" TopLine="1335"/>
+        <Filename Value="src\unitplanilha.pas"/>
+        <Caret Line="48" Column="12" TopLine="31"/>
       </Position16>
       <Position17>
-        <Filename Value="src\unitajuda.pas"/>
-        <Caret Line="27" Column="33" TopLine="1"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="1628" Column="1" TopLine="1622"/>
       </Position17>
       <Position18>
-        <Filename Value="src\unitajuda.pas"/>
-        <Caret Line="9" Column="32" TopLine="1"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="1627" Column="21" TopLine="1622"/>
       </Position18>
       <Position19>
-        <Filename Value="src\unitadicionardadosrruff.pas"/>
-        <Caret Line="21" Column="19" TopLine="3"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="1631" Column="24" TopLine="1622"/>
       </Position19>
       <Position20>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="97" Column="21" TopLine="96"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="1637" Column="24" TopLine="1623"/>
       </Position20>
       <Position21>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="160" Column="27" TopLine="139"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="1636" Column="25" TopLine="1088"/>
       </Position21>
       <Position22>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="207" Column="26" TopLine="196"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="2527" Column="30" TopLine="2523"/>
       </Position22>
       <Position23>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="205" Column="1" TopLine="196"/>
+        <Filename Value="src\unitplanilha.pas"/>
+        <Caret Line="48" Column="66" TopLine="1"/>
       </Position23>
       <Position24>
-        <Filename Value="src\udatamodule.pas"/>
-        <Caret Line="109" Column="29" TopLine="95"/>
+        <Filename Value="C:\lazarus\lcl\dbgrids.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position24>
       <Position25>
-        <Filename Value="src\udatamodule.pas"/>
-        <Caret Line="222" Column="32" TopLine="214"/>
+        <Filename Value="C:\lazarus\lcl\dbgrids.pas"/>
+        <Caret Line="519" Column="25" TopLine="503"/>
       </Position25>
       <Position26>
-        <Filename Value="src\udatamodule.pas"/>
-        <Caret Line="305" Column="1" TopLine="292"/>
+        <Filename Value="C:\lazarus\lcl\dbgrids.pas"/>
+        <Caret Line="3127" Column="14" TopLine="3105"/>
       </Position26>
       <Position27>
-        <Filename Value="C:\lazarus\lcl\interfaces\win32\win32winapi.inc"/>
-        <Caret Line="2615" Column="12" TopLine="2601"/>
+        <Filename Value="C:\lazarus\lcl\dbgrids.pas"/>
+        <Caret Line="519" Column="19" TopLine="506"/>
       </Position27>
       <Position28>
-        <Filename Value="src\udatamodule.pas"/>
-        <Caret Line="321" Column="1" TopLine="307"/>
+        <Filename Value="src\uprincipal.pas"/>
+        <Caret Line="2526" Column="6" TopLine="2523"/>
       </Position28>
       <Position29>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="205" Column="1" TopLine="196"/>
+        <Filename Value="src\unitrruff_id.pas"/>
+        <Caret Line="294" Column="34" TopLine="269"/>
       </Position29>
       <Position30>
-        <Filename Value="src\uselecionabd.pas"/>
-        <Caret Line="216" Column="3" TopLine="250"/>
+        <Filename Value="src\udatamodule.pas"/>
+        <Caret Line="118" Column="28" TopLine="102"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -732,6 +773,22 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="2">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="src\unitfichaamostra.pas"/>
+        <Line Value="400"/>
+      </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="src\unitrruff_id.pas"/>
+        <Line Value="262"/>
+      </Item2>
+    </BreakPoints>
     <Exceptions Count="3">
       <Item1>
         <Name Value="EAbort"/>

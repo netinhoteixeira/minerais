@@ -86,7 +86,7 @@ object Dados: TDados
   end
   object SdfDataSetPlanilhaMicrossonda: TSdfDataSet
     FileMustExist = True
-    ReadOnly = False
+    ReadOnly = True
     FieldDefs = <>
     AllowMultiLine = False
     Delimiter = ','

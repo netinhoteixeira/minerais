@@ -3,7 +3,7 @@ object Dados: TDados
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
   Height = 408
-  HorizontalOffset = 808
+  HorizontalOffset = 928
   VerticalOffset = 153
   Width = 422
   object Sqlite3DatasetGeral: TSqlite3Dataset
@@ -86,11 +86,11 @@ object Dados: TDados
   end
   object SdfDataSetPlanilhaMicrossonda: TSdfDataSet
     FileMustExist = True
-    ReadOnly = False
+    ReadOnly = True
     FieldDefs = <>
     AllowMultiLine = False
     Delimiter = ','
-    FirstLineAsSchema = False
+    FirstLineAsSchema = True
     left = 248
     top = 105
   end

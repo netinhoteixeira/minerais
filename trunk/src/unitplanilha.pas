@@ -16,9 +16,6 @@ type
     DBGrid1: TDBGrid;
     Panel1: TPanel;
     Panel2: TPanel;
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure FormCreate(Sender: TObject);
-    procedure FormShow(Sender: TObject);
   private
     { private declarations }
   public
@@ -39,22 +36,6 @@ uses
 
 { TFormPlanilha }
 
-procedure TFormPlanilha.FormCreate(Sender: TObject);
-begin
-
-end;
-
-procedure TFormPlanilha.FormShow(Sender: TObject);
-begin
-
-end;
-
-procedure TFormPlanilha.FormClose(Sender: TObject; var CloseAction: TCloseAction
-  );
-begin
-
-end;
-
 procedure TFormPlanilha.ArquivoMicrossonda(Especie:String; Rruff_Id:String;
     Digito:String);
 begin
@@ -70,7 +51,7 @@ begin
   else
   begin
     ShowMessage('Não há arquivo de microssonda para a amostra especificada.');
-    DBGrid1.Clear;
+    //DBGrid1.Clear; // Está dando erro quando o DBGrid está vazio
   end;
 end;
 
