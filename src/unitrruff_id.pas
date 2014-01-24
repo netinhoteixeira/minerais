@@ -256,17 +256,48 @@ begin
 end;
 
 procedure TFormAdicionaRruff.BitBtnEraseDataClick(Sender: TObject);
-begin
-  //fazer procedimento para apagar vários ao mesmo tempo
-  Case LocalAmostra of
-  1:Dados.DatabaseSamples.ExecSQL('DELETE FROM chemistry WHERE rruff_id = "'+
-    EditSample_id.Text+'" AND digito ="'++'" ;);        ;
-  2:;
-  3:;
-  4:;
-  5:;
-  end;
 
+  function LocateDigit(Sample_id:String): String;
+  var J:Integer;
+  begin
+    for J:=0 to Length(Sample_id)-1 do // -1 ?
+    begin
+      if (Copy(Sample_id, J, 1) = '-' ) then
+      begin
+        Result:= Copy(Sample_id, J+1, (Length(Sample_id) - (J)) );
+      end;
+    end;
+  end;
+var I:Integer; StrList:TStringList;
+begin
+  StrList:=TStringList.Create;
+  for I:=0 to Listbox1.Items.Count-1 do
+  begin
+    if Listbox1.Selected[I] = True then
+    begin
+      Case LocalAmostra of
+        1:Dados.DatabaseSamples.ExecSQL('DELETE FROM chemistry WHERE rruff_id = "'+
+          EditSample_id.Text+'" AND digito ="'+LocateDigit(Listbox1.Items.
+            ValueFromIndex[I])+'" ;');
+        2:Dados.DatabaseSamples.ExecSQL('DELETE FROM raman WHERE rruff_id = "'+
+          EditSample_id.Text+'" AND digito ="'+LocateDigit(Listbox1.Items.
+            ValueFromIndex[I])+'" ;');
+        3:Dados.DatabaseSamples.ExecSQL('DELETE FROM varredura WHERE rruff_id = "'+
+          EditSample_id.Text+'" AND digito ="'+LocateDigit(Listbox1.Items.
+            ValueFromIndex[I])+'" ;');
+        4:Dados.DatabaseSamples.ExecSQL('DELETE FROM infravermelho WHERE rruff_id = "'+
+          EditSample_id.Text+'" AND digito ="'+LocateDigit(Listbox1.Items.
+            ValueFromIndex[I])+'" ;');
+        5:Dados.DatabaseSamples.ExecSQL('DELETE FROM difracao WHERE rruff_id = "'+
+          EditSample_id.Text+'" AND digito ="'+LocateDigit(Listbox1.Items.
+            ValueFromIndex[I])+'" ;');
+      end;
+    StrList.Add(Listbox1.Items.ValueFromIndex[I]);
+    end;
+  end;  ///corrigir
+  for I:=0 to StrList.Count-1 do
+  Listbox1.Items.Delete(Listbox1.Items.IndexOfName(StrList.ValueFromIndex[I]));
+  StrList.Free;
 end;
 
 procedure TFormAdicionaRruff.EditAmostrasEditingDone(Sender: TObject);
