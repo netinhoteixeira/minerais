@@ -90,7 +90,7 @@ object Dados: TDados
     FieldDefs = <>
     AllowMultiLine = False
     Delimiter = ','
-    FirstLineAsSchema = True
+    FirstLineAsSchema = False
     left = 248
     top = 105
   end

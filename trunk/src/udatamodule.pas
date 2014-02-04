@@ -264,42 +264,41 @@ begin
     Sqlite3DatasetGeral.Close();
     try
       DatabaseSamples := TSQLiteDatabase.Create(Diretorio);
-      //Sqlite3DatasetGeral.FileName := Diretorio;
       ExecSQL :=
       'CREATE TABLE rruff ([id] INTEGER PRIMARY KEY NOT NULL, [especie] TEXT,'+
         ' [rruff_id] TEXT NOT NULL, [quimica_ideal] TEXT, [localidade] TEXT, '+
           '[fonte] TEXT, [proprietario] TEXT, [situacao] TEXT, [description] '+
             ' TEXT, [imagem_amostra] BLOB) ;';
-      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      DatabaseSamples.ExecSQL(ExecSQL);
       ExecSQL := 'CREATE TABLE chemistry ([id] INTEGER PRIMARY KEY NOT NULL, '+
       '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL,'+
         '[quimica_medida] TEXT, [description] TEXT, [image] BLOB, '+
           '[microprobe_file] BLOB, [microprobe_equipment] TEXT );';
-      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      DatabaseSamples.ExecSQL(ExecSQL);
       ExecSQL:= 'CREATE TABLE raman ([id] INTEGER PRIMARY KEY NOT NULL, [especie]'+
       ' TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL, '+
         '[direcao] TEXT NOT NULL, [pin_id] TEXT, [orientacao] TEXT,  '+
           '[equipment] TEXT, [description] TEXT, [arquivo_raman] BLOB );';
-      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      DatabaseSamples.ExecSQL(ExecSQL);
       ExecSQL:= 'CREATE TABLE varredura ([id] INTEGER PRIMARY KEY NOT NULL, '+
       '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL, '+
         '[comprimento_onda] TEXT NOT NULL, [arquivo_varredura] BLOB, '+
           '[description] TEXT, [equipment] TEXT ); ';
-      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      DatabaseSamples.ExecSQL(ExecSQL);
       ExecSQL := 'CREATE TABLE infravermelho ([id] INTEGER PRIMARY KEY NOT NULL,'+
       '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL,'+
         '[resolucao] TEXT, [arquivo_infravermelho] BLOB, [description] TEXT, '+
           '[equipment] TEXT); ';
-      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      DatabaseSamples.ExecSQL(ExecSQL);
       ExecSQL:= 'CREATE TABLE difracao ([id] INTEGER PRIMARY KEY NOT NULL, '+
       '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL, '+
         '[arquivo_difracao] BLOB, [a] TEXT, [b] TEXT, [c] TEXT, [alpha] TEXT, '+
           '[beta] TEXT, [gamma] TEXT, [volume] TEXT, [sistema_cristalino] TEXT);';
-      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      DatabaseSamples.ExecSQL(ExecSQL);
       ExecSQL :=
       'CREATE TABLE instrumentos ([id] INTEGER PRIMARY KEY NOT NULL, [nome] '+
         'UNIQUE NOT NULL, [descricao] TEXT, [localidade] TEXT);';
-      Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+      DatabaseSamples.ExecSQL(ExecSQL);
   finally
     //Sqlite3DatasetGeral.Open();
     DatabaseSamples.Free;

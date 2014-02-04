@@ -1,11 +1,11 @@
 object FormPrincipal: TFormPrincipal
   Left = 0
   Height = 690
-  Top = 0
-  Width = 1285
+  Top = 8
+  Width = 1276
   Caption = 'Minerais'
   ClientHeight = 670
-  ClientWidth = 1285
+  ClientWidth = 1276
   Constraints.MinHeight = 690
   Constraints.MinWidth = 510
   Menu = MainMenu1
@@ -13,7 +13,7 @@ object FormPrincipal: TFormPrincipal
   OnCreate = FormCreate
   OnResize = FormResize
   Position = poDesktopCenter
-  LCLVersion = '1.0.12.0'
+  LCLVersion = '1.0.14.0'
   object BGRAPanelEspecies: TBGRAPanel
     Left = 0
     Height = 589
@@ -716,7 +716,7 @@ object FormPrincipal: TFormPrincipal
     Left = 0
     Height = 23
     Top = 647
-    Width = 1285
+    Width = 1276
     Panels = <    
       item
         Width = 200
@@ -733,7 +733,7 @@ object FormPrincipal: TFormPrincipal
     Left = 0
     Height = 20
     Top = 627
-    Width = 1285
+    Width = 1276
     Align = alBottom
     TabOrder = 4
   end
@@ -808,27 +808,27 @@ object FormPrincipal: TFormPrincipal
     Left = 680
     Height = 589
     Top = 38
-    Width = 605
+    Width = 596
     Align = alClient
     ClientHeight = 589
-    ClientWidth = 605
+    ClientWidth = 596
     TabOrder = 6
     object PanelFichaEspecie: TPanel
       Left = 1
       Height = 587
       Top = 1
-      Width = 603
+      Width = 594
       Align = alClient
       Anchors = [akTop, akRight, akBottom]
       BevelOuter = bvNone
       ClientHeight = 587
-      ClientWidth = 603
+      ClientWidth = 594
       TabOrder = 0
       object PageControlFicha: TPageControl
         Left = 0
         Height = 587
         Top = 0
-        Width = 603
+        Width = 594
         ActivePage = TabSheetProp_Fisicas
         Align = alClient
         TabIndex = 1
@@ -1078,15 +1078,15 @@ object FormPrincipal: TFormPrincipal
         object TabSheetProp_Fisicas: TTabSheet
           Caption = 'Propriedades Físicas'
           ClientHeight = 559
-          ClientWidth = 595
+          ClientWidth = 586
           object GroupBoxProp_Fisicas: TGroupBox
             Left = 0
             Height = 559
             Top = 0
-            Width = 595
+            Width = 586
             Align = alClient
             ClientHeight = 541
-            ClientWidth = 591
+            ClientWidth = 582
             TabOrder = 0
             object EditDureza: TEdit
               Left = 125
@@ -1200,7 +1200,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 60
               Top = 159
-              Width = 451
+              Width = 442
               Anchors = [akTop, akLeft, akRight]
               DataField = 'cor'
               DataSource = Dados.DatasourceGeral
@@ -1212,7 +1212,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 60
               Top = 231
-              Width = 451
+              Width = 442
               Anchors = [akTop, akLeft, akRight]
               DataField = 'traco'
               DataSource = Dados.DatasourceGeral
@@ -1224,7 +1224,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 60
               Top = 303
-              Width = 451
+              Width = 442
               Anchors = [akTop, akLeft, akRight]
               DataField = 'brilho'
               DataSource = Dados.DatasourceGeral
@@ -1236,7 +1236,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 60
               Top = 375
-              Width = 451
+              Width = 442
               Anchors = [akTop, akLeft, akRight]
               DataField = 'clivagem'
               DataSource = Dados.DatasourceGeral
@@ -1248,7 +1248,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 60
               Top = 447
-              Width = 451
+              Width = 442
               Anchors = [akTop, akLeft, akRight]
               DataField = 'fratura'
               DataSource = Dados.DatasourceGeral
@@ -1260,7 +1260,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 519
-              Width = 451
+              Width = 442
               Anchors = [akTop, akLeft, akRight]
               DataField = 'magnetismo'
               DataSource = Dados.DatasourceGeral
@@ -1272,7 +1272,7 @@ object FormPrincipal: TFormPrincipal
               Left = 125
               Height = 27
               Top = 559
-              Width = 451
+              Width = 442
               Anchors = [akTop, akLeft, akRight]
               DataField = 'luminescencia'
               DataSource = Dados.DatasourceGeral
@@ -1739,17 +1739,17 @@ object FormPrincipal: TFormPrincipal
       Left = 1
       Height = 587
       Top = 1
-      Width = 603
+      Width = 594
       Align = alClient
       ClientHeight = 587
-      ClientWidth = 603
+      ClientWidth = 594
       TabOrder = 1
       Visible = False
       object PageControlSample: TPageControl
         Left = 1
         Height = 585
         Top = 1
-        Width = 601
+        Width = 592
         ActivePage = TabSheetRruffQuimica
         Align = alClient
         TabIndex = 1
@@ -1925,15 +1925,15 @@ object FormPrincipal: TFormPrincipal
         object TabSheetRruffQuimica: TTabSheet
           Caption = 'Química'
           ClientHeight = 557
-          ClientWidth = 593
+          ClientWidth = 584
           object GroupBox4: TGroupBox
             Left = 0
             Height = 557
             Top = 0
-            Width = 593
+            Width = 584
             Align = alClient
             ClientHeight = 539
-            ClientWidth = 589
+            ClientWidth = 580
             TabOrder = 0
             object GroupBoxImagemQuimica: TGroupBox
               Left = 15
@@ -2036,7 +2036,7 @@ object FormPrincipal: TFormPrincipal
               end
             end
             object GroupBox13: TGroupBox
-              Left = 360
+              Left = 351
               Height = 152
               Top = 8
               Width = 196
@@ -2823,11 +2823,11 @@ object FormPrincipal: TFormPrincipal
     Left = 0
     Height = 38
     Top = 0
-    Width = 1285
+    Width = 1276
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 38
-    ClientWidth = 1285
+    ClientWidth = 1276
     TabOrder = 7
     object BitBtnAdicionarImagem: TBitBtn
       Left = 336
