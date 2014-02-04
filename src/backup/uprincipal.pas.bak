@@ -1239,7 +1239,7 @@ begin
         ComboboxDirecaoLaser.ItemIndex:=
           ComboboxDirecaoLaser.Items.Add(Dados.TableSamples.FieldByName['direcao']);
         ComboboxRamanDigito.ItemIndex:=
-          ComboboxRamanDigito.Items.IndexOf(Dados.TableSamples.FieldByName['digito']);
+          ComboboxRamanDigito.Items.Add(Dados.TableSamples.FieldByName['digito']);
         MemoRamanDescricao.Text:= Dados.TableSamples.FieldByName['description'];
         MemoRamanPin_id.Text:= Dados.TableSamples.FieldByName['pin_id'];
         MemoRamanOrientacao.Text:=  Dados.TableSamples.FieldByName['orientacao'];
@@ -1579,6 +1579,10 @@ begin
     Dados.DatabaseMinerals := TSQLiteDatabase.Create(FormSelecionaBD.ListBoxSelectMineralDb.
       GetSelectedText);
     Dados.Sqlite3DatasetGeral.FileName:=FormSelecionaBD.ListBoxSelectMineralDb.
+      GetSelectedText;
+    Dados.Sqlite3DatasetDidatico.FileName:=FormSelecionaBD.ListBoxSelectMineralDb.
+      GetSelectedText;
+    Dados.Sqlite3DatasetCombobox.FileName:=FormSelecionaBD.ListBoxSelectMineralDb.
       GetSelectedText;
 //    Dados.Sqlite3DatasetGeral.Open;
     Preenche_Classes;
@@ -2524,7 +2528,6 @@ procedure TFormPrincipal.FormCreate(Sender: TObject);
 var
   MineralDb, SamplesDb, Diretorio, Ordenamento: string;
 begin
-  FormPlanilha.Show;  //teste
   Fonte.Style := [fsitalic];
   Fonte2.Style := [];
   FonteNormal.style := [fsbold];
@@ -2597,8 +2600,9 @@ begin
     begin
       Dados.DatabaseMinerals := TSQLiteDatabase.Create(FormSelecionaBD.
         MineralDb);
-      Dados.Sqlite3DatasetGeral.FileName:=FormSelecionaBD.MineralDb;
-      Dados.Sqlite3DatasetDidatico.FileName:=FormSelecionaBD.MineralDb;
+      Dados.Sqlite3DatasetGeral.FileName:= FormSelecionaBD.MineralDb;
+      Dados.Sqlite3DatasetDidatico.FileName:= FormSelecionaBD.MineralDb;
+      Dados.Sqlite3DatasetCombobox.FileName:= FormSelecionaBD.MineralDb;
       Dados.Sqlite3DatasetDidatico.Open(); //?
       Preenche_Classes;
       Preenche_SubClasses;
@@ -3008,7 +3012,7 @@ begin
   begin
     MenuItemMinerais.Checked:=True;
     BGRAPanelEspecies.Visible:=True;
-    PanelFichaEspecie.Visible:=True;
+    if PanelSample.Visible then PanelFichaEspecie.Visible:=True;
     Config.WriteBool('Configuracoes', 'PainelMinerais', True);
   end;
   Config.Free;
