@@ -1,12 +1,12 @@
 object FormPlanilha: TFormPlanilha
-  Left = 21
+  Left = 17
   Height = 354
-  Top = 7
+  Top = 3
   Width = 687
   Caption = 'Microssonda'
   ClientHeight = 354
   ClientWidth = 687
-  LCLVersion = '1.0.12.0'
+  LCLVersion = '1.2.0.3'
   WindowState = wsMaximized
   object Panel1: TPanel
     Left = 0

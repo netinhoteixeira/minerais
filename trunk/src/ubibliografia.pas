@@ -64,7 +64,7 @@ var StrBD:String; i, Tamanho:Integer;  R:Boolean;
 begin
   Memo1.Clear;
   //if filename *.s3db ou .sqlite, etc...
-  Diretorio:=Copy(Dados.SQlite3DatasetGeral.filename, 0, length(Dados.SQlite3DatasetGeral.filename)-5)+'.dat';
+  Diretorio:=Copy(Dados.SQlite3DatasetGeral.filename, 0, length(Dados.SQlite3DatasetGeral.filename)-5)+'_bibliografia.dat';
   if (FileExists(Diretorio)) then                //a subtração acima vai depender do formato do banco de dados
   Begin
        AssignFile(Bibliografia, Diretorio);

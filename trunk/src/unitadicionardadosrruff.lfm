@@ -1,12 +1,12 @@
 object FormAddImage: TFormAddImage
-  Left = 744
+  Left = 691
   Height = 473
-  Top = 111
+  Top = 108
   Width = 606
   Caption = 'FormAddImage'
   ClientHeight = 473
   ClientWidth = 606
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.2.0.3'
   object Panel1: TPanel
     Left = 0
     Height = 59

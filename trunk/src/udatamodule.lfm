@@ -3,7 +3,7 @@ object Dados: TDados
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
   Height = 408
-  HorizontalOffset = 928
+  HorizontalOffset = 894
   VerticalOffset = 153
   Width = 422
   object Sqlite3DatasetGeral: TSqlite3Dataset
@@ -32,6 +32,7 @@ object Dados: TDados
   end
   object frReport1: TfrReport
     Dataset = frDBDataSet1
+    DefaultCopies = 0
     InitialZoom = pzDefault
     Options = []
     Preview = FormImpressao.frPreview1
@@ -73,14 +74,7 @@ object Dados: TDados
     left = 160
     top = 320
   end
-  object Sqlite3DatasetAmostras: TSqlite3Dataset
-    SQL = 'SELECT * FROM rruff'
-    TableName = 'rruff'
-    left = 248
-    top = 56
-  end
   object DatasourceAmostras: TDatasource
-    DataSet = Sqlite3DatasetAmostras
     left = 352
     top = 56
   end

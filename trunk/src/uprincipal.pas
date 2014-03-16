@@ -373,7 +373,16 @@ type
     MemoVarreduraDescricao: TMemo;
     MemoVarreduraSample: TMemo;
     MemoVolume: TMemo;
-    MenuItem2: TMenuItem;
+    MenuItemAddImage5: TMenuItem;
+    MenuItemDelImage5: TMenuItem;
+    MenuItemAddImage4: TMenuItem;
+    MenuItemDelImage4: TMenuItem;
+    MenuItemDelImage3: TMenuItem;
+    MenuItemAddImage3: TMenuItem;
+    MenuItemDelImage2: TMenuItem;
+    MenuItemAddImage2: TMenuItem;
+    MenuItemDelImage1: TMenuItem;
+    MenuItemAddImage1: TMenuItem;
     MenuItemSample: TMenuItem;
     MenuItemMinerais: TMenuItem;
     MenuItemAddChartData: TMenuItem;
@@ -421,8 +430,12 @@ type
     PanelFichas: TPanel;
     PanelSample: TPanel;
     PanelFichaEspecie: TPanel;
+    PopupMenuImage2: TPopupMenu;
+    PopupMenuImage3: TPopupMenu;
+    PopupMenuImage4: TPopupMenu;
+    PopupMenuImage5: TPopupMenu;
     PopupMenuChart: TPopupMenu;
-    PopupMenuImage: TPopupMenu;
+    PopupMenuImage1: TPopupMenu;
     PopupMenuEditNome: TPopupMenu;
     PopupMenuSample: TPopupMenu;
     PopupMenuListbox: TPopupMenu;
@@ -586,6 +599,8 @@ type
     procedure DBMemoTracoEditingDone(Sender: TObject);
     procedure DBMemoTracoKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure EditAssociacaoEditingDone(Sender: TObject);
+    procedure EditBrilhoEditingDone(Sender: TObject);
+    procedure EditCorEditingDone(Sender: TObject);
     procedure EditDensidadeClick(Sender: TObject);
     procedure EditDensidade_MaxEditingDone(Sender: TObject);
     procedure EditDensidade_minEditingDone(Sender: TObject);
@@ -659,6 +674,17 @@ type
     procedure MemoVolumeEditingDone(Sender: TObject);
     procedure MemoVolumeKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
       );
+    procedure MenuItemAddImage2Click(Sender: TObject);
+    procedure MenuItemAddImage3Click(Sender: TObject);
+    procedure MenuItemAddImage4Click(Sender: TObject);
+    procedure MenuItemAddImage5Click(Sender: TObject);
+    procedure MenuItemDelImage1Click(Sender: TObject);
+    procedure MenuItemDelImage2Click(Sender: TObject);
+    procedure MenuItemDelImage3Click(Sender: TObject);
+    procedure MenuItemDelImage4Click(Sender: TObject);
+    procedure MenuItemDelImage5Click(Sender: TObject);
+    procedure MenuItemAddImage1Click(Sender: TObject);
+    procedure MenuItemExlcuirAmostraClick(Sender: TObject);
     procedure MenuItemSampleClick(Sender: TObject);
     procedure MenuItemMineraisClick(Sender: TObject);
     procedure MenuItemSairClick(Sender: TObject);
@@ -758,7 +784,8 @@ var
   Config: TIniFile;
   ConfigFilePath: String;
 
-  den_min, den_max, ocorrencia, associacao: string;
+  den_min, den_max, ocorrencia,
+    associacao, cor, brilho: string;
   //Usado pelo RichMemo
   fonte, fontenormal, fonte2: TFontParams;
 
@@ -1179,7 +1206,6 @@ begin
     ComboboxInfravermelhoDigito.Clear;
     ComboboxDifracaoDigito.Clear;
     ComboboxDirecaoLaser.Clear;
-    ComboboxVarreduraOnda.Clear;
 
     Dados.TableSamples:= Dados.DatabaseSamples.GetTable('SELECT * FROM rruff WHERE rruff_id="'+
       ListboxSample_id.GetSelectedText+'" ;');
@@ -1559,6 +1585,8 @@ begin
         GetSelectedText);
       PreencheAmostras;
       EquipmentComboboxes;
+      FormSelecionaBD.StatusBar4.SimpleText:='Banco de dados atual: '+
+        FormSelecionaBD.ListBoxSelectSampleDb.GetSelectedText;
     end
     else
       ShowMessage('O banco de dados selecionado não é compatível.');
@@ -1590,6 +1618,8 @@ begin
     Preenche_Grupos;
     Preenche_SubGrupos;
     Preenche_Lista;
+    FormSelecionaBD.StatusBar3.SimpleText:='Banco de dados atual: '+
+      FormSelecionaBD.ListBoxSelectMineralDb.GetSelectedText;
     end
     else
       ShowMessage('O banco de dados selecionado não é compatível.');
@@ -1761,24 +1791,6 @@ begin
       end;
     end;
   end;
-  {Case k of
-  1:begin end;
-  2:begin
-      ChartRaman.AddSeries(SelectBlobFieldToChartSeries('raman', 'arquivo_raman',+
-        MemoAmostraEspecie.Text, MemoSample.Text, ComboboxRamanDigito.Text,
-          ComboboxDirecaoLaser.Text));
-    end;
-  3:begin
-
-    end;
-  4:begin
-
-    end;
-  5:begin
-
-    end;
-  end;
-      }
   FormAdicionaRruff.Hide;
 end;
 
@@ -2010,7 +2022,7 @@ begin
             Add(Angulo0);
           ComboboxDirecaoLaser.Items.Append(Angulo45);
           ComboboxDirecaoLaser.Items.Append(Angulo90);
-          ComboboxDirecaoLaser.Items.Append('Não Polarizado');
+          ComboboxDirecaoLaser.Items.Append('Depolarizado');
         end;
         ChartRaman.ClearSeries;
         //obs: equipamento
@@ -2466,6 +2478,20 @@ begin
   Associacao := EditAssociacao.Text;
 end;
 
+procedure TFormPrincipal.EditBrilhoEditingDone(Sender: TObject);
+begin
+  if (EditBrilho.Text <> Brilho) then
+     Preenche_Lista;
+  Brilho:= EditBrilho.Text;
+end;
+
+procedure TFormPrincipal.EditCorEditingDone(Sender: TObject);
+begin
+  if (EditCor.Text <> Cor) then
+     Preenche_Lista;
+  Cor:= EditCor.Text;
+end;
+
 procedure TFormPrincipal.EditDensidadeClick(Sender: TObject);
 begin
   if (GroupBoxDensidade.Visible) then
@@ -2545,11 +2571,11 @@ begin
   else
     ConfigFilePath:= GetCurrentDir + '\config.ini';
   Config := TIniFile.Create(ConfigFilePath);
-  if Config.ReadString('Configuracoes', 'Comprimento', '') <> EmptyStr then
+  {if Config.ReadString('Configuracoes', 'Comprimento', '') <> EmptyStr then
     FormPrincipal.Width := StrToInt(Config.ReadString('Configuracoes', 'Comprimento', ''));
   if Config.ReadString('Configuracoes', 'Altura', '') <> EmptyStr then
     FormPrincipal.Height := StrToInt(Config.ReadString('Configuracoes', 'Altura', ''));
-
+  }
   Ordenamento := Config.ReadString('Configuracoes', 'Ordem', 'Alfabetica');
   if Upcase(Trim(Ordenamento)) = Upcase('Densidade') then
     MenuItemDensidade.Checked := True
@@ -2577,6 +2603,16 @@ begin
   if Config.ReadBool('Configuracoes', 'ModoEdicao', False) then
   begin
     ModoEdicao;
+  end;
+  if Config.ReadBool('Configuracoes', 'PainelMinerais', True) then
+  begin
+    MenuItemMinerais.Checked:=True;
+    BGRAPanelEspecies.Visible:=True;
+  end
+  else
+  begin
+    MenuItemMinerais.Checked:=False;
+    BGRAPanelEspecies.Visible:=False;
   end;
   if Config.ReadBool('Configuracoes', 'PainelAmostras', False) then
   begin
@@ -2976,6 +3012,85 @@ begin
     'volume', MemoVolume);}
 end;
 
+procedure TFormPrincipal.MenuItemAddImage2Click(Sender: TObject);
+begin
+  Adiciona_Imagem('2');
+end;
+
+procedure TFormPrincipal.MenuItemAddImage3Click(Sender: TObject);
+begin
+  Adiciona_Imagem('3');
+end;
+
+procedure TFormPrincipal.MenuItemAddImage4Click(Sender: TObject);
+begin
+  Adiciona_Imagem('4');
+end;
+
+procedure TFormPrincipal.MenuItemAddImage5Click(Sender: TObject);
+begin
+  Adiciona_Imagem('5');
+end;
+
+procedure TFormPrincipal.MenuItemDelImage1Click(Sender: TObject);
+begin
+  ClearBlobField('minerais', 'imagem1', ListboxMinerais.GetSelectedText,
+    '', '', '');
+  Image1.Picture.Clear;
+end;
+
+procedure TFormPrincipal.MenuItemDelImage2Click(Sender: TObject);
+begin
+  ClearBlobField('minerais', 'imagem2', ListboxMinerais.GetSelectedText,
+    '', '', '');
+  Image2.Picture.Clear;
+end;
+
+procedure TFormPrincipal.MenuItemDelImage3Click(Sender: TObject);
+begin
+  ClearBlobField('minerais', 'imagem3', ListboxMinerais.GetSelectedText,
+    '', '', '');
+  Image3.Picture.Clear;
+end;
+
+procedure TFormPrincipal.MenuItemDelImage4Click(Sender: TObject);
+begin
+  ClearBlobField('minerais', 'imagem4', ListboxMinerais.GetSelectedText,
+    '', '', '');
+  Image4.Picture.Clear;
+end;
+
+procedure TFormPrincipal.MenuItemDelImage5Click(Sender: TObject);
+begin
+  ClearBlobField('minerais', 'imagem5', ListboxMinerais.GetSelectedText,
+    '', '', '');
+  Image5.Picture.Clear;
+end;
+
+procedure TFormPrincipal.MenuItemAddImage1Click(Sender: TObject);
+begin
+  Adiciona_Imagem('1');
+end;
+
+procedure TFormPrincipal.MenuItemExlcuirAmostraClick(Sender: TObject);
+begin
+  if MenuItemMinerais.Checked then
+  begin
+    Dados.ExcluiAmostra(ListboxMinerais.GetSelectedText,
+      ListboxSample_id.GetSelectedText, EmptyStr, 0);
+    PreencheAmostras;
+  end
+  else
+  begin
+    if ListboxSample_id.GetSelectedText <> EmptyStr then
+    begin
+      Dados.ExcluiAmostra(EmptyStr, ListboxSample_id.GetSelectedText,
+        EmptyStr, 0);
+      PreencheAmostras;
+    end;
+  end;
+end;
+
 procedure TFormPrincipal.MenuItemSampleClick(Sender: TObject);
 begin
   Config:= TIniFile.Create(ConfigFilePath);
@@ -3197,31 +3312,26 @@ end;
 
 procedure TFormPrincipal.MenuItemNovaAmostraClick(Sender: TObject);
 begin
-  if MenuItemMinerais.Checked then
+  if FormSelecionaBd.SampleDb <> EmptyStr then
   begin
-   // DadosTableMinerals:=Dados.DatabaseMinerals.GetTable('SELECT ');
+    Dados.TableSamples:= Dados.DatabaseSamples.GetTable('SELECT rruff_id FROM '+
+      'rruff WHERE rruff_id = "'+Trim(EditSample_id.Text)+'" ;');
+    if Dados.TableSamples.RowCount >0 then
+    begin
+      ShowMessage('Já existe amostra com essa identificação.');
+    end
+    else
+    begin
+      if MenuItemMinerais.Checked then
+        Dados.AdicionaAmostra('rruff', ListboxMinerais.GetSelectedText, EditSample_id.Text,
+          '0', '', '')
+      else
+        Dados.AdicionaAmostra('rruff', '', EditSample_id.Text, '0', '', '');
+      PreencheAmostras;
+    end;
   end
   else
-  begin
-
-  end;
-
-  {refazer}
-  //end;
-
-  {if ListboxMinerais.GetSelectedText <> EmptyStr then
-  begin
-   // DadosTableMinerals:=Dados.sldb.GetTable('');
-  //  Dados.Sqlite3DatasetAmostras.SQL:='SELECT * FROM rruff WHERE especie ="'+
- //    ListboxMinerais.GetSelectedText+'" ;';
-  //  Dados.Sqlite3DatasetAmostras.Open;
-  //  Dados.Sqlite3DatasetAmostras.First;
-    FormAdicionaRruff.Show;
-  end
-  else
-  begin
-    ShowMessage('Selecione um mineral da lista para adicionar amostras.');
-  end;}
+   ShowMessage('Não há banco de dados de amostras selecionado.');
 end;
 
 procedure TFormPrincipal.MenuItemRemoverAmostraClick(Sender: TObject);
