@@ -65,46 +65,56 @@ unit uselecionabd;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, StdCtrls, ComCtrls, Menus, EditBtn, IniFiles;
+  Classes, SysUtils, FileUtil, BGRAPanel, BGRALabel, Forms, Controls, Graphics,
+  Dialogs, ExtCtrls, Buttons, StdCtrls, ComCtrls, Menus, EditBtn, IniFiles;
 //excluir SQLite3TableMod
 type
 
   { TFormSelecionaBD }
 
   TFormSelecionaBD = class(TForm)
+    BGRALabelMineralDatabase: TBGRALabel;
+    BGRALabelSampleDatabase: TBGRALabel;
+    BGRAPanel1: TBGRAPanel;
     BitBtn1: TBitBtn;
     BitBtn2: TBitBtn;
-    BitBtnStandardSampleDb: TBitBtn;
+    BitBtn3: TBitBtn;
     BitBtnSelectMineralDb: TBitBtn;
     BitBtnSelectSampleDb: TBitBtn;
+    BitBtnSelectSampleDb1: TBitBtn;
     BitBtnStandardMineralDb: TBitBtn;
+    BitBtnStandardSampleDb: TBitBtn;
+    BitBtnStandardSampleDb1: TBitBtn;
     EditButtonNovo: TEditButton;
     EditButtonNovo1: TEditButton;
+    EditButtonNovo2: TEditButton;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
     GroupBox3: TGroupBox;
     GroupBox4: TGroupBox;
-    GroupBoxSamplesDatabase: TGroupBox;
+    GroupBox5: TGroupBox;
+    GroupBox6: TGroupBox;
     GroupBoxMineralDatabase: TGroupBox;
+    GroupBoxSamplesDatabase: TGroupBox;
+    GroupBoxSamplesDatabase1: TGroupBox;
     ListBoxSelectMineralDb: TListBox;
     ListBoxSelectSampleDb: TListBox;
+    ListBoxSelectSampleDb1: TListBox;
     MainMenu1: TMainMenu;
     MenuItemSair: TMenuItem;
     MenuItemArquivo: TMenuItem;
     OpenDialog1: TOpenDialog;
     Panel1: TPanel;
-    Panel2: TPanel;
-    Panel3: TPanel;
-    Panel4: TPanel;
-    Panel5: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
+    Panel9: TPanel;
     ProgressBar1: TProgressBar;
     StatusBar1: TStatusBar;
     StatusBar2: TStatusBar;
     StatusBar3: TStatusBar;
     StatusBar4: TStatusBar;
+    StatusBar5: TStatusBar;
+    StatusBar6: TStatusBar;
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtnStandardSampleDbClick(Sender: TObject);
@@ -215,6 +225,7 @@ procedure TFormSelecionaBD.FormCreate(Sender: TObject);
 begin
   MineralDB:=EmptyStr;
   SampleDb:=EmptyStr;
+  OpenDialog1.Filter:='ALL FILES | *.s3db; *.db; *.sqlite ;';
 end;
 
 procedure TFormSelecionaBD.FormShow(Sender: TObject);
@@ -270,6 +281,8 @@ begin
   else
     Config.WriteString('Configuracoes', 'AmostraBD', '');
   Config.Free;
+  StatusBar3.SimpleText:='Banco de dados atual: '+Dados.Sqlite3DatasetGeral.FileName;
+  //StatusBar4.SimpleText:='Banco de dados atual: ';
 end;
 
 procedure TFormSelecionaBD.MenuItemSairClick(Sender: TObject);

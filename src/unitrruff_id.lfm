@@ -8,7 +8,7 @@ object FormAdicionaRruff: TFormAdicionaRruff
   ClientWidth = 623
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.2.0.3'
   object Panel2: TPanel
     Left = 0
     Height = 317
@@ -30,17 +30,17 @@ object FormAdicionaRruff: TFormAdicionaRruff
       TabOrder = 0
       object LabelEspecies: TLabel
         Left = 15
-        Height = 16
+        Height = 15
         Top = 15
-        Width = 41
+        Width = 40
         Caption = 'Mineral'
         ParentColor = False
       end
       object Label3: TLabel
         Left = 15
-        Height = 16
+        Height = 15
         Top = 71
-        Width = 40
+        Width = 39
         Caption = 'Rruff Id'
         ParentColor = False
       end
@@ -65,9 +65,9 @@ object FormAdicionaRruff: TFormAdicionaRruff
       end
       object LabelAmostra: TLabel
         Left = 15
-        Height = 16
+        Height = 15
         Top = 123
-        Width = 51
+        Width = 50
         Caption = 'Amostras'
         ParentColor = False
       end
@@ -92,6 +92,7 @@ object FormAdicionaRruff: TFormAdicionaRruff
           '45.000 ccw'
           '90.000 ccw'
           'Não polarizado'
+          'Todas'
         )
         Style = csDropDownList
         TabOrder = 3
@@ -110,6 +111,7 @@ object FormAdicionaRruff: TFormAdicionaRruff
           '580 nm'
           '732 nm'
           '780 nm'
+          'Todas'
         )
         Style = csDropDownList
         TabOrder = 4
@@ -117,17 +119,17 @@ object FormAdicionaRruff: TFormAdicionaRruff
       end
       object LabelDirecao: TLabel
         Left = 15
-        Height = 16
+        Height = 15
         Top = 175
-        Width = 41
+        Width = 40
         Caption = 'Direcao'
         ParentColor = False
       end
       object Label2: TLabel
         Left = 15
-        Height = 16
+        Height = 15
         Top = 223
-        Width = 124
+        Width = 123
         Caption = 'Comprimento de Onda'
         ParentColor = False
       end

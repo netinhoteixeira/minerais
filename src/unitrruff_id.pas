@@ -68,6 +68,8 @@ var TextoAmostras:String;  I, FoundComma:Integer;
 begin
   if EditNome.Text <> EmptyStr then
   begin
+  //pode acontecer erro aqui se o banco de dados de minerais não tiver
+  //sido carregado
     Dados.TableMinerals:= Dados.DatabaseMinerals.GetTable('SELECT nome FROM minerais WHERE nome="'+
       EditNome.Text+'" ;');
     if Dados.TableMinerals.RowCount = 0 then
@@ -124,18 +126,55 @@ begin
       2:begin
         if FoundComma = 0 then
           begin
-          Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
-            'digito, direcao) VALUES ("'+EditNome.Text+'","'+
-               EditSample_id.Text+'", "'+EditAmostras.Text+'","Depolarizado");');
-          Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
-            'digito, direcao) VALUES ("'+EditNome.Text+'","'+
-               EditSample_id.Text+'", "'+EditAmostras.Text+'","0.000");');
-          Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
-            'digito, direcao) VALUES ("'+EditNome.Text+'","'+
-               EditSample_id.Text+'", "'+EditAmostras.Text+'","45.000 ccw");');
-          Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
-            'digito, direcao) VALUES ("'+EditNome.Text+'","'+
-               EditSample_id.Text+'", "'+EditAmostras.Text+'","90.000 ccw");');
+            if Trim(EditAmostras.Text) = '0' then
+            begin
+              if Combobox1.Text = 'Todas' then
+              begin
+              Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                  EditSample_id.Text+'", "'+EditAmostras.Text+'","514 nm");');
+              Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                   EditSample_id.Text+'", "'+EditAmostras.Text+'","532 nm");');
+              Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+               'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                 EditSample_id.Text+'", "'+EditAmostras.Text+'","580 nm");');
+              Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                   EditSample_id.Text+'", "'+EditAmostras.Text+'","732 nm");');
+              Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+               'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                 EditSample_id.Text+'", "'+EditAmostras.Text+'","780 nm");');
+              end
+              else
+                Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                 EditSample_id.Text+'", "'+EditAmostras.Text+'","'+
+                 Combobox1.Text+'");');
+            end
+            else
+            begin
+              if Combobox1.Text = 'Todas' then
+              begin
+                Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                 'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                  EditSample_id.Text+'", "'+EditAmostras.Text+'","Depolarizado");');
+                Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                 'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                   EditSample_id.Text+'", "'+EditAmostras.Text+'","0.000");');
+                Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                 'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                  EditSample_id.Text+'", "'+EditAmostras.Text+'","45.000 ccw");');
+                Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                 'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                  EditSample_id.Text+'", "'+EditAmostras.Text+'","90.000 ccw");');
+              end
+              else
+                Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                 'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                  EditSample_id.Text+'", "'+EditAmostras.Text+'","'+
+                   Combobox1.Text+'");');
+            end;
           Listbox1.Items.Append(EditSample_id.Text+' - '+Trim(EditAmostras.Text));
           end
           else
@@ -144,25 +183,64 @@ begin
              begin
                TextoAmostras:= Trim(Copy(EditAmostras.Text,
                  CommaPlaces[I]-1, 1));
-               Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+               if Trim(TextoAmostras) = '0' then
+               begin
+                 if Combobox1.Text = 'Todas' then
+                 begin
+                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                 'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                  EditSample_id.Text+'", "'+EditAmostras.Text+'","514 nm");');
+                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                   EditSample_id.Text+'", "'+EditAmostras.Text+'","532 nm");');
+                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                 'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                 EditSample_id.Text+'", "'+EditAmostras.Text+'","580 nm");');
+                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                 'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                   EditSample_id.Text+'", "'+EditAmostras.Text+'","732 nm");');
+                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                 'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                 EditSample_id.Text+'", "'+EditAmostras.Text+'","780 nm");');
+                 end
+                 else
+                   Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                   'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                   EditSample_id.Text+'", "'+EditAmostras.Text+'","'+
+                     Combobox1.Text+'");');
+               end
+               else
+               begin
+                 if Combobox1.Text = 'Todas' then
+                 begin
+                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
                  'digito, direcao) VALUES ("'+EditNome.Text+'","'+
                    EditSample_id.Text+'", "'+TextoAmostras+'","Depolarizado");');
-                Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
                   'digito, direcao) VALUES ("'+EditNome.Text+'","'+
                     EditSample_id.Text+'", "'+TextoAmostras+'","0.000");');
-                Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
                   'digito, direcao) VALUES ("'+EditNome.Text+'","'+
                     EditSample_id.Text+'", "'+TextoAmostras+'","45.000 ccw");');
-                Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
                   'digito, direcao) VALUES ("'+EditNome.Text+'","'+
                     EditSample_id.Text+'", "'+TextoAmostras+'","90.000 ccw");');
-                Listbox1.Items.Append(EditSample_id.Text+' - '+TextoAmostras);
+                 end
+                 else
+                   Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id,'+
+                  'digito, direcao) VALUES ("'+EditNome.Text+'","'+
+                    EditSample_id.Text+'", "'+TextoAmostras+'","'+
+                    Combobox1.Text+'");');
+               end;
+             Listbox1.Items.Append(EditSample_id.Text+' - '+TextoAmostras);
              end;
           end;
         end;
       3:begin
         if FoundComma = 0 then
         begin
+          if Combobox2.Text = 'Todas' then
+          begin
           Dados.DatabaseSamples.ExecSQL('INSERT INTO varredura (especie, rruff_id,'+
             'digito, comprimento_onda) VALUES ("'+EditNome.Text+'","'+
                EditSample_id.Text+'", "'+EditAmostras.Text+'", "514 nm");');
@@ -178,6 +256,13 @@ begin
           Dados.DatabaseSamples.ExecSQL('INSERT INTO varredura (especie, rruff_id,'+
             'digito, comprimento_onda) VALUES ("'+EditNome.Text+'","'+
                EditSample_id.Text+'", "'+EditAmostras.Text+'", "780 nm");');
+
+          end
+          else
+            Dados.DatabaseSamples.ExecSQL('INSERT INTO varredura (especie, rruff_id,'+
+            'digito, comprimento_onda) VALUES ("'+EditNome.Text+'","'+
+               EditSample_id.Text+'", "'+EditAmostras.Text+'", "'+
+                 Combobox2.Text+'" );');
           Listbox1.Items.Append(EditSample_id.Text+' - '+Trim(EditAmostras.Text));
         end
         else

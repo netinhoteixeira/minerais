@@ -1,7 +1,7 @@
 object FormPrincipal: TFormPrincipal
-  Left = 0
+  Left = 18
   Height = 690
-  Top = 8
+  Top = 7
   Width = 1276
   Caption = 'Minerais'
   ClientHeight = 670
@@ -13,7 +13,7 @@ object FormPrincipal: TFormPrincipal
   OnCreate = FormCreate
   OnResize = FormResize
   Position = poDesktopCenter
-  LCLVersion = '1.0.14.0'
+  LCLVersion = '1.2.0.3'
   object BGRAPanelEspecies: TBGRAPanel
     Left = 0
     Height = 589
@@ -238,36 +238,36 @@ object FormPrincipal: TFormPrincipal
     end
     object Label33: TLabel
       Left = 6
-      Height = 16
+      Height = 15
       Top = 258
-      Width = 43
+      Width = 42
       Caption = 'mínimo'
       ParentColor = False
       ParentFont = False
     end
     object Label34: TLabel
       Left = 100
-      Height = 16
+      Height = 15
       Top = 258
-      Width = 44
+      Width = 43
       Caption = 'máximo'
       ParentColor = False
       ParentFont = False
     end
     object Label35: TLabel
       Left = 6
-      Height = 16
+      Height = 15
       Top = 333
-      Width = 43
+      Width = 42
       Caption = 'mínimo'
       ParentColor = False
       ParentFont = False
     end
     object Label36: TLabel
       Left = 100
-      Height = 16
+      Height = 15
       Top = 333
-      Width = 44
+      Width = 43
       Caption = 'máximo'
       ParentColor = False
       ParentFont = False
@@ -538,7 +538,7 @@ object FormPrincipal: TFormPrincipal
       Height = 23
       Top = 513
       Width = 154
-      OnEditingDone = EditAssociacaoEditingDone
+      OnEditingDone = EditCorEditingDone
       TabOrder = 10
     end
     object BGRALabelBrilho: TBGRALabel
@@ -575,7 +575,7 @@ object FormPrincipal: TFormPrincipal
       Height = 23
       Top = 562
       Width = 154
-      OnEditingDone = EditAssociacaoEditingDone
+      OnEditingDone = EditBrilhoEditingDone
       TabOrder = 11
     end
   end
@@ -616,6 +616,7 @@ object FormPrincipal: TFormPrincipal
         Center = True
         OnClick = Image1Click
         OnDblClick = Image1DblClick
+        PopupMenu = PopupMenuImage1
         Proportional = True
       end
     end
@@ -639,6 +640,7 @@ object FormPrincipal: TFormPrincipal
         Center = True
         OnClick = Image2Click
         OnDblClick = Image2DblClick
+        PopupMenu = PopupMenuImage2
         Proportional = True
       end
     end
@@ -662,6 +664,7 @@ object FormPrincipal: TFormPrincipal
         Center = True
         OnClick = Image3Click
         OnDblClick = Image3DblClick
+        PopupMenu = PopupMenuImage3
         Proportional = True
       end
     end
@@ -685,6 +688,7 @@ object FormPrincipal: TFormPrincipal
         Center = True
         OnClick = Image4Click
         OnDblClick = Image4DblClick
+        PopupMenu = PopupMenuImage4
         Proportional = True
       end
     end
@@ -708,6 +712,7 @@ object FormPrincipal: TFormPrincipal
         Center = True
         OnClick = Image5Click
         OnDblClick = Image5DblClick
+        PopupMenu = PopupMenuImage5
         Proportional = True
       end
     end
@@ -1142,9 +1147,9 @@ object FormPrincipal: TFormPrincipal
               end
               object Label38: TLabel
                 Left = 80
-                Height = 22
+                Height = 21
                 Top = 0
-                Width = 7
+                Width = 6
                 Caption = '-'
                 Font.Height = -16
                 Font.Style = [fsBold]
@@ -1186,9 +1191,9 @@ object FormPrincipal: TFormPrincipal
               end
               object Label39: TLabel
                 Left = 80
-                Height = 22
+                Height = 21
                 Top = 0
-                Width = 7
+                Width = 6
                 Caption = '-'
                 Font.Height = -16
                 Font.Style = [fsBold]
@@ -1282,73 +1287,73 @@ object FormPrincipal: TFormPrincipal
             end
             object Label24: TLabel
               Left = 15
-              Height = 16
+              Height = 15
               Top = 15
-              Width = 37
+              Width = 36
               Caption = 'Dureza'
               ParentColor = False
             end
             object Label25: TLabel
               Left = 15
-              Height = 16
+              Height = 15
               Top = 87
-              Width = 56
+              Width = 55
               Caption = 'Densidade'
               ParentColor = False
             end
             object LabelCor: TLabel
               Left = 15
-              Height = 16
+              Height = 15
               Top = 159
-              Width = 20
+              Width = 19
               Caption = 'Cor'
               ParentColor = False
             end
             object LabelTraco: TLabel
               Left = 15
-              Height = 16
+              Height = 15
               Top = 231
-              Width = 31
+              Width = 30
               Caption = 'Traço'
               ParentColor = False
             end
             object LabelBrilho: TLabel
               Left = 15
-              Height = 16
+              Height = 15
               Top = 303
-              Width = 32
+              Width = 31
               Caption = 'Brilho'
               ParentColor = False
             end
             object LabelClivagem: TLabel
               Left = 15
-              Height = 16
+              Height = 15
               Top = 375
-              Width = 51
+              Width = 50
               Caption = 'Clivagem'
               ParentColor = False
             end
             object LabelFratura: TLabel
               Left = 15
-              Height = 16
+              Height = 15
               Top = 447
-              Width = 38
+              Width = 37
               Caption = 'Fratura'
               ParentColor = False
             end
             object LabelMagnetismo: TLabel
               Left = 15
-              Height = 16
+              Height = 15
               Top = 519
-              Width = 68
+              Width = 67
               Caption = 'Magnetismo'
               ParentColor = False
             end
             object LabelLuminescencia: TLabel
               Left = 15
-              Height = 16
+              Height = 15
               Top = 559
-              Width = 80
+              Width = 79
               Caption = 'Luminescência'
               ParentColor = False
             end
@@ -1750,84 +1755,84 @@ object FormPrincipal: TFormPrincipal
         Height = 585
         Top = 1
         Width = 592
-        ActivePage = TabSheetRruffQuimica
+        ActivePage = TabSheetRruffVarredura
         Align = alClient
-        TabIndex = 1
+        TabIndex = 3
         TabOrder = 0
         object TabSheetRruffDescricao: TTabSheet
           Caption = 'Descrição da Amostra'
-          ClientHeight = 557
-          ClientWidth = 593
+          ClientHeight = 562
+          ClientWidth = 584
           object GroupBox3: TGroupBox
             Left = 0
-            Height = 557
+            Height = 562
             Top = 0
-            Width = 593
+            Width = 584
             Align = alClient
-            ClientHeight = 539
-            ClientWidth = 589
+            ClientHeight = 544
+            ClientWidth = 580
             TabOrder = 0
             object LabelQuimicaIdeal: TLabel
               Left = 16
-              Height = 16
+              Height = 13
               Top = 150
-              Width = 74
+              Width = 64
               Caption = 'Química Ideal'
               ParentColor = False
             end
             object LabelLocalidade: TLabel
               Left = 14
-              Height = 16
+              Height = 13
               Top = 244
-              Width = 58
+              Width = 50
               Caption = 'Localidade'
               ParentColor = False
             end
             object LabelFonte: TLabel
               Left = 14
-              Height = 16
+              Height = 13
               Top = 302
-              Width = 31
+              Width = 28
               Caption = 'Fonte'
               ParentColor = False
             end
             object Label2: TLabel
               Left = 14
-              Height = 16
+              Height = 13
               Top = 430
-              Width = 52
+              Width = 46
               Caption = 'Descrição'
               ParentColor = False
             end
             object Label3: TLabel
               Left = 14
-              Height = 16
+              Height = 13
               Top = 494
-              Width = 46
+              Width = 41
               Caption = 'Situação'
               ParentColor = False
             end
             object LabelProprietario: TLabel
               Left = 14
-              Height = 16
+              Height = 13
               Top = 366
-              Width = 63
+              Width = 56
               Caption = 'Proprietário'
               ParentColor = False
             end
             object Label10: TLabel
               Left = 16
-              Height = 16
+              Height = 13
               Top = 86
-              Width = 69
+              Width = 62
               Caption = 'Identificação'
               ParentColor = False
             end
             object Label1Especie: TLabel
               Left = 16
-              Height = 16
+              Height = 13
               Top = 16
-              Width = 40
+              Width = 36
               Caption = 'Espécie'
               ParentColor = False
             end
@@ -1964,9 +1969,9 @@ object FormPrincipal: TFormPrincipal
               TabOrder = 1
               object LabelId_Quimica: TLabel
                 Left = 14
-                Height = 16
+                Height = 15
                 Top = 0
-                Width = 72
+                Width = 71
                 Caption = 'Identificação '
                 ParentColor = False
               end
@@ -1979,9 +1984,9 @@ object FormPrincipal: TFormPrincipal
               end
               object Label4: TLabel
                 Left = 325
-                Height = 31
+                Height = 30
                 Top = 0
-                Width = 9
+                Width = 8
                 Caption = '-'
                 Font.Height = -21
                 Font.Style = [fsBold]
@@ -2009,18 +2014,18 @@ object FormPrincipal: TFormPrincipal
               end
               object LabelDescricao2: TLabel
                 Left = 14
-                Height = 16
-                Top = 39
-                Width = 52
+                Height = 15
+                Top = 40
+                Width = 51
                 Anchors = [akLeft, akBottom]
                 Caption = 'Descrição'
                 ParentColor = False
               end
               object LabelQuimicaMedida: TLabel
                 Left = 14
-                Height = 16
-                Top = 127
-                Width = 89
+                Height = 15
+                Top = 128
+                Width = 88
                 Anchors = [akLeft, akBottom]
                 Caption = 'Química Medida'
                 ParentColor = False
@@ -2078,30 +2083,30 @@ object FormPrincipal: TFormPrincipal
         object TabSheetRruffRaman: TTabSheet
           Caption = 'Espectroscopia RAMAN'
           ClientHeight = 557
-          ClientWidth = 593
+          ClientWidth = 584
           object GroupBox5: TGroupBox
             Left = 0
             Height = 557
             Top = 0
-            Width = 593
+            Width = 584
             Align = alClient
             ClientHeight = 539
-            ClientWidth = 589
+            ClientWidth = 580
             TabOrder = 0
             object GroupBoxGraficoRaman: TGroupBox
               Left = 16
               Height = 232
               Top = 22
-              Width = 551
+              Width = 542
               Anchors = [akTop, akLeft, akRight, akBottom]
               ClientHeight = 214
-              ClientWidth = 547
+              ClientWidth = 538
               TabOrder = 0
               object ChartRaman: TChart
                 Left = 0
                 Height = 214
                 Top = 0
-                Width = 547
+                Width = 538
                 AxisList = <                
                   item
                     Minors = <>
@@ -2129,9 +2134,9 @@ object FormPrincipal: TFormPrincipal
             end
             object Label5: TLabel
               Left = 16
-              Height = 16
+              Height = 15
               Top = -2
-              Width = 167
+              Width = 166
               Caption = 'Direção de Polarização do Laser'
               ParentColor = False
             end
@@ -2147,18 +2152,18 @@ object FormPrincipal: TFormPrincipal
             end
             object GroupBox8: TGroupBox
               Left = 16
-              Height = 248
+              Height = 269
               Top = 256
               Width = 551
               Anchors = [akLeft, akBottom]
-              ClientHeight = 230
+              ClientHeight = 251
               ClientWidth = 547
               TabOrder = 2
               object Label6: TLabel
                 Left = 318
-                Height = 31
-                Top = 0
-                Width = 9
+                Height = 30
+                Top = 22
+                Width = 8
                 Anchors = [akLeft, akBottom]
                 Caption = '-'
                 Font.Height = -21
@@ -2168,41 +2173,41 @@ object FormPrincipal: TFormPrincipal
               end
               object LabelId_Quimica1: TLabel
                 Left = 14
-                Height = 16
-                Top = 0
-                Width = 69
+                Height = 15
+                Top = 22
+                Width = 68
                 Anchors = [akLeft, akBottom]
                 Caption = 'Identificação'
                 ParentColor = False
               end
               object LabelDescricao3: TLabel
                 Left = 14
-                Height = 16
+                Height = 15
                 Top = 40
-                Width = 55
+                Width = 54
                 Caption = 'Descrição '
                 ParentColor = False
               end
               object LabelPinId: TLabel
                 Left = 14
-                Height = 16
+                Height = 15
                 Top = 112
-                Width = 89
+                Width = 88
                 Caption = 'Identificação Pin'
                 ParentColor = False
               end
               object LabelOrientacao: TLabel
                 Left = 14
-                Height = 16
+                Height = 15
                 Top = 160
-                Width = 59
+                Width = 58
                 Caption = 'Orientação'
                 ParentColor = False
               end
               object ComboBoxRamanEquipamento: TComboBox
                 Left = 158
                 Height = 23
-                Top = 201
+                Top = 221
                 Width = 372
                 Anchors = [akTop, akLeft, akRight]
                 ItemHeight = 15
@@ -2212,9 +2217,9 @@ object FormPrincipal: TFormPrincipal
               end
               object LabelEquipamentoRaman: TLabel
                 Left = 14
-                Height = 16
-                Top = 201
-                Width = 66
+                Height = 15
+                Top = 221
+                Width = 65
                 Caption = 'Instrumento'
                 ParentColor = False
               end
@@ -2252,7 +2257,7 @@ object FormPrincipal: TFormPrincipal
               end
               object MemoRamanOrientacao: TMemo
                 Left = 158
-                Height = 34
+                Height = 53
                 Top = 160
                 Width = 372
                 ScrollBars = ssAutoVertical
@@ -2264,30 +2269,30 @@ object FormPrincipal: TFormPrincipal
         object TabSheetRruffVarredura: TTabSheet
           Caption = 'Varredura Ampla com Artefatos Espectrais'
           ClientHeight = 557
-          ClientWidth = 593
+          ClientWidth = 584
           object GroupBox6: TGroupBox
             Left = 0
             Height = 557
             Top = 0
-            Width = 593
+            Width = 584
             Align = alClient
             ClientHeight = 539
-            ClientWidth = 589
+            ClientWidth = 580
             TabOrder = 0
             object GroupBoxGraficoVarredura: TGroupBox
               Left = 15
               Height = 232
               Top = 6
-              Width = 551
+              Width = 542
               Anchors = [akTop, akLeft, akRight, akBottom]
               ClientHeight = 214
-              ClientWidth = 547
+              ClientWidth = 538
               TabOrder = 0
               object ChartVarredura: TChart
                 Left = 0
                 Height = 214
                 Top = 0
-                Width = 547
+                Width = 538
                 AxisList = <                
                   item
                     Minors = <>
@@ -2336,9 +2341,9 @@ object FormPrincipal: TFormPrincipal
               end
               object Label7: TLabel
                 Left = 368
-                Height = 31
+                Height = 30
                 Top = 16
-                Width = 9
+                Width = 8
                 Caption = '-'
                 Font.Height = -21
                 Font.Style = [fsBold]
@@ -2347,17 +2352,17 @@ object FormPrincipal: TFormPrincipal
               end
               object LabelId_Quimica2: TLabel
                 Left = 10
-                Height = 16
+                Height = 15
                 Top = 16
-                Width = 69
+                Width = 68
                 Caption = 'Identificação'
                 ParentColor = False
               end
               object LabelComprimentodeOnda: TLabel
                 Left = 10
-                Height = 16
+                Height = 15
                 Top = 66
-                Width = 124
+                Width = 123
                 Caption = 'Comprimento de Onda'
                 ParentColor = False
               end
@@ -2381,9 +2386,9 @@ object FormPrincipal: TFormPrincipal
               end
               object LabelDescricaoBroadScan: TLabel
                 Left = 10
-                Height = 16
+                Height = 15
                 Top = 152
-                Width = 52
+                Width = 51
                 Caption = 'Descrição'
                 ParentColor = False
               end
@@ -2399,9 +2404,9 @@ object FormPrincipal: TFormPrincipal
               end
               object LabelConfiguracaoInstrumento: TLabel
                 Left = 10
-                Height = 16
+                Height = 15
                 Top = 112
-                Width = 66
+                Width = 65
                 Caption = 'Instrumento'
                 ParentColor = False
               end
@@ -2426,30 +2431,30 @@ object FormPrincipal: TFormPrincipal
         object TabSheetRruffInfra: TTabSheet
           Caption = 'Espectro Infravermelho'
           ClientHeight = 557
-          ClientWidth = 593
+          ClientWidth = 584
           object GroupBox7: TGroupBox
             Left = 0
             Height = 557
             Top = 0
-            Width = 593
+            Width = 584
             Align = alClient
             ClientHeight = 539
-            ClientWidth = 589
+            ClientWidth = 580
             TabOrder = 0
             object GroupBoxGraficoInfravermelho: TGroupBox
               Left = 16
               Height = 232
               Top = 6
-              Width = 551
+              Width = 542
               Anchors = [akTop, akLeft, akRight, akBottom]
               ClientHeight = 214
-              ClientWidth = 547
+              ClientWidth = 538
               TabOrder = 0
               object ChartInfravermelho: TChart
                 Left = 0
                 Height = 214
                 Top = 0
-                Width = 547
+                Width = 538
                 AxisList = <                
                   item
                     Minors = <>
@@ -2497,9 +2502,9 @@ object FormPrincipal: TFormPrincipal
               end
               object Label8: TLabel
                 Left = 368
-                Height = 31
+                Height = 30
                 Top = 16
-                Width = 9
+                Width = 8
                 Caption = '-'
                 Font.Height = -21
                 Font.Style = [fsBold]
@@ -2508,33 +2513,33 @@ object FormPrincipal: TFormPrincipal
               end
               object LabelId_Quimica3: TLabel
                 Left = 10
-                Height = 16
+                Height = 15
                 Top = 16
-                Width = 69
+                Width = 68
                 Caption = 'Identificação'
                 ParentColor = False
               end
               object LabelDescricaoIV: TLabel
                 Left = 10
-                Height = 16
+                Height = 15
                 Top = 181
-                Width = 52
+                Width = 51
                 Caption = 'Descrição'
                 ParentColor = False
               end
               object LabelResolucao: TLabel
                 Left = 10
-                Height = 16
+                Height = 15
                 Top = 106
-                Width = 55
+                Width = 54
                 Caption = 'Resolução'
                 ParentColor = False
               end
               object LabelInstrumentoIV: TLabel
                 Left = 10
-                Height = 16
+                Height = 15
                 Top = 66
-                Width = 66
+                Width = 65
                 Caption = 'Instrumento'
                 ParentColor = False
               end
@@ -2579,30 +2584,30 @@ object FormPrincipal: TFormPrincipal
         object TabSheetRruffDifracao: TTabSheet
           Caption = 'Difração do pó mineral'
           ClientHeight = 557
-          ClientWidth = 593
+          ClientWidth = 584
           object GroupBox12: TGroupBox
             Left = 0
             Height = 557
             Top = 0
-            Width = 593
+            Width = 584
             Align = alClient
             ClientHeight = 539
-            ClientWidth = 589
+            ClientWidth = 580
             TabOrder = 0
             object GroupBoxDifracao: TGroupBox
               Left = 15
               Height = 232
               Top = 6
-              Width = 555
+              Width = 546
               Anchors = [akTop, akLeft, akRight, akBottom]
               ClientHeight = 214
-              ClientWidth = 551
+              ClientWidth = 542
               TabOrder = 0
               object ChartDifracao: TChart
                 Left = 0
                 Height = 214
                 Top = 0
-                Width = 551
+                Width = 542
                 AxisList = <                
                   item
                     Minors = <>
@@ -2639,65 +2644,65 @@ object FormPrincipal: TFormPrincipal
               TabOrder = 1
               object LabelA: TLabel
                 Left = 21
-                Height = 16
+                Height = 15
                 Top = 16
-                Width = 7
+                Width = 6
                 Caption = 'a'
                 ParentColor = False
               end
               object LabelB: TLabel
                 Left = 224
-                Height = 16
+                Height = 15
                 Top = 19
-                Width = 8
+                Width = 7
                 Caption = 'b'
                 ParentColor = False
               end
               object LabelC: TLabel
                 Left = 429
-                Height = 16
+                Height = 15
                 Top = 17
-                Width = 7
+                Width = 6
                 Caption = 'c'
                 ParentColor = False
               end
               object LabelAlpha: TLabel
                 Left = 21
-                Height = 16
+                Height = 15
                 Top = 87
-                Width = 32
+                Width = 31
                 Caption = 'Alpha'
                 ParentColor = False
               end
               object LabelBeta: TLabel
                 Left = 216
-                Height = 16
+                Height = 15
                 Top = 87
-                Width = 24
+                Width = 23
                 Caption = 'Beta'
                 ParentColor = False
               end
               object LabelGamma: TLabel
                 Left = 392
-                Height = 16
+                Height = 15
                 Top = 87
-                Width = 43
+                Width = 42
                 Caption = 'Gamma'
                 ParentColor = False
               end
               object LabelVolume: TLabel
                 Left = 21
-                Height = 16
+                Height = 15
                 Top = 152
-                Width = 42
+                Width = 41
                 Caption = 'Volume'
                 ParentColor = False
               end
               object LabelSistemaCristalino: TLabel
                 Left = 289
-                Height = 16
+                Height = 15
                 Top = 152
-                Width = 95
+                Width = 94
                 Caption = 'Sistema Cristalino'
                 ParentColor = False
               end
@@ -2776,18 +2781,18 @@ object FormPrincipal: TFormPrincipal
             end
             object LabelId_Quimica4: TLabel
               Left = 24
-              Height = 16
-              Top = 256
-              Width = 69
+              Height = 15
+              Top = 257
+              Width = 68
               Anchors = [akLeft, akBottom]
               Caption = 'Identificação'
               ParentColor = False
             end
             object Label9: TLabel
               Left = 320
-              Height = 31
-              Top = 256
-              Width = 9
+              Height = 30
+              Top = 257
+              Width = 8
               Anchors = [akLeft, akBottom]
               Caption = '-'
               Font.Height = -21
@@ -2829,6 +2834,7 @@ object FormPrincipal: TFormPrincipal
     ClientHeight = 38
     ClientWidth = 1276
     TabOrder = 7
+    Visible = False
     object BitBtnAdicionarImagem: TBitBtn
       Left = 336
       Height = 30
@@ -2974,6 +2980,7 @@ object FormPrincipal: TFormPrincipal
       Caption = 'Exibir'
       object MenuItemMinerais: TMenuItem
         Caption = 'Minerais'
+        Checked = True
         OnClick = MenuItemMineraisClick
       end
       object MenuItemSample: TMenuItem
@@ -3016,6 +3023,7 @@ object FormPrincipal: TFormPrincipal
         end
         object MenuItemExlcuirAmostra: TMenuItem
           Caption = 'Excluir Amostra'
+          OnClick = MenuItemExlcuirAmostraClick
         end
       end
       object MenuItemOrdem: TMenuItem
@@ -3134,7 +3142,7 @@ object FormPrincipal: TFormPrincipal
     end
     object ActionSelctSampleDb: TAction
       Category = 'Database'
-      Caption = 'ActionSelctSampleDb'
+      Caption = 'Selecionar'
       OnExecute = ActionSelctSampleDbExecute
     end
   end
@@ -3314,11 +3322,16 @@ object FormPrincipal: TFormPrincipal
       OnExecute = ActionImageQuimicaDblClickExecute
     end
   end
-  object PopupMenuImage: TPopupMenu
-    left = 200
-    top = 488
-    object MenuItem2: TMenuItem
-      Caption = 'New Item1'
+  object PopupMenuImage1: TPopupMenu
+    left = 571
+    top = 88
+    object MenuItemAddImage1: TMenuItem
+      Caption = 'Adicionar'
+      OnClick = MenuItemAddImage1Click
+    end
+    object MenuItemDelImage1: TMenuItem
+      Caption = 'Apagar'
+      OnClick = MenuItemDelImage1Click
     end
   end
   object ActionListChart: TActionList
@@ -3330,8 +3343,8 @@ object FormPrincipal: TFormPrincipal
     end
   end
   object PopupMenuChart: TPopupMenu
-    left = 200
-    top = 568
+    left = 928
+    top = 168
     object MenuItemAddChartData: TMenuItem
       Caption = 'Adicionar Dados'
       OnClick = ActionAddDataExecute
@@ -3339,6 +3352,54 @@ object FormPrincipal: TFormPrincipal
     object MenuItemEraseData: TMenuItem
       Caption = 'Apagar Dados'
       OnClick = ActionRemoveBlobDataExecute
+    end
+  end
+  object PopupMenuImage2: TPopupMenu
+    left = 571
+    top = 216
+    object MenuItemAddImage2: TMenuItem
+      Caption = 'Adicionar'
+      OnClick = MenuItemAddImage2Click
+    end
+    object MenuItemDelImage2: TMenuItem
+      Caption = 'Apagar'
+      OnClick = MenuItemDelImage2Click
+    end
+  end
+  object PopupMenuImage3: TPopupMenu
+    left = 571
+    top = 336
+    object MenuItemAddImage3: TMenuItem
+      Caption = 'Adicionar'
+      OnClick = MenuItemAddImage3Click
+    end
+    object MenuItemDelImage3: TMenuItem
+      Caption = 'Apagar'
+      OnClick = MenuItemDelImage3Click
+    end
+  end
+  object PopupMenuImage4: TPopupMenu
+    left = 571
+    top = 448
+    object MenuItemAddImage4: TMenuItem
+      Caption = 'Adicionar'
+      OnClick = MenuItemAddImage4Click
+    end
+    object MenuItemDelImage4: TMenuItem
+      Caption = 'Apagar'
+      OnClick = MenuItemDelImage4Click
+    end
+  end
+  object PopupMenuImage5: TPopupMenu
+    left = 571
+    top = 568
+    object MenuItemAddImage5: TMenuItem
+      Caption = 'Adicionar'
+      OnClick = MenuItemAddImage5Click
+    end
+    object MenuItemDelImage5: TMenuItem
+      Caption = 'Apagar'
+      OnClick = MenuItemDelImage5Click
     end
   end
 end
