@@ -1,602 +1,701 @@
 object FormFichaEspecie: TFormFichaEspecie
-  Left = 677
+  Left = 138
   Height = 660
-  Top = 23
-  Width = 673
+  Top = 27
+  Width = 1144
   Caption = 'FormFichaEspecie'
   ClientHeight = 660
-  ClientWidth = 673
+  ClientWidth = 1144
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   Position = poDesktopCenter
   ShowInTaskBar = stAlways
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.2.2.0'
   object PageControlFicha: TPageControl
-    Left = 0
-    Height = 660
-    Top = 0
-    Width = 673
+    Left = 598
+    Height = 564
+    Top = 76
+    Width = 546
     ActivePage = TabSheetInf_Gerais
     Align = alClient
     TabIndex = 0
-    TabOrder = 0
+    TabOrder = 2
+    OnChange = PageControlFichaChange
     object TabSheetInf_Gerais: TTabSheet
       Caption = 'Informações Gerais'
-      ClientHeight = 632
-      ClientWidth = 665
-      object GroupBoxInf_Gerais: TGroupBox
+      ClientHeight = 536
+      ClientWidth = 538
+      object ScrollBox3: TScrollBox
         Left = 0
-        Height = 632
-        Top = 0
-        Width = 665
-        Align = alClient
-        ClientHeight = 614
-        ClientWidth = 661
+        Height = 536
+        Top = 15
+        Width = 538
+        HorzScrollBar.Page = 517
+        VertScrollBar.Page = 532
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ClientHeight = 532
+        ClientWidth = 517
         TabOrder = 0
+        object EditSubGrupo: TEdit
+          Left = 150
+          Height = 23
+          Top = 210
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = EditSubGrupoEditingDone
+          OnKeyUp = EditSubGrupoKeyUp
+          TabOrder = 0
+          Text = ' '
+        end
         object Label1: TLabel
           Left = 15
-          Height = 16
-          Top = 9
-          Width = 45
-          Caption = 'Fórmula'
+          Height = 15
+          Top = 10
+          Width = 67
+          Caption = 'Composição'
           ParentColor = False
-        end
-        object DBMemoFormula: TDBMemo
-          Left = 125
-          Height = 27
-          Top = 9
-          Width = 521
-          Anchors = [akTop, akLeft, akRight]
-          DataField = 'formula'
-          DataSource = Dados.DatasourceGeral
-          ReadOnly = True
-          TabOrder = 0
         end
         object LabelNome: TLabel
           Left = 15
-          Height = 16
-          Top = 39
-          Width = 34
+          Height = 15
+          Top = 50
+          Width = 33
           Caption = 'Nome'
           ParentColor = False
         end
         object LabelClasse: TLabel
           Left = 15
-          Height = 16
-          Top = 79
-          Width = 34
+          Height = 15
+          Top = 90
+          Width = 33
           Caption = 'Classe'
           ParentColor = False
         end
         object LabelSubClasse: TLabel
           Left = 15
-          Height = 16
-          Top = 111
-          Width = 52
+          Height = 15
+          Top = 130
+          Width = 51
           Caption = 'Subclasse'
           ParentColor = False
         end
         object LabelGrupo: TLabel
           Left = 15
-          Height = 16
-          Top = 143
-          Width = 34
+          Height = 15
+          Top = 170
+          Width = 33
           Caption = 'Grupo'
           ParentColor = False
         end
         object LabelSubGrupo: TLabel
           Left = 15
-          Height = 16
-          Top = 175
-          Width = 53
+          Height = 15
+          Top = 210
+          Width = 52
           Caption = 'Subgrupo'
           ParentColor = False
         end
         object LabelOcorrencia: TLabel
           Left = 15
-          Height = 16
-          Top = 215
-          Width = 59
+          Height = 15
+          Top = 250
+          Width = 58
           Caption = 'Ocorrência'
           ParentColor = False
         end
         object LabelAssociacao: TLabel
           Left = 15
-          Height = 16
-          Top = 295
-          Width = 60
+          Height = 15
+          Top = 320
+          Width = 59
           Caption = 'Associação'
           ParentColor = False
         end
         object LabelDistincao: TLabel
           Left = 15
-          Height = 16
-          Top = 375
-          Width = 50
+          Height = 15
+          Top = 390
+          Width = 49
           Caption = 'Distinção'
           ParentColor = False
         end
         object LabelAlteracao: TLabel
           Left = 15
-          Height = 16
-          Top = 455
-          Width = 51
+          Height = 15
+          Top = 460
+          Width = 50
           Caption = 'Alteração'
           ParentColor = False
         end
         object LabelAplicacao: TLabel
           Left = 15
-          Height = 16
-          Top = 535
-          Width = 53
+          Height = 15
+          Top = 530
+          Width = 52
           Caption = 'Aplicação'
           ParentColor = False
         end
-        object RichMemoFormula: TRichMemo
-          Left = 125
-          Height = 27
-          Top = 9
-          Width = 521
-          Anchors = [akTop, akLeft, akRight]
-          Font.Height = -12
-          HideSelection = False
-          ParentBidiMode = False
-          ParentFont = False
-          TabOrder = 1
-          WantReturns = False
-        end
-        object MemoNome: TMemo
-          Left = 125
-          Height = 27
-          Top = 40
-          Width = 524
-          TabOrder = 2
-        end
-        object MemoClasse: TMemo
-          Left = 125
-          Height = 27
-          Top = 79
-          Width = 524
-          TabOrder = 3
-        end
-        object MemoSubclasse: TMemo
-          Left = 125
-          Height = 27
-          Top = 111
-          Width = 524
-          TabOrder = 4
-        end
-        object MemoGrupo: TMemo
-          Left = 125
-          Height = 27
-          Top = 143
-          Width = 524
-          TabOrder = 5
-        end
-        object MemoSubgrupo: TMemo
-          Left = 125
-          Height = 27
-          Top = 175
-          Width = 524
-          TabOrder = 6
-        end
         object MemoOcorrencia: TMemo
-          Left = 125
-          Height = 70
-          Top = 216
-          Width = 524
-          TabOrder = 7
+          Left = 150
+          Height = 60
+          Top = 250
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoOcorrenciaEditingDone
+          OnKeyUp = MemoOcorrenciaKeyUp
+          ScrollBars = ssAutoVertical
+          TabOrder = 1
         end
         object MemoAssociacao: TMemo
-          Left = 125
-          Height = 70
-          Top = 295
-          Width = 524
-          TabOrder = 8
+          Left = 150
+          Height = 60
+          Top = 320
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoAssociacaoEditingDone
+          OnKeyUp = MemoAssociacaoKeyUp
+          ScrollBars = ssAutoVertical
+          TabOrder = 2
         end
         object MemoDistincao: TMemo
-          Left = 125
-          Height = 70
-          Top = 375
-          Width = 524
-          TabOrder = 9
+          Left = 150
+          Height = 60
+          Top = 390
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoDistincaoEditingDone
+          OnKeyUp = MemoDistincaoKeyUp
+          ScrollBars = ssAutoVertical
+          TabOrder = 3
         end
         object MemoAlteracao: TMemo
-          Left = 125
-          Height = 70
-          Top = 455
-          Width = 524
-          TabOrder = 10
+          Left = 150
+          Height = 60
+          Top = 460
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoAlteracaoEditingDone
+          OnKeyUp = MemoAlteracaoKeyUp
+          ScrollBars = ssAutoVertical
+          TabOrder = 4
         end
         object MemoAplicacao: TMemo
-          Left = 125
-          Height = 70
-          Top = 535
-          Width = 524
-          TabOrder = 11
+          Left = 152
+          Height = 60
+          Top = 530
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoAplicacaoEditingDone
+          OnKeyUp = MemoAplicacaoKeyUp
+          ScrollBars = ssAutoVertical
+          TabOrder = 5
+        end
+        object EditFormula: TEdit
+          Left = 150
+          Height = 23
+          Top = 10
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = EditFormulaEditingDone
+          OnKeyUp = EditFormulaKeyUp
+          TabOrder = 6
+          Text = ' '
+        end
+        object EditNomeMineral: TEdit
+          Left = 150
+          Height = 23
+          Top = 50
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = EditNomeMineralEditingDone
+          OnKeyUp = EditNomeMineralKeyUp
+          TabOrder = 7
+          Text = ' '
+        end
+        object EditClasse: TEdit
+          Left = 150
+          Height = 23
+          Top = 90
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = EditClasseEditingDone
+          OnKeyUp = EditClasseKeyUp
+          TabOrder = 8
+          Text = ' '
+        end
+        object EditSubClasse: TEdit
+          Left = 150
+          Height = 23
+          Top = 130
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = EditSubClasseEditingDone
+          OnKeyUp = EditSubClasseKeyUp
+          TabOrder = 9
+          Text = ' '
+        end
+        object EditGrupo: TEdit
+          Left = 150
+          Height = 23
+          Top = 170
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = EditGrupoEditingDone
+          OnKeyUp = EditGrupoKeyUp
+          TabOrder = 10
+          Text = ' '
         end
       end
     end
     object TabSheetProp_Fisicas: TTabSheet
       Caption = 'Propriedades Físicas'
-      ClientHeight = 632
-      ClientWidth = 665
-      object GroupBoxProp_Fisicas: TGroupBox
+      ClientHeight = 562
+      ClientWidth = 538
+      object ScrollBox4: TScrollBox
         Left = 0
-        Height = 632
-        Top = 0
-        Width = 665
-        Align = alClient
-        ClientHeight = 614
-        ClientWidth = 661
+        Height = 562
+        Top = 15
+        Width = 538
+        HorzScrollBar.Page = 517
+        VertScrollBar.Page = 558
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ClientHeight = 558
+        ClientWidth = 517
         TabOrder = 0
+        object MemoLuminescencia: TMemo
+          Left = 150
+          Height = 27
+          Top = 560
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoLuminescenciaEditingDone
+          OnKeyUp = MemoLuminescenciaKeyUp
+          TabOrder = 0
+        end
+        object MemoCor: TMemo
+          Left = 150
+          Height = 60
+          Top = 159
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoCorEditingDone
+          OnKeyUp = MemoCorKeyUp
+          ScrollBars = ssAutoVertical
+          TabOrder = 1
+        end
+        object MemoTraco: TMemo
+          Left = 150
+          Height = 60
+          Top = 231
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoTracoEditingDone
+          OnKeyUp = MemoTracoKeyUp
+          ScrollBars = ssAutoVertical
+          TabOrder = 2
+        end
+        object MemoBrilho: TMemo
+          Left = 150
+          Height = 60
+          Top = 303
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoBrilhoEditingDone
+          OnKeyUp = MemoBrilhoKeyUp
+          ScrollBars = ssAutoVertical
+          TabOrder = 3
+        end
+        object MemoClivagem: TMemo
+          Left = 150
+          Height = 60
+          Top = 375
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoClivagemEditingDone
+          OnKeyUp = MemoClivagemKeyUp
+          ScrollBars = ssAutoVertical
+          TabOrder = 4
+        end
+        object MemoFratura: TMemo
+          Left = 150
+          Height = 60
+          Top = 447
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoFraturaEditingDone
+          OnKeyUp = MemoFraturaKeyUp
+          ScrollBars = ssAutoVertical
+          TabOrder = 5
+        end
+        object MemoMagnetismo: TMemo
+          Left = 150
+          Height = 27
+          Top = 519
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoMagnetismoEditingDone
+          OnKeyUp = MemoMagnetismoKeyUp
+          TabOrder = 6
+        end
         object EditDureza: TEdit
-          Left = 125
+          Left = 150
           Height = 23
           Top = 15
           Width = 100
+          OnClick = EditDurezaClick
           ReadOnly = True
-          TabOrder = 0
-          Text = 'EditDureza'
+          TabOrder = 7
+          Text = ' '
         end
         object EditDensidade: TEdit
-          Left = 125
+          Left = 150
           Height = 23
           Top = 87
           Width = 100
+          OnClick = EditDensidadeClick
           ReadOnly = True
-          TabOrder = 1
-          Text = 'EditDensidade'
+          TabOrder = 8
+          Text = ' '
         end
         object Label24: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 15
-          Width = 37
+          Width = 36
           Caption = 'Dureza'
           ParentColor = False
         end
         object Label25: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 87
-          Width = 56
+          Width = 55
           Caption = 'Densidade'
           ParentColor = False
         end
         object LabelCor: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 159
-          Width = 20
+          Width = 19
           Caption = 'Cor'
           ParentColor = False
         end
         object LabelTraco: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 231
-          Width = 31
+          Width = 30
           Caption = 'Traço'
           ParentColor = False
         end
         object LabelBrilho: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 303
-          Width = 32
+          Width = 31
           Caption = 'Brilho'
           ParentColor = False
         end
         object LabelClivagem: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 375
-          Width = 51
+          Width = 50
           Caption = 'Clivagem'
           ParentColor = False
         end
         object LabelFratura: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 447
-          Width = 38
+          Width = 37
           Caption = 'Fratura'
           ParentColor = False
         end
         object LabelMagnetismo: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 519
-          Width = 68
+          Width = 67
           Caption = 'Magnetismo'
           ParentColor = False
         end
         object LabelLuminescencia: TLabel
           Left = 15
-          Height = 16
-          Top = 559
-          Width = 80
+          Height = 15
+          Top = 560
+          Width = 79
           Caption = 'Luminescência'
           ParentColor = False
         end
-        object MemoCor: TMemo
-          Left = 125
+        object GroupBoxDureza: TGroupBox
+          Left = 272
           Height = 60
-          Top = 159
-          Width = 521
-          Lines.Strings = (
-            'MemoCor'
-          )
-          ScrollBars = ssAutoVertical
-          TabOrder = 2
+          Top = 0
+          Width = 234
+          Caption = 'Editar'
+          ClientHeight = 42
+          ClientWidth = 230
+          TabOrder = 9
+          Visible = False
+          object EditDurezaMin: TEdit
+            Left = 24
+            Height = 23
+            Top = 9
+            Width = 80
+            OnEditingDone = EditDurezaMinEditingDone
+            OnKeyUp = EditDurezaMinKeyUp
+            TabOrder = 0
+            Text = ' '
+          end
+          object EditDurezaMax: TEdit
+            Left = 124
+            Height = 23
+            Top = 8
+            Width = 80
+            OnEditingDone = EditDurezaMaxEditingDone
+            OnKeyUp = EditDurezaMaxKeyUp
+            TabOrder = 1
+            Text = ' '
+          end
         end
-        object MemoTraco: TMemo
-          Left = 125
-          Height = 60
-          Top = 231
-          Width = 521
-          Lines.Strings = (
-            'MemoTraco'
-          )
-          ScrollBars = ssAutoVertical
-          TabOrder = 3
-        end
-        object MemoBrilho: TMemo
-          Left = 125
-          Height = 60
-          Top = 303
-          Width = 521
-          Lines.Strings = (
-            'MemoBrilho'
-          )
-          ScrollBars = ssAutoVertical
-          TabOrder = 4
-        end
-        object MemoClivagem: TMemo
-          Left = 125
-          Height = 60
-          Top = 375
-          Width = 521
-          Lines.Strings = (
-            'MemoClivagem'
-          )
-          ScrollBars = ssAutoVertical
-          TabOrder = 5
-        end
-        object MemoFratura: TMemo
-          Left = 125
-          Height = 60
-          Top = 447
-          Width = 521
-          Lines.Strings = (
-            'MemoFratura'
-          )
-          ScrollBars = ssAutoVertical
-          TabOrder = 6
-        end
-        object MemoMagnetismo: TMemo
-          Left = 125
-          Height = 27
-          Top = 519
-          Width = 521
-          Lines.Strings = (
-            'MemoMagnetismo'
-          )
-          TabOrder = 7
-        end
-        object MemoLuminescencia: TMemo
-          Left = 125
-          Height = 27
-          Top = 559
-          Width = 521
-          Lines.Strings = (
-            'MemoLuminescencia'
-          )
-          TabOrder = 8
+        object GroupBoxDensidade: TGroupBox
+          Left = 272
+          Height = 55
+          Top = 72
+          Width = 234
+          Caption = 'Editar'
+          ClientHeight = 37
+          ClientWidth = 230
+          TabOrder = 10
+          Visible = False
+          object EditDensidadeMin: TEdit
+            Left = 27
+            Height = 23
+            Top = 7
+            Width = 80
+            OnEditingDone = EditDensidadeMinEditingDone
+            OnKeyUp = EditDensidadeMinKeyUp
+            TabOrder = 0
+            Text = ' '
+          end
+          object EditDensidadeMax: TEdit
+            Left = 125
+            Height = 23
+            Top = 5
+            Width = 80
+            OnEditingDone = EditDensidadeMaxEditingDone
+            OnKeyUp = EditDensidadeMaxKeyUp
+            TabOrder = 1
+            Text = ' '
+          end
         end
       end
     end
     object TabSheetOticas: TTabSheet
       Caption = 'Propriedades Óticas'
-      ClientHeight = 632
-      ClientWidth = 665
-      object GroupBoxOpticas: TGroupBox
+      ClientHeight = 537
+      ClientWidth = 538
+      object ScrollBox5: TScrollBox
         Left = 0
-        Height = 632
-        Top = 0
-        Width = 665
-        Align = alClient
-        ClientHeight = 614
-        ClientWidth = 661
+        Height = 537
+        Top = 15
+        Width = 538
+        HorzScrollBar.Page = 517
+        VertScrollBar.Page = 533
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ClientHeight = 533
+        ClientWidth = 517
         TabOrder = 0
+        object MemoExtincao: TMemo
+          Left = 152
+          Height = 45
+          Top = 528
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoExtincaoEditingDone
+          OnKeyUp = MemoExtincaoKeyUp
+          ScrollBars = ssAutoVertical
+          TabOrder = 0
+        end
         object LabelExtincao: TLabel
-          Left = 15
-          Height = 16
-          Top = 527
-          Width = 45
+          Left = 16
+          Height = 15
+          Top = 528
+          Width = 44
           Caption = 'Extinção'
           ParentColor = False
         end
         object LabelDifaneidade: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 23
-          Width = 64
+          Width = 63
           Caption = 'Difaneidade'
           ParentColor = False
         end
         object LabelSinal_optico: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 79
-          Width = 65
+          Width = 64
           Caption = 'Sinal Óptico'
           ParentColor = False
         end
         object LabelIndice_Refracao: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 135
-          Width = 82
+          Width = 81
           Caption = 'Índice Refração'
           ParentColor = False
         end
         object LabelAngulo_2V: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 191
-          Width = 56
+          Width = 55
           Caption = 'Ângulo 2V'
           ParentColor = False
         end
         object LabelCor_Interferencia: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 247
-          Width = 105
+          Width = 104
           Caption = 'Cor de Interferência'
           ParentColor = False
         end
         object LabelSInal_Elongacao: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 359
-          Width = 100
+          Width = 99
           Caption = 'Sinal de Elongação'
           ParentColor = False
         end
         object LabelBirrefringencia: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 415
-          Width = 78
+          Width = 77
           Caption = 'Birrefringência'
           ParentColor = False
         end
         object LabelRelevo: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 471
-          Width = 36
+          Width = 35
           Caption = 'Relevo'
           ParentColor = False
         end
         object LabelCor_Lamina: TLabel
           Left = 15
-          Height = 16
+          Height = 15
           Top = 303
-          Width = 78
+          Width = 77
           Caption = 'Cor da Lâmina'
           ParentColor = False
         end
         object MemoDifaneidade: TMemo
-          Left = 172
+          Left = 150
           Height = 45
           Top = 23
-          Width = 479
-          Lines.Strings = (
-            'MemoDifaneidade'
-          )
-          ScrollBars = ssAutoVertical
-          TabOrder = 0
-        end
-        object MemoSinalOptico: TMemo
-          Left = 172
-          Height = 45
-          Top = 79
-          Width = 479
-          Lines.Strings = (
-            'Memo1'
-          )
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoDifaneidadeEditingDone
+          OnKeyUp = MemoDifaneidadeKeyUp
           ScrollBars = ssAutoVertical
           TabOrder = 1
         end
-        object MemoIndiceRefracao: TMemo
-          Left = 172
+        object MemoSinalOptico: TMemo
+          Left = 150
           Height = 45
-          Top = 135
-          Width = 479
-          Lines.Strings = (
-            'Memo1'
-          )
+          Top = 79
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoSinalOpticoEditingDone
+          OnKeyUp = MemoSinalOpticoKeyUp
           ScrollBars = ssAutoVertical
           TabOrder = 2
         end
-        object MemoAngulo: TMemo
-          Left = 172
+        object MemoIndiceRefracao: TMemo
+          Left = 150
           Height = 45
-          Top = 191
-          Width = 479
-          Lines.Strings = (
-            'Memo1'
-          )
+          Top = 135
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoIndiceRefracaoEditingDone
+          OnKeyUp = MemoIndiceRefracaoKeyUp
           ScrollBars = ssAutoVertical
           TabOrder = 3
         end
-        object MemoInterferencia: TMemo
-          Left = 172
+        object MemoAngulo: TMemo
+          Left = 150
           Height = 45
-          Top = 247
-          Width = 479
-          Lines.Strings = (
-            'Memo1'
-          )
+          Top = 191
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoAnguloEditingDone
+          OnKeyUp = MemoAnguloKeyUp
           ScrollBars = ssAutoVertical
           TabOrder = 4
         end
-        object MemoCorLamina: TMemo
-          Left = 172
+        object MemoInterferencia: TMemo
+          Left = 150
           Height = 45
-          Top = 303
-          Width = 479
-          Lines.Strings = (
-            'Memo1'
-          )
+          Top = 247
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoInterferenciaEditingDone
+          OnKeyUp = MemoInterferenciaKeyUp
           ScrollBars = ssAutoVertical
           TabOrder = 5
         end
-        object MemoSinalElongacao: TMemo
-          Left = 172
+        object MemoCorLamina: TMemo
+          Left = 150
           Height = 45
-          Top = 359
-          Width = 479
-          Lines.Strings = (
-            'Memo1'
-          )
+          Top = 303
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoCorLaminaEditingDone
+          OnKeyUp = MemoCorLaminaKeyUp
           ScrollBars = ssAutoVertical
           TabOrder = 6
         end
-        object MemoBirrefringencia: TMemo
-          Left = 172
+        object MemoSinalElongacao: TMemo
+          Left = 150
           Height = 45
-          Top = 415
-          Width = 479
-          Lines.Strings = (
-            'Memo1'
-          )
+          Top = 359
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoSinalElongacaoEditingDone
+          OnKeyUp = MemoSinalElongacaoKeyUp
           ScrollBars = ssAutoVertical
           TabOrder = 7
         end
-        object MemoRelevo: TMemo
-          Left = 172
+        object MemoBirrefringencia: TMemo
+          Left = 150
           Height = 45
-          Top = 471
-          Width = 479
-          Lines.Strings = (
-            'Memo1'
-          )
+          Top = 415
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoBirrefringenciaEditingDone
+          OnKeyUp = MemoBirrefringenciaKeyUp
           ScrollBars = ssAutoVertical
           TabOrder = 8
         end
-        object MemoExtincao: TMemo
-          Left = 172
+        object MemoRelevo: TMemo
+          Left = 150
           Height = 45
-          Top = 527
-          Width = 479
-          Lines.Strings = (
-            'Memo1'
-          )
+          Top = 471
+          Width = 355
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoRelevoEditingDone
+          OnKeyUp = MemoRelevoKeyUp
           ScrollBars = ssAutoVertical
           TabOrder = 9
         end
@@ -604,129 +703,27 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object TabSheetCristalografia: TTabSheet
       Caption = 'Cristalografia'
-      ClientHeight = 619
-      ClientWidth = 668
-      object GroupBox1: TGroupBox
+      ClientHeight = 537
+      ClientWidth = 538
+      object ScrollBox6: TScrollBox
         Left = 0
-        Height = 619
-        Top = 0
-        Width = 668
-        Align = alClient
-        ClientHeight = 601
-        ClientWidth = 664
+        Height = 537
+        Top = 15
+        Width = 538
+        HorzScrollBar.Page = 534
+        VertScrollBar.Page = 533
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ClientHeight = 533
+        ClientWidth = 534
         TabOrder = 0
-        object GroupBoxCristalografia1: TGroupBox
-          Left = 15
+        object GroupBoxCristalografia2: TGroupBox
+          Left = 300
           Height = 200
-          Top = 39
+          Top = 40
           Width = 200
           ClientHeight = 182
           ClientWidth = 196
           TabOrder = 0
-          object ImageCristalografia1: TImage
-            Left = 0
-            Height = 182
-            Top = 0
-            Width = 196
-            Align = alClient
-            Proportional = True
-          end
-        end
-        object GroupBoxCristalografia: TGroupBox
-          Left = 3
-          Height = 284
-          Top = 295
-          Width = 659
-          Anchors = [akTop, akLeft, akRight, akBottom]
-          ClientHeight = 266
-          ClientWidth = 655
-          TabOrder = 1
-          object DBMemoSistema: TDBMemo
-            Left = 157
-            Height = 27
-            Top = 24
-            Width = 492
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'sistema'
-            DataSource = Dados.DatasourceGeral
-            ReadOnly = True
-            TabOrder = 0
-          end
-          object DBMemoClasse_Cristalina: TDBMemo
-            Left = 157
-            Height = 27
-            Top = 64
-            Width = 492
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'classe_cristalina'
-            DataSource = Dados.DatasourceGeral
-            ReadOnly = True
-            TabOrder = 1
-          end
-          object DBMemoH_M: TDBMemo
-            Left = 157
-            Height = 27
-            Top = 104
-            Width = 492
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'h_m'
-            DataSource = Dados.DatasourceGeral
-            ReadOnly = True
-            TabOrder = 2
-          end
-          object DBMemoHabito: TDBMemo
-            Left = 157
-            Height = 78
-            Top = 146
-            Width = 494
-            Anchors = [akTop, akLeft, akRight]
-            DataField = 'habito'
-            DataSource = Dados.DatasourceGeral
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 3
-          end
-          object LabelSistema_Cristalino: TLabel
-            Left = 15
-            Height = 16
-            Top = 24
-            Width = 95
-            Caption = 'Sistema Cristalino'
-            ParentColor = False
-          end
-          object LabelClasse_Cristalina: TLabel
-            Left = 15
-            Height = 16
-            Top = 64
-            Width = 86
-            Caption = 'Classe Cristalina'
-            ParentColor = False
-          end
-          object LabelSimbologia: TLabel
-            Left = 15
-            Height = 16
-            Top = 104
-            Width = 61
-            Caption = 'Simbologia'
-            ParentColor = False
-          end
-          object LabelHabito: TLabel
-            Left = 15
-            Height = 16
-            Top = 146
-            Width = 37
-            Caption = 'Hábito'
-            ParentColor = False
-          end
-        end
-        object GroupBoxCristalografia2: TGroupBox
-          Left = 267
-          Height = 200
-          Top = 39
-          Width = 200
-          ClientHeight = 182
-          ClientWidth = 196
-          TabOrder = 2
           object ImageCristalografia2: TImage
             Left = 0
             Height = 182
@@ -736,26 +733,153 @@ object FormFichaEspecie: TFormFichaEspecie
             Proportional = True
           end
         end
+        object GroupBoxCristalografia1: TGroupBox
+          Left = 15
+          Height = 200
+          Top = 40
+          Width = 200
+          ClientHeight = 182
+          ClientWidth = 196
+          TabOrder = 1
+          object ImageCristalografia1: TImage
+            Left = 0
+            Height = 182
+            Top = 0
+            Width = 196
+            Align = alClient
+            Proportional = True
+          end
+        end
+        object LabelSistema_Cristalino: TLabel
+          Left = 15
+          Height = 15
+          Top = 320
+          Width = 94
+          Caption = 'Sistema Cristalino'
+          ParentColor = False
+        end
+        object LabelClasse_Cristalina: TLabel
+          Left = 15
+          Height = 15
+          Top = 360
+          Width = 85
+          Caption = 'Classe Cristalina'
+          ParentColor = False
+        end
+        object LabelSimbologia: TLabel
+          Left = 15
+          Height = 15
+          Top = 400
+          Width = 60
+          Caption = 'Simbologia'
+          ParentColor = False
+        end
+        object LabelHabito: TLabel
+          Left = 15
+          Height = 15
+          Top = 442
+          Width = 36
+          Caption = 'Hábito'
+          ParentColor = False
+        end
+        object EditSistema: TEdit
+          Left = 160
+          Height = 23
+          Top = 320
+          Width = 350
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = EditSistemaEditingDone
+          OnKeyUp = EditSistemaKeyUp
+          TabOrder = 2
+        end
+        object EditClasse_Cristalina: TEdit
+          Left = 160
+          Height = 23
+          Top = 360
+          Width = 350
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = EditClasse_CristalinaEditingDone
+          OnKeyUp = EditClasse_CristalinaKeyUp
+          TabOrder = 3
+        end
+        object EditH_M: TEdit
+          Left = 160
+          Height = 23
+          Top = 400
+          Width = 350
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = EditH_MEditingDone
+          OnKeyUp = EditH_MKeyUp
+          TabOrder = 4
+        end
+        object MemoHabito: TMemo
+          Left = 160
+          Height = 78
+          Top = 442
+          Width = 350
+          Anchors = [akTop, akLeft, akRight]
+          OnEditingDone = MemoHabitoEditingDone
+          OnKeyUp = MemoHabitoKeyUp
+          ScrollBars = ssAutoVertical
+          TabOrder = 5
+        end
       end
     end
     object TabSheetImagem: TTabSheet
       Caption = 'Imagem'
-      ClientHeight = 632
-      ClientWidth = 665
+      ClientHeight = 562
+      ClientWidth = 538
       object GroupBoxImagemAmpliada: TGroupBox
         Left = 0
-        Height = 632
+        Height = 562
         Top = 0
-        Width = 665
+        Width = 538
         Align = alClient
-        ClientHeight = 614
-        ClientWidth = 661
+        ClientHeight = 544
+        ClientWidth = 534
         TabOrder = 0
+        object ImagemAmpliada: TImage
+          Left = 0
+          Height = 518
+          Top = 26
+          Width = 534
+          AntialiasingMode = amOn
+          Align = alClient
+          Center = True
+          Proportional = True
+        end
+        object ToolBar1: TToolBar
+          Left = 0
+          Height = 26
+          Top = 0
+          Width = 534
+          Caption = 'ToolBar1'
+          TabOrder = 0
+          object ToolButtonAddImage: TToolButton
+            Left = 1
+            Top = 2
+            Caption = 'ToolButtonAddImage'
+            OnClick = ToolButtonAddImageClick
+          end
+          object ToolButton2: TToolButton
+            Left = 24
+            Top = 2
+            Width = 5
+            Caption = 'ToolButton2'
+            Style = tbsDivider
+          end
+          object ToolButton3: TToolButton
+            Left = 29
+            Top = 2
+            Caption = 'ToolButton3'
+            OnClick = ToolButton3Click
+          end
+        end
         object HeaderControl1: THeaderControl
           Left = 0
           Height = 30
-          Top = 0
-          Width = 661
+          Top = 28
+          Width = 589
           DragReorder = False
           Sections = <          
             item
@@ -782,18 +906,1435 @@ object FormFichaEspecie: TFormFichaEspecie
               Alignment = taLeftJustify
               Width = 30
               Visible = True
+            end          
+            item
+              Alignment = taLeftJustify
+              Width = 30
+              Visible = True
+            end          
+            item
+              Alignment = taLeftJustify
+              Width = 30
+              Visible = True
             end>
           OnSectionClick = HeaderControl1SectionClick
-          Align = alTop
-        end
-        object Imagem: TImage
-          Left = 0
-          Height = 584
-          Top = 30
-          Width = 661
-          Align = alClient
         end
       end
     end
+  end
+  object BCPanel1: TBCPanel
+    Left = 0
+    Height = 564
+    Top = 76
+    Width = 200
+    Align = alLeft
+    Background.Color = clBtnFace
+    Background.ColorOpacity = 255
+    Background.Gradient1.StartColor = 14342874
+    Background.Gradient1.StartColorOpacity = 255
+    Background.Gradient1.DrawMode = dmSet
+    Background.Gradient1.EndColor = 14211288
+    Background.Gradient1.EndColorOpacity = 100
+    Background.Gradient1.ColorCorrection = True
+    Background.Gradient1.GradientType = gtReflected
+    Background.Gradient1.Point1XPercent = 0
+    Background.Gradient1.Point1YPercent = 0
+    Background.Gradient1.Point2XPercent = 0
+    Background.Gradient1.Point2YPercent = 100
+    Background.Gradient1.Sinus = False
+    Background.Gradient2.StartColor = 14211288
+    Background.Gradient2.StartColorOpacity = 0
+    Background.Gradient2.DrawMode = dmSet
+    Background.Gradient2.EndColor = 14342874
+    Background.Gradient2.EndColorOpacity = 255
+    Background.Gradient2.ColorCorrection = True
+    Background.Gradient2.GradientType = gtLinear
+    Background.Gradient2.Point1XPercent = 0
+    Background.Gradient2.Point1YPercent = 0
+    Background.Gradient2.Point2XPercent = 0
+    Background.Gradient2.Point2YPercent = 100
+    Background.Gradient2.Sinus = False
+    Background.Gradient1EndPercent = 50
+    Background.Style = bbsGradient
+    BevelInner = bvRaised
+    BevelOuter = bvNone
+    BevelWidth = 1
+    Border.Color = 12824480
+    Border.ColorOpacity = 200
+    Border.LightColor = clWhite
+    Border.LightOpacity = 200
+    Border.LightWidth = 1
+    Border.Style = bboSolid
+    Border.Width = 1
+    FontEx.Color = clDefault
+    FontEx.EndEllipsis = False
+    FontEx.FontQuality = fqSystemClearType
+    FontEx.Height = 0
+    FontEx.SingleLine = True
+    FontEx.Shadow = False
+    FontEx.ShadowColor = clBlack
+    FontEx.ShadowColorOpacity = 255
+    FontEx.ShadowRadius = 5
+    FontEx.ShadowOffsetX = 5
+    FontEx.ShadowOffsetY = 5
+    FontEx.Style = []
+    FontEx.TextAlignment = bcaCenter
+    FontEx.WordBreak = False
+    Rounding.RoundX = 1
+    Rounding.RoundY = 1
+    Rounding.RoundOptions = [rrTopLeftSquare, rrTopRightSquare, rrBottomRightSquare, rrBottomLeftSquare]
+    TabOrder = 1
+    object ListBoxMinerais: TListBox
+      Left = 12
+      Height = 334
+      Top = 224
+      Width = 162
+      Anchors = [akTop, akLeft, akBottom]
+      ItemHeight = 0
+      OnClick = ListBoxMineraisClick
+      TabOrder = 0
+    end
+    object RadioGroupOrdem: TRadioGroup
+      Left = 12
+      Height = 96
+      Top = 56
+      Width = 160
+      AutoFill = True
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 78
+      ClientWidth = 156
+      TabOrder = 1
+      object RadioButton1: TRadioButton
+        Left = 6
+        Height = 26
+        Top = 0
+        Width = 144
+        Caption = 'Alfabeto'
+        Checked = True
+        Font.Quality = fqAntialiased
+        Font.Style = [fsBold, fsItalic]
+        OnChange = ActionRefreshListExecute
+        ParentFont = False
+        TabOrder = 2
+        TabStop = True
+      end
+      object RadioButton2: TRadioButton
+        Left = 6
+        Height = 26
+        Top = 26
+        Width = 144
+        Caption = 'Dureza'
+        Font.Quality = fqAntialiased
+        Font.Style = [fsBold, fsItalic]
+        OnChange = ActionRefreshListExecute
+        ParentFont = False
+        TabOrder = 0
+      end
+      object RadioButton3: TRadioButton
+        Left = 6
+        Height = 26
+        Top = 52
+        Width = 144
+        Caption = 'Densidade'
+        Font.Quality = fqAntialiased
+        Font.Style = [fsBold, fsItalic]
+        OnChange = ActionRefreshListExecute
+        ParentFont = False
+        TabOrder = 1
+      end
+    end
+    object BCLabel2: TBCLabel
+      Left = 12
+      Height = 39
+      Top = 24
+      Width = 63
+      Background.Color = clBlack
+      Background.ColorOpacity = 255
+      Background.Gradient1.StartColor = clWhite
+      Background.Gradient1.StartColorOpacity = 255
+      Background.Gradient1.DrawMode = dmSet
+      Background.Gradient1.EndColor = clBlack
+      Background.Gradient1.EndColorOpacity = 255
+      Background.Gradient1.ColorCorrection = True
+      Background.Gradient1.GradientType = gtLinear
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient1.Sinus = False
+      Background.Gradient2.StartColor = clWhite
+      Background.Gradient2.StartColorOpacity = 255
+      Background.Gradient2.DrawMode = dmSet
+      Background.Gradient2.EndColor = clBlack
+      Background.Gradient2.EndColorOpacity = 255
+      Background.Gradient2.ColorCorrection = True
+      Background.Gradient2.GradientType = gtLinear
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient2.Sinus = False
+      Background.Gradient1EndPercent = 35
+      Background.Style = bbsClear
+      Border.Color = clBlack
+      Border.ColorOpacity = 255
+      Border.LightColor = clWhite
+      Border.LightOpacity = 255
+      Border.LightWidth = 0
+      Border.Style = bboNone
+      Border.Width = 1
+      Caption = 'Ordem'
+      FontEx.Color = clBlack
+      FontEx.EndEllipsis = True
+      FontEx.FontQuality = fqSystemClearType
+      FontEx.Height = 14
+      FontEx.SingleLine = True
+      FontEx.Shadow = True
+      FontEx.ShadowColor = clBlack
+      FontEx.ShadowColorOpacity = 255
+      FontEx.ShadowRadius = 5
+      FontEx.ShadowOffsetX = 5
+      FontEx.ShadowOffsetY = 5
+      FontEx.Style = [fsItalic]
+      FontEx.TextAlignment = bcaCenter
+      FontEx.WordBreak = False
+      Rounding.RoundX = 1
+      Rounding.RoundY = 1
+      Rounding.RoundOptions = []
+    end
+    object BCLabel3: TBCLabel
+      Left = 8
+      Height = 42
+      Top = 184
+      Width = 79
+      Background.Color = clBlack
+      Background.ColorOpacity = 255
+      Background.Gradient1.StartColor = clWhite
+      Background.Gradient1.StartColorOpacity = 255
+      Background.Gradient1.DrawMode = dmSet
+      Background.Gradient1.EndColor = clBlack
+      Background.Gradient1.EndColorOpacity = 255
+      Background.Gradient1.ColorCorrection = True
+      Background.Gradient1.GradientType = gtLinear
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient1.Sinus = False
+      Background.Gradient2.StartColor = clWhite
+      Background.Gradient2.StartColorOpacity = 255
+      Background.Gradient2.DrawMode = dmSet
+      Background.Gradient2.EndColor = clBlack
+      Background.Gradient2.EndColorOpacity = 255
+      Background.Gradient2.ColorCorrection = True
+      Background.Gradient2.GradientType = gtLinear
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient2.Sinus = False
+      Background.Gradient1EndPercent = 35
+      Background.Style = bbsClear
+      Border.Color = clBlack
+      Border.ColorOpacity = 255
+      Border.LightColor = clWhite
+      Border.LightOpacity = 255
+      Border.LightWidth = 0
+      Border.Style = bboNone
+      Border.Width = 1
+      Caption = 'Minerais'
+      FontEx.Color = clCaptionText
+      FontEx.EndEllipsis = True
+      FontEx.FontQuality = fqFineAntialiasing
+      FontEx.Height = 16
+      FontEx.SingleLine = True
+      FontEx.Shadow = True
+      FontEx.ShadowColor = clBlack
+      FontEx.ShadowColorOpacity = 200
+      FontEx.ShadowRadius = 5
+      FontEx.ShadowOffsetX = 5
+      FontEx.ShadowOffsetY = 5
+      FontEx.Style = [fsItalic]
+      FontEx.TextAlignment = bcaCenter
+      FontEx.WordBreak = False
+      Rounding.RoundX = 1
+      Rounding.RoundY = 1
+      Rounding.RoundOptions = []
+    end
+  end
+  object ScrollBox2: TScrollBox
+    Left = 200
+    Height = 564
+    Top = 76
+    Width = 200
+    HorzScrollBar.Page = 179
+    VertScrollBar.Page = 560
+    Align = alLeft
+    ClientHeight = 560
+    ClientWidth = 179
+    TabOrder = 3
+    object BCPanel2: TBCPanel
+      Left = 0
+      Height = 631
+      Top = 0
+      Width = 179
+      Align = alClient
+      Background.Color = clBtnFace
+      Background.ColorOpacity = 255
+      Background.Gradient1.StartColor = 14342874
+      Background.Gradient1.StartColorOpacity = 150
+      Background.Gradient1.DrawMode = dmSet
+      Background.Gradient1.EndColor = 14211288
+      Background.Gradient1.EndColorOpacity = 100
+      Background.Gradient1.ColorCorrection = True
+      Background.Gradient1.GradientType = gtLinear
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient1.Sinus = False
+      Background.Gradient2.StartColor = 14211288
+      Background.Gradient2.StartColorOpacity = 100
+      Background.Gradient2.DrawMode = dmSet
+      Background.Gradient2.EndColor = 14342874
+      Background.Gradient2.EndColorOpacity = 255
+      Background.Gradient2.ColorCorrection = True
+      Background.Gradient2.GradientType = gtLinear
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient2.Sinus = False
+      Background.Gradient1EndPercent = 50
+      Background.Style = bbsGradient
+      BevelInner = bvRaised
+      BevelOuter = bvNone
+      BevelWidth = 1
+      Border.Color = 12824480
+      Border.ColorOpacity = 200
+      Border.LightColor = clWhite
+      Border.LightOpacity = 200
+      Border.LightWidth = 1
+      Border.Style = bboSolid
+      Border.Width = 1
+      FontEx.Color = clDefault
+      FontEx.EndEllipsis = False
+      FontEx.FontQuality = fqSystemClearType
+      FontEx.Height = 0
+      FontEx.SingleLine = True
+      FontEx.Shadow = False
+      FontEx.ShadowColor = clBlack
+      FontEx.ShadowColorOpacity = 255
+      FontEx.ShadowRadius = 5
+      FontEx.ShadowOffsetX = 5
+      FontEx.ShadowOffsetY = 5
+      FontEx.Style = []
+      FontEx.TextAlignment = bcaCenter
+      FontEx.WordBreak = False
+      Rounding.RoundX = 1
+      Rounding.RoundY = 1
+      Rounding.RoundOptions = [rrTopLeftSquare, rrTopRightSquare, rrBottomRightSquare, rrBottomLeftSquare]
+      TabOrder = 0
+      object BCLabelClasse: TBCLabel
+        Left = 14
+        Height = 36
+        Top = 50
+        Width = 56
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Classe'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = True
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 12
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 150
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold, fsItalic]
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+      object ComboBoxClasse: TComboBox
+        Left = 9
+        Height = 23
+        Top = 82
+        Width = 145
+        ItemHeight = 15
+        OnChange = ComboBoxClasseChange
+        Style = csDropDownList
+        TabOrder = 0
+      end
+      object BCLabelSubclasse: TBCLabel
+        Left = 14
+        Height = 36
+        Top = 105
+        Width = 75
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Subclasse'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = True
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 12
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 150
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold, fsItalic]
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+      object ComboBoxSubclasse: TComboBox
+        Left = 9
+        Height = 23
+        Top = 138
+        Width = 145
+        ItemHeight = 15
+        OnChange = ComboBoxSubclasseChange
+        Style = csDropDownList
+        TabOrder = 1
+      end
+      object BCLabelGrupo: TBCLabel
+        Left = 14
+        Height = 36
+        Top = 162
+        Width = 55
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Grupo'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = True
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 12
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 150
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold, fsItalic]
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+      object ComboBoxGrupo: TComboBox
+        Left = 9
+        Height = 23
+        Top = 194
+        Width = 145
+        ItemHeight = 15
+        OnChange = ComboBoxGrupoChange
+        Style = csDropDownList
+        TabOrder = 2
+      end
+      object BCLabelSubgrupo: TBCLabel
+        Left = 14
+        Height = 36
+        Top = 218
+        Width = 74
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Subgrupo'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = True
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 12
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 150
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold, fsItalic]
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+      object ComboBoxSubgrupo: TComboBox
+        Left = 9
+        Height = 23
+        Top = 250
+        Width = 145
+        ItemHeight = 15
+        OnChange = ComboBoxSubgrupoChange
+        Style = csDropDownList
+        TabOrder = 3
+      end
+      object BCLabelDureza: TBCLabel
+        Left = 14
+        Height = 36
+        Top = 280
+        Width = 61
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Dureza'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = True
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 12
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 150
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold, fsItalic]
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+      object Label33: TLabel
+        Left = 8
+        Height = 15
+        Top = 306
+        Width = 42
+        Caption = 'mínimo'
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label34: TLabel
+        Left = 99
+        Height = 15
+        Top = 306
+        Width = 43
+        Caption = 'máximo'
+        ParentColor = False
+        ParentFont = False
+      end
+      object ComboBoxDureza_max: TComboBox
+        Left = 92
+        Height = 23
+        Top = 320
+        Width = 62
+        ItemHeight = 15
+        ItemIndex = 17
+        Items.Strings = (
+          '1.5'
+          '2'
+          '2.5'
+          '3'
+          '3.5'
+          '4'
+          '4.5'
+          '5'
+          '5.5'
+          '6'
+          '6.5'
+          '7'
+          '7.5'
+          '8'
+          '8.5'
+          '9'
+          '9.5'
+          '10'
+        )
+        OnChange = ActionRefreshListExecute
+        Style = csDropDownList
+        TabOrder = 4
+        Text = '10'
+      end
+      object ComboBoxDureza_min: TComboBox
+        Left = 9
+        Height = 23
+        Top = 322
+        Width = 62
+        ItemHeight = 15
+        ItemIndex = 0
+        Items.Strings = (
+          '0'
+          '1'
+          '1.5'
+          '2'
+          '2.5'
+          '3'
+          '3.5'
+          '4'
+          '4.5'
+          '5'
+          '5.5'
+          '6'
+          '6.5'
+          '7'
+          '7.5'
+          '8'
+          '8.5'
+          '9'
+        )
+        OnChange = ActionRefreshListExecute
+        Style = csDropDownList
+        TabOrder = 5
+        Text = '0'
+      end
+      object BCLabelDensidade: TBCLabel
+        Left = 14
+        Height = 36
+        Top = 352
+        Width = 80
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Densidade'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = True
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 12
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 150
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold, fsItalic]
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+      object Label35: TLabel
+        Left = 8
+        Height = 15
+        Top = 381
+        Width = 42
+        Caption = 'mínimo'
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label36: TLabel
+        Left = 99
+        Height = 15
+        Top = 381
+        Width = 43
+        Caption = 'máximo'
+        ParentColor = False
+        ParentFont = False
+      end
+      object EditFiltroDens_Max: TEdit
+        Left = 95
+        Height = 23
+        Top = 398
+        Width = 62
+        OnEditingDone = EditFiltroDens_MaxEditingDone
+        TabOrder = 6
+        Text = '25.0'
+      end
+      object EditFiltroDens_min: TEdit
+        Left = 8
+        Height = 23
+        Top = 398
+        Width = 62
+        OnEditingDone = EditFiltroDens_minEditingDone
+        TabOrder = 7
+        Text = '0.0'
+      end
+      object BCLabelOcorrencia: TBCLabel
+        Left = 14
+        Height = 36
+        Top = 418
+        Width = 81
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Ocorrência'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = True
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 12
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 150
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold, fsItalic]
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+      object EditFiltroOcorrencia: TEdit
+        Left = 9
+        Height = 23
+        Top = 452
+        Width = 145
+        OnEditingDone = EditFiltroOcorrenciaEditingDone
+        TabOrder = 8
+      end
+      object BCLabelAssociacao: TBCLabel
+        Left = 14
+        Height = 36
+        Top = 474
+        Width = 82
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Associação'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = True
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 12
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 150
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold, fsItalic]
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+      object EditFiltroAssociacao: TEdit
+        Left = 9
+        Height = 23
+        Top = 508
+        Width = 145
+        OnEditingDone = EditFiltroAssociacaoEditingDone
+        TabOrder = 9
+      end
+      object BCLabelCor: TBCLabel
+        Left = 14
+        Height = 36
+        Top = 530
+        Width = 40
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Cor'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = True
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 12
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 150
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold, fsItalic]
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+      object EditFiltroCor: TEdit
+        Left = 9
+        Height = 23
+        Top = 561
+        Width = 145
+        OnEditingDone = EditFiltroCorEditingDone
+        TabOrder = 10
+      end
+      object BCLabelBrilho: TBCLabel
+        Left = 14
+        Height = 36
+        Top = 578
+        Width = 55
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Brilho'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = True
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 12
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 150
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold, fsItalic]
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+      object EditFiltroBrilho: TEdit
+        Left = 9
+        Height = 23
+        Top = 607
+        Width = 145
+        OnEditingDone = EditFiltroBrilhoEditingDone
+        TabOrder = 11
+      end
+      object EditNome: TEdit
+        Left = 9
+        Height = 23
+        Top = 32
+        Width = 145
+        OnEditingDone = EditNomeEditingDone
+        TabOrder = 12
+      end
+      object BCLabel1: TBCLabel
+        Left = 14
+        Height = 36
+        Top = 0
+        Width = 54
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Nome'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = True
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 12
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 150
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold, fsItalic]
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+    end
+  end
+  object ScrollBox8: TScrollBox
+    Left = 400
+    Height = 564
+    Top = 76
+    Width = 198
+    HorzScrollBar.Page = 194
+    VertScrollBar.Page = 560
+    Align = alLeft
+    TabOrder = 4
+  end
+  object BCPanel3: TBCPanel
+    Left = 0
+    Height = 50
+    Top = 26
+    Width = 1144
+    Align = alTop
+    Background.Color = 5000268
+    Background.ColorOpacity = 255
+    Background.Gradient1.StartColor = 15722194
+    Background.Gradient1.StartColorOpacity = 255
+    Background.Gradient1.DrawMode = dmSet
+    Background.Gradient1.EndColor = 13137169
+    Background.Gradient1.EndColorOpacity = 255
+    Background.Gradient1.ColorCorrection = True
+    Background.Gradient1.GradientType = gtLinear
+    Background.Gradient1.Point1XPercent = 0
+    Background.Gradient1.Point1YPercent = 0
+    Background.Gradient1.Point2XPercent = 0
+    Background.Gradient1.Point2YPercent = 100
+    Background.Gradient1.Sinus = False
+    Background.Gradient2.StartColor = 15722194
+    Background.Gradient2.StartColorOpacity = 255
+    Background.Gradient2.DrawMode = dmSet
+    Background.Gradient2.EndColor = 13137169
+    Background.Gradient2.EndColorOpacity = 255
+    Background.Gradient2.ColorCorrection = True
+    Background.Gradient2.GradientType = gtLinear
+    Background.Gradient2.Point1XPercent = 0
+    Background.Gradient2.Point1YPercent = 0
+    Background.Gradient2.Point2XPercent = 0
+    Background.Gradient2.Point2YPercent = 100
+    Background.Gradient2.Sinus = False
+    Background.Gradient1EndPercent = 35
+    Background.Style = bbsColor
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BevelWidth = 1
+    Border.Color = clBlack
+    Border.ColorOpacity = 255
+    Border.LightColor = clWhite
+    Border.LightOpacity = 255
+    Border.LightWidth = 0
+    Border.Style = bboNone
+    Border.Width = 1
+    FontEx.Color = clDefault
+    FontEx.EndEllipsis = False
+    FontEx.FontQuality = fqSystemClearType
+    FontEx.Height = 0
+    FontEx.SingleLine = True
+    FontEx.Shadow = False
+    FontEx.ShadowColor = clBlack
+    FontEx.ShadowColorOpacity = 255
+    FontEx.ShadowRadius = 5
+    FontEx.ShadowOffsetX = 5
+    FontEx.ShadowOffsetY = 5
+    FontEx.Style = []
+    FontEx.TextAlignment = bcaCenter
+    FontEx.WordBreak = False
+    Rounding.RoundX = 1
+    Rounding.RoundY = 1
+    Rounding.RoundOptions = []
+    TabOrder = 0
+    Visible = False
+    object SpeedButtonAdd: TSpeedButton
+      Left = 12
+      Height = 40
+      Top = 5
+      Width = 40
+    end
+    object SpeedButtonRemove: TSpeedButton
+      Left = 64
+      Height = 40
+      Top = 5
+      Width = 40
+    end
+    object SpeedButtonRefresh: TSpeedButton
+      Left = 115
+      Height = 40
+      Top = 5
+      Width = 40
+    end
+    object SpeedButton4: TSpeedButton
+      Left = 164
+      Height = 40
+      Top = 5
+      Width = 40
+    end
+    object SpeedButtonBilbiografia: TSpeedButton
+      Left = 212
+      Height = 40
+      Top = 5
+      Width = 40
+    end
+    object ComboBox1: TComboBox
+      Left = 1004
+      Height = 23
+      Top = 12
+      Width = 108
+      ItemHeight = 15
+      Items.Strings = (
+        '10'
+        '12'
+        '14'
+        '16'
+      )
+      OnChange = ComboBox1Change
+      TabOrder = 0
+      Text = 'Tamanho da Fonte'
+    end
+  end
+  object ProgressBar1: TProgressBar
+    Left = 0
+    Height = 20
+    Top = 640
+    Width = 1144
+    Align = alBottom
+    TabOrder = 5
+  end
+  object ToolBar2: TToolBar
+    Left = 0
+    Height = 26
+    Top = 0
+    Width = 1144
+    Caption = 'ToolBar2'
+    TabOrder = 6
+    object ToolButton1: TToolButton
+      Left = 1
+      Top = 2
+      Caption = 'ToolButton1'
+    end
+    object ToolButton4: TToolButton
+      Left = 24
+      Top = 2
+      Caption = 'ToolButton4'
+    end
+    object ToolButton5: TToolButton
+      Left = 47
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton5'
+      Style = tbsDivider
+    end
+    object ToolButton6: TToolButton
+      Left = 52
+      Top = 2
+      Caption = 'ToolButton6'
+    end
+    object ToolButton7: TToolButton
+      Left = 75
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton7'
+      Style = tbsDivider
+    end
+    object ToolButton8: TToolButton
+      Left = 80
+      Top = 2
+      Caption = 'ToolButton8'
+    end
+    object ToolButton9: TToolButton
+      Left = 103
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton9'
+      Style = tbsDivider
+    end
+    object ToolButton10: TToolButton
+      Left = 108
+      Top = 2
+      Caption = 'ToolButton10'
+    end
+    object ToolButton11: TToolButton
+      Left = 131
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton11'
+      Style = tbsDivider
+    end
+    object ToolButtonShowFilter: TToolButton
+      Left = 136
+      Top = 2
+      Caption = 'ToolButtonShowFilter'
+    end
+    object ToolButtonShowImages: TToolButton
+      Left = 159
+      Top = 2
+      Caption = 'ToolButtonShowImages'
+    end
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    left = 363
+    top = 215
+  end
+  object ActionList1: TActionList
+    left = 372
+    top = 85
+    object ActionAddImage1: TAction
+      Caption = 'ActionAddImage1'
+      OnExecute = ActionAddImage1Execute
+    end
+    object ActionAddImage2: TAction
+      Caption = 'ActionAddImage2'
+      OnExecute = ActionAddImage2Execute
+    end
+    object ActionAddImage3: TAction
+      Caption = 'ActionAddImage3'
+      OnExecute = ActionAddImage3Execute
+    end
+    object ActionAddImage4: TAction
+      Caption = 'ActionAddImage4'
+      OnExecute = ActionAddImage4Execute
+    end
+    object ActionAddImage5: TAction
+      Caption = 'ActionAddImage5'
+      OnExecute = ActionAddImage5Execute
+    end
+    object ActionAddImage6: TAction
+      Caption = 'ActionAddImage6'
+      OnExecute = ActionAddImage6Execute
+    end
+    object ActionAddImage7: TAction
+      Caption = 'ActionAddImage7'
+      OnExecute = ActionAddImage7Execute
+    end
+    object ActionRefreshList: TAction
+      Caption = 'ActionRefreshList'
+      OnExecute = ActionRefreshListExecute
+    end
+    object ActionRemoveMineral: TAction
+      Caption = 'ActionRemoveMineral'
+      OnExecute = ActionRemoveMineralExecute
+    end
+  end
+  object ActionListToolBar: TActionList
+    left = 128
+    top = 288
   end
 end

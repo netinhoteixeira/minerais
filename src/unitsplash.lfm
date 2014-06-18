@@ -1,14 +1,14 @@
 object FormSplash: TFormSplash
-  Left = 1030
+  Left = 571
   Height = 240
-  Top = 191
+  Top = 214
   Width = 320
   BorderStyle = bsNone
   Caption = 'Guia de Minerais'
   ClientHeight = 240
   ClientWidth = 320
   Position = poScreenCenter
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.2.2.0'
   object Image1: TImage
     Left = 0
     Height = 240

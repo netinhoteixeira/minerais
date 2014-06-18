@@ -1,14 +1,14 @@
 object FormBibliografia: TFormBibliografia
-  Left = 1
+  Left = 400
   Height = 339
-  Top = 1
+  Top = 176
   Width = 629
   Caption = 'Bibliografia'
   ClientHeight = 339
   ClientWidth = 629
   OnClose = FormClose
   OnShow = FormShow
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.2.2.0'
   object Panel1: TPanel
     Left = 0
     Height = 296
