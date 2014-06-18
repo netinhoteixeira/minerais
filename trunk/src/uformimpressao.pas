@@ -5,7 +5,7 @@ unit uformimpressao;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, BGRAPanel, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   ExtCtrls, Buttons, StdCtrls, Spin, LR_View;
 
 type
@@ -13,7 +13,6 @@ type
   { TFormImpressao }
 
   TFormImpressao = class(TForm)
-    BGRAPanel1: TBGRAPanel;
     BitBtn1: TBitBtn;
     BitBtnCancelar: TBitBtn;
     BitBtnImprimir: TBitBtn;
@@ -23,7 +22,7 @@ type
     frPreview1: TfrPreview;
     GroupBox1: TGroupBox;
     Label1: TLabel;
-    Panel2: TPanel;
+    Panel1: TPanel;
     RadioButtonLista: TRadioButton;
     RadioButtonSelecionado: TRadioButton;
     RadioGroup1: TRadioGroup;

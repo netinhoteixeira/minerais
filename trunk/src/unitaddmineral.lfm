@@ -1,0 +1,776 @@
+object FormAddMineral: TFormAddMineral
+  Left = 349
+  Height = 573
+  Top = 61
+  Width = 665
+  Caption = 'Adicionar Mineral'
+  ClientHeight = 573
+  ClientWidth = 665
+  OnShow = FormShow
+  LCLVersion = '1.2.2.0'
+  object BCPanel1: TBCPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 665
+    Align = alTop
+    Background.Color = 5000268
+    Background.ColorOpacity = 255
+    Background.Gradient1.StartColor = 15722194
+    Background.Gradient1.StartColorOpacity = 255
+    Background.Gradient1.DrawMode = dmSet
+    Background.Gradient1.EndColor = 13137169
+    Background.Gradient1.EndColorOpacity = 255
+    Background.Gradient1.ColorCorrection = True
+    Background.Gradient1.GradientType = gtLinear
+    Background.Gradient1.Point1XPercent = 0
+    Background.Gradient1.Point1YPercent = 0
+    Background.Gradient1.Point2XPercent = 0
+    Background.Gradient1.Point2YPercent = 100
+    Background.Gradient1.Sinus = False
+    Background.Gradient2.StartColor = 15722194
+    Background.Gradient2.StartColorOpacity = 255
+    Background.Gradient2.DrawMode = dmSet
+    Background.Gradient2.EndColor = 13137169
+    Background.Gradient2.EndColorOpacity = 255
+    Background.Gradient2.ColorCorrection = True
+    Background.Gradient2.GradientType = gtLinear
+    Background.Gradient2.Point1XPercent = 0
+    Background.Gradient2.Point1YPercent = 0
+    Background.Gradient2.Point2XPercent = 0
+    Background.Gradient2.Point2YPercent = 100
+    Background.Gradient2.Sinus = False
+    Background.Gradient1EndPercent = 35
+    Background.Style = bbsColor
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BevelWidth = 1
+    Border.Color = clBlack
+    Border.ColorOpacity = 255
+    Border.LightColor = clWhite
+    Border.LightOpacity = 255
+    Border.LightWidth = 0
+    Border.Style = bboNone
+    Border.Width = 1
+    FontEx.Color = clDefault
+    FontEx.EndEllipsis = False
+    FontEx.FontQuality = fqSystemClearType
+    FontEx.Height = 0
+    FontEx.SingleLine = True
+    FontEx.Shadow = False
+    FontEx.ShadowColor = clBlack
+    FontEx.ShadowColorOpacity = 255
+    FontEx.ShadowRadius = 5
+    FontEx.ShadowOffsetX = 5
+    FontEx.ShadowOffsetY = 5
+    FontEx.Style = []
+    FontEx.TextAlignment = bcaCenter
+    FontEx.WordBreak = False
+    Rounding.RoundX = 1
+    Rounding.RoundY = 1
+    Rounding.RoundOptions = []
+    TabOrder = 0
+    object SpeedButton1: TSpeedButton
+      Left = 16
+      Height = 40
+      Top = 5
+      Width = 40
+      OnClick = ActionAddExecute
+    end
+    object SpeedButton2: TSpeedButton
+      Left = 72
+      Height = 40
+      Top = 5
+      Width = 40
+      OnClick = ActionClearFieldsExecute
+    end
+    object SpeedButton3: TSpeedButton
+      Left = 588
+      Height = 40
+      Top = 5
+      Width = 40
+      OnClick = Action1Execute
+    end
+  end
+  object PageControlFicha: TPageControl
+    Left = 0
+    Height = 523
+    Top = 50
+    Width = 665
+    ActivePage = TabSheetProp_Fisicas
+    Align = alClient
+    TabIndex = 1
+    TabOrder = 1
+    object TabSheetInf_Gerais: TTabSheet
+      Caption = 'Informações Gerais'
+      ClientHeight = 495
+      ClientWidth = 657
+      object ScrollBox3: TScrollBox
+        Left = 0
+        Height = 495
+        Top = 15
+        Width = 657
+        HorzScrollBar.Page = 636
+        VertScrollBar.Page = 491
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ClientHeight = 491
+        ClientWidth = 636
+        TabOrder = 0
+        object EditSubGrupo: TEdit
+          Left = 150
+          Height = 23
+          Top = 210
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 0
+          Text = ' '
+        end
+        object Label1: TLabel
+          Left = 15
+          Height = 15
+          Top = 10
+          Width = 67
+          Caption = 'Composição'
+          ParentColor = False
+        end
+        object LabelNome: TLabel
+          Left = 15
+          Height = 15
+          Top = 50
+          Width = 33
+          Caption = 'Nome'
+          ParentColor = False
+        end
+        object LabelClasse: TLabel
+          Left = 15
+          Height = 15
+          Top = 90
+          Width = 33
+          Caption = 'Classe'
+          ParentColor = False
+        end
+        object LabelSubClasse: TLabel
+          Left = 15
+          Height = 15
+          Top = 130
+          Width = 51
+          Caption = 'Subclasse'
+          ParentColor = False
+        end
+        object LabelGrupo: TLabel
+          Left = 15
+          Height = 15
+          Top = 170
+          Width = 33
+          Caption = 'Grupo'
+          ParentColor = False
+        end
+        object LabelSubGrupo: TLabel
+          Left = 15
+          Height = 15
+          Top = 210
+          Width = 52
+          Caption = 'Subgrupo'
+          ParentColor = False
+        end
+        object LabelOcorrencia: TLabel
+          Left = 15
+          Height = 15
+          Top = 250
+          Width = 58
+          Caption = 'Ocorrência'
+          ParentColor = False
+        end
+        object LabelAssociacao: TLabel
+          Left = 15
+          Height = 15
+          Top = 320
+          Width = 59
+          Caption = 'Associação'
+          ParentColor = False
+        end
+        object LabelDistincao: TLabel
+          Left = 15
+          Height = 15
+          Top = 390
+          Width = 49
+          Caption = 'Distinção'
+          ParentColor = False
+        end
+        object LabelAlteracao: TLabel
+          Left = 15
+          Height = 15
+          Top = 460
+          Width = 50
+          Caption = 'Alteração'
+          ParentColor = False
+        end
+        object LabelAplicacao: TLabel
+          Left = 15
+          Height = 15
+          Top = 530
+          Width = 52
+          Caption = 'Aplicação'
+          ParentColor = False
+        end
+        object MemoOcorrencia: TMemo
+          Left = 150
+          Height = 60
+          Top = 250
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 1
+        end
+        object MemoAssociacao: TMemo
+          Left = 150
+          Height = 60
+          Top = 320
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 2
+        end
+        object MemoDistincao: TMemo
+          Left = 150
+          Height = 60
+          Top = 390
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 3
+        end
+        object MemoAlteracao: TMemo
+          Left = 150
+          Height = 60
+          Top = 460
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 4
+        end
+        object MemoAplicacao: TMemo
+          Left = 152
+          Height = 60
+          Top = 530
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 5
+        end
+        object EditFormula: TEdit
+          Left = 150
+          Height = 23
+          Top = 10
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 6
+          Text = ' '
+        end
+        object EditNomeMineral: TEdit
+          Left = 150
+          Height = 23
+          Top = 50
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 7
+          Text = ' '
+        end
+        object EditClasse: TEdit
+          Left = 150
+          Height = 23
+          Top = 90
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 8
+          Text = ' '
+        end
+        object EditSubClasse: TEdit
+          Left = 150
+          Height = 23
+          Top = 130
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 9
+          Text = ' '
+        end
+        object EditGrupo: TEdit
+          Left = 150
+          Height = 23
+          Top = 170
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 10
+          Text = ' '
+        end
+      end
+    end
+    object TabSheetProp_Fisicas: TTabSheet
+      Caption = 'Propriedades Físicas'
+      ClientHeight = 495
+      ClientWidth = 657
+      object ScrollBox4: TScrollBox
+        Left = 0
+        Height = 495
+        Top = 15
+        Width = 657
+        HorzScrollBar.Page = 636
+        VertScrollBar.Page = 491
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ClientHeight = 491
+        ClientWidth = 636
+        TabOrder = 0
+        object MemoLuminescencia: TMemo
+          Left = 150
+          Height = 27
+          Top = 560
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 0
+        end
+        object MemoCor: TMemo
+          Left = 150
+          Height = 60
+          Top = 159
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 1
+        end
+        object MemoTraco: TMemo
+          Left = 150
+          Height = 60
+          Top = 231
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 2
+        end
+        object MemoBrilho: TMemo
+          Left = 150
+          Height = 60
+          Top = 303
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 3
+        end
+        object MemoClivagem: TMemo
+          Left = 150
+          Height = 60
+          Top = 375
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 4
+        end
+        object MemoFratura: TMemo
+          Left = 150
+          Height = 60
+          Top = 447
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 5
+        end
+        object MemoMagnetismo: TMemo
+          Left = 150
+          Height = 27
+          Top = 519
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 6
+        end
+        object Label24: TLabel
+          Left = 15
+          Height = 15
+          Top = 15
+          Width = 36
+          Caption = 'Dureza'
+          ParentColor = False
+        end
+        object Label25: TLabel
+          Left = 15
+          Height = 15
+          Top = 87
+          Width = 55
+          Caption = 'Densidade'
+          ParentColor = False
+        end
+        object LabelCor: TLabel
+          Left = 15
+          Height = 15
+          Top = 159
+          Width = 19
+          Caption = 'Cor'
+          ParentColor = False
+        end
+        object LabelTraco: TLabel
+          Left = 15
+          Height = 15
+          Top = 231
+          Width = 30
+          Caption = 'Traço'
+          ParentColor = False
+        end
+        object LabelBrilho: TLabel
+          Left = 15
+          Height = 15
+          Top = 303
+          Width = 31
+          Caption = 'Brilho'
+          ParentColor = False
+        end
+        object LabelClivagem: TLabel
+          Left = 15
+          Height = 15
+          Top = 375
+          Width = 50
+          Caption = 'Clivagem'
+          ParentColor = False
+        end
+        object LabelFratura: TLabel
+          Left = 15
+          Height = 15
+          Top = 447
+          Width = 37
+          Caption = 'Fratura'
+          ParentColor = False
+        end
+        object LabelMagnetismo: TLabel
+          Left = 15
+          Height = 15
+          Top = 519
+          Width = 67
+          Caption = 'Magnetismo'
+          ParentColor = False
+        end
+        object LabelLuminescencia: TLabel
+          Left = 15
+          Height = 15
+          Top = 560
+          Width = 79
+          Caption = 'Luminescência'
+          ParentColor = False
+        end
+        object EditDurezaMin: TEdit
+          Left = 150
+          Height = 23
+          Top = 15
+          Width = 80
+          TabOrder = 7
+          Text = ' '
+        end
+        object EditDurezaMax: TEdit
+          Left = 256
+          Height = 23
+          Top = 15
+          Width = 80
+          TabOrder = 8
+          Text = ' '
+        end
+        object EditDensidadeMin: TEdit
+          Left = 150
+          Height = 23
+          Top = 87
+          Width = 80
+          TabOrder = 9
+          Text = ' '
+        end
+        object EditDensidadeMax: TEdit
+          Left = 256
+          Height = 23
+          Top = 87
+          Width = 80
+          TabOrder = 10
+          Text = ' '
+        end
+      end
+    end
+    object TabSheetOticas: TTabSheet
+      Caption = 'Propriedades Óticas'
+      ClientHeight = 495
+      ClientWidth = 657
+      object ScrollBox5: TScrollBox
+        Left = 0
+        Height = 495
+        Top = 15
+        Width = 657
+        HorzScrollBar.Page = 636
+        VertScrollBar.Page = 491
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ClientHeight = 491
+        ClientWidth = 636
+        TabOrder = 0
+        object MemoExtincao: TMemo
+          Left = 152
+          Height = 45
+          Top = 528
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 0
+        end
+        object LabelExtincao: TLabel
+          Left = 16
+          Height = 15
+          Top = 528
+          Width = 44
+          Caption = 'Extinção'
+          ParentColor = False
+        end
+        object LabelDifaneidade: TLabel
+          Left = 15
+          Height = 15
+          Top = 23
+          Width = 63
+          Caption = 'Difaneidade'
+          ParentColor = False
+        end
+        object LabelSinal_optico: TLabel
+          Left = 15
+          Height = 15
+          Top = 79
+          Width = 64
+          Caption = 'Sinal Óptico'
+          ParentColor = False
+        end
+        object LabelIndice_Refracao: TLabel
+          Left = 15
+          Height = 15
+          Top = 135
+          Width = 81
+          Caption = 'Índice Refração'
+          ParentColor = False
+        end
+        object LabelAngulo_2V: TLabel
+          Left = 15
+          Height = 15
+          Top = 191
+          Width = 55
+          Caption = 'Ângulo 2V'
+          ParentColor = False
+        end
+        object LabelCor_Interferencia: TLabel
+          Left = 15
+          Height = 15
+          Top = 247
+          Width = 104
+          Caption = 'Cor de Interferência'
+          ParentColor = False
+        end
+        object LabelSInal_Elongacao: TLabel
+          Left = 15
+          Height = 15
+          Top = 359
+          Width = 99
+          Caption = 'Sinal de Elongação'
+          ParentColor = False
+        end
+        object LabelBirrefringencia: TLabel
+          Left = 15
+          Height = 15
+          Top = 415
+          Width = 77
+          Caption = 'Birrefringência'
+          ParentColor = False
+        end
+        object LabelRelevo: TLabel
+          Left = 15
+          Height = 15
+          Top = 471
+          Width = 35
+          Caption = 'Relevo'
+          ParentColor = False
+        end
+        object LabelCor_Lamina: TLabel
+          Left = 15
+          Height = 15
+          Top = 303
+          Width = 77
+          Caption = 'Cor da Lâmina'
+          ParentColor = False
+        end
+        object MemoDifaneidade: TMemo
+          Left = 150
+          Height = 45
+          Top = 23
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 1
+        end
+        object MemoSinalOptico: TMemo
+          Left = 150
+          Height = 45
+          Top = 79
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 2
+        end
+        object MemoIndiceRefracao: TMemo
+          Left = 150
+          Height = 45
+          Top = 135
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 3
+        end
+        object MemoAngulo: TMemo
+          Left = 150
+          Height = 45
+          Top = 191
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 4
+        end
+        object MemoInterferencia: TMemo
+          Left = 150
+          Height = 45
+          Top = 247
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 5
+        end
+        object MemoCorLamina: TMemo
+          Left = 150
+          Height = 45
+          Top = 303
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 6
+        end
+        object MemoSinalElongacao: TMemo
+          Left = 150
+          Height = 45
+          Top = 359
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 7
+        end
+        object MemoBirrefringencia: TMemo
+          Left = 150
+          Height = 45
+          Top = 415
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 8
+        end
+        object MemoRelevo: TMemo
+          Left = 150
+          Height = 45
+          Top = 471
+          Width = 474
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 9
+        end
+      end
+    end
+    object TabSheetCristalografia: TTabSheet
+      Caption = 'Cristalografia'
+      ClientHeight = 495
+      ClientWidth = 657
+      object ScrollBox6: TScrollBox
+        Left = 0
+        Height = 495
+        Top = 15
+        Width = 657
+        HorzScrollBar.Page = 653
+        VertScrollBar.Page = 491
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ClientHeight = 491
+        ClientWidth = 653
+        TabOrder = 0
+        object LabelSistema_Cristalino: TLabel
+          Left = 15
+          Height = 15
+          Top = 40
+          Width = 94
+          Caption = 'Sistema Cristalino'
+          ParentColor = False
+        end
+        object LabelClasse_Cristalina: TLabel
+          Left = 15
+          Height = 15
+          Top = 80
+          Width = 85
+          Caption = 'Classe Cristalina'
+          ParentColor = False
+        end
+        object LabelSimbologia: TLabel
+          Left = 15
+          Height = 15
+          Top = 120
+          Width = 60
+          Caption = 'Simbologia'
+          ParentColor = False
+        end
+        object LabelHabito: TLabel
+          Left = 15
+          Height = 15
+          Top = 162
+          Width = 36
+          Caption = 'Hábito'
+          ParentColor = False
+        end
+        object EditSistema: TEdit
+          Left = 160
+          Height = 23
+          Top = 40
+          Width = 469
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 0
+        end
+        object EditClasse_Cristalina: TEdit
+          Left = 160
+          Height = 23
+          Top = 80
+          Width = 469
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 1
+        end
+        object EditH_M: TEdit
+          Left = 160
+          Height = 23
+          Top = 120
+          Width = 469
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 2
+        end
+        object MemoHabito: TMemo
+          Left = 160
+          Height = 78
+          Top = 162
+          Width = 469
+          Anchors = [akTop, akLeft, akRight]
+          ScrollBars = ssAutoVertical
+          TabOrder = 3
+        end
+      end
+    end
+  end
+  object ActionList1: TActionList
+    left = 135
+    top = 184
+    object ActionAdd: TAction
+      Caption = 'ActionAdd'
+      OnExecute = ActionAddExecute
+    end
+    object ActionClearFields: TAction
+      Caption = 'ActionClearFields'
+      OnExecute = ActionClearFieldsExecute
+    end
+    object Action1: TAction
+      Caption = 'Action1'
+      OnExecute = Action1Execute
+    end
+  end
+end

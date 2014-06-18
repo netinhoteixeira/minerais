@@ -74,43 +74,38 @@ type
 
   TDados = class(TDataModule)
     DatasourceInstrumentos: TDatasource;
-    DatasourcePreencheAmostras: TDatasource;
     DatasourcePlanilhaMicrossonda: TDatasource;
     DatasourcePrinter: TDatasource;
     DatasourceReport: TDatasource;
-    DatasourceCombobox: TDatasource;
-    DatasourceGeral: TDatasource;
-    DatasourceDidatico: TDatasource;
     frDBDataSet1: TfrDBDataSet;
     frReport1: TfrReport;
     SdfDataSetGraficosValorX: TField;
     SdfDataSetGraficosValorY: TField;
     SdfDataSetPlanilhaMicrossonda: TSdfDataSet;
     Sqlite3DatasetInstrumentos: TSqlite3Dataset;
-    Sqlite3DatasetPreencheAmostras: TSqlite3Dataset;
     Sqlite3DatasetPrinter: TSqlite3Dataset;
-    Sqlite3DatasetCombobox: TSqlite3Dataset;
-    Sqlite3DatasetDidatico: TSqlite3Dataset;
-    Sqlite3DatasetGeral: TSqlite3Dataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
     { private declarations }
   public
-    DatabaseMinerals: TSQLiteDatabase;
-    TableMinerals: TSQLiteTable;
-    DatabaseSamples: TSQLiteDatabase;
-    TableSamples: TSQLiteTable;
+    DatabaseMinerals: TSQLiteDatabase;  //
+    TableMinerals: TSQLiteTable;        // retirar
+    DatabaseSamples: TSQLiteDatabase;   //
+    TableSamples: TSQLiteTable;         //
     Datasource: TDatasource;
     Dataset: TSDFDataset;
+
+    //guarda o caminho do banco de dados:
+    DatabaseMineralFileName, DatabaseSampleFileName: String;
 
     procedure UpdateField(Table, Field, NewValue, Especie, Sample, Digito,
       Direction: String);
     procedure CreateDatabase(Tipo, Diretorio: String);
     function ChooseDatabase(Tipo, Directory:String): Boolean;
-    procedure AdicionaEspecie(Nome, Classe, Subclasse, Grupo, Subgrupo,
-      Ocorrencia, Associacao, Cor, Brilho: string; Dureza_min, Dureza_max: real;
-      Densidade_min, Densidade_max: string);
+    //procedure AdicionaEspecie(Nome, Classe, Subclasse, Grupo, Subgrupo,
+      //Ocorrencia, Associacao, Cor, Brilho: string; Dureza_min, Dureza_max: real;
+      //Densidade_min, Densidade_max: string);
     procedure AdicionaAmostra(Tabela, Especie, Sample_id, Digito,
       Direcao, Equipment:String );
     procedure ExcluiAmostra(Especie, Sample_id, Digito: String;
@@ -150,16 +145,8 @@ implementation
 
 procedure TDados.DataModuleDestroy(Sender: TObject);
 begin
-  if SQLite3DatasetGeral.Active then
-    SQLite3DatasetGeral.Close;
-  if SQLite3DatasetDidatico.Active then
-    SQLite3DatasetDidatico.Close;
-  if SQLite3DatasetCombobox.Active then
-    SQLite3DatasetCombobox.Close;
   if SQLite3DatasetPrinter.Active then
     SQLite3DatasetPrinter.Close;
-  if SQLite3DatasetPreencheAmostras.Active then
-    SQLite3DatasetPreencheAmostras.Close;
   if SDFDatasetPlanilhaMicrossonda.Active then
     SDFDatasetPlanilhaMicrossonda.Close;
   if SQLite3DatasetInstrumentos.Active then
@@ -171,7 +158,7 @@ end;
 procedure TDados.UpdateField(Table, Field, NewValue, Especie, Sample, Digito,
   Direction: String);
 begin
-  {if Table = 'minerais' then
+  if Table = 'minerais' then
   begin
     TableMinerals:= DatabaseMinerals.GetTable('UPDATE '+Table+' SET '+
       Field+ ' = "'+NewValue+'" WHERE nome = "'+Especie+'" ; ' );
@@ -215,7 +202,7 @@ begin
     TableSamples:= DatabaseSamples.GetTable('UPDATE '+Table+ ' SET '+
       Field+'="'+NewValue+'" WHERE rruff_if="'+Sample+'" AND digito="'+
         Digito+'" ;');
-  end;                               }
+  end;
 end;
 
 procedure TDados.CreateDatabase(Tipo, Diretorio: String);
@@ -224,10 +211,8 @@ var
 begin
   if Tipo = 'mineral' then
   begin
-    Sqlite3DatasetGeral.Close();
   try
     DatabaseMinerals := TSQLiteDatabase.Create(Diretorio);
-    Sqlite3DatasetGeral.FileName := Diretorio;
     ExecSQL :=
       'CREATE TABLE minerais ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT '+
         'UNIQUE  NOT NULL, [formula] TEXT, [classe] TEXT, [subclasse] TEXT, '+
@@ -246,22 +231,19 @@ begin
       ' [extincao] TEXT, [classe_cristalina] TEXT, [sistema] TEXT, [h_m] TEXT,'+
         '[habito] TEXT, [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, '+
           '[imagem4] BLOB, [imagem5] BLOB, [imagem6] BLOB, [imagem7] BLOB);';
-    Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+    DatabaseMinerals.ExecSQL(ExecSQL);
     ExecSQL :=
       'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] '+
         'TEXT, [mineralogiaimagem1] BLOB, [mineralogiaimagem2] BLOB, '+
           '[mineralogiaimagem3] BLOB, [mineralogiaimagem4] BLOB, '+
             '[mineralogiaimagem5] BLOB);';
-    Sqlite3DatasetGeral.ExecSQL(ExecSQL);
+    DatabaseMinerals.ExecSQL(ExecSQL);
     finally
-      Sqlite3DatasetGeral.Open();
-      DatabaseMinerals.Free;
     end;
   end
   else
   if Tipo = 'amostra' then
   begin
-    Sqlite3DatasetGeral.Close();
     try
       DatabaseSamples := TSQLiteDatabase.Create(Diretorio);
       ExecSQL :=
@@ -300,8 +282,8 @@ begin
         'UNIQUE NOT NULL, [descricao] TEXT, [localidade] TEXT);';
       DatabaseSamples.ExecSQL(ExecSQL);
   finally
-    //Sqlite3DatasetGeral.Open();
-    DatabaseSamples.Free;
+
+
   end;
   end;
 end;
@@ -311,10 +293,11 @@ begin
 
 end;
 
+      //Verifica se o Banco de dados é compatível
 function TDados.ChooseDatabase(Tipo, Directory: String): Boolean;
 var Compatible:Boolean;
 begin
-  if Tipo = 'minerais' then
+  if Tipo = 'mineral' then
   begin
     DatabaseMinerals := TSQLiteDatabase.Create(Directory);
     if DatabaseMinerals.TableExists('minerais') then
@@ -328,21 +311,6 @@ begin
       Compatible := False;
     if Compatible then
     begin
-      if SQLite3DatasetGeral.Active then SQLite3DatasetGeral.Close;
-      if SQLite3DatasetCombobox.Active then SQLite3DatasetComboBox.Close;
-      if SQLite3DatasetDidatico.Active then SQLite3DatasetDidatico.Close;
-      with SQLite3DatasetGeral do
-      begin
-        FileName := Directory;
-      end;
-      with SQLite3DatasetCombobox do
-      begin
-        Filename := Directory;
-      end;
-      with SQLite3DatasetDidatico do
-      begin
-        Filename := Directory;
-      end;
       with SQLite3DatasetPrinter do
       begin
         Filename := Directory;
@@ -351,7 +319,7 @@ begin
      Result:= Compatible;
   end
   else
-  if Tipo= 'amostras' then
+  if Tipo= 'amostra' then
   begin
    DatabaseSamples := TSQLiteDatabase.Create(Directory);
     if DatabaseSamples.TableExists('rruff') then
@@ -389,10 +357,6 @@ begin
       Compatible:=False;
     if Compatible then
     begin
-      with SQLite3DatasetPreencheAmostras do
-      begin
-        Filename := Directory;
-      end;
       with SQLite3DatasetInstrumentos do
       begin
         Filename := Directory;
@@ -402,7 +366,8 @@ begin
   end
   else Result:= False;
 end;
-
+        //obsoleto
+        {
 procedure TDados.AdicionaEspecie(Nome, Classe, Subclasse, Grupo,
   Subgrupo, Ocorrencia, Associacao, Cor, Brilho: string; Dureza_min,
     Dureza_max: real; Densidade_min, Densidade_max: string);
@@ -415,7 +380,7 @@ begin
     '", grupo="' + Grupo + '", subgrupo="' + Subgrupo + '", ocorrencia="' + Ocorrencia +
     '", associacao="' + Associacao + '", cor="' + Cor + '", brilho="' + Brilho + '" WHERE' +
     ' nome="' + Nome + '" ;');
-end;
+end;          }
 
 procedure TDados.AdicionaAmostra(Tabela, Especie, Sample_id,
   Digito, Direcao, Equipment:String );

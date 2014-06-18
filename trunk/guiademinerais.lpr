@@ -7,11 +7,12 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, uprincipal, bgracontrols, udatamodule, sqlite3laz, richmemopackage,
-  tachartlazaruspkg, sdflaz, lazreport, uselecionabd, ubibliografia,
-  uformimpressao, UnitAjuda, unitSplash, crt, unitgraficos,
-  unitPlanilha, unitequipamentos, unitrruff_id, unitfichaamostra,
-  unitfichaespecie, unitAdicionarDadosrruff, unitBlobFields;
+  Forms, uprincipal, udatamodule, sqlite3laz, richmemopackage,
+  tachartlazaruspkg, sdflaz, lazreport, ubibliografia,
+  uformimpressao, UnitAjuda, unitSplash, crt, unitgraficos, unitPlanilha,
+  unitequipamentos, unitrruff_id, unitfichaamostra, unitfichaespecie,
+  unitBlobFields, unitaddmineral,
+  unitselectdatabase, unitadddatabase, unitaddsample, unitremovesample;
 
 {$R *.res}
 
@@ -31,8 +32,12 @@ begin
   Application.CreateForm(TFormAjuda, FormAjuda);
   Application.CreateForm(TFormInstrumentos, FormInstrumentos);
   Application.CreateForm(TFormAdicionaRruff, FormAdicionaRruff);
-  Application.CreateForm(TFormAddImage, FormAddImage);
   Application.CreateForm(TFormPlanilha, FormPlanilha);
+  Application.CreateForm(TFormAddMineral, FormAddMineral);
+  Application.CreateForm(TFormSelectDatabase, FormSelectDatabase);
+  Application.CreateForm(TFormAddDatabase, FormAddDatabase);
+  Application.CreateForm(TFormAddSample, FormAddSample);
+  Application.CreateForm(TFormRemoveSample, FormRemoveSample);
   Application.Run;
 end.
 

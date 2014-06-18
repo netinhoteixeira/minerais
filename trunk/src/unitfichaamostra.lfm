@@ -1,113 +1,115 @@
 object FormFichaAmostra: TFormFichaAmostra
-  Left = 631
+  Left = 136
   Height = 647
-  Top = 28
-  Width = 719
+  Top = 30
+  Width = 1050
   Caption = 'FormFichaAmostra'
   ClientHeight = 647
-  ClientWidth = 719
+  ClientWidth = 1050
   OnClose = FormClose
   OnCreate = FormCreate
   Position = poDesktopCenter
   ShowInTaskBar = stAlways
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.2.2.0'
   object PanelSample: TPanel
     Left = 0
-    Height = 647
-    Top = 0
-    Width = 719
+    Height = 559
+    Top = 68
+    Width = 1050
     Align = alClient
-    ClientHeight = 647
-    ClientWidth = 719
-    TabOrder = 0
+    ClientHeight = 559
+    ClientWidth = 1050
+    TabOrder = 1
     object PageControlSample: TPageControl
-      Left = 1
-      Height = 645
+      Left = 201
+      Height = 557
       Top = 1
-      Width = 717
+      Width = 848
       ActivePage = TabSheetSampleDescricao
       Align = alClient
       TabIndex = 0
-      TabOrder = 0
+      TabOrder = 1
       object TabSheetSampleDescricao: TTabSheet
-        Caption = 'Descrição da Amostra'
-        ClientHeight = 617
-        ClientWidth = 709
-        object GroupBox3: TGroupBox
-          Left = 0
-          Height = 617
-          Top = 0
-          Width = 709
-          Align = alClient
-          ClientHeight = 599
-          ClientWidth = 705
+        Caption = 'Descrição'
+        ClientHeight = 529
+        ClientWidth = 840
+        object ScrollBox1: TScrollBox
+          Left = 10
+          Height = 516
+          Top = 10
+          Width = 826
+          HorzScrollBar.Page = 805
+          VertScrollBar.Page = 512
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          ClientHeight = 512
+          ClientWidth = 805
           TabOrder = 0
           object LabelQuimicaIdeal: TLabel
             Left = 16
-            Height = 16
+            Height = 15
             Top = 150
-            Width = 74
+            Width = 73
             Caption = 'Química Ideal'
             ParentColor = False
           end
           object LabelLocalidade: TLabel
             Left = 14
-            Height = 16
+            Height = 15
             Top = 238
-            Width = 58
+            Width = 57
             Caption = 'Localidade'
             ParentColor = False
           end
           object LabelFonte: TLabel
             Left = 14
-            Height = 16
+            Height = 15
             Top = 302
-            Width = 31
+            Width = 30
             Caption = 'Fonte'
             ParentColor = False
           end
           object Label2: TLabel
             Left = 14
-            Height = 16
-            Top = 430
-            Width = 52
+            Height = 15
+            Top = 439
+            Width = 51
             Caption = 'Descrição'
             ParentColor = False
           end
           object Label3: TLabel
-            Left = 14
-            Height = 16
-            Top = 494
-            Width = 46
+            Left = 16
+            Height = 15
+            Top = 504
+            Width = 45
             Caption = 'Situação'
             ParentColor = False
           end
           object LabelProprietario: TLabel
             Left = 14
-            Height = 16
+            Height = 15
             Top = 366
-            Width = 63
+            Width = 62
             Caption = 'Proprietário'
             ParentColor = False
           end
           object Label10: TLabel
             Left = 16
-            Height = 16
+            Height = 15
             Top = 86
-            Width = 40
-            Caption = 'Rruff Id'
+            Width = 13
+            Caption = 'Id:'
             ParentColor = False
           end
           object Label1Especie: TLabel
             Left = 16
-            Height = 16
+            Height = 15
             Top = 16
-            Width = 40
+            Width = 39
             Caption = 'Espécie'
             ParentColor = False
           end
           object GroupBox9: TGroupBox
-            Left = 360
+            Left = 392
             Height = 211
             Top = 3
             Width = 209
@@ -121,233 +123,387 @@ object FormFichaAmostra: TFormFichaAmostra
               Width = 205
               Align = alClient
               Center = True
+              PopupMenu = PopupMenuImages
               Proportional = True
             end
-          end
-          object MemoAmostraEspecie: TMemo
-            Left = 144
-            Height = 35
-            Top = 16
-            Width = 166
-            ReadOnly = True
-            TabOrder = 1
-          end
-          object MemoAmostraSample: TMemo
-            Left = 144
-            Height = 35
-            Top = 86
-            Width = 166
-            ReadOnly = True
-            TabOrder = 2
-          end
-          object MemoAmostraQuimica: TMemo
-            Left = 144
-            Height = 35
-            Top = 150
-            Width = 166
-            ReadOnly = True
-            TabOrder = 3
           end
           object MemoLocalidade: TMemo
             Left = 144
             Height = 55
-            Top = 244
-            Width = 540
+            Top = 240
+            Width = 550
+            OnEditingDone = MemoLocalidadeEditingDone
+            OnKeyUp = MemoLocalidadeKeyUp
             ReadOnly = True
-            TabOrder = 4
+            ScrollBars = ssAutoVertical
+            TabOrder = 1
           end
           object MemoFonte: TMemo
             Left = 144
             Height = 55
             Top = 311
-            Width = 540
+            Width = 550
+            OnEditingDone = MemoFonteEditingDone
+            OnKeyUp = MemoFonteKeyUp
             ReadOnly = True
-            TabOrder = 5
+            ScrollBars = ssAutoVertical
+            TabOrder = 2
           end
           object Memoproprietario: TMemo
             Left = 144
             Height = 55
             Top = 372
-            Width = 540
+            Width = 550
+            OnEditingDone = MemoproprietarioEditingDone
+            OnKeyUp = MemoproprietarioKeyUp
             ReadOnly = True
-            TabOrder = 6
+            ScrollBars = ssAutoVertical
+            TabOrder = 3
           end
           object MemoAmostraDescricao: TMemo
             Left = 144
             Height = 55
             Top = 439
-            Width = 540
+            Width = 550
+            OnEditingDone = MemoAmostraDescricaoEditingDone
+            OnKeyUp = MemoAmostraDescricaoKeyUp
             ReadOnly = True
-            TabOrder = 7
+            ScrollBars = ssAutoVertical
+            TabOrder = 4
           end
           object MemoSituacao: TMemo
             Left = 144
             Height = 55
-            Top = 500
-            Width = 540
+            Top = 504
+            Width = 550
+            OnEditingDone = MemoSituacaoEditingDone
+            OnKeyUp = MemoSituacaoKeyUp
             ReadOnly = True
+            ScrollBars = ssAutoVertical
+            TabOrder = 5
+          end
+          object EditMineralSample: TEdit
+            Left = 144
+            Height = 23
+            Top = 16
+            Width = 200
+            OnEditingDone = EditMineralSampleEditingDone
+            OnKeyUp = EditMineralSampleKeyUp
+            TabOrder = 6
+            Text = ' '
+          end
+          object EditSample: TEdit
+            Left = 144
+            Height = 23
+            Top = 86
+            Width = 200
+            ReadOnly = True
+            TabOrder = 7
+            Text = ' '
+          end
+          object EditChemistry: TEdit
+            Left = 144
+            Height = 23
+            Top = 150
+            Width = 200
+            OnEditingDone = EditChemistryEditingDone
+            OnKeyUp = EditChemistryKeyUp
             TabOrder = 8
+            Text = ' '
           end
         end
       end
       object TabSheetSampleQuimica: TTabSheet
         Caption = 'Química'
-        ClientHeight = 617
-        ClientWidth = 709
-        object GroupBox4: TGroupBox
-          Left = 0
-          Height = 617
-          Top = 0
-          Width = 709
-          Align = alClient
-          ClientHeight = 599
-          ClientWidth = 705
+        ClientHeight = 555
+        ClientWidth = 840
+        object ScrollBox3: TScrollBox
+          Left = 10
+          Height = 597
+          Top = 10
+          Width = 796
+          HorzScrollBar.Page = 792
+          VertScrollBar.Page = 593
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          ClientHeight = 593
+          ClientWidth = 792
           TabOrder = 0
           object GroupBoxImagemQuimica: TGroupBox
             Left = 15
-            Height = 300
+            Height = 250
             Top = 6
-            Width = 300
-            ClientHeight = 282
-            ClientWidth = 296
+            Width = 305
+            ClientHeight = 232
+            ClientWidth = 301
             TabOrder = 0
             object ImageQuimica: TImage
               Left = 0
-              Height = 282
+              Height = 232
               Top = 0
-              Width = 296
+              Width = 301
               Align = alClient
               Center = True
+              PopupMenu = PopupMenuImages
               Proportional = True
             end
           end
-          object GroupBox2: TGroupBox
-            Left = 15
-            Height = 280
-            Top = 311
-            Width = 550
-            ClientHeight = 262
-            ClientWidth = 546
-            TabOrder = 1
-            object LabelId_Quimica: TLabel
-              Left = 14
-              Height = 16
-              Top = 0
-              Width = 43
-              Caption = 'Rruff Id:'
-              ParentColor = False
-            end
-            object MemoQuimicaSample: TMemo
-              Left = 158
-              Height = 35
-              Top = 0
-              Width = 150
-              ReadOnly = True
-              TabOrder = 0
-            end
-            object Label4: TLabel
-              Left = 325
-              Height = 31
-              Top = 0
-              Width = 9
-              Caption = '-'
-              Font.Height = -21
-              Font.Style = [fsBold]
-              ParentColor = False
-              ParentFont = False
-            end
-            object ComboBoxQuimicaDigito: TComboBox
-              Left = 351
-              Height = 23
-              Top = -1
-              Width = 184
-              ItemHeight = 15
-              Style = csDropDownList
-              TabOrder = 1
-            end
-            object MemoQuimicaDescricao: TMemo
-              Left = 158
-              Height = 80
-              Top = 39
-              Width = 492
-              ReadOnly = True
-              TabOrder = 2
-            end
-            object LabelDescricao2: TLabel
-              Left = 14
-              Height = 16
-              Top = 37
-              Width = 52
-              Anchors = [akLeft, akBottom]
-              Caption = 'Descrição'
-              ParentColor = False
-            end
-            object LabelQuimicaMedida: TLabel
-              Left = 14
-              Height = 16
-              Top = 125
-              Width = 89
-              Anchors = [akLeft, akBottom]
-              Caption = 'Química Medida'
-              ParentColor = False
-            end
-            object MemoQuimicaMedida: TMemo
-              Left = 159
-              Height = 80
-              Top = 127
-              Width = 492
-              ReadOnly = True
-              TabOrder = 3
-            end
-          end
-          object GroupBox13: TGroupBox
-            Left = 457
-            Height = 79
-            Top = 8
+          object GroupBox14: TGroupBox
+            Left = 488
+            Height = 152
+            Top = 16
             Width = 196
             Anchors = [akTop, akRight]
             Caption = 'Microssonda'
-            ClientHeight = 61
+            ClientHeight = 134
             ClientWidth = 192
-            TabOrder = 2
-            object SpeedButton1: TSpeedButton
-              Left = 10
-              Height = 36
-              Top = 11
-              Width = 172
-              Caption = 'Visualizar Dados'
-              NumGlyphs = 0
+            TabOrder = 1
+            object BitBtnAddMicroprobeData: TBitBtn
+              Left = 6
+              Height = 30
+              Top = 55
+              Width = 176
+              Caption = 'Adicionar dados'
+              OnClick = BitBtnAddMicroprobeDataClick
+              TabOrder = 0
             end
+            object BitBtnEditMicroprobeData: TBitBtn
+              Left = 6
+              Height = 30
+              Top = 16
+              Width = 176
+              Caption = 'Visualizar dados '
+              OnClick = BitBtnEditMicroprobeDataClick
+              TabOrder = 1
+            end
+            object BitBtnClearMicroprobeData: TBitBtn
+              Left = 6
+              Height = 30
+              Top = 96
+              Width = 176
+              Caption = 'Apagar dados'
+              OnClick = BitBtnClearMicroprobeDataClick
+              TabOrder = 2
+            end
+          end
+          object LabelId_Quimica: TLabel
+            Left = 14
+            Height = 15
+            Top = 285
+            Width = 13
+            Caption = 'Id:'
+            ParentColor = False
+          end
+          object MemoQuimicaSample: TMemo
+            Left = 200
+            Height = 32
+            Top = 285
+            Width = 150
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 2
+          end
+          object Label4: TLabel
+            Left = 400
+            Height = 23
+            Top = 285
+            Width = 7
+            Caption = '-'
+            Font.Height = 24
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object ComboBoxQuimicaDigito: TComboBox
+            Left = 488
+            Height = 31
+            Top = 285
+            Width = 200
+            Font.Height = 24
+            ItemHeight = 23
+            OnChange = ActionComboboxDigitoOnChangeExecute
+            ParentFont = False
+            Style = csDropDownList
+            TabOrder = 3
+          end
+          object MemoQuimicaDescricao: TMemo
+            Left = 200
+            Height = 80
+            Top = 335
+            Width = 490
+            OnEditingDone = MemoQuimicaDescricaoEditingDone
+            OnKeyUp = MemoQuimicaDescricaoKeyUp
+            ReadOnly = True
+            ScrollBars = ssAutoVertical
+            TabOrder = 4
+          end
+          object LabelDescricao2: TLabel
+            Left = 14
+            Height = 15
+            Top = 398
+            Width = 51
+            Anchors = [akLeft, akBottom]
+            Caption = 'Descrição'
+            ParentColor = False
+          end
+          object LabelQuimicaMedida: TLabel
+            Left = 14
+            Height = 15
+            Top = 486
+            Width = 88
+            Anchors = [akLeft, akBottom]
+            Caption = 'Química Medida'
+            ParentColor = False
+          end
+          object MemoQuimicaMedida: TMemo
+            Left = 200
+            Height = 80
+            Top = 424
+            Width = 490
+            OnEditingDone = MemoQuimicaMedidaEditingDone
+            OnKeyUp = MemoQuimicaMedidaKeyUp
+            ReadOnly = True
+            ScrollBars = ssAutoVertical
+            TabOrder = 5
           end
         end
       end
       object TabSheetSampleRaman: TTabSheet
         Caption = 'Espectroscopia RAMAN'
-        ClientHeight = 617
-        ClientWidth = 709
-        object GroupBox5: TGroupBox
-          Left = 0
-          Height = 617
-          Top = 0
-          Width = 709
-          Align = alClient
-          ClientHeight = 599
-          ClientWidth = 705
+        ClientHeight = 555
+        ClientWidth = 840
+        object ScrollBox4: TScrollBox
+          Left = 10
+          Height = 621
+          Top = 10
+          Width = 826
+          HorzScrollBar.Page = 822
+          VertScrollBar.Page = 617
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          ClientHeight = 617
+          ClientWidth = 822
           TabOrder = 0
-          object GroupBoxGraficoRaman: TGroupBox
-            Left = 16
-            Height = 292
-            Top = 22
-            Width = 667
-            Anchors = [akTop, akLeft, akRight, akBottom]
-            ClientHeight = 274
-            ClientWidth = 663
+          object ComboBoxRamanEquipment: TComboBox
+            Left = 200
+            Height = 23
+            Top = 480
+            Width = 500
+            ItemHeight = 15
+            Style = csDropDownList
             TabOrder = 0
+          end
+          object Label6: TLabel
+            Left = 400
+            Height = 23
+            Top = 373
+            Width = 7
+            Anchors = [akLeft, akBottom]
+            Caption = '-'
+            Font.Height = 24
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object LabelId_Quimica1: TLabel
+            Left = 16
+            Height = 15
+            Top = 323
+            Width = 13
+            Anchors = [akLeft, akBottom]
+            Caption = 'Id:'
+            ParentColor = False
+          end
+          object LabelDescricao3: TLabel
+            Left = 14
+            Height = 15
+            Top = 376
+            Width = 54
+            Caption = 'Descrição '
+            ParentColor = False
+          end
+          object LabelPinId: TLabel
+            Left = 14
+            Height = 15
+            Top = 328
+            Width = 88
+            Caption = 'Identificação Pin'
+            ParentColor = False
+          end
+          object LabelOrientacao: TLabel
+            Left = 14
+            Height = 15
+            Top = 439
+            Width = 58
+            Caption = 'Orientação'
+            ParentColor = False
+          end
+          object LabelEquipamentoRaman: TLabel
+            Left = 14
+            Height = 15
+            Top = 480
+            Width = 65
+            Caption = 'Instrumento'
+            ParentColor = False
+          end
+          object ComboBoxRamanDigito: TComboBox
+            Left = 488
+            Height = 31
+            Top = 285
+            Width = 200
+            Font.Height = 24
+            ItemHeight = 23
+            OnChange = ActionComboboxDigitoOnChangeExecute
+            ParentFont = False
+            Style = csDropDownList
+            TabOrder = 1
+          end
+          object MemoRamanSample: TMemo
+            Left = 200
+            Height = 32
+            Top = 285
+            Width = 150
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 2
+          end
+          object MemoRamanDescricao: TMemo
+            Left = 200
+            Height = 58
+            Top = 376
+            Width = 500
+            ReadOnly = True
+            ScrollBars = ssAutoVertical
+            TabOrder = 3
+          end
+          object MemoRamanPin_id: TMemo
+            Left = 200
+            Height = 35
+            Top = 328
+            Width = 500
+            ReadOnly = True
+            TabOrder = 4
+          end
+          object MemoRamanOrientacao: TMemo
+            Left = 200
+            Height = 34
+            Top = 439
+            Width = 500
+            ReadOnly = True
+            ScrollBars = ssAutoVertical
+            TabOrder = 5
+          end
+          object GroupBoxGraficoRaman: TGroupBox
+            Left = 5
+            Height = 250
+            Top = 35
+            Width = 666
+            ClientHeight = 232
+            ClientWidth = 662
+            TabOrder = 6
             object ChartRaman: TChart
               Left = 0
-              Height = 274
+              Height = 232
               Top = 0
-              Width = 663
+              Width = 662
               AxisList = <              
                 item
                   Minors = <>
@@ -367,175 +523,132 @@ object FormFichaAmostra: TFormFichaAmostra
                 'TAChart'
               )
               Align = alClient
-              Anchors = [akTop, akLeft, akRight]
               ParentColor = False
+              PopupMenu = PopupMenuChart
             end
+          end
+          object ComboBoxDirecaoLaser: TComboBox
+            Left = 320
+            Height = 23
+            Top = 10
+            Width = 384
+            ItemHeight = 15
+            OnChange = ActionRamanDirecaoOnChangeExecute
+            Style = csDropDownList
+            TabOrder = 7
           end
           object Label5: TLabel
             Left = 16
-            Height = 16
-            Top = -2
-            Width = 167
+            Height = 15
+            Top = 8
+            Width = 166
             Caption = 'Direção de Polarização do Laser'
             ParentColor = False
-          end
-          object ComboBoxDirecaoLaser: TComboBox
-            Left = 288
-            Height = 23
-            Top = -2
-            Width = 144
-            ItemHeight = 15
-            OnChange = ComboBoxDirecaoLaserChange
-            Style = csDropDownList
-            TabOrder = 1
-          end
-          object GroupBox8: TGroupBox
-            Left = 16
-            Height = 248
-            Top = 316
-            Width = 551
-            Anchors = [akLeft, akBottom]
-            ClientHeight = 230
-            ClientWidth = 547
-            TabOrder = 2
-            object Label6: TLabel
-              Left = 318
-              Height = 31
-              Top = 0
-              Width = 9
-              Anchors = [akLeft, akBottom]
-              Caption = '-'
-              Font.Height = -21
-              Font.Style = [fsBold]
-              ParentColor = False
-              ParentFont = False
-            end
-            object LabelId_Quimica1: TLabel
-              Left = 14
-              Height = 16
-              Top = 0
-              Width = 43
-              Anchors = [akLeft, akBottom]
-              Caption = 'Rruff Id:'
-              ParentColor = False
-            end
-            object LabelDescricao3: TLabel
-              Left = 14
-              Height = 16
-              Top = 40
-              Width = 55
-              Caption = 'Descrição '
-              ParentColor = False
-            end
-            object LabelPinId: TLabel
-              Left = 14
-              Height = 16
-              Top = 112
-              Width = 89
-              Caption = 'Identificação Pin'
-              ParentColor = False
-            end
-            object LabelOrientacao: TLabel
-              Left = 14
-              Height = 16
-              Top = 160
-              Width = 59
-              Caption = 'Orientação'
-              ParentColor = False
-            end
-            object LabelEquipamentoRaman: TLabel
-              Left = 14
-              Height = 16
-              Top = 201
-              Width = 66
-              Caption = 'Instrumento'
-              ParentColor = False
-            end
-            object ComboBoxRamanDigito: TComboBox
-              Left = 332
-              Height = 23
-              Top = 1
-              Width = 186
-              ItemHeight = 15
-              OnChange = ActionComboboxDigitoChangeExecute
-              Style = csDropDownList
-              TabOrder = 0
-            end
-            object MemoRamanSample: TMemo
-              Left = 158
-              Height = 35
-              Top = 1
-              Width = 150
-              ReadOnly = True
-              TabOrder = 1
-            end
-            object MemoRamanDescricao: TMemo
-              Left = 158
-              Height = 58
-              Top = 40
-              Width = 372
-              ReadOnly = True
-              ScrollBars = ssAutoVertical
-              TabOrder = 2
-            end
-            object MemoRamanPin_id: TMemo
-              Left = 158
-              Height = 35
-              Top = 112
-              Width = 372
-              ReadOnly = True
-              TabOrder = 3
-            end
-            object MemoRamanOrientacao: TMemo
-              Left = 158
-              Height = 34
-              Top = 160
-              Width = 372
-              ReadOnly = True
-              ScrollBars = ssAutoVertical
-              TabOrder = 4
-            end
-            object MemoRamanEquipment: TMemo
-              Left = 158
-              Height = 34
-              Top = 195
-              Width = 373
-              Lines.Strings = (
-                'MemoRamanEquipment'
-              )
-              ReadOnly = True
-              TabOrder = 5
-            end
           end
         end
       end
       object TabSheetSampleVarredura: TTabSheet
         Caption = 'Varredura Ampla com Artefatos Espectrais'
-        ClientHeight = 617
-        ClientWidth = 709
-        object GroupBox6: TGroupBox
-          Left = 0
-          Height = 617
-          Top = 0
-          Width = 709
-          Align = alClient
-          ClientHeight = 599
-          ClientWidth = 705
+        ClientHeight = 534
+        ClientWidth = 714
+        object ScrollBox5: TScrollBox
+          Left = 10
+          Height = 600
+          Top = 10
+          Width = 700
+          HorzScrollBar.Page = 696
+          VertScrollBar.Page = 579
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          ClientHeight = 579
+          ClientWidth = 696
           TabOrder = 0
-          object GroupBoxGraficoVarredura: TGroupBox
-            Left = 15
-            Height = 292
-            Top = 6
-            Width = 667
-            Anchors = [akTop, akLeft, akRight, akBottom]
-            ClientHeight = 274
-            ClientWidth = 663
+          object LabelId_Quimica2: TLabel
+            Left = 14
+            Height = 15
+            Top = 285
+            Width = 13
+            Caption = 'Id:'
+            ParentColor = False
+          end
+          object MemoVarreduraSample: TMemo
+            Left = 200
+            Height = 32
+            Top = 285
+            Width = 150
+            ParentFont = False
+            ReadOnly = True
             TabOrder = 0
+          end
+          object ComboBoxVarreduraDigito: TComboBox
+            Left = 488
+            Height = 31
+            Top = 285
+            Width = 200
+            Font.Height = 24
+            ItemHeight = 23
+            OnChange = ActionComboboxDigitoOnChangeExecute
+            ParentFont = False
+            Style = csDropDownList
+            TabOrder = 1
+          end
+          object Label7: TLabel
+            Left = 400
+            Height = 23
+            Top = 285
+            Width = 7
+            Caption = '-'
+            Font.Height = 24
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object LabelConfiguracaoInstrumento: TLabel
+            Left = 14
+            Height = 15
+            Top = 480
+            Width = 65
+            Caption = 'Instrumento'
+            ParentColor = False
+          end
+          object ComboBoxBroadScanEquipment: TComboBox
+            Left = 200
+            Height = 23
+            Top = 480
+            Width = 500
+            ItemHeight = 15
+            Style = csDropDownList
+            TabOrder = 2
+          end
+          object MemoVarreduraDescricao: TMemo
+            Left = 200
+            Height = 76
+            Top = 352
+            Width = 490
+            ReadOnly = True
+            ScrollBars = ssAutoVertical
+            TabOrder = 3
+          end
+          object LabelDescricaoBroadScan: TLabel
+            Left = 14
+            Height = 15
+            Top = 352
+            Width = 51
+            Caption = 'Descrição'
+            ParentColor = False
+          end
+          object GroupBoxGraficoVarredura: TGroupBox
+            Left = 5
+            Height = 250
+            Top = 35
+            Width = 650
+            ClientHeight = 232
+            ClientWidth = 646
+            TabOrder = 4
             object ChartBroadScan: TChart
               Left = 0
-              Height = 274
+              Height = 232
               Top = 0
-              Width = 663
+              Width = 646
               AxisList = <              
                 item
                   Minors = <>
@@ -555,150 +668,161 @@ object FormFichaAmostra: TFormFichaAmostra
                 'TAChart'
               )
               Align = alClient
-              Anchors = [akTop, akLeft, akRight]
               ParentColor = False
+              PopupMenu = PopupMenuChart
               object ChartBroadScanLineSeries1: TLineSeries
               end
             end
           end
-          object GroupBox10: TGroupBox
-            Left = 15
-            Height = 256
-            Top = 319
-            Width = 550
-            Anchors = [akLeft, akBottom]
-            ClientHeight = 238
-            ClientWidth = 546
-            TabOrder = 1
-            object ComboBoxVarreduraDigito: TComboBox
-              Left = 383
-              Height = 23
-              Top = 16
-              Width = 159
-              ItemHeight = 15
-              OnChange = ActionComboboxDigitoChangeExecute
-              Style = csDropDownList
-              TabOrder = 0
-            end
-            object Label7: TLabel
-              Left = 368
-              Height = 31
-              Top = 16
-              Width = 9
-              Caption = '-'
-              Font.Height = -21
-              Font.Style = [fsBold]
-              ParentColor = False
-              ParentFont = False
-            end
-            object LabelId_Quimica2: TLabel
-              Left = 10
-              Height = 16
-              Top = 16
-              Width = 43
-              Caption = 'Rruff Id:'
-              ParentColor = False
-            end
-            object LabelComprimentodeOnda: TLabel
-              Left = 10
-              Height = 16
-              Top = 66
-              Width = 124
-              Caption = 'Comprimento de Onda'
-              ParentColor = False
-            end
-            object ComboBoxVarreduraOnda: TComboBox
-              Left = 208
-              Height = 23
-              Top = 66
-              Width = 99
-              ItemHeight = 15
-              Items.Strings = (
-                '514 nm'
-                '532 nm'
-                '580 nm'
-                '714 nm'
-                '732 nm'
-                '780 nm'
-              )
-              OnChange = ComboBoxVarreduraOndaChange
-              Style = csDropDownList
-              TabOrder = 1
-            end
-            object LabelDescricaoBroadScan: TLabel
-              Left = 10
-              Height = 16
-              Top = 152
-              Width = 52
-              Caption = 'Descrição'
-              ParentColor = False
-            end
-            object LabelConfiguracaoInstrumento: TLabel
-              Left = 10
-              Height = 16
-              Top = 112
-              Width = 66
-              Caption = 'Instrumento'
-              ParentColor = False
-            end
-            object MemoVarreduraDescricao: TMemo
-              Left = 208
-              Height = 76
-              Top = 152
-              Width = 328
-              ReadOnly = True
-              ScrollBars = ssAutoVertical
-              TabOrder = 2
-            end
-            object MemoVarreduraSample: TMemo
-              Left = 208
-              Height = 31
-              Top = 16
-              Width = 150
-              ReadOnly = True
-              TabOrder = 3
-            end
-            object MemoBroadScanEquipment: TMemo
-              Left = 205
-              Height = 38
-              Top = 101
-              Width = 328
-              Lines.Strings = (
-                'MemoBroadScanEquipment'
-              )
-              ReadOnly = True
-              TabOrder = 4
-            end
+          object ComboBoxVarreduraOnda: TComboBox
+            Left = 320
+            Height = 23
+            Top = 10
+            Width = 386
+            ItemHeight = 15
+            Items.Strings = (
+              '514 nm'
+              '532 nm'
+              '580 nm'
+              '714 nm'
+              '732 nm'
+              '780 nm'
+            )
+            OnChange = ActionBroadScanWaveOnChangeExecute
+            Style = csDropDownList
+            TabOrder = 5
+          end
+          object LabelComprimentodeOnda: TLabel
+            Left = 14
+            Height = 15
+            Top = 10
+            Width = 123
+            Caption = 'Comprimento de Onda'
+            ParentColor = False
           end
         end
       end
       object TabSheetSampleInfrared: TTabSheet
         Caption = 'Espectro Infravermelho'
-        ClientHeight = 617
-        ClientWidth = 709
-        object GroupBox7: TGroupBox
-          Left = 0
-          Height = 617
-          Top = 0
-          Width = 709
-          Align = alClient
-          ClientHeight = 599
-          ClientWidth = 705
+        ClientHeight = 534
+        ClientWidth = 714
+        object ScrollBox6: TScrollBox
+          Left = 10
+          Height = 600
+          Top = 10
+          Width = 700
+          HorzScrollBar.Page = 696
+          VertScrollBar.Page = 579
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          ClientHeight = 579
+          ClientWidth = 696
           TabOrder = 0
-          object GroupBoxGraficoInfravermelho: TGroupBox
-            Left = 16
-            Height = 292
-            Top = 6
-            Width = 667
-            Anchors = [akTop, akLeft, akRight, akBottom]
-            ClientHeight = 274
-            ClientWidth = 663
+          object ComboBoxInfraredEquipment: TComboBox
+            Left = 200
+            Height = 23
+            Top = 480
+            Width = 500
+            ItemHeight = 15
+            Style = csDropDownList
             TabOrder = 0
+          end
+          object ComboBoxInfravermelhoDigito: TComboBox
+            Left = 488
+            Height = 31
+            Top = 285
+            Width = 200
+            Font.Height = 24
+            ItemHeight = 23
+            OnChange = ActionComboboxDigitoOnChangeExecute
+            ParentFont = False
+            Style = csDropDownList
+            TabOrder = 1
+          end
+          object Label8: TLabel
+            Left = 400
+            Height = 23
+            Top = 285
+            Width = 7
+            Caption = '-'
+            Font.Height = 24
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object LabelId_Quimica3: TLabel
+            Left = 14
+            Height = 15
+            Top = 285
+            Width = 13
+            Caption = 'Id:'
+            ParentColor = False
+          end
+          object LabelDescricaoIV: TLabel
+            Left = 14
+            Height = 15
+            Top = 408
+            Width = 51
+            Caption = 'Descrição'
+            ParentColor = False
+          end
+          object LabelResolucao: TLabel
+            Left = 14
+            Height = 15
+            Top = 328
+            Width = 54
+            Caption = 'Resolução'
+            ParentColor = False
+          end
+          object LabelInstrumentoIV: TLabel
+            Left = 14
+            Height = 15
+            Top = 488
+            Width = 65
+            Caption = 'Instrumento'
+            ParentColor = False
+          end
+          object MemoInfravermelhoSample: TMemo
+            Left = 200
+            Height = 32
+            Top = 285
+            Width = 150
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 2
+          end
+          object MemoInfravermelhoResolucao: TMemo
+            Left = 200
+            Height = 67
+            Top = 328
+            Width = 500
+            OnEditingDone = MemoInfravermelhoResolucaoEditingDone
+            OnKeyUp = MemoInfravermelhoResolucaoKeyUp
+            ReadOnly = True
+            ScrollBars = ssAutoVertical
+            TabOrder = 3
+          end
+          object MemoInfravermelhoDescricao: TMemo
+            Left = 200
+            Height = 67
+            Top = 408
+            Width = 500
+            ReadOnly = True
+            ScrollBars = ssAutoVertical
+            TabOrder = 4
+          end
+          object GroupBoxGraficoInfravermelho: TGroupBox
+            Left = 5
+            Height = 250
+            Top = 35
+            Width = 650
+            ClientHeight = 232
+            ClientWidth = 646
+            TabOrder = 5
             object ChartInfravermelho: TChart
               Left = 0
-              Height = 274
+              Height = 232
               Top = 0
-              Width = 663
+              Width = 646
               AxisList = <              
                 item
                   Minors = <>
@@ -719,232 +843,99 @@ object FormFichaAmostra: TFormFichaAmostra
               )
               Align = alClient
               ParentColor = False
+              PopupMenu = PopupMenuChart
               object ChartInfravermelhoLineSeries1: TLineSeries
               end
-            end
-          end
-          object GroupBox11: TGroupBox
-            Left = 16
-            Height = 277
-            Top = 303
-            Width = 551
-            Anchors = [akLeft, akBottom]
-            ClientHeight = 259
-            ClientWidth = 547
-            TabOrder = 1
-            object ComboBoxInfravermelhoDigito: TComboBox
-              Left = 389
-              Height = 23
-              Top = 16
-              Width = 158
-              ItemHeight = 15
-              OnChange = ActionComboboxDigitoChangeExecute
-              Style = csDropDownList
-              TabOrder = 0
-            end
-            object Label8: TLabel
-              Left = 368
-              Height = 31
-              Top = 16
-              Width = 9
-              Caption = '-'
-              Font.Height = -21
-              Font.Style = [fsBold]
-              ParentColor = False
-              ParentFont = False
-            end
-            object LabelId_Quimica3: TLabel
-              Left = 10
-              Height = 16
-              Top = 16
-              Width = 43
-              Caption = 'Rruff Id:'
-              ParentColor = False
-            end
-            object LabelDescricaoIV: TLabel
-              Left = 10
-              Height = 16
-              Top = 181
-              Width = 52
-              Caption = 'Descrição'
-              ParentColor = False
-            end
-            object LabelResolucao: TLabel
-              Left = 10
-              Height = 16
-              Top = 106
-              Width = 55
-              Caption = 'Resolução'
-              ParentColor = False
-            end
-            object LabelInstrumentoIV: TLabel
-              Left = 10
-              Height = 16
-              Top = 66
-              Width = 66
-              Caption = 'Instrumento'
-              ParentColor = False
-            end
-            object MemoInfravermelhoSample: TMemo
-              Left = 208
-              Height = 35
-              Top = 16
-              Width = 154
-              ReadOnly = True
-              TabOrder = 1
-            end
-            object MemoInfravermelhoResolucao: TMemo
-              Left = 208
-              Height = 67
-              Top = 106
-              Width = 350
-              ReadOnly = True
-              ScrollBars = ssAutoVertical
-              TabOrder = 2
-            end
-            object MemoInfravermelhoDescricao: TMemo
-              Left = 208
-              Height = 67
-              Top = 181
-              Width = 350
-              ReadOnly = True
-              ScrollBars = ssAutoVertical
-              TabOrder = 3
-            end
-            object MemoInfraredEquipment: TMemo
-              Left = 207
-              Height = 32
-              Top = 64
-              Width = 336
-              Lines.Strings = (
-                'MemoInfraredEquipment'
-              )
-              ReadOnly = True
-              TabOrder = 4
             end
           end
         end
       end
       object TabSheetSampleDifraction: TTabSheet
         Caption = 'Difração do pó mineral'
-        ClientHeight = 617
-        ClientWidth = 709
-        object GroupBox12: TGroupBox
-          Left = 0
-          Height = 617
-          Top = 0
-          Width = 709
-          Align = alClient
-          ClientHeight = 599
-          ClientWidth = 705
+        ClientHeight = 534
+        ClientWidth = 714
+        object ScrollBox7: TScrollBox
+          Left = 10
+          Height = 600
+          Top = 10
+          Width = 700
+          HorzScrollBar.Page = 696
+          VertScrollBar.Page = 596
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          ClientHeight = 596
+          ClientWidth = 696
           TabOrder = 0
-          object GroupBoxDifracao: TGroupBox
-            Left = 15
-            Height = 292
-            Top = 6
-            Width = 671
-            Anchors = [akTop, akLeft, akRight, akBottom]
-            ClientHeight = 274
-            ClientWidth = 667
-            TabOrder = 0
-            object ChartDifracao: TChart
-              Left = 0
-              Height = 274
-              Top = 0
-              Width = 667
-              AxisList = <              
-                item
-                  Minors = <>
-                  Title.LabelFont.Orientation = 900
-                end              
-                item
-                  Alignment = calBottom
-                  Minors = <>
-                end>
-              BackColor = clNone
-              Foot.Brush.Color = clBtnFace
-              Foot.Font.Color = clBlue
-              Frame.Width = 2
-              Title.Brush.Color = clBtnFace
-              Title.Font.Color = clBlue
-              Title.Text.Strings = (
-                'TAChart'
-              )
-              Align = alClient
-              ParentColor = False
-            end
-          end
           object GroupBoxDadosDifracao: TGroupBox
-            Left = 14
+            Left = 16
             Height = 235
-            Top = 356
-            Width = 662
+            Top = 336
+            Width = 648
             Anchors = [akLeft, akBottom]
             Caption = 'Refinamento Celular:'
             ClientHeight = 217
-            ClientWidth = 658
-            TabOrder = 1
+            ClientWidth = 644
+            TabOrder = 0
             object LabelA: TLabel
               Left = 21
-              Height = 16
+              Height = 15
               Top = 16
-              Width = 7
+              Width = 6
               Caption = 'a'
               ParentColor = False
             end
             object LabelB: TLabel
               Left = 224
-              Height = 16
+              Height = 15
               Top = 19
-              Width = 8
+              Width = 7
               Caption = 'b'
               ParentColor = False
             end
             object LabelC: TLabel
               Left = 429
-              Height = 16
+              Height = 15
               Top = 17
-              Width = 7
+              Width = 6
               Caption = 'c'
               ParentColor = False
             end
             object LabelAlpha: TLabel
               Left = 21
-              Height = 16
+              Height = 15
               Top = 87
-              Width = 32
+              Width = 31
               Caption = 'Alpha'
               ParentColor = False
             end
             object LabelBeta: TLabel
               Left = 216
-              Height = 16
+              Height = 15
               Top = 87
-              Width = 24
+              Width = 23
               Caption = 'Beta'
               ParentColor = False
             end
             object LabelGamma: TLabel
               Left = 392
-              Height = 16
+              Height = 15
               Top = 87
-              Width = 43
+              Width = 42
               Caption = 'Gamma'
               ParentColor = False
             end
             object LabelVolume: TLabel
               Left = 21
-              Height = 16
+              Height = 15
               Top = 152
-              Width = 42
+              Width = 41
               Caption = 'Volume'
               ParentColor = False
             end
             object LabelSistemaCristalino: TLabel
               Left = 289
-              Height = 16
+              Height = 15
               Top = 152
-              Width = 95
+              Width = 94
               Caption = 'Sistema Cristalino'
               ParentColor = False
             end
@@ -953,6 +944,8 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 17
               Width = 120
+              OnEditingDone = MemoAEditingDone
+              OnKeyUp = MemoAKeyUp
               ReadOnly = True
               TabOrder = 0
             end
@@ -961,6 +954,8 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 17
               Width = 120
+              OnEditingDone = MemoBEditingDone
+              OnKeyUp = MemoBKeyUp
               ReadOnly = True
               TabOrder = 1
             end
@@ -969,6 +964,8 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 19
               Width = 120
+              OnEditingDone = MemoCEditingDone
+              OnKeyUp = MemoCKeyUp
               ReadOnly = True
               TabOrder = 2
             end
@@ -977,6 +974,8 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 87
               Width = 120
+              OnEditingDone = MemoAlphaEditingDone
+              OnKeyUp = MemoAlphaKeyUp
               ReadOnly = True
               TabOrder = 3
             end
@@ -985,6 +984,8 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 87
               Width = 120
+              OnEditingDone = MemoBetaEditingDone
+              OnKeyUp = MemoBetaKeyUp
               ReadOnly = True
               TabOrder = 4
             end
@@ -993,6 +994,8 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 87
               Width = 120
+              OnEditingDone = MemoGammaEditingDone
+              OnKeyUp = MemoGammaKeyUp
               ReadOnly = True
               TabOrder = 5
             end
@@ -1013,57 +1016,1035 @@ object FormFichaAmostra: TFormFichaAmostra
               TabOrder = 7
             end
           end
+          object GroupBoxDifracao: TGroupBox
+            Left = 5
+            Height = 250
+            Top = 35
+            Width = 650
+            ClientHeight = 232
+            ClientWidth = 646
+            TabOrder = 1
+            object ChartDifracao: TChart
+              Left = 0
+              Height = 232
+              Top = 0
+              Width = 646
+              AxisList = <              
+                item
+                  Minors = <>
+                  Title.LabelFont.Orientation = 900
+                end              
+                item
+                  Alignment = calBottom
+                  Minors = <>
+                end>
+              BackColor = clNone
+              Foot.Brush.Color = clBtnFace
+              Foot.Font.Color = clBlue
+              Frame.Width = 2
+              Title.Brush.Color = clBtnFace
+              Title.Font.Color = clBlue
+              Title.Text.Strings = (
+                'TAChart'
+              )
+              Align = alClient
+              ParentColor = False
+              PopupMenu = PopupMenuChart
+            end
+          end
           object LabelId_Quimica4: TLabel
-            Left = 24
-            Height = 16
-            Top = 316
-            Width = 43
+            Left = 14
+            Height = 15
+            Top = 285
+            Width = 13
             Anchors = [akLeft, akBottom]
-            Caption = 'Rruff Id:'
+            Caption = 'Id:'
             ParentColor = False
           end
+          object MemoDifracaoSample: TMemo
+            Left = 200
+            Height = 32
+            Top = 285
+            Width = 150
+            Anchors = [akLeft, akBottom]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 2
+          end
           object Label9: TLabel
-            Left = 320
-            Height = 31
-            Top = 316
-            Width = 9
+            Left = 400
+            Height = 23
+            Top = 292
+            Width = 7
             Anchors = [akLeft, akBottom]
             Caption = '-'
-            Font.Height = -21
+            Font.Height = 24
             Font.Style = [fsBold]
             ParentColor = False
             ParentFont = False
           end
           object ComboBoxDifracaoDigito: TComboBox
-            Left = 344
-            Height = 23
-            Top = 316
-            Width = 184
+            Left = 488
+            Height = 31
+            Top = 277
+            Width = 200
             Anchors = [akLeft, akBottom]
-            ItemHeight = 15
-            OnChange = ActionComboboxDigitoChangeExecute
+            Font.Height = 24
+            ItemHeight = 23
+            OnChange = ActionComboboxDigitoOnChangeExecute
+            ParentFont = False
             Style = csDropDownList
-            TabOrder = 2
-          end
-          object MemoDifracaoSample: TMemo
-            Left = 144
-            Height = 30
-            Top = 316
-            Width = 150
-            Anchors = [akLeft, akBottom]
-            ReadOnly = True
             TabOrder = 3
           end
         end
       end
     end
+    object BCPanel1: TBCPanel
+      Left = 1
+      Height = 557
+      Top = 1
+      Width = 200
+      Align = alLeft
+      Background.Color = clBtnFace
+      Background.ColorOpacity = 255
+      Background.Gradient1.StartColor = clWhite
+      Background.Gradient1.StartColorOpacity = 255
+      Background.Gradient1.DrawMode = dmSet
+      Background.Gradient1.EndColor = 16119285
+      Background.Gradient1.EndColorOpacity = 255
+      Background.Gradient1.ColorCorrection = True
+      Background.Gradient1.GradientType = gtLinear
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient1.Sinus = False
+      Background.Gradient2.StartColor = 15722194
+      Background.Gradient2.StartColorOpacity = 255
+      Background.Gradient2.DrawMode = dmSet
+      Background.Gradient2.EndColor = 13137169
+      Background.Gradient2.EndColorOpacity = 255
+      Background.Gradient2.ColorCorrection = True
+      Background.Gradient2.GradientType = gtLinear
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient2.Sinus = False
+      Background.Gradient1EndPercent = 100
+      Background.Style = bbsGradient
+      BevelInner = bvNone
+      BevelOuter = bvNone
+      BevelWidth = 1
+      Border.Color = clBlack
+      Border.ColorOpacity = 255
+      Border.LightColor = clWhite
+      Border.LightOpacity = 255
+      Border.LightWidth = 0
+      Border.Style = bboNone
+      Border.Width = 1
+      BorderBCStyle = bpsBorder
+      Caption = 'BCPanel1'
+      FontEx.Color = clDefault
+      FontEx.EndEllipsis = False
+      FontEx.FontQuality = fqSystemClearType
+      FontEx.Height = 0
+      FontEx.SingleLine = True
+      FontEx.Shadow = False
+      FontEx.ShadowColor = clBlack
+      FontEx.ShadowColorOpacity = 255
+      FontEx.ShadowRadius = 5
+      FontEx.ShadowOffsetX = 5
+      FontEx.ShadowOffsetY = 5
+      FontEx.Style = []
+      FontEx.TextAlignment = bcaCenter
+      FontEx.WordBreak = False
+      Rounding.RoundX = 1
+      Rounding.RoundY = 1
+      Rounding.RoundOptions = []
+      TabOrder = 0
+      object ListBoxSample_id: TListBox
+        Left = 16
+        Height = 366
+        Top = 176
+        Width = 162
+        Anchors = [akTop, akLeft, akBottom]
+        ItemHeight = 0
+        OnClick = ActionListboxSampleOnClickExecute
+        TabOrder = 0
+      end
+      object EditMineralName: TEdit
+        Left = 16
+        Height = 23
+        Top = 40
+        Width = 162
+        OnEditingDone = EditMineralNameEditingDone
+        TabOrder = 1
+      end
+      object EditSample_Id: TEdit
+        Left = 16
+        Height = 23
+        Top = 104
+        Width = 162
+        OnEditingDone = EditSample_IdEditingDone
+        TabOrder = 2
+      end
+      object BCLabel1: TBCLabel
+        Left = 8
+        Height = 35
+        Top = 8
+        Width = 111
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Filtro por mineral'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = False
+        FontEx.FontQuality = fqSystemClearType
+        FontEx.Height = 0
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 180
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = []
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+      object BCLabel2: TBCLabel
+        Left = 8
+        Height = 35
+        Top = 73
+        Width = 139
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Filtro por identificação'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = False
+        FontEx.FontQuality = fqSystemClearType
+        FontEx.Height = 0
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 180
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = []
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+      object BCLabel3: TBCLabel
+        Left = 8
+        Height = 35
+        Top = 144
+        Width = 70
+        Background.Color = clBlack
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'Amostras'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = False
+        FontEx.FontQuality = fqSystemClearType
+        FontEx.Height = 0
+        FontEx.SingleLine = True
+        FontEx.Shadow = True
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 180
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = []
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+      end
+    end
+  end
+  object BCPanel2: TBCPanel
+    Left = 0
+    Height = 42
+    Top = 26
+    Width = 1050
+    Align = alTop
+    Background.Color = 5000268
+    Background.ColorOpacity = 255
+    Background.Gradient1.StartColor = 15722194
+    Background.Gradient1.StartColorOpacity = 255
+    Background.Gradient1.DrawMode = dmSet
+    Background.Gradient1.EndColor = 13137169
+    Background.Gradient1.EndColorOpacity = 255
+    Background.Gradient1.ColorCorrection = True
+    Background.Gradient1.GradientType = gtLinear
+    Background.Gradient1.Point1XPercent = 0
+    Background.Gradient1.Point1YPercent = 0
+    Background.Gradient1.Point2XPercent = 0
+    Background.Gradient1.Point2YPercent = 100
+    Background.Gradient1.Sinus = False
+    Background.Gradient2.StartColor = 15722194
+    Background.Gradient2.StartColorOpacity = 255
+    Background.Gradient2.DrawMode = dmSet
+    Background.Gradient2.EndColor = 13137169
+    Background.Gradient2.EndColorOpacity = 255
+    Background.Gradient2.ColorCorrection = True
+    Background.Gradient2.GradientType = gtLinear
+    Background.Gradient2.Point1XPercent = 0
+    Background.Gradient2.Point1YPercent = 0
+    Background.Gradient2.Point2XPercent = 0
+    Background.Gradient2.Point2YPercent = 100
+    Background.Gradient2.Sinus = False
+    Background.Gradient1EndPercent = 35
+    Background.Style = bbsColor
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BevelWidth = 1
+    Border.Color = clBlack
+    Border.ColorOpacity = 255
+    Border.LightColor = clWhite
+    Border.LightOpacity = 255
+    Border.LightWidth = 0
+    Border.Style = bboNone
+    Border.Width = 1
+    FontEx.Color = clDefault
+    FontEx.EndEllipsis = False
+    FontEx.FontQuality = fqSystemClearType
+    FontEx.Height = 0
+    FontEx.SingleLine = True
+    FontEx.Shadow = False
+    FontEx.ShadowColor = clBlack
+    FontEx.ShadowColorOpacity = 255
+    FontEx.ShadowRadius = 5
+    FontEx.ShadowOffsetX = 5
+    FontEx.ShadowOffsetY = 5
+    FontEx.Style = []
+    FontEx.TextAlignment = bcaCenter
+    FontEx.WordBreak = False
+    Rounding.RoundX = 1
+    Rounding.RoundY = 1
+    Rounding.RoundOptions = []
+    TabOrder = 0
+    Visible = False
+    object SpeedButton1: TSpeedButton
+      Left = 5
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionAddSampleExecute
+    end
+    object SpeedButton2: TSpeedButton
+      Left = 40
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionRemoveSampleExecute
+    end
+    object SpeedButtonEquipments: TSpeedButton
+      Left = 112
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionFormEquipmentsExecute
+    end
+    object SpeedButton4: TSpeedButton
+      Left = 149
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionAddImageExecute
+    end
+    object SpeedButtonRemoveSampleImage: TSpeedButton
+      Left = 182
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionRemoveSampleImageExecute
+    end
+    object SpeedButtonAddChemistryImage: TSpeedButton
+      Left = 217
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionAddChemistryImageExecute
+    end
+    object SpeedButtonRemoveChemistryImage: TSpeedButton
+      Left = 252
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionRemoveChemistryImageExecute
+    end
+    object SpeedButtonMicroprobeData: TSpeedButton
+      Left = 287
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionSeeMicroprobeDataExecute
+    end
+    object SpeedButtonAddMicroprobeData: TSpeedButton
+      Left = 322
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionAddMicroprobeDataExecute
+    end
+    object SpeedButtonClearMicroprobeData: TSpeedButton
+      Left = 357
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionClearMicroprobeDataExecute
+    end
+    object SpeedButtonAddChartRaman: TSpeedButton
+      Left = 392
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionAddRamanChartExecute
+    end
+    object SpeedButtonSeeRamanData: TSpeedButton
+      Left = 427
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionSeeRamanDataExecute
+    end
+    object SpeedButtonClearRamanData: TSpeedButton
+      Left = 462
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionClearRamanDataExecute
+    end
+    object SpeedButtonAddBroadScanData: TSpeedButton
+      Left = 497
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionAddBroadScanDataExecute
+    end
+    object SpeedButtonSeeBoradScanData: TSpeedButton
+      Left = 532
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionSeBoradScanDataExecute
+    end
+    object SpeedButtonClearBroadScanData: TSpeedButton
+      Left = 567
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionClearBroadScanDataExecute
+    end
+    object SpeedButtonAddInfraredData: TSpeedButton
+      Left = 602
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionAddInfraredDataExecute
+    end
+    object SpeedButtonSeeInfraredData: TSpeedButton
+      Left = 637
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionSeeInfraredDataExecute
+    end
+    object SpeedButtonClearInfraredData: TSpeedButton
+      Left = 672
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionClearInfraredDataExecute
+    end
+    object SpeedButtonAddPowderData: TSpeedButton
+      Left = 707
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionAddPowderDataExecute
+    end
+    object SpeedButtonSeePowderData: TSpeedButton
+      Left = 742
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionSeePowderDataExecute
+    end
+    object SpeedButtonClearPowderData: TSpeedButton
+      Left = 777
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionClearPowderDataExecute
+    end
+    object SpeedButtonRefreshList: TSpeedButton
+      Left = 75
+      Height = 30
+      Top = 5
+      Width = 30
+      OnClick = ActionRefreshListExecute
+    end
+  end
+  object ProgressBar1: TProgressBar
+    Left = 0
+    Height = 20
+    Top = 627
+    Width = 1050
+    Align = alBottom
+    TabOrder = 2
+  end
+  object ToolBar1: TToolBar
+    Left = 0
+    Height = 26
+    Top = 0
+    Width = 1050
+    Caption = 'ToolBar1'
+    Images = BGRAImageList1
+    TabOrder = 3
+    object ToolButtonAddSample: TToolButton
+      Left = 1
+      Top = 2
+      Caption = 'ToolButtonAddSample'
+      ImageIndex = 0
+      OnClick = ActionAddSampleExecute
+    end
+    object ToolButtonRemoveSample: TToolButton
+      Left = 24
+      Top = 2
+      Caption = 'ToolButtonRemoveSample'
+      OnClick = ActionRemoveSampleExecute
+    end
+    object ToolButton1: TToolButton
+      Left = 47
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton1'
+      Style = tbsDivider
+    end
+    object ToolButtonRefreshList: TToolButton
+      Left = 52
+      Top = 2
+      Caption = 'ToolButtonRefreshList'
+      OnClick = ActionRefreshListExecute
+    end
+    object ToolButton2: TToolButton
+      Left = 75
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton2'
+      Style = tbsDivider
+    end
+    object ToolButtonEquipments: TToolButton
+      Left = 80
+      Top = 2
+      Caption = 'ToolButtonEquipments'
+      OnClick = ActionFormEquipmentsExecute
+    end
+    object ToolButton3: TToolButton
+      Left = 103
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton3'
+      Style = tbsDivider
+    end
+    object ToolButtonAddImage: TToolButton
+      Left = 108
+      Top = 2
+      Caption = 'ToolButtonAddImage'
+      OnClick = ActionAddImageExecute
+    end
+    object ToolButtonRemoveImage: TToolButton
+      Left = 131
+      Top = 2
+      Caption = 'ToolButtonRemoveImage'
+      OnClick = ActionRemoveSampleImageExecute
+    end
+    object ToolButton4: TToolButton
+      Left = 154
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton4'
+      Style = tbsDivider
+    end
+    object ToolButtonAddChemistryImage: TToolButton
+      Left = 159
+      Top = 2
+      Caption = 'ToolButtonAddChemistryImage'
+      OnClick = ActionAddChemistryImageExecute
+    end
+    object ToolButtonRemoveChemistryImage: TToolButton
+      Left = 182
+      Top = 2
+      Caption = 'ToolButtonRemoveChemistryImage'
+      OnClick = ActionRemoveChemistryImageExecute
+    end
+    object ToolButtonAddMicroprobeData: TToolButton
+      Left = 205
+      Top = 2
+      Caption = 'ToolButtonAddMicroprobeData'
+      OnClick = BitBtnAddMicroprobeDataClick
+    end
+    object ToolButtonSeeMicroprobeData: TToolButton
+      Left = 228
+      Top = 2
+      Caption = 'ToolButtonSeeMicroprobeData'
+      OnClick = ActionSeeMicroprobeDataExecute
+    end
+    object ToolButtonClearMicroprobeData: TToolButton
+      Left = 251
+      Top = 2
+      Caption = 'ToolButtonClearMicroprobeData'
+      OnClick = ActionClearMicroprobeDataExecute
+    end
+    object ToolButton5: TToolButton
+      Left = 274
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton5'
+      Style = tbsDivider
+    end
+    object ToolButtonAddChartRaman: TToolButton
+      Left = 279
+      Top = 2
+      Caption = 'ToolButtonAddChartRaman'
+      OnClick = ActionAddRamanChartExecute
+    end
+    object ToolButtonSeeRamanData: TToolButton
+      Left = 302
+      Top = 2
+      Caption = 'ToolButtonSeeRamanData'
+      OnClick = ActionSeeRamanDataExecute
+    end
+    object ToolButtonClearRamanData: TToolButton
+      Left = 325
+      Top = 2
+      Caption = 'ToolButtonClearRamanData'
+      OnClick = ActionClearRamanDataExecute
+    end
+    object ToolButton6: TToolButton
+      Left = 348
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton6'
+      Style = tbsDivider
+    end
+    object ToolButtonAddBroadScanData: TToolButton
+      Left = 353
+      Top = 2
+      Caption = 'ToolButtonAddBroadScanData'
+      OnClick = ActionAddBroadScanDataExecute
+    end
+    object ToolButtonSeeBroadScanData: TToolButton
+      Left = 376
+      Top = 2
+      Caption = 'ToolButtonSeeBroadScanData'
+      OnClick = ActionSeBoradScanDataExecute
+    end
+    object ToolButtonClearBroadScanData: TToolButton
+      Left = 399
+      Top = 2
+      Caption = 'ToolButtonClearBroadScanData'
+      OnClick = ActionClearBroadScanDataExecute
+    end
+    object ToolButton7: TToolButton
+      Left = 422
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton7'
+      Style = tbsDivider
+    end
+    object ToolButtonAddInfraredData: TToolButton
+      Left = 427
+      Top = 2
+      Caption = 'ToolButtonAddInfraredData'
+      OnClick = ActionAddInfraredDataExecute
+    end
+    object ToolButtonSeeInfaredData: TToolButton
+      Left = 450
+      Top = 2
+      Caption = 'ToolButtonSeeInfaredData'
+      OnClick = ActionSeeInfraredDataExecute
+    end
+    object ToolButtonClearInfraredData: TToolButton
+      Left = 473
+      Top = 2
+      Caption = 'ToolButtonClearInfraredData'
+      OnClick = ActionClearInfraredDataExecute
+    end
+    object ToolButton11: TToolButton
+      Left = 496
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton11'
+      Style = tbsDivider
+    end
+    object ToolButtonAddPowderData: TToolButton
+      Left = 501
+      Top = 2
+      Caption = 'ToolButtonAddPowderData'
+      OnClick = ActionAddPowderDataExecute
+    end
+    object ToolButtonSeePowderData: TToolButton
+      Left = 524
+      Top = 2
+      Caption = 'ToolButtonSeePowderData'
+      OnClick = ActionSeePowderDataExecute
+    end
+    object ToolButtonClearPowderData: TToolButton
+      Left = 547
+      Top = 2
+      Caption = 'ToolButtonClearPowderData'
+      OnClick = ActionClearPowderDataExecute
+    end
+    object ToolButton15: TToolButton
+      Left = 570
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton15'
+      Style = tbsDivider
+    end
+    object ComboBox1: TComboBox
+      Left = 575
+      Height = 23
+      Top = 2
+      Width = 100
+      ItemHeight = 15
+      Items.Strings = (
+        '10'
+        '12'
+        '14'
+        '16'
+      )
+      Style = csDropDownList
+      TabOrder = 0
+    end
   end
   object ActionList1: TActionList
-    left = 149
-    top = 399
-    object ActionComboboxDigitoChange: TAction
-      Caption = 'ActionComboboxDigitoChange'
-      OnExecute = ActionComboboxDigitoChangeExecute
+    left = 24
+    top = 344
+    object ActionListboxSampleOnClick: TAction
+      Caption = 'ActionListboxSampleOnClick'
+      OnExecute = ActionListboxSampleOnClickExecute
     end
+    object ActionAddDataToChart: TAction
+      Caption = 'ActionAddDataToChart'
+      OnExecute = ActionAddDataToChartExecute
+    end
+    object ActionRamanDirecaoOnChange: TAction
+      Caption = 'ActionRamanDirecaoOnChange'
+      OnExecute = ActionRamanDirecaoOnChangeExecute
+    end
+    object ActionRemoveBlobData: TAction
+      Caption = 'ActionRemoveBlobData'
+      OnExecute = ActionRemoveBlobDataExecute
+    end
+    object ActionBroadScanWaveOnChange: TAction
+      Caption = 'ActionBroadScanWaveOnChange'
+      OnExecute = ActionBroadScanWaveOnChangeExecute
+    end
+    object ActionMicrossondaVisualizar: TAction
+      Caption = 'ActionMicrossondaVisualizar'
+      OnExecute = ActionMicrossondaVisualizarExecute
+    end
+    object ActionChangeEquipment: TAction
+      Caption = 'ActionChangeEquipment'
+      OnExecute = ActionChangeEquipmentExecute
+    end
+    object ActionComboboxDigitoOnChange: TAction
+      Caption = 'ActionComboboxDigitoOnChange'
+      OnExecute = ActionComboboxDigitoOnChangeExecute
+    end
+    object ActionAddImage: TAction
+      Caption = 'ActionAddImage'
+      OnExecute = ActionAddImageExecute
+    end
+    object ActionAddChemistryImage: TAction
+      Caption = 'ActionAddChemistryImage'
+      OnExecute = ActionAddChemistryImageExecute
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    left = 93
+    top = 208
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    left = 93
+    top = 273
+  end
+  object PopupMenuChart: TPopupMenu
+    left = 422
+    top = 233
+    object MenuItemAddData: TMenuItem
+      Caption = 'Adicionar'
+      OnClick = ActionAddDataToChartExecute
+    end
+    object MenuItemSeeData: TMenuItem
+      Caption = 'Ver'
+      OnClick = ActionMicrossondaVisualizarExecute
+    end
+    object MenuItemRemoveData: TMenuItem
+      Caption = 'Excluir'
+      OnClick = ActionRemoveBlobDataExecute
+    end
+  end
+  object ActionListPanelButtons: TActionList
+    left = 128
+    top = 344
+    object ActionAddSample: TAction
+      Caption = 'ActionAddSample'
+      OnExecute = ActionAddSampleExecute
+    end
+    object ActionRemoveSample: TAction
+      Caption = 'ActionRemoveSample'
+      OnExecute = ActionRemoveSampleExecute
+    end
+    object ActionFormEquipments: TAction
+      Caption = 'ActionFormEquipments'
+      OnExecute = ActionFormEquipmentsExecute
+    end
+    object ActionRemoveSampleImage: TAction
+      Caption = 'ActionRemoveSampleImage'
+      OnExecute = ActionRemoveSampleImageExecute
+    end
+    object ActionRemoveChemistryImage: TAction
+      Caption = 'ActionRemoveChemistryImage'
+      OnExecute = ActionRemoveChemistryImageExecute
+    end
+    object ActionSeeMicroprobeData: TAction
+      Caption = 'ActionSeeMicroprobeData'
+      OnExecute = ActionSeeMicroprobeDataExecute
+    end
+    object ActionAddRamanChart: TAction
+      Category = 'chart'
+      Caption = 'ActionAddRamanChart'
+      OnExecute = ActionAddRamanChartExecute
+    end
+    object ActionSeeRamanData: TAction
+      Category = 'chart'
+      Caption = 'ActionSeeRamanData'
+      OnExecute = ActionSeeRamanDataExecute
+    end
+    object ActionClearRamanData: TAction
+      Category = 'chart'
+      Caption = 'ActionClearRamanData'
+      OnExecute = ActionClearRamanDataExecute
+    end
+    object ActionAddBroadScanData: TAction
+      Category = 'chart'
+      Caption = 'ActionAddBroadScanData'
+      OnExecute = ActionAddBroadScanDataExecute
+    end
+    object ActionSeBoradScanData: TAction
+      Category = 'chart'
+      Caption = 'ActionSeBoradScanData'
+      OnExecute = ActionSeBoradScanDataExecute
+    end
+    object ActionClearBroadScanData: TAction
+      Category = 'chart'
+      Caption = 'ActionClearBroadScanData'
+      OnExecute = ActionClearBroadScanDataExecute
+    end
+    object ActionAddInfraredData: TAction
+      Category = 'chart'
+      Caption = 'ActionAddInfraredData'
+      OnExecute = ActionAddInfraredDataExecute
+    end
+    object ActionRefreshList: TAction
+      Category = 'Listbox'
+      Caption = 'ActionRefreshList'
+      OnExecute = ActionRefreshListExecute
+    end
+    object ActionSeeInfraredData: TAction
+      Category = 'chart'
+      Caption = 'ActionSeeInfraredData'
+      OnExecute = ActionSeeInfraredDataExecute
+    end
+    object ActionClearInfraredData: TAction
+      Category = 'chart'
+      Caption = 'ActionClearInfraredData'
+      OnExecute = ActionClearInfraredDataExecute
+    end
+    object ActionAddPowderData: TAction
+      Category = 'chart'
+      Caption = 'ActionAddPowderData'
+      OnExecute = ActionAddPowderDataExecute
+    end
+    object ActionSeePowderData: TAction
+      Category = 'chart'
+      Caption = 'ActionSeePowderData'
+      OnExecute = ActionSeePowderDataExecute
+    end
+    object ActionClearPowderData: TAction
+      Category = 'chart'
+      Caption = 'ActionClearPowderData'
+      OnExecute = ActionClearPowderDataExecute
+    end
+    object ActionClearMicroprobeData: TAction
+      Caption = 'ActionClearMicroprobeData'
+      OnExecute = ActionClearMicroprobeDataExecute
+    end
+    object ActionAddMicroprobeData: TAction
+      Caption = 'ActionAddMicroprobeData'
+      OnExecute = ActionAddMicroprobeDataExecute
+    end
+  end
+  object PopupMenuImages: TPopupMenu
+    left = 528
+    top = 233
+    object MenuItemAdd: TMenuItem
+      Caption = 'Adicionar'
+      OnClick = MenuItemAddClick
+    end
+    object MenuItemRemove: TMenuItem
+      Caption = 'Remover'
+      OnClick = MenuItemRemoveClick
+    end
+  end
+  object BGRAImageList1: TBGRAImageList
+    left = 40
+    top = 424
+    Bitmap = {
+      4C69010000001000000010000000D59B49FFB37927FFCF9543FFD09846FFC996
+      46FFD09E52FFCD9758FFCC975EFFC89961FFC6A377FFC0AB96FFFFF7F0FFFCF8
+      FDFFEDEBF1FFF8EDF5FFFDF1F7FFC58D3CFFC28A38FFBC8230FFD19948FFD19D
+      50FFCA9850FFD59F62FFCD9A62FFC49561FFBA976FFFE8D4C2FFFAF1EDFFF6F2
+      F7FFEDEBF1FFFBF4F9FFFFF8FBFFB88535FFCA9342FFB77D2BFFD89F50FFCF9B
+      54FFCF9C5DFFC39157FFCC9C68FFC99C70FFBE9B7AFFFFF6E7FFFEF5F2FFFEF8
+      FDFFF4F0F5FFFCF7F8FFFEFAF9FFCD9C4CFFC49141FFC18938FFC99144FFD4A0
+      5EFFCF9D61FFC29258FFCB9C69FFB58B66FFD0B099FFFFF3EAFFFAF2F2FFFFF9
+      FEFFFAF7F9FFFEFCFBFFFBF9F8FFC59242FFC08D3DFFC28C3FFFC18C43FFCB96
+      57FFC38F53FFC79658FFBB8E5BFFA98363FFF3D9C9FFFFF1EEFFF2E9ECFFF6F0
+      F5FFFBF8FAFFFDFEFCFFF9FAF6FFB27B2AFFB78434FFB7863AFFBD8B43FFB883
+      40FFBD8746FFB88644FFA37C45FFC9AB90FFFFF6EEFFFFF4F6FFEDE5ECFFF5EF
+      F4FFF8F5F7FFF6F7F5FFFAFBF9FFC48836FFBC8534FFB1843AFFAB7E34FFBD84
+      39FFC1883DFFB48339FFA9844AFFEFD8BEFFFFF2ECFFF8ECF2FFECE3EDFFF0EC
+      F2FFF4F3F7FFF6F4F4FFFDFBFBFFC98C36FFCB9341FFB48638FFB98B3DFFC188
+      33FFBC832EFFB07F35FFBD9B65FFFFF3DCFFF8EFECFFF6ECF2FFEEE6F0FFE9E5
+      EBFFF4F3F7FFFCF9FBFFFCF7F8FFB77D24FFB37A24FFB4832DFFB4822AFFBE82
+      22FFAE751AFFAB7E3AFFF3D3A8FFFFFAEAFFF3EEEDFFF1EAEFFFEEE7EEFFEBE7
+      EDFFF7F3F8FFFEF9FBFFFCF5F8FFC48D32FFB88126FFB47D22FFC68E2FFFB176
+      12FFAC7720FFBE9661FFFFEBD0FFFFF5EDFFF1ECEEFFF1EAEDFFEDE7ECFFEAE6
+      EBFFF6F3F5FFFDF8FAFFFEF7FAFFB28223FFB48121FFC58624FFAE700CFFA36C
+      09FFB3873AFFEBCBA8FFFFF1E9FFFFF2F4FFF5EEF3FFF5EFF0FFEFE9EAFFEFEA
+      ECFFF8F3F5FFFDF8FAFFFEF9FAFF9C6E0FFFA16E0EFFAE6D0BFFA96B0DFFB283
+      2FFFC9A46AFFFFF5E5FFFCEBEFFFFAEDF5FFF4EDF2FFF4EFEEFFEEE9E8FFF3ED
+      EEFFFAF4F5FFFCF7F9FFFEF9FBFFA16F0FFFA16B0DFFAA6C12FFC38B3EFFAC85
+      4EFFE2C6A7FFFAE8E7FFF6EAF6FFEFE6F0FFEDE6EBFFEBE7E6FFE8E3E0FFF7EF
+      EFFFFEF6F7FFFCF7F9FFFDF8FAFFA66C0DFFAC751AFFBA8233FF95672DFFA385
+      68FFD0BDB6FFF1E5EBFFF0E8F3FFEDE5ECFFE9E2E5FFE5E0E1FFE1DCDBFFF9F1
+      F1FFFFF8F9FFFCF6FBFFFAF6FBFFCC8829FFD29741FFA87A3AFF967450FFA089
+      87FFC9BBC7FFEDE6EDFFE6E3E5FFEBE6E8FFE5E0E1FFDFDADCFFDBD5D6FFF8F0
+      F1FFFEF8F9FFFCF4FEFFF9F4FDFFB4782C00A16C2DFF98734DFFA78F83FF9182
+      90FFCEC5DAFFE5E1E7FFEAE5E6FFE7E0E3FFE2D8DEFFD8D0D7FFD3CCD1FFF2EC
+      EDFFFAF5F6FFF8F3FCFFF7F2FBFF
+    }
   end
 end
