@@ -3,12 +3,13 @@ object FormInstrumentos: TFormInstrumentos
   Height = 312
   Top = 39
   Width = 682
+  BorderStyle = bsToolWindow
   Caption = 'Equipamentos'
   ClientHeight = 312
   ClientWidth = 682
+  FormStyle = fsMDIChild
   OnClose = FormClose
   OnShow = FormShow
-  Position = poDesktopCenter
   LCLVersion = '1.2.2.0'
   object BCPanel1: TBCPanel
     Left = 0

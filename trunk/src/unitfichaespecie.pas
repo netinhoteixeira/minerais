@@ -5,17 +5,20 @@ unit unitfichaespecie;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, RichMemo, BCPanel, BCLabel,
-  BGRAFlashProgressBar, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
-  StdCtrls, DBCtrls, Buttons, Menus, ExtDlgs, ActnList, INIFiles,
-  SQLite3tablemod;
+  Classes, SysUtils, FileUtil, BCPanel, BCLabel,
+  Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
+  StdCtrls, DBCtrls, Buttons, Menus, ExtDlgs, ActnList,
+  SQLite3tablemod, uFormImpressao, unitremovemineral;
 
 type
 
   { TFormFichaEspecie }
 
   TFormFichaEspecie = class(TForm)
-    ActionListToolBar: TActionList;
+    ActionFormPrint: TAction;
+    ActionImagesVisible: TAction;
+    ActionFilterVisible: TAction;
+    ActionAdd: TAction;
     ActionRemoveMineral: TAction;
     ActionRefreshList: TAction;
     ActionAddImage7: TAction;
@@ -29,6 +32,7 @@ type
     BCLabel1: TBCLabel;
     BCLabel2: TBCLabel;
     BCLabel3: TBCLabel;
+    BCLabelRegistros: TBCLabel;
     BCLabelAssociacao: TBCLabel;
     BCLabelBrilho: TBCLabel;
     BCLabelClasse: TBCLabel;
@@ -167,20 +171,19 @@ type
     TabSheetProp_Fisicas: TTabSheet;
     ToolBar1: TToolBar;
     ToolBar2: TToolBar;
-    ToolButton1: TToolButton;
-    ToolButton10: TToolButton;
-    ToolButton11: TToolButton;
+    ToolButtonAdd: TToolButton;
     ToolButtonShowFilter: TToolButton;
     ToolButtonShowImages: TToolButton;
-    ToolButton4: TToolButton;
+    ToolButtonRemove: TToolButton;
     ToolButton5: TToolButton;
-    ToolButton6: TToolButton;
+    ToolButtonRefresh: TToolButton;
     ToolButton7: TToolButton;
-    ToolButton8: TToolButton;
+    ToolButtonPrint: TToolButton;
     ToolButton9: TToolButton;
     ToolButtonAddImage: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
+    procedure ActionAddExecute(Sender: TObject);
     procedure ActionAddImage1Execute(Sender: TObject);
     procedure ActionAddImage2Execute(Sender: TObject);
     procedure ActionAddImage3Execute(Sender: TObject);
@@ -188,6 +191,9 @@ type
     procedure ActionAddImage5Execute(Sender: TObject);
     procedure ActionAddImage6Execute(Sender: TObject);
     procedure ActionAddImage7Execute(Sender: TObject);
+    procedure ActionFilterVisibleExecute(Sender: TObject);
+    procedure ActionFormPrintExecute(Sender: TObject);
+    procedure ActionImagesVisibleExecute(Sender: TObject);
     procedure ActionRefreshListExecute(Sender: TObject);
     procedure ActionRemoveMineralExecute(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
@@ -352,7 +358,8 @@ const
 var
   DatabaseMinerals: TSQLiteDatabase;
   TableMinerals: TSQLiteTable;
-  Config: TIniFile;
+
+  NomeMineral: string;
 
   Image1, Image2, Image3, Image4, Image5, Image6, Image7: TImage;
 
@@ -385,48 +392,44 @@ begin
   Imagem_Selecionada := '1';
   openpicturedialog1.Filter := lista_formatos;
 
-  {//config.ini
-  if DirectoryExists(GetCurrentDir+'\Data') then
-    Diretorio := GetCurrentDir + '\Data\config.ini'
-  else
-    Diretorio:= GetCurrentDir + '\config.ini';
-  Config:= TIniFile.Create(Diretorio);
-   }
-   if Dados.DatabaseMineralFileName <> EmptyStr then
-   begin
-      if FileExists(Dados.DatabaseMineralFileName) then
-      begin
-    Dados.DatabaseMinerals := TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
-    SelectSQL :=
-      'Select nome, formula, classe, subclasse, grupo, subgrupo, ocorrencia, associacao, ';
-    SelectSQL := SelectSQL +
-      ' distincao, alteracao, aplicacao, dureza_min, dureza_max, ';
-    SelectSQL := SelectSQL +
-      ' densidade_min, densidade_max, cor, traco, brilho, clivagem, fratura, magnetismo, ';
-    SelectSQL := SelectSQl +
-      ' luminescencia, difaneidade, sinal_optico, indice_refracao, angulo, cor_interferencia, ';
-    SelectSQL := SelectSQL +
-      ' cor_lamina, sinal_elongacao, birrefringencia, relevo, extincao, ';
-    SelectSQL := SelectSQL + ' sistema, classe_cristalina, h_m, habito FROM minerais ';
-    Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(SelectSQl);
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
+    if FileExists(Dados.DatabaseMineralFileName) then
+    begin
+      Dados.DatabaseMinerals := TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
+      SelectSQL :=
+        'Select nome, formula, classe, subclasse, grupo, subgrupo, ocorrencia, associacao, ';
+      SelectSQL := SelectSQL +
+        ' distincao, alteracao, aplicacao, dureza_min, dureza_max, ';
+      SelectSQL := SelectSQL +
+        ' densidade_min, densidade_max, cor, traco, brilho, clivagem, fratura, magnetismo, ';
+      SelectSQL := SelectSQl +
+        ' luminescencia, difaneidade, sinal_optico, indice_refracao, angulo, cor_interferencia, ';
+      SelectSQL := SelectSQL +
+        ' cor_lamina, sinal_elongacao, birrefringencia, relevo, extincao, ';
+      SelectSQL := SelectSQL + ' sistema, classe_cristalina, h_m, habito FROM minerais ';
+      Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(SelectSQl);
 
-    AtualizarLista;
-    Preenche_Classes;
-    Preenche_Subclasses;
-    Preenche_Grupos;
-    Preenche_Subgrupos;
-    EditingMode(True);
+      AtualizarLista;
+      Preenche_Classes;
+      Preenche_Subclasses;
+      Preenche_Grupos;
+      Preenche_Subgrupos;
+      EditingMode(True);
+    end
+    else
+    begin
+      EditingMode(False);
+      ShowMessage('O banco de dados: "' + Dados.DatabaseMineralFileName +
+        '" não é válido.');
+      Dados.DatabaseMineralFileName := EmptyStr;
+    end;
   end
   else
   begin
     EditingMode(False);
-    ShowMessage('O banco de dados: "' + Dados.DatabaseMineralFileName +
-      '" não é válido.');
-    Dados.DatabaseMineralFileName := EmptyStr;
+    ShowMessage('Não há banco de dados selecionado.');
   end;
-   end
-   else
-     ShowMessage('Não há banco de dados selecionado.');
 end;
 
 procedure TFormFichaEspecie.HeaderControl1SectionClick(
@@ -492,8 +495,11 @@ procedure TFormFichaEspecie.ListBoxMineraisClick(Sender: TObject);
 var
   SelectSQL: string;
 begin
-  if ListboxMinerais.GetSelectedText <> EmptyStr then
+  //NomeMineral é usado no editingdone do EditNomeMineral
+  NomeMineral := ListboxMinerais.GetSelectedText;
+  if NomeMineral <> EmptyStr then
   begin
+
     SelectSQL :=
       'SELECT nome, formula, classe, subclasse, grupo, subgrupo, ocorrencia, associacao,';
     SelectSQL := SelectSQL +
@@ -510,7 +516,7 @@ begin
     Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(SelectSQL);
 
     EditFormula.Caption := Dados.TableMinerals.FieldByName['formula'];
-    ;
+
     EditNomeMineral.Caption := Dados.TableMinerals.FieldByName['nome'];
     EditClasse.Caption := Dados.TableMinerals.FieldByName['classe'];
     EditSubClasse.Caption := Dados.TableMinerals.FieldByName['subclasse'];
@@ -560,6 +566,7 @@ begin
     EditH_M.Text := Dados.TableMinerals.FieldByName['h_m'];
     MemoHabito.Text := Dados.TableMinerals.FieldByName['habito'];
 
+    Imagem_Selecionada:='1';
     RefreshImages;
   end;
 end;
@@ -927,24 +934,30 @@ end;
 
 procedure TFormFichaEspecie.ToolButtonAddImageClick(Sender: TObject);
 begin
-  if EditNomeMineral.Text <> EmptyStr then
-  AddMineralImage(Imagem_Selecionada);
+  if (Trim(EditNomeMineral.Text) <> EmptyStr) then
+    AddMineralImage(Imagem_Selecionada);
 end;
 
 procedure TFormFichaEspecie.ToolButton3Click(Sender: TObject);
-begin   //revisar
-  if (EditNomeMineral.Text <> EmptyStr) then
-  begin   {ClearBlobField(Table, Field, Especie, Rruff_id, Digito, Tipo:String);}
-    ClearBlobField('minerais', 'imagem' + Imagem_Selecionada,
-      ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-  end
-  else
+begin
+  if Dados.DatabaseMineralFileName <> EmptyStr then
   begin
-    ClearBlobField('mineralogia', 'mineralogiaimagem' + Imagem_Selecionada,
-      ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+    if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
+    begin
+      if (Trim(EditNomeMineral.Text) <> EmptyStr) then
+      begin   {ClearBlobField(Table, Field, Especie, Rruff_id, Digito, Tipo:String);}
+        ClearBlobField('minerais', 'imagem' + Imagem_Selecionada,
+          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+      end
+      else
+      begin
+        ClearBlobField('mineralogia', 'mineralogiaimagem' + Imagem_Selecionada,
+          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+      end;
+      RefreshImages;
+    end;
   end;
   Imagem_Selecionada := '1';
-  RefreshImages;
 end;
 
 function TFormFichaEspecie.AtualizarLista: boolean;
@@ -1196,9 +1209,14 @@ begin
         ProgressBar1.Position := Trunc(100 * (Num / Dados.TableMinerals.RowCount));
       end;
       ProgressBar1.Position := 0;
-      ProgressBar1.Caption := 'Total de Registros: ' +
-        IntToStr(Dados.TableMinerals.Count - 1);
     end;
+  if ListboxMinerais.Count=0 then
+    BCLabelRegistros.Caption := 'Nenhum Registro'
+  else
+  if ListboxMinerais.Count = 1 then
+    BCLabelRegistros.Caption := '1 Registro'
+  else
+    BCLabelRegistros.Caption := IntToStr(ListboxMinerais.Count) + ' Registros';
 end;
 
 function TFormFichaEspecie.ExcluiMineral(Nome: string): boolean;
@@ -1389,7 +1407,7 @@ end;
 procedure TFormFichaEspecie.AddMineralImage(Num: char);
 begin
   OpenPictureDialog1.FileName := emptystr;
-  OpenPictureDialog1.Execute;
+  if OpenPictureDialog1.Execute then
   if (OpenPictureDialog1.FileName <> emptystr) then
   begin
     if ListboxMinerais.GetSelectedText <> EmptyStr then
@@ -1409,47 +1427,46 @@ end;
 
 procedure TFormFichaEspecie.EditingMode(Mode: boolean);
 begin
-  Mode := not Mode;
-  EditFormula.ReadOnly := Mode;
-  EditNomeMineral.ReadOnly := Mode;
-  EditClasse.ReadOnly := Mode;
-  EditSubClasse.ReadOnly := Mode;
-  EditGrupo.ReadOnly := Mode;
-  EditSubGrupo.ReadOnly := Mode;
-  MemoOcorrencia.ReadOnly := Mode;
-  MemoAssociacao.ReadOnly := Mode;
-  MemoDistincao.ReadOnly := Mode;
-  MemoAlteracao.ReadOnly := Mode;
-  MemoAplicacao.ReadOnly := Mode;
+  EditFormula.Enabled := Mode;
+  EditNomeMineral.Enabled := Mode;
+  EditClasse.Enabled := Mode;
+  EditSubClasse.Enabled := Mode;
+  EditGrupo.Enabled := Mode;
+  EditSubGrupo.Enabled := Mode;
+  MemoOcorrencia.Enabled := Mode;
+  MemoAssociacao.Enabled := Mode;
+  MemoDistincao.Enabled := Mode;
+  MemoAlteracao.Enabled := Mode;
+  MemoAplicacao.Enabled := Mode;
 
-  EditDurezaMin.ReadOnly := Mode;
-  EditDurezaMax.ReadOnly := Mode;
-  EditDensidadeMin.ReadOnly := Mode;
-  EditDensidadeMax.ReadOnly := Mode;
+  EditDurezaMin.Enabled := Mode;
+  EditDurezaMax.Enabled := Mode;
+  EditDensidadeMin.Enabled := Mode;
+  EditDensidadeMax.Enabled := Mode;
 
-  MemoCor.ReadOnly := Mode;
-  MemoTraco.ReadOnly := Mode;
-  MemoBrilho.ReadOnly := Mode;
-  MemoClivagem.ReadOnly := Mode;
-  MemoFratura.ReadOnly := Mode;
-  MemoMagnetismo.ReadOnly := Mode;
-  MemoLuminescencia.ReadOnly := Mode;
+  MemoCor.Enabled := Mode;
+  MemoTraco.Enabled := Mode;
+  MemoBrilho.Enabled := Mode;
+  MemoClivagem.Enabled := Mode;
+  MemoFratura.Enabled := Mode;
+  MemoMagnetismo.Enabled := Mode;
+  MemoLuminescencia.Enabled := Mode;
 
-  MemoDifaneidade.ReadOnly := Mode;
-  MemoSinalOptico.ReadOnly := Mode;
-  MemoIndiceRefracao.ReadOnly := Mode;
-  MemoAngulo.ReadOnly := Mode;
-  MemoInterferencia.ReadOnly := Mode;
-  MemoCorLamina.ReadOnly := Mode;
-  MemoSinalElongacao.ReadOnly := Mode;
-  MemoBirrefringencia.ReadOnly := Mode;
-  MemoRelevo.ReadOnly := Mode;
-  MemoExtincao.ReadOnly := Mode;
+  MemoDifaneidade.Enabled := Mode;
+  MemoSinalOptico.Enabled := Mode;
+  MemoIndiceRefracao.Enabled := Mode;
+  MemoAngulo.Enabled := Mode;
+  MemoInterferencia.Enabled := Mode;
+  MemoCorLamina.Enabled := Mode;
+  MemoSinalElongacao.Enabled := Mode;
+  MemoBirrefringencia.Enabled := Mode;
+  MemoRelevo.Enabled := Mode;
+  MemoExtincao.Enabled := Mode;
 
-  EditSistema.ReadOnly := Mode;
-  EditClasse_Cristalina.ReadOnly := Mode;
-  EditH_M.ReadOnly := Mode;
-  MemoHabito.ReadOnly := Mode;
+  EditSistema.Enabled := Mode;
+  EditClasse_Cristalina.Enabled := Mode;
+  EditH_M.Enabled := Mode;
+  MemoHabito.Enabled := Mode;
 end;
 
 procedure TFormFichaEspecie.Image1OnClick(Sender: TObject);
@@ -1531,7 +1548,8 @@ begin
     begin
       while (not Dados.TableMinerals.EOF) do
       begin
-        ComboBoxClasse.Items.Add(Dados.TableMinerals.FieldByName['classe']);
+        if Trim(Dados.TableMinerals.FieldByName['classe']) <> EmptyStr then
+          ComboBoxClasse.Items.Add(Dados.TableMinerals.FieldByName['classe']);
         Dados.TableMinerals.Next;
       end;
     end;
@@ -1557,7 +1575,8 @@ begin
     begin
       while (not Dados.TableMinerals.EOF) do
       begin
-        ComboBoxSubClasse.Items.Add(Dados.TableMinerals.FieldByName['subclasse']);
+        if Trim(Dados.TableMinerals.FieldByName['subclasse']) <> EmptyStr then
+          ComboBoxSubClasse.Items.Add(Dados.TableMinerals.FieldByName['subclasse']);
         Dados.TableMinerals.Next;
       end;
     end;
@@ -1603,7 +1622,8 @@ begin
     begin
       while (not Dados.TableMinerals.EOF) do
       begin
-        ComboBoxGrupo.Items.Add(Dados.TableMinerals.FieldByName['grupo']);
+        if Trim(Dados.TableMinerals.FieldByName['grupo']) <> EmptyStr then
+          ComboBoxGrupo.Items.Add(Dados.TableMinerals.FieldByName['grupo']);
         Dados.TableMinerals.Next;
       end;
     end;
@@ -1696,7 +1716,8 @@ begin
     begin
       while (not Dados.TableMinerals.EOF) do
       begin
-        ComboBoxSubgrupo.Items.Add(Dados.TableMinerals.FieldByName['subgrupo']);
+        if Trim(Dados.TableMinerals.FieldByName['subgrupo']) <> EmptyStr then
+          ComboBoxSubgrupo.Items.Add(Dados.TableMinerals.FieldByName['subgrupo']);
         Dados.TableMinerals.Next;
       end;
     end;
@@ -1707,327 +1728,495 @@ var
   MS: TMemoryStream;
   I, ImagesNumber: integer;
 begin
-  ImagesNumber := -1;
-  ScrollBox8.UpdateScrollbars;
-  if (ListBoxMinerais.GetSelectedText <> EmptyStr) then
+  if PageControlFicha.TabIndex = 4 then
+    self.ImagemAmpliada.Picture.Graphic :=
+      SelectBlobFieldToJPEGImage('minerais', 'imagem1',
+      ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+  if PageControlFIcha.TabIndex = 3 then
   begin
-    if PageControlFicha.TabIndex = 4 then
-      self.ImagemAmpliada.Picture.Graphic :=
-        SelectBlobFieldToJPEGImage('minerais', 'imagem1',
-        ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+    self.ImageCristalografia1.Picture.Graphic :=
+      SelectBlobFieldToJPEGImage('minerais', 'imagem6',
+      ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+    self.ImageCristalografia2.Picture.Graphic :=
+      SelectBlobFieldToJPEGImage('minerais', 'imagem7',
+      ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+  end;
+  if ScrollBox8.Visible then
+  begin
+    ImagesNumber := -1;
 
-    //if (SelectBlobFieldToJPEGImage('minerais', 'imagem1',
-    //ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr) <> nil)
-    Dados.TableMinerals := Dados.DatabaseMinerals.GetTable('SELECT imagem1, ' +
-      'imagem2, imagem3, imagem4, imagem5, imagem6, imagem7 FROM minerais ' +
-      ' WHERE nome = "' + EditNomeMineral.Text + '" ;');
-    for I := 1 to 7 do
+    ScrollBox8.UpdateScrollbars;
+    if (ListBoxMinerais.GetSelectedText <> EmptyStr) then
     begin
-      MS := Dados.TableMinerals.FieldAsBlob(
-        Dados.TableMinerals.FieldIndex['imagem' + IntToStr(I)]);
-      if MS <> nil then
+      //if (SelectBlobFieldToJPEGImage('minerais', 'imagem1',
+      //ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr) <> nil)
+      Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
+        'SELECT imagem1, ' +
+        'imagem2, imagem3, imagem4, imagem5, imagem6, imagem7 FROM minerais ' +
+        ' WHERE nome = "' + EditNomeMineral.Text + '" ;');
+      for I := 1 to 7 do
       begin
-        Image[I].ToCreate := True;
+        MS := Dados.TableMinerals.FieldAsBlob(
+          Dados.TableMinerals.FieldIndex['imagem' + IntToStr(I)]);
+        if MS <> nil then
+        begin
+          Image[I].ToCreate := True;
+        end
+        else
+        begin
+          Image[I].ToCreate := False;
+        end;
+      end;
+      if Image[1].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[1].Created then
+          Image1.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('minerais', 'imagem1',
+            ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
+        else
+        begin
+          Image1 := TImage.Create(nil);
+          with Image1 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top;
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image1OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('minerais', 'imagem1',
+              ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+            Image[1].Created := True;
+          end;
+        end;
       end
       else
-      begin
-        Image[I].ToCreate := False;
-      end;
-    end;
-    if Image[1].ToCreate then
-    begin
-      Inc(ImagesNumber);
       if Image[1].Created then
-        Image1.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage('minerais', 'imagem1',
-          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
-      else
       begin
-        Image1 := TImage.Create(nil);
-        with Image1 do
-        begin
-          Parent := ScrollBox8;
-          Left := ImagesLeft;
-          Top := Image1Top;
-          Width := ImagesWidth;
-          Height := ImagesHeight;
-          Proportional := True;
-          Center := True;
-          AntialiasingMode := amOn;
-          OnClick := @Image1OnClick;
-          Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
-            'imagem1', ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-          Image[1].Created := True;
-        end;
+        Image1.Picture.Clear;
+        Image1.Destroy;
+        Image[1].Created := False;
       end;
-    end
-    else
-    if Image[1].Created then
-    begin
-      Image1.Picture.Clear;
-      Image1.Destroy;
-      Image[1].Created := False;
-    end;
 
-    if Image[2].ToCreate then
-    begin
-      Inc(ImagesNumber);
+      if Image[2].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[2].Created then
+          Image2.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('minerais', 'imagem2',
+            ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
+        else
+        begin
+          Image2 := TImage.Create(nil);
+          with Image2 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top + (ImagesNumber * SeparadorImagens);
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image2OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('minerais', 'imagem2',
+              ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+            Image[2].Created := True;
+          end;
+        end;
+      end
+      else
       if Image[2].Created then
-        Image2.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage('minerais', 'imagem2',
-          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
-      else
       begin
-        Image2 := TImage.Create(nil);
-        with Image2 do
-        begin
-          Parent := ScrollBox8;
-          Left := ImagesLeft;
-          Top := Image1Top + (ImagesNumber * SeparadorImagens);
-          Width := ImagesWidth;
-          Height := ImagesHeight;
-          Proportional := True;
-          Center := True;
-          AntialiasingMode := amOn;
-          OnClick := @Image2OnClick;
-          Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
-            'imagem2', ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-          Image[2].Created := True;
-        end;
+        Image2.Picture.Clear;
+        Image2.Destroy;
+        Image[2].Created := False;
       end;
-    end
-    else
-    if Image[2].Created then
-    begin
-      Image2.Picture.Clear;
-      Image2.Destroy;
-      Image[2].Created := False;
-    end;
 
-    if Image[3].ToCreate then
-    begin
-      Inc(ImagesNumber);
+      if Image[3].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[3].Created then
+          Image3.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('minerais', 'imagem3',
+            ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
+        else
+        begin
+          Image3 := TImage.Create(nil);
+          with Image3 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top + (ImagesNumber * SeparadorImagens);
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image3OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('minerais', 'imagem3',
+              ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+            Image[3].Created := True;
+          end;
+        end;
+      end
+      else
       if Image[3].Created then
-        Image3.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage('minerais', 'imagem3',
-          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
-      else
       begin
-        Image3 := TImage.Create(nil);
-        with Image3 do
-        begin
-          Parent := ScrollBox8;
-          Left := ImagesLeft;
-          Top := Image1Top + (ImagesNumber * SeparadorImagens);
-          Width := ImagesWidth;
-          Height := ImagesHeight;
-          Proportional := True;
-          Center := True;
-          AntialiasingMode := amOn;
-          OnClick := @Image3OnClick;
-          Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
-            'imagem3', ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-          Image[3].Created := True;
-        end;
+        Image3.Picture.Clear;
+        Image3.Destroy;
+        Image[3].Created := False;
       end;
-    end
-    else
-    if Image[3].Created then
-    begin
-      Image3.Picture.Clear;
-      Image3.Destroy;
-      Image[3].Created := False;
-    end;
 
-    if Image[4].ToCreate then
-    begin
-      Inc(ImagesNumber);
+      if Image[4].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[4].Created then
+          Image4.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('minerais', 'imagem4',
+            ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
+        else
+        begin
+          Image4 := TImage.Create(nil);
+          with Image4 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top + (ImagesNumber * SeparadorImagens);
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image4OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('minerais', 'imagem4',
+              ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+            Image[4].Created := True;
+          end;
+        end;
+      end
+      else
       if Image[4].Created then
-        Image4.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage('minerais', 'imagem4',
-          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
-      else
       begin
-        Image4 := TImage.Create(nil);
-        with Image4 do
-        begin
-          Parent := ScrollBox8;
-          Left := ImagesLeft;
-          Top := Image1Top + (ImagesNumber * SeparadorImagens);
-          Width := ImagesWidth;
-          Height := ImagesHeight;
-          Proportional := True;
-          Center := True;
-          AntialiasingMode := amOn;
-          OnClick := @Image4OnClick;
-          Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
-            'imagem4', ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-          Image[4].Created := True;
-        end;
+        Image4.Picture.Clear;
+        Image4.Destroy;
+        Image[4].Created := False;
       end;
-    end
-    else
-    if Image[4].Created then
-    begin
-      Image4.Picture.Clear;
-      Image4.Destroy;
-      Image[4].Created := False;
-    end;
-    if Image[5].ToCreate then
-    begin
-      Inc(ImagesNumber);
+      if Image[5].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[5].Created then
+          Image5.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('minerais', 'imagem5',
+            ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
+        else
+        begin
+          Image5 := TImage.Create(nil);
+          with Image5 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top + (ImagesNumber * SeparadorImagens);
+            ;
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image5OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('minerais', 'imagem5',
+              ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+            Image[5].Created := True;
+          end;
+        end;
+      end
+      else
       if Image[5].Created then
-        Image5.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage('minerais', 'imagem5',
-          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
-      else
       begin
-        Image5 := TImage.Create(nil);
-        with Image5 do
-        begin
-          Parent := ScrollBox8;
-          Left := ImagesLeft;
-          Top := Image1Top + (ImagesNumber * SeparadorImagens);
-          ;
-          Width := ImagesWidth;
-          Height := ImagesHeight;
-          Proportional := True;
-          Center := True;
-          AntialiasingMode := amOn;
-          OnClick := @Image5OnClick;
-          Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
-            'imagem5', ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-          Image[5].Created := True;
-        end;
+        Image5.Picture.Clear;
+        Image5.Destroy;
+        Image[5].Created := False;
       end;
-    end
-    else
-    if Image[5].Created then
-    begin
-      Image5.Picture.Clear;
-      Image5.Destroy;
-      Image[5].Created := False;
-    end;
 
-    if Image[6].ToCreate then
-    begin
-      Inc(ImagesNumber);
+      if Image[6].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[6].Created then
+          Image6.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('minerais', 'imagem6',
+            ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
+        else
+        begin
+          Image6 := TImage.Create(nil);
+          with Image6 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top + (ImagesNumber * SeparadorImagens);
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image6OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('minerais', 'imagem6',
+              ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+            Image[6].Created := True;
+          end;
+        end;
+      end
+      else
       if Image[6].Created then
-        Image6.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage('minerais', 'imagem6',
-          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
-      else
       begin
-        Image6 := TImage.Create(nil);
-        with Image6 do
-        begin
-          Parent := ScrollBox8;
-          Left := ImagesLeft;
-          Top := Image1Top + (ImagesNumber * SeparadorImagens);
-          Width := ImagesWidth;
-          Height := ImagesHeight;
-          Proportional := True;
-          Center := True;
-          AntialiasingMode := amOn;
-          OnClick := @Image6OnClick;
-          Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
-            'imagem6', ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-          Image[6].Created := True;
-        end;
+        Image6.Picture.Clear;
+        Image6.Destroy;
+        Image[6].Created := False;
       end;
-    end
-    else
-    if Image[6].Created then
-    begin
-      Image6.Picture.Clear;
-      Image6.Destroy;
-      Image[6].Created := False;
-    end;
 
-    if Image[7].ToCreate then
-    begin
-      Inc(ImagesNumber);
+      if Image[7].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[7].Created then
+          Image7.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('minerais', 'imagem7',
+            ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
+        else
+        begin
+          Image7 := TImage.Create(nil);
+          with Image7 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top + (ImagesNumber * SeparadorImagens);
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image7OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('minerais', 'imagem7',
+              ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+            Image[7].Created := True;
+          end;
+        end;
+      end
+      else
       if Image[7].Created then
-        Image7.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage('minerais', 'imagem7',
-          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
-      else
       begin
-        Image7 := TImage.Create(nil);
-        with Image7 do
-        begin
-          Parent := ScrollBox8;
-          Left := ImagesLeft;
-          Top := Image1Top + (ImagesNumber * SeparadorImagens);
-          Width := ImagesWidth;
-          Height := ImagesHeight;
-          Proportional := True;
-          Center := True;
-          AntialiasingMode := amOn;
-          OnClick := @Image7OnClick;
-          Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
-            'imagem7', ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-          Image[7].Created := True;
-        end;
+        Image7.Picture.Clear;
+        Image7.Destroy;
+        Image[7].Created := False;
       end;
+
     end
     else
-    if Image[7].Created then
     begin
-      Image7.Picture.Clear;
-      Image7.Destroy;
-      Image[7].Created := False;
-    end;
-
-    {self.Image2.Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
-      'imagem2', ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-    self.Image3.Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
-      'imagem3', ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-    self.Image4.Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
-      'imagem4', ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-    self.Image5.Picture.Graphic := SelectBlobFieldToJPEGImage('minerais',
-      'imagem5', ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);}
-    if PageControlFIcha.TabIndex = 3 then
-    begin
-      self.ImageCristalografia1.Picture.Graphic :=
-        SelectBlobFieldToJPEGImage('minerais', 'imagem6',
-        ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-      self.ImageCristalografia2.Picture.Graphic :=
-        SelectBlobFieldToJPEGImage('minerais', 'imagem7',
-        ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-    end;
-
-  end
-  else
-  begin
-    {obs: esse trecho é importante, as imagens da tabela mineralogia
-    if (SelectBlobFieldToJPEGImage('mineralogia',
-      'mineralogiaimagem1', EmptyStr, EmptyStr, EmptyStr, MineralogyName) = nil)
-    then begin
-      Image1:= TImage.Create(nil);
-      with Image1 do
+      Dados.TableMinerals := Dados.DatabaseMinerals.GetTable('SELECT * ' +
+        'FROM mineralogia WHERE campo = "' + MineralogyName + '" ;');
+      for I := 1 to 5 do
       begin
-        Parent:=ScrollBox8;
-        Left:=ImagesLeft;
-        Top:= Image1Top;
-        Width:= ImagesWidth;
-        Height:= ImagesHeight;
+        MS := Dados.TableMinerals.FieldAsBlob(
+          Dados.TableMinerals.FieldIndex['mineralogiaimagem' + IntToStr(I)]);
+        if MS <> nil then
+        begin
+          Image[I].ToCreate := True;
+        end
+        else
+        begin
+          Image[I].ToCreate := False;
+        end;
       end;
-      Image1.Picture.Graphic := SelectBlobFieldToJPEGImage('mineralogia',
-        'mineralogiaimagem1', EmptyStr, EmptyStr, EmptyStr, MineralogyName);
-    end;
-      }
-    {self.Image2.Picture.Graphic := SelectBlobFieldToJPEGImage('mineralogia',
-      'mineralogiaimagem2', EmptyStr, EmptyStr, EmptyStr, MineralogyName);
-    self.Image3.Picture.Graphic := SelectBlobFieldToJPEGImage('mineralogia',
-      'mineralogiaimagem3', EmptyStr, EmptyStr, EmptyStr, MineralogyName);
-    self.Image4.Picture.Graphic := SelectBlobFieldToJPEGImage('mineralogia',
-      'mineralogiaimagem4', EmptyStr, EmptyStr, EmptyStr, MineralogyName);
-    self.Image5.Picture.Graphic := SelectBlobFieldToJPEGImage('mineralogia',
-      'mineralogiaimagem5', EmptyStr, EmptyStr, EmptyStr, MineralogyName);
-  end;       }
-  end;
+      if Image[1].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[1].Created then
+          Image1.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem1',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+        else
+        begin
+          Image1 := TImage.Create(nil);
+          with Image1 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top;
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image1OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem1',
+              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+            Image[1].Created := True;
+          end;
+        end;
+      end
+      else
+      if Image[1].Created then
+      begin
+        Image1.Picture.Clear;
+        Image1.Destroy;
+        Image[1].Created := False;
+      end;
 
+      if Image[2].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[2].Created then
+          Image2.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem2',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+        else
+        begin
+          Image2 := TImage.Create(nil);
+          with Image2 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top + (ImagesNumber * SeparadorImagens);
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image2OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem2',
+              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+            Image[2].Created := True;
+          end;
+        end;
+      end
+      else
+      if Image[2].Created then
+      begin
+        Image2.Picture.Clear;
+        Image2.Destroy;
+        Image[2].Created := False;
+      end;
+
+      if Image[3].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[3].Created then
+          Image3.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem3',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+        else
+        begin
+          Image3 := TImage.Create(nil);
+          with Image3 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top + (ImagesNumber * SeparadorImagens);
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image3OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem3',
+              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+            Image[3].Created := True;
+          end;
+        end;
+      end
+      else
+      if Image[3].Created then
+      begin
+        Image3.Picture.Clear;
+        Image3.Destroy;
+        Image[3].Created := False;
+      end;
+
+      if Image[4].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[4].Created then
+          Image4.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem4',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+        else
+        begin
+          Image4 := TImage.Create(nil);
+          with Image4 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top + (ImagesNumber * SeparadorImagens);
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image4OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem4',
+              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+            Image[4].Created := True;
+          end;
+        end;
+      end
+      else
+      if Image[4].Created then
+      begin
+        Image4.Picture.Clear;
+        Image4.Destroy;
+        Image[4].Created := False;
+      end;
+      if Image[5].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[5].Created then
+          Image5.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem5',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+        else
+        begin
+          Image5 := TImage.Create(nil);
+          with Image5 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top + (ImagesNumber * SeparadorImagens);
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image5OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem5',
+              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+            Image[5].Created := True;
+          end;
+        end;
+      end
+      else
+      if Image[5].Created then
+      begin
+        Image5.Picture.Clear;
+        Image5.Destroy;
+        Image[5].Created := False;
+      end;
+    end;
+  end;
 end;
 
 procedure TFormFichaEspecie.SelectImage(num: char);
@@ -2049,7 +2238,7 @@ end;
 
 procedure TFormFichaEspecie.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  Config.Free;
+  //FormFichaEspecie.Free;
 end;
 
 procedure TFormFichaEspecie.ComboBoxGrupoChange(Sender: TObject);
@@ -2124,9 +2313,9 @@ procedure TFormFichaEspecie.EditFiltroCorEditingDone(Sender: TObject);
 begin
   if Dados.DatabaseMineralFileName <> EmptyStr then
   begin
-  if (EditFiltroCor.Text <> Cor) then
-    AtualizarLista;
-  Cor := EditFiltroCor.Text;
+    if (EditFiltroCor.Text <> Cor) then
+      AtualizarLista;
+    Cor := EditFiltroCor.Text;
   end;
 end;
 
@@ -2293,8 +2482,32 @@ end;
 
 procedure TFormFichaEspecie.EditNomeMineralEditingDone(Sender: TObject);
 var
-  Novo, Velho: integer;
+  Aux: integer;
 begin
+  if Trim(NomeMineral) <> EmptyStr then
+  begin
+    Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
+      'SELECT nome FROM minerais WHERE nome="' + NomeMineral + '";');
+    Aux := ListboxMinerais.Items.IndexOf(NomeMineral);
+    if EditNomeMineral.Text <> NomeMineral then
+    begin
+      if Dados.TableMinerals.Count > 0 then
+      begin
+        ShowMessage('Já existe um registro com este nome.');
+      end
+      else
+      begin
+        if Dados.TableMinerals.MoveFirst then
+        begin
+          Dados.UpdateField('minerais', 'nome', EditNomeMineral.Text,
+            Dados.TableMinerals.FieldByName['nome'], EmptyStr, EmptyStr, EmptyStr);
+        end;
+      end;
+    end;
+    ListboxMinerais.Items.Delete(Aux);
+    ListboxMinerais.Selected[ListboxMinerais.Items.Add(EditNomeMineral.Text)] := True;
+  end;
+  {
   if (Dados.TableMinerals.FieldByName['nome'] <> ListBoxMinerais.GetSelectedText) then
   begin
     velho := ListboxMinerais.Items.IndexOf(ListboxMinerais.getselectedtext);
@@ -2303,7 +2516,7 @@ begin
     ListboxMinerais.Items.Delete(novo);
     Dados.UpdateField('minerais', 'nome', EditNomeMineral.Text,
       Dados.TableMinerals.FieldByName['nome'], EmptyStr, EmptyStr, EmptyStr);
-  end;
+  end;}
 end;
 
 procedure TFormFichaEspecie.EditNomeMineralKeyUp(Sender: TObject;
@@ -2372,6 +2585,24 @@ begin
   AddMineralImage('1');
 end;
 
+procedure TFormFichaEspecie.ActionAddExecute(Sender: TObject);
+begin
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
+    if FileExists(Dados.DatabaseMineralFileName) then
+    begin
+      if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
+        FormAddMineral.Show
+      else
+        ShowMessage('O banco de dados selecionado não é válido.');
+    end
+    else
+      ShowMessage('O banco de dados selecionado não é válido.');
+  end
+  else
+    ShowMessage('Não há banco de dados selecionado.');
+end;
+
 procedure TFormFichaEspecie.ActionAddImage2Execute(Sender: TObject);
 begin
   AddMineralImage('2');
@@ -2402,6 +2633,30 @@ begin
   AddMineralImage('7');
 end;
 
+procedure TFormFichaEspecie.ActionFilterVisibleExecute(Sender: TObject);
+begin
+  if ScrollBox2.Visible then
+    ScrollBox2.Visible := False
+  else
+    ScrollBox2.Visible := True;
+end;
+
+procedure TFormFichaEspecie.ActionFormPrintExecute(Sender: TObject);
+begin
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+    if FileExists(Dados.DatabaseMineralFileName) then
+      if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
+        FormImpressao.Show;
+end;
+
+procedure TFormFichaEspecie.ActionImagesVisibleExecute(Sender: TObject);
+begin
+  if ScrollBox8.Visible then
+    ScrollBox8.Visible := False
+  else
+    ScrollBox8.Visible := True;
+end;
+
 procedure TFormFichaEspecie.ActionRefreshListExecute(Sender: TObject);
 begin
   if Dados.DatabaseMineralFileName <> EmptyStr then
@@ -2412,7 +2667,19 @@ end;
 
 procedure TFormFichaEspecie.ActionRemoveMineralExecute(Sender: TObject);
 begin
-  //criar Form de exclusao com uma listbox com opção de multi select
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
+    if FileExists(Dados.DatabaseMineralFileName) then
+    begin
+      if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
+        FormRemoveMineral.Show
+      else
+        ShowMessage('O banco de dados selecionado não é válido.');
+    end
+    else ShowMessage('O banco de dados selecionado não é válido.');
+  end
+  else
+  ShowMessage('Não há banco de dados selecionado.');
 end;
 
 procedure TFormFichaEspecie.ComboBox1Change(Sender: TObject);

@@ -97,9 +97,9 @@ object FormAddMineral: TFormAddMineral
     Height = 523
     Top = 50
     Width = 665
-    ActivePage = TabSheetProp_Fisicas
+    ActivePage = TabSheetInf_Gerais
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     object TabSheetInf_Gerais: TTabSheet
       Caption = 'Informações Gerais'
@@ -128,7 +128,7 @@ object FormAddMineral: TFormAddMineral
         object Label1: TLabel
           Left = 15
           Height = 15
-          Top = 10
+          Top = 50
           Width = 67
           Caption = 'Composição'
           ParentColor = False
@@ -136,7 +136,7 @@ object FormAddMineral: TFormAddMineral
         object LabelNome: TLabel
           Left = 15
           Height = 15
-          Top = 50
+          Top = 10
           Width = 33
           Caption = 'Nome'
           ParentColor = False
@@ -261,16 +261,16 @@ object FormAddMineral: TFormAddMineral
         object EditFormula: TEdit
           Left = 150
           Height = 23
-          Top = 10
+          Top = 50
           Width = 474
           Anchors = [akTop, akLeft, akRight]
           TabOrder = 6
           Text = ' '
         end
         object EditNomeMineral: TEdit
-          Left = 150
+          Left = 152
           Height = 23
-          Top = 50
+          Top = 10
           Width = 474
           Anchors = [akTop, akLeft, akRight]
           TabOrder = 7

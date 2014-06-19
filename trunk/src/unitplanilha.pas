@@ -5,17 +5,21 @@
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  DBGrids, DB;
+  Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
+  ExtCtrls, DBGrids, Buttons, ActnList, DB;
 
 type
 
   { TFormPlanilha }
 
   TFormPlanilha = class(TForm)
+    ActionClose: TAction;
+    ActionList1: TActionList;
+    BCPanel1: TBCPanel;
     DBGrid1: TDBGrid;
     Panel1: TPanel;
-    Panel2: TPanel;
+    SpeedButton1: TSpeedButton;
+    procedure ActionCloseExecute(Sender: TObject);
   private
     { private declarations }
   public
@@ -35,6 +39,11 @@ uses
   udatamodule, unitBlobFields;
 
 { TFormPlanilha }
+
+procedure TFormPlanilha.ActionCloseExecute(Sender: TObject);
+begin
+  FormPlanilha.Visible:=False;
+end;
 
 procedure TFormPlanilha.ArquivoMicrossonda(Especie:String; Rruff_Id:String;
     Digito:String);

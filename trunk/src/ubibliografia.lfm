@@ -1,69 +1,140 @@
 object FormBibliografia: TFormBibliografia
-  Left = 400
+  Left = 252
   Height = 339
-  Top = 176
-  Width = 629
+  Top = 152
+  Width = 628
   Caption = 'Bibliografia'
   ClientHeight = 339
-  ClientWidth = 629
-  OnClose = FormClose
+  ClientWidth = 628
   OnShow = FormShow
   LCLVersion = '1.2.2.0'
   object Panel1: TPanel
     Left = 0
-    Height = 296
+    Height = 339
     Top = 0
-    Width = 629
+    Width = 628
     Align = alClient
-    ClientHeight = 296
-    ClientWidth = 629
+    ClientHeight = 339
+    ClientWidth = 628
     TabOrder = 0
     object Memo1: TMemo
       Left = 1
-      Height = 294
+      Height = 287
       Top = 1
-      Width = 627
+      Width = 626
       Align = alClient
       ReadOnly = True
       ScrollBars = ssBoth
-      TabOrder = 0
-    end
-  end
-  object Panel2: TPanel
-    Left = 0
-    Height = 43
-    Top = 296
-    Width = 629
-    Align = alBottom
-    ClientHeight = 43
-    ClientWidth = 629
-    TabOrder = 1
-    object BitBtnEditar: TBitBtn
-      Left = 128
-      Height = 30
-      Top = 7
-      Width = 100
-      Caption = 'Editar'
-      OnClick = BitBtnEditarClick
-      TabOrder = 0
-    end
-    object BitBtnSair: TBitBtn
-      Left = 504
-      Height = 30
-      Top = 7
-      Width = 100
-      Caption = 'Fechar'
-      OnClick = BitBtnSairClick
       TabOrder = 1
     end
-    object BitBtnSalvar: TBitBtn
-      Left = 16
-      Height = 30
-      Top = 7
-      Width = 104
-      Caption = 'Salvar'
-      OnClick = BitBtnSalvarClick
-      TabOrder = 2
+    object BCPanel1: TBCPanel
+      Left = 1
+      Height = 50
+      Top = 288
+      Width = 626
+      Align = alBottom
+      Background.Color = 5000268
+      Background.ColorOpacity = 255
+      Background.Gradient1.StartColor = 15722194
+      Background.Gradient1.StartColorOpacity = 255
+      Background.Gradient1.DrawMode = dmSet
+      Background.Gradient1.EndColor = 13137169
+      Background.Gradient1.EndColorOpacity = 255
+      Background.Gradient1.ColorCorrection = True
+      Background.Gradient1.GradientType = gtLinear
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient1.Sinus = False
+      Background.Gradient2.StartColor = 15722194
+      Background.Gradient2.StartColorOpacity = 255
+      Background.Gradient2.DrawMode = dmSet
+      Background.Gradient2.EndColor = 13137169
+      Background.Gradient2.EndColorOpacity = 255
+      Background.Gradient2.ColorCorrection = True
+      Background.Gradient2.GradientType = gtLinear
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient2.Sinus = False
+      Background.Gradient1EndPercent = 35
+      Background.Style = bbsColor
+      BevelInner = bvNone
+      BevelOuter = bvNone
+      BevelWidth = 1
+      Border.Color = clBlack
+      Border.ColorOpacity = 255
+      Border.LightColor = clWhite
+      Border.LightOpacity = 255
+      Border.LightWidth = 0
+      Border.Style = bboNone
+      Border.Width = 1
+      FontEx.Color = clDefault
+      FontEx.EndEllipsis = False
+      FontEx.FontQuality = fqSystemClearType
+      FontEx.Height = 0
+      FontEx.SingleLine = True
+      FontEx.Shadow = False
+      FontEx.ShadowColor = clBlack
+      FontEx.ShadowColorOpacity = 255
+      FontEx.ShadowRadius = 5
+      FontEx.ShadowOffsetX = 5
+      FontEx.ShadowOffsetY = 5
+      FontEx.Style = []
+      FontEx.TextAlignment = bcaCenter
+      FontEx.WordBreak = False
+      Rounding.RoundX = 1
+      Rounding.RoundY = 1
+      Rounding.RoundOptions = []
+      TabOrder = 0
+      object SpeedButton1: TSpeedButton
+        Left = 24
+        Height = 40
+        Hint = 'Salvar'
+        Top = 7
+        Width = 40
+        OnClick = ActionSaveExecute
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object SpeedButton2: TSpeedButton
+        Left = 96
+        Height = 40
+        Hint = 'Editar'
+        Top = 7
+        Width = 40
+        OnClick = ActionEditExecute
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object SpeedButton3: TSpeedButton
+        Left = 560
+        Height = 40
+        Hint = 'Fechar'
+        Top = 7
+        Width = 40
+        OnClick = ActionCloseExecute
+        ShowHint = True
+        ParentShowHint = False
+      end
+    end
+  end
+  object ActionList1: TActionList
+    left = 172
+    top = 76
+    object ActionSave: TAction
+      Caption = 'ActionSave'
+      OnExecute = ActionSaveExecute
+    end
+    object ActionEdit: TAction
+      Caption = 'ActionEdit'
+      OnExecute = ActionEditExecute
+    end
+    object ActionClose: TAction
+      Caption = 'ActionClose'
+      OnExecute = ActionCloseExecute
     end
   end
 end

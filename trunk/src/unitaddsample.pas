@@ -5,8 +5,8 @@ unit unitaddsample;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, BCPanel, BCLabel, BCImageButton, Forms, Controls,
-  Graphics, Dialogs, StdCtrls, ActnList;
+  Classes, SysUtils, FileUtil, BCPanel, BCLabel, Forms, Controls,
+  Graphics, Dialogs, StdCtrls, ActnList, Buttons;
 
 type
 
@@ -19,15 +19,16 @@ type
     ActionAddSubSample: TAction;
     ActionAddSample: TAction;
     ActionList1: TActionList;
-    BCImageButton1: TBCImageButton;
-    BCImageButtonAddSample: TBCImageButton;
     BCLabel1: TBCLabel;
     BCLabel2: TBCLabel;
     BCLabel3: TBCLabel;
     BCPanel1: TBCPanel;
-    ComboBox1: TComboBox;
-    ComboBox2: TComboBox;
+    BCPanel2: TBCPanel;
+    BCPanel3: TBCPanel;
+    BCPanel4: TBCPanel;
     ComboBoxAnalise: TComboBox;
+    ComboBoxComprimentoOnda: TComboBox;
+    ComboBoxDirecao: TComboBox;
     Edit1: TEdit;
     EditAmostras: TEdit;
     EditSample_id: TEdit;
@@ -39,8 +40,10 @@ type
     LabelDirecao: TLabel;
     ListBoxSamples: TListBox;
     ListBoxSubSamples: TListBox;
-    ScrollBox1: TScrollBox;
     ScrollBox2: TScrollBox;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
     procedure ActionAddSampleExecute(Sender: TObject);
     procedure ActionAddSubSampleExecute(Sender: TObject);
     procedure ActionComboboxAnaliseChangeExecute(Sender: TObject);
@@ -69,7 +72,7 @@ procedure TFormAddSample.ActionAddSampleExecute(Sender: TObject);
 begin
   if Dados.DatabaseSampleFileName <> EmptyStr then
   begin
-    if Edit1.Text <> EmptyStr then
+    if Trim(Edit1.Text) <> EmptyStr then
     begin
       Dados.TableSamples := Dados.DatabaseSamples.GetTable(
         'SELECT rruff_id FROM rruff WHERE rruff_id ="' + Edit1.Text + '" ;');
@@ -96,9 +99,9 @@ var
   I, FoundComma: integer;
   CommaPlaces: array[1..10] of integer;
 begin
-  if EditSample_id.Text <> EmptyStr then
+  if Trim(EditSample_id.Text) <> EmptyStr then
   begin
-    if EditAmostras.Text <> EmptyStr then
+    if Trim(EditAmostras.Text) <> EmptyStr then
     begin
       ///////////////procedimento para adicionar multiplas amostras
       FoundComma := 0;
@@ -143,7 +146,7 @@ begin
           begin
             if Trim(EditAmostras.Text) = '0' then
             begin
-              if Combobox1.Text = 'Todas' then
+              if ComboBoxDirecao.Text = 'Todas' then
               begin
                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (rruff_id,' +
                   'digito, direcao) VALUES ("' + EditSample_id.Text +
@@ -164,11 +167,11 @@ begin
               else
                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (rruff_id,' +
                   'digito, direcao) VALUES ("' + EditSample_id.Text +
-                  '", "' + EditAmostras.Text + '","' + Combobox1.Text + '");');
+                  '", "' + EditAmostras.Text + '","' + ComboBoxComprimentoOnda.Text + '");');
             end
             else
             begin
-              if Combobox1.Text = 'Todas' then
+              if ComboBoxDirecao.Text = 'Todas' then
               begin
                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (rruff_id,' +
                   'digito, direcao) VALUES ("' + EditSample_id.Text +
@@ -186,7 +189,7 @@ begin
               else
                 Dados.DatabaseSamples.ExecSQL('INSERT INTO raman ( rruff_id,' +
                   'digito, direcao) VALUES ("' + EditSample_id.Text +
-                  '", "' + EditAmostras.Text + '","' + Combobox1.Text + '");');
+                  '", "' + EditAmostras.Text + '","' + ComboBoxDirecao.Text + '");');
             end;
             ListboxSubSamples.Items.Append(EditSample_id.Text + ' - ' +
               Trim(EditAmostras.Text));
@@ -199,7 +202,7 @@ begin
                 Trim(Copy(EditAmostras.Text, CommaPlaces[I] - 1, 1));
               if Trim(TextoAmostras) = '0' then
               begin
-                if Combobox1.Text = 'Todas' then
+                if ComboBoxDirecao.Text = 'Todas' then
                 begin
                   Dados.DatabaseSamples.ExecSQL('INSERT INTO raman ( rruff_id,' +
                     'digito, direcao) VALUES ("' +
@@ -221,11 +224,11 @@ begin
                   Dados.DatabaseSamples.ExecSQL('INSERT INTO raman ( rruff_id,' +
                     'digito, direcao) VALUES ("' +
                     EditSample_id.Text + '", "' + EditAmostras.Text +
-                    '","' + Combobox1.Text + '");');
+                    '","' + ComboBoxComprimentoOnda.Text + '");');
               end
               else
               begin
-                if Combobox1.Text = 'Todas' then
+                if ComboBoxDirecao.Text = 'Todas' then
                 begin
                   Dados.DatabaseSamples.ExecSQL('INSERT INTO raman ( rruff_id,' +
                     'digito, direcao) VALUES ("' +
@@ -244,7 +247,7 @@ begin
                   Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (rruff_id,' +
                     'digito, direcao) VALUES ("' +
                     EditSample_id.Text + '", "' + TextoAmostras +
-                    '","' + Combobox1.Text + '");');
+                    '","' + ComboBoxDirecao.Text + '");');
               end;
               ListboxSubSamples.Items.Append(EditSample_id.Text + ' - ' + TextoAmostras);
             end;
@@ -254,7 +257,7 @@ begin
         begin
           if FoundComma = 0 then
           begin
-            if Combobox2.Text = 'Todas' then
+            if ComboBoxComprimentoOnda.Text = 'Todas' then
             begin
               Dados.DatabaseSamples.ExecSQL('INSERT INTO varredura (rruff_id,' +
                 'digito, comprimento_onda) VALUES ("' +
@@ -277,7 +280,7 @@ begin
               Dados.DatabaseSamples.ExecSQL('INSERT INTO varredura (rruff_id,' +
                 'digito, comprimento_onda) VALUES ("' +
                 EditSample_id.Text + '", "' + EditAmostras.Text +
-                '", "' + Combobox2.Text + '" );');
+                '", "' + ComboBoxComprimentoOnda.Text + '" );');
             ListboxSubSamples.Items.Append(EditSample_id.Text + ' - ' +
               Trim(EditAmostras.Text));
           end
@@ -353,7 +356,7 @@ begin
           end;
         end;
       end;
-    end;
+    end else ShowMessage('Escolha uma amostra antes de adicionar a subamostragem.');
     EditAmostras.Text := '';
   end
   else
@@ -369,24 +372,24 @@ begin
    Difração do Polvilho}
   case ComboboxAnalise.ItemIndex of
     0:begin
-      Combobox1.Enabled:=False;
-      Combobox2.Enabled:=False;
+      ComboBoxDirecao.Enabled:=False;
+      ComboBoxComprimentoOnda.Enabled:=False;
     end;
     1:begin
-      Combobox1.Enabled:=True;
-      Combobox2.Enabled:=False;
+      ComboBoxDirecao.Enabled:=True;
+      ComboBoxComprimentoOnda.Enabled:=True;
     end;
     2:begin
-      Combobox1.Enabled:=False;
-      Combobox2.Enabled:=True;
+      ComboBoxDirecao.Enabled:=False;
+      ComboBoxComprimentoOnda.Enabled:=True;
     end;
     3:begin
-      Combobox1.Enabled:=False;
-      Combobox2.Enabled:=False;
+      ComboBoxDirecao.Enabled:=False;
+      ComboBoxComprimentoOnda.Enabled:=False;
     end;
     4:begin
-      Combobox1.Enabled:=False;
-      Combobox2.Enabled:=False;
+      ComboBoxDirecao.Enabled:=False;
+      ComboBoxComprimentoOnda.Enabled:=False;
     end;
   end;
 end;
@@ -403,6 +406,11 @@ end;
 
 procedure TFormAddSample.RefreshListSample;
 begin
+  ListBoxSamples.Clear;
+  if Dados.DatabaseSampleFileName <> EmptyStr then
+  if FileExists(Dados.DatabaseSampleFileName) then
+  if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
+  begin
   Dados.TableSamples := Dados.DatabaseSamples.GetTable('SELECT rruff_id FROM rruff ;');
   if Dados.TableSamples.Count > 0 then
     if Dados.TableSamples.MoveFirst then
@@ -411,15 +419,16 @@ begin
         ListBoxSamples.Items.Add(Dados.TableSamples.Fields[0]);
         Dados.TableSamples.Next;
       end;
+  end;
 end;
 
 procedure TFormAddSample.RefreshListSubSample;
 begin
   ListboxSubSamples.Items.Clear;
-  if ListboxSamples.GetSelectedText<> EmptyStr then
+  if Trim(ListboxSamples.GetSelectedText) <> EmptyStr then
   begin
-    Dados.TableSamples:=Dados.DatabaseSamples.GetTable(
-    //obs: observar se o camando SELECT abaixo vai excluir subamostras
+    EditSample_id.Text:=ListboxSamples.GetSelectedText;
+    {Dados.TableSamples:=Dados.DatabaseSamples.GetTable(
       'SELECT DISTINCT rruff_id FROM rruff WHERE rruff_id ="'+ListboxSamples.
         GetSelectedText+'" ;');
     if Dados.TableSamples.Count > 0 then
@@ -430,8 +439,78 @@ begin
             ['rruff_id']+' - Descrição', TOBject(0));
           Dados.TableSamples.Next;
         end;
+    }
+    Dados.TableSamples:=Dados.DatabaseSamples.GetTable(
+      'SELECT DISTINCT rruff_id, digito FROM chemistry WHERE rruff_id ="'+ListboxSamples.
+        GetSelectedText+'" ;');
+    if Dados.TableSamples.Count > 0 then
+      if Dados.TableSamples.MoveFirst then
+        while (not Dados.TableSamples.EOF) do
+        begin
+          ListboxSubsamples.Items.AddObject(Dados.TableSamples.FieldByName
+            ['rruff_id']+' - '+Dados.TableSamples.FieldByName['digito']+
+            ' (Química)',
+              TOBject(1));
+          Dados.TableSamples.Next;
+        end;
 
     Dados.TableSamples:=Dados.DatabaseSamples.GetTable(
+      'SELECT DISTINCT rruff_id, digito FROM raman WHERE rruff_id ="'+ListboxSamples.
+        GetSelectedText+'" ;');
+    if Dados.TableSamples.Count > 0 then
+      if Dados.TableSamples.MoveFirst then
+        while (not Dados.TableSamples.EOF) do
+        begin
+          ListboxSubsamples.Items.AddObject(Dados.TableSamples.FieldByName
+            ['rruff_id']+' - '+Dados.TableSamples.FieldByName['digito']+
+            ' (RAMAN)',
+              TOBject(2));
+          Dados.TableSamples.Next;
+        end;
+
+    Dados.TableSamples:=Dados.DatabaseSamples.GetTable(
+      'SELECT DISTINCT rruff_id, digito FROM varredura WHERE rruff_id ="'+ListboxSamples.
+        GetSelectedText+'" ;');
+    if Dados.TableSamples.Count > 0 then
+      if Dados.TableSamples.MoveFirst then
+        while (not Dados.TableSamples.EOF) do
+        begin
+          ListboxSubsamples.Items.AddObject(Dados.TableSamples.FieldByName
+            ['rruff_id']+' - '+Dados.TableSamples.FieldByName['digito']+
+            ' (Varredura)',
+              TOBject(3));
+          Dados.TableSamples.Next;
+        end;
+
+    Dados.TableSamples:=Dados.DatabaseSamples.GetTable(
+      'SELECT DISTINCT rruff_id, digito FROM infravermelho WHERE rruff_id ="'+ListboxSamples.
+        GetSelectedText+'" ;');
+    if Dados.TableSamples.Count > 0 then
+      if Dados.TableSamples.MoveFirst then
+        while (not Dados.TableSamples.EOF) do
+        begin
+          ListboxSubsamples.Items.AddObject(Dados.TableSamples.FieldByName
+            ['rruff_id']+' - '+Dados.TableSamples.FieldByName['digito']+
+            ' (Infravermelho)',
+              TOBject(4));
+          Dados.TableSamples.Next;
+        end;
+
+    Dados.TableSamples:=Dados.DatabaseSamples.GetTable(
+      'SELECT DISTINCT rruff_id, digito FROM infravermelho WHERE rruff_id ="'+ListboxSamples.
+        GetSelectedText+'" ;');
+    if Dados.TableSamples.Count > 0 then
+      if Dados.TableSamples.MoveFirst then
+        while (not Dados.TableSamples.EOF) do
+        begin
+          ListboxSubsamples.Items.AddObject(Dados.TableSamples.FieldByName
+            ['rruff_id']+' - '+Dados.TableSamples.FieldByName['digito']+
+            ' (Difração)',
+              TOBject(5));
+          Dados.TableSamples.Next;
+        end;
+
+    {Dados.TableSamples:=Dados.DatabaseSamples.GetTable(
       'SELECT DISTINCT rruff_id, digito FROM rruff WHERE rruff_id ="'+ListboxSamples.
         GetSelectedText+'" ;');
     if Dados.TableSamples.Count > 0 then
@@ -441,7 +520,7 @@ begin
           ListboxSubsamples.Items.AddObject(Dados.TableSamples.FieldByName
             ['digito']+' - Descrição', TOBject(0));
           Dados.TableSamples.Next;
-        end;
+        end;}
   end;
 
 end;

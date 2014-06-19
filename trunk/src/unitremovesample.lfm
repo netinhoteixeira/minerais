@@ -3,10 +3,12 @@ object FormRemoveSample: TFormRemoveSample
   Height = 436
   Top = 125
   Width = 701
+  BorderStyle = bsToolWindow
   Caption = 'FormRemoveSample'
   ClientHeight = 436
   ClientWidth = 701
   OnShow = FormShow
+  ShowInTaskBar = stNever
   LCLVersion = '1.2.2.0'
   object BCPanel1: TBCPanel
     Left = 0
@@ -19,7 +21,7 @@ object FormRemoveSample: TFormRemoveSample
     Background.Gradient1.StartColor = clWhite
     Background.Gradient1.StartColorOpacity = 255
     Background.Gradient1.DrawMode = dmSet
-    Background.Gradient1.EndColor = clBlack
+    Background.Gradient1.EndColor = 16119285
     Background.Gradient1.EndColorOpacity = 255
     Background.Gradient1.ColorCorrection = True
     Background.Gradient1.GradientType = gtLinear
@@ -28,10 +30,10 @@ object FormRemoveSample: TFormRemoveSample
     Background.Gradient1.Point2XPercent = 0
     Background.Gradient1.Point2YPercent = 100
     Background.Gradient1.Sinus = False
-    Background.Gradient2.StartColor = clWhite
+    Background.Gradient2.StartColor = 15722194
     Background.Gradient2.StartColorOpacity = 255
     Background.Gradient2.DrawMode = dmSet
-    Background.Gradient2.EndColor = clBlack
+    Background.Gradient2.EndColor = 13137169
     Background.Gradient2.EndColorOpacity = 255
     Background.Gradient2.ColorCorrection = True
     Background.Gradient2.GradientType = gtLinear
@@ -40,10 +42,10 @@ object FormRemoveSample: TFormRemoveSample
     Background.Gradient2.Point2XPercent = 0
     Background.Gradient2.Point2YPercent = 100
     Background.Gradient2.Sinus = False
-    Background.Gradient1EndPercent = 35
-    Background.Style = bbsColor
+    Background.Gradient1EndPercent = 100
+    Background.Style = bbsGradient
     BevelInner = bvNone
-    BevelOuter = bvRaised
+    BevelOuter = bvNone
     BevelWidth = 1
     Border.Color = clBlack
     Border.ColorOpacity = 255
@@ -52,6 +54,7 @@ object FormRemoveSample: TFormRemoveSample
     Border.LightWidth = 0
     Border.Style = bboNone
     Border.Width = 1
+    BorderBCStyle = bpsBorder
     FontEx.Color = clDefault
     FontEx.EndEllipsis = False
     FontEx.FontQuality = fqSystemClearType
@@ -77,6 +80,7 @@ object FormRemoveSample: TFormRemoveSample
       Width = 300
       Anchors = [akTop, akLeft, akBottom]
       ItemHeight = 0
+      OnClick = ActionListboxSampleClickExecute
       TabOrder = 0
     end
     object ListBox2: TListBox
@@ -87,22 +91,6 @@ object FormRemoveSample: TFormRemoveSample
       Anchors = [akTop, akLeft, akBottom]
       ItemHeight = 0
       TabOrder = 1
-    end
-    object BCImageButton1: TBCImageButton
-      Left = 144
-      Height = 50
-      Top = 376
-      Width = 75
-      BitmapOptions.Direction = sdVertical
-      Caption = 'BCImageButton1'
-    end
-    object BCImageButton2: TBCImageButton
-      Left = 488
-      Height = 50
-      Top = 376
-      Width = 75
-      BitmapOptions.Direction = sdVertical
-      Caption = 'BCImageButton2'
     end
     object BCLabel1: TBCLabel
       Left = 24
@@ -222,6 +210,26 @@ object FormRemoveSample: TFormRemoveSample
       Rounding.RoundY = 1
       Rounding.RoundOptions = []
     end
+    object SpeedButton1: TSpeedButton
+      Left = 144
+      Height = 40
+      Hint = 'Remover'
+      Top = 376
+      Width = 40
+      OnClick = ActionRemoveSampleExecute
+      ShowHint = True
+      ParentShowHint = False
+    end
+    object SpeedButton2: TSpeedButton
+      Left = 504
+      Height = 40
+      Hint = 'Remover'
+      Top = 376
+      Width = 40
+      OnClick = ActionRemoveSubSampleExecute
+      ShowHint = True
+      ParentShowHint = False
+    end
   end
   object ActionList1: TActionList
     left = 231
@@ -229,6 +237,14 @@ object FormRemoveSample: TFormRemoveSample
     object ActionListboxSampleClick: TAction
       Caption = 'ActionListboxSampleClick'
       OnExecute = ActionListboxSampleClickExecute
+    end
+    object ActionRemoveSample: TAction
+      Caption = 'ActionRemoveSample'
+      OnExecute = ActionRemoveSampleExecute
+    end
+    object ActionRemoveSubSample: TAction
+      Caption = 'ActionRemoveSubSample'
+      OnExecute = ActionRemoveSubSampleExecute
     end
   end
 end

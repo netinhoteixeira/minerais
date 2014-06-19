@@ -1,7 +1,7 @@
 object FormFichaEspecie: TFormFichaEspecie
-  Left = 138
+  Left = 10
   Height = 660
-  Top = 27
+  Top = 10
   Width = 1144
   Caption = 'FormFichaEspecie'
   ClientHeight = 660
@@ -9,7 +9,6 @@ object FormFichaEspecie: TFormFichaEspecie
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
-  Position = poDesktopCenter
   ShowInTaskBar = stAlways
   LCLVersion = '1.2.2.0'
   object PageControlFicha: TPageControl
@@ -51,7 +50,7 @@ object FormFichaEspecie: TFormFichaEspecie
         object Label1: TLabel
           Left = 15
           Height = 15
-          Top = 10
+          Top = 50
           Width = 67
           Caption = 'Composição'
           ParentColor = False
@@ -59,7 +58,7 @@ object FormFichaEspecie: TFormFichaEspecie
         object LabelNome: TLabel
           Left = 15
           Height = 15
-          Top = 50
+          Top = 8
           Width = 33
           Caption = 'Nome'
           ParentColor = False
@@ -192,9 +191,9 @@ object FormFichaEspecie: TFormFichaEspecie
           TabOrder = 5
         end
         object EditFormula: TEdit
-          Left = 150
+          Left = 152
           Height = 23
-          Top = 10
+          Top = 50
           Width = 355
           Anchors = [akTop, akLeft, akRight]
           OnEditingDone = EditFormulaEditingDone
@@ -203,13 +202,14 @@ object FormFichaEspecie: TFormFichaEspecie
           Text = ' '
         end
         object EditNomeMineral: TEdit
-          Left = 150
+          Left = 152
           Height = 23
-          Top = 50
+          Top = 8
           Width = 355
           Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = EditNomeMineralEditingDone
-          OnKeyUp = EditNomeMineralKeyUp
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
           TabOrder = 7
           Text = ' '
         end
@@ -250,17 +250,17 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object TabSheetProp_Fisicas: TTabSheet
       Caption = 'Propriedades Físicas'
-      ClientHeight = 562
+      ClientHeight = 536
       ClientWidth = 538
       object ScrollBox4: TScrollBox
         Left = 0
-        Height = 562
+        Height = 536
         Top = 15
         Width = 538
         HorzScrollBar.Page = 517
-        VertScrollBar.Page = 558
+        VertScrollBar.Page = 532
         Anchors = [akTop, akLeft, akRight, akBottom]
-        ClientHeight = 558
+        ClientHeight = 532
         ClientWidth = 517
         TabOrder = 0
         object MemoLuminescencia: TMemo
@@ -496,17 +496,17 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object TabSheetOticas: TTabSheet
       Caption = 'Propriedades Óticas'
-      ClientHeight = 537
+      ClientHeight = 536
       ClientWidth = 538
       object ScrollBox5: TScrollBox
         Left = 0
-        Height = 537
+        Height = 536
         Top = 15
         Width = 538
         HorzScrollBar.Page = 517
-        VertScrollBar.Page = 533
+        VertScrollBar.Page = 532
         Anchors = [akTop, akLeft, akRight, akBottom]
-        ClientHeight = 533
+        ClientHeight = 532
         ClientWidth = 517
         TabOrder = 0
         object MemoExtincao: TMemo
@@ -703,17 +703,17 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object TabSheetCristalografia: TTabSheet
       Caption = 'Cristalografia'
-      ClientHeight = 537
+      ClientHeight = 536
       ClientWidth = 538
       object ScrollBox6: TScrollBox
         Left = 0
-        Height = 537
+        Height = 536
         Top = 15
         Width = 538
         HorzScrollBar.Page = 534
-        VertScrollBar.Page = 533
+        VertScrollBar.Page = 532
         Anchors = [akTop, akLeft, akRight, akBottom]
-        ClientHeight = 533
+        ClientHeight = 532
         ClientWidth = 534
         TabOrder = 0
         object GroupBoxCristalografia2: TGroupBox
@@ -827,21 +827,21 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object TabSheetImagem: TTabSheet
       Caption = 'Imagem'
-      ClientHeight = 562
+      ClientHeight = 536
       ClientWidth = 538
       object GroupBoxImagemAmpliada: TGroupBox
         Left = 0
-        Height = 562
+        Height = 536
         Top = 0
         Width = 538
         Align = alClient
-        ClientHeight = 544
+        ClientHeight = 518
         ClientWidth = 534
         TabOrder = 0
         object ImagemAmpliada: TImage
           Left = 0
-          Height = 518
-          Top = 26
+          Height = 462
+          Top = 56
           Width = 534
           AntialiasingMode = amOn
           Align = alClient
@@ -857,9 +857,12 @@ object FormFichaEspecie: TFormFichaEspecie
           TabOrder = 0
           object ToolButtonAddImage: TToolButton
             Left = 1
+            Hint = 'Adicionar imagem'
             Top = 2
             Caption = 'ToolButtonAddImage'
             OnClick = ToolButtonAddImageClick
+            ParentShowHint = False
+            ShowHint = True
           end
           object ToolButton2: TToolButton
             Left = 24
@@ -870,16 +873,19 @@ object FormFichaEspecie: TFormFichaEspecie
           end
           object ToolButton3: TToolButton
             Left = 29
+            Hint = 'Remover imagem'
             Top = 2
             Caption = 'ToolButton3'
             OnClick = ToolButton3Click
+            ParentShowHint = False
+            ShowHint = True
           end
         end
         object HeaderControl1: THeaderControl
           Left = 0
           Height = 30
-          Top = 28
-          Width = 589
+          Top = 26
+          Width = 534
           DragReorder = False
           Sections = <          
             item
@@ -918,6 +924,7 @@ object FormFichaEspecie: TFormFichaEspecie
               Visible = True
             end>
           OnSectionClick = HeaderControl1SectionClick
+          Align = alTop
         end
       end
     end
@@ -930,22 +937,22 @@ object FormFichaEspecie: TFormFichaEspecie
     Align = alLeft
     Background.Color = clBtnFace
     Background.ColorOpacity = 255
-    Background.Gradient1.StartColor = 14342874
+    Background.Gradient1.StartColor = clWhite
     Background.Gradient1.StartColorOpacity = 255
     Background.Gradient1.DrawMode = dmSet
-    Background.Gradient1.EndColor = 14211288
-    Background.Gradient1.EndColorOpacity = 100
+    Background.Gradient1.EndColor = 16119285
+    Background.Gradient1.EndColorOpacity = 255
     Background.Gradient1.ColorCorrection = True
-    Background.Gradient1.GradientType = gtReflected
+    Background.Gradient1.GradientType = gtLinear
     Background.Gradient1.Point1XPercent = 0
     Background.Gradient1.Point1YPercent = 0
     Background.Gradient1.Point2XPercent = 0
     Background.Gradient1.Point2YPercent = 100
     Background.Gradient1.Sinus = False
-    Background.Gradient2.StartColor = 14211288
-    Background.Gradient2.StartColorOpacity = 0
+    Background.Gradient2.StartColor = 15722194
+    Background.Gradient2.StartColorOpacity = 255
     Background.Gradient2.DrawMode = dmSet
-    Background.Gradient2.EndColor = 14342874
+    Background.Gradient2.EndColor = 13137169
     Background.Gradient2.EndColorOpacity = 255
     Background.Gradient2.ColorCorrection = True
     Background.Gradient2.GradientType = gtLinear
@@ -954,18 +961,19 @@ object FormFichaEspecie: TFormFichaEspecie
     Background.Gradient2.Point2XPercent = 0
     Background.Gradient2.Point2YPercent = 100
     Background.Gradient2.Sinus = False
-    Background.Gradient1EndPercent = 50
+    Background.Gradient1EndPercent = 100
     Background.Style = bbsGradient
-    BevelInner = bvRaised
+    BevelInner = bvNone
     BevelOuter = bvNone
     BevelWidth = 1
-    Border.Color = 12824480
-    Border.ColorOpacity = 200
+    Border.Color = clBlack
+    Border.ColorOpacity = 255
     Border.LightColor = clWhite
-    Border.LightOpacity = 200
-    Border.LightWidth = 1
-    Border.Style = bboSolid
+    Border.LightOpacity = 255
+    Border.LightWidth = 0
+    Border.Style = bboNone
     Border.Width = 1
+    BorderBCStyle = bpsBorder
     FontEx.Color = clDefault
     FontEx.EndEllipsis = False
     FontEx.FontQuality = fqSystemClearType
@@ -982,12 +990,12 @@ object FormFichaEspecie: TFormFichaEspecie
     FontEx.WordBreak = False
     Rounding.RoundX = 1
     Rounding.RoundY = 1
-    Rounding.RoundOptions = [rrTopLeftSquare, rrTopRightSquare, rrBottomRightSquare, rrBottomLeftSquare]
-    TabOrder = 1
+    Rounding.RoundOptions = []
+    TabOrder = 0
     object ListBoxMinerais: TListBox
       Left = 12
-      Height = 334
-      Top = 224
+      Height = 328
+      Top = 200
       Width = 162
       Anchors = [akTop, akLeft, akBottom]
       ItemHeight = 0
@@ -1111,7 +1119,7 @@ object FormFichaEspecie: TFormFichaEspecie
     object BCLabel3: TBCLabel
       Left = 8
       Height = 42
-      Top = 184
+      Top = 160
       Width = 79
       Background.Color = clBlack
       Background.ColorOpacity = 255
@@ -1167,6 +1175,65 @@ object FormFichaEspecie: TFormFichaEspecie
       Rounding.RoundY = 1
       Rounding.RoundOptions = []
     end
+    object BCLabelRegistros: TBCLabel
+      Left = 8
+      Height = 35
+      Top = 528
+      Width = 69
+      Anchors = [akLeft, akBottom]
+      Background.Color = clBlack
+      Background.ColorOpacity = 255
+      Background.Gradient1.StartColor = clWhite
+      Background.Gradient1.StartColorOpacity = 255
+      Background.Gradient1.DrawMode = dmSet
+      Background.Gradient1.EndColor = clBlack
+      Background.Gradient1.EndColorOpacity = 255
+      Background.Gradient1.ColorCorrection = True
+      Background.Gradient1.GradientType = gtLinear
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient1.Sinus = False
+      Background.Gradient2.StartColor = clWhite
+      Background.Gradient2.StartColorOpacity = 255
+      Background.Gradient2.DrawMode = dmSet
+      Background.Gradient2.EndColor = clBlack
+      Background.Gradient2.EndColorOpacity = 255
+      Background.Gradient2.ColorCorrection = True
+      Background.Gradient2.GradientType = gtLinear
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient2.Sinus = False
+      Background.Gradient1EndPercent = 35
+      Background.Style = bbsClear
+      Border.Color = clBlack
+      Border.ColorOpacity = 255
+      Border.LightColor = clWhite
+      Border.LightOpacity = 255
+      Border.LightWidth = 0
+      Border.Style = bboNone
+      Border.Width = 1
+      FontEx.Color = clDefault
+      FontEx.EndEllipsis = False
+      FontEx.FontQuality = fqSystemClearType
+      FontEx.Height = 0
+      FontEx.SingleLine = True
+      FontEx.Shadow = True
+      FontEx.ShadowColor = clBlack
+      FontEx.ShadowColorOpacity = 150
+      FontEx.ShadowRadius = 5
+      FontEx.ShadowOffsetX = 5
+      FontEx.ShadowOffsetY = 5
+      FontEx.Style = []
+      FontEx.TextAlignment = bcaCenter
+      FontEx.WordBreak = False
+      Rounding.RoundX = 1
+      Rounding.RoundY = 1
+      Rounding.RoundOptions = []
+    end
   end
   object ScrollBox2: TScrollBox
     Left = 200
@@ -1181,17 +1248,17 @@ object FormFichaEspecie: TFormFichaEspecie
     TabOrder = 3
     object BCPanel2: TBCPanel
       Left = 0
-      Height = 631
+      Height = 630
       Top = 0
       Width = 179
-      Align = alClient
+      Align = alLeft
       Background.Color = clBtnFace
       Background.ColorOpacity = 255
-      Background.Gradient1.StartColor = 14342874
-      Background.Gradient1.StartColorOpacity = 150
+      Background.Gradient1.StartColor = clWhite
+      Background.Gradient1.StartColorOpacity = 255
       Background.Gradient1.DrawMode = dmSet
-      Background.Gradient1.EndColor = 14211288
-      Background.Gradient1.EndColorOpacity = 100
+      Background.Gradient1.EndColor = 16119285
+      Background.Gradient1.EndColorOpacity = 255
       Background.Gradient1.ColorCorrection = True
       Background.Gradient1.GradientType = gtLinear
       Background.Gradient1.Point1XPercent = 0
@@ -1199,10 +1266,10 @@ object FormFichaEspecie: TFormFichaEspecie
       Background.Gradient1.Point2XPercent = 0
       Background.Gradient1.Point2YPercent = 100
       Background.Gradient1.Sinus = False
-      Background.Gradient2.StartColor = 14211288
-      Background.Gradient2.StartColorOpacity = 100
+      Background.Gradient2.StartColor = 15722194
+      Background.Gradient2.StartColorOpacity = 255
       Background.Gradient2.DrawMode = dmSet
-      Background.Gradient2.EndColor = 14342874
+      Background.Gradient2.EndColor = 13137169
       Background.Gradient2.EndColorOpacity = 255
       Background.Gradient2.ColorCorrection = True
       Background.Gradient2.GradientType = gtLinear
@@ -1211,18 +1278,19 @@ object FormFichaEspecie: TFormFichaEspecie
       Background.Gradient2.Point2XPercent = 0
       Background.Gradient2.Point2YPercent = 100
       Background.Gradient2.Sinus = False
-      Background.Gradient1EndPercent = 50
+      Background.Gradient1EndPercent = 100
       Background.Style = bbsGradient
-      BevelInner = bvRaised
+      BevelInner = bvNone
       BevelOuter = bvNone
       BevelWidth = 1
-      Border.Color = 12824480
-      Border.ColorOpacity = 200
+      Border.Color = clBlack
+      Border.ColorOpacity = 255
       Border.LightColor = clWhite
-      Border.LightOpacity = 200
-      Border.LightWidth = 1
-      Border.Style = bboSolid
+      Border.LightOpacity = 255
+      Border.LightWidth = 0
+      Border.Style = bboNone
       Border.Width = 1
+      BorderBCStyle = bpsBorder
       FontEx.Color = clDefault
       FontEx.EndEllipsis = False
       FontEx.FontQuality = fqSystemClearType
@@ -1239,7 +1307,7 @@ object FormFichaEspecie: TFormFichaEspecie
       FontEx.WordBreak = False
       Rounding.RoundX = 1
       Rounding.RoundY = 1
-      Rounding.RoundOptions = [rrTopLeftSquare, rrTopRightSquare, rrBottomRightSquare, rrBottomLeftSquare]
+      Rounding.RoundOptions = []
       TabOrder = 0
       object BCLabelClasse: TBCLabel
         Left = 14
@@ -2098,6 +2166,8 @@ object FormFichaEspecie: TFormFichaEspecie
     HorzScrollBar.Page = 194
     VertScrollBar.Page = 560
     Align = alLeft
+    Color = clHighlightText
+    ParentColor = False
     TabOrder = 4
   end
   object BCPanel3: TBCPanel
@@ -2161,37 +2231,48 @@ object FormFichaEspecie: TFormFichaEspecie
     Rounding.RoundX = 1
     Rounding.RoundY = 1
     Rounding.RoundOptions = []
-    TabOrder = 0
+    TabOrder = 1
     Visible = False
     object SpeedButtonAdd: TSpeedButton
       Left = 12
       Height = 40
       Top = 5
       Width = 40
+      ShowHint = True
+      ParentShowHint = False
     end
     object SpeedButtonRemove: TSpeedButton
       Left = 64
       Height = 40
       Top = 5
       Width = 40
+      OnClick = ActionRemoveMineralExecute
+      ShowHint = True
+      ParentShowHint = False
     end
     object SpeedButtonRefresh: TSpeedButton
       Left = 115
       Height = 40
       Top = 5
       Width = 40
+      ShowHint = True
+      ParentShowHint = False
     end
     object SpeedButton4: TSpeedButton
       Left = 164
       Height = 40
       Top = 5
       Width = 40
+      ShowHint = True
+      ParentShowHint = False
     end
     object SpeedButtonBilbiografia: TSpeedButton
       Left = 212
       Height = 40
       Top = 5
       Width = 40
+      ShowHint = True
+      ParentShowHint = False
     end
     object ComboBox1: TComboBox
       Left = 1004
@@ -2206,8 +2287,8 @@ object FormFichaEspecie: TFormFichaEspecie
         '16'
       )
       OnChange = ComboBox1Change
+      Style = csDropDownList
       TabOrder = 0
-      Text = 'Tamanho da Fonte'
     end
   end
   object ProgressBar1: TProgressBar
@@ -2225,15 +2306,23 @@ object FormFichaEspecie: TFormFichaEspecie
     Width = 1144
     Caption = 'ToolBar2'
     TabOrder = 6
-    object ToolButton1: TToolButton
+    object ToolButtonAdd: TToolButton
       Left = 1
+      Hint = 'Adicionar'
       Top = 2
-      Caption = 'ToolButton1'
+      Caption = 'ToolButtonAdd'
+      OnClick = ActionAddExecute
+      ParentShowHint = False
+      ShowHint = True
     end
-    object ToolButton4: TToolButton
+    object ToolButtonRemove: TToolButton
       Left = 24
+      Hint = 'Remover'
       Top = 2
-      Caption = 'ToolButton4'
+      Caption = 'ToolButtonRemove'
+      OnClick = ActionRemoveMineralExecute
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButton5: TToolButton
       Left = 47
@@ -2242,10 +2331,14 @@ object FormFichaEspecie: TFormFichaEspecie
       Caption = 'ToolButton5'
       Style = tbsDivider
     end
-    object ToolButton6: TToolButton
+    object ToolButtonRefresh: TToolButton
       Left = 52
+      Hint = 'Atualizar'
       Top = 2
-      Caption = 'ToolButton6'
+      Caption = 'ToolButtonRefresh'
+      OnClick = ActionRefreshListExecute
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButton7: TToolButton
       Left = 75
@@ -2254,10 +2347,14 @@ object FormFichaEspecie: TFormFichaEspecie
       Caption = 'ToolButton7'
       Style = tbsDivider
     end
-    object ToolButton8: TToolButton
+    object ToolButtonPrint: TToolButton
       Left = 80
+      Hint = 'Imprimir'
       Top = 2
-      Caption = 'ToolButton8'
+      Caption = 'ToolButtonPrint'
+      OnClick = ActionFormPrintExecute
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButton9: TToolButton
       Left = 103
@@ -2266,36 +2363,32 @@ object FormFichaEspecie: TFormFichaEspecie
       Caption = 'ToolButton9'
       Style = tbsDivider
     end
-    object ToolButton10: TToolButton
-      Left = 108
-      Top = 2
-      Caption = 'ToolButton10'
-    end
-    object ToolButton11: TToolButton
-      Left = 131
-      Top = 2
-      Width = 5
-      Caption = 'ToolButton11'
-      Style = tbsDivider
-    end
     object ToolButtonShowFilter: TToolButton
-      Left = 136
+      Left = 108
+      Hint = 'Filtro'
       Top = 2
       Caption = 'ToolButtonShowFilter'
+      OnClick = ActionFilterVisibleExecute
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButtonShowImages: TToolButton
-      Left = 159
+      Left = 131
+      Hint = 'Imagens'
       Top = 2
       Caption = 'ToolButtonShowImages'
+      OnClick = ActionImagesVisibleExecute
+      ParentShowHint = False
+      ShowHint = True
     end
   end
   object OpenPictureDialog1: TOpenPictureDialog
-    left = 363
-    top = 215
+    left = 64
+    top = 456
   end
   object ActionList1: TActionList
-    left = 372
-    top = 85
+    left = 64
+    top = 376
     object ActionAddImage1: TAction
       Caption = 'ActionAddImage1'
       OnExecute = ActionAddImage1Execute
@@ -2332,9 +2425,21 @@ object FormFichaEspecie: TFormFichaEspecie
       Caption = 'ActionRemoveMineral'
       OnExecute = ActionRemoveMineralExecute
     end
-  end
-  object ActionListToolBar: TActionList
-    left = 128
-    top = 288
+    object ActionAdd: TAction
+      Caption = 'ActionAdd'
+      OnExecute = ActionAddExecute
+    end
+    object ActionFilterVisible: TAction
+      Caption = 'ActionFilterVisible'
+      OnExecute = ActionFilterVisibleExecute
+    end
+    object ActionImagesVisible: TAction
+      Caption = 'ActionImagesVisible'
+      OnExecute = ActionImagesVisibleExecute
+    end
+    object ActionFormPrint: TAction
+      Caption = 'ActionFormPrint'
+      OnExecute = ActionFormPrintExecute
+    end
   end
 end

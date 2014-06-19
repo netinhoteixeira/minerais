@@ -10,9 +10,10 @@ uses
   Forms, uprincipal, udatamodule, sqlite3laz, richmemopackage,
   tachartlazaruspkg, sdflaz, lazreport, ubibliografia,
   uformimpressao, UnitAjuda, unitSplash, crt, unitgraficos, unitPlanilha,
-  unitequipamentos, unitrruff_id, unitfichaamostra, unitfichaespecie,
+  unitequipamentos, unitfichaamostra, unitfichaespecie,
   unitBlobFields, unitaddmineral,
-  unitselectdatabase, unitadddatabase, unitaddsample, unitremovesample;
+  unitselectdatabase, unitadddatabase, unitaddsample, unitremovesample,
+unitremovemineral;
 
 {$R *.res}
 
@@ -27,17 +28,17 @@ begin
   FormSplash.Hide;
   FormSplash.Free;
   Application.CreateForm(TFormPrincipal, FormPrincipal);
+  Application.CreateForm(TFormSelectDatabase, FormSelectDatabase);
   Application.CreateForm(TFormBibliografia, FormBibliografia);
   Application.CreateForm(TFormImpressao, FormImpressao);
   Application.CreateForm(TFormAjuda, FormAjuda);
   Application.CreateForm(TFormInstrumentos, FormInstrumentos);
-  Application.CreateForm(TFormAdicionaRruff, FormAdicionaRruff);
   Application.CreateForm(TFormPlanilha, FormPlanilha);
   Application.CreateForm(TFormAddMineral, FormAddMineral);
-  Application.CreateForm(TFormSelectDatabase, FormSelectDatabase);
   Application.CreateForm(TFormAddDatabase, FormAddDatabase);
   Application.CreateForm(TFormAddSample, FormAddSample);
   Application.CreateForm(TFormRemoveSample, FormRemoveSample);
+  Application.CreateForm(TFormRemoveMineral, FormRemoveMineral);
   Application.Run;
 end.
 

@@ -24,7 +24,6 @@ procedure ClearBlobField(Table, Field, Especie, Rruff_id, Digito, Tipo:String);
 var
   MS: TMemoryStream;
   FS:TFileStream;
-  pic: TJPEGImage;
 
 implementation
 
@@ -32,19 +31,21 @@ uses uDataModule, unitGraficos;
 
 procedure CSVFileToBlobField(Path, Table, Field, Especie, Rruff_id, Digito,
   Tipo: String);
+var DatabaseSamples:TSQLiteDatabase;
 begin
+  DatabaseSamples:=TSQLiteDatabase.Create(Dados.DatabaseSampleFileName);
   Try
   FS := TFileStream.Create(Path, fmOpenRead);
   if Table = 'chemistry' then
   begin
     if Especie = EmptyStr then
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
         'rruff_id="' + Rruff_id + '";', FS);
     end
     else
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE especie="'+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE especie="'+
         Especie+'" AND rruff_id="' + Rruff_id + '";', FS);
     end;
   end
@@ -53,13 +54,13 @@ begin
   begin
     if Especie = EmptyStr then
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
         'rruff_id="' + Rruff_id + '" AND digito="'+Digito+'" AND '+
           'direcao="'+Tipo+'" ;', FS);
     end
     else
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE especie="'+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE especie="'+
         Especie+'" AND rruff_id="' + Rruff_id + '" AND digito="'+Digito+'" AND '+
           'direcao="'+Tipo+'" ;', FS);
     end;
@@ -69,13 +70,13 @@ begin
   begin
     if Especie = EmptyStr then
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
         'rruff_id="' + Rruff_id + '" AND digito="'+Digito+'" AND '+
           'comprimento_onda="'+Tipo+'" ;', FS);
     end
     else
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE especie="'+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE especie="'+
         Especie+'" AND rruff_id="' + Rruff_id + '" AND digito="'+Digito+'" AND '+
           'comprimento_onda="'+Tipo+'" ;', FS);
     end;
@@ -85,12 +86,12 @@ begin
   begin
     if Especie = EmptyStr then
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
         'rruff_id="' + Rruff_id + '" AND digito="'+Digito+'" ;', FS);
     end
     else
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE especie="'+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE especie="'+
         Especie+'" AND rruff_id="' + Rruff_id + '" AND digito="'+Digito+'" ;',
           FS);
     end;
@@ -100,25 +101,25 @@ begin
   begin
     if Especie = EmptyStr then
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
         'rruff_id="' + Rruff_id + '" AND digito="'+Digito+'" ;', FS);
     end
     else
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE especie="'+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE especie="'+
         Especie+'" AND rruff_id="' + Rruff_id + '" AND digito="'+Digito+'" ;',
           FS);
     end;
   end;
-
   finally
     FS.Free;
   end;
+  DatabaseSamples.Free;
 end;
-          //obs: equipamento
+
 function SelectBlobFieldToJPEGImage(Table, Field, Especie, Rruff_id, Digito,
   Tipo: String): TJPEGImage;
-var I:Boolean;
+var I:Boolean; pic: TJPEGImage;
 begin
   if Table = 'minerais' then
   begin
@@ -136,7 +137,7 @@ begin
   else
   if Table = 'rruff' then
   begin
-    if Especie = EmptyStr then
+    if Trim(Especie) = EmptyStr then
     begin
       Dados.TableSamples := Dados.DatabaseSamples.GetTable('SELECT '+Field+' FROM '+Table+
       ' WHERE rruff_id = "' + Rruff_id + '" ;');
@@ -152,7 +153,7 @@ begin
   else
   if Table = 'chemistry' then
   begin
-    if Especie = EmptyStr then
+    if Trim(Especie) = EmptyStr then
     begin
        Dados.TableSamples := Dados.DatabaseSamples.GetTable('SELECT '+Field+' FROM '+Table+
       ' WHERE rruff_id = "' + Rruff_id + '" AND digito="'+Digito+'";');
@@ -165,11 +166,13 @@ begin
         'AND digito="'+Digito+'";');
       I:=False;
     end;
-  end;
+  end
+  else
+    Result:=nil;
 
   if I then
   begin
-   if Dados.TableMinerals.RowCount > 0 then
+   if Dados.TableMinerals.Count > 0 then
     begin
     Try
       MS := Dados.TableMinerals.FieldAsBlob(Dados.TableMinerals.
@@ -193,7 +196,7 @@ begin
   end
   else
   begin
-      if Dados.TableSamples.RowCount > 0 then
+      if Dados.TableSamples.Count > 0 then
     begin
     Try
       MS := Dados.TableSamples.FieldAsBlob(Dados.TableSamples.
@@ -216,7 +219,8 @@ begin
       Result:=nil;
   end;
 end;
-
+//dividir esta função em duas(minerais, amostras) e colocar as variaveis
+// TSQLitedatabase e tsqlitetable como locais
 function SelectBlobFieldToChartSeries(Table, Field, Especie, Rruff_id, Digito,
   Tipo: String): TLineSeries;
 var Diretorio:String;
@@ -311,43 +315,45 @@ end;
 
 function SelectBlobFieldToCSVFile(Table, Field, Especie, Rruff_id, Digito,
   Tipo, Equipment: String): String;
+var DatabaseSamples:TSQLiteDatabase; TableSAmples:TSQLiteTable;
 begin
+  DataBaseSamples:=TSQLiteDatabase.Create(Dados.DatabaseSampleFileName);
   if Table = 'chemistry' then
   begin
-    Dados.TableSamples := Dados.DatabaseSamples.GetTable('SELECT especie, rruff_id, '+Field+' FROM '+Table+
+    TableSamples := DatabaseSamples.GetTable('SELECT especie, rruff_id, '+Field+' FROM '+Table+
       ' WHERE digito ="' + Digito + '" and rruff_id ="' + Rruff_id + '" ;');
   end
   else
   if Table = 'raman' then
   begin
-    Dados.TableSamples := Dados.DatabaseSamples.GetTable('SELECT especie, rruff_id, '+Field+' FROM '+Table+
+    TableSamples := DatabaseSamples.GetTable('SELECT especie, rruff_id, '+Field+' FROM '+Table+
       ' WHERE  rruff_id ="' + Rruff_id + '" '+
         'AND digito="'+Digito+'" AND direcao="'+Tipo+'" ;');
   end
   else
   if Table= 'varredura' then
   begin
-    Dados.TableSamples := Dados.DatabaseSamples.GetTable('SELECT especie, rruff_id, '+Field+' FROM '+Table+
+    TableSamples := DatabaseSamples.GetTable('SELECT especie, rruff_id, '+Field+' FROM '+Table+
       ' WHERE rruff_id ="' + Rruff_id + '" '+
         'AND digito="'+Digito+'" AND comprimento_onda="'+Tipo+'" ;');
   end
   else
   if Table = 'infravermelho' then
   begin
-    Dados.TableSamples := Dados.DatabaseSamples.GetTable('SELECT especie, rruff_id, '+Field+' FROM '+Table+
+    TableSamples := DatabaseSamples.GetTable('SELECT especie, rruff_id, '+Field+' FROM '+Table+
       ' WHERE rruff_id ="' + Rruff_id + '" '+
         'AND digito="'+Digito+'";');
   end
   else
   if Table = 'difracao' then
   begin
-    Dados.TableSamples := Dados.DatabaseSamples.GetTable('SELECT especie, rruff_id, '+Field+' FROM '+Table+
+    TableSamples := DatabaseSamples.GetTable('SELECT especie, rruff_id, '+Field+' FROM '+Table+
       ' WHERE rruff_id ="' + Rruff_id + '" '+
         'AND digito="'+Digito+'";');
   end;
-  if Dados.TableSamples.RowCount > 0 then
+  if TableSamples.RowCount > 0 then
   begin
-    MS := Dados.TableSamples.FieldAsBlob(Dados.TableSamples.FieldIndex[Field]);
+    MS := TableSamples.FieldAsBlob(TableSamples.FieldIndex[Field]);
     if MS <> nil then
     begin
       MS.Position := 0;
@@ -359,83 +365,69 @@ begin
    end
    else
      Result:=EmptyStr;
+   DatabaseSamples.Free;
 end;
-
+           //a variavel FilenameDatabase pode ser retirada e ser usado
+           //a variavel DatabaseSamplesFileName do udatamodule.pas
 procedure AddBlobFieldSample(FileNameDatabase, FileNameImage ,Table, Field,
   Sample_id, Digito, Tipo:String);
-var FS:TFileStream;
-  DatabaseSample: TSQLiteDatabase;
-  TableSample:TSQLiteTable;
+var FS:TFileStream;  DatabaseSamples:TSQLiteDatabase;
 begin
-  if FileExists(FileNameDatabase) then
-  begin
-    Try
-      DatabaseSample := TSQLiteDatabase.Create(FileNameDatabase);
-    finally
-    end;
-  end;
-
+  DatabaseSamples:=TSQliteDatabase.Create(FileNameDatabase);
   Try
     FS := TFileStream.Create(FileNameImage, fmOpenRead);
   if Table = 'rruff' then
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
         'rruff_id ="'+Sample_id+'" ;', FS);
     end
     else
     if Table = 'chemistry' then
     begin
-     Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
       'rruff_id ="'+Sample_id+'"  AND digito='+
         '"'+Digito+'" ;', FS);
     end
     else
     if Table = 'raman' then
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
+     DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
        'rruff_id ="'+Sample_id+'"  AND digito='+
          '"'+Digito+'" AND direcao="'+Tipo+'" ;', FS);
     end
     else
     if Table = 'varredura' then
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
         'rruff_id ="'+Sample_id+'"  AND digito='+
           '"'+Digito+'" AND comprimento_onda="'+Tipo+'" ;', FS);
     end
     else
     if Table = 'infravermelho' then
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
+      DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
         'rruff_id ="'+Sample_id+'"  AND digito='+
           '"'+Digito+'" ;', FS);
     end
     else
     if Table = 'difracao' then
     begin
-      Dados.DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
+     DatabaseSamples.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE '+
         'rruff_id ="'+Sample_id+'"  AND digito='+
           '"'+Digito+'" ;', FS);
     end;
   finally
     FS.Free;
   end;
+  DatabaseSamples.Free;
 end;
 
 procedure AddBlobFieldMineral(FilenameDatabase, FileNameImage,Table, Field,
   Especie_Tipo: String);
 var FS: TFileStream;
   DatabaseMineral: TSQLiteDatabase;
-  TableMineral: TSQLiteTable;
 begin
-  if FileExists(FileNameDatabase) then
-  begin
-    Try
-      DatabaseMineral := TSQLiteDatabase.Create(FileNameDatabase);
-    finally
-    end;
-  end;
-
+  DatabaseMineral:= TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
   Try
     FS := TFileStream.Create(FileNameImage, fmOpenRead);
     if Table = 'minerais' then
@@ -452,19 +444,24 @@ begin
   finally
     FS.Free;
   end;
+  DatabaseMineral.Free;
 end;
 
 procedure ClearBlobField(Table, Field, Especie, Rruff_id, Digito, Tipo: String);
+var DatabaseMinerals, DatabaseSamples: TSQLiteDatabase;
 begin
+  DatabaseMinerals:=TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
+  DatabaseSamples:=TSQLiteDatabase.Create(Dados.DatabaseSampleFileName);
+  Try
   if Table = 'minerais' then
   begin
-    Dados.DatabaseMinerals.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+    DatabaseMinerals.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
       'WHERE nome="'+Especie+'" ;');
   end
   else
   if Table = 'mineralogia' then
   begin
-    Dados.DatabaseMinerals.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+    DatabaseMinerals.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
       'WHERE campo="'+Tipo+'" ;');
   end
   else
@@ -472,12 +469,12 @@ begin
   begin
     if Especie = EmptyStr then
     begin
-      Dados.DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+      DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
         'WHERE rruff_id="'+Rruff_id+'" ;');
     end
     else
     begin
-      Dados.DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+      DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
         'WHERE especie="'+Especie+' AND "rruff_id="'+Rruff_id+'" ;');
     end;
   end
@@ -486,12 +483,12 @@ begin
   begin
     if Especie = EmptyStr then
     begin
-      Dados.DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+      DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
         'WHERE rruff_id="'+Rruff_id+'" AND digito="'+Digito+'";');
     end
     else
     begin
-      Dados.DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+      DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
         'WHERE especie="'+Especie+'" AND rruff_id="'+Rruff_id+'" AND '+
           'digito="'+Digito+'";');
     end;
@@ -501,13 +498,13 @@ begin
   begin
     if Especie = EmptyStr then
     begin
-      Dados.DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+      DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
           'WHERE rruff_id="'+Rruff_id+'" AND digito="'+Digito+'" AND '+
             'direcao="'+Tipo+'";');
     end
     else
     begin
-      Dados.DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+      DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
           'WHERE especie="'+Especie+'" AND rruff_id="'+Rruff_id+'" AND '+
             'digito="'+Digito+'" AND direcao="'+Tipo+'";');
     end;
@@ -517,13 +514,13 @@ begin
   begin
     if Especie = EmptyStr then
     begin
-      Dados.DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+      DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
         'WHERE rruff_id="'+Rruff_id+'" AND digito="'+Digito+'" AND '+
           'comprimento_onda="'+Tipo+'";');
     end
     else
     begin
-       Dados.DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+       DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
           'WHERE especie="'+Especie+'" AND rruff_id="'+Rruff_id+'" AND '+
             'digito="'+Digito+'" AND comprimento_onda="'+Tipo+'";');
     end;
@@ -533,12 +530,12 @@ begin
   begin
     if Especie = EmptyStr then
     begin
-      Dados.DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+      DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
         'WHERE rruff_id="'+Rruff_id+'" AND digito="'+Digito+'" ;');
     end
     else
     begin
-      Dados.DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+      DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
         'WHERE especie="'+Especie+'" AND rruff_id="'+Rruff_id+'" AND '+
           'digito="'+Digito+'" ;');
     end;
@@ -548,16 +545,20 @@ begin
   begin
     if Especie = EmptyStr then
     begin
-      Dados.DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+      DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
         'WHERE rruff_id="'+Rruff_id+'" AND digito="'+Digito+'" ;');
     end
     else
     begin
-      Dados.DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
+      DatabaseSamples.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
         'WHERE especie="'+Especie+'" AND rruff_id="'+Rruff_id+'" AND '+
           'digito="'+Digito+'" ;');
     end;
   end;
+  finally
+  end;
+  DatabaseMinerals.Free;
+  DatabaseSamples.Free;
 end;
 
 end.
