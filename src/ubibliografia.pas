@@ -5,24 +5,27 @@ unit ubibliografia;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  DbCtrls, Buttons, StdCtrls;
+  Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
+  ExtCtrls, DbCtrls, Buttons, StdCtrls, ActnList, SQLite3tablemod;
 
 type
 
   { TFormBibliografia }
 
   TFormBibliografia = class(TForm)
-    BitBtnSalvar: TBitBtn;
-    BitBtnEditar: TBitBtn;
-    BitBtnSair: TBitBtn;
+    ActionClose: TAction;
+    ActionEdit: TAction;
+    ActionSave: TAction;
+    ActionList1: TActionList;
+    BCPanel1: TBCPanel;
     Memo1: TMemo;
     Panel1: TPanel;
-    Panel2: TPanel;
-    procedure BitBtnEditarClick(Sender: TObject);
-    procedure BitBtnSairClick(Sender: TObject);
-    procedure BitBtnSalvarClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    procedure ActionCloseExecute(Sender: TObject);
+    procedure ActionEditExecute(Sender: TObject);
+    procedure ActionSaveExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -34,35 +37,35 @@ var
   FormBibliografia: TFormBibliografia;
   Bibliografia: TextFile;
   Diretorio, Texto:String;
+  DatabaseMinerals: TSQLiteDatabase;
+  TableMinerals: TSQLiteTable;
 
 implementation
 {$R *.lfm}
-uses udatamodule; //coloca do apos o proc formshow usar o filename do dataset
+uses udatamodule;
+
 { TFormBibliografia }
-procedure TFormBibliografia.BitBtnSairClick(Sender: TObject);
-begin
-  FormBibliografia.Close;
-end;
-
-procedure TFormBibliografia.BitBtnSalvarClick(Sender: TObject);
-var Texto: String;
-begin
-  ReWrite(Bibliografia);
-  Append(Bibliografia);
-  Texto:=Memo1.Text;
-  Write(Bibliografia, Texto);
-end;
-
-procedure TFormBibliografia.FormClose(Sender: TObject;
-  var CloseAction: TCloseAction);
-begin
-  CloseFile(Bibliografia);
-end;
 
 procedure TFormBibliografia.FormShow(Sender: TObject);
-var StrBD:String; i, Tamanho:Integer;  R:Boolean;
+//var StrBD:String; i, Tamanho:Integer;  R:Boolean;
 begin
   Memo1.Clear;
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+    if FileExists(Dados.DatabaseMineralFileName) then
+      if Dados.ChooseDatabase('mineral',Dados.DatabaseMineralFileName) then
+        begin
+          DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
+          TableMinerals:= DatabaseMinerals.GetTable(
+            'SELECT campo FROM mineralogia WHERE campo="bibliografia" ;');
+          if TableMinerals.Count>0 then
+            if TableMinerals.MoveFirst then
+              begin
+                Memo1.Append(Dados.TableMinerals.Fields[0]);
+              end;
+          TableMinerals.Free;
+          DatabaseMinerals.Free;
+        end;
+
   //if filename *.s3db ou .sqlite, etc...
   { refazer
   Diretorio:=Copy(Dados.SQlite3DatasetGeral.filename, 0, length(Dados.SQlite3DatasetGeral.filename)-5)+'_bibliografia.dat';
@@ -83,9 +86,40 @@ begin
   end; }
 end;
 
-procedure TFormBibliografia.BitBtnEditarClick(Sender: TObject);
+procedure TFormBibliografia.ActionSaveExecute(Sender: TObject);
 begin
-  Memo1.ReadOnly:=False;
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+    if FileExists(Dados.DatabaseMineralFileName) then
+      if Dados.ChooseDatabase('mineral',Dados.DatabaseMineralFileName) then
+        begin
+          DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
+          TableMinerals:= DatabaseMinerals.GetTable(
+            'SELECT texto FROM mineralogia WHERE campo="bibliografia" ;');
+          if TableMinerals.Count >0 then
+          begin
+            DatabaseMinerals.ExecSQL('UPDATE mineralogia SET texto = "'+
+            Memo1.Text+'" WHERE campo="bibliografia"');
+          end
+          else
+          begin
+            DatabaseMinerals.ExecSQL(
+              'INSERT INTO mineralogia (campo, texto) VALUES ("bibliografia", "'+
+              Memo1.Text+'") ; ');
+          end;
+        end;
+end;
+
+procedure TFormBibliografia.ActionEditExecute(Sender: TObject);
+begin
+  if Memo1.ReadOnly then
+    Memo1.ReadOnly:=False
+  else
+    Memo1.ReadOnly:=True;
+end;
+
+procedure TFormBibliografia.ActionCloseExecute(Sender: TObject);
+begin
+  FormBibliografia.Visible:=False;
 end;
 
 end.

@@ -67,10 +67,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  StdCtrls, ExtCtrls, ComCtrls, DBCtrls, ExtDlgs, Buttons, EditBtn, ActnList,
-  RichMemo, unitshowimages, BGRAImageList, BCPanel, BCImageButton,
-  uFormImpressao, uBibliografia, UnitAjuda, IniFiles, unitequipamentos,
-  unitfichaamostra, unitfichaespecie, unitselectdatabase ;
+  StdCtrls, ExtCtrls, ComCtrls, DBCtrls, Buttons, EditBtn, ActnList,
+  BGRAImageList, BCPanel, UnitAjuda, IniFiles, unitfichaamostra,
+  unitfichaespecie, unitselectdatabase ;
 
 type
 
@@ -84,14 +83,16 @@ type
     ActionList1: TActionList;
     ActionChangeEquipment: TAction;
     BCPanel1: TBCPanel;
+    BGRAImageList1: TBGRAImageList;
     GroupBox1: TGroupBox;
     MenuItemAddChartData: TMenuItem;
     MenuItemEraseData: TMenuItem;
     PopupMenuChart: TPopupMenu;
-    SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
     ToolBar2: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButtonDatabase: TToolButton;
     ToolButton3: TToolButton;
     ToolButtonExit: TToolButton;
     ToolButtonHelp: TToolButton;
@@ -101,252 +102,33 @@ type
     procedure ActionOpenSampleFormExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure ToolButtonExitClick(Sender: TObject);
   private
     { private declarations }
   public
     { public declarations }
   end;
 
-const
-  Minerais: string = 'minerais';
-  Mineralogia: string = 'mineralogia';
-  Sample: string = 'rruff';
-  EspectroRAMAN: string = 'RAMAN';
-  AmplaVarredura: string = 'Ampla Varredura com Artefatos Espectrais';
-
-  TodosOsDados: string = 'Todos os Dados';
-  //Depolarizado: string = 'Não polarizado';
-  Angulo0: string = '0.000';
-  Angulo45: string = '45.000 ccw';
-  Angulo90: string = '90.000 ccw';
-  Onda514: string = '514 nm'; //terminar de implementar onda 514
-  Onda532: string = '532 nm';
-  Onda780: string = '780 nm';
-
-  AdicionarAmostra:String = 'Adicionar Amostra';
-
 var
   FormPrincipal: TFormPrincipal;
-  Nome_Mineral: string;
-  Imagem_Selecionada: char;
-  Tipo: string;
-  UltimaPesquisa: string;
 
   Config: TIniFile;
   ConfigFilePath: String;
 
-  den_min, den_max, ocorrencia,
-    associacao, cor, brilho: string;
   //Usado pelo RichMemo
-  fonte, fontenormal, fonte2: TFontParams;
+  //fonte, fontenormal, fonte2: TFontParams;
 
-  DatasetFileName: string;
-
-  DatabaseMinerals, DatabaseSamples: String;//caminho do banco de dados
-
-  FormFichaEspecie:TForm;
+  //FormFichaEspecie:TForm;
 
 implementation
-           //mudar o nome da unit unitadicionarimagem
-uses udatamodule;
 
 {$R *.lfm}
 
 { TFormPrincipal }
 
-    {nao adicionado //este procedimento é chamado por outro form:
-procedure TFormPrincipal.ActionAddDataExecute(Sender: TObject);
-var EditDigitoText: String; I,J: Integer; FoundChar: Boolean;
-begin
-  ///obs substituir editamostrastext por listboxitems
-  EditDigitoText:=Trim(FormAdicionaRruff.EditAmostras.Text);
-  for I:= 0 to FormAdicionaRruff.ListBox1.Count-1 do
-  begin
-    {implementar procedimento com varios items selecionados
-      em FormAdicionaRruff.ListBox}
-    if FormAdicionaRruff.ListBox1.Selected[I] then
-    begin
-      J:=0;
-      FoundChar:=False;
-      while not FoundChar do
-      begin
-        Inc(J);
-        if ( Copy(FormAdicionaRruff.ListBox1.Items.Strings[I],J,1) = '-' ) then
-          FoundChar:=True;
-      end;
-      Inc(J);
-      Case PageControlSample.TabIndex of
-      1:begin
-        ComboboxQuimicaDigito.ItemIndex:= ComboboxQuimicaDigito.Items.Add(
-          Trim(Copy(FormAdicionaRruff.Listbox1.Items.Strings[I], J, 4)));
-        Dados.AdicionaAmostra('chemistry', MemoAmostraEspecie.Text, MemoSample.
-          Text, Trim(ComboboxQuimicaDigito.Text), EmptyStr, EmptyStr);
-      end;
-      2:begin
-            ComboboxRamanDigito.ItemIndex:= ComboboxRamanDigito.Items.Add(
-              Trim(Copy(FormAdicionaRruff.ListBox1.Items.Strings[I],J,4)));
-            ComboboxDirecaoLaser.Text:=FormAdicionaRruff.ComboBox1.Text;
-            Dados.AdicionaAmostra('raman', MemoAmostraEspecie.Text, MemoSample.Text,
-              Trim(ComboboxRamanDigito.Text), FormAdicionaRruff.ComboBox1.
-                Text, '');
-        end;
-      3:begin
-            ComboboxVarreduraDigito.ItemIndex:= ComboboxVarreduraDigito.Items.Add(
-              Trim(Copy(FormAdicionaRruff.ListBox1.Items.Strings[I],J,4)));
-            ComboboxVarreduraOnda.Text:=FormAdicionaRruff.ComboBox2.Text;
-            Dados.AdicionaAmostra('varredura', MemoAmostraEspecie.Text, MemoSample.Text,
-              Trim(ComboboxVarreduraDigito.Text), FormAdicionaRruff.ComboBox2.
-                Text, '');
-        end;
-      4:begin
-            ComboboxInfravermelhoDigito.ItemIndex:= ComboboxInfravermelhoDigito.
-              Items.Add(Trim(Copy(FormAdicionaRruff.ListBox1.Items.Strings[I],J,4)));
-            Dados.AdicionaAmostra('infravermelho', MemoAmostraEspecie.Text, MemoSample.Text,
-              Trim(ComboboxInfravermelhoDigito.Text), EmptyStr, EmptyStr);
-        end;
-      5:begin
-            ComboboxDifracaoDigito.ItemIndex:= ComboboxDifracaoDigito.Items.Add(
-              Trim(Copy(FormAdicionaRruff.ListBox1.Items.Strings[I],J,4)));
-            Dados.AdicionaAmostra('difracao', MemoAmostraEspecie.Text, MemoSample.Text,
-              Trim(ComboboxDifracaoDigito.Text), EmptyStr, EmptyStr);
-        end;
-      end;
-    end;
-  end;
-  FormAdicionaRruff.Hide;
-end;     }
-
- {nao adicionado
-// é do form de adicionar rruff
-procedure TFormPrincipal.ActionListboxDigitoExecute(Sender: TObject);
-var Aux:String; Aux2:Integer;
-begin
-  Aux:=FormAdicionaRruff.ListBox1.GetSelectedText;
-  Aux:=StringReplace(Aux, FormAdicionaRruff.EditSample_id.Text, '',[rfReplaceAll]);
-  Aux:=StringReplace(Aux, '-', '',[rfReplaceAll]);
-  Case FormAdicionaRruff.LocalAmostra of
-    1:begin
-      ComboboxQuimicaDigito.ItemIndex:=ComboboxQuimicaDigito.Items.Add(Trim(Aux));
-      Dados.TableSamples:=Dados.DatabaseSamples.GetTable('SELECT especie, rruff_id, digito '+
-        'FROM rruff WHERE rruff_id="'+ListboxSample_id.GetSelectedText+
-           '" AND digito="'+ComboboxQuimicaDigito.Text+'";');
-      if Dados.TableSamples.RowCount = 0 then
-      begin
-      Dados.DatabaseSamples.ExecSQL('INSERT INTO rruff (rruff_id, digito) VALUES '+
-        '("'+ListBoxSample_id.GetSelectedText+'", "'+ComboboxQuimicaDigito.Text+'");');
-      end
-      else
-      ShowMessage('Já existe uma amostra com essas especificações');
-    end;
-    2:begin
-      ComboboxRamanDigito.ItemIndex:=ComboboxRamanDigito.Items.Add(Trim(Aux));
-      Dados.TableSamples:=Dados.DatabaseSamples.GetTable('SELECT especie, rruff_id, digito '+
-        'FROM raman WHERE especie="'+ListboxMinerais.GetSelectedText+'" AND '+
-          'rruff_id="'+ListboxSample_id.GetSelectedText+'" AND digito='+
-            '"'+ComboboxRamanDigito.Text+'";');
-      if Dados.TableSamples.RowCount = 0 then
-      begin
-      Dados.DatabaseSamples.ExecSQL('INSERT INTO raman (especie, rruff_id, digito, direcao)'+
-        ' VALUES ("'+ListboxMinerais.GetSelectedText+'", "'+ListBoxSample_id.
-          GetSelectedText+'", "'+ComboboxRamanDigito.Text+'", "'+
-            ComboboxDirecaoLaser.Text+'");');
-      end
-      else
-      ShowMessage('Já existe uma amostra com essas especificações');
-    end;
-    3:begin
-      ComboboxVarreduraDigito.ItemIndex:=ComboboxVarreduraDigito.Items.Add(Trim(Aux));
-      Dados.TableSamples:=Dados.DatabaseSamples.GetTable('SELECT especie, rruff_id, digito '+
-        'FROM varredura WHERE especie="'+ListboxMinerais.GetSelectedText+'" AND '+
-          'rruff_id="'+ListboxSample_id.GetSelectedText+'" AND digito='+
-            '"'+ComboboxVarreduraDigito.Text+'";');
-      if Dados.TableSamples.RowCount = 0 then
-      begin
-      Dados.DatabaseSamples.ExecSQL('INSERT INTO varredura (especie, rruff_id, '+
-        'digito, comprimento_onda) VALUES ("'+ListboxMinerais.GetSelectedText+'", "'
-          +ListBoxSample_id.GetSelectedText+'", "'+ComboboxVarreduraDigito.Text+
-            '", "'+ComboboxVarreduraOnda.Text+'");');
-      end
-      else
-      ShowMessage('Já existe uma amostra com essas especificações');
-    end;
-    4:begin
-      ComboboxInfravermelhoDigito.ItemIndex:=ComboboxInfravermelhoDigito.Items.
-        Add(Trim(Aux));
-      Dados.TableSamples:=Dados.DatabaseSamples.GetTable('SELECT especie, rruff_id, digito '+
-        'FROM infravermelho WHERE especie="'+ListboxMinerais.GetSelectedText+'" AND '+
-          'rruff_id="'+ListboxSample_id.GetSelectedText+'" AND digito='+
-            '"'+ComboboxInfravermelhoDigito.Text+'";');
-      if Dados.TableSamples.RowCount = 0 then
-      begin
-      Dados.DatabaseSamples.ExecSQL('INSERT INTO infravermelho (especie, rruff_id, '+
-        'digito) VALUES ("'+ListboxMinerais.GetSelectedText
-           +'", "'+ListBoxSample_id.GetSelectedText+'", "'+
-             ComboboxInfravermelhoDigito.Text+'");');
-      end
-      else
-      ShowMessage('Já existe uma amostra com essas especificações');
-    end;
-    5:begin
-      ComboboxDifracaoDigito.ItemIndex:=ComboboxDifracaoDigito.Items.
-        Add(Trim(Aux));
-      Dados.TableSamples:=Dados.DatabaseSamples.GetTable('SELECT especie, rruff_id, digito '+
-        'FROM difracao WHERE especie="'+ListboxMinerais.GetSelectedText+'" AND '+
-          'rruff_id="'+ListboxSample_id.GetSelectedText+'" AND digito='+
-            '"'+ComboboxDifracaoDigito.Text+'";');
-      if Dados.TableSamples.RowCount = 0 then
-      begin
-      Dados.DatabaseSamples.ExecSQL('INSERT INTO difracao (especie, rruff_id, '+
-        'digito) VALUES ("'+ListboxMinerais.GetSelectedText+'", "'+
-          ListBoxSample_id.GetSelectedText+'", "'+ComboboxDifracaoDigito.Text+'");');
-      end
-      else
-      ShowMessage('Já existe uma amostra com essas especificações');
-    end;
-  end;
-  FormAdicionaRruff.Close;
-end;         }
-
-     {nao adicionado
-procedure TFormPrincipal.DBMemoNomeEditingDone(Sender: TObject);
-var
-  novo, velho: integer;
-begin
-  if Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString <>
-    ListBoxMinerais.GetSelectedText then
-  begin
-    velho := ListboxMinerais.items.IndexOf(ListboxMinerais.getselectedtext);
-    novo := ListboxMinerais.Items.Add(dados.SQLite3datasetgeral.FieldByName(
-      'nome').AsString);
-    ListboxMinerais.items.Exchange(novo, velho);
-    ListboxMinerais.Items.Delete(novo);
-    UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
-      'nome', DBMemoNome);
-  end;
-end;                }
-    {nao adicionado
-procedure TFormPrincipal.DBMemoNomeKeyUp(Sender: TObject; var Key: word;
-  Shift: TShiftState);
-var
-  aux: integer;
-begin     /////funcoes para edicao de nome nao estao finalizadas!
-  {if Key = 13 then
-  begin
-   aux := ListboxMinerais.items.IndexOf(ListboxMinerais.getselectedtext);
-    UpDateCampos( Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
-      'nome', DBMemoNome);
-   Preenche_Lista;
-   ProcuraMineral;
-   ListBoxMinerais.Selected[aux] := True;
-  end;                    }
-  UpDateCampos(Minerais, Dados.Sqlite3DatasetGeral.FieldByName('nome').AsString,
-    'nome', DBMemoNome);
-end;   }
-
 procedure TFormPrincipal.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   Config.Free;
- // sldb.Free;
 end;
 
 procedure TFormPrincipal.ActionOpenMineralFormExecute(Sender: TObject);
@@ -378,184 +160,15 @@ begin
 end;
 
 procedure TFormPrincipal.FormCreate(Sender: TObject);
-var
-  MineralDb, SamplesDb, Diretorio, Ordenamento: string;
 begin
   Imagem_Selecionada := '1';
-  if DirectoryExists(GetCurrentDir+'\Data') then
-    ConfigFilePath := GetCurrentDir + '\Data\config.ini'
-  else
-    ConfigFilePath:= GetCurrentDir + '\config.ini';
-  Config := TIniFile.Create(ConfigFilePath);
 end;
 
-          {
-procedure TFormPrincipal.ModoEdicao;
+procedure TFormPrincipal.ToolButtonExitClick(Sender: TObject);
 begin
-  if (Dados.SQLite3DatasetGeral.Active) then
-    Dados.SQLite3DatasetGeral.ApplyUpdates();
-
-  Config := TIniFile.Create(ConfigFilePath);
-
-  if (MenuItemModoEdicao.Checked) then
-  begin
-    Config.WriteBool('configuracoes', 'modo_edicao', True);
-    statusbar1.Panels.Items[1].Text := 'Modo de Edição Desativado';
-    image1.Hint := '';
-    image2.Hint := '';
-    image3.Hint := '';
-    image4.Hint := '';
-    image5.Hint := '';
-
-    ImageCristalografia1.Hint := '';
-    ImageCristalografia2.Hint := '';
-
-    MenuItemModoEdicao.Checked := False;
-
-    GroupBoxDureza.Enabled := False;
-    GroupBoxDensidade.Enabled := False;
-
-    dbmemonome.ReadOnly := True;
-    dbmemoocorrencia.ReadOnly := True;
-    dbmemoassociacao.ReadOnly := True;
-    dbmemoclasse.ReadOnly := True;
-    dbmemosubclasse.ReadOnly := True;
-    dbmemogrupo.ReadOnly := True;
-    dbmemoSubgrupo.ReadOnly := True;
-    dbmemoAplicacao.ReadOnly := True;
-    dbmemoAlteracao.ReadOnly := True;
-    dbmemoDistincao.ReadOnly := True;
-    dbmemoCor.ReadOnly := True;
-    dbmemoTraco.ReadOnly := True;
-    dbmemoclivagem.ReadOnly := True;
-    dbmemofratura.ReadOnly := True;
-    dbmemoBrilho.ReadOnly := True;
-    dbmemoMagnetismo.ReadOnly := True;
-    dbmemoLuminescencia.ReadOnly := True;
-    dbmemoDifaneidade.ReadOnly := True;
-    dbmemoSinal_optico.ReadOnly := True;
-    dbmemoIndice_Refracao.ReadOnly := True;
-    dbmemoAngulo.ReadOnly := True;
-    dbmemoCor_Interferencia.ReadOnly := True;
-    dbmemoSinal_Elongacao.ReadOnly := True;
-    dbmemoBirrefringencia.ReadOnly := True;
-    dbmemoRelevo.ReadOnly := True;
-    dbmemoExtincao.ReadOnly := True;
-    dbmemoSistema.ReadOnly := True;
-    dbmemoH_M.ReadOnly := True;
-    DBMemoHabito.ReadOnly := True;
-    dbmemoClasse_Cristalina.ReadOnly := True;
-    DBMemoCor_Lamina.ReadOnly := True;
-
-    MemoVarreduraDescricao.ReadOnly := True;
-    MemoInfravermelhoDescricao.ReadOnly := True;
-    MemoA.ReadOnly := True;
-    MemoB.ReadOnly := True;
-    MemoC.ReadOnly := True;
-    MemoAlpha.ReadOnly := True;
-    MemoBeta.ReadOnly := True;
-    MemoGamma.ReadOnly := True;
-    MemoVolume.ReadOnly := True;
-    MemoSistemaCristalino.ReadOnly := True;
-
-    MemoAmostraQuimica.ReadOnly := True;
-    MemoLocalidade.ReadOnly := True;
-    MemoFonte.ReadOnly := True;
-    MemoAmostraDescricao.ReadOnly := True;
-    MemoQuimicaDescricao.ReadOnly := True;
-    MemoRamanDescricao.ReadOnly := True;
-    MemoSituacao.ReadOnly := True;
-    MemoQuimicaMedida.ReadOnly := True;
-    MemoRamanPin_id.ReadOnly := True;
-    MemoRamanOrientacao.ReadOnly := True;
-    MemoProprietario.ReadOnly := True;
-    MemoSample.ReadOnly := True;
-
-    richmemoformula.Visible := True;
-    //dbmemoformula.Visible := False;
-    AtualizaRichMemo;
-  end
-  else
-  begin
-    Config.WriteBool('configuracoes', 'modo_edicao', False);
-    statusbar1.Panels.Items[1].Text := 'Modo de Edição Ativado';
-
-    image1.Hint := 'Duplo clique para alterar';
-    image2.Hint := 'Duplo clique para alterar';
-    image3.Hint := 'Duplo clique para alterar';
-    image4.Hint := 'Duplo clique para alterar';
-    image5.Hint := 'Duplo clique para alterar';
-    ImageCristalografia1.Hint := 'Duplo clique para alterar';
-    ImageCristalografia2.Hint := 'Duplo clique para alterar';
-
-    GroupBoxDureza.Enabled := True;
-    GroupBoxDensidade.Enabled := True;
-
-    MenuItemModoEdicao.Checked := True;
-
-    dbmemonome.ReadOnly := False;
-    dbmemoocorrencia.ReadOnly := False;
-    dbmemoassociacao.ReadOnly := False;
-    dbmemoclasse.ReadOnly := False;
-    dbmemosubclasse.ReadOnly := False;
-    dbmemogrupo.ReadOnly := False;
-    dbmemoSubgrupo.ReadOnly := False;
-    dbmemoaplicacao.ReadOnly := False;
-    dbmemoalteracao.ReadOnly := False;
-    dbmemodistincao.ReadOnly := False;
-    dbmemocor.ReadOnly := False;
-    dbmemoTraco.ReadOnly := False;
-    dbmemoClivagem.ReadOnly := False;
-    dbmemoFratura.ReadOnly := False;
-    dbmemoBrilho.ReadOnly := False;
-    dbmemoMagnetismo.ReadOnly := False;
-    dbmemoLuminescencia.ReadOnly := False;
-    dbmemoDifaneidade.ReadOnly := False;
-    dbmemoSinal_Optico.ReadOnly := False;
-    dbmemoIndice_Refracao.ReadOnly := False;
-    dbmemoAngulo.ReadOnly := False;
-    dbmemoCor_Interferencia.ReadOnly := False;
-    dbmemoSinal_Elongacao.ReadOnly := False;
-    dbmemoBirrefringencia.ReadOnly := False;
-    dbmemoRelevo.ReadOnly := False;
-    dbmemoExtincao.ReadOnly := False;
-    dbmemoSistema.ReadOnly := False;
-    dbmemoH_M.ReadOnly := False;
-    DBMemoHabito.ReadOnly := False;
-    dbmemoClasse_Cristalina.ReadOnly := False;
-    DBMemoCor_Lamina.ReadOnly := False;
-
-    MemoVarreduraDescricao.ReadOnly := False;
-    MemoInfravermelhoDescricao.ReadOnly := False;
-    MemoInfravermelhoResolucao.ReadOnly := False;
-    MemoA.ReadOnly := False;
-    MemoB.ReadOnly := False;
-    MemoC.ReadOnly := False;
-    MemoAlpha.ReadOnly := False;
-    MemoBeta.ReadOnly := False;
-    MemoGamma.ReadOnly := False;
-    MemoVolume.ReadOnly := False;
-    MemoSistemaCristalino.ReadOnly := False;
-
-    MemoAmostraQuimica.ReadOnly := False;
-    MemoLocalidade.ReadOnly := False;
-    MemoFonte.ReadOnly := False;
-    MemoAmostraDescricao.ReadOnly := False;
-    MemoQuimicaDescricao.ReadOnly := False;
-    MemoRamanDescricao.ReadOnly := False;
-    MemoSituacao.ReadOnly := False;
-    MemoQuimicaMedida.ReadOnly := False;
-    MemoRamanPin_id.ReadOnly := False;
-    MemoRamanOrientacao.ReadOnly := False;
-    MemoProprietario.ReadOnly := False;
-    MemoSample.ReadOnly := False;
-
-    richmemoformula.Visible := False;
-    //dbmemoformula.Visible := True;
-  end;
-  Config.Free;
-end;      }
-         {
+  Application.Terminate;
+end;
+{
 procedure TFormPrincipal.AtualizaRichMemo;
 var
   aux: string;

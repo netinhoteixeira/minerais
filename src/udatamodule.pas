@@ -99,6 +99,10 @@ type
     //guarda o caminho do banco de dados:
     DatabaseMineralFileName, DatabaseSampleFileName: String;
 
+    //guarda o caminho do arquivo config e dos arquivos .csv
+    //getcurrentdir+'\Data' ou getcurrentdir+'\'
+    Caminho: String;
+
     procedure UpdateField(Table, Field, NewValue, Especie, Sample, Digito,
       Direction: String);
     procedure CreateDatabase(Tipo, Diretorio: String);
@@ -120,22 +124,6 @@ var
   MS: TMemoryStream;
   FS: TFileStream;
   num: integer;
-
-const
-  Microssonda: string = 'Microssonda';
-  EspectroRAMAN: string = 'RAMAN';
-  AmplaVarredura: string = 'Ampla Varredura';
-  Infravermelho: string = 'Espectro Infravermelho';
-  Difracao: string = 'Difracao';
-  TodosOsDados: string = 'Todos os Dados';
-  Angulo0: string = '0.000';
-  Angulo45: string = '45.000 ccw';
-  Angulo90: string = '90.000 ccw';
-  Onda514: string = '514 nm';
-  Onda532: string = '532 nm';
-  Onda580: string = '580 nm';
-  Onda732: string = '732 nm';
-  Onda780: string = '780 nm';
 
 implementation
 
@@ -234,7 +222,7 @@ begin
     DatabaseMinerals.ExecSQL(ExecSQL);
     ExecSQL :=
       'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] '+
-        'TEXT, [mineralogiaimagem1] BLOB, [mineralogiaimagem2] BLOB, '+
+        'TEXT, [texto] TEXT, [mineralogiaimagem1] BLOB, [mineralogiaimagem2] BLOB, '+
           '[mineralogiaimagem3] BLOB, [mineralogiaimagem4] BLOB, '+
             '[mineralogiaimagem5] BLOB);';
     DatabaseMinerals.ExecSQL(ExecSQL);
@@ -290,9 +278,18 @@ end;
 
 procedure TDados.DataModuleCreate(Sender: TObject);
 begin
-
+  if DirectoryExists(GetCurrentDir+'\Data') then
+    Caminho:=GetCurrentDir+'\Data'
+  else
+    begin
+      try
+        MkDir(GetCurrentDir+'\Data');
+        Caminho:=GetCurrentDir+'\Data';
+      except
+        Caminho:=GetCurrentDir+'\';
+      end;
+    end;
 end;
-
       //Verifica se o Banco de dados é compatível
 function TDados.ChooseDatabase(Tipo, Directory: String): Boolean;
 var Compatible:Boolean;

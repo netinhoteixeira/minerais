@@ -5,10 +5,10 @@ unit unitfichaamostra;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, TAGraph, TASeries, BCPanel, BGRAFlashProgressBar,
+  Classes, SysUtils, FileUtil, TAGraph, TASeries, BCPanel,
   BGRAImageList, BCLabel, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   ComCtrls, StdCtrls, DBCtrls, Buttons, ActnList, ExtDlgs, Menus, unitPlanilha,
-  unitRruff_id, SQLite3tablemod, IniFiles, unitequipamentos,
+  SQLite3tablemod, IniFiles, unitequipamentos,
   unitaddsample, unitremovesample;
 
 type
@@ -52,6 +52,7 @@ type
     BCLabel1: TBCLabel;
     BCLabel2: TBCLabel;
     BCLabel3: TBCLabel;
+    BCLabelRegistros: TBCLabel;
     BCPanel1: TBCPanel;
     BCPanel2: TBCPanel;
     BGRAImageList1: TBGRAImageList;
@@ -270,6 +271,7 @@ type
     procedure BitBtnAddMicroprobeDataClick(Sender: TObject);
     procedure BitBtnClearMicroprobeDataClick(Sender: TObject);
     procedure BitBtnEditMicroprobeDataClick(Sender: TObject);
+    procedure ComboBox1Change(Sender: TObject);
     procedure ComboBoxDirecaoLaserChange(Sender: TObject);
     procedure ComboBoxVarreduraOndaChange(Sender: TObject);
     procedure EditChemistryEditingDone(Sender: TObject);
@@ -319,15 +321,13 @@ type
     procedure MenuItemAddClick(Sender: TObject);
     procedure MenuItemRemoveClick(Sender: TObject);
   private
-    procedure Preenche_Amostras;
     procedure ComboboxesEquipment;
+    procedure Preenche_Amostras;
+    procedure EditingMode(Mode: boolean);
     { private declarations }
   public
     { public declarations }
   end;
-
-const
-  AdicionarAmostra: string = 'Adicionar Amostra';
 
 var
   DatabaseSamples: TSQLiteDatabase;
@@ -347,28 +347,32 @@ uses udatamodule, unitBlobFields;
 { TFormFichaAmostra }
 
 procedure TFormFichaAmostra.FormCreate(Sender: TObject);
-var
-  Diretorio: string;
 begin
   OpenDialog1.Filter := 'All Files | *.csv; *.txt; *.dat; *.*;';
-  if FileExists(Dados.DatabaseSampleFileName) then
+  if Dados.DatabaseSampleFileName <> EmptyStr then
   begin
-    DatabaseSamples := TSQLiteDatabase.Create(Dados.DatabaseSampleFileName);
-    Preenche_Amostras;
-    ComboboxesEquipment;
+    if FileExists(Dados.DatabaseSampleFileName) then
+    begin
+      DatabaseSamples := TSQLiteDatabase.Create(Dados.DatabaseSampleFileName);
+      Preenche_Amostras;
+      ComboboxesEquipment;
+      EditingMode(True);
+    end
+    else
+    begin
+      ShowMessage('O banco de dados: "' + Dados.DatabaseSampleFileName +
+        '" não é válido.');
+      Dados.DatabaseSampleFileName := EmptyStr;
+      EditingMode(False);
+    end;
   end
   else
   begin
-    ShowMessage('O banco de dados: "' + Dados.DatabaseSampleFileName +
-      '" não é válido.');
+    ShowMessage('Não há banco de dados selecionado.');
     Dados.DatabaseSampleFileName := EmptyStr;
+    EditingMode(False);
   end;
 
-  if DirectoryExists(GetCurrentDir + '\Data') then
-    Diretorio := GetCurrentDir + '\Data\config.ini'
-  else
-    Diretorio := GetCurrentDir + '\config.ini';
-  Config := TIniFile.Create(Diretorio);
   {obs: instruções obsoletas, atualizar
   Especie:= Dados.TableSamples.FieldByName['especie'];
   Sample_id:= Dados.TableSamples.FieldByName['rruff_id'];
@@ -795,52 +799,56 @@ begin
 end;
 
 procedure TFormFichaAmostra.MenuItemAddClick(Sender: TObject);
-var Digito:String;
+var
+  Digito: string;
 begin
-  if EditSample.Text <> EmptyStr then
+  if Trim(EditSample.Text) <> EmptyStr then
   begin
+    OpenPictureDialog1.FileName := EmptyStr;
     case PageControlSample.TabIndex of
       0:
       begin
-        OpenPictureDialog1.FileName := EmptyStr;
         if OpenPictureDialog1.Execute then
         begin
           if OpenPictureDialog1.FileName <> EmptyStr then
           begin
             AddBlobFieldSample(Dados.DatabaseSampleFileName,
               OpenPictureDialog1.FileName, 'rruff',
-              'imagem_amostra', EditSample.Text, EmptyStr, EmptyStr);
+              'imagem_amostra', EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
             self.ImageAmostra.Picture.Graphic :=
               SelectBlobFieldToJPEGImage('rruff', 'imagem_amostra',
-              EmptyStr, EditSample.Text, EmptyStr, EmptyStr);
+              EmptyStr, EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
           end;
         end;
       end;
       1:
       begin
-        OpenPictureDialog1.FileName := EmptyStr;
-        if OpenPictureDialog1.Execute then
+        if ComboboxQuimicaDigito.Text <> EmptyStr then
         begin
-          if OpenPictureDialog1.FileName <> EmptyStr then
+          if OpenPictureDialog1.Execute then
           begin
-            Digito := Trim(ComboboxQuimicaDigito.Text);
-            if Digito = EmptyStr then
-              Digito := '0';
-            TableSamples := DatabaseSamples.GetTable('SELECT rruff_id FROM ' +
-              'chemistry WHERE rruff_id="' + EditSample.Caption + '" ;');
-            if TableSamples.RowCount < 1 then
-              DatabaseSamples.ExecSQL(
-                'INSERT INTO chemistry (rruff_id, especie, digito) VALUES ' +
-                '("' + EditSample.Caption + '","' + EditMineralSample.Caption +
-                '","' + Digito + '") ; ');
-            AddBlobFieldSample(Dados.DatabaseSampleFileName,
-              OpenDialog1.FileName, 'chemistry',
-              'image', EditSample.Text, Digito, EmptyStr);
-            self.ImageQuimica.Picture.Graphic :=
-              SelectBlobFieldToJPEGImage('chemistry', 'image', EmptyStr,
-              EditSample.Text, Digito, EmptyStr);
+            if OpenPictureDialog1.FileName <> EmptyStr then
+            begin
+              Digito := Trim(ComboboxQuimicaDigito.Text);
+              if Digito = EmptyStr then
+                Digito := '0';
+              TableSamples := DatabaseSamples.GetTable('SELECT rruff_id FROM ' +
+                'chemistry WHERE rruff_id="' + EditSample.Caption + '" ;');
+              if TableSamples.RowCount < 1 then
+                DatabaseSamples.ExecSQL(
+                  'INSERT INTO chemistry (rruff_id, digito) VALUES ' +
+                  '("' + EditSample.Caption + '", "' + Digito + '") ; ');
+              AddBlobFieldSample(Dados.DatabaseSampleFileName,
+                OpenPictureDialog1.FileName, 'chemistry',
+                'image', EditSample.Text, Digito, EmptyStr);
+              self.ImageQuimica.Picture.Graphic :=
+                SelectBlobFieldToJPEGImage('chemistry', 'image',
+                EmptyStr, EditSample.Text, Digito, EmptyStr);
+            end;
           end;
-        end;
+        end
+        else
+          ShowMessage('Não há subamostra selecionada.');
       end;
     end;
   end
@@ -878,218 +886,276 @@ begin
   ProgressBar1.Min := 0;
   ProgressBar1.Max := 6;
 
-  if Trim(EditMineralName.Text) = EmptyStr then
+  if Dados.DatabaseSampleFileName <> EmptyStr then
   begin
-    if Trim(EditSample_id.Text) = EmptyStr then
+    if FileExists(Dados.DatabaseSampleFileName) then
     begin
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM rruff ' +
-        '  ;');
-    end
-    else
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM rruff ' +
-        ' WHERE rruff_id = "' + EditSample_id.Text + '" ;');
-  end
-  else
-  begin
-    if Trim(EditSample_id.Text) = EmptyStr then
-    begin
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM rruff ' +
-        'WHERE especie="' + EditMineralName.Text + '"  ;');
-    end
-    else
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM rruff ' +
-        'WHERE rruff_id="' + EditSample_id.Text + '" AND especie="' +
-        EditMineralName.Text + '"  ;');
-  end;
-  if TableSamples.MoveFirst then
-  begin
-    while not TableSamples.EOF do
-    begin
-      ListboxSample_id.Items.Append(TableSamples.FieldByName['rruff_id']);
-      TableSamples.Next;
+      if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
+      begin
+
+        if Trim(EditMineralName.Text) = EmptyStr then
+        begin
+          if Trim(EditSample_id.Text) = EmptyStr then
+          begin
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM rruff ' + '  ;');
+          end
+          else
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM rruff ' + ' WHERE rruff_id = "' +
+              EditSample_id.Text + '" ;');
+        end
+        else
+        begin
+          if Trim(EditSample_id.Text) = EmptyStr then
+          begin
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM rruff ' + 'WHERE especie="' +
+              EditMineralName.Text + '"  ;');
+          end
+          else
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM rruff ' + 'WHERE rruff_id="' +
+              EditSample_id.Text + '" AND especie="' + EditMineralName.Text + '"  ;');
+        end;
+        if TableSamples.MoveFirst then
+        begin
+          while not TableSamples.EOF do
+          begin
+            if Trim(TableSamples.FieldByName['rruff_id']) <> EmptyStr then
+              ListboxSample_id.Items.Append(TableSamples.FieldByName['rruff_id']);
+            TableSamples.Next;
+          end;
+        end;
+        ProgressBar1.StepIt;
+
+        if Trim(EditMineralName.Text) = EmptyStr then
+        begin
+          if Trim(EditSample_id.Text) = EmptyStr then
+          begin
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM chemistry  ;');
+          end
+          else
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM chemistry WHERE rruff_id="' +
+              EditSample_id.Text + '" ;');
+        end
+        else
+        begin
+          if Trim(EditSample_id.Text) = EmptyStr then
+          begin
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM chemistry WHERE especie="' +
+              EditMineralName.Text + '" ;');
+          end
+          else
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM chemistry WHERE rruff_id="' +
+              EditSample_id.Text + '" AND especie ="' + EditMineralName.Text + '" ;');
+        end;
+        if TableSamples.MoveFirst then
+        begin
+          while not TableSamples.EOF do
+          begin
+            if Trim(TableSamples.FieldByName['rruff_id']) <> EmptyStr then
+              if ListboxSample_id.Items.IndexOf(
+                TableSamples.FieldByName['rruff_id']) < 0 then
+                ListboxSample_id.Items.Append(TableSamples.FieldByName['rruff_id']);
+            TableSamples.Next;
+          end;
+        end;
+        ProgressBar1.StepIt;
+
+        if Trim(EditMineralName.Text) = EmptyStr then
+        begin
+          if Trim(EditSample_id.Text) = EmptyStr then
+          begin
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM raman ' + '  ;');
+          end
+          else
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM raman ' + ' WHERE rruff_id="' +
+              EditSAmple_id.Text + '" ;');
+        end
+        else
+        begin
+          if Trim(EditSample_id.Text) = EmptyStr then
+          begin
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM raman ' + ' WHERE especie="' +
+              EditMineralName.Text + '" ;');
+          end
+          else
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM raman ' + ' WHERE rruff_id="' +
+              EditSample_id.Text + '" AND especie="' + EditMineralName.Text + '" ;');
+        end;
+        if TableSamples.MoveFirst then
+        begin
+          while not TableSamples.EOF do
+          begin
+            if Trim(TableSamples.FieldByName['rruff_id']) <> EmptyStr then
+              if ListboxSample_id.Items.IndexOf(
+                TableSamples.FieldByName['rruff_id']) < 0 then
+                ListboxSample_id.Items.Append(TableSamples.FieldByName['rruff_id']);
+            TableSamples.Next;
+          end;
+        end;
+        ProgressBar1.StepIt;
+
+        if Trim(EditMineralName.Text) = EmptyStr then
+        begin
+          if Trim(EditSample_id.Text) = EmptyStr then
+          begin
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM varredura' + '  ;');
+          end
+          else
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM varredura' + ' WHERE rruff_id="' +
+              EditSample_id.Text + '" ;');
+        end
+        else
+        begin
+          if Trim(EditSample_id.Text) = EmptyStr then
+          begin
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM varredura' + ' WHERE especie="' +
+              EditMineralName.Text + '" ;');
+          end
+          else
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM varredura' + ' WHERE rruff_id="' +
+              EditSample_id.Text + '" AND especie="' + EditMineralName.Text + '" ;');
+        end;
+        if TableSamples.MoveFirst then
+        begin
+          while not TableSamples.EOF do
+          begin
+            if Trim(TableSamples.FieldByName['rruff_id']) <> EmptyStr then
+              if ListboxSample_id.Items.IndexOf(
+                TableSamples.FieldByName['rruff_id']) < 0 then
+                ListboxSample_id.Items.Append(TableSamples.FieldByName['rruff_id']);
+            TableSamples.Next;
+          end;
+        end;
+        ProgressBar1.StepIt;
+
+        if Trim(EditMineralName.Text) = EmptyStr then
+        begin
+          if Trim(EditSample_id.Text) = EmptyStr then
+          begin
+            TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM ' +
+              'infravermelho ;');
+          end
+          else
+            TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM ' +
+              'infravermelho WHERE rruff_id="' + EditSample_id.Text + '" ;');
+        end
+        else
+        begin
+          if Trim(EditSample_id.Text) = EmptyStr then
+          begin
+            TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM ' +
+              'infravermelho WHERE especie="' + EditMineralName.Text + '" ;');
+          end
+          else
+            TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM ' +
+              'infravermelho WHERE rruff_id="' + EditSample_id.Text +
+              '" AND especie="' + EditMineralName.Text + '" ;');
+        end;
+        if TableSamples.MoveFirst then
+        begin
+          while not TableSamples.EOF do
+          begin
+            if Trim(TableSamples.FieldByName['rruff_id']) <> EmptyStr then
+              if ListboxSample_id.Items.IndexOf(
+                TableSamples.FieldByName['rruff_id']) < 0 then
+                ListboxSample_id.Items.Append(TableSamples.FieldByName['rruff_id']);
+            TableSamples.Next;
+          end;
+        end;
+        ProgressBar1.StepIt;
+
+        if Trim(EditMineralName.Text) = EmptyStr then
+        begin
+          if Trim(EditSample_id.Text) = EmptyStr then
+          begin
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM difracao' + ' ;');
+          end
+          else
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM difracao' + ' WHERE rruff_id = "' +
+              EditSample_id.Text + '" ;');
+        end
+        else
+        begin
+          if Trim(EditSample_id.Text) = EmptyStr then
+          begin
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM difracao' + ' WHERE especie="' +
+              EditMineralName.Text + '" ;');
+          end
+          else
+            TableSamples := DatabaseSamples.GetTable(
+              'SELECT DISTINCT rruff_id FROM difracao' + ' WHERE rruff_id = "' +
+              EditSample_id.Text + '" AND especie="' + EditMineralName.Text + '";');
+        end;
+
+        if TableSamples.MoveFirst then
+        begin
+          while not TableSamples.EOF do
+          begin
+            if Trim(TableSamples.FieldByName['rruff_id']) <> EmptyStr then
+              if ListboxSample_id.Items.IndexOf(
+                TableSamples.FieldByName['rruff_id']) < 0 then
+                ListboxSample_id.Items.Append(TableSamples.FieldByName['rruff_id']);
+            TableSamples.Next;
+          end;
+        end;
+
+      end;
     end;
   end;
-  ProgressBar1.StepIt;
-
-  if Trim(EditMineralName.Text) = EmptyStr then
-  begin
-    if Trim(EditSample_id.Text) = EmptyStr then
-    begin
-      TableSamples := DatabaseSamples.GetTable(
-        'SELECT DISTINCT rruff_id FROM chemistry  ;');
-    end
-    else
-      TableSamples := DatabaseSamples.GetTable(
-        'SELECT DISTINCT rruff_id FROM chemistry WHERE rruff_id="' +
-        EditSample_id.Text + '" ;');
-  end
+  if ListboxSample_id.Count = 0 then
+    BCLabelRegistros.Caption := 'Nenhum Registro'
   else
-  begin
-    if Trim(EditSample_id.Text) = EmptyStr then
-    begin
-      TableSamples := DatabaseSamples.GetTable(
-        'SELECT DISTINCT rruff_id FROM chemistry WHERE especie="' +
-        EditMineralName.Text + '" ;');
-    end
-    else
-      TableSamples := DatabaseSamples.GetTable(
-        'SELECT DISTINCT rruff_id FROM chemistry WHERE rruff_id="' +
-        EditSample_id.Text + '" AND especie ="' + EditMineralName.Text + '" ;');
-  end;
-  if TableSamples.MoveFirst then
-  begin
-    while not TableSamples.EOF do
-    begin
-      if ListboxSample_id.Items.IndexOf(
-        TableSamples.FieldByName['rruff_id']) < 0 then
-        ListboxSample_id.Items.Append(TableSamples.FieldByName['rruff_id']);
-      TableSamples.Next;
-    end;
-  end;
-  ProgressBar1.StepIt;
-
-  if Trim(EditMineralName.Text) = EmptyStr then
-  begin
-    if Trim(EditSample_id.Text) = EmptyStr then
-    begin
-      TableSamples := DatabaseSamples.GetTable(
-        'SELECT DISTINCT rruff_id FROM raman ' + '  ;');
-    end
-    else
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM raman ' +
-        ' WHERE rruff_id="' + EditSAmple_id.Text + '" ;');
-  end
+  if ListboxSample_id.Count = 1 then
+    BCLabelRegistros.Caption := '1 Registro'
   else
-  begin
-    if Trim(EditSample_id.Text) = EmptyStr then
-    begin
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM raman ' +
-        ' WHERE especie="' + EditMineralName.Text + '" ;');
-    end
-    else
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM raman ' +
-        ' WHERE rruff_id="' + EditSample_id.Text + '" AND especie="' +
-        EditMineralName.Text + '" ;');
-  end;
-  if TableSamples.MoveFirst then
-  begin
-    while not TableSamples.EOF do
-    begin
-      if ListboxSample_id.Items.IndexOf(
-        TableSamples.FieldByName['rruff_id']) < 0 then
-        ListboxSample_id.Items.Append(TableSamples.FieldByName['rruff_id']);
-      TableSamples.Next;
-    end;
-  end;
-  ProgressBar1.StepIt;
-
-  if Trim(EditMineralName.Text) = EmptyStr then
-  begin
-    if Trim(EditSample_id.Text) = EmptyStr then
-    begin
-      TableSamples := DatabaseSamples.GetTable(
-        'SELECT DISTINCT rruff_id FROM varredura' + '  ;');
-    end
-    else
-      TableSamples := DatabaseSamples.GetTable(
-        'SELECT DISTINCT rruff_id FROM varredura' + ' WHERE rruff_id="' +
-        EditSample_id.Text + '" ;');
-  end
-  else
-  begin
-    if Trim(EditSample_id.Text) = EmptyStr then
-    begin
-      TableSamples := DatabaseSamples.GetTable(
-        'SELECT DISTINCT rruff_id FROM varredura' + ' WHERE especie="' +
-        EditMineralName.Text + '" ;');
-    end
-    else
-      TableSamples := DatabaseSamples.GetTable(
-        'SELECT DISTINCT rruff_id FROM varredura' + ' WHERE rruff_id="' +
-        EditSample_id.Text + '" AND especie="' + EditMineralName.Text + '" ;');
-  end;
-  if TableSamples.MoveFirst then
-  begin
-    while not TableSamples.EOF do
-    begin
-      if ListboxSample_id.Items.IndexOf(
-        TableSamples.FieldByName['rruff_id']) < 0 then
-        ListboxSample_id.Items.Append(TableSamples.FieldByName['rruff_id']);
-      TableSamples.Next;
-    end;
-  end;
-  ProgressBar1.StepIt;
-
-  if Trim(EditMineralName.Text) = EmptyStr then
-  begin
-    if Trim(EditSample_id.Text) = EmptyStr then
-    begin
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM ' +
-        'infravermelho ;');
-    end
-    else
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM ' +
-        'infravermelho WHERE rruff_id="' + EditSample_id.Text + '" ;');
-  end
-  else
-  begin
-    if Trim(EditSample_id.Text) = EmptyStr then
-    begin
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM ' +
-        'infravermelho WHERE especie="' + EditMineralName.Text + '" ;');
-    end
-    else
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM ' +
-        'infravermelho WHERE rruff_id="' + EditSample_id.Text +
-        '" AND especie="' + EditMineralName.Text + '" ;');
-  end;
-  if TableSamples.MoveFirst then
-  begin
-    while not TableSamples.EOF do
-    begin
-      if ListboxSample_id.Items.IndexOf(
-        TableSamples.FieldByName['rruff_id']) < 0 then
-        ListboxSample_id.Items.Append(TableSamples.FieldByName['rruff_id']);
-      TableSamples.Next;
-    end;
-  end;
-  ProgressBar1.StepIt;
-
-  if Trim(EditMineralName.Text) = EmptyStr then
-  begin
-    if Trim(EditSample_id.Text) = EmptyStr then
-    begin
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM difracao' +
-        ' ;');
-    end
-    else
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM difracao' +
-        ' WHERE rruff_id = "' + EditSample_id.Text + '" ;');
-  end
-  else
-  begin
-    if Trim(EditSample_id.Text) = EmptyStr then
-    begin
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM difracao' +
-        ' WHERE especie="' + EditMineralName.Text + '" ;');
-    end
-    else
-      TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT rruff_id FROM difracao' +
-        ' WHERE rruff_id = "' + EditSample_id.Text + '" AND especie="' +
-        EditMineralName.Text + '";');
-  end;
-
-  if TableSamples.MoveFirst then
-  begin
-    while not TableSamples.EOF do
-    begin
-      if ListboxSample_id.Items.IndexOf(
-        TableSamples.FieldByName['rruff_id']) < 0 then
-        ListboxSample_id.Items.Append(TableSamples.FieldByName['rruff_id']);
-      TableSamples.Next;
-    end;
-  end;
+    BCLabelRegistros.Caption := IntToStr(ListboxSample_id.Count) + ' Registros';
   ProgressBar1.Position := 0;
+end;
+
+procedure TFormFichaAmostra.EditingMode(Mode: boolean);
+begin
+  EditMineralSample.Enabled := Mode;
+  EditSample.Enabled := Mode;
+  EditChemistry.Enabled := Mode;
+  MemoLocalidade.Enabled := Mode;
+  MemoFonte.Enabled := Mode;
+  MemoProprietario.Enabled := Mode;
+  MemoAmostraDescricao.Enabled := Mode;
+  MemoSituacao.Enabled := Mode;
+  MemoQuimicaDescricao.Enabled := Mode;
+  MemoQuimicaMedida.Enabled := Mode;
+  MemoRamanPin_id.Enabled := Mode;
+  MemoRamanDescricao.Enabled := Mode;
+  MemoRamanOrientacao.Enabled := Mode;
+  MemoVarreduraDescricao.Enabled := Mode;
+  MemoInfravermelhoDescricao.Enabled := Mode;
+  MemoInfravermelhoResolucao.Enabled := Mode;
+  MemoA.Enabled := Mode;
+  MemoB.Enabled := Mode;
+  MemoC.Enabled := Mode;
+  MemoAlpha.Enabled := Mode;
+  MemoBeta.Enabled := Mode;
+  MemoGamma.Enabled := Mode;
+  MemoVolume.Enabled := Mode;
+  MemoSistemaCristalino.Enabled := Mode;
 end;
 
 procedure TFormFichaAmostra.ComboboxesEquipment;
@@ -1113,7 +1179,7 @@ end;
 
 procedure TFormFichaAmostra.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  Config.Free;
+  //FormFichaAmostra.Free;
 end;
 
 procedure TFormFichaAmostra.ComboBoxDirecaoLaserChange(Sender: TObject);
@@ -1130,12 +1196,12 @@ begin
     1:
     begin
       self.ImageQuimica.Picture.Graphic :=
-        SelectBlobFieldToJPEGImage('chemistry', 'microprobe_file',
-        EmptyStr, EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
+        SelectBlobFieldToJPEGImage('chemistry', 'image', EmptyStr,
+        EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
     end;
     2:
     begin
-      if ComboboxRamanDigito.Text = '0' then
+      {if ComboboxRamanDigito.Text = '0' then
       begin
         ComboboxDirecaoLaser.Items.Clear;
         ComboboxDirecaoLaser.ItemIndex :=
@@ -1154,6 +1220,26 @@ begin
         ComboboxDirecaoLaser.Items.Append(Angulo45);
         ComboboxDirecaoLaser.Items.Append(Angulo90);
         ComboboxDirecaoLaser.Items.Append('Depolarizado');
+      end;   }
+      ComboboxDirecaoLaser.Items.Clear;
+      TableSamples := DatabaseSamples.GetTable(
+        'SELECT equipment, direcao FROM raman WHERE ' + 'rruff_id="' +
+        ListboxSample_id.GetSelectedText + '" AND digito="' +
+        ComboboxRamanDigito.Text + '";');
+      if TableSamples.MoveFirst then
+      begin
+        ComboboxRamanEquipment.ItemIndex:=ComboboxRamanEquipment.Items.IndexOf(
+        TableSamples.FieldByName['equipment']);
+        ComboboxDirecaoLaser.ItemIndex:=ComboboxDirecaoLaser.Items.Add(
+          TableSamples.FieldByName['direcao']);
+        while not TableSamples.EOF do
+        begin
+          if ComboboxDirecaoLaser.Items.IndexOf(
+            TableSamples.FieldByName['direcao']) < 0 then
+            ComboboxDirecaoLaser.Items.Append(TableSamples.FieldByName['direcao']);
+          TableSamples.Next;
+        end;
+
       end;
       ChartRaman.ClearSeries;
       ChartRaman.AddSeries(SelectBlobFieldToChartSeries('raman',
@@ -1162,6 +1248,26 @@ begin
     end;
     3:
     begin
+      ComboboxVarreduraOnda.Clear;
+      TableSamples := DatabaseSamples.GetTable('SELECT equipment, comprimento_onda FROM ' +
+      'varredura WHERE rruff_id="' + ListboxSample_id.GetSelectedText +
+      '" ' + ' AND digito="' + ComboboxVarreduraDigito.Text + '" ;');
+      if TableSamples.MoveFirst then
+      begin
+        ComboboxBroadScanEquipment.ItemIndex:=ComboboxBroadScanEquipment.Items.
+          IndexOf(TableSamples.FieldByName['equipment']);
+        ComboboxVarreduraOnda.ItemIndex:=ComboboxVarreduraOnda.Items.Add(
+          TableSamples.FieldByName['comprimento_onda']);
+        while not TableSamples.EOF do
+        begin
+        if ComboboxVarreduraOnda.Items.IndexOf(
+          TableSamples.FieldByName['comprimento_onda']) < 0 then
+          ComboboxVarreduraOnda.Items.Append(TableSamples.FieldByName[
+            'comprimento_onda']);
+        TableSamples.Next;
+        end;
+      end;
+
       ChartBroadScan.ClearSeries;
       ChartBroadScan.AddSeries(SelectBlobFieldToChartSeries('varredura',
         'arquivo_varredura', EmptyStr, EditSample.Text,
@@ -1191,7 +1297,7 @@ begin
     if FileExists(Dados.DatabaseSampleFileName) then
     begin
       if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
-         FormInstrumentos.Show
+        FormInstrumentos.Show
       else
         ShowMessage('O banco de dados não é valido.');
     end
@@ -1204,66 +1310,74 @@ end;
 
 procedure TFormFichaAmostra.ActionAddDataToChartExecute(Sender: TObject);
 begin
-  if EditSample.Text <> EmptyStr then
+  if Trim(EditSample.Text) <> EmptyStr then
   begin
-    OpenDialog1.FileName := EmptyStr;
-    if OpenDialog1.Execute then
+    if Dados.DatabaseSampleFileName <> EmptyStr then
     begin
-      if OpenDialog1.FileName <> EmptyStr then
+      if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
       begin
-        case PageControlSample.TabIndex of
-          2:
+        OpenDialog1.FileName := EmptyStr;
+        if OpenDialog1.Execute then
+        begin
+          if OpenDialog1.FileName <> EmptyStr then
           begin
-            if ComboboxDirecaoLaser.Text = TodosOsDados then
-              ShowMessage('Escolha o ângulo de polarização do laser.')
-            else
-            begin
-              AddBlobFieldSample(Dados.DatabaseSampleFileName,
-                OpenDialog1.Filename, 'raman',
-                'arquivo_raman', EditSample.Caption, ComboboxRamanDigito.Text,
-                ComboboxDirecaoLaser.Text);
-              ChartRaman.AddSeries(SelectBlobFieldToChartSeries('raman',
-                'arquivo_raman', EmptyStr, EditSample.Text,
-                ComboboxRamanDigito.Text, ComboboxDirecaoLaser.Text));
+            case PageControlSample.TabIndex of
+              2:
+              begin
+                {if ComboboxDirecaoLaser.Text = TodosOsDados then
+                  ShowMessage('Escolha o ângulo de polarização do laser.')
+                else }
+                begin
+                  AddBlobFieldSample(Dados.DatabaseSampleFileName,
+                    OpenDialog1.Filename, 'raman',
+                    'arquivo_raman', EditSample.Caption, ComboboxRamanDigito.Text,
+                    ComboboxDirecaoLaser.Text);
+                  ChartRaman.AddSeries(SelectBlobFieldToChartSeries(
+                    'raman', 'arquivo_raman', EmptyStr, EditSample.Text,
+                    ComboboxRamanDigito.Text, ComboboxDirecaoLaser.Text));
+                end;
+              end;
+              3:
+              begin
+                AddBlobFieldSample(Dados.DatabaseSampleFileName,
+                  OpenDialog1.FileName, 'varredura',
+                  'arquivo_varredura', EditSample.Text, ComboboxVarreduraDigito.Text,
+                  ComboboxVarreduraOnda.Text);
+                ChartBroadScan.AddSeries(SelectBlobFieldToChartSeries(
+                  'varredura', 'arquivo_varredura', EmptyStr,
+                  EditSample.Text, ComboboxVarreduraDigito.Text,
+                  ComboboxVarreduraOnda.Text));
+              end;
+              4:
+              begin
+                AddBlobFieldSample(Dados.DatabaseSampleFileName,
+                  OpenDialog1.FileName, 'infravermelho',
+                  'arquivo_infravermelho', EditSample.Text,
+                  ComboboxInfravermelhoDigito.Text, EmptyStr);
+                ChartInfravermelho.AddSeries(SelectBlobFieldToChartSeries(
+                  'infravermelho', 'arquivo_infravermelho', EmptyStr,
+                  EditSample.Text, ComboboxInfravermelhoDigito.Text, EmptyStr));
+              end;
+              5:
+              begin
+                AddBlobFieldSample(Dados.DatabaseSampleFileName,
+                  OpenDialog1.FileName, 'difracao',
+                  'arquivo_difracao', EditSample.Text, ComboboxDifracaoDigito.Text,
+                  EmptyStr);
+                ChartDifracao.AddSeries(SelectBlobFieldToChartSeries(
+                  'difracao', 'arquivo_difracao', EmptyStr, EditSample.Text,
+                  ComboboxDifracaoDigito.Text, EmptyStr));
+              end;
             end;
           end;
-          3:
-          begin
-            AddBlobFieldSample(Dados.DatabaseSampleFileName,
-              OpenDialog1.FileName, 'varredura',
-              'arquivo_varredura', EditSample.Text, ComboboxVarreduraDigito.Text,
-              ComboboxVarreduraOnda.Text);
-            ChartBroadScan.AddSeries(SelectBlobFieldToChartSeries(
-              'varredura', 'arquivo_varredura', EmptyStr,
-              EditSample.Text, ComboboxVarreduraDigito.Text,
-              ComboboxVarreduraOnda.Text));
-          end;
-          4:
-          begin
-            AddBlobFieldSample(Dados.DatabaseSampleFileName,
-              OpenDialog1.FileName, 'infravermelho',
-              'arquivo_infravermelho', EditSample.Text,
-              ComboboxInfravermelhoDigito.Text, EmptyStr);
-            ChartInfravermelho.AddSeries(SelectBlobFieldToChartSeries(
-              'infravermelho', 'arquivo_infravermelho', EmptyStr,
-              EditSample.Text, ComboboxInfravermelhoDigito.Text, EmptyStr));
-          end;
-          5:
-          begin
-            AddBlobFieldSample(Dados.DatabaseSampleFileName,
-              OpenDialog1.FileName, 'difracao',
-              'arquivo_difracao', EditSample.Text, ComboboxDifracaoDigito.Text,
-              EmptyStr);
-            ChartDifracao.AddSeries(SelectBlobFieldToChartSeries(
-              'difracao', 'arquivo_difracao', EmptyStr, EditSample.Text,
-              ComboboxDifracaoDigito.Text, EmptyStr));
-          end;
         end;
-      end;
-    end;
+      end
+      else
+        ShowMessage('O banco de dados não é válido.');
+    end
+    else ShowMessage('Não há banco de dados selecionado.');
   end
-  else
-    ShowMessage('Escolha uma amostra para adicionar dados.');
+  else ShowMessage('Escolha uma amostra para adicionar dados.');
 end;
 
 procedure TFormFichaAmostra.ActionAddChemistryImageExecute(Sender: TObject);
@@ -1272,29 +1386,33 @@ var
 begin
   if (Trim(EditSample.Text) <> EmptyStr) then
   begin
-    OpenPictureDialog1.FileName := EmptyStr;
-    if OpenPictureDialog1.Execute then
+    if ComboboxQuimicaDigito.Text <> EmptyStr then
     begin
-      if OpenPictureDialog1.FileName <> EmptyStr then
+      OpenPictureDialog1.FileName := EmptyStr;
+      if OpenPictureDialog1.Execute then
       begin
-        Digito := Trim(ComboboxQuimicaDigito.Text);
-        if Digito = EmptyStr then
-          Digito := '0';
-        TableSamples := DatabaseSamples.GetTable('SELECT rruff_id FROM ' +
-          'chemistry WHERE rruff_id="' + EditSample.Caption + '" ;');
-        if TableSamples.RowCount < 1 then
-          DatabaseSamples.ExecSQL(
-            'INSERT INTO chemistry (rruff_id, especie, digito) VALUES ' +
-            '("' + EditSample.Caption + '","' + EditMineralSample.Caption +
-            '","' + Digito + '") ; ');
-        AddBlobFieldSample(Dados.DatabaseSampleFileName,
-          OpenDialog1.FileName, 'chemistry',
-          'image', EditSample.Text, Digito, EmptyStr);
-        self.ImageQuimica.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage('chemistry', 'image', EmptyStr,
-          EditSample.Text, Digito, EmptyStr);
+        if OpenPictureDialog1.FileName <> EmptyStr then
+        begin
+          Digito := Trim(ComboboxQuimicaDigito.Text);
+          if Digito = EmptyStr then
+            Digito := '0';
+          TableSamples := DatabaseSamples.GetTable('SELECT rruff_id FROM ' +
+            'chemistry WHERE rruff_id="' + EditSample.Caption + '" ;');
+          if TableSamples.RowCount < 1 then
+            DatabaseSamples.ExecSQL(
+              'INSERT INTO chemistry (rruff_id, digito) VALUES ' +
+              '("' + EditSample.Caption + '", "' + Digito + '") ; ');
+          AddBlobFieldSample(Dados.DatabaseSampleFileName,
+            OpenPictureDialog1.FileName, 'chemistry',
+            'image', EditSample.Text, Digito, EmptyStr);
+          self.ImageQuimica.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('chemistry', 'image', EmptyStr,
+            EditSample.Text, Digito, EmptyStr);
+        end;
       end;
-    end;
+    end
+    else
+      ShowMessage('Escolha uma subamostra para adicionar uma imagem.');
   end
   else
     ShowMessage('Escolha uma amostra para adicionar uma imagem.');
@@ -1374,14 +1492,14 @@ begin
   if (Trim(EditSample.Text) <> EmptyStr) then
   begin
     OpenDialog1.FileName := EmptyStr;
-  if OpenDialog1.Execute then
-    if OpenDialog1.FileName <> EmptyStr then
-    begin
-      CSVFileToBlobField(OpenDialog1.FileName, 'chemistry', 'microprobe_file',
-        EmptyStr, EditSample.Text, Trim(ComboboxQuimicaDigito.Text), EmptyStr);
-      FormPlanilha.ArquivoMicrossonda(EmptyStr, EditSample.Text,
-        Trim(ComboboxQuimicaDigito.Text));
-    end;
+    if OpenDialog1.Execute then
+      if OpenDialog1.FileName <> EmptyStr then
+      begin
+        CSVFileToBlobField(OpenDialog1.FileName, 'chemistry', 'microprobe_file',
+          EmptyStr, EditSample.Text, Trim(ComboboxQuimicaDigito.Text), EmptyStr);
+        FormPlanilha.ArquivoMicrossonda(EmptyStr, EditSample.Text,
+          Trim(ComboboxQuimicaDigito.Text));
+      end;
   end
   else
     ShowMessage('Escolha uma amostra para adicionar dados.');
@@ -1389,7 +1507,7 @@ end;
 
 procedure TFormFichaAmostra.ActionAddPowderDataExecute(Sender: TObject);
 begin
-  if (Trim(EditSample.Text) <> EmptyStr ) then
+  if (Trim(EditSample.Text) <> EmptyStr) then
   begin
     OpenDialog1.FileName := EmptyStr;
     if OpenDialog1.Execute then
@@ -1454,15 +1572,22 @@ end;
 
 procedure TFormFichaAmostra.ActionBroadScanWaveOnChangeExecute(Sender: TObject);
 begin
-  if EditSample.Text <> EmptyStr then
-  begin
-    ChartBroadScan.ClearSeries;
-    ChartBroadScan.AddSeries(SelectBlobFieldToChartSeries('varredura',
-      'arquivo_varredura', EmptyStr, EditSample.Text, ComboboxVarreduraDigito.Text,
-      ComboboxVarreduraOnda.Text));
-    ComboboxBroadScanEquipment.ItemIndex :=
-      ComboboxBroadScanEquipment.Items.IndexOf(TableSamples.FieldByName['equipment']);
-  end;
+  if Trim(Dados.DatabaseSampleFileName) <> EmptyStr then
+    if (Trim(EditSample.Text) <> EmptyStr) then
+    begin
+      ChartBroadScan.ClearSeries;
+      ChartBroadScan.AddSeries(SelectBlobFieldToChartSeries('varredura',
+        'arquivo_varredura', EmptyStr, EditSample.Text, ComboboxVarreduraDigito.Text,
+        ComboboxVarreduraOnda.Text));
+      Dados.TableSamples := Dados.DatabaseSamples.GetTable('SELECT equipment FROM ' +
+        'varredura WHERE rruff_id="' + EditSample.Text + '" AND comprimento_onda="' +
+        ComboboxVarreduraDigito.Text + '" ;');
+      if Dados.TableSamples.Count > 0 then
+        if Dados.TableSamples.MoveFirst then
+          ComboboxBroadScanEquipment.ItemIndex :=
+            ComboboxBroadScanEquipment.Items.IndexOf(
+            TableSamples.FieldByName['equipment']);
+    end;
 end;
 
 procedure TFormFichaAmostra.ActionChangeEquipmentExecute(Sender: TObject);
@@ -1540,7 +1665,7 @@ begin
     ChartDifracao.ClearSeries;
   end
   else
-   ShowMessage('Escolha uma amostra para adicionar dados.');
+    ShowMessage('Escolha uma amostra para adicionar dados.');
 end;
 
 procedure TFormFichaAmostra.ActionClearRamanDataExecute(Sender: TObject);
@@ -1566,6 +1691,7 @@ begin
     ComboboxInfravermelhoDigito.Clear;
     ComboboxDifracaoDigito.Clear;
     ComboboxDirecaoLaser.Clear;
+    ComboboxVarreduraOnda.Clear;
 
     TableSamples := DatabaseSamples.GetTable('SELECT * FROM rruff WHERE rruff_id="' +
       ListboxSample_id.GetSelectedText + '" ;');
@@ -1727,7 +1853,7 @@ begin
           ComboboxQuimicaDigito.Items.Append(TableSamples.FieldByName['digito']);
         TableSamples.Next;
       end;
-    ComboboxQuimicaDigito.Items.Append(AdicionarAmostra);
+    //ComboboxQuimicaDigito.Items.Append(AdicionarAmostra);
 
     TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT digito FROM ' +
       'raman WHERE rruff_id="' + ListboxSample_id.GetSelectedText +
@@ -1740,7 +1866,7 @@ begin
           ComboboxRamanDigito.Items.Append(TableSamples.FieldByName['digito']);
         TableSamples.Next;
       end;
-    ComboboxRamanDigito.Items.Append(AdicionarAmostra);
+    //ComboboxRamanDigito.Items.Append(AdicionarAmostra);
 
     TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT digito FROM ' +
       'varredura WHERE rruff_id="' + ListboxSample_id.GetSelectedText +
@@ -1753,7 +1879,7 @@ begin
           ComboboxVarreduraDigito.Items.Append(TableSamples.FieldByName['digito']);
         TableSamples.Next;
       end;
-    ComboboxVarreduraDigito.Items.Append(AdicionarAmostra);
+    //ComboboxVarreduraDigito.Items.Append(AdicionarAmostra);
 
     TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT digito FROM ' +
       'infravermelho WHERE rruff_id="' + ListboxSample_id.GetSelectedText +
@@ -1767,7 +1893,7 @@ begin
             TableSamples.FieldByName['digito']);
         TableSamples.Next;
       end;
-    ComboboxInfravermelhoDigito.Items.Append(AdicionarAmostra);
+    //ComboboxInfravermelhoDigito.Items.Append(AdicionarAmostra);
 
     TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT digito FROM ' +
       'difracao WHERE rruff_id="' + ListboxSample_id.GetSelectedText +
@@ -1780,11 +1906,12 @@ begin
           ComboboxDifracaoDigito.Items.Append(TableSamples.FieldByName['digito']);
         TableSamples.Next;
       end;
-    ComboboxDifracaoDigito.Items.Append(AdicionarAmostra);
+    //ComboboxDifracaoDigito.Items.Append(AdicionarAmostra);
 
     TableSamples := DatabaseSamples.GetTable(
       'SELECT DISTINCT direcao FROM raman WHERE ' + 'rruff_id="' +
-      ListboxSample_id.GetSelectedText + '" ;');
+      ListboxSample_id.GetSelectedText + '" AND digito="' +
+      ComboboxRamanDigito.Text + '";');
     if TableSamples.MoveFirst then
     begin
       while not TableSamples.EOF do
@@ -1797,7 +1924,8 @@ begin
     end;
 
     TableSamples := DatabaseSamples.GetTable('SELECT DISTINCT comprimento_onda FROM ' +
-      'varredura WHERE rruff_id="' + ListboxSample_id.GetSelectedText + '" ;');
+      'varredura WHERE rruff_id="' + ListboxSample_id.GetSelectedText +
+      '" ' + ' AND digito="' + ComboboxVarreduraDigito.Text + '" ;');
     if TableSamples.MoveFirst then
     begin
       while not TableSamples.EOF do
@@ -1814,69 +1942,74 @@ end;
 
 procedure TFormFichaAmostra.ActionMicrossondaVisualizarExecute(Sender: TObject);
 begin          //ve os dados dos arquivos usados para gerar os graficos
-  if EditSample.Text <> EMptyStr then
-  begin
-    if PageControlSample.ActivePageIndex <> 0 then
-    begin
-      FormPlanilha := TFormPlanilha.Create(nil);
-      with FormPlanilha do
+  if Trim(EditSample.Text) <> EmptyStr then
+    if Dados.DatabaseSampleFileName <> EmptyStr then
+      if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
       begin
-        Caption := EditSample.Text;
+        if PageControlSample.ActivePageIndex <> 0 then
+        begin
+          FormPlanilha := TFormPlanilha.Create(nil);
+          with FormPlanilha do
+          begin
+            Caption := EditSample.Text;
+          end;
+          if PageControlSample.ActivePageIndex = 1 then
+          begin
+            FormPlanilha.ArquivoPlanilha('chemistry', 'microprobe_file',
+              EmptyStr, EditSample.Caption, ComboboxQuimicaDigito.Text,
+              EmptyStr, EmptyStr);
+          end
+          else
+          if PageControlSample.ActivePageIndex = 2 then
+          begin
+            FormPlanilha.ArquivoPlanilha('raman', 'arquivo_raman', EmptyStr,
+              EditSample.Caption, ComboboxRamanDigito.Text,
+              ComboboxDirecaoLaser.Text, EmptyStr);
+          end
+          else
+          if PageControlSample.ActivePageIndex = 3 then
+          begin
+            FormPlanilha.ArquivoPlanilha('varredura', 'arquivo_varredura',
+              EmptyStr, EditSample.Caption, ComboboxVarreduraDigito.Text,
+              ComboboxVarreduraOnda.Text, EmptyStr);
+          end
+          else
+          if PageControlSample.ActivePageIndex = 4 then
+          begin
+            FormPlanilha.ArquivoPlanilha('infravermelho', 'arquivo_infravermelho',
+              EmptyStr, EditSample.Caption,
+              ComboboxInfravermelhoDigito.Text, EmptyStr, EmptyStr);
+          end
+          else
+          if PageControlSample.ActivePageIndex = 5 then
+          begin
+            FormPlanilha.ArquivoPlanilha('difracao', 'arquivo_difracao',
+              EmptyStr, EditSample.Caption, ComboboxDifracaoDigito.Text,
+              EmptyStr, EmptyStr);
+          end;
+          FormPlanilha.Show;
+        end;
       end;
-      if PageControlSample.ActivePageIndex = 1 then
-      begin
-        FormPlanilha.ArquivoPlanilha('chemistry', 'microprobe_file',
-          EmptyStr, EditSample.Caption, ComboboxQuimicaDigito.Text,
-          EmptyStr, EmptyStr);
-      end
-      else
-      if PageControlSample.ActivePageIndex = 2 then
-      begin
-        FormPlanilha.ArquivoPlanilha('raman', 'arquivo_raman', EmptyStr,
-          EditSample.Caption, ComboboxRamanDigito.Text,
-          ComboboxDirecaoLaser.Text, EmptyStr);
-      end
-      else
-      if PageControlSample.ActivePageIndex = 3 then
-      begin
-        FormPlanilha.ArquivoPlanilha('varredura', 'arquivo_varredura',
-          EmptyStr, EditSample.Caption, ComboboxVarreduraDigito.Text,
-          ComboboxVarreduraOnda.Text, EmptyStr);
-      end
-      else
-      if PageControlSample.ActivePageIndex = 4 then
-      begin
-        FormPlanilha.ArquivoPlanilha('infravermelho', 'arquivo_infravermelho',
-          EmptyStr, EditSample.Caption,
-          ComboboxInfravermelhoDigito.Text, EmptyStr, EmptyStr);
-      end
-      else
-      if PageControlSample.ActivePageIndex = 5 then
-      begin
-        FormPlanilha.ArquivoPlanilha('difracao', 'arquivo_difracao',
-          EmptyStr, EditSample.Caption, ComboboxDifracaoDigito.Text,
-          EmptyStr, EmptyStr);
-      end;
-      FormPlanilha.Show;
-    end;
-  end;
 end;
 
 procedure TFormFichaAmostra.ActionRamanDirecaoOnChangeExecute(Sender: TObject);
 begin
-  if ListboxSample_id.GetSelectedText <> EmptyStr then
-  begin
-    ChartRaman.ClearSeries;
-    TableSamples := DatabaseSamples.GetTable('SELECT equipment FROM raman WHERE ' +
-      'rruff_id="' + ListboxSample_id.GetSelectedText + '" AND digito="' +
-      ComboboxRamanDigito.Text + '" ;');
-    ComboboxRamanEquipment.ItemIndex :=
-      ComboboxRamanEquipment.Items.IndexOf(TableSamples.FieldByName['equipment']);
+  if Dados.DatabaseSampleFileName <> EmptyStr then
+    if ListboxSample_id.GetSelectedText <> EmptyStr then
+    begin
+      ChartRaman.ClearSeries;
+      TableSamples := DatabaseSamples.GetTable('SELECT equipment FROM raman WHERE ' +
+        'rruff_id="' + EditSample.Text + '" AND digito="' +
+        ComboboxRamanDigito.Text + '" AND direcao="' + ComboboxDirecaoLaser.Text + '";');
+      if Dados.TableSamples.Count > 0 then
+        if Dados.TableSamples.MoveFirst then
+          ComboboxRamanEquipment.ItemIndex :=
+            ComboboxRamanEquipment.Items.IndexOf(TableSamples.FieldByName['equipment']);
 
-    ChartRaman.AddSeries(SelectBlobFieldToChartSeries('raman',
-      'arquivo_raman', EmptyStr, ListboxSample_id.GetSelectedText,
-      ComboboxRamanDigito.Text, ComboboxDirecaoLaser.Text));
-  end;
+      ChartRaman.AddSeries(SelectBlobFieldToChartSeries('raman',
+        'arquivo_raman', EmptyStr, EditSample.Text, ComboboxRamanDigito.Text,
+        ComboboxDirecaoLaser.Text));
+    end;
 end;
 
 procedure TFormFichaAmostra.ActionRefreshListExecute(Sender: TObject);
@@ -1895,64 +2028,72 @@ begin
   end
   else
     ShowMessage('Não há banco de dados selecionado.');
+  FormAddSample.Hide;
 end;
 
 procedure TFormFichaAmostra.ActionRemoveBlobDataExecute(Sender: TObject);
 begin
-  if EditSample.Text <> EmptyStr then
-  begin
-    case PageControlSample.TabIndex of
-      0:
+  if Trim(EditSample.Text) <> EmptyStr then
+    if Dados.DatabaseSampleFileName <> EmptyStr then
+      if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
       begin
-        ClearBlobField('rruff', 'imagem_amostra', EmptyStr,
-          EditSample.Text, EmptyStr, EmptyStr);
-        ImageAmostra.Picture.Clear;
+        case PageControlSample.TabIndex of
+          0:
+          begin
+            ClearBlobField('rruff', 'imagem_amostra', EmptyStr,
+              EditSample.Text, EmptyStr, EmptyStr);
+            ImageAmostra.Picture.Clear;
+          end;
+          1:
+          begin
+            ClearBlobField('chemistry', 'image', EmptyStr,
+              EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
+            ImageQuimica.Picture.Clear;
+          end;
+          2:
+          begin
+            ClearBlobField('raman', 'arquivo_raman', EmptyStr,
+              EditSample.Text, ComboboxRamanDigito.Text,
+              ComboboxDirecaolaser.Text);
+            ChartRaman.ClearSeries;
+          end;
+          3:
+          begin
+            ClearBlobField('varredura', 'arquivo_varredura', EmptyStr,
+              EditSample.Text, ComboboxVarreduraDigito.Text,
+              ComboboxVarreduraOnda.Text);
+            ChartBroadScan.ClearSeries;
+          end;
+          4:
+          begin
+            ClearBlobField('infravermelho', 'arquivo_infravermelho',
+              EmptyStr, EditSample.Text,
+              ComboboxInfravermelhoDigito.Text, EmptyStr);
+            ChartInfravermelho.ClearSeries;
+          end;
+          5:
+          begin
+            ClearBlobField('difracao', 'arquivo_difracao',
+              EmptyStr, EditSample.Text,
+              ComboboxDifracaoDigito.Text, EmptyStr);
+            ChartDifracao.ClearSeries;
+          end;
+        end;
       end;
-      1:
-      begin
-        ClearBlobField('chemistry', 'image', EmptyStr,
-          EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
-        ImageQuimica.Picture.Clear;
-      end;
-      2:
-      begin
-        ClearBlobField('raman', 'arquivo_raman', EmptyStr,
-          EditSample.Text, ComboboxRamanDigito.Text,
-          ComboboxDirecaolaser.Text);
-        ChartRaman.ClearSeries;
-      end;
-      3:
-      begin
-        ClearBlobField('varredura', 'arquivo_varredura', EmptyStr,
-          EditSample.Text, ComboboxVarreduraDigito.Text,
-          ComboboxVarreduraOnda.Text);
-        ChartBroadScan.ClearSeries;
-      end;
-      4:
-      begin
-        ClearBlobField('infravermelho', 'arquivo_infravermelho',
-          EmptyStr, EditSample.Text,
-          ComboboxInfravermelhoDigito.Text, EmptyStr);
-        ChartInfravermelho.ClearSeries;
-      end;
-      5:
-      begin
-        ClearBlobField('difracao', 'arquivo_difracao',
-          EmptyStr, EditSample.Text,
-          ComboboxDifracaoDigito.Text, EmptyStr);
-        ChartDifracao.ClearSeries;
-      end;
-    end;
-  end;
 end;
 
 procedure TFormFichaAmostra.ActionRemoveChemistryImageExecute(Sender: TObject);
 begin
   if (Trim(EditSample.Text) <> EmptyStr) then
   begin
-    ClearBlobField('chemistry', 'image', EmptyStr,
-      EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
-    ImageQuimica.Picture.Clear;
+    if ComboboxQuimicaDigito.Text <> EmptyStr then
+    begin
+      ClearBlobField('chemistry', 'image', EmptyStr,
+        EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
+      ImageQuimica.Picture.Clear;
+    end
+    else
+      ShowMessage('Escolha uma subamostra para adicionar dados.');
   end
   else
     ShowMessage('Escolha uma amostra para adicionar dados.');
@@ -2019,7 +2160,7 @@ begin
     FormPlanilha.Show;
   end
   else
-    ShowMEssage('Escolha uma amostra para adicionar dados.');
+    ShowMessage('Escolha uma amostra para adicionar dados.');
 end;
 
 procedure TFormFichaAmostra.ActionSeeMicroprobeDataExecute(Sender: TObject);
@@ -2073,40 +2214,98 @@ begin
     FormPlanilha.Show;
   end
   else
-   ShowMessage('Escolha uma amostra para adicionar dados.');
+    ShowMessage('Escolha uma amostra para adicionar dados.');
 end;
 
 procedure TFormFichaAmostra.BitBtnAddMicroprobeDataClick(Sender: TObject);
 begin
-  if EditSample.Text <> EmptyStr then
+  if Trim(Dados.DatabaseSampleFileName) <> EmptyStr then
   begin
-    OpenDialog1.FileName := EmptyStr;
-    if OpenDialog1.Execute then
+    if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
     begin
-      if OpenDialog1.FileName <> EmptyStr then
+      if Trim(EditSample.Text) <> EmptyStr then
       begin
-        CSVFileToBlobField(OpenDialog1.FileName, 'chemistry', 'microprobe_file',
-          EditMineralSample.Text, EditSample.Text,
-          Trim(ComboboxQuimicaDigito.Text), EmptyStr);
-        FormPlanilha.ArquivoMicrossonda(EditMineralSample.Text, EditSample.Text,
-          Trim(ComboboxQuimicaDigito.Text));
-        //FormPlanilha.Show;
-      end;
-    end;
-  end;
+        if ComboboxQuimicaDigito.Text <> EmptyStr then
+        begin
+          OpenDialog1.FileName := EmptyStr;
+          if OpenDialog1.Execute then
+          begin
+            if OpenDialog1.FileName <> EmptyStr then
+            begin
+              CSVFileToBlobField(OpenDialog1.FileName, 'chemistry', 'microprobe_file',
+                EditMineralSample.Text, EditSample.Text,
+                Trim(ComboboxQuimicaDigito.Text), EmptyStr);
+              FormPlanilha.ArquivoMicrossonda(EditMineralSample.Text, EditSample.Text,
+                Trim(ComboboxQuimicaDigito.Text));
+            end;
+          end;
+        end
+        else
+          ShowMessage('Não há subamostra selecionada');
+      end
+      else
+        ShowMessage('Não há amostra selecionada');
+    end
+    else
+      ShowMessage('O banco de dados não é válido.');
+  end
+  else
+    ShowMessage('Não há banco de dados selecionado.');
 end;
 
 procedure TFormFichaAmostra.BitBtnClearMicroprobeDataClick(Sender: TObject);
 begin
-  ClearBlobField('chemistry', 'microprobe_file', EmptyStr,
-    EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
+  if Trim(Dados.DatabaseSampleFileName) <> EmptyStr then
+  begin
+    if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
+    begin
+      if Trim(EditSample.Text) <> EmptyStr then
+      begin
+        if Trim(ComboboxQuimicaDigito.Text) <> EmptyStr then
+          ClearBlobField('chemistry', 'microprobe_file', EmptyStr,
+            EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr)
+        else
+          ShowMessage('Não há subamostra selecionada');
+      end
+      else
+        ShowMessage('Não há amostra selecionada');
+    end
+    else
+      ShowMessage('O banco de dados não é válido.');
+  end
+  else
+    ShowMessage('Não há banco de dados selecionado.');
 end;
 
 procedure TFormFichaAmostra.BitBtnEditMicroprobeDataClick(Sender: TObject);
 begin
-  FormPlanilha.ArquivoMicrossonda(EmptyStr, EditSample.Text,
-    Trim(ComboboxQuimicaDigito.Text));
-  //FormPlanilha.Show;
+  if Trim(Dados.DatabaseSampleFileName) <> EmptyStr then
+  begin
+    if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
+    begin
+      if Trim(EditSample.Text) <> EmptyStr then
+      begin
+        if ComboboxQuimicaDigito.Text <> EmptyStr then
+          FormPlanilha.ArquivoMicrossonda(EmptyStr, EditSample.Text,
+            Trim(ComboboxQuimicaDigito.Text))
+        else
+          ShowMessage('Não há subamostra selecionada');
+      end
+      else
+        ShowMessage('Não há amostra selecionada');
+    end
+    else
+      ShowMessage('O banco de dados não é válido.');
+  end
+  else
+    ShowMessage('Não há banco de dados selecionado.');
+end;
+
+procedure TFormFichaAmostra.ComboBox1Change(Sender: TObject);
+var
+  I: integer;
+begin
+  PageCOntrolSample.Font.Size := StrToInt(Trim(Combobox1.Text));
 end;
 
 procedure TFormFichaAmostra.ComboBoxVarreduraOndaChange(Sender: TObject);

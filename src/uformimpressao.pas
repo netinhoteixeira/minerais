@@ -5,32 +5,42 @@ unit uformimpressao;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, Buttons, StdCtrls, Spin, LR_View;
+  Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
+  ExtCtrls, Buttons, StdCtrls, Spin, ComCtrls, ActnList, LR_View;
 
 type
 
   { TFormImpressao }
 
   TFormImpressao = class(TForm)
-    BitBtn1: TBitBtn;
-    BitBtnCancelar: TBitBtn;
-    BitBtnImprimir: TBitBtn;
+    ActionHideForm: TAction;
+    ActionOpenReport: TAction;
+    ActionModifyReport: TAction;
+    ActionPrint: TAction;
+    ActionList1: TActionList;
+    BCPanel1: TBCPanel;
+    BCPanel2: TBCPanel;
+    BCPanel3: TBCPanel;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
     CheckGroup1: TCheckGroup;
     frPreview1: TfrPreview;
     GroupBox1: TGroupBox;
     Label1: TLabel;
-    Panel1: TPanel;
+    OpenDialog1: TOpenDialog;
     RadioButtonLista: TRadioButton;
     RadioButtonSelecionado: TRadioButton;
     RadioGroup1: TRadioGroup;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
     SpinEdit1: TSpinEdit;
-    procedure BitBtn1Click(Sender: TObject);
-    procedure BitBtnCancelarClick(Sender: TObject);
-    procedure BitBtnImprimirClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    ToolBar1: TToolBar;
+    ToolButtonOpenFileReport: TToolButton;
+    ToolButtonChangeReport: TToolButton;
+    procedure ActionHideFormExecute(Sender: TObject);
+    procedure ActionModifyReportExecute(Sender: TObject);
+    procedure ActionOpenReportExecute(Sender: TObject);
+    procedure ActionPrintExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
   private
@@ -47,8 +57,8 @@ uses udatamodule;
 
 { TFormImpressao }
 
-procedure TFormImpressao.BitBtnImprimirClick(Sender: TObject);
-var i:Integer;
+procedure TFormImpressao.ActionPrintExecute(Sender: TObject);
+  var i:Integer;
     numPags:String;
 begin
   numPags:=EmptyStr;
@@ -72,43 +82,52 @@ begin
   Dados.frReport1.PrintPreparedReport(numPags, SpinEdit1.Value);
 end;
 
-procedure TFormImpressao.Button1Click(Sender: TObject);
+procedure TFormImpressao.ActionModifyReportExecute(Sender: TObject);
 begin
-  //    if Dados.frReport1.PrepareReport then
-    //  Dados.frReport1.ExportTo(TFrTNPDFExportFilter, 'C:\Minerais');
+  Dados.frReport1.DesignReport;
 end;
 
-procedure TFormImpressao.BitBtnCancelarClick(Sender: TObject);
+procedure TFormImpressao.ActionHideFormExecute(Sender: TObject);
 begin
   FormImpressao.Visible:=False;
 end;
 
-procedure TFormImpressao.BitBtn1Click(Sender: TObject);
+procedure TFormImpressao.ActionOpenReportExecute(Sender: TObject);
 begin
-  Dados.frReport1.DesignReport;
+  OpenDialog1.FileName:=EmptyStr;
+  if OpenDialog1.Execute then
+    if OpenDialog1.FileName <> EmptyStr then
+      if (FileExists(OpenDialog1.FileName)) then
+      Begin
+        Dados.frReport1.LoadFromFile(OpenDialog1.FileName);
+        Dados.frReport1.ShowReport;
+      end
 end;
 
 procedure TFormImpressao.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
-     Dados.Sqlite3DatasetPrinter.Close();
+  Dados.Sqlite3DatasetPrinter.Close();
 end;
 
 procedure TFormImpressao.FormShow(Sender: TObject);
 var Diretorio:String;
 begin
-     Dados.Sqlite3DatasetPrinter.Open();
-     Diretorio:=GetCurrentDir+'\Data\report1.lrf';
+  if Dados.Sqlite3DatasetPrinter.Active then
+    Dados.Sqlite3DatasetPrinter.Close;
+  Dados.Sqlite3DatasetPrinter.FileName:= Dados.DatabaseMineralFileName;
+  Dados.Sqlite3DatasetPrinter.SQL:='SELECT * FROM minerais ;';
+  Dados.Sqlite3DatasetPrinter.Open();
+  Diretorio:=GetCurrentDir+'\Data\report1.lrf';
   if (FileExists(Diretorio)) then
   Begin
-       Dados.frReport1.LoadFromFile(Diretorio);
-       Dados.frReport1.ShowReport;
+    Dados.frReport1.LoadFromFile(Diretorio);
+    Dados.frReport1.ShowReport;
   end
   else
       ShowMessage('O arquivo de gerar relatório "'+Diretorio+'" não foi encontrado.');
 end;
 
-{ TFormImpressao }
 
 {$R *.lfm}
 
