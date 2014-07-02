@@ -4,7 +4,7 @@ object FormAddSample: TFormAddSample
   Top = 56
   Width = 850
   BorderStyle = bsToolWindow
-  Caption = 'FormAddSample'
+  Caption = 'Adicionar'
   ClientHeight = 476
   ClientWidth = 850
   OnShow = FormShow
@@ -442,7 +442,7 @@ object FormAddSample: TFormAddSample
           Top = 0
           Width = 612
           Align = alClient
-          Caption = 'Criar Sub-amostragem'
+          Caption = 'Criar Subamostragem'
           ClientHeight = 402
           ClientWidth = 608
           TabOrder = 0

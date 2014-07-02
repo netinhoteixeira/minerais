@@ -1,3 +1,62 @@
+{
+  GNU LESSER GENERAL PUBLIC LICENSE
+
+Version 3, 29 June 2007
+
+Copyright © 2007 Free Software Foundation, Inc. <http://fsf.org/>
+
+Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
+
+This version of the GNU Lesser General Public License incorporates the terms and conditions of version 3 of the GNU General Public License, supplemented by the additional permissions listed below.
+
+0. Additional Definitions.
+As used herein, “this License” refers to version 3 of the GNU Lesser General Public License, and the “GNU GPL” refers to version 3 of the GNU General Public License.
+
+“The Library” refers to a covered work governed by this License, other than an Application or a Combined Work as defined below.
+
+An “Application” is any work that makes use of an interface provided by the Library, but which is not otherwise based on the Library. Defining a subclass of a class defined by the Library is deemed a mode of using an interface provided by the Library.
+
+A “Combined Work” is a work produced by combining or linking an Application with the Library. The particular version of the Library with which the Combined Work was made is also called the “Linked Version”.
+
+The “Minimal Corresponding Source” for a Combined Work means the Corresponding Source for the Combined Work, excluding any source code for portions of the Combined Work that, considered in isolation, are based on the Application, and not on the Linked Version.
+
+The “Corresponding Application Code” for a Combined Work means the object code and/or source code for the Application, including any data and utility programs needed for reproducing the Combined Work from the Application, but excluding the System Libraries of the Combined Work.
+
+1. Exception to Section 3 of the GNU GPL.
+You may convey a covered work under sections 3 and 4 of this License without being bound by section 3 of the GNU GPL.
+
+2. Conveying Modified Versions.
+If you modify a copy of the Library, and, in your modifications, a facility refers to a function or data to be supplied by an Application that uses the facility (other than as an argument passed when the facility is invoked), then you may convey a copy of the modified version:
+
+a) under this License, provided that you make a good faith effort to ensure that, in the event an Application does not supply the function or data, the facility still operates, and performs whatever part of its purpose remains meaningful, or
+b) under the GNU GPL, with none of the additional permissions of this License applicable to that copy.
+3. Object Code Incorporating Material from Library Header Files.
+The object code form of an Application may incorporate material from a header file that is part of the Library. You may convey such object code under terms of your choice, provided that, if the incorporated material is not limited to numerical parameters, data structure layouts and accessors, or small macros, inline functions and templates (ten or fewer lines in length), you do both of the following:
+
+a) Give prominent notice with each copy of the object code that the Library is used in it and that the Library and its use are covered by this License.
+b) Accompany the object code with a copy of the GNU GPL and this license document.
+4. Combined Works.
+You may convey a Combined Work under terms of your choice that, taken together, effectively do not restrict modification of the portions of the Library contained in the Combined Work and reverse engineering for debugging such modifications, if you also do each of the following:
+
+a) Give prominent notice with each copy of the Combined Work that the Library is used in it and that the Library and its use are covered by this License.
+b) Accompany the Combined Work with a copy of the GNU GPL and this license document.
+c) For a Combined Work that displays copyright notices during execution, include the copyright notice for the Library among these notices, as well as a reference directing the user to the copies of the GNU GPL and this license document.
+d) Do one of the following:
+0) Convey the Minimal Corresponding Source under the terms of this License, and the Corresponding Application Code in a form suitable for, and under terms that permit, the user to recombine or relink the Application with a modified version of the Linked Version to produce a modified Combined Work, in the manner specified by section 6 of the GNU GPL for conveying Corresponding Source.
+1) Use a suitable shared library mechanism for linking with the Library. A suitable mechanism is one that (a) uses at run time a copy of the Library already present on the user's computer system, and (b) will operate properly with a modified version of the Library that is interface-compatible with the Linked Version.
+e) Provide Installation Information, but only if you would otherwise be required to provide such information under section 6 of the GNU GPL, and only to the extent that such information is necessary to install and execute a modified version of the Combined Work produced by recombining or relinking the Application with a modified version of the Linked Version. (If you use option 4d0, the Installation Information must accompany the Minimal Corresponding Source and Corresponding Application Code. If you use option 4d1, you must provide the Installation Information in the manner specified by section 6 of the GNU GPL for conveying Corresponding Source.)
+5. Combined Libraries.
+You may place library facilities that are a work based on the Library side by side in a single library together with other library facilities that are not Applications and are not covered by this License, and convey such a combined library under terms of your choice, if you do both of the following:
+
+a) Accompany the combined library with a copy of the same work based on the Library, uncombined with any other library facilities, conveyed under the terms of this License.
+b) Give prominent notice with the combined library that part of it is a work based on the Library, and explaining where to find the accompanying uncombined form of the same work.
+6. Revised Versions of the GNU Lesser General Public License.
+The Free Software Foundation may publish revised and/or new versions of the GNU Lesser General Public License from time to time. Such new versions will be similar in spirit to the present version, but may differ in detail to address new problems or concerns.
+
+Each version is given a distinguishing version number. If the Library as you received it specifies that a certain numbered version of the GNU Lesser General Public License “or any later version” applies to it, you have the option of following the terms and conditions either of that published version or of any later version published by the Free Software Foundation. If the Library as you received it does not specify a version number of the GNU Lesser General Public License, you may choose any version of the GNU Lesser General Public License ever published by the Free Software Foundation.
+
+If the Library as you received it specifies that a proxy can decide whether future versions of the GNU Lesser General Public License shall apply, that proxy's public statement of acceptance of any version is permanent authorization for you to choose that version for the Library.
+ }
 unit unitfichaespecie;
 
 {$mode objfpc}{$H+}
@@ -5,10 +64,10 @@ unit unitfichaespecie;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, BCPanel, BCLabel,
+  Classes, SysUtils, BCPanel, BCLabel,
   Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
   StdCtrls, DBCtrls, Buttons, Menus, ExtDlgs, ActnList,
-  SQLite3tablemod, uFormImpressao, unitremovemineral;
+  SQLite3tablemod, uFormImpressao, unitremovemineral, unitlanguage;
 
 type
 
@@ -29,20 +88,20 @@ type
     ActionAddImage2: TAction;
     ActionAddImage1: TAction;
     ActionList1: TActionList;
-    BCLabel1: TBCLabel;
-    BCLabel2: TBCLabel;
-    BCLabel3: TBCLabel;
+    BCLabelName: TBCLabel;
+    BCLabelOrder: TBCLabel;
+    BCLabelMinerals: TBCLabel;
     BCLabelRegistros: TBCLabel;
     BCLabelAssociacao: TBCLabel;
     BCLabelBrilho: TBCLabel;
-    BCLabelClasse: TBCLabel;
+    BCLabelClass: TBCLabel;
     BCLabelCor: TBCLabel;
-    BCLabelDensidade: TBCLabel;
-    BCLabelDureza: TBCLabel;
-    BCLabelGrupo: TBCLabel;
+    BCLabelDensity: TBCLabel;
+    BCLabelHardness: TBCLabel;
+    BCLabelGroup: TBCLabel;
     BCLabelOcorrencia: TBCLabel;
-    BCLabelSubclasse: TBCLabel;
-    BCLabelSubgrupo: TBCLabel;
+    BCLabelSubclass: TBCLabel;
+    BCLabelSubgroup: TBCLabel;
     BCPanel1: TBCPanel;
     BCPanel2: TBCPanel;
     BCPanel3: TBCPanel;
@@ -103,7 +162,7 @@ type
     LabelCor: TLabel;
     LabelCor_Interferencia: TLabel;
     LabelCor_Lamina: TLabel;
-    LabelDifaneidade: TLabel;
+    LabelDiafaneidade: TLabel;
     LabelDistincao: TLabel;
     LabelExtincao: TLabel;
     LabelFratura: TLabel;
@@ -171,6 +230,9 @@ type
     TabSheetProp_Fisicas: TTabSheet;
     ToolBar1: TToolBar;
     ToolBar2: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButtonBibliografia: TToolButton;
+    ToolButton6: TToolButton;
     ToolButtonAdd: TToolButton;
     ToolButtonShowFilter: TToolButton;
     ToolButtonShowImages: TToolButton;
@@ -382,7 +444,23 @@ uses udatamodule, unitBlobFields, unitaddmineral;
 
 procedure TFormFichaEspecie.FormCreate(Sender: TObject);
 begin
+  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    ToolButtonAdd.Hint:=Lang.Add;
+    ToolButtonRemove.Hint:=Lang.Remove;
+    ToolButtonPrint.Hint:=Lang.Print;
+    ToolButtonShowFilter.Hint:=Lang.ShowFilter;
+    ToolButtonShowImages.Hint:=Lang.ShowImages;
+    Combobox1.Hint:=Lang.FontSize;
+    BCLabelOrder.Caption:=Lang.Order;
+    RadioButton1.Caption:=Lang.Alphabetical;
+    RadioButton2.Caption:=Lang.Hardness;
+    RadioButton3.Caption:=Lang.Density;
+    BCLabelMinerals.Caption:=Lang.Minerals;
 
+  end;
+  Config.Free;
 end;
 
 procedure TFormFichaEspecie.FormShow(Sender: TObject);
@@ -1472,41 +1550,45 @@ end;
 procedure TFormFichaEspecie.Image1OnClick(Sender: TObject);
 begin
   Imagem_Selecionada := '1';
-  self.ImagemAmpliada.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage('minerais', 'imagem1',
-    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+  self.ImagemAmpliada.Picture.Graphic := Image1.Picture.Graphic;
+   { SelectBlobFieldToJPEGImage('minerais', 'imagem1',
+    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);  }
 end;
 
 procedure TFormFichaEspecie.Image2OnClick(Sender: TObject);
 begin
   Imagem_Selecionada := '2';
-  self.ImagemAmpliada.Picture.Graphic :=
+  self.ImagemAmpliada.Picture.Graphic := Image2.Picture.Graphic;
+  {self.ImagemAmpliada.Picture.Graphic :=
     SelectBlobFieldToJPEGImage('minerais', 'imagem2',
-    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);}
 end;
 
 procedure TFormFichaEspecie.Image3OnClick(Sender: TObject);
 begin
   Imagem_Selecionada := '3';
-  self.ImagemAmpliada.Picture.Graphic :=
+  self.ImagemAmpliada.Picture.Graphic := Image3.Picture.Graphic;
+  {self.ImagemAmpliada.Picture.Graphic :=
     SelectBlobFieldToJPEGImage('minerais', 'imagem3',
-    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);}
 end;
 
 procedure TFormFichaEspecie.Image4OnClick(Sender: TObject);
 begin
   Imagem_Selecionada := '4';
-  self.ImagemAmpliada.Picture.Graphic :=
+  self.ImagemAmpliada.Picture.Graphic := Image4.Picture.Graphic;
+  {self.ImagemAmpliada.Picture.Graphic :=
     SelectBlobFieldToJPEGImage('minerais', 'imagem4',
-    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);}
 end;
 
 procedure TFormFichaEspecie.Image5OnClick(Sender: TObject);
 begin
   Imagem_Selecionada := '5';
-  self.ImagemAmpliada.Picture.Graphic :=
+  self.ImagemAmpliada.Picture.Graphic := Image5.Picture.Graphic;
+  {self.ImagemAmpliada.Picture.Graphic :=
     SelectBlobFieldToJPEGImage('minerais', 'imagem5',
-    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);}
 end;
 
 procedure TFormFichaEspecie.Image6OnClick(Sender: TObject);
@@ -1756,11 +1838,18 @@ begin
         ' WHERE nome = "' + EditNomeMineral.Text + '" ;');
       for I := 1 to 7 do
       begin
-        MS := Dados.TableMinerals.FieldAsBlob(
-          Dados.TableMinerals.FieldIndex['imagem' + IntToStr(I)]);
-        if MS <> nil then
+        if Dados.TableMinerals.RowCount > 0 then
         begin
-          Image[I].ToCreate := True;
+          MS := Dados.TableMinerals.FieldAsBlob(
+            Dados.TableMinerals.FieldIndex['imagem' + IntToStr(I)]);
+          if MS <> nil then
+          begin
+            Image[I].ToCreate := True;
+          end
+          else
+          begin
+            Image[I].ToCreate := False;
+          end;
         end
         else
         begin
@@ -1925,7 +2014,6 @@ begin
             Parent := ScrollBox8;
             Left := ImagesLeft;
             Top := Image1Top + (ImagesNumber * SeparadorImagens);
-            ;
             Width := ImagesWidth;
             Height := ImagesHeight;
             Proportional := True;
@@ -2026,11 +2114,18 @@ begin
         'FROM mineralogia WHERE campo = "' + MineralogyName + '" ;');
       for I := 1 to 5 do
       begin
-        MS := Dados.TableMinerals.FieldAsBlob(
-          Dados.TableMinerals.FieldIndex['mineralogiaimagem' + IntToStr(I)]);
-        if MS <> nil then
+        if Dados.TableMinerals.RowCount > 0 then
         begin
-          Image[I].ToCreate := True;
+          MS := Dados.TableMinerals.FieldAsBlob(
+            Dados.TableMinerals.FieldIndex['mineralogiaimagem' + IntToStr(I)]);
+          if MS <> nil then
+          begin
+            Image[I].ToCreate := True;
+          end
+          else
+          begin
+            Image[I].ToCreate := False;
+          end;
         end
         else
         begin
@@ -2245,6 +2340,7 @@ procedure TFormFichaEspecie.ComboBoxGrupoChange(Sender: TObject);
 begin
   Preenche_SubGrupos;
   AtualizarLista;
+  RefreshImages;
 end;
 
 procedure TFormFichaEspecie.ComboBoxSubclasseChange(Sender: TObject);
@@ -2252,11 +2348,13 @@ begin
   Preenche_Grupos;
   Preenche_SubGrupos;
   AtualizarLista;
+  RefreshImages;
 end;
 
 procedure TFormFichaEspecie.ComboBoxSubgrupoChange(Sender: TObject);
 begin
   AtualizarLista;
+  RefreshImages;
 end;
 
 procedure TFormFichaEspecie.EditClasse_CristalinaEditingDone(Sender: TObject);
@@ -2493,7 +2591,7 @@ begin
     begin
       if Dados.TableMinerals.Count > 0 then
       begin
-        ShowMessage('Já existe um registro com este nome.');
+        ShowMessage('Já existe um registro com esse nome.');
       end
       else
       begin
@@ -2578,6 +2676,7 @@ begin
   Preenche_Grupos;
   Preenche_SubGrupos;
   AtualizarLista;
+  RefreshImages;
 end;
 
 procedure TFormFichaEspecie.ActionAddImage1Execute(Sender: TObject);
@@ -2689,6 +2788,7 @@ begin
   I := StrToInt(Combobox1.Text);
   PageControlFicha.Font.Size := I;
   ListBoxMinerais.Font.Size := I;
+  EditNomeMineral.Font.Size:=I;
 end;
 
 end.

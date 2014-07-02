@@ -3,7 +3,7 @@ object FormFichaAmostra: TFormFichaAmostra
   Height = 647
   Top = 30
   Width = 1049
-  Caption = 'FormFichaAmostra'
+  Caption = 'Análises'
   ClientHeight = 647
   ClientWidth = 1049
   OnClose = FormClose
@@ -35,14 +35,14 @@ object FormFichaAmostra: TFormFichaAmostra
         ClientWidth = 839
         object ScrollBox1: TScrollBox
           Left = 10
-          Height = 516
+          Height = 550
           Top = 10
-          Width = 825
-          HorzScrollBar.Page = 804
-          VertScrollBar.Page = 512
+          Width = 800
+          HorzScrollBar.Page = 779
+          VertScrollBar.Page = 546
           Anchors = [akTop, akLeft, akRight, akBottom]
-          ClientHeight = 512
-          ClientWidth = 804
+          ClientHeight = 546
+          ClientWidth = 779
           TabOrder = 0
           object LabelQuimicaIdeal: TLabel
             Left = 16
@@ -209,19 +209,19 @@ object FormFichaAmostra: TFormFichaAmostra
         end
       end
       object TabSheetSampleQuimica: TTabSheet
-        Caption = 'Química'
+        Caption = 'Análise Química'
         ClientHeight = 529
         ClientWidth = 839
         object ScrollBox3: TScrollBox
           Left = 10
-          Height = 571
+          Height = 550
           Top = 10
-          Width = 795
-          HorzScrollBar.Page = 791
-          VertScrollBar.Page = 567
+          Width = 800
+          HorzScrollBar.Page = 796
+          VertScrollBar.Page = 546
           Anchors = [akTop, akLeft, akRight, akBottom]
-          ClientHeight = 567
-          ClientWidth = 791
+          ClientHeight = 546
+          ClientWidth = 796
           TabOrder = 0
           object GroupBoxImagemQuimica: TGroupBox
             Left = 15
@@ -242,47 +242,10 @@ object FormFichaAmostra: TFormFichaAmostra
               Proportional = True
             end
           end
-          object GroupBox14: TGroupBox
-            Left = 487
-            Height = 152
-            Top = 16
-            Width = 196
-            Caption = 'Microssonda'
-            ClientHeight = 134
-            ClientWidth = 192
-            TabOrder = 1
-            object BitBtnAddMicroprobeData: TBitBtn
-              Left = 6
-              Height = 30
-              Top = 55
-              Width = 176
-              Caption = 'Adicionar dados'
-              OnClick = BitBtnAddMicroprobeDataClick
-              TabOrder = 0
-            end
-            object BitBtnEditMicroprobeData: TBitBtn
-              Left = 6
-              Height = 30
-              Top = 16
-              Width = 176
-              Caption = 'Visualizar dados '
-              OnClick = BitBtnEditMicroprobeDataClick
-              TabOrder = 1
-            end
-            object BitBtnClearMicroprobeData: TBitBtn
-              Left = 6
-              Height = 30
-              Top = 96
-              Width = 176
-              Caption = 'Apagar dados'
-              OnClick = BitBtnClearMicroprobeDataClick
-              TabOrder = 2
-            end
-          end
           object LabelId_Quimica: TLabel
             Left = 14
             Height = 15
-            Top = 285
+            Top = 290
             Width = 68
             Caption = 'Identificação'
             ParentColor = False
@@ -290,16 +253,16 @@ object FormFichaAmostra: TFormFichaAmostra
           object MemoQuimicaSample: TMemo
             Left = 200
             Height = 32
-            Top = 285
+            Top = 290
             Width = 150
             ParentFont = False
             ReadOnly = True
-            TabOrder = 2
+            TabOrder = 1
           end
           object Label4: TLabel
             Left = 400
             Height = 23
-            Top = 285
+            Top = 290
             Width = 7
             Caption = '-'
             Font.Height = 24
@@ -308,16 +271,19 @@ object FormFichaAmostra: TFormFichaAmostra
             ParentFont = False
           end
           object ComboBoxQuimicaDigito: TComboBox
-            Left = 488
+            Left = 480
             Height = 31
-            Top = 285
+            Hint = 'Subamostra'
+            Top = 290
             Width = 200
             Font.Height = 24
             ItemHeight = 23
             OnChange = ActionComboboxDigitoOnChangeExecute
             ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
             Style = csDropDownList
-            TabOrder = 3
+            TabOrder = 2
           end
           object MemoQuimicaDescricao: TMemo
             Left = 200
@@ -327,12 +293,12 @@ object FormFichaAmostra: TFormFichaAmostra
             OnEditingDone = MemoQuimicaDescricaoEditingDone
             OnKeyUp = MemoQuimicaDescricaoKeyUp
             ScrollBars = ssAutoVertical
-            TabOrder = 4
+            TabOrder = 3
           end
           object LabelDescricao2: TLabel
             Left = 14
             Height = 15
-            Top = 372
+            Top = 335
             Width = 51
             Caption = 'Descrição'
             ParentColor = False
@@ -340,7 +306,7 @@ object FormFichaAmostra: TFormFichaAmostra
           object LabelQuimicaMedida: TLabel
             Left = 14
             Height = 15
-            Top = 460
+            Top = 424
             Width = 88
             Caption = 'Química Medida'
             ParentColor = False
@@ -353,7 +319,47 @@ object FormFichaAmostra: TFormFichaAmostra
             OnEditingDone = MemoQuimicaMedidaEditingDone
             OnKeyUp = MemoQuimicaMedidaKeyUp
             ScrollBars = ssAutoVertical
+            TabOrder = 4
+          end
+          object GroupBox1: TGroupBox
+            Left = 480
+            Height = 80
+            Top = 24
+            Width = 168
+            Caption = 'Microssonda'
+            ClientHeight = 62
+            ClientWidth = 164
             TabOrder = 5
+            object SpeedButtonAddData: TSpeedButton
+              Left = 16
+              Height = 40
+              Hint = 'Adicionar dados'
+              Top = 8
+              Width = 40
+              OnClick = ActionAddMicroprobeDataExecute
+              ShowHint = True
+              ParentShowHint = False
+            end
+            object SpeedButtonSeeData: TSpeedButton
+              Left = 64
+              Height = 40
+              Hint = 'Visualizar dados'
+              Top = 8
+              Width = 40
+              OnClick = ActionSeeMicroprobeDataExecute
+              ShowHint = True
+              ParentShowHint = False
+            end
+            object SpeedButtonRemoveData: TSpeedButton
+              Left = 112
+              Height = 40
+              Hint = 'Apagar dados'
+              Top = 8
+              Width = 40
+              OnClick = ActionClearMicroprobeDataExecute
+              ShowHint = True
+              ParentShowHint = False
+            end
           end
         end
       end
@@ -363,14 +369,14 @@ object FormFichaAmostra: TFormFichaAmostra
         ClientWidth = 839
         object ScrollBox4: TScrollBox
           Left = 10
-          Height = 595
+          Height = 550
           Top = 10
-          Width = 825
-          HorzScrollBar.Page = 821
-          VertScrollBar.Page = 591
+          Width = 800
+          HorzScrollBar.Page = 796
+          VertScrollBar.Page = 546
           Anchors = [akTop, akLeft, akRight, akBottom]
-          ClientHeight = 591
-          ClientWidth = 821
+          ClientHeight = 546
+          ClientWidth = 796
           TabOrder = 0
           object ComboBoxRamanEquipment: TComboBox
             Left = 200
@@ -384,9 +390,8 @@ object FormFichaAmostra: TFormFichaAmostra
           object Label6: TLabel
             Left = 400
             Height = 23
-            Top = 285
+            Top = 290
             Width = 7
-            Anchors = [akLeft, akBottom]
             Caption = '-'
             Font.Height = 24
             Font.Style = [fsBold]
@@ -396,7 +401,7 @@ object FormFichaAmostra: TFormFichaAmostra
           object LabelId_Quimica1: TLabel
             Left = 14
             Height = 15
-            Top = 285
+            Top = 290
             Width = 68
             Caption = 'Identificação'
             ParentColor = False
@@ -434,21 +439,24 @@ object FormFichaAmostra: TFormFichaAmostra
             ParentColor = False
           end
           object ComboBoxRamanDigito: TComboBox
-            Left = 488
+            Left = 480
             Height = 31
-            Top = 285
+            Hint = 'Subamostra'
+            Top = 290
             Width = 200
             Font.Height = 24
             ItemHeight = 23
             OnChange = ActionComboboxDigitoOnChangeExecute
             ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
             Style = csDropDownList
             TabOrder = 1
           end
           object MemoRamanSample: TMemo
             Left = 200
             Height = 32
-            Top = 285
+            Top = 290
             Width = 150
             ParentFont = False
             ReadOnly = True
@@ -459,6 +467,8 @@ object FormFichaAmostra: TFormFichaAmostra
             Height = 58
             Top = 376
             Width = 500
+            OnEditingDone = MemoRamanDescricaoEditingDone
+            OnKeyUp = MemoRamanDescricaoKeyUp
             ScrollBars = ssAutoVertical
             TabOrder = 3
           end
@@ -539,19 +549,19 @@ object FormFichaAmostra: TFormFichaAmostra
         ClientWidth = 839
         object ScrollBox5: TScrollBox
           Left = 10
-          Height = 595
+          Height = 550
           Top = 10
-          Width = 825
-          HorzScrollBar.Page = 821
-          VertScrollBar.Page = 591
+          Width = 800
+          HorzScrollBar.Page = 796
+          VertScrollBar.Page = 546
           Anchors = [akTop, akLeft, akRight, akBottom]
-          ClientHeight = 591
-          ClientWidth = 821
+          ClientHeight = 546
+          ClientWidth = 796
           TabOrder = 0
           object LabelId_Quimica2: TLabel
             Left = 14
             Height = 15
-            Top = 285
+            Top = 290
             Width = 68
             Caption = 'Identificação'
             ParentColor = False
@@ -559,28 +569,31 @@ object FormFichaAmostra: TFormFichaAmostra
           object MemoVarreduraSample: TMemo
             Left = 200
             Height = 32
-            Top = 285
+            Top = 290
             Width = 150
             ParentFont = False
             ReadOnly = True
             TabOrder = 0
           end
           object ComboBoxVarreduraDigito: TComboBox
-            Left = 488
+            Left = 480
             Height = 31
-            Top = 285
+            Hint = 'Subamostra'
+            Top = 290
             Width = 200
             Font.Height = 24
             ItemHeight = 23
             OnChange = ActionComboboxDigitoOnChangeExecute
             ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
             Style = csDropDownList
             TabOrder = 1
           end
           object Label7: TLabel
             Left = 400
             Height = 23
-            Top = 285
+            Top = 290
             Width = 7
             Caption = '-'
             Font.Height = 24
@@ -610,6 +623,8 @@ object FormFichaAmostra: TFormFichaAmostra
             Height = 76
             Top = 352
             Width = 490
+            OnEditingDone = MemoVarreduraDescricaoEditingDone
+            OnKeyUp = MemoVarreduraDescricaoKeyUp
             ScrollBars = ssAutoVertical
             TabOrder = 3
           end
@@ -693,14 +708,14 @@ object FormFichaAmostra: TFormFichaAmostra
         ClientWidth = 839
         object ScrollBox6: TScrollBox
           Left = 10
-          Height = 595
+          Height = 550
           Top = 10
-          Width = 825
-          HorzScrollBar.Page = 821
-          VertScrollBar.Page = 591
+          Width = 800
+          HorzScrollBar.Page = 796
+          VertScrollBar.Page = 546
           Anchors = [akTop, akLeft, akRight, akBottom]
-          ClientHeight = 591
-          ClientWidth = 821
+          ClientHeight = 546
+          ClientWidth = 796
           TabOrder = 0
           object ComboBoxInfraredEquipment: TComboBox
             Left = 200
@@ -712,21 +727,24 @@ object FormFichaAmostra: TFormFichaAmostra
             TabOrder = 0
           end
           object ComboBoxInfravermelhoDigito: TComboBox
-            Left = 488
+            Left = 480
             Height = 31
-            Top = 285
+            Hint = 'Subamostra'
+            Top = 290
             Width = 200
             Font.Height = 24
             ItemHeight = 23
             OnChange = ActionComboboxDigitoOnChangeExecute
             ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
             Style = csDropDownList
             TabOrder = 1
           end
           object Label8: TLabel
             Left = 400
             Height = 23
-            Top = 285
+            Top = 290
             Width = 7
             Caption = '-'
             Font.Height = 24
@@ -737,7 +755,7 @@ object FormFichaAmostra: TFormFichaAmostra
           object LabelId_Quimica3: TLabel
             Left = 14
             Height = 15
-            Top = 285
+            Top = 290
             Width = 68
             Caption = 'Identificação'
             ParentColor = False
@@ -761,7 +779,7 @@ object FormFichaAmostra: TFormFichaAmostra
           object LabelInstrumentoIV: TLabel
             Left = 14
             Height = 15
-            Top = 488
+            Top = 480
             Width = 65
             Caption = 'Instrumento'
             ParentColor = False
@@ -769,7 +787,7 @@ object FormFichaAmostra: TFormFichaAmostra
           object MemoInfravermelhoSample: TMemo
             Left = 200
             Height = 32
-            Top = 285
+            Top = 290
             Width = 150
             ParentFont = False
             ReadOnly = True
@@ -790,6 +808,8 @@ object FormFichaAmostra: TFormFichaAmostra
             Height = 67
             Top = 408
             Width = 500
+            OnEditingDone = MemoInfravermelhoDescricaoEditingDone
+            OnKeyUp = MemoInfravermelhoDescricaoKeyUp
             ScrollBars = ssAutoVertical
             TabOrder = 4
           end
@@ -839,14 +859,14 @@ object FormFichaAmostra: TFormFichaAmostra
         ClientWidth = 839
         object ScrollBox7: TScrollBox
           Left = 10
-          Height = 595
+          Height = 550
           Top = 10
-          Width = 825
-          HorzScrollBar.Page = 821
-          VertScrollBar.Page = 591
+          Width = 800
+          HorzScrollBar.Page = 779
+          VertScrollBar.Page = 546
           Anchors = [akTop, akLeft, akRight, akBottom]
-          ClientHeight = 591
-          ClientWidth = 821
+          ClientHeight = 546
+          ClientWidth = 779
           TabOrder = 0
           object GroupBoxDadosDifracao: TGroupBox
             Left = 16
@@ -980,6 +1000,8 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 155
               Width = 120
+              OnEditingDone = MemoVolumeEditingDone
+              OnKeyUp = MemoVolumeKeyUp
               TabOrder = 6
             end
             object MemoSistemaCristalino: TMemo
@@ -987,6 +1009,8 @@ object FormFichaAmostra: TFormFichaAmostra
               Height = 35
               Top = 152
               Width = 120
+              OnEditingDone = MemoSistemaCristalinoEditingDone
+              OnKeyUp = MemoSistemaCristalinoKeyUp
               TabOrder = 7
             end
           end
@@ -1029,7 +1053,7 @@ object FormFichaAmostra: TFormFichaAmostra
           object LabelId_Quimica4: TLabel
             Left = 14
             Height = 15
-            Top = 280
+            Top = 290
             Width = 68
             Caption = 'Identificação'
             ParentColor = False
@@ -1037,7 +1061,7 @@ object FormFichaAmostra: TFormFichaAmostra
           object MemoDifracaoSample: TMemo
             Left = 200
             Height = 32
-            Top = 280
+            Top = 290
             Width = 150
             ParentFont = False
             ReadOnly = True
@@ -1046,9 +1070,8 @@ object FormFichaAmostra: TFormFichaAmostra
           object Label9: TLabel
             Left = 400
             Height = 23
-            Top = 287
+            Top = 290
             Width = 7
-            Anchors = [akLeft, akBottom]
             Caption = '-'
             Font.Height = 24
             Font.Style = [fsBold]
@@ -1056,14 +1079,17 @@ object FormFichaAmostra: TFormFichaAmostra
             ParentFont = False
           end
           object ComboBoxDifracaoDigito: TComboBox
-            Left = 464
+            Left = 480
             Height = 31
-            Top = 281
+            Hint = 'Subamostra'
+            Top = 290
             Width = 200
             Font.Height = 24
             ItemHeight = 23
             OnChange = ActionComboboxDigitoOnChangeExecute
             ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
             Style = csDropDownList
             TabOrder = 3
           end
@@ -1543,7 +1569,6 @@ object FormFichaAmostra: TFormFichaAmostra
       Height = 30
       Top = 5
       Width = 30
-      OnClick = ActionSeeRamanDataExecute
     end
     object SpeedButtonClearRamanData: TSpeedButton
       Left = 462
@@ -1745,7 +1770,6 @@ object FormFichaAmostra: TFormFichaAmostra
       Hint = 'Adicionar dados de microssonda'
       Top = 2
       Caption = 'ToolButtonAddMicroprobeData'
-      OnClick = BitBtnAddMicroprobeDataClick
       ParentShowHint = False
       ShowHint = True
     end
@@ -1788,7 +1812,6 @@ object FormFichaAmostra: TFormFichaAmostra
       Hint = 'Ver dados RAMAN'
       Top = 2
       Caption = 'ToolButtonSeeRamanData'
-      OnClick = ActionSeeRamanDataExecute
       ParentShowHint = False
       ShowHint = True
     end

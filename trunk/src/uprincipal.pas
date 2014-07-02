@@ -69,13 +69,14 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   StdCtrls, ExtCtrls, ComCtrls, DBCtrls, Buttons, EditBtn, ActnList,
   BGRAImageList, BCPanel, UnitAjuda, IniFiles, unitfichaamostra,
-  unitfichaespecie, unitselectdatabase ;
+  unitfichaespecie, unitselectdatabase, unitFormLanguage, unitLanguage;
 
 type
 
   { TFormPrincipal }
 
   TFormPrincipal = class(TForm)
+    ActionOpenFormLanguage: TAction;
     ActionOpenHelpForm: TAction;
     ActionOpenFormDatabase: TAction;
     ActionOpenSampleForm: TAction;
@@ -88,20 +89,24 @@ type
     MenuItemAddChartData: TMenuItem;
     MenuItemEraseData: TMenuItem;
     PopupMenuChart: TPopupMenu;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
+    SpeedButtonMinerals: TSpeedButton;
+    SpeedButtonAnalysis: TSpeedButton;
     ToolBar2: TToolBar;
     ToolButton1: TToolButton;
+    ToolButtonLanguage: TToolButton;
+    ToolButton4: TToolButton;
     ToolButtonDatabase: TToolButton;
     ToolButton3: TToolButton;
     ToolButtonExit: TToolButton;
     ToolButtonHelp: TToolButton;
     procedure ActionOpenFormDatabaseExecute(Sender: TObject);
+    procedure ActionOpenFormLanguageExecute(Sender: TObject);
     procedure ActionOpenHelpFormExecute(Sender: TObject);
     procedure ActionOpenMineralFormExecute(Sender: TObject);
     procedure ActionOpenSampleFormExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure ToolButtonExitClick(Sender: TObject);
   private
     { private declarations }
@@ -121,7 +126,7 @@ var
   //FormFichaEspecie:TForm;
 
 implementation
-
+ uses udatamodule;
 {$R *.lfm}
 
 { TFormPrincipal }
@@ -145,6 +150,11 @@ begin
   FormSelectDatabase.Show;
 end;
 
+procedure TFormPrincipal.ActionOpenFormLanguageExecute(Sender: TObject);
+begin
+  FormLanguage.Show;
+end;
+
 procedure TFormPrincipal.ActionOpenHelpFormExecute(Sender: TObject);
 begin
   FormAjuda.Show;
@@ -162,6 +172,21 @@ end;
 procedure TFormPrincipal.FormCreate(Sender: TObject);
 begin
   Imagem_Selecionada := '1';
+  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    ToolButtonDatabase.Hint:=Lang.Database;
+    ToolButtonHelp.Hint:=Lang.Help;
+    ToolButtonExit.Hint:=Lang.Exit;
+    SpeedButtonMinerals.Hint:=Lang.Minerals;
+    SpeedButtonAnalysis.Hint:=Lang.Analisys;
+  end;
+  Config.Free;
+end;
+
+procedure TFormPrincipal.FormShow(Sender: TObject);
+begin
+
 end;
 
 procedure TFormPrincipal.ToolButtonExitClick(Sender: TObject);

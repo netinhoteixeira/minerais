@@ -3,7 +3,7 @@ object FormSelectDatabase: TFormSelectDatabase
   Height = 374
   Top = 37
   Width = 595
-  Caption = 'FormSelectDatabase'
+  Caption = 'Banco de dados'
   ClientHeight = 374
   ClientWidth = 595
   OnCreate = FormCreate

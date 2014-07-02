@@ -3,7 +3,7 @@ object FormFichaEspecie: TFormFichaEspecie
   Height = 660
   Top = 10
   Width = 1144
-  Caption = 'FormFichaEspecie'
+  Caption = 'Minerais'
   ClientHeight = 660
   ClientWidth = 1144
   OnClose = FormClose
@@ -26,9 +26,9 @@ object FormFichaEspecie: TFormFichaEspecie
       ClientHeight = 536
       ClientWidth = 538
       object ScrollBox3: TScrollBox
-        Left = 0
+        Left = 10
         Height = 536
-        Top = 15
+        Top = 10
         Width = 538
         HorzScrollBar.Page = 517
         VertScrollBar.Page = 532
@@ -253,9 +253,9 @@ object FormFichaEspecie: TFormFichaEspecie
       ClientHeight = 536
       ClientWidth = 538
       object ScrollBox4: TScrollBox
-        Left = 0
+        Left = 10
         Height = 536
-        Top = 15
+        Top = 10
         Width = 538
         HorzScrollBar.Page = 517
         VertScrollBar.Page = 532
@@ -499,9 +499,9 @@ object FormFichaEspecie: TFormFichaEspecie
       ClientHeight = 536
       ClientWidth = 538
       object ScrollBox5: TScrollBox
-        Left = 0
+        Left = 10
         Height = 536
-        Top = 15
+        Top = 10
         Width = 538
         HorzScrollBar.Page = 517
         VertScrollBar.Page = 532
@@ -528,12 +528,12 @@ object FormFichaEspecie: TFormFichaEspecie
           Caption = 'Extinção'
           ParentColor = False
         end
-        object LabelDifaneidade: TLabel
+        object LabelDiafaneidade: TLabel
           Left = 15
           Height = 15
           Top = 23
-          Width = 63
-          Caption = 'Difaneidade'
+          Width = 69
+          Caption = 'Diafaneidade'
           ParentColor = False
         end
         object LabelSinal_optico: TLabel
@@ -706,9 +706,9 @@ object FormFichaEspecie: TFormFichaEspecie
       ClientHeight = 536
       ClientWidth = 538
       object ScrollBox6: TScrollBox
-        Left = 0
+        Left = 10
         Height = 536
-        Top = 15
+        Top = 10
         Width = 538
         HorzScrollBar.Page = 534
         VertScrollBar.Page = 532
@@ -1057,7 +1057,7 @@ object FormFichaEspecie: TFormFichaEspecie
         TabOrder = 1
       end
     end
-    object BCLabel2: TBCLabel
+    object BCLabelOrder: TBCLabel
       Left = 12
       Height = 39
       Top = 24
@@ -1116,7 +1116,7 @@ object FormFichaEspecie: TFormFichaEspecie
       Rounding.RoundY = 1
       Rounding.RoundOptions = []
     end
-    object BCLabel3: TBCLabel
+    object BCLabelMinerals: TBCLabel
       Left = 8
       Height = 42
       Top = 160
@@ -1309,7 +1309,7 @@ object FormFichaEspecie: TFormFichaEspecie
       Rounding.RoundY = 1
       Rounding.RoundOptions = []
       TabOrder = 0
-      object BCLabelClasse: TBCLabel
+      object BCLabelClass: TBCLabel
         Left = 14
         Height = 36
         Top = 50
@@ -1371,14 +1371,14 @@ object FormFichaEspecie: TFormFichaEspecie
       object ComboBoxClasse: TComboBox
         Left = 9
         Height = 23
-        Top = 82
+        Top = 80
         Width = 145
         ItemHeight = 15
         OnChange = ComboBoxClasseChange
         Style = csDropDownList
         TabOrder = 0
       end
-      object BCLabelSubclasse: TBCLabel
+      object BCLabelSubclass: TBCLabel
         Left = 14
         Height = 36
         Top = 105
@@ -1447,7 +1447,7 @@ object FormFichaEspecie: TFormFichaEspecie
         Style = csDropDownList
         TabOrder = 1
       end
-      object BCLabelGrupo: TBCLabel
+      object BCLabelGroup: TBCLabel
         Left = 14
         Height = 36
         Top = 162
@@ -1516,7 +1516,7 @@ object FormFichaEspecie: TFormFichaEspecie
         Style = csDropDownList
         TabOrder = 2
       end
-      object BCLabelSubgrupo: TBCLabel
+      object BCLabelSubgroup: TBCLabel
         Left = 14
         Height = 36
         Top = 218
@@ -1585,7 +1585,7 @@ object FormFichaEspecie: TFormFichaEspecie
         Style = csDropDownList
         TabOrder = 3
       end
-      object BCLabelDureza: TBCLabel
+      object BCLabelHardness: TBCLabel
         Left = 14
         Height = 36
         Top = 280
@@ -1726,7 +1726,7 @@ object FormFichaEspecie: TFormFichaEspecie
         TabOrder = 5
         Text = '0'
       end
-      object BCLabelDensidade: TBCLabel
+      object BCLabelDensity: TBCLabel
         Left = 14
         Height = 36
         Top = 352
@@ -2097,7 +2097,7 @@ object FormFichaEspecie: TFormFichaEspecie
         OnEditingDone = EditNomeEditingDone
         TabOrder = 12
       end
-      object BCLabel1: TBCLabel
+      object BCLabelName: TBCLabel
         Left = 14
         Height = 36
         Top = 0
@@ -2274,22 +2274,6 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
       ParentShowHint = False
     end
-    object ComboBox1: TComboBox
-      Left = 1004
-      Height = 23
-      Top = 12
-      Width = 108
-      ItemHeight = 15
-      Items.Strings = (
-        '10'
-        '12'
-        '14'
-        '16'
-      )
-      OnChange = ComboBox1Change
-      Style = csDropDownList
-      TabOrder = 0
-    end
   end
   object ProgressBar1: TProgressBar
     Left = 0
@@ -2380,6 +2364,47 @@ object FormFichaEspecie: TFormFichaEspecie
       OnClick = ActionImagesVisibleExecute
       ParentShowHint = False
       ShowHint = True
+    end
+    object ToolButton1: TToolButton
+      Left = 154
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton1'
+      Style = tbsDivider
+    end
+    object ToolButtonBibliografia: TToolButton
+      Left = 159
+      Hint = 'Bibliografia'
+      Top = 2
+      Caption = 'ToolButtonBibliografia'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object ToolButton6: TToolButton
+      Left = 182
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton6'
+      Style = tbsDivider
+    end
+    object ComboBox1: TComboBox
+      Left = 187
+      Height = 23
+      Hint = 'Tamanho da fonte'
+      Top = 2
+      Width = 108
+      ItemHeight = 15
+      Items.Strings = (
+        '10'
+        '12'
+        '14'
+        '16'
+      )
+      OnChange = ComboBox1Change
+      ParentShowHint = False
+      ShowHint = True
+      Style = csDropDownList
+      TabOrder = 0
     end
   end
   object OpenPictureDialog1: TOpenPictureDialog

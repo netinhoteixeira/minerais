@@ -73,23 +73,32 @@ object FormAddMineral: TFormAddMineral
     object SpeedButton1: TSpeedButton
       Left = 16
       Height = 40
+      Hint = 'Adicionar'
       Top = 5
       Width = 40
       OnClick = ActionAddExecute
+      ShowHint = True
+      ParentShowHint = False
     end
     object SpeedButton2: TSpeedButton
       Left = 72
       Height = 40
+      Hint = 'Limpar'
       Top = 5
       Width = 40
       OnClick = ActionClearFieldsExecute
+      ShowHint = True
+      ParentShowHint = False
     end
     object SpeedButton3: TSpeedButton
       Left = 588
       Height = 40
+      Hint = 'Fechar'
       Top = 5
       Width = 40
       OnClick = Action1Execute
+      ShowHint = True
+      ParentShowHint = False
     end
   end
   object PageControlFicha: TPageControl

@@ -1,3 +1,62 @@
+{
+  GNU LESSER GENERAL PUBLIC LICENSE
+
+Version 3, 29 June 2007
+
+Copyright © 2007 Free Software Foundation, Inc. <http://fsf.org/>
+
+Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
+
+This version of the GNU Lesser General Public License incorporates the terms and conditions of version 3 of the GNU General Public License, supplemented by the additional permissions listed below.
+
+0. Additional Definitions.
+As used herein, “this License” refers to version 3 of the GNU Lesser General Public License, and the “GNU GPL” refers to version 3 of the GNU General Public License.
+
+“The Library” refers to a covered work governed by this License, other than an Application or a Combined Work as defined below.
+
+An “Application” is any work that makes use of an interface provided by the Library, but which is not otherwise based on the Library. Defining a subclass of a class defined by the Library is deemed a mode of using an interface provided by the Library.
+
+A “Combined Work” is a work produced by combining or linking an Application with the Library. The particular version of the Library with which the Combined Work was made is also called the “Linked Version”.
+
+The “Minimal Corresponding Source” for a Combined Work means the Corresponding Source for the Combined Work, excluding any source code for portions of the Combined Work that, considered in isolation, are based on the Application, and not on the Linked Version.
+
+The “Corresponding Application Code” for a Combined Work means the object code and/or source code for the Application, including any data and utility programs needed for reproducing the Combined Work from the Application, but excluding the System Libraries of the Combined Work.
+
+1. Exception to Section 3 of the GNU GPL.
+You may convey a covered work under sections 3 and 4 of this License without being bound by section 3 of the GNU GPL.
+
+2. Conveying Modified Versions.
+If you modify a copy of the Library, and, in your modifications, a facility refers to a function or data to be supplied by an Application that uses the facility (other than as an argument passed when the facility is invoked), then you may convey a copy of the modified version:
+
+a) under this License, provided that you make a good faith effort to ensure that, in the event an Application does not supply the function or data, the facility still operates, and performs whatever part of its purpose remains meaningful, or
+b) under the GNU GPL, with none of the additional permissions of this License applicable to that copy.
+3. Object Code Incorporating Material from Library Header Files.
+The object code form of an Application may incorporate material from a header file that is part of the Library. You may convey such object code under terms of your choice, provided that, if the incorporated material is not limited to numerical parameters, data structure layouts and accessors, or small macros, inline functions and templates (ten or fewer lines in length), you do both of the following:
+
+a) Give prominent notice with each copy of the object code that the Library is used in it and that the Library and its use are covered by this License.
+b) Accompany the object code with a copy of the GNU GPL and this license document.
+4. Combined Works.
+You may convey a Combined Work under terms of your choice that, taken together, effectively do not restrict modification of the portions of the Library contained in the Combined Work and reverse engineering for debugging such modifications, if you also do each of the following:
+
+a) Give prominent notice with each copy of the Combined Work that the Library is used in it and that the Library and its use are covered by this License.
+b) Accompany the Combined Work with a copy of the GNU GPL and this license document.
+c) For a Combined Work that displays copyright notices during execution, include the copyright notice for the Library among these notices, as well as a reference directing the user to the copies of the GNU GPL and this license document.
+d) Do one of the following:
+0) Convey the Minimal Corresponding Source under the terms of this License, and the Corresponding Application Code in a form suitable for, and under terms that permit, the user to recombine or relink the Application with a modified version of the Linked Version to produce a modified Combined Work, in the manner specified by section 6 of the GNU GPL for conveying Corresponding Source.
+1) Use a suitable shared library mechanism for linking with the Library. A suitable mechanism is one that (a) uses at run time a copy of the Library already present on the user's computer system, and (b) will operate properly with a modified version of the Library that is interface-compatible with the Linked Version.
+e) Provide Installation Information, but only if you would otherwise be required to provide such information under section 6 of the GNU GPL, and only to the extent that such information is necessary to install and execute a modified version of the Combined Work produced by recombining or relinking the Application with a modified version of the Linked Version. (If you use option 4d0, the Installation Information must accompany the Minimal Corresponding Source and Corresponding Application Code. If you use option 4d1, you must provide the Installation Information in the manner specified by section 6 of the GNU GPL for conveying Corresponding Source.)
+5. Combined Libraries.
+You may place library facilities that are a work based on the Library side by side in a single library together with other library facilities that are not Applications and are not covered by this License, and convey such a combined library under terms of your choice, if you do both of the following:
+
+a) Accompany the combined library with a copy of the same work based on the Library, uncombined with any other library facilities, conveyed under the terms of this License.
+b) Give prominent notice with the combined library that part of it is a work based on the Library, and explaining where to find the accompanying uncombined form of the same work.
+6. Revised Versions of the GNU Lesser General Public License.
+The Free Software Foundation may publish revised and/or new versions of the GNU Lesser General Public License from time to time. Such new versions will be similar in spirit to the present version, but may differ in detail to address new problems or concerns.
+
+Each version is given a distinguishing version number. If the Library as you received it specifies that a certain numbered version of the GNU Lesser General Public License “or any later version” applies to it, you have the option of following the terms and conditions either of that published version or of any later version published by the Free Software Foundation. If the Library as you received it does not specify a version number of the GNU Lesser General Public License, you may choose any version of the GNU Lesser General Public License ever published by the Free Software Foundation.
+
+If the Library as you received it specifies that a proxy can decide whether future versions of the GNU Lesser General Public License shall apply, that proxy's public statement of acceptance of any version is permanent authorization for you to choose that version for the Library.
+ }
 unit unitfichaamostra;
 
 {$mode objfpc}{$H+}
@@ -56,9 +115,6 @@ type
     BCPanel1: TBCPanel;
     BCPanel2: TBCPanel;
     BGRAImageList1: TBGRAImageList;
-    BitBtnAddMicroprobeData: TBitBtn;
-    BitBtnClearMicroprobeData: TBitBtn;
-    BitBtnEditMicroprobeData: TBitBtn;
     ChartBroadScan: TChart;
     ChartBroadScanLineSeries1: TLineSeries;
     ChartDifracao: TChart;
@@ -81,7 +137,7 @@ type
     EditMineralSample: TEdit;
     EditSample: TEdit;
     EditSample_Id: TEdit;
-    GroupBox14: TGroupBox;
+    GroupBox1: TGroupBox;
     GroupBox9: TGroupBox;
     GroupBoxDadosDifracao: TGroupBox;
     GroupBoxDifracao: TGroupBox;
@@ -176,6 +232,9 @@ type
     ScrollBox6: TScrollBox;
     ScrollBox7: TScrollBox;
     SpeedButton1: TSpeedButton;
+    SpeedButtonAddData: TSpeedButton;
+    SpeedButtonSeeData: TSpeedButton;
+    SpeedButtonRemoveData: TSpeedButton;
     SpeedButtonClearMicroprobeData: TSpeedButton;
     SpeedButtonAddChartRaman: TSpeedButton;
     SpeedButtonSeeRamanData: TSpeedButton;
@@ -268,9 +327,6 @@ type
     procedure ActionSeeMicroprobeDataExecute(Sender: TObject);
     procedure ActionSeePowderDataExecute(Sender: TObject);
     procedure ActionSeeRamanDataExecute(Sender: TObject);
-    procedure BitBtnAddMicroprobeDataClick(Sender: TObject);
-    procedure BitBtnClearMicroprobeDataClick(Sender: TObject);
-    procedure BitBtnEditMicroprobeDataClick(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure ComboBoxDirecaoLaserChange(Sender: TObject);
     procedure ComboBoxVarreduraOndaChange(Sender: TObject);
@@ -301,6 +357,9 @@ type
     procedure MemoFonteKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure MemoGammaEditingDone(Sender: TObject);
     procedure MemoGammaKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+    procedure MemoInfravermelhoDescricaoEditingDone(Sender: TObject);
+    procedure MemoInfravermelhoDescricaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure MemoInfravermelhoResolucaoEditingDone(Sender: TObject);
     procedure MemoInfravermelhoResolucaoKeyUp(Sender: TObject;
       var Key: word; Shift: TShiftState);
@@ -316,8 +375,20 @@ type
     procedure MemoQuimicaMedidaEditingDone(Sender: TObject);
     procedure MemoQuimicaMedidaKeyUp(Sender: TObject; var Key: word;
       Shift: TShiftState);
+    procedure MemoRamanDescricaoEditingDone(Sender: TObject);
+    procedure MemoRamanDescricaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure MemoSistemaCristalinoEditingDone(Sender: TObject);
+    procedure MemoSistemaCristalinoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure MemoSituacaoEditingDone(Sender: TObject);
     procedure MemoSituacaoKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+    procedure MemoVarreduraDescricaoEditingDone(Sender: TObject);
+    procedure MemoVarreduraDescricaoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure MemoVolumeEditingDone(Sender: TObject);
+    procedure MemoVolumeKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
+      );
     procedure MenuItemAddClick(Sender: TObject);
     procedure MenuItemRemoveClick(Sender: TObject);
   private
@@ -708,6 +779,22 @@ begin
     ' gamma = "' + MemoGamma.Text + '" WHERE rruff_id = "' + EditSample.Text + '" ;');
 end;
 
+procedure TFormFichaAmostra.MemoInfravermelhoDescricaoEditingDone(
+  Sender: TObject);
+begin
+  TableSamples := DatabaseSamples.GetTable('UPDATE infravermelho SET ' +
+    ' description = "' + MemoInfravermelhoDescricao.Text + '" WHERE rruff_id = "' +
+      EditSample.Text + '" ;');
+end;
+
+procedure TFormFichaAmostra.MemoInfravermelhoDescricaoKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  TableSamples := DatabaseSamples.GetTable('UPDATE infravermelho SET ' +
+    ' description = "' + MemoInfravermelhoDescricao.Text + '" WHERE rruff_id = "' +
+      EditSample.Text + '" ;');
+end;
+
 procedure TFormFichaAmostra.MemoInfravermelhoResolucaoEditingDone(Sender: TObject);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE infravermelho SET ' +
@@ -783,6 +870,36 @@ begin
     EditSample.Text + '" ;');
 end;
 
+procedure TFormFichaAmostra.MemoRamanDescricaoEditingDone(Sender: TObject);
+begin
+  TableSamples := DatabaseSamples.GetTable('UPDATE raman SET ' +
+    ' description = "' + MemoRamanDescricao.Text + '" WHERE rruff_id = "' +
+      EditSample.Text + '" ;');
+end;
+
+procedure TFormFichaAmostra.MemoRamanDescricaoKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  TableSamples := DatabaseSamples.GetTable('UPDATE raman SET ' +
+    ' description = "' + MemoRamanDescricao.Text + '" WHERE rruff_id = "' +
+      EditSample.Text + '" ;');
+end;
+
+procedure TFormFichaAmostra.MemoSistemaCristalinoEditingDone(Sender: TObject);
+begin
+  TableSamples := DatabaseSamples.GetTable('UPDATE difracao SET ' +
+    ' sistema_cristalino = "' + MemoSistemaCristalino.Text + '" WHERE rruff_id = "' +
+      EditSample.Text + '" ;');
+end;
+
+procedure TFormFichaAmostra.MemoSistemaCristalinoKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  TableSamples := DatabaseSamples.GetTable('UPDATE difracao SET ' +
+    ' sistema_cristalino = "' + MemoSistemaCristalino.Text + '" WHERE rruff_id = "' +
+      EditSample.Text + '" ;');
+end;
+
 procedure TFormFichaAmostra.MemoSituacaoEditingDone(Sender: TObject);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE rruff SET ' +
@@ -798,6 +915,37 @@ begin
     EditSample.Text + '" ;');
 end;
 
+procedure TFormFichaAmostra.MemoVarreduraDescricaoEditingDone(Sender: TObject);
+begin
+  TableSamples := DatabaseSamples.GetTable('UPDATE varredura SET ' +
+    ' description = "' + MemoVarreduraDescricao.Text + '" WHERE rruff_id = "' +
+      EditSample.Text + '" ;');
+end;
+
+procedure TFormFichaAmostra.MemoVarreduraDescricaoKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  TableSamples := DatabaseSamples.GetTable('UPDATE varredura SET ' +
+    ' description = "' + MemoVarreduraDescricao.Text + '" WHERE rruff_id = "' +
+      EditSample.Text + '" ;');
+end;
+
+procedure TFormFichaAmostra.MemoVolumeEditingDone(Sender: TObject);
+begin
+  TableSamples := DatabaseSamples.GetTable('UPDATE difracao SET ' +
+    ' volume = "' + MemoVolume.Text + '" WHERE rruff_id = "' +
+      EditSample.Text + '" ;');
+end;
+
+procedure TFormFichaAmostra.MemoVolumeKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  TableSamples := DatabaseSamples.GetTable('UPDATE difracao SET ' +
+    ' volume = "' + MemoVolume.Text + '" WHERE rruff_id = "' +
+      EditSample.Text + '" ;');
+end;
+
+     //remover esse procedimento e utilizar os actionlists
 procedure TFormFichaAmostra.MenuItemAddClick(Sender: TObject);
 var
   Digito: string;
@@ -855,7 +1003,7 @@ begin
   else
     ShowMessage('Não há amostra selecionada.');
 end;
-
+  ////remover esse procedimento e utilizar os actionlists
 procedure TFormFichaAmostra.MenuItemRemoveClick(Sender: TObject);
 begin
   if EditSample.Text <> EmptyStr then
@@ -1412,10 +1560,10 @@ begin
       end;
     end
     else
-      ShowMessage('Escolha uma subamostra para adicionar uma imagem.');
+      ShowMessage('Escolha uma subamostra para adicionar imagem.');
   end
   else
-    ShowMessage('Escolha uma amostra para adicionar uma imagem.');
+    ShowMessage('Escolha uma amostra para adicionar imagem.');
 end;
 
 procedure TFormFichaAmostra.ActionAddBroadScanDataExecute(Sender: TObject);
@@ -1460,7 +1608,7 @@ begin
     end;
   end
   else
-    ShowMessage('Escolha uma amostra para adicionar uma imagem.');
+    ShowMessage('Escolha uma amostra para adicionar imagem.');
 end;
 
 procedure TFormFichaAmostra.ActionAddInfraredDataExecute(Sender: TObject);
@@ -1489,20 +1637,69 @@ end;
 
 procedure TFormFichaAmostra.ActionAddMicroprobeDataExecute(Sender: TObject);
 begin
-  if (Trim(EditSample.Text) <> EmptyStr) then
+  {if Trim(Dados.DatabaseSampleFileName) <> EmptyStr then
   begin
-    OpenDialog1.FileName := EmptyStr;
-    if OpenDialog1.Execute then
-      if OpenDialog1.FileName <> EmptyStr then
+    if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
+    begin
+      if Trim(EditSample.Text) <> EmptyStr then
       begin
+        if ComboboxQuimicaDigito.Text <> EmptyStr then
+        begin
+          OpenDialog1.FileName := EmptyStr;
+          if OpenDialog1.Execute then
+          begin
+            if OpenDialog1.FileName <> EmptyStr then
+            begin
+              CSVFileToBlobField(OpenDialog1.FileName, 'chemistry', 'microprobe_file',
+                EditMineralSample.Text, EditSample.Text,
+                Trim(ComboboxQuimicaDigito.Text), EmptyStr);
+              FormPlanilha.ArquivoMicrossonda(EditMineralSample.Text, EditSample.Text,
+                Trim(ComboboxQuimicaDigito.Text));
+            end;
+          end;
+        end
+        else
+          ShowMessage('Não há subamostra selecionada');
+      end
+      else
+        ShowMessage('Não há amostra selecionada');
+    end
+    else
+      ShowMessage('O banco de dados não é válido.');
+  end
+  else
+    ShowMessage('Não há banco de dados selecionado.');}
+  if Trim(Dados.DatabaseSampleFileName) <> EmptyStr then
+  begin
+    if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
+    begin
+      if Trim(EditSample.Text) <> EmptyStr then
+      begin
+        if ComboboxQuimicaDigito.Text <> EmptyStr then
+        begin
+          OpenDialog1.FileName := EmptyStr;
+          if OpenDialog1.Execute then
+          begin
+            if OpenDialog1.FileName <> EmptyStr then
+            begin
         CSVFileToBlobField(OpenDialog1.FileName, 'chemistry', 'microprobe_file',
           EmptyStr, EditSample.Text, Trim(ComboboxQuimicaDigito.Text), EmptyStr);
         FormPlanilha.ArquivoMicrossonda(EmptyStr, EditSample.Text,
           Trim(ComboboxQuimicaDigito.Text));
-      end;
+       end;
+          end;
+        end
+        else
+          ShowMessage('Não há subamostra selecionada');
+      end
+      else
+        ShowMessage('Não há amostra selecionada');
+    end
+    else
+      ShowMessage('O banco de dados não é válido.');
   end
   else
-    ShowMessage('Escolha uma amostra para adicionar dados.');
+    ShowMessage('Não há banco de dados selecionado.');
 end;
 
 procedure TFormFichaAmostra.ActionAddPowderDataExecute(Sender: TObject);
@@ -1648,11 +1845,26 @@ end;
 
 procedure TFormFichaAmostra.ActionClearMicroprobeDataExecute(Sender: TObject);
 begin
-  if (Trim(EditSample.Text) <> EmptyStr) then
-    ClearBlobField('chemistry', 'microprobe_file', EmptyStr, EditSample.Text,
-      ComboboxQuimicaDigito.Text, EmptyStr)
+  if Trim(Dados.DatabaseSampleFileName) <> EmptyStr then
+  begin
+    if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
+    begin
+      if Trim(EditSample.Text) <> EmptyStr then
+      begin
+        if Trim(ComboboxQuimicaDigito.Text) <> EmptyStr then
+          ClearBlobField('chemistry', 'microprobe_file', EmptyStr,
+            EditSample.Text, Trim(ComboboxQuimicaDigito.Text), EmptyStr)
+        else
+          ShowMessage('Não há subamostra selecionada');
+      end
+      else
+        ShowMessage('Não há amostra selecionada');
+    end
+    else
+      ShowMessage('O banco de dados não é válido.');
+  end
   else
-    ShowMessage('Escolha uma amostra para adicionar dados.');
+    ShowMessage('Não há banco de dados selecionado.');
 end;
 
 procedure TFormFichaAmostra.ActionClearPowderDataExecute(Sender: TObject);
@@ -2165,20 +2377,26 @@ end;
 
 procedure TFormFichaAmostra.ActionSeeMicroprobeDataExecute(Sender: TObject);
 begin
-  if (Trim(EditSample.Text) <> EmptyStr) then
+  if Trim(Dados.DatabaseSampleFileName) <> EmptyStr then
   begin
-    FormPlanilha := TFormPlanilha.Create(nil);
-    with FormPlanilha do
+    if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
     begin
-      Caption := EditSample.Text;
-    end;
-    FormPlanilha.ArquivoPlanilha('chemistry', 'microprobe_file',
-      EmptyStr, EditSample.Caption, ComboboxQuimicaDigito.Text,
-      EmptyStr, EmptyStr);
-    FormPlanilha.Show;
+      if Trim(EditSample.Text) <> EmptyStr then
+      begin
+        if ComboboxQuimicaDigito.Text <> EmptyStr then
+          FormPlanilha.ArquivoMicrossonda(EmptyStr, EditSample.Text,
+            Trim(ComboboxQuimicaDigito.Text))
+        else
+          ShowMessage('Não há subamostra selecionada');
+      end
+      else
+        ShowMessage('Não há amostra selecionada');
+    end
+    else
+      ShowMessage('O banco de dados não é válido.');
   end
   else
-    ShowMessage('Escolha uma amostra para adicionar dados.');
+    ShowMessage('Não há banco de dados selecionado.');
 end;
 
 procedure TFormFichaAmostra.ActionSeePowderDataExecute(Sender: TObject);
@@ -2215,90 +2433,6 @@ begin
   end
   else
     ShowMessage('Escolha uma amostra para adicionar dados.');
-end;
-
-procedure TFormFichaAmostra.BitBtnAddMicroprobeDataClick(Sender: TObject);
-begin
-  if Trim(Dados.DatabaseSampleFileName) <> EmptyStr then
-  begin
-    if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
-    begin
-      if Trim(EditSample.Text) <> EmptyStr then
-      begin
-        if ComboboxQuimicaDigito.Text <> EmptyStr then
-        begin
-          OpenDialog1.FileName := EmptyStr;
-          if OpenDialog1.Execute then
-          begin
-            if OpenDialog1.FileName <> EmptyStr then
-            begin
-              CSVFileToBlobField(OpenDialog1.FileName, 'chemistry', 'microprobe_file',
-                EditMineralSample.Text, EditSample.Text,
-                Trim(ComboboxQuimicaDigito.Text), EmptyStr);
-              FormPlanilha.ArquivoMicrossonda(EditMineralSample.Text, EditSample.Text,
-                Trim(ComboboxQuimicaDigito.Text));
-            end;
-          end;
-        end
-        else
-          ShowMessage('Não há subamostra selecionada');
-      end
-      else
-        ShowMessage('Não há amostra selecionada');
-    end
-    else
-      ShowMessage('O banco de dados não é válido.');
-  end
-  else
-    ShowMessage('Não há banco de dados selecionado.');
-end;
-
-procedure TFormFichaAmostra.BitBtnClearMicroprobeDataClick(Sender: TObject);
-begin
-  if Trim(Dados.DatabaseSampleFileName) <> EmptyStr then
-  begin
-    if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
-    begin
-      if Trim(EditSample.Text) <> EmptyStr then
-      begin
-        if Trim(ComboboxQuimicaDigito.Text) <> EmptyStr then
-          ClearBlobField('chemistry', 'microprobe_file', EmptyStr,
-            EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr)
-        else
-          ShowMessage('Não há subamostra selecionada');
-      end
-      else
-        ShowMessage('Não há amostra selecionada');
-    end
-    else
-      ShowMessage('O banco de dados não é válido.');
-  end
-  else
-    ShowMessage('Não há banco de dados selecionado.');
-end;
-
-procedure TFormFichaAmostra.BitBtnEditMicroprobeDataClick(Sender: TObject);
-begin
-  if Trim(Dados.DatabaseSampleFileName) <> EmptyStr then
-  begin
-    if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
-    begin
-      if Trim(EditSample.Text) <> EmptyStr then
-      begin
-        if ComboboxQuimicaDigito.Text <> EmptyStr then
-          FormPlanilha.ArquivoMicrossonda(EmptyStr, EditSample.Text,
-            Trim(ComboboxQuimicaDigito.Text))
-        else
-          ShowMessage('Não há subamostra selecionada');
-      end
-      else
-        ShowMessage('Não há amostra selecionada');
-    end
-    else
-      ShowMessage('O banco de dados não é válido.');
-  end
-  else
-    ShowMessage('Não há banco de dados selecionado.');
 end;
 
 procedure TFormFichaAmostra.ComboBox1Change(Sender: TObject);
