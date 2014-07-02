@@ -4,7 +4,7 @@ object FormRemoveMineral: TFormRemoveMineral
   Top = 139
   Width = 320
   BorderStyle = bsSizeToolWin
-  Caption = 'FormRemoveMineral'
+  Caption = 'Remover'
   ClientHeight = 424
   ClientWidth = 320
   OnShow = FormShow

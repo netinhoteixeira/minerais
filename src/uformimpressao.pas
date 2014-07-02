@@ -47,39 +47,49 @@ type
     { private declarations }
   public
     { public declarations }
-  end; 
+  end;
 
 var
   FormImpressao: TFormImpressao;
 
 implementation
+
 uses udatamodule;
 
 { TFormImpressao }
 
 procedure TFormImpressao.ActionPrintExecute(Sender: TObject);
-  var i:Integer;
-    numPags:String;
+var
+  i: integer;
+  numPags: string;
 begin
-  numPags:=EmptyStr;
-  for i:=1 to Dados.frReport1.Pages.Count do
+  if Trim(Dados.DatabaseMineralFileName) <> EmptyStr then
   begin
-    //////// A vírgula pode gerar erro:
-    if ((i)Mod(2) > 0) then
+    if Trim(Dados.Sqlite3DatasetPrinter.FileName) <> EmptyStr then
     begin
-         if CheckBox1.Checked then
-         numPags:=numPags+IntToStr(i);
-         if i<Dados.frReport1.Pages.Count then numPags:=numPags+', ';
-    end
-    else
-    begin
-         if CheckBox2.Checked then
-         numPags:=numPags+IntToStr(i);
-         if i<Dados.frReport1.Pages.Count then numPags:=numPags+', ';
+      numPags := EmptyStr;
+      for i := 1 to Dados.frReport1.Pages.Count do
+      begin
+        //////// A vírgula pode gerar erro:
+        if ((i) mod (2) > 0) then
+        begin
+          if CheckBox1.Checked then
+            numPags := numPags + IntToStr(i);
+          if i < Dados.frReport1.Pages.Count then
+            numPags := numPags + ', ';
+        end
+        else
+        begin
+          if CheckBox2.Checked then
+            numPags := numPags + IntToStr(i);
+          if i < Dados.frReport1.Pages.Count then
+            numPags := numPags + ', ';
+        end;
+      end;
+      Dados.frReport1.PrepareReport;
+      Dados.frReport1.PrintPreparedReport(numPags, SpinEdit1.Value);
     end;
   end;
-  Dados.frReport1.PrepareReport;
-  Dados.frReport1.PrintPreparedReport(numPags, SpinEdit1.Value);
 end;
 
 procedure TFormImpressao.ActionModifyReportExecute(Sender: TObject);
@@ -89,47 +99,46 @@ end;
 
 procedure TFormImpressao.ActionHideFormExecute(Sender: TObject);
 begin
-  FormImpressao.Visible:=False;
+  FormImpressao.Visible := False;
 end;
 
 procedure TFormImpressao.ActionOpenReportExecute(Sender: TObject);
 begin
-  OpenDialog1.FileName:=EmptyStr;
+  OpenDialog1.FileName := EmptyStr;
   if OpenDialog1.Execute then
     if OpenDialog1.FileName <> EmptyStr then
       if (FileExists(OpenDialog1.FileName)) then
-      Begin
+      begin
         Dados.frReport1.LoadFromFile(OpenDialog1.FileName);
         Dados.frReport1.ShowReport;
-      end
+      end;
 end;
 
-procedure TFormImpressao.FormClose(Sender: TObject;
-  var CloseAction: TCloseAction);
+procedure TFormImpressao.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   Dados.Sqlite3DatasetPrinter.Close();
 end;
 
 procedure TFormImpressao.FormShow(Sender: TObject);
-var Diretorio:String;
+var
+  Diretorio: string;
 begin
   if Dados.Sqlite3DatasetPrinter.Active then
     Dados.Sqlite3DatasetPrinter.Close;
-  Dados.Sqlite3DatasetPrinter.FileName:= Dados.DatabaseMineralFileName;
-  Dados.Sqlite3DatasetPrinter.SQL:='SELECT * FROM minerais ;';
+  Dados.Sqlite3DatasetPrinter.FileName := Dados.DatabaseMineralFileName;
+  Dados.Sqlite3DatasetPrinter.SQL := 'SELECT * FROM minerais ;';
   Dados.Sqlite3DatasetPrinter.Open();
-  Diretorio:=GetCurrentDir+'\Data\report1.lrf';
+  Diretorio := GetCurrentDir + '\Data\report1.lrf';
   if (FileExists(Diretorio)) then
-  Begin
+  begin
     Dados.frReport1.LoadFromFile(Diretorio);
     Dados.frReport1.ShowReport;
   end
   else
-      ShowMessage('O arquivo de gerar relatório "'+Diretorio+'" não foi encontrado.');
+    ShowMessage('O arquivo de gerar relatório "' + Diretorio + '" não foi encontrado.');
 end;
 
 
 {$R *.lfm}
 
 end.
-

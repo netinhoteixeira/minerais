@@ -4,7 +4,7 @@ object FormAddDatabase: TFormAddDatabase
   Top = 218
   Width = 335
   BorderStyle = bsToolWindow
-  Caption = 'FormAddDatabase'
+  Caption = 'Adicionar'
   ClientHeight = 195
   ClientWidth = 335
   OnShow = FormShow

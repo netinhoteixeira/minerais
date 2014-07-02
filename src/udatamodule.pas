@@ -271,7 +271,6 @@ begin
       DatabaseSamples.ExecSQL(ExecSQL);
   finally
 
-
   end;
   end;
 end;

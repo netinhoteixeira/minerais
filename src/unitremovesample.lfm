@@ -4,7 +4,7 @@ object FormRemoveSample: TFormRemoveSample
   Top = 125
   Width = 701
   BorderStyle = bsToolWindow
-  Caption = 'FormRemoveSample'
+  Caption = 'Remover'
   ClientHeight = 436
   ClientWidth = 701
   OnShow = FormShow

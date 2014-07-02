@@ -3,8 +3,8 @@ object Dados: TDados
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
   Height = 408
-  HorizontalOffset = 894
-  VerticalOffset = 153
+  HorizontalOffset = 586
+  VerticalOffset = 106
   Width = 422
   object frReport1: TfrReport
     Dataset = frDBDataSet1

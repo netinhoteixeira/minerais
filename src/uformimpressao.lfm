@@ -3,7 +3,7 @@ object FormImpressao: TFormImpressao
   Height = 545
   Top = 45
   Width = 1035
-  Caption = 'Impresão'
+  Caption = 'Impressão'
   ClientHeight = 545
   ClientWidth = 1035
   OnClose = FormClose
@@ -19,15 +19,21 @@ object FormImpressao: TFormImpressao
     TabOrder = 2
     object ToolButtonChangeReport: TToolButton
       Left = 1
+      Hint = 'mudar arquivo de relatório'
       Top = 2
       Caption = 'ToolButtonChangeReport'
       OnClick = ActionModifyReportExecute
+      ParentShowHint = False
+      ShowHint = True
     end
     object ToolButtonOpenFileReport: TToolButton
       Left = 24
+      Hint = 'Abrir arquivo de relatório'
       Top = 2
       Caption = 'ToolButtonOpenFileReport'
       OnClick = ActionOpenReportExecute
+      ParentShowHint = False
+      ShowHint = True
     end
   end
   object BCPanel1: TBCPanel
@@ -102,12 +108,14 @@ object FormImpressao: TFormImpressao
       ClientWidth = 741
       TabOrder = 0
       object frPreview1: TfrPreview
-        Left = 616
-        Height = 501
-        Top = 16
-        Width = 660
+        Left = 0
+        Height = 449
+        Top = 0
+        Width = 741
+        Align = alClient
         Alignment = taRightJustify
         BevelInner = bvRaised
+        BevelOuter = bvLowered
         TabOrder = 0
         ScrollBars = ssBoth
       end
@@ -333,16 +341,23 @@ object FormImpressao: TFormImpressao
     object SpeedButton1: TSpeedButton
       Left = 40
       Height = 40
+      Hint = 'Imprimir'
       Top = 6
       Width = 40
       OnClick = ActionPrintExecute
+      ShowHint = True
+      ParentShowHint = False
     end
     object SpeedButton2: TSpeedButton
       Left = 952
       Height = 40
+      Hint = 'Sair'
       Top = 6
       Width = 40
+      Anchors = [akTop, akRight]
       OnClick = ActionHideFormExecute
+      ShowHint = True
+      ParentShowHint = False
     end
   end
   object ActionList1: TActionList

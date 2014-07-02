@@ -13,7 +13,7 @@ uses
   unitequipamentos, unitfichaamostra, unitfichaespecie,
   unitBlobFields, unitaddmineral,
   unitselectdatabase, unitadddatabase, unitaddsample, unitremovesample,
-unitremovemineral;
+  unitremovemineral, unitFormLanguage;
 
 {$R *.res}
 
@@ -39,6 +39,7 @@ begin
   Application.CreateForm(TFormAddSample, FormAddSample);
   Application.CreateForm(TFormRemoveSample, FormRemoveSample);
   Application.CreateForm(TFormRemoveMineral, FormRemoveMineral);
+  Application.CreateForm(TFormLanguage, FormLanguage);
   Application.Run;
 end.
 

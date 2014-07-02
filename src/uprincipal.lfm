@@ -8,6 +8,7 @@ object FormPrincipal: TFormPrincipal
   ClientWidth = 279
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   ShowInTaskBar = stNever
   LCLVersion = '1.2.2.0'
   object ToolBar2: TToolBar
@@ -20,7 +21,7 @@ object FormPrincipal: TFormPrincipal
     TabOrder = 1
     Transparent = True
     object ToolButtonHelp: TToolButton
-      Left = 29
+      Left = 57
       Hint = 'Ajuda'
       Top = 2
       Caption = 'ToolButtonHelp'
@@ -29,14 +30,14 @@ object FormPrincipal: TFormPrincipal
       ShowHint = True
     end
     object ToolButton3: TToolButton
-      Left = 52
+      Left = 80
       Top = 2
       Width = 5
       Caption = 'ToolButton3'
       Style = tbsDivider
     end
     object ToolButtonExit: TToolButton
-      Left = 57
+      Left = 85
       Hint = 'Sair'
       Top = 2
       Caption = 'ToolButtonExit'
@@ -58,6 +59,22 @@ object FormPrincipal: TFormPrincipal
       Top = 2
       Width = 5
       Caption = 'ToolButton1'
+      Style = tbsDivider
+    end
+    object ToolButtonLanguage: TToolButton
+      Left = 29
+      Hint = 'Language'
+      Top = 2
+      Caption = 'ToolButtonLanguage'
+      OnClick = ActionOpenFormLanguageExecute
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object ToolButton4: TToolButton
+      Left = 52
+      Top = 2
+      Width = 5
+      Caption = 'ToolButton4'
       Style = tbsDivider
     end
   end
@@ -132,7 +149,7 @@ object FormPrincipal: TFormPrincipal
       ClientHeight = 143
       ClientWidth = 275
       TabOrder = 0
-      object SpeedButton2: TSpeedButton
+      object SpeedButtonMinerals: TSpeedButton
         Left = 16
         Height = 104
         Hint = 'Minerais'
@@ -142,7 +159,7 @@ object FormPrincipal: TFormPrincipal
         ShowHint = True
         ParentShowHint = False
       end
-      object SpeedButton3: TSpeedButton
+      object SpeedButtonAnalysis: TSpeedButton
         Left = 152
         Height = 104
         Hint = 'Análises'
@@ -165,7 +182,7 @@ object FormPrincipal: TFormPrincipal
     end
   end
   object ActionList1: TActionList
-    left = 248
+    left = 240
     top = 88
     object ActionOpenMineralForm: TAction
       Caption = 'ActionOpenMineralForm'
@@ -182,6 +199,10 @@ object FormPrincipal: TFormPrincipal
     object ActionOpenHelpForm: TAction
       Caption = 'ActionOpenHelpForm'
       OnExecute = ActionOpenHelpFormExecute
+    end
+    object ActionOpenFormLanguage: TAction
+      Caption = 'ActionOpenFormLanguage'
+      OnExecute = ActionOpenFormLanguageExecute
     end
   end
   object BGRAImageList1: TBGRAImageList
