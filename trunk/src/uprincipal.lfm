@@ -8,6 +8,7 @@ object FormPrincipal: TFormPrincipal
   ClientWidth = 279
   OnClose = FormClose
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   ShowInTaskBar = stNever
   LCLVersion = '1.2.2.0'

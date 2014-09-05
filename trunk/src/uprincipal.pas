@@ -56,8 +56,6 @@ The Free Software Foundation may publish revised and/or new versions of the GNU 
 Each version is given a distinguishing version number. If the Library as you received it specifies that a certain numbered version of the GNU Lesser General Public License “or any later version” applies to it, you have the option of following the terms and conditions either of that published version or of any later version published by the Free Software Foundation. If the Library as you received it does not specify a version number of the GNU Lesser General Public License, you may choose any version of the GNU Lesser General Public License ever published by the Free Software Foundation.
 
 If the Library as you received it specifies that a proxy can decide whether future versions of the GNU Lesser General Public License shall apply, that proxy's public statement of acceptance of any version is permanent authorization for you to choose that version for the Library.
-
-
 }
 unit uprincipal;
 
@@ -106,6 +104,7 @@ type
     procedure ActionOpenSampleFormExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ToolButtonExitClick(Sender: TObject);
   private
@@ -133,7 +132,7 @@ implementation
 
 procedure TFormPrincipal.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  Config.Free;
+
 end;
 
 procedure TFormPrincipal.ActionOpenMineralFormExecute(Sender: TObject);
@@ -182,6 +181,11 @@ begin
     SpeedButtonAnalysis.Hint:=Lang.Analisys;
   end;
   Config.Free;
+end;
+
+procedure TFormPrincipal.FormDestroy(Sender: TObject);
+begin
+
 end;
 
 procedure TFormPrincipal.FormShow(Sender: TObject);

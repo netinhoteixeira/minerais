@@ -8,6 +8,7 @@ object FormFichaAmostra: TFormFichaAmostra
   ClientWidth = 1049
   OnClose = FormClose
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   Position = poDesktopCenter
   ShowInTaskBar = stAlways
   LCLVersion = '1.2.2.0'
@@ -68,7 +69,7 @@ object FormFichaAmostra: TFormFichaAmostra
             Caption = 'Fonte'
             ParentColor = False
           end
-          object Label2: TLabel
+          object LabelDescricao: TLabel
             Left = 14
             Height = 15
             Top = 439
@@ -76,7 +77,7 @@ object FormFichaAmostra: TFormFichaAmostra
             Caption = 'Descrição'
             ParentColor = False
           end
-          object Label3: TLabel
+          object LabelSituacao: TLabel
             Left = 16
             Height = 15
             Top = 504
@@ -92,7 +93,7 @@ object FormFichaAmostra: TFormFichaAmostra
             Caption = 'Proprietário'
             ParentColor = False
           end
-          object Label10: TLabel
+          object LabelID: TLabel
             Left = 16
             Height = 15
             Top = 86
@@ -100,7 +101,7 @@ object FormFichaAmostra: TFormFichaAmostra
             Caption = 'Identificação'
             ParentColor = False
           end
-          object Label1Especie: TLabel
+          object LabelEspecie: TLabel
             Left = 16
             Height = 15
             Top = 16
@@ -398,7 +399,7 @@ object FormFichaAmostra: TFormFichaAmostra
             ParentColor = False
             ParentFont = False
           end
-          object LabelId_Quimica1: TLabel
+          object LabelRamanId: TLabel
             Left = 14
             Height = 15
             Top = 290
@@ -533,7 +534,7 @@ object FormFichaAmostra: TFormFichaAmostra
             Style = csDropDownList
             TabOrder = 7
           end
-          object Label5: TLabel
+          object LabelDirection: TLabel
             Left = 16
             Height = 15
             Top = 8
@@ -558,7 +559,7 @@ object FormFichaAmostra: TFormFichaAmostra
           ClientHeight = 546
           ClientWidth = 796
           TabOrder = 0
-          object LabelId_Quimica2: TLabel
+          object LabelBroadScanId: TLabel
             Left = 14
             Height = 15
             Top = 290
@@ -601,7 +602,7 @@ object FormFichaAmostra: TFormFichaAmostra
             ParentColor = False
             ParentFont = False
           end
-          object LabelConfiguracaoInstrumento: TLabel
+          object LabelInstrumento: TLabel
             Left = 14
             Height = 15
             Top = 480
@@ -752,7 +753,7 @@ object FormFichaAmostra: TFormFichaAmostra
             ParentColor = False
             ParentFont = False
           end
-          object LabelId_Quimica3: TLabel
+          object LabelInfraredID: TLabel
             Left = 14
             Height = 15
             Top = 290
@@ -760,7 +761,7 @@ object FormFichaAmostra: TFormFichaAmostra
             Caption = 'Identificação'
             ParentColor = False
           end
-          object LabelDescricaoIV: TLabel
+          object LabelInfraredDescription: TLabel
             Left = 14
             Height = 15
             Top = 408
@@ -776,7 +777,7 @@ object FormFichaAmostra: TFormFichaAmostra
             Caption = 'Resolução'
             ParentColor = False
           end
-          object LabelInstrumentoIV: TLabel
+          object LabelInfraredEquipment: TLabel
             Left = 14
             Height = 15
             Top = 480
@@ -1050,7 +1051,7 @@ object FormFichaAmostra: TFormFichaAmostra
               PopupMenu = PopupMenuChart
             end
           end
-          object LabelId_Quimica4: TLabel
+          object LabelDifractionID: TLabel
             Left = 14
             Height = 15
             Top = 290
@@ -1186,7 +1187,7 @@ object FormFichaAmostra: TFormFichaAmostra
         OnEditingDone = EditSample_IdEditingDone
         TabOrder = 2
       end
-      object BCLabel1: TBCLabel
+      object BCLabelMineralFilter: TBCLabel
         Left = 8
         Height = 35
         Top = 8
@@ -1245,7 +1246,7 @@ object FormFichaAmostra: TFormFichaAmostra
         Rounding.RoundY = 1
         Rounding.RoundOptions = []
       end
-      object BCLabel2: TBCLabel
+      object BCLabelSampleFilter: TBCLabel
         Left = 8
         Height = 35
         Top = 73
@@ -1304,7 +1305,7 @@ object FormFichaAmostra: TFormFichaAmostra
         Rounding.RoundY = 1
         Rounding.RoundOptions = []
       end
-      object BCLabel3: TBCLabel
+      object BCLabelSamples: TBCLabel
         Left = 8
         Height = 35
         Top = 144

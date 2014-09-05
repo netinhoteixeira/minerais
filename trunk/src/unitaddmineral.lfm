@@ -1,19 +1,20 @@
 object FormAddMineral: TFormAddMineral
-  Left = 349
+  Left = 28
   Height = 573
-  Top = 61
+  Top = 46
   Width = 665
   Caption = 'Adicionar Mineral'
   ClientHeight = 573
   ClientWidth = 665
+  OnCreate = FormCreate
   OnShow = FormShow
   LCLVersion = '1.2.2.0'
   object BCPanel1: TBCPanel
     Left = 0
     Height = 50
-    Top = 0
+    Top = 523
     Width = 665
-    Align = alTop
+    Align = alBottom
     Background.Color = 5000268
     Background.ColorOpacity = 255
     Background.Gradient1.StartColor = 15722194
@@ -70,7 +71,7 @@ object FormAddMineral: TFormAddMineral
     Rounding.RoundY = 1
     Rounding.RoundOptions = []
     TabOrder = 0
-    object SpeedButton1: TSpeedButton
+    object SpeedButtonAdd: TSpeedButton
       Left = 16
       Height = 40
       Hint = 'Adicionar'
@@ -80,8 +81,8 @@ object FormAddMineral: TFormAddMineral
       ShowHint = True
       ParentShowHint = False
     end
-    object SpeedButton2: TSpeedButton
-      Left = 72
+    object SpeedButtonClear: TSpeedButton
+      Left = 152
       Height = 40
       Hint = 'Limpar'
       Top = 5
@@ -90,8 +91,8 @@ object FormAddMineral: TFormAddMineral
       ShowHint = True
       ParentShowHint = False
     end
-    object SpeedButton3: TSpeedButton
-      Left = 588
+    object SpeedButtonClose: TSpeedButton
+      Left = 616
       Height = 40
       Hint = 'Fechar'
       Top = 5
@@ -104,7 +105,7 @@ object FormAddMineral: TFormAddMineral
   object PageControlFicha: TPageControl
     Left = 0
     Height = 523
-    Top = 50
+    Top = 0
     Width = 665
     ActivePage = TabSheetInf_Gerais
     Align = alClient
@@ -116,13 +117,13 @@ object FormAddMineral: TFormAddMineral
       ClientWidth = 657
       object ScrollBox3: TScrollBox
         Left = 0
-        Height = 495
+        Height = 481
         Top = 15
         Width = 657
         HorzScrollBar.Page = 636
-        VertScrollBar.Page = 491
+        VertScrollBar.Page = 477
         Anchors = [akTop, akLeft, akRight, akBottom]
-        ClientHeight = 491
+        ClientHeight = 477
         ClientWidth = 636
         TabOrder = 0
         object EditSubGrupo: TEdit
@@ -134,7 +135,7 @@ object FormAddMineral: TFormAddMineral
           TabOrder = 0
           Text = ' '
         end
-        object Label1: TLabel
+        object LabelComposicao: TLabel
           Left = 15
           Height = 15
           Top = 50
@@ -390,7 +391,7 @@ object FormAddMineral: TFormAddMineral
           Anchors = [akTop, akLeft, akRight]
           TabOrder = 6
         end
-        object Label24: TLabel
+        object LabelDureza: TLabel
           Left = 15
           Height = 15
           Top = 15
@@ -398,7 +399,7 @@ object FormAddMineral: TFormAddMineral
           Caption = 'Dureza'
           ParentColor = False
         end
-        object Label25: TLabel
+        object LabelDensidade: TLabel
           Left = 15
           Height = 15
           Top = 87

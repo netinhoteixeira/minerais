@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, BCLabel, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, Buttons, ActnList, INIFiles;
+  Dialogs, StdCtrls, Buttons, ActnList, INIFiles, unitLanguage;
 
 type
 
@@ -22,8 +22,8 @@ type
     ActionNewSampleDatabase: TAction;
     ActionNewMineralDatabase: TAction;
     ActionList1: TActionList;
-    BCLabel1: TBCLabel;
-    BCLabel2: TBCLabel;
+    BCLabelMineralDB: TBCLabel;
+    BCLabelSampleDB: TBCLabel;
     BCLabelMinerais: TBCLabel;
     BCLabelAmostras: TBCLabel;
     BCPanel1: TBCPanel;
@@ -132,6 +132,23 @@ begin
     Dados.DatabaseSampleFileName:=EmptyStr;
     Edit2.Text:=EmptyStr;
   end;
+
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    FormSelectDatabase.Caption:=Lang.Database;
+    BCLabelMinerais.Caption:=Lang.Minerals;
+    BCLabelAmostras.Caption:=Lang.Samples;
+    BCLabelMineralDB.Caption:=Lang.CurrentDatabase;
+    BCLabelSampleDB.Caption:=Lang.CurrentDatabase;
+    SpeedButtonMineralSelect.Hint:=Lang.SelectMineralDatabase;
+    SpeedButtonSampleSelect.Hint:=Lang.SelectAnalisysDatabase;
+    SpeedButtonClearCUrrentMineralDB.Hint:=Lang.Clear;
+    SpeedButtonClearCurrentSampleDB.Hint:=Lang.Clear;
+    SpeedButtonMineralNew.Hint:=Lang.CreateMineralDatabase;
+    SpeedButtonSampleNew.Hint:=Lang.CreateAnalisysDatabase;
+    SpeedButtonClose.Hint:=Lang.Close;
+  end;
+  Config.Free;
 end;
 
 procedure TFormSelectDatabase.ActionNewMineralDatabaseExecute(Sender: TObject);

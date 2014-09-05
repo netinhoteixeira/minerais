@@ -63,7 +63,7 @@
         <PackageName Value="LCL"/>
       </Item9>
     </RequiredPackages>
-    <Units Count="66">
+    <Units Count="70">
       <Unit0>
         <Filename Value="guiademinerais.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -80,13 +80,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uprincipal"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="163"/>
-        <CursorPos X="17" Y="182"/>
+        <TopLine Value="171"/>
+        <CursorPos X="18" Y="179"/>
         <UsageCount Value="290"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="src\udatamodule.pas"/>
@@ -96,8 +93,8 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="udatamodule"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="40" Y="5"/>
+        <TopLine Value="92"/>
+        <CursorPos X="24" Y="112"/>
         <UsageCount Value="290"/>
       </Unit2>
       <Unit3>
@@ -109,7 +106,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="271"/>
         <CursorPos X="18" Y="279"/>
-        <UsageCount Value="287"/>
+        <UsageCount Value="286"/>
       </Unit3>
       <Unit4>
         <Filename Value="src\ubibliografia.pas"/>
@@ -119,17 +116,17 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ubibliografia"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="24"/>
-        <CursorPos X="11" Y="46"/>
+        <TopLine Value="109"/>
+        <CursorPos X="48" Y="120"/>
         <UsageCount Value="289"/>
       </Unit4>
       <Unit5>
         <Filename Value="src\sqlite3tablemod.pas"/>
         <UnitName Value="sqlite3tablemod"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1071"/>
-        <CursorPos X="1" Y="1084"/>
-        <UsageCount Value="123"/>
+        <TopLine Value="291"/>
+        <CursorPos X="1" Y="302"/>
+        <UsageCount Value="122"/>
       </Unit5>
       <Unit6>
         <Filename Value="src\uformimpressao.pas"/>
@@ -139,8 +136,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uformimpressao"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="63"/>
-        <CursorPos X="5" Y="144"/>
+        <TopLine Value="1"/>
+        <CursorPos X="10" Y="6"/>
         <UsageCount Value="272"/>
       </Unit6>
       <Unit7>
@@ -148,7 +145,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2077"/>
         <CursorPos X="1" Y="2088"/>
-        <UsageCount Value="92"/>
+        <UsageCount Value="91"/>
       </Unit7>
       <Unit8>
         <Filename Value="src\unitajuda.pas"/>
@@ -158,8 +155,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UnitAjuda"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="25"/>
-        <CursorPos X="34" Y="45"/>
+        <TopLine Value="23"/>
+        <CursorPos X="18" Y="34"/>
         <UsageCount Value="244"/>
       </Unit8>
       <Unit9>
@@ -167,7 +164,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="122"/>
         <CursorPos X="16" Y="135"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit9>
       <Unit10>
         <Filename Value="C:\lazarus\components\lazreport\source\lr_view.pas"/>
@@ -175,7 +172,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="321"/>
         <CursorPos X="22" Y="331"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit10>
       <Unit11>
         <Filename Value="C:\lazarus\components\lazreport\source\lr_dbset.pas"/>
@@ -183,7 +180,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="215"/>
         <CursorPos X="1" Y="225"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit11>
       <Unit12>
         <Filename Value="src\fr_e_tnpdf.pas"/>
@@ -191,14 +188,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="7"/>
         <CursorPos X="53" Y="9"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit12>
       <Unit13>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\inc\objpash.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="50"/>
         <CursorPos X="11" Y="61"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit13>
       <Unit14>
         <Filename Value="src\unitsplash.pas"/>
@@ -218,7 +215,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="9" Y="11"/>
-        <UsageCount Value="192"/>
+        <UsageCount Value="191"/>
       </Unit15>
       <Unit16>
         <Filename Value="C:\lazarus\components\tachart\tachartimagelist.pas"/>
@@ -226,7 +223,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="107"/>
         <CursorPos X="6" Y="43"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit16>
       <Unit17>
         <Filename Value="C:\lazarus\components\tachart\tatools.pas"/>
@@ -234,7 +231,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="791"/>
         <CursorPos X="3" Y="770"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit17>
       <Unit18>
         <Filename Value="C:\lazarus\components\tachart\tachartextentlink.pas"/>
@@ -242,14 +239,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="97"/>
         <CursorPos X="34" Y="148"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit18>
       <Unit19>
         <Filename Value="C:\lazarus\lcl\include\menuitem.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="67"/>
         <CursorPos X="1" Y="83"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit19>
       <Unit20>
         <Filename Value="C:\lazarus\lcl\dbctrls.pp"/>
@@ -257,7 +254,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1405"/>
         <CursorPos X="21" Y="1425"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit20>
       <Unit21>
         <Filename Value="src\unitgraficos.pas"/>
@@ -274,7 +271,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="11" Y="43"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit22>
       <Unit23>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\packages\fcl-db\src\sdf\sdfdata.pp"/>
@@ -282,21 +279,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="597"/>
         <CursorPos X="33" Y="611"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit23>
       <Unit24>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="734"/>
         <CursorPos X="3" Y="727"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit24>
       <Unit25>
         <Filename Value="Data\raman.csv"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1290"/>
         <CursorPos X="19" Y="1312"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit25>
       <Unit26>
@@ -306,10 +303,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitPlanilha"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="84"/>
-        <CursorPos X="15" Y="28"/>
+        <TopLine Value="43"/>
+        <CursorPos X="15" Y="46"/>
         <UsageCount Value="201"/>
+        <Loaded Value="True"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\..\Geoestatistica\src\unitplanilha.pas"/>
@@ -317,7 +316,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="16"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\..\Geoestatistica\src\unitinterface.pas"/>
@@ -325,7 +324,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="145"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\..\Geoestatistica\src\unitdados.pas"/>
@@ -333,7 +332,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\GeoStatistica\src\unitinterface.pas"/>
@@ -341,7 +340,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="410"/>
         <CursorPos X="23" Y="390"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit30>
       <Unit31>
         <Filename Value="src\unitequipamentos.pas"/>
@@ -351,8 +350,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitequipamentos"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="42"/>
-        <CursorPos X="14" Y="63"/>
+        <TopLine Value="48"/>
+        <CursorPos X="18" Y="71"/>
         <UsageCount Value="200"/>
       </Unit31>
       <Unit32>
@@ -364,7 +363,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="43"/>
         <CursorPos X="31" Y="52"/>
-        <UsageCount Value="199"/>
+        <UsageCount Value="198"/>
       </Unit32>
       <Unit33>
         <Filename Value="C:\lazarus\lcl\editbtn.pas"/>
@@ -372,7 +371,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="768"/>
         <CursorPos X="1" Y="783"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit33>
       <Unit34>
         <Filename Value="src\unitfichaamostra.pas"/>
@@ -381,10 +380,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitfichaamostra"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="35"/>
-        <CursorPos X="4" Y="59"/>
+        <TopLine Value="2515"/>
+        <CursorPos X="27" Y="2525"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit34>
       <Unit35>
         <Filename Value="src\unitfichaespecie.pas"/>
@@ -393,21 +395,17 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitfichaespecie"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="445"/>
-        <CursorPos X="14" Y="460"/>
+        <TopLine Value="443"/>
+        <CursorPos X="9" Y="454"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\Geoestatistica\src\unitplanilha.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit36>
       <Unit37>
@@ -416,7 +414,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit37>
       <Unit38>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32wsbuttons.pp"/>
@@ -424,21 +422,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="486"/>
         <CursorPos X="1" Y="494"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit38>
       <Unit39>
         <Filename Value="C:\lazarus\lcl\include\control.inc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="5311"/>
-        <CursorPos X="13" Y="5323"/>
-        <UsageCount Value="23"/>
+        <TopLine Value="3229"/>
+        <CursorPos X="1" Y="3242"/>
+        <UsageCount Value="22"/>
       </Unit39>
       <Unit40>
         <Filename Value="C:\lazarus\lcl\include\imglist.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="603"/>
         <CursorPos X="1" Y="618"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit40>
       <Unit41>
         <Filename Value="C:\lazarus\lcl\themes.pas"/>
@@ -446,7 +444,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1896"/>
         <CursorPos X="56" Y="1874"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="9"/>
       </Unit41>
       <Unit42>
         <Filename Value="src\unitadicionarimagem.pas"/>
@@ -457,7 +455,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="71"/>
         <CursorPos X="78" Y="76"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="44"/>
       </Unit42>
       <Unit43>
         <Filename Value="src\unitadicionardadosrruff.pas"/>
@@ -468,14 +466,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="33" Y="19"/>
-        <UsageCount Value="113"/>
+        <UsageCount Value="112"/>
       </Unit43>
       <Unit44>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32winapi.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2601"/>
         <CursorPos X="12" Y="2615"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit44>
       <Unit45>
         <Filename Value="src\unitblobfields.pas"/>
@@ -484,7 +482,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="35"/>
         <CursorPos X="4" Y="59"/>
-        <UsageCount Value="169"/>
+        <UsageCount Value="193"/>
       </Unit45>
       <Unit46>
         <Filename Value="C:\lazarus\lcl\controls.pp"/>
@@ -492,7 +490,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1611"/>
         <CursorPos X="17" Y="1627"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit46>
       <Unit47>
         <Filename Value="C:\lazarus\lcl\dbgrids.pas"/>
@@ -500,7 +498,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="506"/>
         <CursorPos X="19" Y="519"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
       </Unit47>
       <Unit48>
         <Filename Value="C:\lazarus\lcl\grids.pas"/>
@@ -508,14 +506,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1041"/>
         <CursorPos X="40" Y="1052"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit48>
       <Unit49>
         <Filename Value="C:\lazarus\lcl\include\customlistbox.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="183"/>
         <CursorPos X="1" Y="197"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit49>
       <Unit50>
         <Filename Value="src\unitshowimages.pas"/>
@@ -526,7 +524,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="6"/>
         <CursorPos X="72" Y="19"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="44"/>
       </Unit50>
       <Unit51>
         <Filename Value="src\unitfilter.pas"/>
@@ -536,7 +534,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="6"/>
         <CursorPos X="12" Y="21"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
       </Unit51>
       <Unit52>
         <Filename Value="src\unitmineraldatabase.pas"/>
@@ -547,7 +545,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="8"/>
         <CursorPos X="28" Y="69"/>
-        <UsageCount Value="92"/>
+        <UsageCount Value="91"/>
       </Unit52>
       <Unit53>
         <Filename Value="..\Backup\minerais\src\uprincipal.pas"/>
@@ -555,7 +553,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2037"/>
         <CursorPos X="55" Y="2012"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit53>
       <Unit54>
         <Filename Value="src\unitaddmineral.pas"/>
@@ -565,9 +563,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitaddmineral"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="17" Y="269"/>
-        <UsageCount Value="125"/>
+        <TopLine Value="333"/>
+        <CursorPos X="45" Y="313"/>
+        <UsageCount Value="149"/>
       </Unit54>
       <Unit55>
         <Filename Value="src\unitselectdatabase.pas"/>
@@ -577,9 +575,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitselectdatabase"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="190"/>
-        <CursorPos X="19" Y="206"/>
-        <UsageCount Value="115"/>
+        <TopLine Value="131"/>
+        <CursorPos X="34" Y="149"/>
+        <UsageCount Value="139"/>
       </Unit55>
       <Unit56>
         <Filename Value="src\unitadddatabase.pas"/>
@@ -589,9 +587,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitadddatabase"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="79"/>
-        <CursorPos X="26" Y="101"/>
-        <UsageCount Value="114"/>
+        <TopLine Value="96"/>
+        <CursorPos X="23" Y="100"/>
+        <UsageCount Value="138"/>
       </Unit56>
       <Unit57>
         <Filename Value="src\unitaddsample.pas"/>
@@ -601,16 +599,16 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitaddsample"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="31"/>
-        <CursorPos X="41" Y="12"/>
-        <UsageCount Value="109"/>
+        <TopLine Value="421"/>
+        <CursorPos X="60" Y="414"/>
+        <UsageCount Value="133"/>
       </Unit57>
       <Unit58>
         <Filename Value="src\unitfichaamostra.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1139"/>
         <CursorPos X="35" Y="1169"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="19"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit58>
       <Unit59>
@@ -621,17 +619,17 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitremovesample"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="35"/>
-        <CursorPos X="4" Y="59"/>
-        <UsageCount Value="97"/>
+        <TopLine Value="300"/>
+        <CursorPos X="20" Y="314"/>
+        <UsageCount Value="121"/>
       </Unit59>
       <Unit60>
         <Filename Value="C:\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="596"/>
-        <CursorPos X="15" Y="606"/>
-        <UsageCount Value="8"/>
+        <TopLine Value="544"/>
+        <CursorPos X="15" Y="583"/>
+        <UsageCount Value="10"/>
       </Unit60>
       <Unit61>
         <Filename Value="src\unitremovemineral.pas"/>
@@ -641,9 +639,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitremovemineral"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="55"/>
-        <CursorPos X="32" Y="75"/>
-        <UsageCount Value="61"/>
+        <TopLine Value="64"/>
+        <CursorPos X="24" Y="16"/>
+        <UsageCount Value="85"/>
       </Unit61>
       <Unit62>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\packages\fcl-image\src\fpimage.pp"/>
@@ -651,7 +649,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="72" Y="250"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit62>
       <Unit63>
         <Filename Value="src\unitlanguage.pas"/>
@@ -659,22 +657,23 @@
         <UnitName Value="unitLanguage"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="228"/>
-        <CursorPos X="27" Y="240"/>
-        <UsageCount Value="30"/>
+        <TopLine Value="184"/>
+        <CursorPos X="32" Y="193"/>
+        <UsageCount Value="54"/>
         <Loaded Value="True"/>
       </Unit63>
       <Unit64>
         <Filename Value="src\unitformlanguage.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormLanguage"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitFormLanguage"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="13"/>
-        <CursorPos X="16" Y="29"/>
-        <UsageCount Value="24"/>
+        <TopLine Value="67"/>
+        <CursorPos X="11" Y="77"/>
+        <UsageCount Value="48"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit64>
@@ -684,130 +683,108 @@
         <WindowIndex Value="0"/>
         <TopLine Value="153"/>
         <CursorPos X="3" Y="165"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit65>
+      <Unit66>
+        <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\inc\objpash.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="183"/>
+        <CursorPos X="23" Y="192"/>
+        <UsageCount Value="13"/>
+      </Unit66>
+      <Unit67>
+        <Filename Value="src\unittranslatefile.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormTranslate"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="unittranslatefile"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="248"/>
+        <CursorPos X="38" Y="282"/>
+        <UsageCount Value="28"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit67>
+      <Unit68>
+        <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\objpas\classes\classesh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="422"/>
+        <CursorPos X="15" Y="439"/>
+        <UsageCount Value="11"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\objpas\objpas.pp"/>
+        <UnitName Value="objpas"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="61"/>
+        <CursorPos X="16" Y="78"/>
+        <UsageCount Value="10"/>
+      </Unit69>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="15" HistoryIndex="14">
       <Position1>
         <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="48" Column="48" TopLine="28"/>
+        <Caret Line="64" Column="10" TopLine="61"/>
       </Position1>
       <Position2>
         <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="47" Column="48" TopLine="27"/>
+        <Caret Line="73" Column="3" TopLine="61"/>
       </Position2>
       <Position3>
         <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="49" Column="48" TopLine="29"/>
+        <Caret Line="71" Column="3" TopLine="61"/>
       </Position3>
       <Position4>
-        <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="48" Column="48" TopLine="28"/>
+        <Filename Value="src\unittranslatefile.pas"/>
+        <Caret Line="254" Column="3" TopLine="242"/>
       </Position4>
       <Position5>
-        <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="47" Column="48" TopLine="27"/>
+        <Filename Value="src\unittranslatefile.pas"/>
+        <Caret Line="74" Column="25" TopLine="48"/>
       </Position5>
       <Position6>
-        <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="49" Column="48" TopLine="29"/>
+        <Filename Value="src\unittranslatefile.pas"/>
+        <Caret Line="269" Column="43" TopLine="242"/>
       </Position6>
       <Position7>
-        <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="48" Column="48" TopLine="28"/>
+        <Filename Value="src\unitfichaamostra.pas"/>
+        <Caret Line="443" Column="10" TopLine="438"/>
       </Position7>
       <Position8>
-        <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="47" Column="48" TopLine="27"/>
+        <Filename Value="src\unittranslatefile.pas"/>
+        <Caret Line="42" Column="34" TopLine="25"/>
       </Position8>
       <Position9>
-        <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="48" Column="48" TopLine="28"/>
+        <Filename Value="src\unittranslatefile.pas"/>
+        <Caret Line="43" Column="34" TopLine="26"/>
       </Position9>
       <Position10>
-        <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="50" Column="48" TopLine="30"/>
+        <Filename Value="src\unittranslatefile.pas"/>
+        <Caret Line="44" Column="34" TopLine="27"/>
       </Position10>
       <Position11>
-        <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="51" Column="41" TopLine="35"/>
+        <Filename Value="src\unittranslatefile.pas"/>
+        <Caret Line="70" Column="52" TopLine="56"/>
       </Position11>
       <Position12>
         <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="61" Column="3" TopLine="40"/>
+        <Caret Line="84" Column="22" TopLine="62"/>
       </Position12>
       <Position13>
-        <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="52" Column="23" TopLine="40"/>
+        <Filename Value="src\unittranslatefile.pas"/>
+        <Caret Line="63" Column="20" TopLine="53"/>
       </Position13>
       <Position14>
-        <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="61" Column="3" TopLine="41"/>
+        <Filename Value="src\unittranslatefile.pas"/>
+        <Caret Line="64" Column="20" TopLine="54"/>
       </Position14>
       <Position15>
-        <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="68" Column="17" TopLine="46"/>
+        <Filename Value="src\unittranslatefile.pas"/>
+        <Caret Line="65" Column="20" TopLine="55"/>
       </Position15>
-      <Position16>
-        <Filename Value="src\unitformlanguage.pas"/>
-        <Caret Line="47" Column="18" TopLine="48"/>
-      </Position16>
-      <Position17>
-        <Filename Value="src\unitlanguage.pas"/>
-        <Caret Line="204" Column="17" TopLine="195"/>
-      </Position17>
-      <Position18>
-        <Filename Value="src\unitlanguage.pas"/>
-        <Caret Line="397" Column="2" TopLine="367"/>
-      </Position18>
-      <Position19>
-        <Filename Value="src\unitlanguage.pas"/>
-        <Caret Line="204" Column="1" TopLine="191"/>
-      </Position19>
-      <Position20>
-        <Filename Value="src\unitlanguage.pas"/>
-        <Caret Line="206" Column="1" TopLine="191"/>
-      </Position20>
-      <Position21>
-        <Filename Value="src\uprincipal.pas"/>
-        <Caret Line="179" Column="3" TopLine="167"/>
-      </Position21>
-      <Position22>
-        <Filename Value="src\unitlanguage.pas"/>
-        <Caret Line="227" Column="54" TopLine="216"/>
-      </Position22>
-      <Position23>
-        <Filename Value="src\unitlanguage.pas"/>
-        <Caret Line="235" Column="31" TopLine="216"/>
-      </Position23>
-      <Position24>
-        <Filename Value="src\unitlanguage.pas"/>
-        <Caret Line="236" Column="31" TopLine="216"/>
-      </Position24>
-      <Position25>
-        <Filename Value="src\unitlanguage.pas"/>
-        <Caret Line="237" Column="32" TopLine="217"/>
-      </Position25>
-      <Position26>
-        <Filename Value="src\unitlanguage.pas"/>
-        <Caret Line="238" Column="32" TopLine="218"/>
-      </Position26>
-      <Position27>
-        <Filename Value="src\unitlanguage.pas"/>
-        <Caret Line="379" Column="32" TopLine="359"/>
-      </Position27>
-      <Position28>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="59" Column="4" TopLine="414"/>
-      </Position28>
-      <Position29>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="454" Column="3" TopLine="495"/>
-      </Position29>
-      <Position30>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="70" Column="67" TopLine="549"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -836,14 +813,21 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
-        <Source Value="src\unitadddatabase.pas"/>
-        <Line Value="57"/>
+        <Source Value="src\unitfichaespecie.pas"/>
+        <Line Value="535"/>
       </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="src\unitfichaamostra.pas"/>
+        <Line Value="737"/>
+      </Item2>
     </BreakPoints>
     <Exceptions Count="3">
       <Item1>

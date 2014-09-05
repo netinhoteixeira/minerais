@@ -1,12 +1,13 @@
 object FormAddDatabase: TFormAddDatabase
-  Left = 363
+  Left = 19
   Height = 195
-  Top = 218
+  Top = 239
   Width = 335
   BorderStyle = bsToolWindow
   Caption = 'Adicionar'
   ClientHeight = 195
   ClientWidth = 335
+  OnCreate = FormCreate
   OnShow = FormShow
   LCLVersion = '1.2.2.0'
   object BCPanel1: TBCPanel
@@ -73,7 +74,7 @@ object FormAddDatabase: TFormAddDatabase
     Rounding.RoundY = 1
     Rounding.RoundOptions = []
     TabOrder = 1
-    object BCLabel1: TBCLabel
+    object BCLabelSetDatabaseName: TBCLabel
       Left = 16
       Height = 25
       Top = 24
@@ -204,14 +205,14 @@ object FormAddDatabase: TFormAddDatabase
     Rounding.RoundY = 1
     Rounding.RoundOptions = []
     TabOrder = 0
-    object SpeedButton1: TSpeedButton
+    object SpeedButtonCreateDatabase: TSpeedButton
       Left = 24
       Height = 50
       Top = 8
       Width = 50
       OnClick = ActionCreateDatabaseExecute
     end
-    object SpeedButton2: TSpeedButton
+    object SpeedButtonClose: TSpeedButton
       Left = 264
       Height = 50
       Top = 8

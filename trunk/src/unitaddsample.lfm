@@ -7,6 +7,7 @@ object FormAddSample: TFormAddSample
   Caption = 'Adicionar'
   ClientHeight = 476
   ClientWidth = 850
+  OnCreate = FormCreate
   OnShow = FormShow
   LCLVersion = '1.2.2.0'
   object BCPanel2: TBCPanel
@@ -71,7 +72,7 @@ object FormAddSample: TFormAddSample
     Rounding.RoundY = 1
     Rounding.RoundOptions = []
     TabOrder = 0
-    object SpeedButton1: TSpeedButton
+    object SpeedButtonClose: TSpeedButton
       Left = 768
       Height = 40
       Top = 8
@@ -80,8 +81,8 @@ object FormAddSample: TFormAddSample
       ShowHint = True
       ParentShowHint = False
     end
-    object SpeedButton2: TSpeedButton
-      Left = 72
+    object SpeedButtonAddSample: TSpeedButton
+      Left = 16
       Height = 40
       Hint = 'Adicionar amostra'
       Top = 8
@@ -90,7 +91,7 @@ object FormAddSample: TFormAddSample
       ShowHint = True
       ParentShowHint = False
     end
-    object SpeedButton3: TSpeedButton
+    object SpeedButtonAddSubSample: TSpeedButton
       Left = 256
       Height = 40
       Hint = 'Adicionar subamostra'
@@ -247,7 +248,7 @@ object FormAddSample: TFormAddSample
           OnClick = ListBoxSamplesClick
           TabOrder = 0
         end
-        object BCLabel2: TBCLabel
+        object BCLabelExistingSamples: TBCLabel
           Left = 16
           Height = 15
           Top = 16
@@ -313,7 +314,7 @@ object FormAddSample: TFormAddSample
           Width = 192
           TabOrder = 1
         end
-        object BCLabel1: TBCLabel
+        object BCLabelAddSample: TBCLabel
           Left = 16
           Height = 15
           Top = 344
@@ -446,7 +447,7 @@ object FormAddSample: TFormAddSample
           ClientHeight = 402
           ClientWidth = 608
           TabOrder = 0
-          object Label3: TLabel
+          object LabelID: TLabel
             Left = 16
             Height = 15
             Top = 120
@@ -465,7 +466,7 @@ object FormAddSample: TFormAddSample
             TabOrder = 0
             Text = ' '
           end
-          object LabelAmostra: TLabel
+          object LabelSubsample: TLabel
             Left = 16
             Height = 15
             Top = 172
@@ -525,7 +526,7 @@ object FormAddSample: TFormAddSample
             TabOrder = 3
             Text = '514 nm'
           end
-          object LabelDirecao: TLabel
+          object LabelDirection: TLabel
             Left = 16
             Height = 15
             Top = 224
@@ -533,7 +534,7 @@ object FormAddSample: TFormAddSample
             Caption = 'Direção'
             ParentColor = False
           end
-          object Label2: TLabel
+          object LabelWaveLenght: TLabel
             Left = 16
             Height = 15
             Top = 272
@@ -541,7 +542,7 @@ object FormAddSample: TFormAddSample
             Caption = 'Comprimento de Onda'
             ParentColor = False
           end
-          object Label1: TLabel
+          object LabelAnalysis: TLabel
             Left = 16
             Height = 15
             Top = 16
@@ -576,7 +577,7 @@ object FormAddSample: TFormAddSample
             ItemHeight = 0
             TabOrder = 5
           end
-          object BCLabel3: TBCLabel
+          object BCLabelExistingSubSamples: TBCLabel
             Left = 384
             Height = 15
             Top = 8

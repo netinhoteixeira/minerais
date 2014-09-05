@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, BCLabel, Forms, Controls,
-  Graphics, Dialogs, StdCtrls, ActnList, Buttons;
+  Graphics, Dialogs, StdCtrls, ActnList, Buttons, INIFiles, UnitLanguage;
 
 type
 
@@ -19,9 +19,9 @@ type
     ActionAddSubSample: TAction;
     ActionAddSample: TAction;
     ActionList1: TActionList;
-    BCLabel1: TBCLabel;
-    BCLabel2: TBCLabel;
-    BCLabel3: TBCLabel;
+    BCLabelAddSample: TBCLabel;
+    BCLabelExistingSamples: TBCLabel;
+    BCLabelExistingSubSamples: TBCLabel;
     BCPanel1: TBCPanel;
     BCPanel2: TBCPanel;
     BCPanel3: TBCPanel;
@@ -33,20 +33,21 @@ type
     EditAmostras: TEdit;
     EditSample_id: TEdit;
     GroupBoxAdicionarAmostra: TGroupBox;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    LabelAmostra: TLabel;
-    LabelDirecao: TLabel;
+    LabelAnalysis: TLabel;
+    LabelWaveLenght: TLabel;
+    LabelID: TLabel;
+    LabelSubsample: TLabel;
+    LabelDirection: TLabel;
     ListBoxSamples: TListBox;
     ListBoxSubSamples: TListBox;
     ScrollBox2: TScrollBox;
-    SpeedButton1: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
+    SpeedButtonClose: TSpeedButton;
+    SpeedButtonAddSample: TSpeedButton;
+    SpeedButtonAddSubSample: TSpeedButton;
     procedure ActionAddSampleExecute(Sender: TObject);
     procedure ActionAddSubSampleExecute(Sender: TObject);
     procedure ActionComboboxAnaliseChangeExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ListBoxSamplesClick(Sender: TObject);
   private
@@ -59,6 +60,7 @@ type
 
 var
   FormAddSample: TFormAddSample;
+  Config: TIniFile;
 
 implementation
 
@@ -392,6 +394,33 @@ begin
       ComboBoxComprimentoOnda.Enabled:=False;
     end;
   end;
+end;
+
+procedure TFormAddSample.FormCreate(Sender: TObject);
+begin
+  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    FormAddSample.Caption:=Lang.Add;
+    BCLabelExistingSamples.Caption:=Lang.ExistingSamples;
+    BCLabelAddSample.Caption:=Lang.AddSample;
+    GroupboxAdicionarAmostra.Caption:=Lang.CreateSubSampling;
+    LabelAnalysis.Caption:=Lang.TypeOfAnalysis;
+    ComboboxAnalise.Items.Append(Lang.ChemichalAnalysis);
+    ComboboxAnalise.Items.Append(Lang.RamanSpectroscopy);
+    ComboboxAnalise.Items.Append(Lang.BroadScanWithSpectralArtifacts);
+    ComboboxAnalise.Items.Append(Lang.InfraredSpectrum);
+    ComboboxAnalise.Items.Append(Lang.MineralPowderDiffraction);
+    LabelId.Caption:=Lang.Identification;
+    LabelSubsample.Caption:=Lang.SubSamples;
+    LabelDirection.Caption:=Lang.Direction;
+    LabelWaveLenght.Caption:=Lang.Wavelength;
+    BCLabelExistingSubSamples.Caption:=Lang.ExistingSamples;
+    SpeedButtonAddSample.Hint:=Lang.AddSample;
+    SpeedButtonAddSubSample.Hint:=Lang.CreateSubSampling;
+    SpeedButtonClose.Hint:=Lang.Close;
+  end;
+  Config.Free;
 end;
 
 procedure TFormAddSample.FormShow(Sender: TObject);

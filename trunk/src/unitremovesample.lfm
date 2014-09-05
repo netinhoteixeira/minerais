@@ -7,6 +7,7 @@ object FormRemoveSample: TFormRemoveSample
   Caption = 'Remover'
   ClientHeight = 436
   ClientWidth = 701
+  OnCreate = FormCreate
   OnShow = FormShow
   ShowInTaskBar = stNever
   LCLVersion = '1.2.2.0'
@@ -81,7 +82,7 @@ object FormRemoveSample: TFormRemoveSample
       Anchors = [akTop, akLeft, akBottom]
       ItemHeight = 0
       OnClick = ActionListboxSampleClickExecute
-      TabOrder = 0
+      TabOrder = 1
     end
     object ListBox2: TListBox
       Left = 360
@@ -90,7 +91,7 @@ object FormRemoveSample: TFormRemoveSample
       Width = 300
       Anchors = [akTop, akLeft, akBottom]
       ItemHeight = 0
-      TabOrder = 1
+      TabOrder = 2
     end
     object BCLabel1: TBCLabel
       Left = 24
@@ -210,25 +211,88 @@ object FormRemoveSample: TFormRemoveSample
       Rounding.RoundY = 1
       Rounding.RoundOptions = []
     end
-    object SpeedButton1: TSpeedButton
-      Left = 144
-      Height = 40
-      Hint = 'Remover'
-      Top = 376
-      Width = 40
-      OnClick = ActionRemoveSampleExecute
-      ShowHint = True
-      ParentShowHint = False
-    end
-    object SpeedButton2: TSpeedButton
-      Left = 504
-      Height = 40
-      Hint = 'Remover'
-      Top = 376
-      Width = 40
-      OnClick = ActionRemoveSubSampleExecute
-      ShowHint = True
-      ParentShowHint = False
+    object BCPanel2: TBCPanel
+      Left = 0
+      Height = 50
+      Top = 386
+      Width = 701
+      Align = alBottom
+      Background.Color = 5000268
+      Background.ColorOpacity = 255
+      Background.Gradient1.StartColor = 15722194
+      Background.Gradient1.StartColorOpacity = 255
+      Background.Gradient1.DrawMode = dmSet
+      Background.Gradient1.EndColor = 13137169
+      Background.Gradient1.EndColorOpacity = 255
+      Background.Gradient1.ColorCorrection = True
+      Background.Gradient1.GradientType = gtLinear
+      Background.Gradient1.Point1XPercent = 0
+      Background.Gradient1.Point1YPercent = 0
+      Background.Gradient1.Point2XPercent = 0
+      Background.Gradient1.Point2YPercent = 100
+      Background.Gradient1.Sinus = False
+      Background.Gradient2.StartColor = 15722194
+      Background.Gradient2.StartColorOpacity = 255
+      Background.Gradient2.DrawMode = dmSet
+      Background.Gradient2.EndColor = 13137169
+      Background.Gradient2.EndColorOpacity = 255
+      Background.Gradient2.ColorCorrection = True
+      Background.Gradient2.GradientType = gtLinear
+      Background.Gradient2.Point1XPercent = 0
+      Background.Gradient2.Point1YPercent = 0
+      Background.Gradient2.Point2XPercent = 0
+      Background.Gradient2.Point2YPercent = 100
+      Background.Gradient2.Sinus = False
+      Background.Gradient1EndPercent = 35
+      Background.Style = bbsColor
+      BevelInner = bvNone
+      BevelOuter = bvNone
+      BevelWidth = 1
+      Border.Color = clBlack
+      Border.ColorOpacity = 255
+      Border.LightColor = clWhite
+      Border.LightOpacity = 255
+      Border.LightWidth = 0
+      Border.Style = bboNone
+      Border.Width = 1
+      FontEx.Color = clDefault
+      FontEx.EndEllipsis = False
+      FontEx.FontQuality = fqSystemClearType
+      FontEx.Height = 0
+      FontEx.SingleLine = True
+      FontEx.Shadow = False
+      FontEx.ShadowColor = clBlack
+      FontEx.ShadowColorOpacity = 255
+      FontEx.ShadowRadius = 5
+      FontEx.ShadowOffsetX = 5
+      FontEx.ShadowOffsetY = 5
+      FontEx.Style = []
+      FontEx.TextAlignment = bcaCenter
+      FontEx.WordBreak = False
+      Rounding.RoundX = 1
+      Rounding.RoundY = 1
+      Rounding.RoundOptions = []
+      TabOrder = 0
+      object SpeedButton1: TSpeedButton
+        Left = 144
+        Height = 40
+        Hint = 'Remover'
+        Top = 8
+        Width = 40
+        OnClick = ActionRemoveSampleExecute
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object SpeedButton2: TSpeedButton
+        Left = 512
+        Height = 40
+        Hint = 'Remover'
+        Top = 8
+        Width = 40
+        OnClick = ActionRemoveSubSampleExecute
+        ShowHint = True
+        ParentShowHint = False
+      end
     end
   end
   object ActionList1: TActionList
