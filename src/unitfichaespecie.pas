@@ -67,7 +67,8 @@ uses
   Classes, SysUtils, BCPanel, BCLabel,
   Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
   StdCtrls, DBCtrls, Buttons, Menus, ExtDlgs, ActnList,
-  SQLite3tablemod, uFormImpressao, unitremovemineral, unitlanguage;
+  SQLite3tablemod, uFormImpressao, unitremovemineral, unitlanguage,
+  IniFiles;
 
 type
 
@@ -143,9 +144,9 @@ type
     ImageCristalografia1: TImage;
     ImageCristalografia2: TImage;
     ImagemAmpliada: TImage;
-    Label1: TLabel;
-    Label24: TLabel;
-    Label25: TLabel;
+    LabelComposicao: TLabel;
+    LabelHardness: TLabel;
+    LabelDensity: TLabel;
     Label33: TLabel;
     Label34: TLabel;
     Label35: TLabel;
@@ -244,7 +245,7 @@ type
     ToolButton9: TToolButton;
     ToolButtonAddImage: TToolButton;
     ToolButton2: TToolButton;
-    ToolButton3: TToolButton;
+    ToolButtonRemoveImage: TToolButton;
     procedure ActionAddExecute(Sender: TObject);
     procedure ActionAddImage1Execute(Sender: TObject);
     procedure ActionAddImage2Execute(Sender: TObject);
@@ -307,6 +308,7 @@ type
     procedure EditSubGrupoKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure HeaderControl1SectionClick(HeaderControl: TCustomHeaderControl;
       Section: THeaderSection);
@@ -373,7 +375,7 @@ type
     procedure MemoTracoKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure PageControlFichaChange(Sender: TObject);
     procedure ToolButtonAddImageClick(Sender: TObject);
-    procedure ToolButton3Click(Sender: TObject);
+    procedure ToolButtonRemoveImageClick(Sender: TObject);
   private
     function AtualizarLista: boolean;
     function DefinirOrdem: string;
@@ -434,6 +436,8 @@ var
 
   Image: array[1..7] of PropertyImages;
 
+  Config:TIniFile;
+
 implementation
 
 uses udatamodule, unitBlobFields, unitaddmineral;
@@ -447,6 +451,7 @@ begin
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
   if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
   begin
+    self.Caption:=Lang.Minerals;
     ToolButtonAdd.Hint:=Lang.Add;
     ToolButtonRemove.Hint:=Lang.Remove;
     ToolButtonPrint.Hint:=Lang.Print;
@@ -458,9 +463,76 @@ begin
     RadioButton2.Caption:=Lang.Hardness;
     RadioButton3.Caption:=Lang.Density;
     BCLabelMinerals.Caption:=Lang.Minerals;
+    //colocar strings da contagem de registros
 
+    BCLabelName.Caption:=Lang.Name;
+    BCLabelClass.Caption:=Lang.MineralClass;
+    BCLabelSubClass.Caption:=Lang.Subclass;
+    BCLabelGroup.Caption:=Lang.Group;
+    BCLabelSubgroup.Caption:=Lang.Subgroup;
+    BCLabelHardness.Caption:=Lang.Hardness;
+    BCLabelDensity.Caption:=Lang.Density;
+    BCLabelOcorrencia.Caption:=Lang.Occurrence;
+    BCLabelAssociacao.Caption:=Lang.Association;
+    BCLabelCor.Caption:=Lang.Color;
+    Label33.Caption:=Lang.Minimum;
+    Label34.Caption:=Lang.Maximum;
+    Label35.Caption:=Lang.Minimum;
+    Label36.Caption:=Lang.Maximum;
+
+    TabSheetInf_Gerais.Caption:=Lang.GeneralInformation;
+    TabSheetProp_fisicas.Caption:=Lang.PhysicalProperties;
+    TabSheetOticas.Caption:=Lang.OpticalProperties;
+    TabSheetCristalografia.Caption:=Lang.Crystallography;
+    TabSheetImagem.Caption:=Lang.Image;
+
+    LabelNome.Caption:=Lang.Name;
+    LabelComposicao.Caption:=Lang.Composition;
+    LabelClasse.Caption:=Lang.MineralClass;
+    LabelSubClasse.Caption:=Lang.Subclass;
+    LabelGrupo.Caption:=Lang.Group;
+    LabelSubgrupo.Caption:=Lang.Subgroup;
+    LabelOcorrencia.Caption:=Lang.Occurrence;
+    LabelAssociacao.Caption:=Lang.Association;
+    LabelDistincao.Caption:=Lang.Distinction;
+    LabelAlteracao.Caption:=Lang.Alteration;
+    LabelAplicacao.Caption:=Lang.Usage;
+
+    GroupboxDureza.Caption:=Lang.Edit;
+    GroupboxDensidade.Caption:=Lang.Edit;
+    LabelHardness.Caption:=Lang.Hardness;
+    LabelDensity.Caption:=Lang.Density;
+    LabelCor.Caption:=Lang.Color;
+    LabelTraco.Caption:=Lang.Streak;
+    LabelBrilho.Caption:=Lang.Luster;
+    LabelClivagem.Caption:=Lang.Cleavage;
+    LabelFratura.Caption:=Lang.Fracture;
+    LabelMagnetismo.Caption:=Lang.Magnetism;
+    LabelLuminescencia.Caption:=Lang.Luminescence;
+
+    LabelDiafaneidade.Caption:=Lang.Diaphanousness;
+    LabelSinal_Optico.Caption:=Lang.OpticalSignal;
+    LabelIndice_Refracao.Caption:=Lang.RefractiveIndex;
+    LabelAngulo_2V.Caption:=Lang.Angle2V;
+    LabelCor_Interferencia.Caption:=Lang.InterferenceColor;
+    LabelCor_Lamina.Caption:=Lang.BladeColor;
+    LabelSinal_Elongacao.Caption:=Lang.SignElongation;
+    LabelBirrefringencia.Caption:=Lang.Birefringence;
+    LabelRelevo.Caption:=Lang.Relief;
+    LabelSistema_Cristalino.Caption:=Lang.CrystallineSystem;
+    LabelClasse_Cristalina.Caption:=Lang.CrystalineClass;
+    LabelSimbologia.Caption:=Lang.Symbology;
+    LabelHabito.Caption:=Lang.Habit;
+
+    ToolbuttonAddImage.Hint:=Lang.AddImage;
+    ToolButtonRemoveImage.Hint:=Lang.RemoveImage;
   end;
   Config.Free;
+end;
+
+procedure TFormFichaEspecie.FormDestroy(Sender: TObject);
+begin
+
 end;
 
 procedure TFormFichaEspecie.FormShow(Sender: TObject);
@@ -1016,7 +1088,7 @@ begin
     AddMineralImage(Imagem_Selecionada);
 end;
 
-procedure TFormFichaEspecie.ToolButton3Click(Sender: TObject);
+procedure TFormFichaEspecie.ToolButtonRemoveImageClick(Sender: TObject);
 begin
   if Dados.DatabaseMineralFileName <> EmptyStr then
   begin

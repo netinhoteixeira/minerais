@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, BCLabel, Forms, Controls,
-  Graphics, Dialogs, StdCtrls, ActnList, Buttons, INIFiles;
+  Graphics, Dialogs, StdCtrls, ActnList, Buttons, INIFiles, UnitLanguage;
 
 type
 
@@ -16,14 +16,15 @@ type
     ActionClose: TAction;
     ActionCreateDatabase: TAction;
     ActionList1: TActionList;
-    BCLabel1: TBCLabel;
+    BCLabelSetDatabaseName: TBCLabel;
     BCPanel1: TBCPanel;
     BCPanel2: TBCPanel;
     Edit1: TEdit;
-    SpeedButton1: TSpeedButton;
-    SpeedButton2: TSpeedButton;
+    SpeedButtonCreateDatabase: TSpeedButton;
+    SpeedButtonClose: TSpeedButton;
     procedure ActionCloseExecute(Sender: TObject);
     procedure ActionCreateDatabaseExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -34,6 +35,7 @@ type
 
 var
   FormAddDatabase: TFormAddDatabase;
+  COnfig:TIniFile;
 
 implementation
 
@@ -100,6 +102,19 @@ begin
   end
   else
   ShowMessage('Escolha um nome para o banco de dados.');
+end;
+
+procedure TFormAddDatabase.FormCreate(Sender: TObject);
+begin
+  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    FormAddDatabase.Caption:=Lang.Add;
+    BCLabelSetDatabaseName.Caption:=Lang.TypeTheNameOfDatabase;
+    SpeedButtonCreateDatabase.Hint:=Lang.Confirm;
+    SpeedButtonClose.Hint:=Lang.Close;
+  end;
+  Config.Free;
 end;
 
 procedure TFormAddDatabase.FormShow(Sender: TObject);

@@ -1,11 +1,12 @@
 object FormBibliografia: TFormBibliografia
-  Left = 252
+  Left = 2
   Height = 339
-  Top = 152
+  Top = 6
   Width = 628
   Caption = 'Bibliografia'
   ClientHeight = 339
   ClientWidth = 628
+  OnCreate = FormCreate
   OnShow = FormShow
   LCLVersion = '1.2.2.0'
   object Panel1: TPanel
@@ -89,7 +90,7 @@ object FormBibliografia: TFormBibliografia
       Rounding.RoundY = 1
       Rounding.RoundOptions = []
       TabOrder = 0
-      object SpeedButton1: TSpeedButton
+      object SpeedButtonSave: TSpeedButton
         Left = 24
         Height = 40
         Hint = 'Salvar'
@@ -99,7 +100,7 @@ object FormBibliografia: TFormBibliografia
         ShowHint = True
         ParentShowHint = False
       end
-      object SpeedButton2: TSpeedButton
+      object SpeedButtonEdit: TSpeedButton
         Left = 96
         Height = 40
         Hint = 'Editar'
@@ -109,7 +110,7 @@ object FormBibliografia: TFormBibliografia
         ShowHint = True
         ParentShowHint = False
       end
-      object SpeedButton3: TSpeedButton
+      object SpeedButtonClose: TSpeedButton
         Left = 560
         Height = 40
         Hint = 'Fechar'

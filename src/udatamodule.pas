@@ -73,12 +73,14 @@ type
   { TDados }
 
   TDados = class(TDataModule)
+    DataSourceLanguage: TDataSource;
     DatasourceInstrumentos: TDatasource;
     DatasourcePlanilhaMicrossonda: TDatasource;
     DatasourcePrinter: TDatasource;
     DatasourceReport: TDatasource;
     frDBDataSet1: TfrDBDataSet;
     frReport1: TfrReport;
+    SdfDataSetLanguage: TSdfDataSet;
     SdfDataSetGraficosValorX: TField;
     SdfDataSetGraficosValorY: TField;
     SdfDataSetPlanilhaMicrossonda: TSdfDataSet;

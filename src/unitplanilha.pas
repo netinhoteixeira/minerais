@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, DBGrids, Buttons, ActnList, DB;
+  ExtCtrls, DBGrids, Buttons, ActnList, DB, INIFIles, UnitLanguage;
 
 type
 
@@ -20,6 +20,7 @@ type
     Panel1: TPanel;
     SpeedButton1: TSpeedButton;
     procedure ActionCloseExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { private declarations }
   public
@@ -32,6 +33,7 @@ type
 
 var
   FormPlanilha: TFormPlanilha;
+  Config:TIniFIle;
 
 implementation
 
@@ -43,6 +45,17 @@ uses
 procedure TFormPlanilha.ActionCloseExecute(Sender: TObject);
 begin
   FormPlanilha.Visible:=False;
+end;
+
+procedure TFormPlanilha.FormCreate(Sender: TObject);
+begin
+  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    FormPlanilha.Caption:=Lang.Microprobe;
+    SpeedButton1.Hint:=Lang.Close;
+  end;
+  Config.Free;
 end;
 
 procedure TFormPlanilha.ArquivoMicrossonda(Especie:String; Rruff_Id:String;

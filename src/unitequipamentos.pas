@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, BCLabel, Forms, Controls, Graphics,
-  Dialogs, ExtCtrls, StdCtrls, Buttons, DbCtrls, ComCtrls;
+  Dialogs, ExtCtrls, StdCtrls, Buttons, DbCtrls, ComCtrls, UnitLanguage,
+  INIFiles;
 
 type
 
@@ -24,6 +25,7 @@ type
     DBNavigator1: TDBNavigator;
     StatusBar1: TStatusBar;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -33,6 +35,7 @@ type
 
 var
   FormInstrumentos: TFormInstrumentos;
+  Config:TIniFIle;
 
 implementation
 uses udatamodule;
@@ -60,6 +63,19 @@ procedure TFormInstrumentos.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
   Dados.Sqlite3DatasetInstrumentos.Close;
+end;
+
+procedure TFormInstrumentos.FormCreate(Sender: TObject);
+begin
+  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    FormInstrumentos.Caption:=Lang.Equipments;
+    BcLabel1.Caption:=Lang.Name;
+    BCLabel2.Caption:=Lang.Locality;
+    BCLabel3.Caption:=Lang.Description;
+  end;
+  Config.Free;
 end;
 
 end.

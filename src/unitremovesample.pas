@@ -65,7 +65,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, BCImageButton, BCLabel, Forms, Controls,
-  Graphics, Dialogs, StdCtrls, ActnList, Buttons;
+  Graphics, Dialogs, StdCtrls, ActnList, Buttons, INIFiles, UnitLanguage;
 
 type
 
@@ -79,6 +79,7 @@ type
     BCLabel1: TBCLabel;
     BCLabel2: TBCLabel;
     BCPanel1: TBCPanel;
+    BCPanel2: TBCPanel;
     ListBox1: TListBox;
     ListBox2: TListBox;
     SpeedButton1: TSpeedButton;
@@ -86,6 +87,7 @@ type
     procedure ActionListboxSampleClickExecute(Sender: TObject);
     procedure ActionRemoveSampleExecute(Sender: TObject);
     procedure ActionRemoveSubSampleExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -95,6 +97,7 @@ type
 
 var
   FormRemoveSample: TFormRemoveSample;
+  Config:TIniFile;
 
 implementation
 
@@ -312,6 +315,20 @@ begin
         Dados.DatabaseSamples.ExecSQL('DELETE FROM difracao WHERE rruff_id="' +
           Listbox1.GetSelectedText + '" AND digito="' + Listbox2.GetSelectedText + '" ;');
       end;
+end;
+
+procedure TFormRemoveSample.FormCreate(Sender: TObject);
+begin
+  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    FormRemoveSample.Caption:=Lang.Remove;
+    BCLabel1.Caption:=Lang.Samples;
+    BCLabel2.Caption:=Lang.SubSamples;
+    SpeedButton1.Hint:=Lang.RemoveSample;
+    SpeedButton2.Hint:=Lang.RemoveSubSample;
+  end;
+  Config.Free;
 end;
 
 end.

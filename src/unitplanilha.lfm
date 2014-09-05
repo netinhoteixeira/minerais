@@ -6,6 +6,7 @@ object FormPlanilha: TFormPlanilha
   Caption = 'Microssonda'
   ClientHeight = 354
   ClientWidth = 687
+  OnCreate = FormCreate
   LCLVersion = '1.2.2.0'
   WindowState = wsMaximized
   object Panel1: TPanel

@@ -68,7 +68,7 @@ uses
   BGRAImageList, BCLabel, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   ComCtrls, StdCtrls, DBCtrls, Buttons, ActnList, ExtDlgs, Menus, unitPlanilha,
   SQLite3tablemod, IniFiles, unitequipamentos,
-  unitaddsample, unitremovesample;
+  unitaddsample, unitremovesample, unitLanguage;
 
 type
 
@@ -108,9 +108,9 @@ type
     ActionAddDataToChart: TAction;
     ActionListboxSampleOnClick: TAction;
     ActionList1: TActionList;
-    BCLabel1: TBCLabel;
-    BCLabel2: TBCLabel;
-    BCLabel3: TBCLabel;
+    BCLabelMineralFilter: TBCLabel;
+    BCLabelSampleFilter: TBCLabel;
+    BCLabelSamples: TBCLabel;
     BCLabelRegistros: TBCLabel;
     BCPanel1: TBCPanel;
     BCPanel2: TBCPanel;
@@ -147,12 +147,12 @@ type
     GroupBoxImagemQuimica: TGroupBox;
     ImageAmostra: TImage;
     ImageQuimica: TImage;
-    Label10: TLabel;
-    Label1Especie: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
+    LabelID: TLabel;
+    LabelEspecie: TLabel;
+    LabelDescricao: TLabel;
+    LabelSituacao: TLabel;
     Label4: TLabel;
-    Label5: TLabel;
+    LabelDirection: TLabel;
     Label6: TLabel;
     Label7: TLabel;
     Label8: TLabel;
@@ -163,20 +163,20 @@ type
     LabelBeta: TLabel;
     LabelC: TLabel;
     LabelComprimentodeOnda: TLabel;
-    LabelConfiguracaoInstrumento: TLabel;
+    LabelInstrumento: TLabel;
     LabelDescricao2: TLabel;
     LabelDescricao3: TLabel;
     LabelDescricaoBroadScan: TLabel;
-    LabelDescricaoIV: TLabel;
+    LabelInfraredDescription: TLabel;
     LabelEquipamentoRaman: TLabel;
     LabelFonte: TLabel;
     LabelGamma: TLabel;
     LabelId_Quimica: TLabel;
-    LabelId_Quimica1: TLabel;
-    LabelId_Quimica2: TLabel;
-    LabelId_Quimica3: TLabel;
-    LabelId_Quimica4: TLabel;
-    LabelInstrumentoIV: TLabel;
+    LabelRamanId: TLabel;
+    LabelBroadScanId: TLabel;
+    LabelInfraredID: TLabel;
+    LabelDifractionID: TLabel;
+    LabelInfraredEquipment: TLabel;
     LabelLocalidade: TLabel;
     LabelOrientacao: TLabel;
     LabelPinId: TLabel;
@@ -340,6 +340,7 @@ type
     procedure EditSample_IdEditingDone(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure MemoAEditingDone(Sender: TObject);
     procedure MemoAKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure MemoAlphaEditingDone(Sender: TObject);
@@ -358,8 +359,8 @@ type
     procedure MemoGammaEditingDone(Sender: TObject);
     procedure MemoGammaKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure MemoInfravermelhoDescricaoEditingDone(Sender: TObject);
-    procedure MemoInfravermelhoDescricaoKeyUp(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure MemoInfravermelhoDescricaoKeyUp(Sender: TObject;
+      var Key: word; Shift: TShiftState);
     procedure MemoInfravermelhoResolucaoEditingDone(Sender: TObject);
     procedure MemoInfravermelhoResolucaoKeyUp(Sender: TObject;
       var Key: word; Shift: TShiftState);
@@ -376,19 +377,18 @@ type
     procedure MemoQuimicaMedidaKeyUp(Sender: TObject; var Key: word;
       Shift: TShiftState);
     procedure MemoRamanDescricaoEditingDone(Sender: TObject);
-    procedure MemoRamanDescricaoKeyUp(Sender: TObject; var Key: Word;
+    procedure MemoRamanDescricaoKeyUp(Sender: TObject; var Key: word;
       Shift: TShiftState);
     procedure MemoSistemaCristalinoEditingDone(Sender: TObject);
-    procedure MemoSistemaCristalinoKeyUp(Sender: TObject; var Key: Word;
+    procedure MemoSistemaCristalinoKeyUp(Sender: TObject; var Key: word;
       Shift: TShiftState);
     procedure MemoSituacaoEditingDone(Sender: TObject);
     procedure MemoSituacaoKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure MemoVarreduraDescricaoEditingDone(Sender: TObject);
-    procedure MemoVarreduraDescricaoKeyUp(Sender: TObject; var Key: Word;
+    procedure MemoVarreduraDescricaoKeyUp(Sender: TObject; var Key: word;
       Shift: TShiftState);
     procedure MemoVolumeEditingDone(Sender: TObject);
-    procedure MemoVolumeKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
-      );
+    procedure MemoVolumeKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure MenuItemAddClick(Sender: TObject);
     procedure MenuItemRemoveClick(Sender: TObject);
   private
@@ -443,6 +443,64 @@ begin
     Dados.DatabaseSampleFileName := EmptyStr;
     EditingMode(False);
   end;
+
+  Config := TIniFile.Create(Dados.Caminho + '\config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    self.Caption := Lang.Analisys;
+
+    BCLabelMineralFilter.Caption := Lang.FilterByMineral;
+    BCLabelSampleFilter.Caption := Lang.FilterById;
+    BCLabelSamples.Caption := Lang.Samples;
+
+    TabsheetSampleDescricao.Caption := Lang.Description;
+    TabsheetSampleQuimica.Caption := Lang.ChemichalAnalysis;
+    TabsheetSampleRaman.Caption := Lang.RamanSpectroscopy;
+    TabsheetSampleVarredura.Caption := Lang.BroadScanWithSpectralArtifacts;
+    TabsheetSampleInfrared.Caption := Lang.InfraredSpectrum;
+    TabsheetSampleDifraction.Caption := Lang.MineralPowderDiffraction;
+
+    LabelEspecie.Caption := Lang.Specie;
+    LabelID.Caption := Lang.Identification;
+    LabelQuimicaIdeal.Caption := Lang.IdealChemistry;
+    LabelLocalidade.Caption := Lang.Locality;
+    LabelFonte.Caption := Lang.Source;
+    LabelProprietario.Caption := Lang.Owner;
+    LabelDescricao.Caption := Lang.Description;
+    LabelSituacao.Caption := Lang.Situation;
+
+    LabelID_Quimica.Caption := Lang.Identification;
+    LabelDescricao2.Caption := Lang.Description;
+    LabelQuimicaMedida.Caption := Lang.ChemicalMeasure;
+    Groupbox1.Caption := Lang.Microprobe;
+
+    LabelDirection.Caption := Lang.LaserPolarizationDirection;
+    LabelRamanId.Caption := Lang.Identification;
+    LabelPinId.Caption := Lang.PinId;
+    LabelDescricao3.Caption := Lang.Description;
+    LabelOrientacao.Caption := Lang.Orientation;
+    LabelEquipamentoRaman.Caption := Lang.Equipment;
+
+    LabelComprimentoDeOnda.Caption := Lang.Wavelength;
+    LabelBroadScanId.Caption := Lang.Identification;
+    LabelDescricaoBroadScan.Caption := Lang.Description;
+    LabelInstrumento.Caption := Lang.Equipment;
+
+    LabelInfraredId.Caption := Lang.Identification;
+    LabelResolucao.Caption := Lang.Resolution;
+    LabelInfraredDescription.Caption := Lang.Description;
+    LabelInfraredEquipment.Caption := Lang.Equipment;
+
+    LabelDifractionId.Caption := Lang.Identification;
+    GroupBoxDadosDifracao.Caption := Lang.CellRefinement;
+    Labela.Caption := Lang.a;
+    Labelb.Caption := Lang.b;
+    Labelc.Caption := Lang.c;
+    LabelAlpha.Caption := Lang.alpha;
+    LabelBeta.Caption := Lang.beta;
+    LabelGamma.Caption := Lang.gamma;
+  end;
+  Config.Free;
 
   {obs: instruções obsoletas, atualizar
   Especie:= Dados.TableSamples.FieldByName['especie'];
@@ -673,6 +731,11 @@ begin
          }
 end;
 
+procedure TFormFichaAmostra.FormDestroy(Sender: TObject);
+begin
+
+end;
+
 procedure TFormFichaAmostra.MemoAEditingDone(Sender: TObject);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE difracao SET ' +
@@ -779,20 +842,19 @@ begin
     ' gamma = "' + MemoGamma.Text + '" WHERE rruff_id = "' + EditSample.Text + '" ;');
 end;
 
-procedure TFormFichaAmostra.MemoInfravermelhoDescricaoEditingDone(
-  Sender: TObject);
+procedure TFormFichaAmostra.MemoInfravermelhoDescricaoEditingDone(Sender: TObject);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE infravermelho SET ' +
     ' description = "' + MemoInfravermelhoDescricao.Text + '" WHERE rruff_id = "' +
-      EditSample.Text + '" ;');
+    EditSample.Text + '" ;');
 end;
 
 procedure TFormFichaAmostra.MemoInfravermelhoDescricaoKeyUp(Sender: TObject;
-  var Key: Word; Shift: TShiftState);
+  var Key: word; Shift: TShiftState);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE infravermelho SET ' +
     ' description = "' + MemoInfravermelhoDescricao.Text + '" WHERE rruff_id = "' +
-      EditSample.Text + '" ;');
+    EditSample.Text + '" ;');
 end;
 
 procedure TFormFichaAmostra.MemoInfravermelhoResolucaoEditingDone(Sender: TObject);
@@ -874,30 +936,30 @@ procedure TFormFichaAmostra.MemoRamanDescricaoEditingDone(Sender: TObject);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE raman SET ' +
     ' description = "' + MemoRamanDescricao.Text + '" WHERE rruff_id = "' +
-      EditSample.Text + '" ;');
+    EditSample.Text + '" ;');
 end;
 
 procedure TFormFichaAmostra.MemoRamanDescricaoKeyUp(Sender: TObject;
-  var Key: Word; Shift: TShiftState);
+  var Key: word; Shift: TShiftState);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE raman SET ' +
     ' description = "' + MemoRamanDescricao.Text + '" WHERE rruff_id = "' +
-      EditSample.Text + '" ;');
+    EditSample.Text + '" ;');
 end;
 
 procedure TFormFichaAmostra.MemoSistemaCristalinoEditingDone(Sender: TObject);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE difracao SET ' +
-    ' sistema_cristalino = "' + MemoSistemaCristalino.Text + '" WHERE rruff_id = "' +
-      EditSample.Text + '" ;');
+    ' sistema_cristalino = "' + MemoSistemaCristalino.Text +
+    '" WHERE rruff_id = "' + EditSample.Text + '" ;');
 end;
 
 procedure TFormFichaAmostra.MemoSistemaCristalinoKeyUp(Sender: TObject;
-  var Key: Word; Shift: TShiftState);
+  var Key: word; Shift: TShiftState);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE difracao SET ' +
-    ' sistema_cristalino = "' + MemoSistemaCristalino.Text + '" WHERE rruff_id = "' +
-      EditSample.Text + '" ;');
+    ' sistema_cristalino = "' + MemoSistemaCristalino.Text +
+    '" WHERE rruff_id = "' + EditSample.Text + '" ;');
 end;
 
 procedure TFormFichaAmostra.MemoSituacaoEditingDone(Sender: TObject);
@@ -919,33 +981,33 @@ procedure TFormFichaAmostra.MemoVarreduraDescricaoEditingDone(Sender: TObject);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE varredura SET ' +
     ' description = "' + MemoVarreduraDescricao.Text + '" WHERE rruff_id = "' +
-      EditSample.Text + '" ;');
+    EditSample.Text + '" ;');
 end;
 
 procedure TFormFichaAmostra.MemoVarreduraDescricaoKeyUp(Sender: TObject;
-  var Key: Word; Shift: TShiftState);
+  var Key: word; Shift: TShiftState);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE varredura SET ' +
     ' description = "' + MemoVarreduraDescricao.Text + '" WHERE rruff_id = "' +
-      EditSample.Text + '" ;');
+    EditSample.Text + '" ;');
 end;
 
 procedure TFormFichaAmostra.MemoVolumeEditingDone(Sender: TObject);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE difracao SET ' +
     ' volume = "' + MemoVolume.Text + '" WHERE rruff_id = "' +
-      EditSample.Text + '" ;');
+    EditSample.Text + '" ;');
 end;
 
-procedure TFormFichaAmostra.MemoVolumeKeyUp(Sender: TObject; var Key: Word;
+procedure TFormFichaAmostra.MemoVolumeKeyUp(Sender: TObject; var Key: word;
   Shift: TShiftState);
 begin
   TableSamples := DatabaseSamples.GetTable('UPDATE difracao SET ' +
     ' volume = "' + MemoVolume.Text + '" WHERE rruff_id = "' +
-      EditSample.Text + '" ;');
+    EditSample.Text + '" ;');
 end;
 
-     //remover esse procedimento e utilizar os actionlists
+//remover esse procedimento e utilizar os actionlists
 procedure TFormFichaAmostra.MenuItemAddClick(Sender: TObject);
 var
   Digito: string;
@@ -1003,28 +1065,37 @@ begin
   else
     ShowMessage('Não há amostra selecionada.');
 end;
-  ////remover esse procedimento e utilizar os actionlists
+////remover esse procedimento e utilizar os actionlists
 procedure TFormFichaAmostra.MenuItemRemoveClick(Sender: TObject);
 begin
-  if EditSample.Text <> EmptyStr then
+  if Dados.DatabaseSampleFileName <> EmptyStr then
   begin
-    case PageControlSample.TabIndex of
-      0:
+    if FileExists(Dados.DatabaseSampleFileName) then
+    begin
+      if Dados.ChooseDatabase('amostra', Dados.DatabaseSampleFileName) then
       begin
-        ClearBlobField('rruff', 'imagem_amostra', EmptyStr,
-          EditSample.Text, EmptyStr, EmptyStr);
-        ImageAmostra.Picture.Clear;
-      end;
-      1:
-      begin
-        ClearBlobField('chemistry', 'image', EmptyStr,
-          EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
-        ImageQuimica.Picture.Clear;
+        if EditSample.Text <> EmptyStr then
+        begin
+          case PageControlSample.TabIndex of
+            0:
+            begin
+              ClearBlobField('rruff', 'imagem_amostra', EmptyStr,
+                EditSample.Text, EmptyStr, EmptyStr);
+              ImageAmostra.Picture.Clear;
+            end;
+            1:
+            begin
+              ClearBlobField('chemistry', 'image', EmptyStr,
+                EditSample.Text, ComboboxQuimicaDigito.Text, EmptyStr);
+              ImageQuimica.Picture.Clear;
+            end;
+          end;
+        end
+        else
+          ShowMessage('Não há amostra selecionada.');
       end;
     end;
-  end
-  else
-    ShowMessage('Não há amostra selecionada.');
+  end;
 end;
 
 procedure TFormFichaAmostra.Preenche_Amostras;
@@ -1376,10 +1447,10 @@ begin
         ComboboxRamanDigito.Text + '";');
       if TableSamples.MoveFirst then
       begin
-        ComboboxRamanEquipment.ItemIndex:=ComboboxRamanEquipment.Items.IndexOf(
-        TableSamples.FieldByName['equipment']);
-        ComboboxDirecaoLaser.ItemIndex:=ComboboxDirecaoLaser.Items.Add(
-          TableSamples.FieldByName['direcao']);
+        ComboboxRamanEquipment.ItemIndex :=
+          ComboboxRamanEquipment.Items.IndexOf(TableSamples.FieldByName['equipment']);
+        ComboboxDirecaoLaser.ItemIndex :=
+          ComboboxDirecaoLaser.Items.Add(TableSamples.FieldByName['direcao']);
         while not TableSamples.EOF do
         begin
           if ComboboxDirecaoLaser.Items.IndexOf(
@@ -1397,22 +1468,24 @@ begin
     3:
     begin
       ComboboxVarreduraOnda.Clear;
-      TableSamples := DatabaseSamples.GetTable('SELECT equipment, comprimento_onda FROM ' +
-      'varredura WHERE rruff_id="' + ListboxSample_id.GetSelectedText +
-      '" ' + ' AND digito="' + ComboboxVarreduraDigito.Text + '" ;');
+      TableSamples := DatabaseSamples.GetTable(
+        'SELECT equipment, comprimento_onda FROM ' + 'varredura WHERE rruff_id="' +
+        ListboxSample_id.GetSelectedText + '" ' + ' AND digito="' +
+        ComboboxVarreduraDigito.Text + '" ;');
       if TableSamples.MoveFirst then
       begin
-        ComboboxBroadScanEquipment.ItemIndex:=ComboboxBroadScanEquipment.Items.
-          IndexOf(TableSamples.FieldByName['equipment']);
-        ComboboxVarreduraOnda.ItemIndex:=ComboboxVarreduraOnda.Items.Add(
-          TableSamples.FieldByName['comprimento_onda']);
+        ComboboxBroadScanEquipment.ItemIndex :=
+          ComboboxBroadScanEquipment.Items.IndexOf(
+          TableSamples.FieldByName['equipment']);
+        ComboboxVarreduraOnda.ItemIndex :=
+          ComboboxVarreduraOnda.Items.Add(TableSamples.FieldByName['comprimento_onda']);
         while not TableSamples.EOF do
         begin
-        if ComboboxVarreduraOnda.Items.IndexOf(
-          TableSamples.FieldByName['comprimento_onda']) < 0 then
-          ComboboxVarreduraOnda.Items.Append(TableSamples.FieldByName[
-            'comprimento_onda']);
-        TableSamples.Next;
+          if ComboboxVarreduraOnda.Items.IndexOf(
+            TableSamples.FieldByName['comprimento_onda']) < 0 then
+            ComboboxVarreduraOnda.Items.Append(
+              TableSamples.FieldByName['comprimento_onda']);
+          TableSamples.Next;
         end;
       end;
 
@@ -1523,9 +1596,11 @@ begin
       else
         ShowMessage('O banco de dados não é válido.');
     end
-    else ShowMessage('Não há banco de dados selecionado.');
+    else
+      ShowMessage('Não há banco de dados selecionado.');
   end
-  else ShowMessage('Escolha uma amostra para adicionar dados.');
+  else
+    ShowMessage('Escolha uma amostra para adicionar dados.');
 end;
 
 procedure TFormFichaAmostra.ActionAddChemistryImageExecute(Sender: TObject);
@@ -1682,11 +1757,11 @@ begin
           begin
             if OpenDialog1.FileName <> EmptyStr then
             begin
-        CSVFileToBlobField(OpenDialog1.FileName, 'chemistry', 'microprobe_file',
-          EmptyStr, EditSample.Text, Trim(ComboboxQuimicaDigito.Text), EmptyStr);
-        FormPlanilha.ArquivoMicrossonda(EmptyStr, EditSample.Text,
-          Trim(ComboboxQuimicaDigito.Text));
-       end;
+              CSVFileToBlobField(OpenDialog1.FileName, 'chemistry', 'microprobe_file',
+                EmptyStr, EditSample.Text, Trim(ComboboxQuimicaDigito.Text), EmptyStr);
+              FormPlanilha.ArquivoMicrossonda(EmptyStr, EditSample.Text,
+                Trim(ComboboxQuimicaDigito.Text));
+            end;
           end;
         end
         else
@@ -1777,8 +1852,8 @@ begin
         'arquivo_varredura', EmptyStr, EditSample.Text, ComboboxVarreduraDigito.Text,
         ComboboxVarreduraOnda.Text));
       Dados.TableSamples := Dados.DatabaseSamples.GetTable('SELECT equipment FROM ' +
-        'varredura WHERE rruff_id="' + EditSample.Text + '" AND comprimento_onda="' +
-        ComboboxVarreduraDigito.Text + '" ;');
+        'varredura WHERE rruff_id="' + EditSample.Text +
+        '" AND comprimento_onda="' + ComboboxVarreduraDigito.Text + '" ;');
       if Dados.TableSamples.Count > 0 then
         if Dados.TableSamples.MoveFirst then
           ComboboxBroadScanEquipment.ItemIndex :=
@@ -2440,6 +2515,7 @@ var
   I: integer;
 begin
   PageCOntrolSample.Font.Size := StrToInt(Trim(Combobox1.Text));
+  BCPanel1.Font.Size:=StrToInt(Trim(Combobox1.Text));
 end;
 
 procedure TFormFichaAmostra.ComboBoxVarreduraOndaChange(Sender: TObject);

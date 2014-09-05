@@ -8,6 +8,7 @@ object FormFichaEspecie: TFormFichaEspecie
   ClientWidth = 1144
   OnClose = FormClose
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   ShowInTaskBar = stAlways
   LCLVersion = '1.2.2.0'
@@ -16,9 +17,9 @@ object FormFichaEspecie: TFormFichaEspecie
     Height = 564
     Top = 76
     Width = 546
-    ActivePage = TabSheetInf_Gerais
+    ActivePage = TabSheetProp_Fisicas
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 2
     OnChange = PageControlFichaChange
     object TabSheetInf_Gerais: TTabSheet
@@ -47,7 +48,7 @@ object FormFichaEspecie: TFormFichaEspecie
           TabOrder = 0
           Text = ' '
         end
-        object Label1: TLabel
+        object LabelComposicao: TLabel
           Left = 15
           Height = 15
           Top = 50
@@ -358,7 +359,7 @@ object FormFichaEspecie: TFormFichaEspecie
           TabOrder = 8
           Text = ' '
         end
-        object Label24: TLabel
+        object LabelHardness: TLabel
           Left = 15
           Height = 15
           Top = 15
@@ -366,7 +367,7 @@ object FormFichaEspecie: TFormFichaEspecie
           Caption = 'Dureza'
           ParentColor = False
         end
-        object Label25: TLabel
+        object LabelDensity: TLabel
           Left = 15
           Height = 15
           Top = 87
@@ -432,11 +433,11 @@ object FormFichaEspecie: TFormFichaEspecie
         end
         object GroupBoxDureza: TGroupBox
           Left = 272
-          Height = 60
+          Height = 64
           Top = 0
           Width = 234
           Caption = 'Editar'
-          ClientHeight = 42
+          ClientHeight = 46
           ClientWidth = 230
           TabOrder = 9
           Visible = False
@@ -463,11 +464,11 @@ object FormFichaEspecie: TFormFichaEspecie
         end
         object GroupBoxDensidade: TGroupBox
           Left = 272
-          Height = 55
+          Height = 64
           Top = 72
           Width = 234
           Caption = 'Editar'
-          ClientHeight = 37
+          ClientHeight = 46
           ClientWidth = 230
           TabOrder = 10
           Visible = False
@@ -871,12 +872,12 @@ object FormFichaEspecie: TFormFichaEspecie
             Caption = 'ToolButton2'
             Style = tbsDivider
           end
-          object ToolButton3: TToolButton
+          object ToolButtonRemoveImage: TToolButton
             Left = 29
             Hint = 'Remover imagem'
             Top = 2
-            Caption = 'ToolButton3'
-            OnClick = ToolButton3Click
+            Caption = 'ToolButtonRemoveImage'
+            OnClick = ToolButtonRemoveImageClick
             ParentShowHint = False
             ShowHint = True
           end

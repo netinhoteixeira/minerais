@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, RichMemo, BCPanel, Forms, Controls, Graphics,
-  Dialogs, ComCtrls, StdCtrls, ExtCtrls, DBCtrls, Buttons, ActnList,
-  SQLite3tablemod;
+  Dialogs, ComCtrls, StdCtrls, ExtCtrls, DBCtrls, Buttons, ActnList, IniFiles,
+  SQLite3tablemod, unitLanguage;
 
 type
 
@@ -32,9 +32,9 @@ type
     EditSistema: TEdit;
     EditSubClasse: TEdit;
     EditSubGrupo: TEdit;
-    Label1: TLabel;
-    Label24: TLabel;
-    Label25: TLabel;
+    LabelComposicao: TLabel;
+    LabelDureza: TLabel;
+    LabelDensidade: TLabel;
     LabelAlteracao: TLabel;
     LabelAngulo_2V: TLabel;
     LabelAplicacao: TLabel;
@@ -94,9 +94,9 @@ type
     ScrollBox4: TScrollBox;
     ScrollBox5: TScrollBox;
     ScrollBox6: TScrollBox;
-    SpeedButton1: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
+    SpeedButtonAdd: TSpeedButton;
+    SpeedButtonClear: TSpeedButton;
+    SpeedButtonClose: TSpeedButton;
     TabSheetCristalografia: TTabSheet;
     TabSheetInf_Gerais: TTabSheet;
     TabSheetOticas: TTabSheet;
@@ -104,6 +104,7 @@ type
     procedure Action1Execute(Sender: TObject);
     procedure ActionAddExecute(Sender: TObject);
     procedure ActionClearFieldsExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ToolButtonClearFieldsClick(Sender: TObject);
     procedure ToolButtonSaveClick(Sender: TObject);
@@ -118,6 +119,8 @@ var
   TableMinerals: TSQLiteTable;
   Erro:Boolean;
   FormAddMineral: TFormAddMineral;
+
+  Config:TIniFile;
 
 implementation
 
@@ -299,6 +302,56 @@ begin
     EditClasse_Cristalina.Text:=EmptyStr;
     EditH_M.Text:=EmptyStr;
     MemoHabito.Text:=EmptyStr;
+end;
+
+procedure TFormAddMineral.FormCreate(Sender: TObject);
+begin
+  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    FormAddMineral.Caption:=Lang.AddMineral;
+    TabSheetInf_Gerais.Caption:=Lang.GeneralInformation;
+    TabSheetProp_Fisicas.Caption:=Lang.PhysicalProperties;
+    TabSheetOticas.Caption:=Lang.OpticalProperties;
+    TabSheetCristalografia.Caption:=Lang.Crystallography;
+    LabelNome.Caption:=Lang.Name;
+    LabelComposicao.Caption:=Lang.Composition;
+    LabelClasse.Caption:=Lang.MineralClass;
+    LabelSubClasse.Caption:=Lang.Subclass;
+    LabelGrupo.Caption:=Lang.Group;
+    LabelSubgrupo.Caption:=Lang.Subgroup;
+    LabelOcorrencia.Caption:=Lang.Occurrence;
+    LabelAssociacao.Caption:=Lang.Association;
+    LabelDistincao.Caption:=Lang.Distinction;
+    LabelAlteracao.Caption:=Lang.Alteration;
+    LabelAplicacao.Caption:=Lang.Usage;
+    LabelDureza.Caption:=Lang.Hardness;
+    LabelDensidade.Caption:=Lang.Density;
+    LabelCor.Caption:=Lang.Color;
+    LabelTraco.Caption:=Lang.Streak;
+    LabelBrilho.Caption:=Lang.Luster;
+    LabelClivagem.Caption:=Lang.Cleavage;
+    LabelFratura.Caption:=Lang.Fracture;
+    LabelMagnetismo.Caption:=Lang.Magnetism;
+    LabelLuminescencia.Caption:=Lang.Luminescence;
+    LabelDifaneidade.Caption:=Lang.Diaphanousness;
+    LabelSinal_Optico.Caption:=Lang.OpticalSignal;
+    LabelIndice_Refracao.Caption:=Lang.RefractiveIndex;
+    LabelAngulo_2V.Caption:=Lang.Angle2V;
+    LabelCor_Interferencia.Caption:=Lang.InterferenceColor;
+    LabelCor_Lamina.Caption:=Lang.BladeColor;
+    LabelSinal_Elongacao.Caption:=Lang.SignElongation;
+    LabelBirrefringencia.Caption:=Lang.Birefringence;
+    LabelRelevo.Caption:=Lang.Relief;
+    LabelSistema_Cristalino.Caption:=Lang.CrystallineSystem;
+    LabelClasse_Cristalina.Caption:=Lang.CrystalineClass;
+    LabelSimbologia.Caption:=Lang.Symbology;
+    LabelHabito.Caption:=Lang.Habit;
+    SpeedButtonAdd.Hint:=Lang.Add;
+    SpeedButtonClear.Hint:=Lang.Clear;
+    SpeedButtonClose.Hint:=Lang.Close;
+  end;
+  Config.Free;
 end;
 
 end.

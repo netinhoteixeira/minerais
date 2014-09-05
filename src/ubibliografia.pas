@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, DbCtrls, Buttons, StdCtrls, ActnList, SQLite3tablemod;
+  ExtCtrls, DbCtrls, Buttons, StdCtrls, ActnList, SQLite3tablemod, IniFIles,
+  Unitlanguage;
 
 type
 
@@ -20,12 +21,13 @@ type
     BCPanel1: TBCPanel;
     Memo1: TMemo;
     Panel1: TPanel;
-    SpeedButton1: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
+    SpeedButtonSave: TSpeedButton;
+    SpeedButtonEdit: TSpeedButton;
+    SpeedButtonClose: TSpeedButton;
     procedure ActionCloseExecute(Sender: TObject);
     procedure ActionEditExecute(Sender: TObject);
     procedure ActionSaveExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -39,6 +41,7 @@ var
   Diretorio, Texto:String;
   DatabaseMinerals: TSQLiteDatabase;
   TableMinerals: TSQLiteTable;
+  Config:TIniFile;
 
 implementation
 {$R *.lfm}
@@ -107,6 +110,19 @@ begin
               Memo1.Text+'") ; ');
           end;
         end;
+end;
+
+procedure TFormBibliografia.FormCreate(Sender: TObject);
+begin
+  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    FormBibliografia.Caption:=Lang.Bibliography;
+    SpeedButtonSave.Hint:=Lang.Save;
+    SpeedButtonEdit.Hint:=Lang.Edit;
+    SpeedButtonClose.Hint:=Lang.Close;
+  end;
+  Config.Free;
 end;
 
 procedure TFormBibliografia.ActionEditExecute(Sender: TObject);

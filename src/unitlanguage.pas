@@ -14,6 +14,8 @@ type
     Help:String;
     Save:String;
     Edit:String;
+    Confirm:String;
+
     CurrentDatabase:String;
     CurrentLanguage:String;
     SelectLanguageFile:String;
@@ -36,6 +38,7 @@ type
     RemoveMineral: String;
     AddSample :String;
     RemoveSample:String;
+    RemoveSubSample:String;
     CreateMineralDatabase: String;
     SelectMineralDatabase: String;
     CreateAnalisysDatabase:String;
@@ -153,12 +156,13 @@ type
     PinId:String;
     Orientation:String;
     Equipment:String;
+    Equipments:String;
     Wavelength:String;
 
     Resolution:String;
 
     CellRefinement:String;
-    //a,b,c, alpha, beta, gamma
+    a,b,c, alpha, beta, gamma:String;
     Volume:String;
 
     //formaddsample
@@ -175,12 +179,13 @@ type
     AllFromTheList:String;
     SelectedMineral:String;
     GeneralAndPhysicalProperties:String;
+    OpticalAndCrystProperties:String;
     NumberOfCopies:String;
     ChangePrintReport:String;
     OpenFileReport:String;
 
     //
-    EnterTheNameOfDatabase:String;
+    TypeTheNameOfDatabase:String;
 
     //hints
     Database:String;
@@ -208,6 +213,8 @@ begin
     Lang.Help:='Ajuda';
     Lang.Save:='Salvar';
     Lang.Edit:='Editar';
+    Lang.Confirm:='Confirmar';
+
     Lang.CurrentDatabase:='Banco de dados atual:';
     Lang.CurrentLanguage:='Idioma atual';
     Lang.SelectLanguageFile:='Selecionar arquivo de tradução';
@@ -232,6 +239,7 @@ begin
     Lang.RemoveMineral:='Remover mineral';
     Lang.AddSample :='Adicionar amostra';
     Lang.RemoveSample:='Remover amostra';
+    Lang.RemoveSubSample:='Remover subamostra';
     Lang.CreateMineralDatabase:='Criar banco de dados de minerais';
     Lang.SelectMineralDatabase:='Selecionar banco de dados de minerais';
     Lang.CreateAnalisysDatabase:='Criar banco de dados de análises';
@@ -262,9 +270,9 @@ begin
     Lang.ViewInfraredData:='Visualizar dados de espectro infravermelho';
     Lang.RemoveInfraredData:='Remover dados de espectro infravermelho';
 
-    Lang.AddDifractionData:='Adicionar dados de varredura';
-    Lang.ViewDifractionData:='Visualizar dados de varredura';
-    Lang.RemoveDifractionData:='Remover dados de varredura';
+    Lang.AddDifractionData:='Adicionar dados de difração';
+    Lang.ViewDifractionData:='Visualizar dados de difração';
+    Lang.RemoveDifractionData:='Remover dados de difração';
 
     Lang.Order:='Ordem';
     Lang.Alphabetical:='Alfabética';
@@ -277,8 +285,8 @@ begin
     Lang.Bibliography:='Bibliografia';
     Lang.FontSize:='Tamanho da fonte';
 
-    Lang.Maximum:='máx';
-    Lang.Minimum:='min';
+    Lang.Maximum:='máximo';
+    Lang.Minimum:='minimo';
 
     Lang.GeneralInformation:='Informações Gerais';
     Lang.PhysicalProperties:='Propriedades Físicas';
@@ -350,12 +358,18 @@ begin
     Lang.PinId:='Identificação Pin';
     Lang.Orientation:='Orientação';
     Lang.Equipment:='Instrumento';
+    Lang.Equipments:='Equipamentos';
     Lang.Wavelength:='Comprimento de onda';
 
     Lang.Resolution:='Resolução';
 
     Lang.CellRefinement:='Refinamento celular';
-    //a,b,c, alpha, beta, gamma
+    Lang.a:='a';
+    Lang.b:='b';
+    Lang.c:='c';
+    Lang.Alpha:='Alpha';
+    Lang.Beta:='Beta';
+    Lang.gamma:='Gamma';
     Lang.Volume:='Volume';
 
     //formaddsample
@@ -372,12 +386,13 @@ begin
     Lang.AllFromTheList:='Todos da lista';
     Lang.SelectedMineral:='Mineral selecionado';
     Lang.GeneralAndPhysicalProperties:='Propriedades físicas e gerais';
+    Lang.OpticalAndCrystProperties:='Propriedades Ópticas e Cristalográficas';
     Lang.NumberOfCopies:='Número de cópias';
     Lang.ChangePrintReport:='Modificar relatório de impressão';
     Lang.OpenFileReport:='Abrir relatório de impressão';
 
     //
-    Lang.EnterTheNameOfDatabase:='Digite o nome do banco de dados';
+    Lang.TypeTheNameOfDatabase:='Digite o nome do banco de dados';
 
     //hints
     Lang.Database:='Banco de dados';
@@ -393,7 +408,202 @@ begin
   else
   if Upcase(Language) = 'ENGLISH' then
   begin
+    Lang.Exit:='Exit';
+    Lang.Close:='Close';
+    Lang.Help:='Help';
+    Lang.Save:='Save';
+    Lang.Edit:='Edit';
+    Lang.Confirm:='Confirm';
 
+    Lang.CurrentDatabase:='Current database:';
+    Lang.CurrentLanguage:='Current language';
+    Lang.SelectLanguageFile:='Select translation file';
+    Lang.CreateLanguageFile:='Create translation file';
+
+    Lang.NoDatabaseSelected:='No database selected.';
+    Lang.ThereIsNoSelectedSample:='There is no selected sample.';
+    Lang.ThereIsNoSelectedSubsample:='There is no selected subsample.';
+    Lang.TheSelectedDatabaseIsNotValid:='The selected database is not valid.';
+    Lang.ChooseASampleToAddData:='Choose a sample to add data.';
+    Lang.ChooseASampleToAddImage:='Choose a sample to add data.';
+    Lang.ChooseASubsampleToAddImage:='Choose a sample to add image.';
+    Lang.ThereIsAlreadyARecordWithThatName:='There is already a record with that name.';
+    Lang.YouMustRestartTheProgram:='You must restart the program to all settings take effect.';
+
+    Lang.Minerals:='Minerals';
+    Lang.Analisys:='Analysis';
+    Lang.Samples:= 'Samples';
+    Lang.SubSamples:='Subsamples';
+    Lang.AddMineral:='Add mineral';
+    Lang.RemoveMineral:='Remove mineral';
+    Lang.AddSample :='Add sample';
+    Lang.RemoveSample:='Remove sample';
+    Lang.RemoveSubSample:='Remove subsample';
+    Lang.CreateMineralDatabase:='Create database of minerals';
+    Lang.SelectMineralDatabase:='Select database of minerals';
+    Lang.CreateAnalisysDatabase:='Create database of analysis';
+    Lang.SelectAnalisysDatabase:='Select database of analysis';
+
+    Lang.Add:='Add';
+    Lang.Remove:='Remove';
+    Lang.RemoveAll:='Remove all';
+
+    Lang.AddImage:='Add image';
+    Lang.RemoveImage:='Remove image';
+    Lang.AddChemistryImage:='Add image of chemical analysis';
+    Lang.RemoveChemistryImage:='Remove image of chemical analysis';
+
+    Lang.AddMicroprobeData:='Add microprobe data';
+    Lang.ViewMicroprobeData:='View microprobe data';
+    Lang.RemoveMicroprobeData:='Remove microprobe data';
+
+    Lang.AddRamanData:='Add RAMAN spectroscopy data';
+    Lang.ViewRamanData:='View RAMAN spectroscopy data';
+    Lang.RemoveRamanData:='Remove RAMAN spectroscopy data';
+
+    //obs: verificar tradução de broad scan
+    Lang.AddBroadScanData:='Add broad scan date';
+    Lang.ViewBroadScanData:='Visualize broad scan date';
+    Lang.RemoveBroadScanData:='Remove broad scan date';
+
+    Lang.AddInfraredData:='Add data from the infrared spectrum';
+    Lang.ViewInfraredData:='View data from the infrared spectrum';
+    Lang.RemoveInfraredData:='Remove data from the infrared spectrum';
+
+    Lang.AddDifractionData:='Adicionar dados de varredura';
+    Lang.ViewDifractionData:='Visualizar dados de varredura';
+    Lang.RemoveDifractionData:='Remover dados de varredura';
+
+    Lang.Order:='Order';
+    Lang.Alphabetical:='Alphabetical';//ou seria alphabetic ????
+    Lang.Hardness:='Hardness';
+    Lang.Density:='Density';
+
+    Lang.Print:='Print';
+    Lang.ShowFilter:='Show/hide filter';
+    Lang.ShowImages:='Show/hide images';
+    Lang.Bibliography:='Bibliography';
+    Lang.FontSize:='Font size';
+
+    Lang.Maximum:='maximum';
+    Lang.Minimum:='minimum';
+
+    Lang.GeneralInformation:='General Information';
+    Lang.PhysicalProperties:='Physical Properties';
+    Lang.OpticalProperties:='Optical Properties';
+    Lang.Crystallography:='Crystallography';
+    Lang.Image:='Image';
+
+    Lang.Name:='Name';
+    Lang.Composition:='Composition';
+    Lang.MineralClass:='Class';
+    Lang.Subclass:='Subclass';
+    Lang.Group:='Group';
+    Lang.Subgroup:='Subgroup';
+    Lang.Occurrence:='Occurrence';
+    Lang.Association:='Association';
+    Lang.Distinction:='Distinction';
+    Lang.Alteration:='Alteration';
+    Lang.Usage:='Use';
+
+    Lang.Color:='Color';
+    Lang.Streak:='Streak';
+    Lang.Luster:='Brightness';
+    Lang.Cleavage:='Cleavage';
+    Lang.Fracture:='Fracture';
+    Lang.Magnetism:='Magnetism';
+    Lang.Luminescence:='Luminescence';
+
+    Lang.Diaphanousness:='Diaphanousness';
+    Lang.OpticalSignal:='Optical Signal';
+    Lang.RefractiveIndex:='Refractive Index';
+    Lang.Angle2V:='2V Angle';
+    Lang.InterferenceColor:='Interference Color';
+    Lang.BladeColor:='Color Blade';
+    Lang.SignElongation:='Sign Elongation';//revisar
+    Lang.Birefringence:='Birefringence';
+    Lang.Relief:='Relief';
+    Lang.Extinction:='Extinction';
+
+    Lang.CrystallineSystem:='Crystalline System';
+    Lang.CrystalineClass:='Crystalline Class';
+    Lang.Symbology:='Symbology';
+    Lang.Habit:='Habit';
+
+    Lang.FilterByMineral:='Filter by mineral';
+    Lang.FilterById:='Filter by id';
+
+    Lang.Description:='Description';
+    Lang.ChemichalAnalysis:='Chemical Analysis';
+    Lang.RamanSpectroscopy:='Raman Spectroscopy';
+    Lang.BroadScanWithSpectralArtifacts:='Broad Scan with Spectral Artifacts';
+    Lang.InfraredSpectrum:='Infrared Spectrum';
+    Lang.MineralPowderDiffraction:='Mineral Powder Diffraction';
+
+    Lang.AddData:='Add data';
+    Lang.ViewData:='View data';
+    Lang.RemoveData:='Remove data';
+
+    Lang.Specie:='Specie';
+    Lang.Identification:='Id';
+    Lang.IdealChemistry:='Ideal chemistry';
+    Lang.Locality:='Locality';
+    Lang.Source:='Source';
+    Lang.Owner:='Owner';
+    Lang.Situation:='Situation'; //revisar
+
+    Lang.Microprobe:='Microprobe';
+    Lang.ChemicalMeasure:='Chemical measure';
+    Lang.LaserPolarizationDirection:='Polarization direction of the laser';//revisar
+    Lang.PinId:='Pin id';
+    Lang.Orientation:='Orientation';
+    Lang.Equipment:='Equipment';
+    Lang.Equipments:='Equipments';
+    Lang.Wavelength:='Wave-length';
+
+    Lang.Resolution:='Resolution';
+
+    Lang.CellRefinement:='Cell refinement';
+    Lang.a:='a';
+    Lang.b:='b';
+    Lang.c:='c';
+    Lang.Alpha:='Alpha';
+    Lang.Beta:='Beta';
+    Lang.gamma:='Gamma';
+    Lang.Volume:='Volume';
+
+    //formaddsample
+    Lang.ExistingSamples:='Existing samples';
+    Lang.CreateSubSampling:='Create subsampling';
+    Lang.TypeOfAnalysis:='Type of analysis';
+    Lang.Direction:='Direction';
+    Lang.ExistingSubsamples:='Existing subsamples';
+
+    //forminstrumentos
+    //colocar os hints
+
+    //formimpressao
+    Lang.AllFromTheList:='All from the list';
+    Lang.SelectedMineral:='Selected mineral';
+    Lang.GeneralAndPhysicalProperties:='General and physical properties';
+    Lang.OpticalAndCrystProperties:='Optical and Crystallographic properties';
+    Lang.NumberOfCopies:='Number of copies';
+    Lang.ChangePrintReport:='Modify print report';
+    Lang.OpenFileReport:='Open print report';
+
+    //
+    Lang.TypeTheNameOfDatabase:='Enter the name of the database';
+
+    //hints
+    Lang.Database:='Database';
+    Lang.Clear:='Clear';
+    Lang.SelectDatabase:='Select database';
+
+    //contador de registros
+    Lang.NoRecords:='No records';
+    Lang.OneRecord:='1 record';
+    Lang.Records:=' records';
+    Result:=True;
   end;
 end;
 

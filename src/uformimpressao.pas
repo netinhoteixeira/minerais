@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, Buttons, StdCtrls, Spin, ComCtrls, ActnList, LR_View;
+  ExtCtrls, Buttons, StdCtrls, Spin, ComCtrls, ActnList, LR_View, UnitLanguage,
+  INIFiles;
 
 type
 
@@ -42,6 +43,7 @@ type
     procedure ActionOpenReportExecute(Sender: TObject);
     procedure ActionPrintExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -51,6 +53,7 @@ type
 
 var
   FormImpressao: TFormImpressao;
+  Config:TINIFile;
 
 implementation
 
@@ -117,6 +120,25 @@ end;
 procedure TFormImpressao.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   Dados.Sqlite3DatasetPrinter.Close();
+end;
+
+procedure TFormImpressao.FormCreate(Sender: TObject);
+begin
+  Config := TIniFile.Create(Dados.Caminho + '\config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    FormImpressao.Caption:=Lang.Print;
+    ToolButtonChangeReport.Hint:=Lang.ChangePrintReport;
+    ToolButtonOpenFileReport.Hint:=Lang.OpenFileReport;
+    RadioButtonLista.Caption := Lang.AllFromTheList;
+    RadioButtonSelecionado.Caption := Lang.SelectedMineral;
+    Checkbox1.Caption := Lang.GeneralAndPhysicalProperties;
+    Checkbox2.Caption:=Lang.OpticalAndCrystProperties;
+    Label1.Caption := Lang.NumberOfCopies;
+    SpeedButton1.Hint := Lang.Print;
+    SpeedButton2.Hint := Lang.Close;
+  end;
+  Config.Free;
 end;
 
 procedure TFormImpressao.FormShow(Sender: TObject);

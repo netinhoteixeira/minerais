@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
-  ComCtrls, Buttons, StdCtrls, ActnList;
+  ComCtrls, Buttons, StdCtrls, ActnList, INIFiles, UnitLanguage;
 
 type
 
@@ -26,6 +26,7 @@ type
     procedure ActionCloseExecute(Sender: TObject);
     procedure ActionRemoveAllExecute(Sender: TObject);
     procedure ActionRemoveExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -35,6 +36,7 @@ type
 
 var
   FormRemoveMineral: TFormRemoveMineral;
+  Config:TIniFile;
 
 implementation
 uses udatamodule;
@@ -66,6 +68,19 @@ begin
   end
   else
   ShowMessage('Selecione um registro para excluir.');
+end;
+
+procedure TFormRemoveMineral.FormCreate(Sender: TObject);
+begin
+  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  begin
+    FormRemoveMineral.Caption:=Lang.Remove;
+    SpeedButtonRemove.Hint:=Lang.Remove;
+    SpeedButtonRemoveAll.Hint:=Lang.RemoveAll;
+    SpeedButtonClose.Hint:=Lang.Close;
+  end;
+  Config.Free;
 end;
 
 procedure TFormRemoveMineral.ActionRemoveAllExecute(Sender: TObject);
