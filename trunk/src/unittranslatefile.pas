@@ -20,10 +20,12 @@ type
     BCLabel1: TBCLabel;
     BCLabel2: TBCLabel;
     BCLabel3: TBCLabel;
+    BCLabelPassword: TBCLabel;
     BCPanel1: TBCPanel;
     BCPanel2: TBCPanel;
     ComboBox1: TComboBox;
     Edit1: TEdit;
+    EditPassword: TEdit;
     Label1: TLabel;
     Memo1: TMemo;
     OpenDialog1: TOpenDialog;
@@ -31,19 +33,22 @@ type
     SpeedButtonOpen: TSpeedButton;
     SpeedButtonSave: TSpeedButton;
     SpeedButtonClose: TSpeedButton;
+    SpeedButtonSaveAndUse: TSpeedButton;
     procedure ActionCloseExecute(Sender: TObject);
     procedure ActionOpenExecute(Sender: TObject);
     procedure ActionSaveExecute(Sender: TObject);
+    procedure ComboBox1Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Memo1Change(Sender: TObject);
   private
+    procedure MemoAppend;
     { private declarations }
   public
     { public declarations }
   end;
 
-  const LinesNumber:Integer = 154;
+  const LinesNumber:Integer = 166;
 
 var
   FormTranslate: TFormTranslate;
@@ -67,9 +72,8 @@ begin
   +IntToStr(LinesNumber);
 end;
 
-procedure TFormTranslate.FormCreate(Sender: TObject);
+procedure TFormTranslate.MemoAppend;
 begin
-  //Combobox1.ItemIndex:=Combobox1.Items.IndexOf(Lang);
   Memo1.Clear;
   Memo1.Append(Lang.Minerals);
   Memo1.Append(Lang.Analisys);
@@ -150,6 +154,10 @@ begin
   Memo1.Append(Lang.Direction);
   Memo1.Append(Lang.ExistingSubsamples);
 
+  Memo1.Append(Lang.Raman);
+  Memo1.Append(Lang.BroadScan);
+  Memo1.Append(Lang.Infrared);
+  Memo1.Append(Lang.Difraction);
 
   Memo1.Append(Lang.AddChemistryImage);
   Memo1.Append(Lang.RemoveChemistryImage);
@@ -219,9 +227,17 @@ begin
   Memo1.Append(Lang.Bibliography);
   Memo1.Append(Lang.FontSize);
 
+  Memo1.Append(Lang.StrFile);
+  Memo1.Append(Lang.Edit);
+  Memo1.Append(Lang.Exhibit);
+  Memo1.Append(Lang.Filter);
+  Memo1.Append(Lang.Images);
+  Memo1.Append(Lang.Data);
+
   Memo1.Append(Lang.Confirm);
   Memo1.Append(Lang.Help);
   Memo1.Append(Lang.Save);
+  Memo1.Append(Lang.SaveAndUse);
   Memo1.Append(Lang.Edit);
   Memo1.Append(Lang.Exit);
   Memo1.Append(Lang.Close);
@@ -246,12 +262,36 @@ begin
   Memo1.Append(Lang.ChooseASampleToAddImage);
   Memo1.Append(Lang.ChooseASubsampleToAddImage);
   Memo1.Append(Lang.ThereIsAlreadyARecordWithThatName);
-  Memo1.Lines.Add(Lang.YouMustRestartTheProgram);
+  Memo1.Append(Lang.YouMustRestartTheProgram);
+end;
+
+procedure TFormTranslate.FormCreate(Sender: TObject);
+begin
+  OpenDialog1.Filter:='All Files | *.csv; *.dat; *.txt;';
+  SaveDialog1.Filter:='All Files | *.csv; *.dat; *.txt;';
+  //Combobox1.ItemIndex:=Combobox1.Items.IndexOf(Lang);
+  MemoAppend;
+  SpeedButtonOpen.Hint:=Lang.Open;
+  SpeedButtonSave.Hint:=Lang.Save;
+  SpeedButtonSaveAndUse.Hint:=Lang.SaveAndUse;
 end;
 
 procedure TFormTranslate.ActionOpenExecute(Sender: TObject);
+var Lines:String;
 begin
-
+  if OpenDialog1.Execute then
+  begin
+    if OpenDialog1.FileName <> EmptyStr then
+    begin
+      AssignFile(TranslateFile, OpenDialog1.FileName);
+      //Rewrite(TranslateFile);
+      While not EOF(TranslateFile) do
+        Readln(TranslateFile, Lines);
+      Memo1.Clear;
+      Memo1.Append(Lines);
+      CloseFile(TranslateFile);
+    end;
+  end;
 end;
 
 procedure TFormTranslate.ActionCloseExecute(Sender: TObject);
@@ -270,16 +310,23 @@ begin
     else
     begin
       if SaveDialog1.Execute then
-        if SaveDialog1.FileName<> EMptyStr then
+        if SaveDialog1.FileName<> EmptyStr then
         begin
           AssignFile(TranslateFile, SaveDialog1.FileName);
           Rewrite(TranslateFile);
+          Write(TranslateFile, Memo1.Lines.Text);
           CloseFile(TranslateFile);
         end;
     end;
   end
   else
     ShowMessage('Type the name of language.');
+end;
+
+procedure TFormTranslate.ComboBox1Change(Sender: TObject);
+begin
+  SetLanguage(Trim(LowerCase(Combobox1.Text)));
+  MemoAppend;
 end;
 
 end.

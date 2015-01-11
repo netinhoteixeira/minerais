@@ -27,6 +27,7 @@ type
     CheckGroup1: TCheckGroup;
     frPreview1: TfrPreview;
     GroupBox1: TGroupBox;
+    ImageList1: TImageList;
     Label1: TLabel;
     OpenDialog1: TOpenDialog;
     RadioButtonLista: TRadioButton;
@@ -125,7 +126,7 @@ end;
 procedure TFormImpressao.FormCreate(Sender: TObject);
 begin
   Config := TIniFile.Create(Dados.Caminho + '\config.ini');
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
   begin
     FormImpressao.Caption:=Lang.Print;
     ToolButtonChangeReport.Hint:=Lang.ChangePrintReport;

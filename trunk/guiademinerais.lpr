@@ -7,12 +7,12 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, uprincipal, udatamodule, sqlite3laz, richmemopackage,
+  Forms,  udatamodule, sqlite3laz, richmemopackage,
   tachartlazaruspkg, sdflaz, lazreport, ubibliografia,
-  uformimpressao, UnitAjuda, unitSplash, crt, unitgraficos, unitPlanilha,
-  unitequipamentos, unitfichaamostra, unitfichaespecie,
+  uformimpressao, UnitAjuda, unitSplash, crt,
+  unitfichaespecie,
   unitBlobFields, unitaddmineral,
-  unitselectdatabase, unitadddatabase, unitaddsample, unitremovesample,
+  unitselectdatabase, unitadddatabase,
   unitremovemineral, unitFormLanguage, unittranslatefile;
 
 {$R *.res}
@@ -27,17 +27,13 @@ begin
   Delay(1000);
   FormSplash.Hide;
   FormSplash.Free;
-  Application.CreateForm(TFormPrincipal, FormPrincipal);
+  Application.CreateForm(TFormFichaEspecie, FormFichaEspecie);
   Application.CreateForm(TFormSelectDatabase, FormSelectDatabase);
   Application.CreateForm(TFormBibliografia, FormBibliografia);
   Application.CreateForm(TFormImpressao, FormImpressao);
   Application.CreateForm(TFormAjuda, FormAjuda);
-  Application.CreateForm(TFormInstrumentos, FormInstrumentos);
-  Application.CreateForm(TFormPlanilha, FormPlanilha);
   Application.CreateForm(TFormAddMineral, FormAddMineral);
   Application.CreateForm(TFormAddDatabase, FormAddDatabase);
-  Application.CreateForm(TFormAddSample, FormAddSample);
-  Application.CreateForm(TFormRemoveSample, FormRemoveSample);
   Application.CreateForm(TFormRemoveMineral, FormRemoveMineral);
   Application.CreateForm(TFormLanguage, FormLanguage);
   Application.CreateForm(TFormTranslate, FormTranslate);
