@@ -5,14 +5,24 @@ unit unitLanguage;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, IniFiles, Dialogs;
 
 type
   Language = record
+    StrFile:String;
+    Exhibit:String;
+
+    Filter:String;
+    Images:String;
+
+    Data:String;
+
     Exit: String;
     Close:String;
     Help:String;
+    Open:String;
     Save:String;
+    SaveAndUse:String;
     Edit:String;
     Confirm:String;
 
@@ -46,6 +56,8 @@ type
 
     Add,Remove,
     RemoveAll:String;
+
+    Raman, BroadScan, Infrared, Difraction:String;
 
     AddImage:String;
     RemoveImage:String;
@@ -201,17 +213,28 @@ type
 function SetLanguage(Language: String): Boolean;
 
 var Lang:Language;
+  Config: TIniFile;
 
 implementation
+  uses udatamodule;
 
 function SetLanguage(Language: String): Boolean;
+var Aux:String;
 begin
   if (Trim(Lowercase(Language)) = 'português') then
   begin
+    Lang.StrFile:='Arquivo';
+    Lang.Exhibit:='Exibir';
+    Lang.Filter:='Filtro';
+    Lang.Images:='Imagens';
+    Lang.Data:='Dados';
+
     Lang.Exit:='Sair';
     Lang.Close:='Fechar';
     Lang.Help:='Ajuda';
+    Lang.Open:='Abrir';
     Lang.Save:='Salvar';
+    Lang.SaveAndUse:='Salvar e usar';
     Lang.Edit:='Editar';
     Lang.Confirm:='Confirmar';
 
@@ -249,6 +272,11 @@ begin
     Lang.Remove:='Remover';
     Lang.RemoveAll:='Remover todos';
 
+    Lang.Raman:='RAMAN';
+    Lang.BroadScan:='Varredura';
+    Lang.Infrared:='Infravermelho';
+    Lang.Difraction:='Difração';
+
     Lang.AddImage:='Adicionar imagem';
     Lang.RemoveImage:='Remover imagem';
     Lang.AddChemistryImage:='Adicionar imagem de análise química';
@@ -283,7 +311,7 @@ begin
     Lang.ShowFilter:='Mostrar/esconder filtro';
     Lang.ShowImages:='Mostrar/esconder imagens';
     Lang.Bibliography:='Bibliografia';
-    Lang.FontSize:='Tamanho da fonte';
+    Lang.FontSize:='Tamanho da fonte ';
 
     Lang.Maximum:='máximo';
     Lang.Minimum:='minimo';
@@ -406,12 +434,20 @@ begin
     Result:=True;
   end
   else
-  if Upcase(Language) = 'ENGLISH' then
+  if Trim(LowerCase(Language)) = 'english' then
   begin
+    Lang.StrFile:='File';
+    Lang.Exhibit:='Exhibit';   //ou seria Show?
+    Lang.Filter:='Filter';
+    Lang.Images:='Images';
+    Lang.Data:='Data';
+
     Lang.Exit:='Exit';
     Lang.Close:='Close';
     Lang.Help:='Help';
+    Lang.Open:='Open';
     Lang.Save:='Save';
+    Lang.SaveAndUse:='Save and use';
     Lang.Edit:='Edit';
     Lang.Confirm:='Confirm';
 
@@ -448,6 +484,11 @@ begin
     Lang.Remove:='Remove';
     Lang.RemoveAll:='Remove all';
 
+    Lang.Raman:='RAMAN';
+    Lang.BroadScan:='Broad Scan';
+    Lang.Infrared:='Infrared';
+    Lang.Difraction:='Difraction';
+
     Lang.AddImage:='Add image';
     Lang.RemoveImage:='Remove image';
     Lang.AddChemistryImage:='Add image of chemical analysis';
@@ -483,7 +524,7 @@ begin
     Lang.ShowFilter:='Show/hide filter';
     Lang.ShowImages:='Show/hide images';
     Lang.Bibliography:='Bibliography';
-    Lang.FontSize:='Font size';
+    Lang.FontSize:='Font size ';
 
     Lang.Maximum:='maximum';
     Lang.Minimum:='minimum';
@@ -604,6 +645,33 @@ begin
     Lang.OneRecord:='1 record';
     Lang.Records:=' records';
     Result:=True;
+  end
+  else
+  begin
+    Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+    Aux:=Config.ReadString('Configurations', 'Language Path', EmptyStr);
+    Config.Free;
+    if Aux <> EmptyStr then
+    begin
+      if FileExists(Aux) then //getfileextension
+      begin
+        { AssignFile(TranslateFile, SaveDialog1.FileName);
+        While not EOF(TranslateFile) do
+          Read(TranslateFile, Lines);
+        Memo1.Clear;
+        Memo1.Append(Lines);
+        CloseFile(TranslateFile);}
+      end
+      else
+      begin
+        ShowMessage('Invalid language file. Setting default language.');
+        SetLanguage('english');
+      end;
+    end
+    else
+    begin
+      SetLanguage('english');
+    end;
   end;
 end;
 

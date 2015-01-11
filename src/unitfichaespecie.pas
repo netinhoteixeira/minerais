@@ -68,13 +68,14 @@ uses
   Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
   StdCtrls, DBCtrls, Buttons, Menus, ExtDlgs, ActnList,
   SQLite3tablemod, uFormImpressao, unitremovemineral, unitlanguage,
-  IniFiles;
+  IniFiles, uBibliografia, unitselectdatabase;
 
 type
 
   { TFormFichaEspecie }
 
   TFormFichaEspecie = class(TForm)
+    ActionOpenDatabaseForm: TAction;
     ActionFormPrint: TAction;
     ActionImagesVisible: TAction;
     ActionFilterVisible: TAction;
@@ -105,7 +106,6 @@ type
     BCLabelSubgroup: TBCLabel;
     BCPanel1: TBCPanel;
     BCPanel2: TBCPanel;
-    BCPanel3: TBCPanel;
     ComboBox1: TComboBox;
     ComboBoxClasse: TComboBox;
     ComboBoxDureza_max: TComboBox;
@@ -143,7 +143,12 @@ type
     HeaderControl1: THeaderControl;
     ImageCristalografia1: TImage;
     ImageCristalografia2: TImage;
+    ImageList1: TImageList;
+    ImageListHeaderControl: TImageList;
     ImagemAmpliada: TImage;
+    Memo1: TMemo;
+    Mineralogy_Name: TLabel;
+    LabelFont: TLabel;
     LabelComposicao: TLabel;
     LabelHardness: TLabel;
     LabelDensity: TLabel;
@@ -183,6 +188,7 @@ type
     LabelSubGrupo: TLabel;
     LabelTraco: TLabel;
     ListBoxMinerais: TListBox;
+    MainMenu1: TMainMenu;
     MemoHabito: TMemo;
     MemoAlteracao: TMemo;
     MemoAngulo: TMemo;
@@ -193,7 +199,7 @@ type
     MemoClivagem: TMemo;
     MemoCor: TMemo;
     MemoCorLamina: TMemo;
-    MemoDifaneidade: TMemo;
+    MemoDiafaneidade: TMemo;
     MemoDistincao: TMemo;
     MemoExtincao: TMemo;
     MemoFratura: TMemo;
@@ -206,6 +212,32 @@ type
     MemoSinalElongacao: TMemo;
     MemoSinalOptico: TMemo;
     MemoTraco: TMemo;
+    MenuItem1: TMenuItem;
+    MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
+    MenuItem12: TMenuItem;
+    MenuItem13: TMenuItem;
+    MenuItem14: TMenuItem;
+    MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
+    MenuItem17: TMenuItem;
+    MenuItem18: TMenuItem;
+    MenuItem19: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem20: TMenuItem;
+    MenuItem21: TMenuItem;
+    MenuItem22: TMenuItem;
+    MenuItem23: TMenuItem;
+    MenuItem24: TMenuItem;
+    MenuItem25: TMenuItem;
+    MenuItem26: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
     OpenPictureDialog1: TOpenPictureDialog;
     ProgressBar1: TProgressBar;
     RadioButton1: TRadioButton;
@@ -219,11 +251,6 @@ type
     ScrollBox4: TScrollBox;
     ScrollBox5: TScrollBox;
     ScrollBox6: TScrollBox;
-    SpeedButtonAdd: TSpeedButton;
-    SpeedButtonRemove: TSpeedButton;
-    SpeedButtonRefresh: TSpeedButton;
-    SpeedButton4: TSpeedButton;
-    SpeedButtonBilbiografia: TSpeedButton;
     TabSheetCristalografia: TTabSheet;
     TabSheetImagem: TTabSheet;
     TabSheetInf_Gerais: TTabSheet;
@@ -232,9 +259,15 @@ type
     ToolBar1: TToolBar;
     ToolBar2: TToolBar;
     ToolButton1: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton8: TToolButton;
     ToolButtonBibliografia: TToolButton;
     ToolButton6: TToolButton;
     ToolButtonAdd: TToolButton;
+    ToolButtonDatabase: TToolButton;
+    ToolButtonHelp: TToolButton;
+    ToolButtonLanguage: TToolButton;
     ToolButtonShowFilter: TToolButton;
     ToolButtonShowImages: TToolButton;
     ToolButtonRemove: TToolButton;
@@ -242,7 +275,6 @@ type
     ToolButtonRefresh: TToolButton;
     ToolButton7: TToolButton;
     ToolButtonPrint: TToolButton;
-    ToolButton9: TToolButton;
     ToolButtonAddImage: TToolButton;
     ToolButton2: TToolButton;
     ToolButtonRemoveImage: TToolButton;
@@ -257,6 +289,7 @@ type
     procedure ActionFilterVisibleExecute(Sender: TObject);
     procedure ActionFormPrintExecute(Sender: TObject);
     procedure ActionImagesVisibleExecute(Sender: TObject);
+    procedure ActionOpenDatabaseFormExecute(Sender: TObject);
     procedure ActionRefreshListExecute(Sender: TObject);
     procedure ActionRemoveMineralExecute(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
@@ -336,8 +369,8 @@ type
     procedure MemoCorLaminaEditingDone(Sender: TObject);
     procedure MemoCorLaminaKeyUp(Sender: TObject; var Key: word;
       Shift: TShiftState);
-    procedure MemoDifaneidadeEditingDone(Sender: TObject);
-    procedure MemoDifaneidadeKeyUp(Sender: TObject; var Key: word;
+    procedure MemoDiafaneidadeEditingDone(Sender: TObject);
+    procedure MemoDiafaneidadeKeyUp(Sender: TObject; var Key: word;
       Shift: TShiftState);
     procedure MemoDistincaoEditingDone(Sender: TObject);
     procedure MemoDistincaoKeyUp(Sender: TObject; var Key: word;
@@ -373,13 +406,22 @@ type
       Shift: TShiftState);
     procedure MemoTracoEditingDone(Sender: TObject);
     procedure MemoTracoKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+    procedure MenuItem19Click(Sender: TObject);
+    procedure MenuItem20Click(Sender: TObject);
+    procedure MenuItem21Click(Sender: TObject);
+    procedure MenuItem22Click(Sender: TObject);
+    procedure MenuItem23Click(Sender: TObject);
+    procedure MenuItem24Click(Sender: TObject);
+    procedure MenuItem25Click(Sender: TObject);
+    procedure MenuItem26Click(Sender: TObject);
+    procedure MenuItem4Click(Sender: TObject);
     procedure PageControlFichaChange(Sender: TObject);
     procedure ToolButtonAddImageClick(Sender: TObject);
+    procedure ToolButtonBibliografiaClick(Sender: TObject);
     procedure ToolButtonRemoveImageClick(Sender: TObject);
   private
     function AtualizarLista: boolean;
     function DefinirOrdem: string;
-    function ExcluiMineral(Nome: string): boolean;
     function Filtro_Nome: boolean;
     function Filtro_Ocorrencia: boolean;
     function Filtro_Associacao: boolean;
@@ -387,6 +429,8 @@ type
     function Filtro_Brilho: boolean;
     function MineralogyName: string;
     procedure AddMineralImage(Num: char);
+    procedure ClearFields;
+    procedure ConfigDatabase(config:TIniFile);
     procedure EditingMode(Mode: boolean);
     procedure Image1OnClick(Sender: TObject);
     procedure Image2OnClick(Sender: TObject);
@@ -400,7 +444,9 @@ type
     procedure Preenche_Grupos;
     procedure Preenche_SubGrupos;
     procedure RefreshImages;
-    procedure SelectImage(num: char);
+    procedure RefreshHeaderControl(num: char);
+    procedure RefreshHardDens;
+    procedure RemoveImage(ImagemSelecionada:Char);
     { private declarations }
   public
     { public declarations }
@@ -438,6 +484,7 @@ var
 
   Config:TIniFile;
 
+
 implementation
 
 uses udatamodule, unitBlobFields, unitaddmineral;
@@ -448,10 +495,41 @@ uses udatamodule, unitBlobFields, unitaddmineral;
 
 procedure TFormFichaEspecie.FormCreate(Sender: TObject);
 begin
+  Imagem_Selecionada := '1';
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  ConfigDatabase(Config);
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
   begin
     self.Caption:=Lang.Minerals;
+    ToolButtonDatabase.Hint:=Lang.Database;
+    ToolButtonHelp.Hint:=Lang.Help;
+    MenuItem1.Caption:=Lang.StrFile;
+    MenuItem2.Caption:=Lang.Edit;
+    MenuItem3.Caption:=Lang.Exhibit;
+    MenuItem4.Caption:=Lang.Close;
+    MenuItem5.Caption:=Lang.ShowFilter;
+    MenuItem6.Caption:=Lang.ShowImages;
+    MenuItem7.Caption:=Lang.AddMineral;
+    MenuItem8.Caption:=Lang.RemoveMineral;
+    MenuItem9.Caption:=Lang.Print;
+    MenuItem10.Caption:=Lang.Add;
+    MenuItem11.Caption:=Lang.Remove;
+    MenuItem12.Caption:=Lang.Image+' 1';
+    MenuItem13.Caption:=Lang.Image+' 2';
+    MenuItem14.Caption:=Lang.Image+' 3';
+    MenuItem15.Caption:=Lang.Image+' 4';
+    MenuItem16.Caption:=Lang.Image+' 5';
+    MenuItem17.Caption:=Lang.Image+' 6';
+    MenuItem18.Caption:=Lang.Image+' 7';
+    MenuItem19.Caption:=Lang.Image+' 1';
+    MenuItem20.Caption:=Lang.Image+' 2';
+    MenuItem21.Caption:=Lang.Image+' 3';
+    MenuItem22.Caption:=Lang.Image+' 4';
+    MenuItem23.Caption:=Lang.Image+' 5';
+    MenuItem24.Caption:=Lang.Image+' 6';
+    MenuItem25.Caption:=Lang.Image+' 7';
+    Menuitem26.Caption:=Lang.Bibliography;
+
     ToolButtonAdd.Hint:=Lang.Add;
     ToolButtonRemove.Hint:=Lang.Remove;
     ToolButtonPrint.Hint:=Lang.Print;
@@ -465,6 +543,7 @@ begin
     BCLabelMinerals.Caption:=Lang.Minerals;
     //colocar strings da contagem de registros
 
+    LabelFont.Caption:=Lang.FontSize;
     BCLabelName.Caption:=Lang.Name;
     BCLabelClass.Caption:=Lang.MineralClass;
     BCLabelSubClass.Caption:=Lang.Subclass;
@@ -528,6 +607,8 @@ begin
     ToolButtonRemoveImage.Hint:=Lang.RemoveImage;
   end;
   Config.Free;
+  Mineralogy_Name.Caption:=MineralogyName;
+  RefreshImages;
 end;
 
 procedure TFormFichaEspecie.FormDestroy(Sender: TObject);
@@ -537,7 +618,7 @@ end;
 
 procedure TFormFichaEspecie.FormShow(Sender: TObject);
 var
-  Diretorio, SelectSQL: string;
+  SelectSQL: string;
 begin
   Imagem_Selecionada := '1';
   openpicturedialog1.Filter := lista_formatos;
@@ -578,14 +659,14 @@ begin
   else
   begin
     EditingMode(False);
-    ShowMessage('Não há banco de dados selecionado.');
+    ShowMessage(Lang.NoDatabaseSelected);
   end;
 end;
 
 procedure TFormFichaEspecie.HeaderControl1SectionClick(
   HeaderControl: TCustomHeaderControl; Section: THeaderSection);
 begin
-  if (Trim(EditNomeMineral.Text) <> Emptystr) then
+  if (Trim(ListboxMinerais.GetSelectedText) <> Emptystr) then
   begin
     case Section.Index of
       0:
@@ -626,19 +707,75 @@ begin
       5:
       begin
         self.ImagemAmpliada.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem1',
+          SelectBlobFieldToJPEGImage('minerais', 'imagem6',
           EditNomeMineral.Caption, EmptyStr, EmptyStr, EmptyStr);
         Imagem_Selecionada := '6';
       end;
       6:
       begin
         self.ImagemAmpliada.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem2',
+          SelectBlobFieldToJPEGImage('minerais', 'imagem7',
           EditNomeMineral.Caption, EmptyStr, EmptyStr, EmptyStr);
         Imagem_Selecionada := '7';
       end;
     end;
+  end
+  else
+  begin
+    //zerar campos da ficha do mineral, senao a imagem vai estar associada a ele
+    case Section.Index of
+      0:
+      begin
+        self.ImagemAmpliada.Picture.Graphic :=
+          SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem1',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+        Imagem_Selecionada:='1';
+      end;
+      1:
+      begin
+        self.ImagemAmpliada.Picture.Graphic :=
+          SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem2',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+        Imagem_Selecionada:='2';
+      end;
+      2:
+      begin
+        self.ImagemAmpliada.Picture.Graphic :=
+          SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem3',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+        Imagem_Selecionada:='3';
+      end;
+      3:
+      begin
+        self.ImagemAmpliada.Picture.Graphic :=
+          SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem4',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+        Imagem_Selecionada:='4';
+      end;
+      4:
+      begin
+        self.ImagemAmpliada.Picture.Graphic :=
+          SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem5',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+        Imagem_Selecionada:='5';
+      end;
+      5:
+      begin
+        self.ImagemAmpliada.Picture.Graphic :=
+          SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem6',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+        Imagem_Selecionada:='6';
+      end;
+      6:
+      begin
+        self.ImagemAmpliada.Picture.Graphic :=
+          SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem7',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+        Imagem_Selecionada:='7';
+      end;
+    end;
   end;
+  RefreshHeaderControl(Imagem_Selecionada);
 end;
 
 procedure TFormFichaEspecie.ListBoxMineraisClick(Sender: TObject);
@@ -649,7 +786,7 @@ begin
   NomeMineral := ListboxMinerais.GetSelectedText;
   if NomeMineral <> EmptyStr then
   begin
-
+    Mineralogy_Name.Caption:='';
     SelectSQL :=
       'SELECT nome, formula, classe, subclasse, grupo, subgrupo, ocorrencia, associacao,';
     SelectSQL := SelectSQL +
@@ -700,7 +837,7 @@ begin
     MemoMagnetismo.Text := Dados.TableMinerals.FieldByName['magnetismo'];
     MemoLuminescencia.Text := Dados.TableMinerals.FieldByName['luminescencia'];
 
-    MemoDifaneidade.Text := Dados.TableMinerals.FieldByName['difaneidade'];
+    MemoDiafaneidade.Text := Dados.TableMinerals.FieldByName['difaneidade'];
     MemoSinalOptico.Text := Dados.TableMinerals.FieldByName['sinal_optico'];
     MemoIndiceRefracao.Text := Dados.TableMinerals.FieldByName['indice_refracao'];
     MemoAngulo.Text := Dados.TableMinerals.FieldByName['angulo'];
@@ -850,18 +987,18 @@ begin
     '" WHERE nome="' + EditNomeMineral.Text + '";');
 end;
 
-procedure TFormFichaEspecie.MemoDifaneidadeEditingDone(Sender: TObject);
+procedure TFormFichaEspecie.MemoDiafaneidadeEditingDone(Sender: TObject);
 begin
   Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
-    'UPDATE minerais SET difaneidade ' + '="' + MemoDifaneidade.Text +
+    'UPDATE minerais SET difaneidade ' + '="' + MemoDiafaneidade.Text +
     '" WHERE nome="' + EditNomeMineral.Text + '";');
 end;
 
-procedure TFormFichaEspecie.MemoDifaneidadeKeyUp(Sender: TObject;
+procedure TFormFichaEspecie.MemoDiafaneidadeKeyUp(Sender: TObject;
   var Key: word; Shift: TShiftState);
 begin
   Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
-    'UPDATE minerais SET difaneidade ' + '="' + MemoDifaneidade.Text +
+    'UPDATE minerais SET difaneidade ' + '="' + MemoDiafaneidade.Text +
     '" WHERE nome="' + EditNomeMineral.Text + '";');
 end;
 
@@ -1054,11 +1191,56 @@ begin
     '="' + MemoTraco.Text + '" WHERE nome="' + EditNomeMineral.Text + '";');
 end;
 
+procedure TFormFichaEspecie.MenuItem19Click(Sender: TObject);
+begin
+  RemoveImage('1');
+end;
+
+procedure TFormFichaEspecie.MenuItem20Click(Sender: TObject);
+begin
+  RemoveImage('2');
+end;
+
+procedure TFormFichaEspecie.MenuItem21Click(Sender: TObject);
+begin
+  RemoveImage('3');
+end;
+
+procedure TFormFichaEspecie.MenuItem22Click(Sender: TObject);
+begin
+  RemoveImage('4');
+end;
+
+procedure TFormFichaEspecie.MenuItem23Click(Sender: TObject);
+begin
+  RemoveImage('5');
+end;
+
+procedure TFormFichaEspecie.MenuItem24Click(Sender: TObject);
+begin
+  RemoveImage('6');
+end;
+
+procedure TFormFichaEspecie.MenuItem25Click(Sender: TObject);
+begin
+  RemoveImage('7');
+end;
+
+procedure TFormFichaEspecie.MenuItem26Click(Sender: TObject);
+begin
+  FormBibliografia.Show;
+end;
+
+procedure TFormFichaEspecie.MenuItem4Click(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
 procedure TFormFichaEspecie.PageControlFichaChange(Sender: TObject);
 begin
   if Dados.DatabaseMineralFileName <> EmptyStr then
   begin
-    if ListboxMInerais.GetSelectedText <> EmptyStr then
+    if Trim(ListboxMInerais.GetSelectedText) <> EmptyStr then
     begin
       case PageControlFicha.TabIndex of
         3:
@@ -1078,36 +1260,40 @@ begin
             EmptyStr, EmptyStr, EmptyStr);
         end;
       end;
+    end
+    else
+    begin
+      //vai dar erro se nao tiver sido criado os campos mineralogiaimagem6 e 7
+      self.ImagemAmpliada.Picture.Graphic :=
+        SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem' +
+          Imagem_Selecionada, EmptyStr,
+            EmptyStr, EmptyStr, MineralogyName);
     end;
   end;
 end;
 
 procedure TFormFichaEspecie.ToolButtonAddImageClick(Sender: TObject);
 begin
-  if (Trim(EditNomeMineral.Text) <> EmptyStr) then
-    AddMineralImage(Imagem_Selecionada);
-end;
-
-procedure TFormFichaEspecie.ToolButtonRemoveImageClick(Sender: TObject);
-begin
   if Dados.DatabaseMineralFileName <> EmptyStr then
   begin
     if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
     begin
       if (Trim(EditNomeMineral.Text) <> EmptyStr) then
-      begin   {ClearBlobField(Table, Field, Especie, Rruff_id, Digito, Tipo:String);}
-        ClearBlobField('minerais', 'imagem' + Imagem_Selecionada,
-          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-      end
-      else
-      begin
-        ClearBlobField('mineralogia', 'mineralogiaimagem' + Imagem_Selecionada,
-          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
-      end;
-      RefreshImages;
-    end;
-  end;
-  Imagem_Selecionada := '1';
+        AddMineralImage(Imagem_Selecionada);
+    end
+    else ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
+  end
+  else ShowMessage(Lang.NoDatabaseSelected);
+end;
+
+procedure TFormFichaEspecie.ToolButtonBibliografiaClick(Sender: TObject);
+begin
+  FormBibliografia.Show;
+end;
+
+procedure TFormFichaEspecie.ToolButtonRemoveImageClick(Sender: TObject);
+begin
+  RemoveImage(Imagem_Selecionada);
 end;
 
 function TFormFichaEspecie.AtualizarLista: boolean;
@@ -1369,18 +1555,6 @@ begin
     BCLabelRegistros.Caption := IntToStr(ListboxMinerais.Count) + ' Registros';
 end;
 
-function TFormFichaEspecie.ExcluiMineral(Nome: string): boolean;
-begin
-  if (QuestionDlg('Confirmação', 'Deseja realmente remover "' +
-    UpCase(Nome) + '"?', mtConfirmation, [mrNo, mrYes], 0) = mrYes) then
-  begin
-    ExcluiMineral(Nome);
-    //Atualizar_Lista;
-    //AtualizaImagem;
-    //Barra_Status;
-  end;
-end;
-
 function TFormFichaEspecie.Filtro_Nome: boolean;
 var
   eliminar: boolean;
@@ -1602,7 +1776,7 @@ begin
   MemoMagnetismo.Enabled := Mode;
   MemoLuminescencia.Enabled := Mode;
 
-  MemoDifaneidade.Enabled := Mode;
+  MemoDiafaneidade.Enabled := Mode;
   MemoSinalOptico.Enabled := Mode;
   MemoIndiceRefracao.Enabled := Mode;
   MemoAngulo.Enabled := Mode;
@@ -1623,60 +1797,49 @@ procedure TFormFichaEspecie.Image1OnClick(Sender: TObject);
 begin
   Imagem_Selecionada := '1';
   self.ImagemAmpliada.Picture.Graphic := Image1.Picture.Graphic;
-   { SelectBlobFieldToJPEGImage('minerais', 'imagem1',
-    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);  }
+  RefreshHeaderControl(Imagem_Selecionada);
 end;
 
 procedure TFormFichaEspecie.Image2OnClick(Sender: TObject);
 begin
   Imagem_Selecionada := '2';
   self.ImagemAmpliada.Picture.Graphic := Image2.Picture.Graphic;
-  {self.ImagemAmpliada.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage('minerais', 'imagem2',
-    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);}
+  RefreshHeaderControl(Imagem_Selecionada);
 end;
 
 procedure TFormFichaEspecie.Image3OnClick(Sender: TObject);
 begin
   Imagem_Selecionada := '3';
   self.ImagemAmpliada.Picture.Graphic := Image3.Picture.Graphic;
-  {self.ImagemAmpliada.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage('minerais', 'imagem3',
-    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);}
+  RefreshHeaderControl(Imagem_Selecionada);
 end;
 
 procedure TFormFichaEspecie.Image4OnClick(Sender: TObject);
 begin
   Imagem_Selecionada := '4';
   self.ImagemAmpliada.Picture.Graphic := Image4.Picture.Graphic;
-  {self.ImagemAmpliada.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage('minerais', 'imagem4',
-    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);}
+  RefreshHeaderControl(Imagem_Selecionada);
 end;
 
 procedure TFormFichaEspecie.Image5OnClick(Sender: TObject);
 begin
   Imagem_Selecionada := '5';
   self.ImagemAmpliada.Picture.Graphic := Image5.Picture.Graphic;
-  {self.ImagemAmpliada.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage('minerais', 'imagem5',
-    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);}
+  RefreshHeaderControl(Imagem_Selecionada);
 end;
 
 procedure TFormFichaEspecie.Image6OnClick(Sender: TObject);
 begin
   Imagem_Selecionada := '6';
-  self.ImagemAmpliada.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage('minerais', 'imagem6',
-    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+  self.ImagemAmpliada.Picture.Graphic := Image6.Picture.Graphic;
+  RefreshHeaderControl(Imagem_Selecionada);
 end;
 
 procedure TFormFichaEspecie.Image7OnClick(Sender: TObject);
 begin
   Imagem_Selecionada := '7';
-  self.ImagemAmpliada.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage('minerais', 'imagem7',
-    ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+  self.ImagemAmpliada.Picture.Graphic := Image7.Picture.Graphic;
+  RefreshHeaderControl(Imagem_Selecionada);
 end;
 
 function TFormFichaEspecie.DefinirOrdem: string;
@@ -1908,6 +2071,7 @@ begin
         'SELECT imagem1, ' +
         'imagem2, imagem3, imagem4, imagem5, imagem6, imagem7 FROM minerais ' +
         ' WHERE nome = "' + EditNomeMineral.Text + '" ;');
+      Memo1.append('_____________');
       for I := 1 to 7 do
       begin
         if Dados.TableMinerals.RowCount > 0 then
@@ -1917,24 +2081,30 @@ begin
           if MS <> nil then
           begin
             Image[I].ToCreate := True;
+            if I < 3 then Memo1.Append('Imagem'+IntToStr(i)+ ' diferente de nil');
           end
           else
           begin
             Image[I].ToCreate := False;
+            if I < 3 then Memo1.Append('Imagem'+IntToStr(i)+ ' = nil');
           end;
         end
         else
         begin
           Image[I].ToCreate := False;
+          Memo1.Append('RowCount < 0 ');
         end;
       end;
       if Image[1].ToCreate then
       begin
         Inc(ImagesNumber);
         if Image[1].Created then
+        begin
+          Memo1.Append('Imagem 1 modificada');
           Image1.Picture.Graphic :=
             SelectBlobFieldToJPEGImage('minerais', 'imagem1',
             ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
+        end
         else
         begin
           Image1 := TImage.Create(nil);
@@ -1953,8 +2123,10 @@ begin
               SelectBlobFieldToJPEGImage('minerais', 'imagem1',
               ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
             Image[1].Created := True;
+            Memo1.Append('Imagem 1 criada');
           end;
         end;
+        Memo1.Append('ImagesNumber: '+Inttostr(ImagesNumber));
       end
       else
       if Image[1].Created then
@@ -1962,15 +2134,19 @@ begin
         Image1.Picture.Clear;
         Image1.Destroy;
         Image[1].Created := False;
-      end;
+        Memo1.Append('Imagem1 destruida');
+      end else Memo1.Append('Imagem1 ja estava destruida');
 
       if Image[2].ToCreate then
       begin
         Inc(ImagesNumber);
         if Image[2].Created then
+        begin
+          Memo1.Append('Imagem 2 modificada');
           Image2.Picture.Graphic :=
             SelectBlobFieldToJPEGImage('minerais', 'imagem2',
             ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr)
+        end
         else
         begin
           Image2 := TImage.Create(nil);
@@ -1989,8 +2165,10 @@ begin
               SelectBlobFieldToJPEGImage('minerais', 'imagem2',
               ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
             Image[2].Created := True;
+            Memo1.Append('Imagem 2 criada');
           end;
         end;
+        Memo1.Append('ImagesNumber: '+Inttostr(ImagesNumber));
       end
       else
       if Image[2].Created then
@@ -1998,7 +2176,8 @@ begin
         Image2.Picture.Clear;
         Image2.Destroy;
         Image[2].Created := False;
-      end;
+        Memo1.append('imagem2 destruida');
+      end else Memo1.Append('Imagem2 ja estava destruida');
 
       if Image[3].ToCreate then
       begin
@@ -2071,6 +2250,7 @@ begin
         Image4.Destroy;
         Image[4].Created := False;
       end;
+
       if Image[5].ToCreate then
       begin
         Inc(ImagesNumber);
@@ -2182,9 +2362,10 @@ begin
     end
     else
     begin
+      ClearFields;
       Dados.TableMinerals := Dados.DatabaseMinerals.GetTable('SELECT * ' +
         'FROM mineralogia WHERE campo = "' + MineralogyName + '" ;');
-      for I := 1 to 5 do
+      for I := 1 to 7 do
       begin
         if Dados.TableMinerals.RowCount > 0 then
         begin
@@ -2382,13 +2563,86 @@ begin
         Image5.Destroy;
         Image[5].Created := False;
       end;
+
+      if Image[6].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[6].Created then
+          Image6.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem6',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+        else
+        begin
+          Image6 := TImage.Create(nil);
+          with Image6 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top + (ImagesNumber * SeparadorImagens);
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image6OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem6',
+              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+            Image[6].Created := True;
+          end;
+        end;
+      end
+      else
+      if Image[6].Created then
+      begin
+        Image6.Picture.Clear;
+        Image6.Destroy;
+        Image[6].Created := False;
+      end;
+
+      if Image[7].ToCreate then
+      begin
+        Inc(ImagesNumber);
+        if Image[7].Created then
+          Image7.Picture.Graphic :=
+            SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem7',
+            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+        else
+        begin
+          Image7 := TImage.Create(nil);
+          with Image7 do
+          begin
+            Parent := ScrollBox8;
+            Left := ImagesLeft;
+            Top := Image1Top + (ImagesNumber * SeparadorImagens);
+            Width := ImagesWidth;
+            Height := ImagesHeight;
+            Proportional := True;
+            Center := True;
+            AntialiasingMode := amOn;
+            OnClick := @Image7OnClick;
+            Picture.Graphic :=
+              SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem7',
+              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+            Image[7].Created := True;
+          end;
+        end;
+      end
+      else
+      if Image[7].Created then
+      begin
+        Image7.Picture.Clear;
+        Image7.Destroy;
+        Image[7].Created := False;
+      end;
     end;
   end;
+  RefreshHeaderControl(Imagem_Selecionada);
 end;
 
-procedure TFormFichaEspecie.SelectImage(num: char);
+procedure TFormFichaEspecie.RefreshHeaderControl(num: char);
 begin
-  if (ListboxMinerais.GetSelectedText <> EmptyStr) then
+  {if (ListboxMinerais.GetSelectedText <> EmptyStr) then
   begin
     self.ImagemAmpliada.Picture.Graphic :=
       SelectBlobFieldToJPEGImage('minerais', 'imagem' + Num,
@@ -2399,19 +2653,165 @@ begin
     self.ImagemAmpliada.Picture.Graphic :=
       SelectBlobFieldToJPEGImage('mineralogia', 'mineralogiaimagem' +
       Num, EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+  end;    }
+  HeaderControl1.Sections.Items[0].ImageIndex:=1;
+  HeaderControl1.Sections.Items[1].ImageIndex:=2;
+  HeaderControl1.Sections.Items[2].ImageIndex:=3;
+  HeaderControl1.Sections.Items[3].ImageIndex:=4;
+  HeaderControl1.Sections.Items[4].ImageIndex:=5;
+  HeaderControl1.Sections.Items[5].ImageIndex:=6;
+  HeaderControl1.Sections.Items[6].ImageIndex:=7;
+  Case Num of
+    '1':
+    begin
+      HeaderControl1.Sections.Items[0].ImageIndex:=0;
+    end;
+    '2':
+    begin
+      HeaderControl1.Sections.Items[1].ImageIndex:=0;
+    end;
+    '3':
+    begin
+      HeaderControl1.Sections.Items[2].ImageIndex:=0;
+    end;
+    '4':
+    begin
+      HeaderControl1.Sections.Items[3].ImageIndex:=0;
+    end;
+    '5':
+    begin
+      HeaderControl1.Sections.Items[4].ImageIndex:=0;
+    end;
+    '6':
+    begin
+      HeaderControl1.Sections.Items[5].ImageIndex:=0;
+    end;
+    '7':
+    begin
+      HeaderControl1.Sections.Items[6].ImageIndex:=0;
+    end;
   end;
-  Imagem_Selecionada := Num;
+end;
+
+procedure TFormFichaEspecie.RefreshHardDens;
+begin
+  EditDureza.Text:=EditDurezaMin.Text+' - '+EditDurezaMax.Text;
+  EditDensidade.Text:=EditDensidadeMin.Text+' - '+EditDensidadeMax.Text;
+end;
+
+procedure TFormFichaEspecie.RemoveImage(ImagemSelecionada: Char);
+begin
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
+    if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
+    begin
+      if (Trim(EditNomeMineral.Text) <> EmptyStr) then
+      begin   {ClearBlobField(Table, Field, Especie, Rruff_id, Digito, Tipo:String);}
+        ClearBlobField('minerais', 'imagem' + ImagemSelecionada,
+          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+      end
+      else
+      begin
+        ClearBlobField('mineralogia', 'mineralogiaimagem' + Imagem_Selecionada,
+          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+      end;
+      RefreshImages;
+    end
+    else ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
+  end
+  else ShowMessage(Lang.NoDatabaseSelected);
+  Imagem_Selecionada := '1';
+end;
+
+procedure TFormFichaEspecie.ClearFields;
+begin
+  EditNomeMineral.Text:='';
+  EditFormula.Text:='';
+  EditClasse.Text:='';
+  EditSubClasse.Text:='';
+  EditGrupo.Text:='';
+  EditSubgrupo.Text:='';
+  MemoOcorrencia.Text:='';
+  MemoAssociacao.Text:='';
+  MemoDistincao.Text:='';
+  MemoAlteracao.Text:='';
+  MemoAplicacao.Text:='';
+  EditDureza.Text:='';
+  EditDensidade.Text:='';
+  EditDurezaMin.Text:='';
+  EditDurezaMax.Text:='';
+  EditDensidadeMin.Text:='';
+  EditDensidadeMax.Text:='';
+  MemoCor.Text:='';
+  MemoTraco.Text:='';
+  MemoBrilho.Text:='';
+  MemoClivagem.Text:='';
+  MemoFratura.Text:='';
+  MemoMagnetismo.Text:='';
+  MemoLuminescencia.Text:='';
+  MemoDiafaneidade.Text:='';
+  MemoSinalOptico.Text:='';
+  MemoIndiceRefracao.Text:='';
+  MemoAngulo.Text:='';
+  MemoInterferencia.Text:='';
+  MemoCorLamina.Text:='';
+  MemoSinalElongacao.Text:='';
+  MemoBirrefringencia.Text:='';
+  MemoRelevo.Text:='';
+  MemoRelevo.Text:='';
+  MemoExtincao.Text:='';
+  EditSistema.Text:='';
+  EditClasse_Cristalina.Text:='';
+  EditH_M.Text:='';
+  MemoHabito.Text:='';
+end;
+
+procedure TFormFichaEspecie.ConfigDatabase(config:TIniFile);
+var Aux: String;
+begin
+  Aux:=Trim(Config.ReadString('Database','Mineral',EmptyStr));
+  if Aux <> EmptyStr then
+  begin
+    if FileExists(Aux) then
+    begin
+      if Dados.ChooseDatabase('mineral', Aux) then
+      begin
+        Dados.DatabaseMineralFileName:=Aux;
+        //Edit1.Text:=Aux
+      end
+      else
+      begin
+        Dados.DatabaseMineralFileName:=EmptyStr;
+        Config.WriteString('Database', 'Mineral', EmptyStr);
+        //Edit1.Text:=EmptyStr;
+      end;
+    end
+    else
+    begin
+      Config.WriteString('Database', 'Mineral', EmptyStr);
+      Dados.DatabaseMineralFileName:=EmptyStr;
+      //Edit1.Text:=EmptyStr;
+    end;
+  end
+  else
+  begin
+    Config.WriteString('Database', 'Mineral', EmptyStr);
+    Dados.DatabaseMineralFileName:=EmptyStr;
+    //Edit1.Text:=EmptyStr;
+  end;
 end;
 
 procedure TFormFichaEspecie.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   //FormFichaEspecie.Free;
+  Application.Terminate;
 end;
 
 procedure TFormFichaEspecie.ComboBoxGrupoChange(Sender: TObject);
 begin
   Preenche_SubGrupos;
   AtualizarLista;
+  Mineralogy_Name.Caption:=MineralogyName;
   RefreshImages;
 end;
 
@@ -2420,12 +2820,14 @@ begin
   Preenche_Grupos;
   Preenche_SubGrupos;
   AtualizarLista;
+  Mineralogy_Name.Caption:=MineralogyName;
   RefreshImages;
 end;
 
 procedure TFormFichaEspecie.ComboBoxSubgrupoChange(Sender: TObject);
 begin
   AtualizarLista;
+  Mineralogy_Name.Caption:=MineralogyName;
   RefreshImages;
 end;
 
@@ -2498,32 +2900,50 @@ begin
 end;
 
 procedure TFormFichaEspecie.EditDensidadeMaxEditingDone(Sender: TObject);
+var str, Last:String;
 begin
-  Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
-    'UPDATE minerais SET densidade_max ' + '="' + EditDensidadeMax.Text +
-    '" WHERE nome="' + EditNomeMineral.Text + '";');
+  str:= StringReplace(EditDensidadeMax.Text, ',','.',[rfReplaceAll]);
+  if Last <> str then
+  begin
+    Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
+      'UPDATE minerais SET densidade_max ' + '="' + str +
+      '" WHERE nome="' + EditNomeMineral.Text + '";');
+    RefreshHardDens;
+  end;
+  Last:=str;
 end;
 
 procedure TFormFichaEspecie.EditDensidadeMaxKeyUp(Sender: TObject;
   var Key: word; Shift: TShiftState);
+var str:string;
 begin
+  str:=StringReplace(EditDensidadeMax.text, ',', '.', [rfReplaceAll]);
   Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
-    'UPDATE minerais SET densidade_max ' + '="' + EditDensidadeMax.Text +
+    'UPDATE minerais SET densidade_max ' + '="' + str +
     '" WHERE nome="' + EditNomeMineral.Text + '";');
 end;
 
 procedure TFormFichaEspecie.EditDensidadeMinEditingDone(Sender: TObject);
+var str, Last:String;
 begin
-  Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
-    'UPDATE minerais SET densidade_min ' + '="' + EditDensidadeMin.Text +
-    '" WHERE nome="' + EditNomeMineral.Text + '";');
+  str:=StringReplace(EditDensidadeMin.Text, ',', '.', [rfReplaceAll]);
+  if str <> Last then
+  begin
+    Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
+      'UPDATE minerais SET densidade_min ' + '="' + str +
+      '" WHERE nome="' + EditNomeMineral.Text + '";');
+      RefreshHardDens;
+  end;
+  Last:=str;
 end;
 
 procedure TFormFichaEspecie.EditDensidadeMinKeyUp(Sender: TObject;
   var Key: word; Shift: TShiftState);
+var str:String;
 begin
+  str:=StringReplace(EditDensidadeMin.Text, ',','.', [rfReplaceAll]);
   Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
-    'UPDATE minerais SET densidade_min ' + '="' + EditDensidadeMin.Text +
+    'UPDATE minerais SET densidade_min ' + '="' + str +
     '" WHERE nome="' + EditNomeMineral.Text + '";');
 end;
 
@@ -2556,32 +2976,50 @@ begin
 end;
 
 procedure TFormFichaEspecie.EditDurezaMaxEditingDone(Sender: TObject);
+var str, Last:String;
 begin
-  Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
-    'UPDATE minerais SET dureza_max ' + '="' + EditDurezaMax.Text +
-    '" WHERE nome="' + EditNomeMineral.Text + '";');
+  str:= StringReplace(EditDUrezaMax.Text, ',', '.', [rfReplaceAll]);
+  if (Last <> str) then
+  begin
+    Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
+      'UPDATE minerais SET dureza_max ' + '="' + str +
+      '" WHERE nome="' + EditNomeMineral.Text + '";');
+    RefreshHardDens;
+  end;
+  Last:=str;
 end;
 
 procedure TFormFichaEspecie.EditDurezaMaxKeyUp(Sender: TObject;
   var Key: word; Shift: TShiftState);
+var str:String;
 begin
+  str:= StringReplace(EditDUrezaMax.Text, ',', '.', [rfReplaceAll]);
   Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
-    'UPDATE minerais SET dureza_max ' + '="' + EditDurezaMax.Text +
+    'UPDATE minerais SET dureza_max ' + '="' + str +
     '" WHERE nome="' + EditNomeMineral.Text + '";');
 end;
 
 procedure TFormFichaEspecie.EditDurezaMinEditingDone(Sender: TObject);
+var str, Last:String;
 begin
-  Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
-    'UPDATE minerais SET dureza_min ' + '="' + EditDurezaMin.Text +
-    '" WHERE nome="' + EditNomeMineral.Text + '";');
+  str:= StringReplace(EditDurezaMin.Text, ',', '.', [rfReplaceAll]);
+  if Last <> str then
+  begin
+    Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
+      'UPDATE minerais SET dureza_min ' + '="' + str +
+      '" WHERE nome="' + EditNomeMineral.Text + '";');
+      RefreshHardDens;
+  end;
+  Last:= str;
 end;
 
 procedure TFormFichaEspecie.EditDurezaMinKeyUp(Sender: TObject;
   var Key: word; Shift: TShiftState);
+var str:String;
 begin
+  str:= StringReplace(EditDurezaMin.Text, ',','.',[rfReplaceAll]);
   Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
-    'UPDATE minerais SET dureza_min ' + '="' + EditDurezaMin.Text +
+    'UPDATE minerais SET dureza_min ' + '="' + str +
     '" WHERE nome="' + EditNomeMineral.Text + '";');
 end;
 
@@ -2663,7 +3101,7 @@ begin
     begin
       if Dados.TableMinerals.Count > 0 then
       begin
-        ShowMessage('Já existe um registro com esse nome.');
+        ShowMessage(Lang.ThereIsAlreadyARecordWithThatName);
       end
       else
       begin
@@ -2748,6 +3186,7 @@ begin
   Preenche_Grupos;
   Preenche_SubGrupos;
   AtualizarLista;
+  Mineralogy_Name.Caption:=MineralogyName;
   RefreshImages;
 end;
 
@@ -2765,13 +3204,13 @@ begin
       if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
         FormAddMineral.Show
       else
-        ShowMessage('O banco de dados selecionado não é válido.');
+        ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
     end
     else
-      ShowMessage('O banco de dados selecionado não é válido.');
+      ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
   end
   else
-    ShowMessage('Não há banco de dados selecionado.');
+    ShowMessage(Lang.NoDatabaseSelected);
 end;
 
 procedure TFormFichaEspecie.ActionAddImage2Execute(Sender: TObject);
@@ -2815,9 +3254,18 @@ end;
 procedure TFormFichaEspecie.ActionFormPrintExecute(Sender: TObject);
 begin
   if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
     if FileExists(Dados.DatabaseMineralFileName) then
+    begin
       if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
+      begin
         FormImpressao.Show;
+      end
+      else ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
+    end
+    else ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
+  end
+  else ShowMessage(Lang.NoDatabaseSelected);
 end;
 
 procedure TFormFichaEspecie.ActionImagesVisibleExecute(Sender: TObject);
@@ -2826,6 +3274,11 @@ begin
     ScrollBox8.Visible := False
   else
     ScrollBox8.Visible := True;
+end;
+
+procedure TFormFichaEspecie.ActionOpenDatabaseFormExecute(Sender: TObject);
+begin
+  FormSelectDatabase.Show;
 end;
 
 procedure TFormFichaEspecie.ActionRefreshListExecute(Sender: TObject);

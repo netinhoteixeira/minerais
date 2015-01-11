@@ -86,6 +86,7 @@ end;
 
 procedure TFormLanguage.FormCreate(Sender: TObject);
 begin
+  OpenDialog1.Filter:='All Files | *.csv; *.txt; *.dat;';
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
   CurrentLanguage:= Config.ReadString('Configurations', 'Language','English');
   Combobox1.Text:=CurrentLanguage;

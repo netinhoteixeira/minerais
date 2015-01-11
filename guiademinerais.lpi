@@ -68,10 +68,12 @@
         <Filename Value="guiademinerais.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="guiademinerais"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="21"/>
-        <CursorPos X="31" Y="36"/>
+        <TopLine Value="8"/>
+        <CursorPos X="1" Y="30"/>
         <UsageCount Value="290"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="src\uprincipal.pas"/>
@@ -92,10 +94,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="udatamodule"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="92"/>
-        <CursorPos X="24" Y="112"/>
+        <TopLine Value="508"/>
+        <CursorPos X="16" Y="109"/>
         <UsageCount Value="290"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="src\uselecionabd.pas"/>
@@ -123,10 +129,12 @@
       <Unit5>
         <Filename Value="src\sqlite3tablemod.pas"/>
         <UnitName Value="sqlite3tablemod"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="291"/>
-        <CursorPos X="1" Y="302"/>
+        <TopLine Value="852"/>
+        <CursorPos X="45" Y="884"/>
         <UsageCount Value="122"/>
+        <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="src\uformimpressao.pas"/>
@@ -303,7 +311,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitPlanilha"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="43"/>
         <CursorPos X="15" Y="46"/>
@@ -344,7 +352,6 @@
       </Unit30>
       <Unit31>
         <Filename Value="src\unitequipamentos.pas"/>
-        <IsPartOfProject Value="True"/>
         <ComponentName Value="FormInstrumentos"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
@@ -375,15 +382,14 @@
       </Unit33>
       <Unit34>
         <Filename Value="src\unitfichaamostra.pas"/>
-        <IsPartOfProject Value="True"/>
         <ComponentName Value="FormFichaAmostra"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitfichaamostra"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2515"/>
-        <CursorPos X="27" Y="2525"/>
+        <CursorPos X="19" Y="2527"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -395,10 +401,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitfichaespecie"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="443"/>
-        <CursorPos X="9" Y="454"/>
+        <TopLine Value="519"/>
+        <CursorPos X="1" Y="535"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\Geoestatistica\src\unitplanilha.lfm"/>
@@ -479,10 +488,12 @@
         <Filename Value="src\unitblobfields.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unitBlobFields"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="35"/>
-        <CursorPos X="4" Y="59"/>
+        <TopLine Value="76"/>
+        <CursorPos X="31" Y="89"/>
         <UsageCount Value="193"/>
+        <Loaded Value="True"/>
       </Unit45>
       <Unit46>
         <Filename Value="C:\lazarus\lcl\controls.pp"/>
@@ -574,10 +585,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitselectdatabase"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="131"/>
-        <CursorPos X="34" Y="149"/>
+        <TopLine Value="1"/>
+        <CursorPos X="74" Y="17"/>
         <UsageCount Value="139"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit55>
       <Unit56>
         <Filename Value="src\unitadddatabase.pas"/>
@@ -593,7 +607,6 @@
       </Unit56>
       <Unit57>
         <Filename Value="src\unitaddsample.pas"/>
-        <IsPartOfProject Value="True"/>
         <ComponentName Value="FormAddSample"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
@@ -655,7 +668,7 @@
         <Filename Value="src\unitlanguage.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unitLanguage"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="184"/>
         <CursorPos X="32" Y="193"/>
@@ -699,7 +712,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unittranslatefile"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="248"/>
@@ -724,7 +736,7 @@
         <UsageCount Value="10"/>
       </Unit69>
     </Units>
-    <JumpHistory Count="15" HistoryIndex="14">
+    <JumpHistory Count="25" HistoryIndex="24">
       <Position1>
         <Filename Value="src\unitformlanguage.pas"/>
         <Caret Line="64" Column="10" TopLine="61"/>
@@ -785,6 +797,46 @@
         <Filename Value="src\unittranslatefile.pas"/>
         <Caret Line="65" Column="20" TopLine="55"/>
       </Position15>
+      <Position16>
+        <Filename Value="src\unitblobfields.pas"/>
+        <Caret Line="59" Column="4" TopLine="35"/>
+      </Position16>
+      <Position17>
+        <Filename Value="src\unitblobfields.pas"/>
+        <Caret Line="89" Column="33" TopLine="77"/>
+      </Position17>
+      <Position18>
+        <Filename Value="guiademinerais.lpr"/>
+        <Caret Line="30" Column="61" TopLine="8"/>
+      </Position18>
+      <Position19>
+        <Filename Value="guiademinerais.lpr"/>
+        <Caret Line="34" Column="49" TopLine="8"/>
+      </Position19>
+      <Position20>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="535" Column="1" TopLine="519"/>
+      </Position20>
+      <Position21>
+        <Filename Value="src\unitfichaamostra.pas"/>
+        <Caret Line="2527" Column="19" TopLine="2515"/>
+      </Position21>
+      <Position22>
+        <Filename Value="guiademinerais.lpr"/>
+        <Caret Line="29" Column="82" TopLine="8"/>
+      </Position22>
+      <Position23>
+        <Filename Value="guiademinerais.lpr"/>
+        <Caret Line="30" Column="1" TopLine="8"/>
+      </Position23>
+      <Position24>
+        <Filename Value="src\unitselectdatabase.pas"/>
+        <Caret Line="17" Column="74" TopLine="1"/>
+      </Position24>
+      <Position25>
+        <Filename Value="guiademinerais.lpr"/>
+        <Caret Line="30" Column="1" TopLine="8"/>
+      </Position25>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -813,21 +865,56 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="7">
       <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="src\unitfichaespecie.pas"/>
-        <Line Value="535"/>
-      </Item1>
-      <Item2>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="src\unitfichaamostra.pas"/>
         <Line Value="737"/>
+      </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="guiademinerais.lpr"/>
+        <Line Value="30"/>
       </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="guiademinerais.lpr"/>
+        <Line Value="31"/>
+      </Item3>
+      <Item4>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="guiademinerais.lpr"/>
+        <Line Value="32"/>
+      </Item4>
+      <Item5>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="guiademinerais.lpr"/>
+        <Line Value="33"/>
+      </Item5>
+      <Item6>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="guiademinerais.lpr"/>
+        <Line Value="34"/>
+      </Item6>
+      <Item7>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="guiademinerais.lpr"/>
+        <Line Value="35"/>
+      </Item7>
     </BreakPoints>
     <Exceptions Count="3">
       <Item1>

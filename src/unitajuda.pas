@@ -8,7 +8,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, IpHtml,  INIFiles,
   Ipfilebroker, Forms, Controls, Dialogs, ExtCtrls,
-  StdCtrls, unitLanguage;
+  unitLanguage;
 
 type
 
@@ -47,7 +47,7 @@ begin
   if FileExists(GetCurrentDir+'\Ajuda\index.html') then
     Iphtmlpanel1.OpenURL(GetCurrentDir+'\Ajuda\index.html');
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
   begin
     FormAjuda.Caption:=Lang.Help;
   end;

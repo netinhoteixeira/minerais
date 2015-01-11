@@ -6,48 +6,38 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, BCLabel, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, Buttons, ActnList, INIFiles, unitLanguage;
+  Dialogs, StdCtrls, Buttons, ActnList, ExtCtrls, INIFiles, unitLanguage;
 
 type
 
   { TFormSelectDatabase }
 
   TFormSelectDatabase = class(TForm)
-    ActionClearSample: TAction;
     ActionClearMineral: TAction;
+    ActionClearSample: TAction;
+    ActionNewSampleDatabase: TAction;
     ActionRefreshEdits: TAction;
     ActionFormClose: TAction;
     ActionSelectSampleDatabase: TAction;
     ActionSelectMineralDatabase: TAction;
-    ActionNewSampleDatabase: TAction;
     ActionNewMineralDatabase: TAction;
     ActionList1: TActionList;
     BCLabelMineralDB: TBCLabel;
-    BCLabelSampleDB: TBCLabel;
-    BCLabelMinerais: TBCLabel;
-    BCLabelAmostras: TBCLabel;
     BCPanel1: TBCPanel;
-    BCPanel2: TBCPanel;
     BCPanel3: TBCPanel;
     Edit1: TEdit;
-    Edit2: TEdit;
     OpenDialog1: TOpenDialog;
     ScrollBox1: TScrollBox;
+    SpeedButtonApply: TSpeedButton;
     SpeedButtonClearCurrentMineralDB: TSpeedButton;
-    SpeedButtonClearCurrentSampleDB: TSpeedButton;
     SpeedButtonMineralNew: TSpeedButton;
-    SpeedButtonSampleNew: TSpeedButton;
-    SpeedButtonSampleSelect: TSpeedButton;
     SpeedButtonClose: TSpeedButton;
     SpeedButtonMineralSelect: TSpeedButton;
     procedure ActionClearMineralExecute(Sender: TObject);
-    procedure ActionClearSampleExecute(Sender: TObject);
     procedure ActionFormCloseExecute(Sender: TObject);
     procedure ActionNewMineralDatabaseExecute(Sender: TObject);
-    procedure ActionNewSampleDatabaseExecute(Sender: TObject);
     procedure ActionRefreshEditsExecute(Sender: TObject);
     procedure ActionSelectMineralDatabaseExecute(Sender: TObject);
-    procedure ActionSelectSampleDatabaseExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
     { private declarations }
@@ -67,88 +57,14 @@ implementation
 { TFormSelectDatabase }
 
 procedure TFormSelectDatabase.FormCreate(Sender: TObject);
-var Aux: String;
 begin
   OpenDialog1.Filter:='ALL FILES |  *.s3db; *.sqlite; *.db;';
-  Config := TIniFile.Create(Dados.Caminho+'\config.ini');
-  Aux:=Trim(Config.ReadString('Database','Mineral',EmptyStr));
-  if Aux <> EmptyStr then
-  begin
-    if FileExists(Aux) then
-    begin
-      if Dados.ChooseDatabase('mineral', Aux) then
-      begin
-        Dados.DatabaseMineralFileName:=Aux;
-        Edit1.Text:=Aux
-      end
-      else
-      begin
-        Dados.DatabaseMineralFileName:=EmptyStr;
-        Config.WriteString('Database', 'Mineral', EmptyStr);
-        Edit1.Text:=EmptyStr;
-      end;
-    end
-    else
-    begin
-      Config.WriteString('Database', 'Mineral', EmptyStr);
-      Dados.DatabaseMineralFileName:=EmptyStr;
-      Edit1.Text:=EmptyStr;
-    end;
-  end
-  else
-  begin
-    Config.WriteString('Database', 'Mineral', EmptyStr);
-    Dados.DatabaseMineralFileName:=EmptyStr;
-    Edit1.Text:=EmptyStr;
-  end;
-
-  Aux:=Trim(Config.ReadString('Database','Sample',EmptyStr));
-  if Aux <> EmptyStr then
-  begin
-    if FileExists(Aux) then
-    begin
-      if Dados.ChooseDatabase('amostra', Aux) then
-      begin
-        Dados.DatabaseSampleFileName:=Aux;
-        Edit2.Text:=Aux;
-      end
-      else
-      begin
-        Dados.DatabaseSampleFileName:=EmptyStr;
-        Config.WriteString('Database', 'Sample', EmptyStr) ;
-        Edit2.Text:=EmptyStr;
-      end;
-    end
-    else
-    begin
-      Config.WriteString('Database', 'Sample', EmptyStr);
-      Dados.DatabaseSampleFileName:=EmptyStr;
-      Edit2.Text:=EmptyStr;
-    end;
-  end
-  else
-  begin
-    Config.WriteString('Database', 'Sample', EmptyStr);
-    Dados.DatabaseSampleFileName:=EmptyStr;
-    Edit2.Text:=EmptyStr;
-  end;
-
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
-  begin
-    FormSelectDatabase.Caption:=Lang.Database;
-    BCLabelMinerais.Caption:=Lang.Minerals;
-    BCLabelAmostras.Caption:=Lang.Samples;
-    BCLabelMineralDB.Caption:=Lang.CurrentDatabase;
-    BCLabelSampleDB.Caption:=Lang.CurrentDatabase;
-    SpeedButtonMineralSelect.Hint:=Lang.SelectMineralDatabase;
-    SpeedButtonSampleSelect.Hint:=Lang.SelectAnalisysDatabase;
-    SpeedButtonClearCUrrentMineralDB.Hint:=Lang.Clear;
-    SpeedButtonClearCurrentSampleDB.Hint:=Lang.Clear;
-    SpeedButtonMineralNew.Hint:=Lang.CreateMineralDatabase;
-    SpeedButtonSampleNew.Hint:=Lang.CreateAnalisysDatabase;
-    SpeedButtonClose.Hint:=Lang.Close;
-  end;
-  Config.Free;
+  FormSelectDatabase.Caption:=Lang.Database;
+  BCLabelMineralDB.Caption:=Lang.CurrentDatabase;
+  SpeedButtonMineralSelect.Hint:=Lang.SelectMineralDatabase;
+  SpeedButtonClearCUrrentMineralDB.Hint:=Lang.Clear;
+  SpeedButtonMineralNew.Hint:=Lang.CreateMineralDatabase;
+  SpeedButtonClose.Hint:=Lang.Close;
 end;
 
 procedure TFormSelectDatabase.ActionNewMineralDatabaseExecute(Sender: TObject);
@@ -168,22 +84,9 @@ begin
   Edit1.Text:=EmptyStr;
 end;
 
-procedure TFormSelectDatabase.ActionClearSampleExecute(Sender: TObject);
-begin
-  Dados.DatabaseSampleFileName:=EmptyStr;
-  Edit2.Text:=EmptyStr;
-end;
-
-procedure TFormSelectDatabase.ActionNewSampleDatabaseExecute(Sender: TObject);
-begin
-  FormAddDatabase.Tipo:='amostra';
-  FormAddDatabase.Show;
-end;
-
 procedure TFormSelectDatabase.ActionRefreshEditsExecute(Sender: TObject);
 begin
   Edit1.Text:=Dados.DatabaseMineralFileName;
-  Edit2.Text:=Dados.DatabaseSampleFileName;
 end;
 
 procedure TFormSelectDatabase.ActionSelectMineralDatabaseExecute(Sender: TObject
@@ -197,34 +100,16 @@ begin
         begin
           Dados.DatabaseMineralFileName:= OpenDialog1.FileName;
           Edit1.Text:=Dados.DatabaseMineralFileName;
+          Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
           Config.WriteString('Database', 'Mineral',
             Dados.DatabaseMineralFileName);
+          Config.Free;
         end
         else
           ShowMessage('O banco de dados não é compatível.');
     end
     else
       ShowMessage('Não há banco de dados com este nome.')
-end;
-
-procedure TFormSelectDatabase.ActionSelectSampleDatabaseExecute(Sender: TObject
-  );
-begin
-  if OpenDialog1.Execute then
-   if OpenDialog1.FileName <> EmptyStr then
-   begin
-    if FileExists(OpenDialog1.FileName) then
-       if Dados.ChooseDatabase('amostra', OpenDialog1.FileName) then
-        begin
-          Dados.DatabaseSampleFileName:= OpenDialog1.FileName;
-          Edit2.Text:=Dados.DatabaseSampleFileName;
-          Config.WriteString('Database', 'Sample', Dados.DatabaseSampleFileName);
-        end
-        else
-          ShowMessage('O banco de dados não é compatível.');
-   end
-   else
-     ShowMessage('Não há banco de dados com este nome.');
 end;
 
 end.
