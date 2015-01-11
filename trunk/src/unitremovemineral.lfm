@@ -151,7 +151,6 @@ object FormRemoveMineral: TFormRemoveMineral
       Hint = 'Remover'
       Top = 8
       Width = 40
-      OnClick = ActionRemoveExecute
       ShowHint = True
       ParentShowHint = False
     end
@@ -161,7 +160,6 @@ object FormRemoveMineral: TFormRemoveMineral
       Hint = 'Remover Todos'
       Top = 8
       Width = 40
-      OnClick = ActionRemoveAllExecute
       ShowHint = True
       ParentShowHint = False
     end
@@ -171,7 +169,6 @@ object FormRemoveMineral: TFormRemoveMineral
       Hint = 'Fechar'
       Top = 8
       Width = 40
-      OnClick = ActionCloseExecute
       ShowHint = True
       ParentShowHint = False
     end

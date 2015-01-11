@@ -13,6 +13,7 @@ type
   { TFormSelectDatabase }
 
   TFormSelectDatabase = class(TForm)
+    ActionApply: TAction;
     ActionClearMineral: TAction;
     ActionClearSample: TAction;
     ActionNewSampleDatabase: TAction;
@@ -33,6 +34,7 @@ type
     SpeedButtonMineralNew: TSpeedButton;
     SpeedButtonClose: TSpeedButton;
     SpeedButtonMineralSelect: TSpeedButton;
+    procedure ActionApplyExecute(Sender: TObject);
     procedure ActionClearMineralExecute(Sender: TObject);
     procedure ActionFormCloseExecute(Sender: TObject);
     procedure ActionNewMineralDatabaseExecute(Sender: TObject);
@@ -80,8 +82,18 @@ end;
 
 procedure TFormSelectDatabase.ActionClearMineralExecute(Sender: TObject);
 begin
-  Dados.DatabaseMineralFileName:=EmptyStr;
   Edit1.Text:=EmptyStr;
+end;
+
+procedure TFormSelectDatabase.ActionApplyExecute(Sender: TObject);
+begin
+  if Dados.ChooseDatabase('mineral', Edit1.Text) then
+   begin
+    Dados.DatabaseMineralFileName:=Edit1.Text;
+    FormSelectDatabase.Hide;
+   end
+  else
+    ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
 end;
 
 procedure TFormSelectDatabase.ActionRefreshEditsExecute(Sender: TObject);
@@ -106,10 +118,10 @@ begin
           Config.Free;
         end
         else
-          ShowMessage('O banco de dados não é compatível.');
+          ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
     end
     else
-      ShowMessage('Não há banco de dados com este nome.')
+      ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
 end;
 
 end.

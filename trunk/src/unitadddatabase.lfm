@@ -210,7 +210,6 @@ object FormAddDatabase: TFormAddDatabase
       Height = 50
       Top = 8
       Width = 50
-      OnClick = ActionCreateDatabaseExecute
     end
     object SpeedButtonClose: TSpeedButton
       Left = 264
@@ -218,7 +217,6 @@ object FormAddDatabase: TFormAddDatabase
       Top = 8
       Width = 50
       Caption = 'ActionRefreshEdits'
-      OnClick = ActionCloseExecute
     end
   end
   object ActionList1: TActionList

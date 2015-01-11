@@ -2,10 +2,10 @@ object Dados: TDados
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
-  Height = 408
+  Height = 341
   HorizontalOffset = 586
   VerticalOffset = 106
-  Width = 422
+  Width = 252
   object frReport1: TfrReport
     Dataset = frDBDataSet1
     DefaultCopies = 0
@@ -32,40 +32,13 @@ object Dados: TDados
   object Sqlite3DatasetPrinter: TSqlite3Dataset
     PrimaryKey = 'id'
     TableName = 'minerais'
-    left = 40
-    top = 240
+    left = 41
+    top = 184
   end
   object DatasourcePrinter: TDataSource
     DataSet = Sqlite3DatasetPrinter
     left = 128
-    top = 240
-  end
-  object SdfDataSetPlanilhaMicrossonda: TSdfDataSet
-    FileMustExist = True
-    ReadOnly = True
-    FieldDefs = <>
-    AllowMultiLine = False
-    Delimiter = ','
-    FirstLineAsSchema = False
-    left = 256
-    top = 48
-  end
-  object DatasourcePlanilhaMicrossonda: TDataSource
-    DataSet = SdfDataSetPlanilhaMicrossonda
-    left = 344
-    top = 48
-  end
-  object Sqlite3DatasetInstrumentos: TSqlite3Dataset
-    PrimaryKey = 'id'
-    SaveOnClose = True
-    TableName = 'instrumentos'
-    left = 256
-    top = 120
-  end
-  object DatasourceInstrumentos: TDataSource
-    DataSet = Sqlite3DatasetInstrumentos
-    left = 336
-    top = 120
+    top = 184
   end
   object SdfDataSetLanguage: TSdfDataSet
     FileMustExist = True
@@ -75,11 +48,11 @@ object Dados: TDados
     Delimiter = ','
     FirstLineAsSchema = False
     left = 41
-    top = 338
+    top = 248
   end
   object DataSourceLanguage: TDataSource
     DataSet = SdfDataSetLanguage
-    left = 136
-    top = 344
+    left = 128
+    top = 248
   end
 end

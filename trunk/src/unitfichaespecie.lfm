@@ -253,17 +253,17 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object TabSheetProp_Fisicas: TTabSheet
       Caption = 'Propriedades Físicas'
-      ClientHeight = 566
+      ClientHeight = 568
       ClientWidth = 538
       object ScrollBox4: TScrollBox
         Left = 10
-        Height = 566
+        Height = 568
         Top = 10
         Width = 538
         HorzScrollBar.Page = 517
-        VertScrollBar.Page = 562
+        VertScrollBar.Page = 564
         Anchors = [akTop, akLeft, akRight, akBottom]
-        ClientHeight = 562
+        ClientHeight = 564
         ClientWidth = 517
         TabOrder = 0
         object MemoLuminescencia: TMemo
@@ -499,17 +499,17 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object TabSheetOticas: TTabSheet
       Caption = 'Propriedades Óticas'
-      ClientHeight = 566
+      ClientHeight = 568
       ClientWidth = 538
       object ScrollBox5: TScrollBox
         Left = 10
-        Height = 566
+        Height = 568
         Top = 10
         Width = 538
         HorzScrollBar.Page = 534
-        VertScrollBar.Page = 562
+        VertScrollBar.Page = 564
         Anchors = [akTop, akLeft, akRight, akBottom]
-        ClientHeight = 562
+        ClientHeight = 564
         ClientWidth = 534
         TabOrder = 0
         object MemoExtincao: TMemo

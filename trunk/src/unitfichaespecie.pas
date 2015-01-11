@@ -496,6 +496,7 @@ uses udatamodule, unitBlobFields, unitaddmineral;
 procedure TFormFichaEspecie.FormCreate(Sender: TObject);
 begin
   Imagem_Selecionada := '1';
+  openpicturedialog1.Filter := lista_formatos;
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
   ConfigDatabase(Config);
   if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
@@ -621,7 +622,6 @@ var
   SelectSQL: string;
 begin
   Imagem_Selecionada := '1';
-  openpicturedialog1.Filter := lista_formatos;
 
   if Dados.DatabaseMineralFileName <> EmptyStr then
   begin
@@ -651,8 +651,7 @@ begin
     else
     begin
       EditingMode(False);
-      ShowMessage('O banco de dados: "' + Dados.DatabaseMineralFileName +
-        '" não é válido.');
+      ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
       Dados.DatabaseMineralFileName := EmptyStr;
     end;
   end
@@ -3298,12 +3297,12 @@ begin
       if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
         FormRemoveMineral.Show
       else
-        ShowMessage('O banco de dados selecionado não é válido.');
+        ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
     end
-    else ShowMessage('O banco de dados selecionado não é válido.');
+    else ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
   end
   else
-  ShowMessage('Não há banco de dados selecionado.');
+  ShowMessage(Lang.NoDatabaseSelected);
 end;
 
 procedure TFormFichaEspecie.ComboBox1Change(Sender: TObject);

@@ -28,7 +28,7 @@ begin
   FormSplash.Hide;
   FormSplash.Free;
   Application.CreateForm(TFormFichaEspecie, FormFichaEspecie);
-  Application.CreateForm(TFormSelectDatabase, FormSelectDatabase);
+  //Application.CreateForm(TFormSelectDatabase, FormSelectDatabase);
   Application.CreateForm(TFormBibliografia, FormBibliografia);
   Application.CreateForm(TFormImpressao, FormImpressao);
   Application.CreateForm(TFormAjuda, FormAjuda);
