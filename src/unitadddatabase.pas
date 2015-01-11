@@ -58,7 +58,7 @@ begin
         begin
           if Dados.ChooseDatabase(Tipo, CurrentPath +'\'+Edit1.Text+
             '.s3db') then
-            ShowMessage('Já existe um banco de dados com esse nome.')
+            ShowMessage(Lang.ThereIsAlreadyARecordWithThatName)
           else
           begin
             Dados.CreateDatabase(Tipo, CurrentPath + '\'+Edit1.Text+
@@ -76,7 +76,7 @@ begin
         begin
           if Dados.ChooseDatabase(Tipo, CurrentPath +'\' +Edit1.Text+
             '.s3db') then
-            ShowMessage('Já existe um banco de dados com esse nome.')
+            ShowMessage(Lang.ThereIsAlreadyARecordWithThatName)
           else
             Dados.CreateDatabase(Tipo, CurrentPath +'\'+ Edit1.Text+
               '.s3db');
@@ -90,24 +90,18 @@ begin
     begin
       Dados.DatabaseMineralFileName := CurrentPath +'\'+ Edit1.Text+'.s3db';
       config.WriteString('Database', 'Mineral', Dados.DatabaseMineralFileName);
-    end
-    else
-    if tipo = 'amostra' then
-    begin
-      Dados.DatabaseSampleFileName := CurrentPath + '\'+Edit1.Text+'.s3db';
-      config.WriteString('Database', 'Sample', Dados.DatabaseSampleFileName);
     end;
     Config.Free;
     FormAddDatabase.Visible := False;
   end
   else
-  ShowMessage('Escolha um nome para o banco de dados.');
+  ShowMessage(Lang.TypeTheNameOfDatabase);
 end;
 
 procedure TFormAddDatabase.FormCreate(Sender: TObject);
 begin
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
   begin
     FormAddDatabase.Caption:=Lang.Add;
     BCLabelSetDatabaseName.Caption:=Lang.TypeTheNameOfDatabase;

@@ -410,6 +410,7 @@ object FormSelectDatabase: TFormSelectDatabase
         Height = 40
         Top = 6
         Width = 40
+        OnClick = ActionApplyExecute
       end
     end
   end
@@ -448,6 +449,10 @@ object FormSelectDatabase: TFormSelectDatabase
     end
     object ActionClearSample: TAction
       Caption = 'ActionClearSample'
+    end
+    object ActionApply: TAction
+      Caption = 'ActionApply'
+      OnExecute = ActionApplyExecute
     end
   end
 end

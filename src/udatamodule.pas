@@ -74,8 +74,6 @@ type
 
   TDados = class(TDataModule)
     DataSourceLanguage: TDataSource;
-    DatasourceInstrumentos: TDatasource;
-    DatasourcePlanilhaMicrossonda: TDatasource;
     DatasourcePrinter: TDatasource;
     DatasourceReport: TDatasource;
     frDBDataSet1: TfrDBDataSet;
@@ -83,8 +81,6 @@ type
     SdfDataSetLanguage: TSdfDataSet;
     SdfDataSetGraficosValorX: TField;
     SdfDataSetGraficosValorY: TField;
-    SdfDataSetPlanilhaMicrossonda: TSdfDataSet;
-    Sqlite3DatasetInstrumentos: TSqlite3Dataset;
     Sqlite3DatasetPrinter: TSqlite3Dataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
@@ -99,7 +95,7 @@ type
     Dataset: TSDFDataset;
 
     //guarda o caminho do banco de dados:
-    DatabaseMineralFileName, DatabaseSampleFileName: String;
+    DatabaseMineralFileName: String;
 
     //guarda o caminho do arquivo config e dos arquivos .csv
     //getcurrentdir+'\Data' ou getcurrentdir+'\'
@@ -112,10 +108,7 @@ type
     //procedure AdicionaEspecie(Nome, Classe, Subclasse, Grupo, Subgrupo,
       //Ocorrencia, Associacao, Cor, Brilho: string; Dureza_min, Dureza_max: real;
       //Densidade_min, Densidade_max: string);
-    procedure AdicionaAmostra(Tabela, Especie, Sample_id, Digito,
-      Direcao, Equipment:String );
-    procedure ExcluiAmostra(Especie, Sample_id, Digito: String;
-      TabIndex: Integer);
+
     procedure ExcluiMineral(Especie: string);
     function CriarDataset(Diretorio: string): TDatasource;
     { public declarations }
@@ -137,12 +130,7 @@ procedure TDados.DataModuleDestroy(Sender: TObject);
 begin
   if SQLite3DatasetPrinter.Active then
     SQLite3DatasetPrinter.Close;
-  if SDFDatasetPlanilhaMicrossonda.Active then
-    SDFDatasetPlanilhaMicrossonda.Close;
-  if SQLite3DatasetInstrumentos.Active then
-    SQLite3DatasetInstrumentos.Close;
   DatabaseMinerals.Free;
-  DatabaseSamples.Free;
 end;
 
 procedure TDados.UpdateField(Table, Field, NewValue, Especie, Sample, Digito,
@@ -152,46 +140,6 @@ begin
   begin
     TableMinerals:= DatabaseMinerals.GetTable('UPDATE '+Table+' SET '+
       Field+ ' = "'+NewValue+'" WHERE nome = "'+Especie+'" ; ' );
-  end
-  else
-  if Table = 'rruff' then
-  begin
-    TableSamples := DatabaseSamples.GetTable('UPDATE '+Table+' SET '+
-      Field+' = "'+NewValue+'" WHERE rruff_id = "'+Sample+'" ;');
-  end
-  else
-  if Table = 'chemistry' then
-  begin
-    TableSamples:= DatabaseSamples.GetTable('UPDATE '+Table+' SET '+
-      Field+'= "'+NewValue+'" WHERE rruff_id = "'+Sample+'" ;');
-  end
-  else
-  if Table = 'raman' then
-  begin
-    TableSamples:= DatabaseSamples.GetTable('UPDATE '+Table+ ' SET '+
-      Field+'="'+NewValue+'" WHERE rruff_if="'+Sample+'" AND digito="'+
-        Digito+'" AND direcao="'+Direction+'" ;');
-  end
-  else
-  if Table = 'varredura' then
-  begin
-    TableSamples:= DatabaseSamples.GetTable('UPDATE '+Table+ ' SET '+
-      Field+'="'+NewValue+'" WHERE rruff_if="'+Sample+'" AND digito="'+
-        Digito+'" AND comprimento_onda="'+Direction+'" ;');
-  end
-  else
-  if Table = 'infravermelho' then
-  begin
-    TableSamples:= DatabaseSamples.GetTable('UPDATE '+Table+ ' SET '+
-      Field+'="'+NewValue+'" WHERE rruff_if="'+Sample+'" AND digito="'+
-        Digito+'" ;');
-  end
-  else
-  if Table = 'difracao' then
-  begin
-    TableSamples:= DatabaseSamples.GetTable('UPDATE '+Table+ ' SET '+
-      Field+'="'+NewValue+'" WHERE rruff_if="'+Sample+'" AND digito="'+
-        Digito+'" ;');
   end;
 end;
 
@@ -230,50 +178,6 @@ begin
     DatabaseMinerals.ExecSQL(ExecSQL);
     finally
     end;
-  end
-  else
-  if Tipo = 'amostra' then
-  begin
-    try
-      DatabaseSamples := TSQLiteDatabase.Create(Diretorio);
-      ExecSQL :=
-      'CREATE TABLE rruff ([id] INTEGER PRIMARY KEY NOT NULL, [especie] TEXT,'+
-        ' [rruff_id] TEXT NOT NULL, [quimica_ideal] TEXT, [localidade] TEXT, '+
-          '[fonte] TEXT, [proprietario] TEXT, [situacao] TEXT, [description] '+
-            ' TEXT, [imagem_amostra] BLOB) ;';
-      DatabaseSamples.ExecSQL(ExecSQL);
-      ExecSQL := 'CREATE TABLE chemistry ([id] INTEGER PRIMARY KEY NOT NULL, '+
-      '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL,'+
-        '[quimica_medida] TEXT, [description] TEXT, [image] BLOB, '+
-          '[microprobe_file] BLOB, [microprobe_equipment] TEXT );';
-      DatabaseSamples.ExecSQL(ExecSQL);
-      ExecSQL:= 'CREATE TABLE raman ([id] INTEGER PRIMARY KEY NOT NULL, [especie]'+
-      ' TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL, '+
-        '[direcao] TEXT NOT NULL, [pin_id] TEXT, [orientacao] TEXT,  '+
-          '[equipment] TEXT, [description] TEXT, [arquivo_raman] BLOB );';
-      DatabaseSamples.ExecSQL(ExecSQL);
-      ExecSQL:= 'CREATE TABLE varredura ([id] INTEGER PRIMARY KEY NOT NULL, '+
-      '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL, '+
-        '[comprimento_onda] TEXT NOT NULL, [arquivo_varredura] BLOB, '+
-          '[description] TEXT, [equipment] TEXT ); ';
-      DatabaseSamples.ExecSQL(ExecSQL);
-      ExecSQL := 'CREATE TABLE infravermelho ([id] INTEGER PRIMARY KEY NOT NULL,'+
-      '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL,'+
-        '[resolucao] TEXT, [arquivo_infravermelho] BLOB, [description] TEXT, '+
-          '[equipment] TEXT); ';
-      DatabaseSamples.ExecSQL(ExecSQL);
-      ExecSQL:= 'CREATE TABLE difracao ([id] INTEGER PRIMARY KEY NOT NULL, '+
-      '[especie] TEXT, [rruff_id] TEXT NOT NULL, [digito] INTEGER NOT NULL, '+
-        '[arquivo_difracao] BLOB, [a] TEXT, [b] TEXT, [c] TEXT, [alpha] TEXT, '+
-          '[beta] TEXT, [gamma] TEXT, [volume] TEXT, [sistema_cristalino] TEXT);';
-      DatabaseSamples.ExecSQL(ExecSQL);
-      ExecSQL :=
-      'CREATE TABLE instrumentos ([id] INTEGER PRIMARY KEY NOT NULL, [nome] '+
-        'UNIQUE NOT NULL, [descricao] TEXT, [localidade] TEXT);';
-      DatabaseSamples.ExecSQL(ExecSQL);
-  finally
-
-  end;
   end;
 end;
 
@@ -315,201 +219,6 @@ begin
       end;
     end;
      Result:= Compatible;
-  end
-  else
-  if Tipo= 'amostra' then
-  begin
-   DatabaseSamples := TSQLiteDatabase.Create(Directory);
-    if DatabaseSamples.TableExists('rruff') then
-    begin
-      if DatabaseSamples.TableExists('raman') then
-      begin
-        if DatabaseSamples.TableExists('varredura') then
-        begin
-          if DatabaseSamples.TableExists('infravermelho') then
-          begin
-            if DatabaseSamples.TableExists('difracao') then
-            begin
-              if DatabaseSamples.TableExists('instrumentos') then
-              begin
-                if DatabaseSamples.TableExists('chemistry') then
-                  Compatible:= True
-                  else
-                  Compatible:=False;
-              end
-              else Compatible:=False;
-            end
-            else
-              Compatible:=False;
-          end
-          else
-            Compatible:=False;
-        end
-        else
-          Compatible:=False;
-      end
-      else
-        Compatible:=False;
-    end
-    else
-      Compatible:=False;
-    if Compatible then
-    begin
-      with SQLite3DatasetInstrumentos do
-      begin
-        Filename := Directory;
-      end;
-    end;
-    Result:=Compatible;
-  end
-  else Result:= False;
-end;
-        //obsoleto
-        {
-procedure TDados.AdicionaEspecie(Nome, Classe, Subclasse, Grupo,
-  Subgrupo, Ocorrencia, Associacao, Cor, Brilho: string; Dureza_min,
-    Dureza_max: real; Densidade_min, Densidade_max: string);
-begin
-  DatabaseMinerals.ExecSQL('INSERT INTO minerais (nome, dureza_min, dureza_max, ' +
-    'densidade_min,' + 'densidade_max) VALUES ("' + Nome + '", "' + FloatToStr(
-      Dureza_min) + '","' + FloatToStr(Dureza_max) + '", "' + Densidade_min +
-        '", "' + Densidade_max + '");');
-  DatabaseMinerals.ExecSQL('UPDATE minerais SET classe="' + Classe + '", subclasse="' + Subclasse +
-    '", grupo="' + Grupo + '", subgrupo="' + Subgrupo + '", ocorrencia="' + Ocorrencia +
-    '", associacao="' + Associacao + '", cor="' + Cor + '", brilho="' + Brilho + '" WHERE' +
-    ' nome="' + Nome + '" ;');
-end;          }
-
-procedure TDados.AdicionaAmostra(Tabela, Especie, Sample_id,
-  Digito, Direcao, Equipment:String );
-var
-  ExecSQL: string;
-begin
-    if Sample_id = EmptyStr then
-    Sample_id := 'A00000';
-    //
-    if Tabela = 'rruff' then
-    begin
-      ExecSQL:= 'INSERT INTO rruff (especie, rruff_id) VALUES ("'+Especie+'", '+
-        '"'+Sample_id+'") ;';
-      DatabaseSamples.ExecSQL(ExecSQL);
-    end;
-    //chemistry
-    if Tabela = 'chemistry' then
-    begin
-      ExecSQL:= 'INSERT INTO chemistry (especie, rruff_id, digito) VALUES '+
-        ' ("'+Especie+'", "'+Sample_id+'", "0") ;';
-      DatabaseSamples.ExecSQL(ExecSQL);
-    end;
-    //raman
-    //514
-    if Tabela = 'raman' then
-    begin
-      ExecSQL := 'INSERT INTO raman (especie, rruff_id, digito,  direcao, equipment) '
-        + ' VALUES ("' + Especie + '" , "' +Sample_id + '", "'+Digito+'", "' +
-          Direcao + '","");';
-      DatabaseSamples.ExecSQL(ExecSQL);
-    end;
-  if Tabela = 'varredura' then
-  begin
-  //varredura
-  ExecSql := 'INSERT INTO varredura (especie, rruff_id, digito, '+
-  ' comprimento_onda, equipment)'
-    + '  VALUES ("' + Especie + '" , "' + Sample_id + '", "'+Digito+'", "' +
-    Direcao + '","");';
-  DatabaseSamples.ExecSQL(ExecSQL);
-  end;
-
-  //infravermelho
-  if Tabela = 'infravermelho' then
-  begin
-
-  ExecSQL := 'INSERT INTO infravermelho (especie, rruff_id, digito'+
-   ', equipment) VALUES ("' + Especie + '" , "' + Sample_id + '" , "'+Digito+'","");';
-  DatabaseSamples.ExecSQL(ExecSQL);
-  end;
-  if Tabela = 'difracao' then
-  begin
-  //Difracao
-  ExecSQL := 'INSERT INTO difracao (especie, rruff_id, digito)' +
-    ' VALUES ("' + Especie + '" , "' + Sample_id + '" , "'+Digito+'");';
-  DatabaseSamples.ExecSQL(ExecSQL);
-  end;
-end;
-
-procedure TDados.ExcluiAmostra(Especie, Sample_id, Digito: String;
-  TabIndex: Integer);
-begin
-  if Digito = EmptyStr then
-  begin
-    if Especie = EmptyStr then
-    begin
-      DatabaseSamples.ExecSQL('DELETE FROM rruff WHERE (rruff_id ="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM chemistry WHERE (rruff_id ="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM raman WHERE (rruff_id="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM varredura WHERE (rruff_id="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM difracao WHERE (rruff_id="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM infravermelho WHERE (rruff_id="' + Sample_id+'");');
-    end
-    else
-    begin
-      DatabaseSamples.ExecSQL('DELETE FROM rruff WHERE (especie="' + Especie +
-        '" and rruff_id ="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM chemistry WHERE (especie="' + Especie +
-        '" and rruff_id ="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM raman WHERE (especie="' + Especie +
-        '" and rruff_id="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM varredura WHERE (especie="' + Especie +
-        '" and rruff_id="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM difracao WHERE (especie="' + Especie +
-        '" and rruff_id="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM infravermelho WHERE (especie="' + Especie +
-        '" and rruff_id="' + Sample_id + '");');
-    end;
-  end
-  else
-  begin
-    if Especie = EmptyStr then
-    begin
-      case TabIndex of
-      1:begin
-          DatabaseSamples.ExecSQL('DELETE FROM chemistry WHERE (rruff_id ="' +
-            Sample_id + '" AND digito="'+Digito+'" );');
-        end;
-      2:begin
-          DatabaseSamples.ExecSQL('DELETE FROM raman WHERE (rruff_id="' +
-            Sample_id + '" AND digito="'+Digito+'" );');
-        end;
-      3:begin
-          DatabaseSamples.ExecSQL('DELETE FROM varredura WHERE (rruff_id="' +
-            Sample_id + '" AND digito="'+Digito+'" );');
-        end;
-      4:begin
-
-          DatabaseSamples.ExecSQL('DELETE FROM difracao WHERE (rruff_id="' +
-            Sample_id + '"AND digito="'+Digito+'" );');
-        end;
-      5:begin
-          DatabaseSamples.ExecSQL('DELETE FROM infravermelho WHERE (rruff_id="' +
-            Sample_id+'" AND digito="'+Digito+'" );');
-        end;
-      end;
-    end
-    else
-    begin
-      DatabaseSamples.ExecSQL('DELETE FROM rruff WHERE (especie="' + Especie +
-        '" and rruff_id ="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM chemistry WHERE (especie="' + Especie +
-        '" and rruff_id ="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM raman WHERE (especie="' + Especie +
-        '" and rruff_id="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM varredura WHERE (especie="' + Especie +
-        '" and rruff_id="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM difracao WHERE (especie="' + Especie +
-        '" and rruff_id="' + Sample_id + '");');
-      DatabaseSamples.ExecSQL('DELETE FROM infravermelho WHERE (especie="' + Especie +
-        '" and rruff_id="' + Sample_id + '");');
-    end;
   end;
 end;
 

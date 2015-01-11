@@ -77,7 +77,6 @@ object FormAddMineral: TFormAddMineral
       Hint = 'Adicionar'
       Top = 5
       Width = 40
-      OnClick = ActionAddExecute
       ShowHint = True
       ParentShowHint = False
     end
@@ -87,7 +86,6 @@ object FormAddMineral: TFormAddMineral
       Hint = 'Limpar'
       Top = 5
       Width = 40
-      OnClick = ActionClearFieldsExecute
       ShowHint = True
       ParentShowHint = False
     end
@@ -97,7 +95,6 @@ object FormAddMineral: TFormAddMineral
       Hint = 'Fechar'
       Top = 5
       Width = 40
-      OnClick = Action1Execute
       ShowHint = True
       ParentShowHint = False
     end
@@ -772,15 +769,12 @@ object FormAddMineral: TFormAddMineral
     top = 184
     object ActionAdd: TAction
       Caption = 'ActionAdd'
-      OnExecute = ActionAddExecute
     end
     object ActionClearFields: TAction
       Caption = 'ActionClearFields'
-      OnExecute = ActionClearFieldsExecute
     end
     object Action1: TAction
       Caption = 'Action1'
-      OnExecute = Action1Execute
     end
   end
 end
