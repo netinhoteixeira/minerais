@@ -31,8 +31,8 @@ type
     ScrollBox1: TScrollBox;
     SpeedButtonApply: TSpeedButton;
     SpeedButtonClearCurrentMineralDB: TSpeedButton;
-    SpeedButtonMineralNew: TSpeedButton;
     SpeedButtonClose: TSpeedButton;
+    SpeedButtonMineralNew: TSpeedButton;
     SpeedButtonMineralSelect: TSpeedButton;
     procedure ActionApplyExecute(Sender: TObject);
     procedure ActionClearMineralExecute(Sender: TObject);
@@ -53,7 +53,7 @@ var
   Config:TIniFile;
 
 implementation
- uses unitadddatabase, udatamodule;
+ uses unitadddatabase, udatamodule, unitfichaespecie;
 {$R *.lfm}
 
 { TFormSelectDatabase }
@@ -89,7 +89,8 @@ procedure TFormSelectDatabase.ActionApplyExecute(Sender: TObject);
 begin
   if Dados.ChooseDatabase('mineral', Edit1.Text) then
    begin
-    Dados.DatabaseMineralFileName:=Edit1.Text;
+    Dados.SetDatabase(Edit1.Text);
+    FormFichaEspecie.AtualizarLista;
     FormSelectDatabase.Hide;
    end
   else

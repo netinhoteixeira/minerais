@@ -273,7 +273,7 @@ begin
   MemoAppend;
   SpeedButtonOpen.Hint:=Lang.Open;
   SpeedButtonSave.Hint:=Lang.Save;
-  SpeedButtonSaveAndUse.Hint:=Lang.SaveAndUse;
+  //SpeedButtonSaveAndUse.Hint:=Lang.SaveAndUse;
 end;
 
 procedure TFormTranslate.ActionOpenExecute(Sender: TObject);

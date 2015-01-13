@@ -20,12 +20,13 @@ type
     BCPanel1: TBCPanel;
     BCPanel2: TBCPanel;
     Edit1: TEdit;
-    SpeedButtonCreateDatabase: TSpeedButton;
     SpeedButtonClose: TSpeedButton;
+    SpeedButtonCreateDatabase: TSpeedButton;
     procedure ActionCloseExecute(Sender: TObject);
     procedure ActionCreateDatabaseExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure SpeedButtonCloseClick(Sender: TObject);
   private
     { private declarations }
   public
@@ -39,7 +40,7 @@ var
 
 implementation
 
-uses udatamodule;
+uses udatamodule, unitselectdatabase;
 
 {$R *.lfm}
 
@@ -92,6 +93,7 @@ begin
       config.WriteString('Database', 'Mineral', Dados.DatabaseMineralFileName);
     end;
     Config.Free;
+    FormSelectDatabase.Edit1.Text:=Edit1.Text;
     FormAddDatabase.Visible := False;
   end
   else
@@ -106,7 +108,7 @@ begin
     FormAddDatabase.Caption:=Lang.Add;
     BCLabelSetDatabaseName.Caption:=Lang.TypeTheNameOfDatabase;
     SpeedButtonCreateDatabase.Hint:=Lang.Confirm;
-    SpeedButtonClose.Hint:=Lang.Close;
+    //SpeedButtonApply.Hint:=Lang.Close;
   end;
   Config.Free;
 end;
@@ -114,6 +116,11 @@ end;
 procedure TFormAddDatabase.FormShow(Sender: TObject);
 begin
   Edit1.Text:=EmptyStr;
+end;
+
+procedure TFormAddDatabase.SpeedButtonCloseClick(Sender: TObject);
+begin
+  FormAddDatabase.Hide;
 end;
 
 procedure TFormAddDatabase.ActionCloseExecute(Sender: TObject);
