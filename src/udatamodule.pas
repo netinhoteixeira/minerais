@@ -66,7 +66,7 @@ interface
 
 uses
   Classes, SysUtils, Sqlite3DS, DB, SdfData, FileUtil, LR_Class,
-  LR_DBSet, SQLite3tablemod, Dialogs;
+  LR_DBSet, SQLite3tablemod, Dialogs, unitfichaespecie;
 
 type
 
@@ -79,36 +79,26 @@ type
     frDBDataSet1: TfrDBDataSet;
     frReport1: TfrReport;
     SdfDataSetLanguage: TSdfDataSet;
-    SdfDataSetGraficosValorX: TField;
-    SdfDataSetGraficosValorY: TField;
     Sqlite3DatasetPrinter: TSqlite3Dataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
     { private declarations }
   public
-    DatabaseMinerals: TSQLiteDatabase;  //
-    TableMinerals: TSQLiteTable;        // retirar
-    DatabaseSamples: TSQLiteDatabase;   //
-    TableSamples: TSQLiteTable;         //
+    DatabaseMinerals: TSQLiteDatabase;
+    TableMinerals: TSQLiteTable;
     Datasource: TDatasource;
     Dataset: TSDFDataset;
 
-    //guarda o caminho do banco de dados:
     DatabaseMineralFileName: String;
 
-    //guarda o caminho do arquivo config e dos arquivos .csv
-    //getcurrentdir+'\Data' ou getcurrentdir+'\'
     Caminho: String;
 
+    procedure SetDatabase(Filename:String);
     procedure UpdateField(Table, Field, NewValue, Especie, Sample, Digito,
       Direction: String);
     procedure CreateDatabase(Tipo, Diretorio: String);
     function ChooseDatabase(Tipo, Directory:String): Boolean;
-    //procedure AdicionaEspecie(Nome, Classe, Subclasse, Grupo, Subgrupo,
-      //Ocorrencia, Associacao, Cor, Brilho: string; Dureza_min, Dureza_max: real;
-      //Densidade_min, Densidade_max: string);
-
     procedure ExcluiMineral(Especie: string);
     function CriarDataset(Diretorio: string): TDatasource;
     { public declarations }
@@ -131,6 +121,13 @@ begin
   if SQLite3DatasetPrinter.Active then
     SQLite3DatasetPrinter.Close;
   DatabaseMinerals.Free;
+end;
+
+procedure TDados.SetDatabase(Filename: String);
+begin
+  DatabaseMineralFilename:=Filename;
+  DatabaseMinerals := TSQLiteDatabase.Create(Filename);
+  FormFichaEspecie.EditingMode(True);
 end;
 
 procedure TDados.UpdateField(Table, Field, NewValue, Especie, Sample, Digito,
@@ -177,6 +174,8 @@ begin
             '[mineralogiaimagem5] BLOB);';
     DatabaseMinerals.ExecSQL(ExecSQL);
     finally
+      SetDatabase(Diretorio);
+      FormFichaEspecie.EditingMode(True);
     end;
   end;
 end;

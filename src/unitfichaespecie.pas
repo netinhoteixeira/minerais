@@ -68,7 +68,7 @@ uses
   Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
   StdCtrls, DBCtrls, Buttons, Menus, ExtDlgs, ActnList,
   SQLite3tablemod, uFormImpressao, unitremovemineral, unitlanguage,
-  IniFiles, uBibliografia, unitselectdatabase;
+  IniFiles, uBibliografia;
 
 type
 
@@ -420,7 +420,6 @@ type
     procedure ToolButtonBibliografiaClick(Sender: TObject);
     procedure ToolButtonRemoveImageClick(Sender: TObject);
   private
-    function AtualizarLista: boolean;
     function DefinirOrdem: string;
     function Filtro_Nome: boolean;
     function Filtro_Ocorrencia: boolean;
@@ -428,10 +427,9 @@ type
     function Filtro_Cor: boolean;
     function Filtro_Brilho: boolean;
     function MineralogyName: string;
-    procedure AddMineralImage(Num: char);
+    procedure AddMineralImage(Tipo:String;Num: char);
     procedure ClearFields;
     procedure ConfigDatabase(config:TIniFile);
-    procedure EditingMode(Mode: boolean);
     procedure Image1OnClick(Sender: TObject);
     procedure Image2OnClick(Sender: TObject);
     procedure Image3OnClick(Sender: TObject);
@@ -449,6 +447,8 @@ type
     procedure RemoveImage(ImagemSelecionada:Char);
     { private declarations }
   public
+    procedure EditingMode(Mode: boolean);
+    function AtualizarLista: boolean;
     { public declarations }
   end;
 
@@ -487,7 +487,7 @@ var
 
 implementation
 
-uses udatamodule, unitBlobFields, unitaddmineral;
+uses udatamodule, unitBlobFields, unitaddmineral, unitselectdatabase;
 
 {$R *.lfm}
 
@@ -609,7 +609,6 @@ begin
   end;
   Config.Free;
   Mineralogy_Name.Caption:=MineralogyName;
-  RefreshImages;
 end;
 
 procedure TFormFichaEspecie.FormDestroy(Sender: TObject);
@@ -623,7 +622,7 @@ var
 begin
   Imagem_Selecionada := '1';
 
-  if Dados.DatabaseMineralFileName <> EmptyStr then
+  if Trim(Dados.DatabaseMineralFileName) <> EmptyStr then
   begin
     if FileExists(Dados.DatabaseMineralFileName) then
     begin
@@ -647,6 +646,7 @@ begin
       Preenche_Grupos;
       Preenche_Subgrupos;
       EditingMode(True);
+      RefreshImages;
     end
     else
     begin
@@ -1278,7 +1278,9 @@ begin
     if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
     begin
       if (Trim(EditNomeMineral.Text) <> EmptyStr) then
-        AddMineralImage(Imagem_Selecionada);
+        AddMineralImage('minerais',Imagem_Selecionada)
+      else
+        AddMineralImage('mineralogia',Imagem_Selecionada)
     end
     else ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
   end
@@ -1727,18 +1729,19 @@ begin
     Result := ComboBoxSubGrupo.Text;
 end;
 
-procedure TFormFichaEspecie.AddMineralImage(Num: char);
+procedure TFormFichaEspecie.AddMineralImage(Tipo:String; Num: char);
 begin
   OpenPictureDialog1.FileName := emptystr;
   if OpenPictureDialog1.Execute then
   if (OpenPictureDialog1.FileName <> emptystr) then
   begin
-    if ListboxMinerais.GetSelectedText <> EmptyStr then
+    if Tipo = 'minerais' then
     begin
       AddBlobFieldMineral(Dados.DatabaseMineralFileName, OpenPictureDialog1.FileName,
         'minerais', 'imagem' + Num, EditNomeMineral.Text);
     end
     else
+    if Tipo = 'mineralogia' then
     begin
       AddBlobFieldMineral(Dados.DatabaseMineralFileName, OpenPictureDialog1.FileName,
         'mineralogia', 'mineralogiaimagem' + Num, MineralogyName);
@@ -2705,14 +2708,14 @@ begin
     if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
     begin
       if (Trim(EditNomeMineral.Text) <> EmptyStr) then
-      begin   {ClearBlobField(Table, Field, Especie, Rruff_id, Digito, Tipo:String);}
+      begin
         ClearBlobField('minerais', 'imagem' + ImagemSelecionada,
           ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
       end
       else
       begin
         ClearBlobField('mineralogia', 'mineralogiaimagem' + Imagem_Selecionada,
-          ListboxMinerais.GetSelectedText, EmptyStr, EmptyStr, EmptyStr);
+          EmptyStr, EmptyStr, EmptyStr, MineralogyName);
       end;
       RefreshImages;
     end
@@ -3191,7 +3194,17 @@ end;
 
 procedure TFormFichaEspecie.ActionAddImage1Execute(Sender: TObject);
 begin
-  AddMineralImage('1');
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
+    if EditNomeMineral.Text <> EmptyStr then
+    begin
+      AddMineralImage('minerais','1');
+    end
+    else
+    begin
+      AddMineralImage('mineralogia','1');
+    end;
+  end;
 end;
 
 procedure TFormFichaEspecie.ActionAddExecute(Sender: TObject);
@@ -3214,32 +3227,92 @@ end;
 
 procedure TFormFichaEspecie.ActionAddImage2Execute(Sender: TObject);
 begin
-  AddMineralImage('2');
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
+    if EditNomeMineral.Text <> EmptyStr then
+    begin
+      AddMineralImage('minerais','2');
+    end
+    else
+    begin
+      AddMineralImage('mineralogia','2');
+    end;
+  end;
 end;
 
 procedure TFormFichaEspecie.ActionAddImage3Execute(Sender: TObject);
 begin
-  AddMineralImage('3');
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
+    if EditNomeMineral.Text <> EmptyStr then
+    begin
+      AddMineralImage('minerais','3');
+    end
+    else
+    begin
+      AddMineralImage('mineralogia','3');
+    end;
+  end;
 end;
 
 procedure TFormFichaEspecie.ActionAddImage4Execute(Sender: TObject);
 begin
-  AddMineralImage('4');
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
+    if EditNomeMineral.Text <> EmptyStr then
+    begin
+      AddMineralImage('minerais','4');
+    end
+    else
+    begin
+      AddMineralImage('mineralogia','4');
+    end;
+  end;
 end;
 
 procedure TFormFichaEspecie.ActionAddImage5Execute(Sender: TObject);
 begin
-  AddMineralImage('5');
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
+    if EditNomeMineral.Text <> EmptyStr then
+    begin
+      AddMineralImage('minerais','5');
+    end
+    else
+    begin
+      AddMineralImage('mineralogia','5');
+    end;
+  end;
 end;
 
 procedure TFormFichaEspecie.ActionAddImage6Execute(Sender: TObject);
 begin
-  AddMineralImage('6');
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
+    if EditNomeMineral.Text <> EmptyStr then
+    begin
+      AddMineralImage('minerais','6');
+    end
+    else
+    begin
+      AddMineralImage('mineralogia','6');
+    end;
+  end;
 end;
 
 procedure TFormFichaEspecie.ActionAddImage7Execute(Sender: TObject);
 begin
-  AddMineralImage('7');
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
+    if EditNomeMineral.Text <> EmptyStr then
+    begin
+      AddMineralImage('minerais','7');
+    end
+    else
+    begin
+      AddMineralImage('mineralogia','7');
+    end;
+  end;
 end;
 
 procedure TFormFichaEspecie.ActionFilterVisibleExecute(Sender: TObject);

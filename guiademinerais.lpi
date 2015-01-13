@@ -68,10 +68,10 @@
         <Filename Value="guiademinerais.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="guiademinerais"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="8"/>
-        <CursorPos X="5" Y="31"/>
+        <CursorPos X="3" Y="31"/>
         <UsageCount Value="290"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -93,13 +93,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="udatamodule"/>
-        <EditorIndex Value="3"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="160"/>
-        <CursorPos X="47" Y="236"/>
+        <TopLine Value="211"/>
+        <CursorPos X="45" Y="217"/>
         <UsageCount Value="290"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="src\uselecionabd.pas"/>
@@ -127,13 +127,10 @@
       <Unit5>
         <Filename Value="src\sqlite3tablemod.pas"/>
         <UnitName Value="sqlite3tablemod"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="875"/>
-        <CursorPos X="1" Y="891"/>
+        <CursorPos X="33" Y="893"/>
         <UsageCount Value="122"/>
-        <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="src\uformimpressao.pas"/>
@@ -395,8 +392,8 @@
         <UnitName Value="unitfichaespecie"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="144"/>
-        <CursorPos X="55" Y="3300"/>
+        <TopLine Value="2694"/>
+        <CursorPos X="12" Y="2711"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -480,11 +477,11 @@
         <Filename Value="src\unitblobfields.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unitBlobFields"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="144"/>
-        <CursorPos X="1" Y="171"/>
-        <UsageCount Value="194"/>
+        <TopLine Value="69"/>
+        <CursorPos X="11" Y="74"/>
+        <UsageCount Value="196"/>
         <Loaded Value="True"/>
       </Unit45>
       <Unit46>
@@ -568,7 +565,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="333"/>
         <CursorPos X="45" Y="313"/>
-        <UsageCount Value="150"/>
+        <UsageCount Value="152"/>
       </Unit54>
       <Unit55>
         <Filename Value="src\unitselectdatabase.pas"/>
@@ -577,11 +574,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitselectdatabase"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="93"/>
-        <CursorPos X="47" Y="92"/>
-        <UsageCount Value="140"/>
+        <TopLine Value="76"/>
+        <CursorPos X="36" Y="93"/>
+        <UsageCount Value="142"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit55>
@@ -592,12 +589,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitadddatabase"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="12"/>
-        <CursorPos X="63" Y="61"/>
-        <UsageCount Value="139"/>
+        <TopLine Value="97"/>
+        <CursorPos X="20" Y="112"/>
+        <UsageCount Value="141"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit56>
       <Unit57>
         <Filename Value="src\unitaddsample.pas"/>
@@ -647,7 +645,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="64"/>
         <CursorPos X="24" Y="16"/>
-        <UsageCount Value="86"/>
+        <UsageCount Value="88"/>
       </Unit61>
       <Unit62>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\packages\fcl-image\src\fpimage.pp"/>
@@ -664,7 +662,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="184"/>
         <CursorPos X="24" Y="208"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="57"/>
       </Unit63>
       <Unit64>
         <Filename Value="src\unitformlanguage.pas"/>
@@ -676,7 +674,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="52"/>
         <CursorPos X="11" Y="77"/>
-        <UsageCount Value="49"/>
+        <UsageCount Value="51"/>
       </Unit64>
       <Unit65>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\packages\fcl-base\src\inifiles.pp"/>
@@ -703,8 +701,8 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="248"/>
-        <CursorPos X="38" Y="282"/>
-        <UsageCount Value="29"/>
+        <CursorPos X="16" Y="274"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit67>
@@ -728,8 +726,8 @@
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="746"/>
-        <CursorPos X="21" Y="766"/>
-        <UsageCount Value="10"/>
+        <CursorPos X="7" Y="771"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit70>
@@ -743,132 +741,136 @@
       </Unit71>
       <Unit72>
         <Filename Value="src\unitremovemineral.lfm"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="158"/>
         <CursorPos X="16" Y="176"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit72>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="src\unitselectdatabase.pas"/>
-        <Caret Line="17" Column="74" TopLine="1"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="640" Column="1" TopLine="623"/>
       </Position1>
       <Position2>
-        <Filename Value="src\unitselectdatabase.pas"/>
-        <Caret Line="18" Column="74" TopLine="1"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1276" Column="3" TopLine="1273"/>
       </Position2>
       <Position3>
-        <Filename Value="src\unitselectdatabase.pas"/>
-        <Caret Line="91" Column="12" TopLine="89"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="430" Column="30" TopLine="413"/>
       </Position3>
       <Position4>
-        <Filename Value="src\udatamodule.pas"/>
-        <Caret Line="110" Column="14" TopLine="110"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1281" Column="24" TopLine="1253"/>
       </Position4>
       <Position5>
-        <Filename Value="src\udatamodule.pas"/>
-        <Caret Line="109" Column="14" TopLine="109"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1742" Column="33" TopLine="448"/>
       </Position5>
       <Position6>
-        <Filename Value="src\udatamodule.pas"/>
-        <Caret Line="108" Column="14" TopLine="108"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1730" Column="29" TopLine="1702"/>
       </Position6>
       <Position7>
-        <Filename Value="src\udatamodule.pas"/>
-        <Caret Line="107" Column="14" TopLine="107"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1281" Column="9" TopLine="1253"/>
       </Position7>
       <Position8>
-        <Filename Value="src\unitadddatabase.pas"/>
-        <Caret Line="100" Column="23" TopLine="96"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="430" Column="43" TopLine="414"/>
       </Position8>
       <Position9>
-        <Filename Value="src\unitselectdatabase.pas"/>
-        <Caret Line="124" Column="55" TopLine="1"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1281" Column="24" TopLine="1253"/>
       </Position9>
       <Position10>
-        <Filename Value="src\unitblobfields.pas"/>
-        <Caret Line="89" Column="31" TopLine="100"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1283" Column="24" TopLine="1255"/>
       </Position10>
       <Position11>
-        <Filename Value="src\unitblobfields.pas"/>
-        <Caret Line="71" Column="28" TopLine="67"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1732" Column="44" TopLine="1704"/>
       </Position11>
       <Position12>
-        <Filename Value="src\unitblobfields.pas"/>
-        <Caret Line="171" Column="1" TopLine="144"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="3197" Column="18" TopLine="3169"/>
       </Position12>
       <Position13>
-        <Filename Value="guiademinerais.lpr"/>
-        <Caret Line="30" Column="1" TopLine="8"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1732" Column="29" TopLine="1715"/>
       </Position13>
       <Position14>
-        <Filename Value="guiademinerais.lpr"/>
-        <Caret Line="41" Column="1" TopLine="8"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="3203" Column="18" TopLine="3175"/>
       </Position14>
       <Position15>
-        <Filename Value="guiademinerais.lpr"/>
-        <Caret Line="31" Column="5" TopLine="8"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="3205" Column="22" TopLine="3177"/>
       </Position15>
       <Position16>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="72" Column="35" TopLine="52"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="3249" Column="35" TopLine="3225"/>
       </Position16>
       <Position17>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="153" Column="17" TopLine="126"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="3308" Column="7" TopLine="44"/>
       </Position17>
       <Position18>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="162" Column="17" TopLine="135"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1297" Column="3" TopLine="1289"/>
       </Position18>
       <Position19>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="171" Column="17" TopLine="144"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="447" Column="26" TopLine="432"/>
       </Position19>
       <Position20>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="176" Column="30" TopLine="148"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="608" Column="49" TopLine="580"/>
       </Position20>
       <Position21>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="179" Column="33" TopLine="151"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1195" Column="14" TopLine="1167"/>
       </Position21>
       <Position22>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="180" Column="24" TopLine="152"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1200" Column="14" TopLine="1172"/>
       </Position22>
       <Position23>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="181" Column="25" TopLine="153"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1205" Column="14" TopLine="1177"/>
       </Position23>
       <Position24>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="183" Column="36" TopLine="155"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1210" Column="14" TopLine="1182"/>
       </Position24>
       <Position25>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="184" Column="24" TopLine="156"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1215" Column="14" TopLine="1187"/>
       </Position25>
       <Position26>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="185" Column="25" TopLine="157"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1220" Column="14" TopLine="1192"/>
       </Position26>
       <Position27>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="187" Column="32" TopLine="158"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1225" Column="14" TopLine="1197"/>
       </Position27>
       <Position28>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="188" Column="24" TopLine="158"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1295" Column="50" TopLine="1267"/>
       </Position28>
       <Position29>
-        <Filename Value="src\unitremovemineral.lfm"/>
-        <Caret Line="189" Column="25" TopLine="158"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="1297" Column="14" TopLine="1269"/>
       </Position29>
+      <Position30>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="2704" Column="40" TopLine="2694"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

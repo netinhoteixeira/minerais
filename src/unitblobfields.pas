@@ -79,7 +79,7 @@ var
 
 implementation
 
-uses uDataModule, unitGraficos;
+uses uDataModule;
 
 function SelectBlobFieldToJPEGImage(Table, Field, Especie, Rruff_id, Digito,
   Tipo: String): TJPEGImage;
