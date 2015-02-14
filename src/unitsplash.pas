@@ -5,7 +5,8 @@ unit unitSplash;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  StdCtrls;
 
 type
 
@@ -13,6 +14,7 @@ type
 
   TFormSplash = class(TForm)
     Image1: TImage;
+    Label1: TLabel;
   private
     { private declarations }
   public

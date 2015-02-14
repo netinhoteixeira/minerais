@@ -3,7 +3,7 @@ object FormFichaEspecie: TFormFichaEspecie
   Height = 662
   Top = 8
   Width = 1268
-  Caption = 'Minerais'
+  Caption = 'Guia de Minerais'
   ClientHeight = 642
   ClientWidth = 1268
   Menu = MainMenu1
@@ -1285,6 +1285,7 @@ object FormFichaEspecie: TFormFichaEspecie
     ClientHeight = 592
     ClientWidth = 179
     TabOrder = 2
+    Visible = False
     object BCPanel2: TBCPanel
       Left = 0
       Height = 635
@@ -2228,7 +2229,7 @@ object FormFichaEspecie: TFormFichaEspecie
     ParentColor = False
     TabOrder = 5
     object ToolButtonAdd: TToolButton
-      Left = 34
+      Left = 29
       Hint = 'Adicionar'
       Top = 2
       Caption = 'ToolButtonAdd'
@@ -2238,7 +2239,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButtonRemove: TToolButton
-      Left = 57
+      Left = 52
       Hint = 'Remover'
       Top = 2
       Caption = 'ToolButtonRemove'
@@ -2248,14 +2249,14 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButton5: TToolButton
-      Left = 80
+      Left = 75
       Top = 2
       Width = 5
       Caption = 'ToolButton5'
       Style = tbsDivider
     end
     object ToolButtonRefresh: TToolButton
-      Left = 85
+      Left = 80
       Hint = 'Atualizar'
       Top = 2
       Caption = 'ToolButtonRefresh'
@@ -2265,14 +2266,14 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButton7: TToolButton
-      Left = 108
+      Left = 103
       Top = 2
       Width = 5
       Caption = 'ToolButton7'
       Style = tbsDivider
     end
     object ToolButtonPrint: TToolButton
-      Left = 113
+      Left = 108
       Hint = 'Imprimir'
       Top = 2
       Caption = 'ToolButtonPrint'
@@ -2280,9 +2281,10 @@ object FormFichaEspecie: TFormFichaEspecie
       OnClick = ActionFormPrintExecute
       ParentShowHint = False
       ShowHint = True
+      Visible = False
     end
     object ToolButtonShowFilter: TToolButton
-      Left = 141
+      Left = 136
       Hint = 'Filtro'
       Top = 2
       Caption = 'ToolButtonShowFilter'
@@ -2292,7 +2294,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButtonShowImages: TToolButton
-      Left = 169
+      Left = 164
       Hint = 'Imagens'
       Top = 2
       Caption = 'ToolButtonShowImages'
@@ -2302,14 +2304,14 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButton1: TToolButton
-      Left = 192
+      Left = 187
       Top = 2
       Width = 5
       Caption = 'ToolButton1'
       Style = tbsDivider
     end
     object ToolButtonBibliografia: TToolButton
-      Left = 197
+      Left = 192
       Hint = 'Bibliografia'
       Top = 2
       Caption = 'ToolButtonBibliografia'
@@ -2319,44 +2321,11 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButton6: TToolButton
-      Left = 220
+      Left = 215
       Top = 2
       Width = 5
       Caption = 'ToolButton6'
       Style = tbsDivider
-    end
-    object LabelFont: TLabel
-      Left = 225
-      Height = 15
-      Top = 2
-      Width = 50
-      Caption = 'Font Size:'
-      Font.Color = clHighlightText
-      ParentColor = False
-      ParentFont = False
-      Visible = False
-    end
-    object ComboBox1: TComboBox
-      Left = 275
-      Height = 23
-      Hint = 'Tamanho da fonte'
-      Top = 2
-      Width = 55
-      ItemHeight = 15
-      ItemIndex = 0
-      Items.Strings = (
-        '10'
-        '12'
-        '14'
-        '16'
-      )
-      OnChange = ComboBox1Change
-      ParentShowHint = False
-      ShowHint = True
-      Style = csDropDownList
-      TabOrder = 0
-      Text = '10'
-      Visible = False
     end
     object Mineralogy_Name: TLabel
       Left = 1267
@@ -2369,16 +2338,17 @@ object FormFichaEspecie: TFormFichaEspecie
       ParentFont = False
     end
     object ToolButtonHelp: TToolButton
-      Left = 353
+      Left = 243
       Hint = 'Ajuda'
       Top = 2
       Caption = 'ToolButtonHelp'
       ImageIndex = 19
+      OnClick = ActionMenuHelpExecute
       ParentShowHint = False
       ShowHint = True
     end
     object ToolButton3: TToolButton
-      Left = 164
+      Left = 159
       Top = 2
       Width = 5
       Caption = 'ToolButton3'
@@ -2394,28 +2364,27 @@ object FormFichaEspecie: TFormFichaEspecie
       ParentShowHint = False
       ShowHint = True
     end
-    object ToolButtonLanguage: TToolButton
-      Left = 330
-      Hint = 'Language'
-      Top = 2
-      Caption = 'ToolButtonLanguage'
-      ImageIndex = 17
-      ParentShowHint = False
-      ShowHint = True
-    end
     object ToolButton8: TToolButton
-      Left = 136
+      Left = 131
       Top = 2
       Width = 5
       Caption = 'ToolButton8'
       Style = tbsDivider
+      Visible = False
     end
     object ToolButton4: TToolButton
       Left = 24
       Top = 2
-      Width = 10
+      Width = 5
       Caption = 'ToolButton4'
-      Style = tbsSeparator
+      Style = tbsDivider
+    end
+    object ToolButton9: TToolButton
+      Left = 220
+      Top = 2
+      Caption = 'ToolButton9'
+      ImageIndex = 20
+      OnClick = ActionMenuConfExecute
     end
   end
   object OpenPictureDialog1: TOpenPictureDialog
@@ -2482,12 +2451,20 @@ object FormFichaEspecie: TFormFichaEspecie
       Caption = 'ActionOpenDatabaseForm'
       OnExecute = ActionOpenDatabaseFormExecute
     end
+    object ActionMenuConf: TAction
+      Caption = 'ActionMenuConf'
+      OnExecute = ActionMenuConfExecute
+    end
+    object ActionMenuHelp: TAction
+      Caption = 'ActionMenuHelp'
+      OnExecute = ActionMenuHelpExecute
+    end
   end
   object ImageList1: TImageList
     left = 64
     top = 320
     Bitmap = {
-      4C69140000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      4C69150000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -3127,6 +3104,38 @@ object FormFichaEspecie: TFormFichaEspecie
       4423AC72417DAA703FDBA86D3CF3A76B3AF3A56937DBA468357DA3663323FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00C0C0C0FFB7B7B7FFB6B6B6FFBCBCBCFFFFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00DEDEDEFFDEDEDEFFF2F2
+      F200FFFFFF00C1C1C1FFE5E5E5FFE4E4E4FFA9A9A9FFFEFEFE00F1F1F100D9D9
+      D9FFD9D9D9FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00BABABAFFCDCDCDFFC2C2
+      C2FFE7E7E7FFC8C8C8FFDEDEDEFFDDDDDDFFBABABAFFE5E5E5FFA9A9A9FFA7A7
+      A7FFA5A5A5FFFFFFFF00FFFFFF00FFFFFF00BCBCBCFFDCDCDCFFEDEDEDFFDBDB
+      DBFFC4C4C4FFBDBDBDFFD6D6D6FFD4D4D4FFAFAFAFFFB0B0B0FFCBCBCBFFE7E7
+      E7FFB7B7B7FFA3A3A3FFFFFFFF00FFFFFF00BABABAFFC3C3C3FFDCDCDCFFD4D4
+      D4FFD9D9D9FFDBDBDBFFD6D6D6FFD4D4D4FFD9D9D9FFD2D2D2FFCBCBCBFFC8C8
+      C8FF797979FF999999FFFFFFFF00FFFFFF00FFFFFF00B7B7B7FFD4D4D4FFCCCC
+      CCFFC9C9C9FFBABABAFF9C9C9CFFA1A1A1FFC2C2C2FFC6C6C6FFC1C1C1FFB7B7
+      B7FF9F9F9FFFFFFFFF00FFFFFF00BBBBBBFFBBBBBBFFC4C4C4FFD8D8D8FFCDCD
+      CDFFBCBCBCFF8C8C8CFFDBDBDBCDDDDDDDCD959595FFC3C3C3FFC2C2C2FFCDCD
+      CDFF979797FF8B8B8BFF8B8B8BFFC2C2C2FFE9E9E9FFD6D6D6FFC9C9C9FFCECE
+      CEFFA5A5A5FFDEDEDECDFFFFFF00FFFFFF00E4E4E4CDACACACFFC4C4C4FFBABA
+      BAFFC6C6C6FFDDDDDDFF6B6B6BFFBEBEBEFFE2E2E2FFD2D2D2FFC6C6C6FFCDCD
+      CDFFB1B1B1FFE2E2E2CDFFFFFF00FFFFFF00E3E3E3CDA8A8A8FFC2C2C2FFB7B7
+      B7FFC0C0C0FFD2D2D2FF616161FFA1A1A1FF919191FFA8A8A8FFCFCFCFFFC6C6
+      C6FFCCCCCCFF9E9E9EFFE4E4E4CDE2E2E2CD959595FFC1C1C1FFBCBCBCFFB9B9
+      B9FF737373FF656565FF6B6B6BFFFFFFFF00FFFFFF00ADADADFFC5C5C5FFC1C1
+      C1FFC5C5C5FFC7C7C7FFAAAAAAFFA7A7A7FFC1C1C1FFBEBEBEFFB5B5B5FFAAAA
+      AAFF939393FFFFFFFF00FFFFFF00FFFFFF00AEAEAEFFA5A5A5FFD5D5D5FFC5C5
+      C5FFCBCBCBFFD1D1D1FFC9C9C9FFC7C7C7FFCCCCCCFFC5C5C5FFBDBDBDFFCBCB
+      CBFF6E6E6EFF959595FFFFFFFF00FFFFFF00ACACACFFBCBCBCFFDEDEDEFFA6A6
+      A6FF898989FF858585FFC4C4C4FFC2C2C2FF6E6E6EFF767676FFA6A6A6FFD2D2
+      D2FF808080FF8F8F8FFFFFFFFF00FFFFFF00FFFFFF00959595FF707070FF6E6E
+      6EFFE1E1E1FF949494FFCBCBCBFFC7C7C7FF787878FFDEDEDEFF646464FF4F4F
+      4FFF7B7B7BFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00D0D0D0FFD0D0D0FFEDED
+      ED66FEFEFE00848484FFBDBDBDFFB2B2B2FF656565FFFEFEFE00ECECEC88CCCC
+      CCFFCCCCCCFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00A4A4A4FF747474FF707070FF9C9C9CFFFFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
   end
@@ -3135,32 +3144,25 @@ object FormFichaEspecie: TFormFichaEspecie
     top = 248
     object MenuItem1: TMenuItem
       Caption = 'Arquivo'
-      object MenuItem7: TMenuItem
-        Caption = 'Adicionar Mineral'
-        OnClick = ActionAddExecute
-      end
-      object MenuItem8: TMenuItem
-        Caption = 'Remover Mineral'
-        OnClick = ActionRemoveMineralExecute
-      end
-      object MenuItem9: TMenuItem
+      object MenuItemPrint: TMenuItem
         Caption = 'Imprimir'
+        Visible = False
         OnClick = ActionFormPrintExecute
       end
-      object MenuItem4: TMenuItem
+      object MenuItemClose: TMenuItem
         Caption = 'Sair'
-        OnClick = MenuItem4Click
+        OnClick = MenuItemCloseClick
       end
     end
     object MenuItem2: TMenuItem
       Caption = 'Editar'
-      object MenuItem10: TMenuItem
+      object MenuItemAddImage: TMenuItem
         Caption = 'Adicionar'
-        object MenuItem12: TMenuItem
+        object MenuItemAddImage1: TMenuItem
           Caption = 'Imagem 1'
           OnClick = ActionAddImage1Execute
         end
-        object MenuItem13: TMenuItem
+        object MenuItemAddImage2: TMenuItem
           Caption = 'Imagem 2'
           OnClick = ActionAddImage2Execute
         end
@@ -3185,15 +3187,15 @@ object FormFichaEspecie: TFormFichaEspecie
           OnClick = ActionAddImage7Execute
         end
       end
-      object MenuItem11: TMenuItem
+      object MenuItemRemoveImage: TMenuItem
         Caption = 'Remover'
-        object MenuItem19: TMenuItem
+        object MenuItemRemImage1: TMenuItem
           Caption = 'Imagem 1'
-          OnClick = MenuItem19Click
+          OnClick = MenuItemRemImage1Click
         end
-        object MenuItem20: TMenuItem
+        object MenuItemRemImage2: TMenuItem
           Caption = 'Imagem 2'
-          OnClick = MenuItem20Click
+          OnClick = MenuItemRemImage2Click
         end
         object MenuItem21: TMenuItem
           Caption = 'Imagem 3'
@@ -3219,6 +3221,18 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object MenuItem3: TMenuItem
       Caption = 'Exibir'
+      object MenuItemAddMineral: TMenuItem
+        Caption = 'Adicionar Mineral'
+        OnClick = ActionAddExecute
+      end
+      object MenuItemRemoveMineral: TMenuItem
+        Caption = 'Remover Minerais'
+        OnClick = ActionRemoveMineralExecute
+      end
+      object MenuItemConfiguracao: TMenuItem
+        Caption = 'Configurações'
+        OnClick = ActionMenuConfExecute
+      end
       object MenuItem5: TMenuItem
         Caption = 'Filtro'
         OnClick = ActionFilterVisibleExecute
@@ -3227,10 +3241,15 @@ object FormFichaEspecie: TFormFichaEspecie
         Caption = 'Imagens'
         OnClick = ActionImagesVisibleExecute
       end
-      object MenuItem26: TMenuItem
+      object MenuItemBibliografia: TMenuItem
         Caption = 'Bibliografia'
-        OnClick = MenuItem26Click
+        Visible = False
+        OnClick = MenuItemBibliografiaClick
       end
+    end
+    object MenuItemAjuda: TMenuItem
+      Caption = 'Ajuda'
+      OnClick = ActionMenuHelpExecute
     end
   end
   object ImageListHeaderControl: TImageList

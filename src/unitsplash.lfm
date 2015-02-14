@@ -3381,4 +3381,14 @@ object FormSplash: TFormSplash
     }
     Stretch = True
   end
+  object Label1: TLabel
+    Left = 200
+    Height = 15
+    Top = 216
+    Width = 93
+    Caption = 'versão para testes'
+    Font.Color = clRed
+    ParentColor = False
+    ParentFont = False
+  end
 end

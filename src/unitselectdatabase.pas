@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, BCLabel, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, Buttons, ActnList, ExtCtrls, INIFiles, unitLanguage;
+  Dialogs, StdCtrls, Buttons, ActnList, ExtCtrls, INIFiles;
 
 type
 
@@ -44,6 +44,7 @@ type
   private
     { private declarations }
   public
+    procedure ChangeLanguage;
     { public declarations }
   end;
 
@@ -53,7 +54,7 @@ var
   Config:TIniFile;
 
 implementation
- uses unitadddatabase, udatamodule, unitfichaespecie;
+ uses unitadddatabase, udatamodule, unitfichaespecie, unitlanguage;
 {$R *.lfm}
 
 { TFormSelectDatabase }
@@ -61,6 +62,11 @@ implementation
 procedure TFormSelectDatabase.FormCreate(Sender: TObject);
 begin
   OpenDialog1.Filter:='ALL FILES |  *.s3db; *.sqlite; *.db;';
+  ChangeLanguage;
+end;
+
+procedure TFormSelectDatabase.ChangeLanguage;
+begin
   FormSelectDatabase.Caption:=Lang.Database;
   BCLabelMineralDB.Caption:=Lang.CurrentDatabase;
   SpeedButtonMineralSelect.Hint:=Lang.SelectMineralDatabase;
@@ -91,6 +97,11 @@ begin
    begin
     Dados.SetDatabase(Edit1.Text);
     FormFichaEspecie.AtualizarLista;
+    FormFichaEspecie.Preenche_Classes;
+    FormFichaEspecie.Preenche_Subclasses;
+    FormFichaEspecie.Preenche_Grupos;
+    FormFichaEspecie.Preenche_SubGrupos;
+    FormFichaEspecie.RefreshImages;
     FormSelectDatabase.Hide;
    end
   else

@@ -81,13 +81,11 @@ begin
   Memo1.Append(Lang.SubSamples);
   Memo1.Append(Lang.AddMineral);
   Memo1.Append(Lang.RemoveMineral);
-  Memo1.Append(Lang.AddSample);
-  Memo1.Append(Lang.RemoveSample);
+
   Memo1.Append(Lang.TypeTheNameOfDatabase);
   Memo1.Append(Lang.CreateMineralDatabase);
   Memo1.Append(Lang.SelectMineralDatabase);
-  Memo1.Append(Lang.CreateAnalisysDatabase);
-  Memo1.Append(Lang.SelectAnalisysDatabase);
+
   Memo1.Append(Lang.Add);
   Memo1.Append(Lang.Remove);
   Memo1.Append(Lang.RemoveAll);
@@ -148,77 +146,14 @@ begin
   Memo1.Append(Lang.Hardness);
   Memo1.Append(Lang.Density);
 
-  Memo1.Append(Lang.ExistingSamples);
-  Memo1.Append(Lang.CreateSubSampling);
-  Memo1.Append(Lang.TypeOfAnalysis);
-  Memo1.Append(Lang.Direction);
-  Memo1.Append(Lang.ExistingSubsamples);
-
-  Memo1.Append(Lang.Raman);
-  Memo1.Append(Lang.BroadScan);
-  Memo1.Append(Lang.Infrared);
-  Memo1.Append(Lang.Difraction);
-
-  Memo1.Append(Lang.AddChemistryImage);
-  Memo1.Append(Lang.RemoveChemistryImage);
-
-  Memo1.Append(Lang.AddMicroprobeData);
-  Memo1.Append(Lang.ViewMicroprobeData);
-  Memo1.Append(Lang.RemoveMicroprobeData);
-
-  Memo1.Append(Lang.AddRamanData);
-  Memo1.Append(Lang.ViewRamanData);
-  Memo1.Append(Lang.RemoveRamanData);
-
-  Memo1.Append(Lang.AddBroadScanData);
-  Memo1.Append(Lang.ViewBroadScanData);
-  Memo1.Append(Lang.RemoveBroadScanData);
-
-  Memo1.Append(Lang.AddInfraredData);
-  Memo1.Append(Lang.ViewInfraredData);
-  Memo1.Append(Lang.RemoveInfraredData);
-
-  Memo1.Append(Lang.AddDifractionData);
-  Memo1.Append(Lang.ViewDifractionData);
-  Memo1.Append(Lang.RemoveDifractionData);
-
   Memo1.Append(Lang.Description);
-  Memo1.Append(Lang.ChemichalAnalysis);
-  Memo1.Append(Lang.RamanSpectroscopy);
-  Memo1.Append(Lang.BroadScanWithSpectralArtifacts);
-  Memo1.Append(Lang.InfraredSpectrum);
-  Memo1.Append(Lang.MineralPowderDiffraction);
 
   Memo1.Append(Lang.AddData);
   Memo1.Append(Lang.ViewData);
   Memo1.Append(Lang.RemoveData);
 
   Memo1.Append(Lang.Specie);
-  Memo1.Append(Lang.Identification);
-  Memo1.Append(Lang.IdealChemistry);
-  Memo1.Append(Lang.Locality);
-  Memo1.Append(Lang.Source);
-  Memo1.Append(Lang.Owner);
-  Memo1.Append(Lang.Situation);
 
-  Memo1.Append(Lang.Microprobe);
-  Memo1.Append(Lang.ChemicalMeasure);
-  Memo1.Append(Lang.LaserPolarizationDirection);
-  Memo1.Append(Lang.PinId);
-  Memo1.Append(Lang.Orientation);
-  Memo1.Append(Lang.Equipment);
-  Memo1.Append(Lang.Equipments);
-  Memo1.Append(Lang.Wavelength);
-
-  Memo1.Append(Lang.Resolution);
-
-  Memo1.Append(Lang.CellRefinement);
-  Memo1.Append(Lang.a);
-  Memo1.Append(Lang.b);
-  Memo1.Append(Lang.c);
-  Memo1.Append(Lang.alpha);
-  Memo1.Append(Lang.beta);
-  Memo1.Append(Lang.gamma);
   Memo1.Append(Lang.Volume);
 
   Memo1.Append(Lang.Print);

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
-  ComCtrls, Buttons, StdCtrls, ActnList, INIFiles, UnitLanguage;
+  Buttons, StdCtrls, ActnList, INIFiles, UnitLanguage;
 
 type
 
@@ -19,6 +19,7 @@ type
     ActionList1: TActionList;
     BCPanel1: TBCPanel;
     BCPanel2: TBCPanel;
+    ImageList1: TImageList;
     ListBox1: TListBox;
     SpeedButtonRemove: TSpeedButton;
     SpeedButtonRemoveAll: TSpeedButton;
@@ -31,6 +32,7 @@ type
   private
     { private declarations }
   public
+    procedure ChangeLanguage;
     { public declarations }
   end;
 
@@ -39,7 +41,7 @@ var
   Config:TIniFile;
 
 implementation
-uses udatamodule;
+uses udatamodule, unitformconfigurations;
 {$R *.lfm}
 
 { TFormRemoveMineral }
@@ -58,6 +60,14 @@ begin
       end;
 end;
 
+procedure TFormRemoveMineral.ChangeLanguage;
+begin
+  FormRemoveMineral.Caption:=Lang.Remove;
+  SpeedButtonRemove.Hint:=Lang.Remove;
+  SpeedButtonRemoveAll.Hint:=Lang.RemoveAll;
+  SpeedButtonClose.Hint:=Lang.Close;
+end;
+
 procedure TFormRemoveMineral.ActionRemoveExecute(Sender: TObject);
 begin
   if Trim(Listbox1.GetSelectedText) <> EmptyStr then
@@ -73,12 +83,9 @@ end;
 procedure TFormRemoveMineral.FormCreate(Sender: TObject);
 begin
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
   begin
-    FormRemoveMineral.Caption:=Lang.Remove;
-    SpeedButtonRemove.Hint:=Lang.Remove;
-    SpeedButtonRemoveAll.Hint:=Lang.RemoveAll;
-    SpeedButtonClose.Hint:=Lang.Close;
+    ChangeLanguage;
   end;
   Config.Free;
 end;

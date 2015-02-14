@@ -124,7 +124,7 @@ var
 
 implementation
 
-uses udatamodule;
+uses udatamodule, unitformconfigurations;
 
 {$R *.lfm}
 
