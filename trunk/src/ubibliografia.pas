@@ -28,10 +28,12 @@ type
     procedure ActionEditExecute(Sender: TObject);
     procedure ActionSaveExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
   public
+    procedure ChangeLanguage;
     { public declarations }
   end; 
 
@@ -45,7 +47,7 @@ var
 
 implementation
 {$R *.lfm}
-uses udatamodule;
+uses udatamodule, unitformconfigurations;
 
 { TFormBibliografia }
 
@@ -65,8 +67,6 @@ begin
               begin
                 Memo1.Append(Dados.TableMinerals.Fields[0]);
               end;
-          TableMinerals.Free;
-          DatabaseMinerals.Free;
         end;
 
   //if filename *.s3db ou .sqlite, etc...
@@ -87,6 +87,14 @@ begin
        AssignFile(Bibliografia, Diretorio);
        ReWrite(Bibliografia);
   end; }
+end;
+
+procedure TFormBibliografia.ChangeLanguage;
+begin
+  FormBibliografia.Caption:=Lang.Bibliography;
+  SpeedButtonSave.Hint:=Lang.Save;
+  SpeedButtonEdit.Hint:=Lang.Edit;
+  SpeedButtonClose.Hint:=Lang.Close;
 end;
 
 procedure TFormBibliografia.ActionSaveExecute(Sender: TObject);
@@ -115,14 +123,30 @@ end;
 procedure TFormBibliografia.FormCreate(Sender: TObject);
 begin
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
   begin
-    FormBibliografia.Caption:=Lang.Bibliography;
-    SpeedButtonSave.Hint:=Lang.Save;
-    SpeedButtonEdit.Hint:=Lang.Edit;
-    SpeedButtonClose.Hint:=Lang.Close;
+    ChangeLanguage;
   end;
   Config.Free;
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+    if FileExists(Dados.DatabaseMineralFileName) then
+      if Dados.ChooseDatabase('mineral',Dados.DatabaseMineralFileName) then
+        begin
+          DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
+          TableMinerals:= DatabaseMinerals.GetTable(
+            'SELECT campo FROM mineralogia WHERE campo="bibliografia" ;');
+          if TableMinerals.Count>0 then
+            if TableMinerals.MoveFirst then
+              begin
+                Memo1.Append(Dados.TableMinerals.Fields[0]);
+              end;
+        end;
+end;
+
+procedure TFormBibliografia.FormDestroy(Sender: TObject);
+begin
+  TableMinerals.Free;
+  DatabaseMinerals.Free;
 end;
 
 procedure TFormBibliografia.ActionEditExecute(Sender: TObject);

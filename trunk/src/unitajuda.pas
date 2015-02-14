@@ -23,6 +23,7 @@ type
   private
     { private declarations }
   public
+    procedure ChangeLanguage;
     { public declarations }
   end; 
 
@@ -31,7 +32,7 @@ var
   Config:TIniFile;
 
 implementation
-uses udatamodule;
+uses udatamodule, unitformconfigurations;
 
 {$R *.lfm}
 
@@ -42,6 +43,11 @@ begin
 
 end;
 
+procedure TFormAjuda.ChangeLanguage;
+begin
+  FormAjuda.Caption:=Lang.Help;
+end;
+
 procedure TFormAjuda.FormCreate(Sender: TObject);
 begin
   if FileExists(GetCurrentDir+'\Ajuda\index.html') then
@@ -49,7 +55,7 @@ begin
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
   if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
   begin
-    FormAjuda.Caption:=Lang.Help;
+    ChangeLanguage;
   end;
   Config.Free;
 end;

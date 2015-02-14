@@ -171,7 +171,8 @@ begin
       'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] '+
         'TEXT, [texto] TEXT, [mineralogiaimagem1] BLOB, [mineralogiaimagem2] BLOB, '+
           '[mineralogiaimagem3] BLOB, [mineralogiaimagem4] BLOB, '+
-            '[mineralogiaimagem5] BLOB);';
+            '[mineralogiaimagem5] BLOB, [mineralogiaimagem6] BLOB, '+
+            '[mineralogiaimagem7] BLOB );';
     DatabaseMinerals.ExecSQL(ExecSQL);
     finally
       SetDatabase(Diretorio);
@@ -182,17 +183,7 @@ end;
 
 procedure TDados.DataModuleCreate(Sender: TObject);
 begin
-  if DirectoryExists(GetCurrentDir+'\Data') then
-    Caminho:=GetCurrentDir+'\Data'
-  else
-    begin
-      try
-        MkDir(GetCurrentDir+'\Data');
-        Caminho:=GetCurrentDir+'\Data';
-      except
-        Caminho:=GetCurrentDir+'\';
-      end;
-    end;
+  Caminho:=GetCurrentDir+'\';
 end;
       //Verifica se o Banco de dados é compatível
 function TDados.ChooseDatabase(Tipo, Directory: String): Boolean;

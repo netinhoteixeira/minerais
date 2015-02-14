@@ -13,7 +13,8 @@ uses
   unitfichaespecie,
   unitBlobFields, unitaddmineral,
   unitselectdatabase, unitadddatabase,
-  unitremovemineral, unitFormLanguage, unittranslatefile;
+  unitremovemineral, unittranslatefile,
+unitformconfigurations;
 
 {$R *.res}
 
@@ -35,8 +36,8 @@ begin
   Application.CreateForm(TFormAddMineral, FormAddMineral);
   Application.CreateForm(TFormAddDatabase, FormAddDatabase);
   Application.CreateForm(TFormRemoveMineral, FormRemoveMineral);
-  Application.CreateForm(TFormLanguage, FormLanguage);
-  Application.CreateForm(TFormTranslate, FormTranslate);
+  //Application.CreateForm(TFormTranslate, FormTranslate);
+  Application.CreateForm(TFormConfigurations, FormConfigurations);
   Application.Run;
 end.
 

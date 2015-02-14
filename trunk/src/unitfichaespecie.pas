@@ -68,13 +68,15 @@ uses
   Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
   StdCtrls, DBCtrls, Buttons, Menus, ExtDlgs, ActnList,
   SQLite3tablemod, uFormImpressao, unitremovemineral, unitlanguage,
-  IniFiles, uBibliografia;
+  IniFiles, uBibliografia, unitajuda;
 
 type
 
   { TFormFichaEspecie }
 
   TFormFichaEspecie = class(TForm)
+    ActionMenuHelp: TAction;
+    ActionMenuConf: TAction;
     ActionOpenDatabaseForm: TAction;
     ActionFormPrint: TAction;
     ActionImagesVisible: TAction;
@@ -106,7 +108,6 @@ type
     BCLabelSubgroup: TBCLabel;
     BCPanel1: TBCPanel;
     BCPanel2: TBCPanel;
-    ComboBox1: TComboBox;
     ComboBoxClasse: TComboBox;
     ComboBoxDureza_max: TComboBox;
     ComboBoxDureza_min: TComboBox;
@@ -147,8 +148,11 @@ type
     ImageListHeaderControl: TImageList;
     ImagemAmpliada: TImage;
     Memo1: TMemo;
+    MenuItemRemoveMineral: TMenuItem;
+    MenuItemConfiguracao: TMenuItem;
+    MenuItemAddMineral: TMenuItem;
+    MenuItemAjuda: TMenuItem;
     Mineralogy_Name: TLabel;
-    LabelFont: TLabel;
     LabelComposicao: TLabel;
     LabelHardness: TLabel;
     LabelDensity: TLabel;
@@ -213,31 +217,29 @@ type
     MemoSinalOptico: TMemo;
     MemoTraco: TMemo;
     MenuItem1: TMenuItem;
-    MenuItem10: TMenuItem;
-    MenuItem11: TMenuItem;
-    MenuItem12: TMenuItem;
-    MenuItem13: TMenuItem;
+    MenuItemAddImage: TMenuItem;
+    MenuItemRemoveImage: TMenuItem;
+    MenuItemAddImage1: TMenuItem;
+    MenuItemAddImage2: TMenuItem;
     MenuItem14: TMenuItem;
     MenuItem15: TMenuItem;
     MenuItem16: TMenuItem;
     MenuItem17: TMenuItem;
     MenuItem18: TMenuItem;
-    MenuItem19: TMenuItem;
+    MenuItemRemImage1: TMenuItem;
     MenuItem2: TMenuItem;
-    MenuItem20: TMenuItem;
+    MenuItemRemImage2: TMenuItem;
     MenuItem21: TMenuItem;
     MenuItem22: TMenuItem;
     MenuItem23: TMenuItem;
     MenuItem24: TMenuItem;
     MenuItem25: TMenuItem;
-    MenuItem26: TMenuItem;
+    MenuItemBibliografia: TMenuItem;
     MenuItem3: TMenuItem;
-    MenuItem4: TMenuItem;
+    MenuItemClose: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
-    MenuItem7: TMenuItem;
-    MenuItem8: TMenuItem;
-    MenuItem9: TMenuItem;
+    MenuItemPrint: TMenuItem;
     OpenPictureDialog1: TOpenPictureDialog;
     ProgressBar1: TProgressBar;
     RadioButton1: TRadioButton;
@@ -262,12 +264,12 @@ type
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
     ToolButton8: TToolButton;
+    ToolButton9: TToolButton;
     ToolButtonBibliografia: TToolButton;
     ToolButton6: TToolButton;
     ToolButtonAdd: TToolButton;
     ToolButtonDatabase: TToolButton;
     ToolButtonHelp: TToolButton;
-    ToolButtonLanguage: TToolButton;
     ToolButtonShowFilter: TToolButton;
     ToolButtonShowImages: TToolButton;
     ToolButtonRemove: TToolButton;
@@ -289,10 +291,11 @@ type
     procedure ActionFilterVisibleExecute(Sender: TObject);
     procedure ActionFormPrintExecute(Sender: TObject);
     procedure ActionImagesVisibleExecute(Sender: TObject);
+    procedure ActionMenuConfExecute(Sender: TObject);
+    procedure ActionMenuHelpExecute(Sender: TObject);
     procedure ActionOpenDatabaseFormExecute(Sender: TObject);
     procedure ActionRefreshListExecute(Sender: TObject);
     procedure ActionRemoveMineralExecute(Sender: TObject);
-    procedure ComboBox1Change(Sender: TObject);
     procedure ComboBoxClasseChange(Sender: TObject);
     procedure ComboBoxGrupoChange(Sender: TObject);
     procedure ComboBoxSubclasseChange(Sender: TObject);
@@ -406,18 +409,19 @@ type
       Shift: TShiftState);
     procedure MemoTracoEditingDone(Sender: TObject);
     procedure MemoTracoKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
-    procedure MenuItem19Click(Sender: TObject);
-    procedure MenuItem20Click(Sender: TObject);
+    procedure MenuItemRemImage1Click(Sender: TObject);
+    procedure MenuItemRemImage2Click(Sender: TObject);
     procedure MenuItem21Click(Sender: TObject);
     procedure MenuItem22Click(Sender: TObject);
     procedure MenuItem23Click(Sender: TObject);
     procedure MenuItem24Click(Sender: TObject);
     procedure MenuItem25Click(Sender: TObject);
-    procedure MenuItem26Click(Sender: TObject);
-    procedure MenuItem4Click(Sender: TObject);
+    procedure MenuItemBibliografiaClick(Sender: TObject);
+    procedure MenuItemCloseClick(Sender: TObject);
     procedure PageControlFichaChange(Sender: TObject);
     procedure ToolButtonAddImageClick(Sender: TObject);
     procedure ToolButtonBibliografiaClick(Sender: TObject);
+    procedure ToolButtonLanguageClick(Sender: TObject);
     procedure ToolButtonRemoveImageClick(Sender: TObject);
   private
     function DefinirOrdem: string;
@@ -437,17 +441,18 @@ type
     procedure Image5OnClick(Sender: TObject);
     procedure Image6OnClick(Sender: TObject);
     procedure Image7OnClick(Sender: TObject);
-    procedure Preenche_Classes;
-    procedure Preenche_Subclasses;
-    procedure Preenche_Grupos;
-    procedure Preenche_SubGrupos;
-    procedure RefreshImages;
     procedure RefreshHeaderControl(num: char);
     procedure RefreshHardDens;
     procedure RemoveImage(ImagemSelecionada:Char);
     { private declarations }
   public
     procedure EditingMode(Mode: boolean);
+    procedure ChangeLanguage;
+    procedure Preenche_Classes;
+    procedure Preenche_Subclasses;
+    procedure Preenche_Grupos;
+    procedure Preenche_SubGrupos;
+    procedure RefreshImages;
     function AtualizarLista: boolean;
     { public declarations }
   end;
@@ -484,10 +489,10 @@ var
 
   Config:TIniFile;
 
-
 implementation
 
-uses udatamodule, unitBlobFields, unitaddmineral, unitselectdatabase;
+uses udatamodule, unitBlobFields, unitaddmineral, unitselectdatabase,
+  unitformlanguage, unitformconfigurations;
 
 {$R *.lfm}
 
@@ -501,111 +506,7 @@ begin
   ConfigDatabase(Config);
   if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
   begin
-    self.Caption:=Lang.Minerals;
-    ToolButtonDatabase.Hint:=Lang.Database;
-    ToolButtonHelp.Hint:=Lang.Help;
-    MenuItem1.Caption:=Lang.StrFile;
-    MenuItem2.Caption:=Lang.Edit;
-    MenuItem3.Caption:=Lang.Exhibit;
-    MenuItem4.Caption:=Lang.Close;
-    MenuItem5.Caption:=Lang.ShowFilter;
-    MenuItem6.Caption:=Lang.ShowImages;
-    MenuItem7.Caption:=Lang.AddMineral;
-    MenuItem8.Caption:=Lang.RemoveMineral;
-    MenuItem9.Caption:=Lang.Print;
-    MenuItem10.Caption:=Lang.Add;
-    MenuItem11.Caption:=Lang.Remove;
-    MenuItem12.Caption:=Lang.Image+' 1';
-    MenuItem13.Caption:=Lang.Image+' 2';
-    MenuItem14.Caption:=Lang.Image+' 3';
-    MenuItem15.Caption:=Lang.Image+' 4';
-    MenuItem16.Caption:=Lang.Image+' 5';
-    MenuItem17.Caption:=Lang.Image+' 6';
-    MenuItem18.Caption:=Lang.Image+' 7';
-    MenuItem19.Caption:=Lang.Image+' 1';
-    MenuItem20.Caption:=Lang.Image+' 2';
-    MenuItem21.Caption:=Lang.Image+' 3';
-    MenuItem22.Caption:=Lang.Image+' 4';
-    MenuItem23.Caption:=Lang.Image+' 5';
-    MenuItem24.Caption:=Lang.Image+' 6';
-    MenuItem25.Caption:=Lang.Image+' 7';
-    Menuitem26.Caption:=Lang.Bibliography;
-
-    ToolButtonAdd.Hint:=Lang.Add;
-    ToolButtonRemove.Hint:=Lang.Remove;
-    ToolButtonPrint.Hint:=Lang.Print;
-    ToolButtonShowFilter.Hint:=Lang.ShowFilter;
-    ToolButtonShowImages.Hint:=Lang.ShowImages;
-    Combobox1.Hint:=Lang.FontSize;
-    BCLabelOrder.Caption:=Lang.Order;
-    RadioButton1.Caption:=Lang.Alphabetical;
-    RadioButton2.Caption:=Lang.Hardness;
-    RadioButton3.Caption:=Lang.Density;
-    BCLabelMinerals.Caption:=Lang.Minerals;
-    //colocar strings da contagem de registros
-
-    LabelFont.Caption:=Lang.FontSize;
-    BCLabelName.Caption:=Lang.Name;
-    BCLabelClass.Caption:=Lang.MineralClass;
-    BCLabelSubClass.Caption:=Lang.Subclass;
-    BCLabelGroup.Caption:=Lang.Group;
-    BCLabelSubgroup.Caption:=Lang.Subgroup;
-    BCLabelHardness.Caption:=Lang.Hardness;
-    BCLabelDensity.Caption:=Lang.Density;
-    BCLabelOcorrencia.Caption:=Lang.Occurrence;
-    BCLabelAssociacao.Caption:=Lang.Association;
-    BCLabelCor.Caption:=Lang.Color;
-    Label33.Caption:=Lang.Minimum;
-    Label34.Caption:=Lang.Maximum;
-    Label35.Caption:=Lang.Minimum;
-    Label36.Caption:=Lang.Maximum;
-
-    TabSheetInf_Gerais.Caption:=Lang.GeneralInformation;
-    TabSheetProp_fisicas.Caption:=Lang.PhysicalProperties;
-    TabSheetOticas.Caption:=Lang.OpticalProperties;
-    TabSheetCristalografia.Caption:=Lang.Crystallography;
-    TabSheetImagem.Caption:=Lang.Image;
-
-    LabelNome.Caption:=Lang.Name;
-    LabelComposicao.Caption:=Lang.Composition;
-    LabelClasse.Caption:=Lang.MineralClass;
-    LabelSubClasse.Caption:=Lang.Subclass;
-    LabelGrupo.Caption:=Lang.Group;
-    LabelSubgrupo.Caption:=Lang.Subgroup;
-    LabelOcorrencia.Caption:=Lang.Occurrence;
-    LabelAssociacao.Caption:=Lang.Association;
-    LabelDistincao.Caption:=Lang.Distinction;
-    LabelAlteracao.Caption:=Lang.Alteration;
-    LabelAplicacao.Caption:=Lang.Usage;
-
-    GroupboxDureza.Caption:=Lang.Edit;
-    GroupboxDensidade.Caption:=Lang.Edit;
-    LabelHardness.Caption:=Lang.Hardness;
-    LabelDensity.Caption:=Lang.Density;
-    LabelCor.Caption:=Lang.Color;
-    LabelTraco.Caption:=Lang.Streak;
-    LabelBrilho.Caption:=Lang.Luster;
-    LabelClivagem.Caption:=Lang.Cleavage;
-    LabelFratura.Caption:=Lang.Fracture;
-    LabelMagnetismo.Caption:=Lang.Magnetism;
-    LabelLuminescencia.Caption:=Lang.Luminescence;
-
-    LabelDiafaneidade.Caption:=Lang.Diaphanousness;
-    LabelSinal_Optico.Caption:=Lang.OpticalSignal;
-    LabelIndice_Refracao.Caption:=Lang.RefractiveIndex;
-    LabelAngulo_2V.Caption:=Lang.Angle2V;
-    LabelCor_Interferencia.Caption:=Lang.InterferenceColor;
-    LabelCor_Lamina.Caption:=Lang.BladeColor;
-    LabelSinal_Elongacao.Caption:=Lang.SignElongation;
-    LabelBirrefringencia.Caption:=Lang.Birefringence;
-    LabelRelevo.Caption:=Lang.Relief;
-    LabelSistema_Cristalino.Caption:=Lang.CrystallineSystem;
-    LabelClasse_Cristalina.Caption:=Lang.CrystalineClass;
-    LabelSimbologia.Caption:=Lang.Symbology;
-    LabelHabito.Caption:=Lang.Habit;
-
-    ToolbuttonAddImage.Hint:=Lang.AddImage;
-    ToolButtonRemoveImage.Hint:=Lang.RemoveImage;
+    ChangeLanguage;
   end;
   Config.Free;
   Mineralogy_Name.Caption:=MineralogyName;
@@ -1190,12 +1091,12 @@ begin
     '="' + MemoTraco.Text + '" WHERE nome="' + EditNomeMineral.Text + '";');
 end;
 
-procedure TFormFichaEspecie.MenuItem19Click(Sender: TObject);
+procedure TFormFichaEspecie.MenuItemRemImage1Click(Sender: TObject);
 begin
   RemoveImage('1');
 end;
 
-procedure TFormFichaEspecie.MenuItem20Click(Sender: TObject);
+procedure TFormFichaEspecie.MenuItemRemImage2Click(Sender: TObject);
 begin
   RemoveImage('2');
 end;
@@ -1225,12 +1126,12 @@ begin
   RemoveImage('7');
 end;
 
-procedure TFormFichaEspecie.MenuItem26Click(Sender: TObject);
+procedure TFormFichaEspecie.MenuItemBibliografiaClick(Sender: TObject);
 begin
   FormBibliografia.Show;
 end;
 
-procedure TFormFichaEspecie.MenuItem4Click(Sender: TObject);
+procedure TFormFichaEspecie.MenuItemCloseClick(Sender: TObject);
 begin
   Application.Terminate;
 end;
@@ -1292,9 +1193,15 @@ begin
   FormBibliografia.Show;
 end;
 
+procedure TFormFichaEspecie.ToolButtonLanguageClick(Sender: TObject);
+begin
+  FormLanguage.Show;
+end;
+
 procedure TFormFichaEspecie.ToolButtonRemoveImageClick(Sender: TObject);
 begin
   RemoveImage(Imagem_Selecionada);
+  RefreshImages;
 end;
 
 function TFormFichaEspecie.AtualizarLista: boolean;
@@ -1793,6 +1700,113 @@ begin
   EditClasse_Cristalina.Enabled := Mode;
   EditH_M.Enabled := Mode;
   MemoHabito.Enabled := Mode;
+end;
+
+procedure TFormFichaEspecie.ChangeLanguage;
+begin
+  //self.Caption:=Lang.Minerals;
+    ToolButtonDatabase.Hint:=Lang.Database;
+    ToolButtonHelp.Hint:=Lang.Help;
+    MenuItem1.Caption:=Lang.StrFile;
+    MenuItem2.Caption:=Lang.Edit;
+    MenuItem3.Caption:=Lang.Exhibit;
+    MenuItemClose.Caption:=Lang.Close;
+    MenuItem5.Caption:=Lang.ShowFilter;
+    MenuItem6.Caption:=Lang.ShowImages;
+    MenuItemConfiguracao.Caption:=Lang.Configuration;
+    MenuItemPrint.Caption:=Lang.Print;
+    MenuItemAddImage.Caption:=Lang.Add;
+    MenuItemRemoveImage.Caption:=Lang.Remove;
+    MenuItemAddImage1.Caption:=Lang.Image+' 1';
+    MenuItemAddImage2.Caption:=Lang.Image+' 2';
+    MenuItem14.Caption:=Lang.Image+' 3';
+    MenuItem15.Caption:=Lang.Image+' 4';
+    MenuItem16.Caption:=Lang.Image+' 5';
+    MenuItem17.Caption:=Lang.Image+' 6';
+    MenuItem18.Caption:=Lang.Image+' 7';
+    MenuItemRemImage1.Caption:=Lang.Image+' 1';
+    MenuItemRemImage2.Caption:=Lang.Image+' 2';
+    MenuItem21.Caption:=Lang.Image+' 3';
+    MenuItem22.Caption:=Lang.Image+' 4';
+    MenuItem23.Caption:=Lang.Image+' 5';
+    MenuItem24.Caption:=Lang.Image+' 6';
+    MenuItem25.Caption:=Lang.Image+' 7';
+    MenuItemBibliografia.Caption:=Lang.Bibliography;
+
+    ToolButtonAdd.Hint:=Lang.Add;
+    ToolButtonRemove.Hint:=Lang.Remove;
+    ToolButtonPrint.Hint:=Lang.Print;
+    ToolButtonShowFilter.Hint:=Lang.ShowFilter;
+    ToolButtonShowImages.Hint:=Lang.ShowImages;
+
+    BCLabelOrder.Caption:=Lang.Order;
+    RadioButton1.Caption:=Lang.Alphabetical;
+    RadioButton2.Caption:=Lang.Hardness;
+    RadioButton3.Caption:=Lang.Density;
+    BCLabelMinerals.Caption:=Lang.Minerals;
+    //colocar strings da contagem de registros
+
+    BCLabelName.Caption:=Lang.Name;
+    BCLabelClass.Caption:=Lang.MineralClass;
+    BCLabelSubClass.Caption:=Lang.Subclass;
+    BCLabelGroup.Caption:=Lang.Group;
+    BCLabelSubgroup.Caption:=Lang.Subgroup;
+    BCLabelHardness.Caption:=Lang.Hardness;
+    BCLabelDensity.Caption:=Lang.Density;
+    BCLabelOcorrencia.Caption:=Lang.Occurrence;
+    BCLabelAssociacao.Caption:=Lang.Association;
+    BCLabelCor.Caption:=Lang.Color;
+    Label33.Caption:=Lang.Minimum;
+    Label34.Caption:=Lang.Maximum;
+    Label35.Caption:=Lang.Minimum;
+    Label36.Caption:=Lang.Maximum;
+
+    TabSheetInf_Gerais.Caption:=Lang.GeneralInformation;
+    TabSheetProp_fisicas.Caption:=Lang.PhysicalProperties;
+    TabSheetOticas.Caption:=Lang.OpticalProperties;
+    TabSheetCristalografia.Caption:=Lang.Crystallography;
+    TabSheetImagem.Caption:=Lang.Image;
+
+    LabelNome.Caption:=Lang.Name;
+    LabelComposicao.Caption:=Lang.Composition;
+    LabelClasse.Caption:=Lang.MineralClass;
+    LabelSubClasse.Caption:=Lang.Subclass;
+    LabelGrupo.Caption:=Lang.Group;
+    LabelSubgrupo.Caption:=Lang.Subgroup;
+    LabelOcorrencia.Caption:=Lang.Occurrence;
+    LabelAssociacao.Caption:=Lang.Association;
+    LabelDistincao.Caption:=Lang.Distinction;
+    LabelAlteracao.Caption:=Lang.Alteration;
+    LabelAplicacao.Caption:=Lang.Usage;
+
+    GroupboxDureza.Caption:=Lang.Edit;
+    GroupboxDensidade.Caption:=Lang.Edit;
+    LabelHardness.Caption:=Lang.Hardness;
+    LabelDensity.Caption:=Lang.Density;
+    LabelCor.Caption:=Lang.Color;
+    LabelTraco.Caption:=Lang.Streak;
+    LabelBrilho.Caption:=Lang.Luster;
+    LabelClivagem.Caption:=Lang.Cleavage;
+    LabelFratura.Caption:=Lang.Fracture;
+    LabelMagnetismo.Caption:=Lang.Magnetism;
+    LabelLuminescencia.Caption:=Lang.Luminescence;
+
+    LabelDiafaneidade.Caption:=Lang.Diaphanousness;
+    LabelSinal_Optico.Caption:=Lang.OpticalSignal;
+    LabelIndice_Refracao.Caption:=Lang.RefractiveIndex;
+    LabelAngulo_2V.Caption:=Lang.Angle2V;
+    LabelCor_Interferencia.Caption:=Lang.InterferenceColor;
+    LabelCor_Lamina.Caption:=Lang.BladeColor;
+    LabelSinal_Elongacao.Caption:=Lang.SignElongation;
+    LabelBirrefringencia.Caption:=Lang.Birefringence;
+    LabelRelevo.Caption:=Lang.Relief;
+    LabelSistema_Cristalino.Caption:=Lang.CrystallineSystem;
+    LabelClasse_Cristalina.Caption:=Lang.CrystalineClass;
+    LabelSimbologia.Caption:=Lang.Symbology;
+    LabelHabito.Caption:=Lang.Habit;
+
+    ToolbuttonAddImage.Hint:=Lang.AddImage;
+    ToolButtonRemoveImage.Hint:=Lang.RemoveImage;
 end;
 
 procedure TFormFichaEspecie.Image1OnClick(Sender: TObject);
@@ -3325,7 +3339,8 @@ end;
 
 procedure TFormFichaEspecie.ActionFormPrintExecute(Sender: TObject);
 begin
-  if Dados.DatabaseMineralFileName <> EmptyStr then
+  {impressão em breve..}
+  {if Dados.DatabaseMineralFileName <> EmptyStr then
   begin
     if FileExists(Dados.DatabaseMineralFileName) then
     begin
@@ -3337,7 +3352,7 @@ begin
     end
     else ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
   end
-  else ShowMessage(Lang.NoDatabaseSelected);
+  else ShowMessage(Lang.NoDatabaseSelected);}
 end;
 
 procedure TFormFichaEspecie.ActionImagesVisibleExecute(Sender: TObject);
@@ -3346,6 +3361,16 @@ begin
     ScrollBox8.Visible := False
   else
     ScrollBox8.Visible := True;
+end;
+
+procedure TFormFichaEspecie.ActionMenuConfExecute(Sender: TObject);
+begin
+  FormConfigurations.Show;
+end;
+
+procedure TFormFichaEspecie.ActionMenuHelpExecute(Sender: TObject);
+begin
+  FormAjuda.Show;
 end;
 
 procedure TFormFichaEspecie.ActionOpenDatabaseFormExecute(Sender: TObject);
@@ -3376,16 +3401,6 @@ begin
   end
   else
   ShowMessage(Lang.NoDatabaseSelected);
-end;
-
-procedure TFormFichaEspecie.ComboBox1Change(Sender: TObject);
-var
-  I: integer;
-begin
-  I := StrToInt(Combobox1.Text);
-  PageControlFicha.Font.Size := I;
-  ListBoxMinerais.Font.Size := I;
-  EditNomeMineral.Font.Size:=I;
 end;
 
 end.

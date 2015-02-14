@@ -31,6 +31,7 @@ type
     { private declarations }
   public
     Tipo: string;
+    procedure ChangeLanguage;
     { public declarations }
   end;
 
@@ -64,10 +65,16 @@ begin
           begin
             Dados.CreateDatabase(Tipo, CurrentPath + '\'+Edit1.Text+
               '.s3db');
+            FormSelectDatabase.Edit1.Text:= CurrentPath + '\'+Edit1.Text+
+              '.s3db';
           end;
         end
         else
+        begin
           Dados.CreateDatabase(Tipo, CurrentPath +'\'+ Edit1.Text+'.s3db');
+          FormSelectDatabase.Edit1.Text:= CurrentPath + '\'+Edit1.Text+
+              '.s3db';
+        end;
       end
       else
       begin
@@ -79,11 +86,19 @@ begin
             '.s3db') then
             ShowMessage(Lang.ThereIsAlreadyARecordWithThatName)
           else
+          begin
             Dados.CreateDatabase(Tipo, CurrentPath +'\'+ Edit1.Text+
               '.s3db');
+            FormSelectDatabase.Edit1.Text:= CurrentPath + '\'+Edit1.Text+
+              '.s3db';
+          end;
         end
         else
-        Dados.CreateDatabase(Tipo, CurrentPath + '\'+Edit1.Text+'.s3db');
+        begin
+          Dados.CreateDatabase(Tipo, CurrentPath + '\'+Edit1.Text+'.s3db');
+          FormSelectDatabase.Edit1.Text:= CurrentPath + '\'+Edit1.Text+
+              '.s3db';
+        end;
       end;
 
     Config:=TIniFIle.Create(Dados.Caminho+'\config.ini');
@@ -93,7 +108,6 @@ begin
       config.WriteString('Database', 'Mineral', Dados.DatabaseMineralFileName);
     end;
     Config.Free;
-    FormSelectDatabase.Edit1.Text:=Edit1.Text;
     FormAddDatabase.Visible := False;
   end
   else
@@ -105,9 +119,7 @@ begin
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
   if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
   begin
-    FormAddDatabase.Caption:=Lang.Add;
-    BCLabelSetDatabaseName.Caption:=Lang.TypeTheNameOfDatabase;
-    SpeedButtonCreateDatabase.Hint:=Lang.Confirm;
+    ChangeLanguage;
     //SpeedButtonApply.Hint:=Lang.Close;
   end;
   Config.Free;
@@ -121,6 +133,13 @@ end;
 procedure TFormAddDatabase.SpeedButtonCloseClick(Sender: TObject);
 begin
   FormAddDatabase.Hide;
+end;
+
+procedure TFormAddDatabase.ChangeLanguage;
+begin
+   FormAddDatabase.Caption:=Lang.Add;
+   BCLabelSetDatabaseName.Caption:=Lang.TypeTheNameOfDatabase;
+   SpeedButtonCreateDatabase.Hint:=Lang.Confirm;
 end;
 
 procedure TFormAddDatabase.ActionCloseExecute(Sender: TObject);
