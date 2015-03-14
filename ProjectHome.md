@@ -1,0 +1,1 @@
+Quickly acess for information about minerals, their properties and use, with filter and blob fields to store images.
