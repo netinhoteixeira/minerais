@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms,  udatamodule, sqlite3laz, richmemopackage,
+  Forms,  udatamodule, sqlite3laz,
   tachartlazaruspkg, sdflaz, lazreport, ubibliografia,
   uformimpressao, UnitAjuda, unitSplash, crt,
   unitfichaespecie,

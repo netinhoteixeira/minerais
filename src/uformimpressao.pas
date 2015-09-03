@@ -14,6 +14,7 @@ type
   { TFormImpressao }
 
   TFormImpressao = class(TForm)
+    ActionChangeSelection: TAction;
     ActionHideForm: TAction;
     ActionOpenReport: TAction;
     ActionModifyReport: TAction;
@@ -39,6 +40,7 @@ type
     ToolBar1: TToolBar;
     ToolButtonOpenFileReport: TToolButton;
     ToolButtonChangeReport: TToolButton;
+    procedure ActionChangeSelectionExecute(Sender: TObject);
     procedure ActionHideFormExecute(Sender: TObject);
     procedure ActionModifyReportExecute(Sender: TObject);
     procedure ActionOpenReportExecute(Sender: TObject);
@@ -106,6 +108,18 @@ begin
   FormImpressao.Visible := False;
 end;
 
+procedure TFormImpressao.ActionChangeSelectionExecute(Sender: TObject);
+begin
+  if RadioGroup1.ItemIndex=1 then
+  begin
+
+  end
+  else
+  begin
+
+  end;
+end;
+
 procedure TFormImpressao.ActionOpenReportExecute(Sender: TObject);
 begin
   OpenDialog1.FileName := EmptyStr;
@@ -164,4 +178,4 @@ end;
 
 {$R *.lfm}
 
-end.
+end.

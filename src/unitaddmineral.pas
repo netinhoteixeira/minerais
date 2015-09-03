@@ -5,7 +5,7 @@ unit unitaddmineral;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, RichMemo, BCPanel, Forms, Controls, Graphics,
+  Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics,
   Dialogs, ComCtrls, StdCtrls, ExtCtrls, DBCtrls, Buttons, ActnList, IniFiles,
   SQLite3tablemod, unitLanguage;
 
@@ -354,4 +354,4 @@ begin
   Config.Free;
 end;
 
-end.
+end.
