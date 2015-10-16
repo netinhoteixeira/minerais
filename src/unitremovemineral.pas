@@ -49,15 +49,7 @@ uses udatamodule, unitformconfigurations;
 procedure TFormRemoveMineral.FormShow(Sender: TObject);
 begin
   Listbox1.Clear;
-  Dados.TableMinerals:=Dados.DatabaseMinerals.GetTable(
-    'SELECT nome FROM minerais ORDER BY nome ASC ;');
-  if Dados.TableMinerals.Count >0  then
-    if Dados.TableMinerals.MoveFirst then
-      while (not Dados.TableMinerals.EOF) do
-      begin
-        Listbox1.Items.Add(Dados.TableMinerals.FieldByName['nome']);
-        Dados.TableMinerals.Next;
-      end;
+  Listbox1.Items.AddStrings(Dados.ReturnAllMinerals);
 end;
 
 procedure TFormRemoveMineral.ChangeLanguage;

@@ -85,24 +85,54 @@ type
   private
     { private declarations }
   public
+    Table1:String;
+    Table2:String;
+    Table3:String;
+    Table4:String;
+    Table5:String;
+    Table6:String;
+
     DatabaseMinerals: TSQLiteDatabase;
-    TableMinerals: TSQLiteTable;
+    TableGeneral: TSQLiteTable;
+    TablePhysical: TSQLiteTable;
+    TableOptics: TSQLiteTable;
+    TableChryst: TSQLiteTable;
+    TableImages: TSQLiteTable;
+    TableMineralogy: TSQLiteTable;
     Datasource: TDatasource;
     Dataset: TSDFDataset;
 
     DatabaseMineralFileName: String;
 
     Caminho: String;
-
+    function AddMineral(Nome:String):Integer;
     procedure SetDatabase(Filename:String);
-    procedure UpdateField(Table, Field, NewValue, Especie, Sample, Digito,
-      Direction: String);
+    procedure UpdateField(Table, Field, NewValue, Especie:String);
     procedure CreateDatabase(Tipo, Diretorio: String);
     function ChooseDatabase(Tipo, Directory:String): Boolean;
     procedure ExcluiMineral(Especie: string);
     function CriarDataset(Diretorio: string): TDatasource;
+
+    function ReturnAllMinerals:TStrings;
+    function SelectSQL(Table, Mineral:String):String;
+    function UpdateGeneralInfo(Nome, Composicao, Classe, Subclasse, Grupo,
+      Subgrupo, Ocorrencia, Associacao, Distincao, Alteracao, Aplicacao:String):String;
+    function UpdatePhysicalProp(DurezaMin, DurezaMax, DensidadeMin, DensidadeMax:Real;
+      Cor, Traco, Brilho, Clivagem, Fratura, Magnetismo, Luminescencia,
+        Diafaneidade, Nome:String):String;
+    function UpdateOpticalProp(RefracaoMin, RefracaoMax, BirrMin, BirrMax: Real;
+      SinalOptico, DescSinalOptico, DescRefracao, DescBirrefringencia, CorInterferencia,
+      CorLamina, Elongacao,Relevo, Angulo2V, Extincao, Nome:String):String;
+    function UpdateCrystallography(Sistema,  Classe, Simbologia, Habito, Nome:String):String;
     { public declarations }
   end;
+const
+  General:String = 'general';
+  Physical:String = 'physical';
+  Optics:String = 'optics';
+  Chryst:String = 'chryst';
+  Images:String = 'images';
+  Mineralogy:String = 'mineralogy';
 
 var
   Dados: TDados;
@@ -123,102 +153,155 @@ begin
   DatabaseMinerals.Free;
 end;
 
+function TDados.AddMineral(Nome: String): Integer;
+var SQLstr:String;
+begin
+  Dados.TableGeneral := Dados.DatabaseMinerals.GetTable(
+    'SELECT nome FROM minerais WHERE nome="' + Nome+ '" ; ');
+  if Dados.TableGeneral.Count > 0 then
+    Result:=1
+  else
+  begin
+    SQLstr:='INSERT INTO '+Dados.Table1+' (nome) VALUES ("'+Nome+'") ; ';
+    Dados.DatabaseMinerals.ExecSQL(SQLstr);
+    SQLstr:='INSERT INTO '+Dados.Table2+' (nome, dureza_min, dureza_max, densidade_min,'+
+      'densidade_max) VALUES ("'+Nome+'","1","10","0","30") ;';
+    Dados.DatabaseMinerals.ExecSQL(SQLstr);
+    SQLstr:='INSERT INTO '+Table3+' (nome, refracao_min, refracao_max, '+
+      'birr_min, birr_max) VALUES ("'+Nome+'", "0", "0", "0", "0") ;';
+    Dados.DatabaseMinerals.ExecSQL(SQLstr);
+    SQLstr:='INSERT INTO '+Dados.Table4+' (nome) VALUES ("'+Nome+'") ; ';
+    Dados.DatabaseMinerals.ExecSQL(SQLstr);
+    SQLstr:='INSERT INTO '+Dados.Table5+' (nome) VALUES ("'+Nome+'") ; ';
+    Dados.DatabaseMinerals.ExecSQL(SQLstr);
+  end;
+  Result:=0;
+end;
+
 procedure TDados.SetDatabase(Filename: String);
 begin
+  {
   DatabaseMineralFilename:=Filename;
   DatabaseMinerals := TSQLiteDatabase.Create(Filename);
   FormFichaEspecie.EditingMode(True);
+  }
 end;
 
-procedure TDados.UpdateField(Table, Field, NewValue, Especie, Sample, Digito,
-  Direction: String);
+procedure TDados.UpdateField(Table, Field, NewValue, Especie : String);
 begin
-  if Table = 'minerais' then
-  begin
-    TableMinerals:= DatabaseMinerals.GetTable('UPDATE '+Table+' SET '+
-      Field+ ' = "'+NewValue+'" WHERE nome = "'+Especie+'" ; ' );
-  end;
+  TableMinerals:= DatabaseMinerals.GetTable('UPDATE '+Table+' SET '+
+    Field+ ' = "'+NewValue+'" WHERE nome = "'+Especie+'" ; ' );
 end;
 
 procedure TDados.CreateDatabase(Tipo, Diretorio: String);
 var
   ExecSQL: string;
 begin
-  if Tipo = 'mineral' then
-  begin
   try
     DatabaseMinerals := TSQLiteDatabase.Create(Diretorio);
     ExecSQL :=
-      'CREATE TABLE minerais ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT '+
-        'UNIQUE  NOT NULL, [formula] TEXT, [classe] TEXT, [subclasse] TEXT, '+
-          '[grupo] TEXT, [subgrupo] TEXT, [ocorrencia] TEXT, [associacao] TEXT,'+
-            '[distincao] TEXT,';
-    ExecSQL := ExecSQL +
-      ' [aplicacao] TEXT, [alteracao] TEXT, [dureza_min] FLOAT, [dureza_max] '+
-        'FLOAT, [densidade_min] FLOAT, [densidade_max] FLOAT, [cor] TEXT,'+
-          '[brilho] TEXT, [traco] TEXT, [fratura] TEXT, [clivagem] TEXT, ';
-    ExecSQL := ExecSQL +
-      ' [luminescencia] TEXT, [magnetismo] TEXT, [difaneidade] TEXT, '+
-        '[sinal_optico] TEXT, [indice_refracao] TEXT, [angulo] TEXT, '+
-          '[cor_interferencia] TEXT, [cor_lamina] TEXT, [sinal_elongacao] TEXT,'+
-            '[birrefringencia] TEXT, [relevo] TEXT, ';
-    ExecSQL := ExecSQL +
-      ' [extincao] TEXT, [classe_cristalina] TEXT, [sistema] TEXT, [h_m] TEXT,'+
-        '[habito] TEXT, [imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, '+
-          '[imagem4] BLOB, [imagem5] BLOB, [imagem6] BLOB, [imagem7] BLOB);';
+      'CREATE TABLE '+Table1+' ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT '+
+      'UNIQUE  NOT NULL, [formula] TEXT, [classe] TEXT, [subclasse] TEXT, '+
+      '[grupo] TEXT, [subgrupo] TEXT, [ocorrencia] TEXT, [associacao] TEXT,'+
+      '[distincao] TEXT, [aplicacao] TEXT);';
     DatabaseMinerals.ExecSQL(ExecSQL);
     ExecSQL :=
-      'CREATE TABLE mineralogia ([id] INTEGER PRIMARY KEY NOT NULL, [campo] '+
-        'TEXT, [texto] TEXT, [mineralogiaimagem1] BLOB, [mineralogiaimagem2] BLOB, '+
-          '[mineralogiaimagem3] BLOB, [mineralogiaimagem4] BLOB, '+
-            '[mineralogiaimagem5] BLOB, [mineralogiaimagem6] BLOB, '+
-            '[mineralogiaimagem7] BLOB );';
+      'CREATE TABLE '+Table2+' ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT '+
+      'UNIQUE  NOT NULL, '+
+      '[alteracao] TEXT, [dureza_min] FLOAT, [dureza_max] FLOAT, '+
+      '[densidade_min] FLOAT, [densidade_max] FLOAT, [cor] TEXT,'+
+      '[brilho] TEXT, [traco] TEXT, [fratura] TEXT, [clivagem] TEXT, '+
+      '[luminescencia] TEXT, [magnetismo] TEXT, [diafaneidade] TEXT);';
+    DatabaseMinerals.ExecSQL(ExecSQL);
+    ExecSQL:= 'CREATE TABLE '+Table3+' ([id] INTEGER PRIMARY KEY NOT NULL, '+
+      '[nome] TEXT UNIQUE NOT NULL,'+
+      '[sinal_optico] TEXT, [desc_sinal_optico] TEXT, '+
+      '[refracao_min] FLOAT DEFAULT 0, [refracao_max] FLOAT DEFAULT 0, '+
+      '[birr_min] FLOAT DEFAULT 0, [birr_max] FLOAT DEFAULT 0, '+
+      '[desc_refracao] TEXT, [desc_birr] TEXT, [cor_interferencia] TEXT, '+
+      '[cor_lamina] TEXT, [sinal_elongacao] TEXT, [relevo] TEXT, '+
+      '[angulo] TEXT, [extincao] TEXT) ; ';
+    DatabaseMinerals.ExecSQL(ExecSQL);
+    ExecSQL :=
+      'CREATE TABLE '+Table4+' ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT '+
+      'UNIQUE  NOT NULL, '+
+      '[classe_cristalina] TEXT, [sistema] TEXT, [h_m] TEXT,'+
+      '[habito] TEXT);';
+    DatabaseMinerals.ExecSQL(ExecSQL);
+    ExecSQL :=
+      'CREATE TABLE '+Table5+' ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT '+
+      'UNIQUE  NOT NULL, '+
+      '[imagem1] BLOB, [imagem2] BLOB, [imagem3] BLOB, '+
+      '[imagem4] BLOB, [imagem5] BLOB, [imagem6] BLOB, [imagem7] BLOB);';
+    DatabaseMinerals.ExecSQL(ExecSQL);
+    ExecSQL :=
+      'CREATE TABLE '+Table6+' ([id] INTEGER PRIMARY KEY NOT NULL, [campo] '+
+      'TEXT, [texto] TEXT, [imagem1] BLOB, [imagem2] BLOB, '+
+      '[imagem3] BLOB, [imagem4] BLOB, '+
+      '[imagem5] BLOB, [imagem6] BLOB, '+
+      '[imagem7] BLOB );';
     DatabaseMinerals.ExecSQL(ExecSQL);
     finally
-      SetDatabase(Diretorio);
-      FormFichaEspecie.EditingMode(True);
+
     end;
-  end;
 end;
 
 procedure TDados.DataModuleCreate(Sender: TObject);
 begin
+  Table1:=General;
+  Table2:=Physical;
+  Table3:=Optics;
+  Table4:=Chryst;
+  Table5:=Images;
+  Table6:=Mineralogy;
   Caminho:=GetCurrentDir+'\';
 end;
       //Verifica se o Banco de dados é compatível
 function TDados.ChooseDatabase(Tipo, Directory: String): Boolean;
 var Compatible:Boolean;
 begin
-  if Tipo = 'mineral' then
+  Compatible:=False;
+  DatabaseMinerals := TSQLiteDatabase.Create(Directory);
+  if DatabaseMinerals.TableExists(Table1) then
   begin
-    DatabaseMinerals := TSQLiteDatabase.Create(Directory);
-    if DatabaseMinerals.TableExists('minerais') then
+    if DatabaseMinerals.TableExists(Table2) then
     begin
-      if DatabaseMinerals.TableExists('mineralogia') then
-        Compatible:=True
-      else
-      Compatible := False;
-    end
-    else
-      Compatible := False;
-    if Compatible then
-    begin
-      with SQLite3DatasetPrinter do
+      if DatabaseMinerals.TableExists(Table3) then
       begin
-        Filename := Directory;
+        if DatabaseMinerals.TableExists(Table4) then
+        begin
+          if DatabaseMinerals.TableExists(Table5) then
+          begin
+            if DatabaseMinerals.TableExists(Table6) then
+            begin
+              Compatible:=True;
+            end;
+          end;
+        end;
       end;
     end;
-     Result:= Compatible;
   end;
+  if Compatible then
+  begin
+    with SQLite3DatasetPrinter do
+    begin
+      Filename := Directory;
+    end;
+  end;
+    Result:= Compatible;
 end;
 
 procedure TDados.ExcluiMineral(Especie: string);
 begin
-  DatabaseMinerals.ExecSQL('DELETE FROM minerais WHERE (nome="' + Especie + '");');
+  DatabaseMinerals.ExecSQL('DELETE FROM '+Table1+' WHERE (nome="' + Especie + '");');
+  DatabaseMinerals.ExecSQL('DELETE FROM '+Table2+' WHERE (nome="' + Especie + '");');
+  DatabaseMinerals.ExecSQL('DELETE FROM '+Table3+' WHERE (nome="' + Especie + '");');
+  DatabaseMinerals.ExecSQL('DELETE FROM '+Table4+' WHERE (nome="' + Especie + '");');
+  DatabaseMinerals.ExecSQL('DELETE FROM '+Table5+' WHERE (nome="' + Especie + '");');
 end;
 
 function TDados.CriarDataset(Diretorio: string): TDatasource;
-begin
+begin  //to do: descobrir onde essa função é usada e se ainda é necessária
   Inc(num);
   Dataset := TSDFDataset.Create(nil);
   with Dataset do
@@ -236,6 +319,135 @@ begin
   end;
   Dataset.Open;
   Result := Datasource;
+end;
+
+function TDados.ReturnAllMinerals: TStrings;
+var SQLstr:String; List:TStrings;
+begin
+  SQLstr:='SELECT nome FROM '+Table1+' ORDER BY nome ASC ; ';
+  TableGeneral:=DatabaseMinerals.GetTable(SQLstr);
+   if TableGeneral.Count >0  then
+    if TableGeneral.MoveFirst then
+      while (not TableGeneral.EOF) do
+      begin
+        List.Append(TableGeneral.FieldByName['nome']);
+        TableGeneral.Next;
+      end;
+   Result:=List;
+end;
+
+function TDados.SelectSQL(Table, Mineral: String): String;
+var SQLstr:String;
+begin
+  if Trim(mineral) = EmptyStr then
+  begin
+  SQLstr :=
+        'Select nome, formula, classe, subclasse, grupo, subgrupo, ocorrencia, associacao, ';
+      SQLstr := SQLstr +
+        ' distincao, alteracao, aplicacao, dureza_min, dureza_max, ';
+      SQLstr := SQLstr +
+        ' densidade_min, densidade_max, cor, traco, brilho, clivagem, fratura, magnetismo, ';
+      SQLstr := SQLstr +
+        ' luminescencia, difaneidade, sinal_optico, indice_refracao, angulo, cor_interferencia, ';
+      SQLstr := SQLstr +
+        ' cor_lamina, sinal_elongacao, birrefringencia, relevo, extincao, ';
+      SQLstr := SQLstr +
+        'birr_min, birr_max, refracao_min, refracao_max,';
+      SQLstr := SQLstr + ' sistema, classe_cristalina, h_m, habito FROM minerais ';
+  end
+  else
+  begin
+    if Trim(Table) = Table1 then
+    begin
+      SQLstr:='SELECT nome, formula, classe, subclasse, grupo, subgrupo, '+
+      'ocorrencia, associacao, distincao, alteracao, aplicacao '+
+      'FROM '+Table1+
+      '  WHERE nome  = "'+Mineral+'" ;';
+    end
+    else
+    if Trim(Table) = Table2 then
+    begin
+      SQLstr:='SELECT nome, dureza_min, dureza_max, densidade_min, densidade_max,'+
+      'cor, traco, brilho, clivagem, fratura, magnetismo, luminescencia, '+
+      'diafaneidade FROM '+Table2+
+      '  WHERE nome  = "'+Mineral+'" ;';
+    end
+    else
+    if Trim(Table) = Table3 then
+    begin
+      SQLstr:='SELECT nome, refracao_min, refracao_max, birr_min, birr_max, '+
+      'desc_refracao, desc_birr, sinal_optico, desc_sinal_optico, cor_interferencia,'+
+      'cor_lamina, sinal_elongacao, relevo, angulo, extincao FROM '+Table3+
+      '  WHERE nome  = "'+Mineral+'" ;';
+    end
+    else
+    if Trim(Table) = Table4 then
+    begin
+      SQLstr:='SELECT nome, sistema, classe_cristalina, h_m, habito FROM '+Table4+
+      '  WHERE nome  = "'+Mineral+'" ;';
+    end;
+  end;
+  Result:=SQLstr;
+end;
+
+function TDados.UpdateGeneralInfo(Nome, Composicao, Classe, Subclasse, Grupo,
+  Subgrupo, Ocorrencia, Associacao, Distincao, Alteracao, Aplicacao: String
+  ): String;
+var SQLstr:String;
+begin
+  SQLstr:='UPDATE '+Table1+' SET '+
+    'formula = "'+Composicao+'", classe = "'+Classe+'", '+
+    'subclasse = "'+Subclasse+'", grupo = "'+Grupo+'", '+
+    'subgrupo = "'+SubGrupo+'", ocorrencia = "'+Ocorrencia+'", '+
+    'associacao = "'+Associacao+'", distincao = "'+Distincao+'", '+
+    'alteracao = "'+Alteracao+'", aplicacao = "'+Aplicacao+'" '+
+    'WHERE nome ="'+Nome+'" ;';
+  result:=SQLstr;
+end;
+
+function TDados.UpdatePhysicalProp(DurezaMin, DurezaMax, DensidadeMin,
+  DensidadeMax: Real; Cor, Traco, Brilho, Clivagem, Fratura, Magnetismo,
+  Luminescencia, Diafaneidade, Nome: String): String;
+var SQLstr:String;
+begin  //to do: formatar valores reais para apenas uma casa decimal
+  SQLstr:= 'UPDATE '+Table2+' SET '+
+  'dureza_min ="'+FloatToStr(DurezaMin)+'" , dureza_max = "'+FloatToStr(DurezaMax)+'" , '+
+  'densidade_min = "'+FloatToStr(DensidadeMin)+'" , densidade_max = "'+FloatToStr(DensidadeMax)+'" , '+
+  'cor = "'+Cor+'" , traco = "'+Traco+'", '+
+  'brilho = "'+Brilho+'" , clivagem = "'+Clivagem+'" , fratura = "'+Fratura+'" ,'+
+  'magnetismo = "'+Magnetismo+'" , luminescencia = "'+Luminescencia+'" , '+
+  'diafaneidade = "'+Diafaneidade+'" '+
+  'WHERE nome = "'+Nome+'" ;';
+  Result:=SQLstr;
+end;
+
+function TDados.UpdateOpticalProp(RefracaoMin, RefracaoMax, BirrMin,
+  BirrMax: Real; SinalOptico, DescSinalOptico, DescRefracao,
+  DescBirrefringencia, CorInterferencia, CorLamina, Elongacao, Relevo,
+  Angulo2V, Extincao, Nome: String): String;
+var SQLstr:String;
+begin  //to do: formatar valores reais para 3 casas decimais (FloatToStr(valor, "%.3f"))
+  SQLstr:='UPDATE '+Table3+' SET '+
+  'refracao_min = "'+FloatToStr(RefracaoMin)+'", refracao_max = "'+FloatToStr(RefracaoMax)+'" , '+
+  'birr_min = "'+FloatToStr(BirrMin)+'", birr_max = "'+FloatToStr(BirrMax)+'", '+
+  'indice_refracao = "'+DescRefracao+'", sinal_optico = "'+SinalOptico+'"'+
+  'desc_sinal_optico = "'+DescSinalOptico+'" , birrefringencia = "'+DescBirrefringencia+'", '+
+  'cor_interferencia = "'+CorInterferencia+'", cor_lamina = "'+CorLamina+'" , '+
+  'sinal_elongacao = "'+Elongacao+'" , relevo = "'+Relevo+'", '+
+  'angulo = "'+Angulo2V+'", extincao  = "'+Extincao+'" '+
+  'WHERE nome = "'+Nome+'" ; ';
+  Result:=SQLstr;
+end;
+
+function TDados.UpdateCrystallography(Sistema, Classe, Simbologia,
+  Habito, Nome: String): String;
+var SQLstr:String;
+begin
+  SQLstr:='UPDATE '+Table4+' SET '+
+  'sistema = "'+Sistema+'" , classe_cristalina = "'+Classe+'" , '+
+  'h_m = "'+Simbologia+'" , habito = "'+Habito+'" '+
+  'WHERE nome = "'+Nome+'"  ; ';
+  Result:= SQLstr;
 end;
 
 end.

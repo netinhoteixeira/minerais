@@ -9,7 +9,6 @@
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
-      <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <i18n>
       <EnableI18N LFM="False"/>
@@ -30,44 +29,45 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="8">
+    <RequiredPackages Count="9">
       <Item1>
-        <PackageName Value="bgracontrols"/>
+        <PackageName Value="BGRABitmapPack"/>
       </Item1>
       <Item2>
-        <PackageName Value="TurboPowerIPro"/>
+        <PackageName Value="bgracontrols"/>
       </Item2>
       <Item3>
-        <PackageName Value="SDFLaz"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item3>
       <Item4>
-        <PackageName Value="TAChartLazarusPkg"/>
+        <PackageName Value="SDFLaz"/>
       </Item4>
       <Item5>
-        <PackageName Value="lazreport"/>
-        <MinVersion Minor="9" Release="8" Valid="True"/>
+        <PackageName Value="TAChartLazarusPkg"/>
       </Item5>
       <Item6>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="lazreport"/>
+        <MinVersion Minor="9" Release="8" Valid="True"/>
       </Item6>
       <Item7>
-        <PackageName Value="sqlite3laz"/>
-        <MinVersion Minor="4" Valid="True"/>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item7>
       <Item8>
-        <PackageName Value="LCL"/>
+        <PackageName Value="sqlite3laz"/>
+        <MinVersion Minor="4" Valid="True"/>
       </Item8>
+      <Item9>
+        <PackageName Value="LCL"/>
+      </Item9>
     </RequiredPackages>
-    <Units Count="74">
+    <Units Count="81">
       <Unit0>
         <Filename Value="guiademinerais.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="guiademinerais"/>
-        <EditorIndex Value="9"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="15"/>
-        <CursorPos X="18" Y="38"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="13"/>
+        <CursorPos X="26" Y="36"/>
         <UsageCount Value="290"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -76,11 +76,10 @@
         <ComponentName Value="FormPrincipal"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uprincipal"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="171"/>
         <CursorPos X="18" Y="179"/>
-        <UsageCount Value="290"/>
+        <UsageCount Value="288"/>
       </Unit1>
       <Unit2>
         <Filename Value="src\udatamodule.pas"/>
@@ -88,25 +87,20 @@
         <ComponentName Value="Dados"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="udatamodule"/>
-        <EditorIndex Value="1"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="166"/>
-        <CursorPos X="20" Y="188"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="318"/>
+        <CursorPos X="25" Y="322"/>
         <UsageCount Value="290"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="src\uselecionabd.pas"/>
         <ComponentName Value="FormSelecionaBD"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uselecionabd"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="271"/>
         <CursorPos X="18" Y="279"/>
-        <UsageCount Value="286"/>
+        <UsageCount Value="284"/>
       </Unit3>
       <Unit4>
         <Filename Value="src\ubibliografia.pas"/>
@@ -114,22 +108,17 @@
         <ComponentName Value="FormBibliografia"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ubibliografia"/>
-        <EditorIndex Value="2"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="121"/>
-        <CursorPos X="13" Y="133"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="124"/>
+        <CursorPos Y="146"/>
         <UsageCount Value="289"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="src\sqlite3tablemod.pas"/>
-        <UnitName Value="sqlite3tablemod"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1085"/>
-        <CursorPos X="1" Y="1098"/>
-        <UsageCount Value="122"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1068"/>
+        <CursorPos Y="1084"/>
+        <UsageCount Value="120"/>
       </Unit5>
       <Unit6>
         <Filename Value="src\uformimpressao.pas"/>
@@ -137,21 +126,17 @@
         <ComponentName Value="FormImpressao"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uformimpressao"/>
-        <EditorIndex Value="3"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="54"/>
-        <CursorPos X="74" Y="143"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="159"/>
+        <CursorPos X="50" Y="181"/>
         <UsageCount Value="272"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="C:\lazarus\lcl\include\customform.inc"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="2077"/>
-        <CursorPos X="1" Y="2088"/>
-        <UsageCount Value="91"/>
+        <CursorPos Y="2088"/>
+        <UsageCount Value="89"/>
       </Unit7>
       <Unit8>
         <Filename Value="src\unitajuda.pas"/>
@@ -160,51 +145,48 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UnitAjuda"/>
-        <EditorIndex Value="6"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="36"/>
-        <CursorPos X="14" Y="39"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="22"/>
+        <CursorPos X="27" Y="42"/>
         <UsageCount Value="244"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="C:\lazarus\lcl\include\fpimagebitmap.inc"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="122"/>
         <CursorPos X="16" Y="135"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit9>
       <Unit10>
         <Filename Value="C:\lazarus\components\lazreport\source\lr_view.pas"/>
         <UnitName Value="LR_View"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="321"/>
         <CursorPos X="22" Y="331"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="4"/>
       </Unit10>
       <Unit11>
         <Filename Value="C:\lazarus\components\lazreport\source\lr_dbset.pas"/>
         <UnitName Value="LR_DBSet"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="215"/>
-        <CursorPos X="1" Y="225"/>
-        <UsageCount Value="6"/>
+        <CursorPos Y="225"/>
+        <UsageCount Value="4"/>
       </Unit11>
       <Unit12>
         <Filename Value="src\fr_e_tnpdf.pas"/>
         <UnitName Value="FR_E_TNPDF"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
         <CursorPos X="53" Y="9"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit12>
       <Unit13>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\inc\objpash.inc"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="50"/>
         <CursorPos X="11" Y="61"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="4"/>
       </Unit13>
       <Unit14>
         <Filename Value="src\unitsplash.pas"/>
@@ -213,694 +195,681 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitSplash"/>
-        <EditorIndex Value="7"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="12" Y="9"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="src\unitimagem.pas"/>
         <UnitName Value="unitImagem"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="10"/>
         <CursorPos X="9" Y="11"/>
-        <UsageCount Value="191"/>
+        <UsageCount Value="189"/>
       </Unit15>
       <Unit16>
         <Filename Value="C:\lazarus\components\tachart\tachartimagelist.pas"/>
         <UnitName Value="TAChartImageList"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="107"/>
         <CursorPos X="6" Y="43"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit16>
       <Unit17>
         <Filename Value="C:\lazarus\components\tachart\tatools.pas"/>
         <UnitName Value="TATools"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="791"/>
         <CursorPos X="3" Y="770"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit17>
       <Unit18>
         <Filename Value="C:\lazarus\components\tachart\tachartextentlink.pas"/>
         <UnitName Value="TAChartExtentLink"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="97"/>
         <CursorPos X="34" Y="148"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="4"/>
       </Unit18>
       <Unit19>
         <Filename Value="C:\lazarus\lcl\include\menuitem.inc"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="67"/>
-        <CursorPos X="1" Y="83"/>
-        <UsageCount Value="10"/>
+        <CursorPos Y="83"/>
+        <UsageCount Value="8"/>
       </Unit19>
       <Unit20>
         <Filename Value="C:\lazarus\lcl\dbctrls.pp"/>
         <UnitName Value="DbCtrls"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1405"/>
         <CursorPos X="21" Y="1425"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit20>
       <Unit21>
         <Filename Value="src\unitgraficos.pas"/>
-        <UnitName Value="unitgraficos"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="197"/>
         <CursorPos X="43" Y="205"/>
-        <UsageCount Value="200"/>
+        <UsageCount Value="198"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\TesteGraficos2\unitinterface.pas"/>
-        <UnitName Value="unitinterface"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="11" Y="43"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit22>
       <Unit23>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\packages\fcl-db\src\sdf\sdfdata.pp"/>
         <UnitName Value="SdfData"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="597"/>
         <CursorPos X="33" Y="611"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit23>
       <Unit24>
-        <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\classes\classesh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="734"/>
-        <CursorPos X="3" Y="727"/>
-        <UsageCount Value="1"/>
-      </Unit24>
-      <Unit25>
         <Filename Value="Data\raman.csv"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1290"/>
         <CursorPos X="19" Y="1312"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit25>
-      <Unit26>
+      </Unit24>
+      <Unit25>
         <Filename Value="src\unitplanilha.pas"/>
         <ComponentName Value="FormPlanilha"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitPlanilha"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="43"/>
         <CursorPos X="15" Y="46"/>
-        <UsageCount Value="201"/>
-      </Unit26>
-      <Unit27>
+        <UsageCount Value="199"/>
+      </Unit25>
+      <Unit26>
         <Filename Value="..\..\Geoestatistica\src\unitplanilha.pas"/>
         <UnitName Value="unitPlanilha"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="28" Y="16"/>
-        <UsageCount Value="5"/>
-      </Unit27>
-      <Unit28>
+        <UsageCount Value="3"/>
+      </Unit26>
+      <Unit27>
         <Filename Value="..\..\Geoestatistica\src\unitinterface.pas"/>
         <UnitName Value="UnitInterface"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="145"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="..\..\Geoestatistica\src\unitdados.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="3"/>
+        <UsageCount Value="8"/>
       </Unit28>
       <Unit29>
-        <Filename Value="..\..\Geoestatistica\src\unitdados.pas"/>
-        <UnitName Value="unitdados"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="3"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit29>
-      <Unit30>
         <Filename Value="..\GeoStatistica\src\unitinterface.pas"/>
         <UnitName Value="UnitInterface"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="410"/>
         <CursorPos X="23" Y="390"/>
-        <UsageCount Value="5"/>
-      </Unit30>
-      <Unit31>
+        <UsageCount Value="3"/>
+      </Unit29>
+      <Unit30>
         <Filename Value="src\unitequipamentos.pas"/>
         <ComponentName Value="FormInstrumentos"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitequipamentos"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="48"/>
         <CursorPos X="18" Y="71"/>
-        <UsageCount Value="200"/>
-      </Unit31>
-      <Unit32>
+        <UsageCount Value="198"/>
+      </Unit30>
+      <Unit31>
         <Filename Value="src\unitrruff_id.pas"/>
         <ComponentName Value="FormAdicionaRruff"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitrruff_id"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="43"/>
         <CursorPos X="31" Y="52"/>
-        <UsageCount Value="198"/>
-      </Unit32>
-      <Unit33>
+        <UsageCount Value="196"/>
+      </Unit31>
+      <Unit32>
         <Filename Value="C:\lazarus\lcl\editbtn.pas"/>
         <UnitName Value="EditBtn"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="768"/>
-        <CursorPos X="1" Y="783"/>
-        <UsageCount Value="4"/>
-      </Unit33>
-      <Unit34>
+        <CursorPos Y="783"/>
+        <UsageCount Value="2"/>
+      </Unit32>
+      <Unit33>
         <Filename Value="src\unitfichaamostra.pas"/>
         <ComponentName Value="FormFichaAmostra"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitfichaamostra"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="2515"/>
         <CursorPos X="19" Y="2527"/>
-        <UsageCount Value="200"/>
-      </Unit34>
-      <Unit35>
+        <UsageCount Value="198"/>
+      </Unit33>
+      <Unit34>
         <Filename Value="src\unitfichaespecie.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormFichaEspecie"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitfichaespecie"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="3353"/>
-        <CursorPos X="45" Y="3368"/>
-        <ComponentState Value="2"/>
+        <TopLine Value="230"/>
+        <CursorPos X="16" Y="849"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="..\..\Geoestatistica\src\unitplanilha.lfm"/>
+        <UsageCount Value="3"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit35>
       <Unit36>
-        <Filename Value="..\..\Geoestatistica\src\unitplanilha.lfm"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
-        <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit36>
-      <Unit37>
         <Filename Value="..\GeoStatistica\src\unitgrafico.pas"/>
         <UnitName Value="UnitGrafico"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
-      </Unit37>
-      <Unit38>
+        <UsageCount Value="3"/>
+      </Unit36>
+      <Unit37>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32wsbuttons.pp"/>
         <UnitName Value="Win32WSButtons"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="486"/>
-        <CursorPos X="1" Y="494"/>
-        <UsageCount Value="9"/>
+        <CursorPos Y="494"/>
+        <UsageCount Value="7"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
+        <TopLine Value="3229"/>
+        <CursorPos Y="3242"/>
+        <UsageCount Value="20"/>
       </Unit38>
       <Unit39>
-        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="3229"/>
-        <CursorPos X="1" Y="3242"/>
-        <UsageCount Value="22"/>
+        <Filename Value="C:\lazarus\lcl\include\imglist.inc"/>
+        <TopLine Value="603"/>
+        <CursorPos Y="618"/>
+        <UsageCount Value="5"/>
       </Unit39>
       <Unit40>
-        <Filename Value="C:\lazarus\lcl\include\imglist.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="603"/>
-        <CursorPos X="1" Y="618"/>
+        <Filename Value="C:\lazarus\lcl\themes.pas"/>
+        <UnitName Value="Themes"/>
+        <TopLine Value="1896"/>
+        <CursorPos X="56" Y="1874"/>
         <UsageCount Value="7"/>
       </Unit40>
       <Unit41>
-        <Filename Value="C:\lazarus\lcl\themes.pas"/>
-        <UnitName Value="Themes"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1896"/>
-        <CursorPos X="56" Y="1874"/>
-        <UsageCount Value="9"/>
-      </Unit41>
-      <Unit42>
         <Filename Value="src\unitadicionarimagem.pas"/>
         <ComponentName Value="FormAddRruffData"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitAdicionarImagem"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="71"/>
         <CursorPos X="78" Y="76"/>
-        <UsageCount Value="44"/>
-      </Unit42>
-      <Unit43>
+        <UsageCount Value="42"/>
+      </Unit41>
+      <Unit42>
         <Filename Value="src\unitadicionardadosrruff.pas"/>
         <ComponentName Value="FormAddImage"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitAdicionarDadosrruff"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="33" Y="19"/>
-        <UsageCount Value="112"/>
-      </Unit43>
-      <Unit44>
+        <UsageCount Value="110"/>
+      </Unit42>
+      <Unit43>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32winapi.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="2601"/>
         <CursorPos X="12" Y="2615"/>
-        <UsageCount Value="6"/>
-      </Unit44>
-      <Unit45>
+        <UsageCount Value="4"/>
+      </Unit43>
+      <Unit44>
         <Filename Value="src\unitblobfields.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unitBlobFields"/>
-        <EditorIndex Value="10"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="69"/>
-        <CursorPos X="11" Y="74"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="75"/>
+        <CursorPos X="20" Y="88"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-      </Unit45>
-      <Unit46>
-        <Filename Value="C:\lazarus\lcl\controls.pp"/>
-        <UnitName Value="Controls"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1611"/>
-        <CursorPos X="17" Y="1627"/>
-        <UsageCount Value="1"/>
-      </Unit46>
-      <Unit47>
+      </Unit44>
+      <Unit45>
         <Filename Value="C:\lazarus\lcl\dbgrids.pas"/>
         <UnitName Value="DBGrids"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="506"/>
         <CursorPos X="19" Y="519"/>
-        <UsageCount Value="15"/>
-      </Unit47>
-      <Unit48>
-        <Filename Value="C:\lazarus\lcl\grids.pas"/>
-        <UnitName Value="Grids"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1041"/>
-        <CursorPos X="40" Y="1052"/>
-        <UsageCount Value="1"/>
-      </Unit48>
-      <Unit49>
+        <UsageCount Value="13"/>
+      </Unit45>
+      <Unit46>
         <Filename Value="C:\lazarus\lcl\include\customlistbox.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="183"/>
-        <CursorPos X="1" Y="197"/>
-        <UsageCount Value="2"/>
-      </Unit49>
-      <Unit50>
+        <CursorPos Y="197"/>
+        <UsageCount Value="10"/>
+      </Unit46>
+      <Unit47>
         <Filename Value="src\unitshowimages.pas"/>
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitshowimages"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="6"/>
         <CursorPos X="72" Y="19"/>
-        <UsageCount Value="44"/>
-      </Unit50>
-      <Unit51>
+        <UsageCount Value="42"/>
+      </Unit47>
+      <Unit48>
         <Filename Value="src\unitfilter.pas"/>
         <ComponentName Value="FormFiltro"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitfilter"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="6"/>
         <CursorPos X="12" Y="21"/>
-        <UsageCount Value="11"/>
-      </Unit51>
-      <Unit52>
+        <UsageCount Value="9"/>
+      </Unit48>
+      <Unit49>
         <Filename Value="src\unitmineraldatabase.pas"/>
         <ComponentName Value="FormMineralDatabase"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitmineraldatabase"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="8"/>
         <CursorPos X="28" Y="69"/>
-        <UsageCount Value="91"/>
-      </Unit52>
-      <Unit53>
+        <UsageCount Value="89"/>
+      </Unit49>
+      <Unit50>
         <Filename Value="..\Backup\minerais\src\uprincipal.pas"/>
-        <UnitName Value="uprincipal"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="2037"/>
         <CursorPos X="55" Y="2012"/>
-        <UsageCount Value="4"/>
-      </Unit53>
-      <Unit54>
+        <UsageCount Value="2"/>
+      </Unit50>
+      <Unit51>
         <Filename Value="src\unitaddmineral.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormAddMineral"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitaddmineral"/>
-        <EditorIndex Value="14"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="32" Y="8"/>
-        <UsageCount Value="164"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit54>
-      <Unit55>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="144"/>
+        <CursorPos X="94" Y="156"/>
+        <UsageCount Value="200"/>
+      </Unit51>
+      <Unit52>
         <Filename Value="src\unitselectdatabase.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormSelectDatabase"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitselectdatabase"/>
-        <EditorIndex Value="11"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="64"/>
-        <CursorPos X="3" Y="70"/>
-        <UsageCount Value="154"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit55>
-      <Unit56>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="84"/>
+        <CursorPos X="37" Y="98"/>
+        <UsageCount Value="193"/>
+      </Unit52>
+      <Unit53>
         <Filename Value="src\unitadddatabase.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormAddDatabase"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitadddatabase"/>
-        <EditorIndex Value="13"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="120"/>
-        <CursorPos X="4" Y="142"/>
-        <UsageCount Value="153"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit56>
-      <Unit57>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="40"/>
+        <CursorPos X="38" Y="41"/>
+        <UsageCount Value="192"/>
+      </Unit53>
+      <Unit54>
         <Filename Value="src\unitaddsample.pas"/>
         <ComponentName Value="FormAddSample"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitaddsample"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="421"/>
         <CursorPos X="60" Y="414"/>
-        <UsageCount Value="133"/>
-      </Unit57>
-      <Unit58>
+        <UsageCount Value="131"/>
+      </Unit54>
+      <Unit55>
         <Filename Value="src\unitfichaamostra.lfm"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1139"/>
         <CursorPos X="35" Y="1169"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="17"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit58>
-      <Unit59>
+      </Unit55>
+      <Unit56>
         <Filename Value="src\unitremovesample.pas"/>
         <ComponentName Value="FormRemoveSample"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitremovesample"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="300"/>
         <CursorPos X="20" Y="314"/>
-        <UsageCount Value="121"/>
-      </Unit59>
-      <Unit60>
+        <UsageCount Value="119"/>
+      </Unit56>
+      <Unit57>
         <Filename Value="C:\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="544"/>
         <CursorPos X="15" Y="583"/>
-        <UsageCount Value="10"/>
-      </Unit60>
-      <Unit61>
+        <UsageCount Value="8"/>
+      </Unit57>
+      <Unit58>
         <Filename Value="src\unitremovemineral.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormRemoveMineral"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitremovemineral"/>
-        <EditorIndex Value="8"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="81"/>
-        <CursorPos X="19" Y="44"/>
-        <UsageCount Value="100"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit61>
-      <Unit62>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="39"/>
+        <CursorPos X="45" Y="54"/>
+        <UsageCount Value="139"/>
+      </Unit58>
+      <Unit59>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\packages\fcl-image\src\fpimage.pp"/>
         <UnitName Value="FPimage"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="72" Y="250"/>
-        <UsageCount Value="8"/>
-      </Unit62>
-      <Unit63>
+        <UsageCount Value="6"/>
+      </Unit59>
+      <Unit60>
         <Filename Value="src\unitlanguage.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unitLanguage"/>
-        <EditorIndex Value="15"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="170"/>
         <CursorPos X="6" Y="180"/>
-        <UsageCount Value="69"/>
-        <Loaded Value="True"/>
-      </Unit63>
-      <Unit64>
+        <UsageCount Value="108"/>
+      </Unit60>
+      <Unit61>
         <Filename Value="src\unitformlanguage.pas"/>
         <ComponentName Value="FormLanguage"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitFormLanguage"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="75"/>
         <CursorPos X="20" Y="63"/>
-        <UsageCount Value="59"/>
-      </Unit64>
-      <Unit65>
+        <UsageCount Value="57"/>
+      </Unit61>
+      <Unit62>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\packages\fcl-base\src\inifiles.pp"/>
         <UnitName Value="IniFiles"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="153"/>
         <CursorPos X="3" Y="165"/>
-        <UsageCount Value="9"/>
-      </Unit65>
-      <Unit66>
+        <UsageCount Value="7"/>
+      </Unit62>
+      <Unit63>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\inc\objpash.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="183"/>
         <CursorPos X="23" Y="192"/>
-        <UsageCount Value="13"/>
-      </Unit66>
-      <Unit67>
+        <UsageCount Value="11"/>
+      </Unit63>
+      <Unit64>
         <Filename Value="src\unittranslatefile.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormTranslate"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unittranslatefile"/>
-        <EditorIndex Value="0"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="71"/>
         <CursorPos X="21" Y="85"/>
-        <UsageCount Value="43"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit67>
-      <Unit68>
+        <UsageCount Value="82"/>
+      </Unit64>
+      <Unit65>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\objpas\classes\classesh.inc"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="422"/>
         <CursorPos X="15" Y="439"/>
-        <UsageCount Value="11"/>
-      </Unit68>
-      <Unit69>
+        <UsageCount Value="9"/>
+      </Unit65>
+      <Unit66>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\objpas\objpas.pp"/>
-        <UnitName Value="objpas"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="61"/>
         <CursorPos X="16" Y="78"/>
-        <UsageCount Value="10"/>
-      </Unit69>
-      <Unit70>
+        <UsageCount Value="8"/>
+      </Unit66>
+      <Unit67>
         <Filename Value="src\unitaddmineral.lfm"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="746"/>
         <CursorPos X="7" Y="771"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="12"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit70>
-      <Unit71>
+      </Unit67>
+      <Unit68>
         <Filename Value="src\unitadddatabase.lfm"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="45" Y="18"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit71>
-      <Unit72>
+      </Unit68>
+      <Unit69>
         <Filename Value="src\unitremovemineral.lfm"/>
-        <EditorIndex Value="12"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="158"/>
         <CursorPos X="16" Y="176"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="14"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit72>
-      <Unit73>
+      </Unit69>
+      <Unit70>
         <Filename Value="src\unitformconfigurations.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormConfigurations"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="unitformconfigurations"/>
-        <EditorIndex Value="5"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="73"/>
-        <CursorPos X="12" Y="72"/>
-        <UsageCount Value="30"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="31"/>
+        <CursorPos X="25" Y="46"/>
+        <UsageCount Value="69"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="..\..\..\..\usr\lib\lazarus\components\bgracontrols\bctoolbar.pas"/>
+        <UnitName Value="BCToolBar"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="72"/>
+        <CursorPos X="10" Y="85"/>
+        <UsageCount Value="8"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="..\..\..\..\usr\lib\lazarus\ide\lazarus.pp"/>
+        <UnitName Value="Lazarus"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="120"/>
+        <CursorPos X="11" Y="122"/>
+        <UsageCount Value="8"/>
+      </Unit72>
+      <Unit73>
+        <Filename Value="src\frameficha.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FrameFicha"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="554"/>
+        <CursorPos X="31" Y="569"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit73>
+      <Unit74>
+        <Filename Value="src\frameficha.lfm"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="5"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit74>
+      <Unit75>
+        <Filename Value="src\unitformimages.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormImages"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="33" Y="21"/>
+        <UsageCount Value="29"/>
+      </Unit75>
+      <Unit76>
+        <Filename Value="..\..\..\..\usr\lib\lazarus\lcl\include\control.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="3641"/>
+        <CursorPos Y="3657"/>
+        <UsageCount Value="10"/>
+      </Unit76>
+      <Unit77>
+        <Filename Value="src\framequickfilter.pas"/>
+        <HasResources Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="6"/>
+        <CursorPos X="20" Y="14"/>
+        <UsageCount Value="20"/>
+      </Unit77>
+      <Unit78>
+        <Filename Value="src\framequickfilter.lfm"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="47" Y="6"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit78>
+      <Unit79>
+        <Filename Value="src\formminerallist.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="23" Y="11"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit79>
+      <Unit80>
+        <Filename Value="src\formquickfilter.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form2"/>
+        <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit80>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="2148" Column="25" TopLine="2126"/>
+        <Filename Value="src\frameficha.pas"/>
+        <Caret Line="204" Column="56" TopLine="187"/>
       </Position1>
       <Position2>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="2152" Column="24" TopLine="2130"/>
+        <Filename Value="src\frameficha.pas"/>
+        <Caret Line="346" Column="37" TopLine="322"/>
       </Position2>
       <Position3>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="2156" Column="27" TopLine="2134"/>
+        <Filename Value="src\frameficha.pas"/>
+        <Caret Line="204" Column="51" TopLine="189"/>
       </Position3>
       <Position4>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="2159" Column="27" TopLine="2137"/>
+        <Filename Value="src\frameficha.pas"/>
+        <Caret Line="202" Column="18" TopLine="125"/>
       </Position4>
       <Position5>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="2168" Column="34" TopLine="2146"/>
+        <Caret Line="1791" Column="40" TopLine="1783"/>
       </Position5>
       <Position6>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="2183" Column="28" TopLine="2161"/>
+        <Caret Line="2075" Column="22" TopLine="2050"/>
       </Position6>
       <Position7>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="2190" Column="25" TopLine="2168"/>
+        <Caret Line="2079" Column="22" TopLine="2054"/>
       </Position7>
       <Position8>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="2194" Column="24" TopLine="2172"/>
+        <Caret Line="2090" Column="22" TopLine="2065"/>
       </Position8>
       <Position9>
-        <Filename Value="src\unitaddmineral.pas"/>
-        <Caret Line="127" Column="41" TopLine="117"/>
+        <Filename Value="src\unitfichaespecie.pas"/>
+        <Caret Line="2094" Column="22" TopLine="2069"/>
       </Position9>
       <Position10>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="503" Column="3" TopLine="500"/>
+        <Caret Line="2105" Column="22" TopLine="2080"/>
       </Position10>
       <Position11>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="453" Column="30" TopLine="439"/>
+        <Caret Line="2109" Column="22" TopLine="2084"/>
       </Position11>
       <Position12>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="547" Column="22" TopLine="529"/>
+        <Caret Line="2120" Column="22" TopLine="2095"/>
       </Position12>
       <Position13>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="1918" Column="44" TopLine="1899"/>
+        <Caret Line="2124" Column="22" TopLine="2099"/>
       </Position13>
       <Position14>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="2836" Column="18" TopLine="2817"/>
+        <Caret Line="2135" Column="22" TopLine="2110"/>
       </Position14>
       <Position15>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="1959" Column="31" TopLine="1950"/>
+        <Caret Line="2139" Column="22" TopLine="2114"/>
       </Position15>
       <Position16>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="1920" Column="23" TopLine="1909"/>
+        <Caret Line="2150" Column="22" TopLine="2125"/>
       </Position16>
       <Position17>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="1921" Column="23" TopLine="1909"/>
+        <Caret Line="2154" Column="22" TopLine="2129"/>
       </Position17>
       <Position18>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="1959" Column="31" TopLine="1941"/>
+        <Caret Line="2165" Column="22" TopLine="2140"/>
       </Position18>
       <Position19>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="1920" Column="1" TopLine="1909"/>
+        <Caret Line="2169" Column="22" TopLine="2144"/>
       </Position19>
       <Position20>
         <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="1921" Column="1" TopLine="1910"/>
+        <Caret Line="217" Column="32" TopLine="203"/>
       </Position20>
       <Position21>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="1920" Column="1" TopLine="1909"/>
+        <Filename Value="src\frameficha.pas"/>
+        <Caret Line="141" Column="58" TopLine="134"/>
       </Position21>
       <Position22>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="1924" Column="1" TopLine="1913"/>
+        <Filename Value="src\frameficha.pas"/>
+        <Caret Line="371" Column="40" TopLine="349"/>
       </Position22>
       <Position23>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="459" Column="28" TopLine="441"/>
+        <Filename Value="src\frameficha.pas"/>
+        <Caret Line="9" Column="65"/>
       </Position23>
       <Position24>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="554" Column="20" TopLine="536"/>
+        <Filename Value="src\frameficha.pas"/>
+        <Caret Line="358" Column="3" TopLine="343"/>
       </Position24>
       <Position25>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="761" Column="18" TopLine="743"/>
+        <Filename Value="src\frameficha.pas"/>
+        <Caret Line="357" Column="21" TopLine="344"/>
       </Position25>
       <Position26>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="1208" Column="16" TopLine="1189"/>
+        <Filename Value="src\frameficha.pas"/>
+        <Caret Line="374" Column="28" TopLine="360"/>
       </Position26>
       <Position27>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="1661" Column="18" TopLine="1642"/>
+        <Filename Value="src\frameficha.pas"/>
+        <Caret Line="397" Column="29" TopLine="383"/>
       </Position27>
       <Position28>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="2087" Column="54" TopLine="2081"/>
+        <Filename Value="src\frameficha.pas"/>
+        <Caret Line="569" Column="31" TopLine="554"/>
       </Position28>
       <Position29>
-        <Filename Value="src\unitfichaespecie.pas"/>
-        <Caret Line="573" Column="3" TopLine="569"/>
+        <Filename Value="src\formminerallist.pas"/>
       </Position29>
-      <Position30>
-        <Filename Value="src\uformimpressao.pas"/>
-        <Caret Line="6" Column="10" TopLine="6"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -921,12 +890,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <BreakPoints Count="1">
@@ -950,5 +913,4 @@
       </Item3>
     </Exceptions>
   </Debugging>
-  <EditorMacros Count="0"/>
-</CONFIG>
+</CONFIG>

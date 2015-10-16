@@ -23,7 +23,6 @@ type
     SpeedButtonClose: TSpeedButton;
     SpeedButtonCreateLanguageFile: TSpeedButton;
     SpeedButtonSelectLanguageFile: TSpeedButton;
-    procedure ComboBox1Change(Sender: TObject);
     procedure ComboBox2Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButtonCloseClick(Sender: TObject);
@@ -83,7 +82,7 @@ procedure TFormConfigurations.ChangeLanguage;
 begin
 
 end;
-
+{ mudar para FrameFicha
 procedure TFormConfigurations.ComboBox1Change(Sender: TObject);
 begin
   FormFichaEspecie.PageControlFicha.Font.Size := StrToInt(Combobox1.Text);
@@ -95,6 +94,6 @@ begin
   FormAjuda.ChangeLanguage;
   FormSelectDatabase.ChangeLanguage;
 end;
-
+ }
 end.
 

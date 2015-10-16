@@ -85,16 +85,16 @@ function SelectBlobFieldToJPEGImage(Table, Field, Especie, Rruff_id, Digito,
   Tipo: String): TJPEGImage;
 var I:Boolean; pic: TJPEGImage;
 begin
-  if Table = 'minerais' then
+  if Table = Dados.Table5 then
   begin
-    Dados.TableMinerals := Dados.DatabaseMinerals.GetTable('SELECT '+Field+' FROM '+Table+
+    Dados.TableImages := Dados.DatabaseMinerals.GetTable('SELECT '+Field+' FROM '+Table+
       ' WHERE nome = "' + Especie + '" ;');
     I:=True;
   end
   else
-  if Table = 'mineralogia' then
+  if Table = Dados.Table6 then
   begin
-    Dados.TableMinerals := Dados.DatabaseMinerals.GetTable('SELECT '+Field+' FROM '+Table+
+    Dados.TableImages := Dados.DatabaseMinerals.GetTable('SELECT '+Field+' FROM '+Table+
       ' WHERE campo = "' + Tipo + '" ;');
     I:=True;
   end
@@ -103,10 +103,10 @@ begin
 
   if I then
   begin
-   if Dados.TableMinerals.Count > 0 then
+   if Dados.TableImages.Count > 0 then
     begin
     Try
-      MS := Dados.TableMinerals.FieldAsBlob(Dados.TableMinerals.
+      MS := Dados.TableImages.FieldAsBlob(Dados.TableImages.
         FieldIndex[Field]);
       if (MS <> nil) then
       begin
@@ -130,18 +130,18 @@ end;
 procedure AddBlobFieldMineral(FilenameDatabase, FileNameImage,Table, Field,
   Especie_Tipo: String);
 var FS: TFileStream;
-  DatabaseMineral: TSQLiteDatabase;
+  DatabaseMineral: TSQLiteDatabase; //to do:usar o DatabaseMineral em udatamodule?
 begin
   DatabaseMineral:= TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
   Try
     FS := TFileStream.Create(FileNameImage, fmOpenRead);
-    if Table = 'minerais' then
+    if Table = Dados.Table5 then
     begin
       DatabaseMineral.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE nome = "'+
         Especie_Tipo+'"  ;', FS);
     end
     else
-    if Table = 'mineralogia' then
+    if Table = Dados.Table6 then
     begin
       DatabaseMineral.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE campo'+
         ' =  "'+Especie_Tipo+'"  ;', FS);
@@ -153,17 +153,17 @@ begin
 end;
 
 procedure ClearBlobField(Table, Field, Especie, Rruff_id, Digito, Tipo: String);
-var DatabaseMinerals, DatabaseSamples: TSQLiteDatabase;
-begin
+var DatabaseMinerals: TSQLiteDatabase;
+begin//to do:usar o DatabaseMineral em udatamodule?
   DatabaseMinerals:=TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
   Try
-  if Table = 'minerais' then
+  if Table = Dados.Table5 then
   begin
     DatabaseMinerals.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
       'WHERE nome="'+Especie+'" ;');
   end
   else
-  if Table = 'mineralogia' then
+  if Table = Dados.Table6 then
   begin
     DatabaseMinerals.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
       'WHERE campo="'+Tipo+'" ;');

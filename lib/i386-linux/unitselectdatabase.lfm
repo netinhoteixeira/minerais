@@ -10,23 +10,23 @@ object FormSelectDatabase: TFormSelectDatabase
   OnMouseEnter = ActionRefreshEditsExecute
   OnShow = ActionRefreshEditsExecute
   Position = poMainFormCenter
-  LCLVersion = '1.2.2.0'
+  LCLVersion = '1.4.2.0'
   object ScrollBox1: TScrollBox
     Left = 0
     Height = 214
     Top = 0
     Width = 595
-    HorzScrollBar.Page = 591
-    VertScrollBar.Page = 210
+    HorzScrollBar.Page = 549
+    VertScrollBar.Page = 186
     Align = alClient
-    ClientHeight = 210
-    ClientWidth = 591
+    ClientHeight = 212
+    ClientWidth = 593
     TabOrder = 0
     object BCPanel1: TBCPanel
       Left = 0
-      Height = 160
+      Height = 162
       Top = 0
-      Width = 591
+      Width = 593
       Align = alClient
       Background.Color = clBtnFace
       Background.ColorOpacity = 255
@@ -88,9 +88,9 @@ object FormSelectDatabase: TFormSelectDatabase
       TabOrder = 1
       object BCLabelMineralDB: TBCLabel
         Left = 24
-        Height = 15
+        Height = 21
         Top = 16
-        Width = 116
+        Width = 141
         Background.Color = clBlack
         Background.ColorOpacity = 255
         Background.Gradient1.StartColor = clWhite
@@ -146,8 +146,8 @@ object FormSelectDatabase: TFormSelectDatabase
         Rounding.RoundOptions = []
       end
       object Edit1: TEdit
-        Left = 19
-        Height = 38
+        Left = 21
+        Height = 41
         Top = 40
         Width = 549
         Anchors = [akTop, akRight]
@@ -298,8 +298,8 @@ object FormSelectDatabase: TFormSelectDatabase
     object BCPanel3: TBCPanel
       Left = 0
       Height = 50
-      Top = 160
-      Width = 591
+      Top = 162
+      Width = 593
       Align = alBottom
       Background.Color = 5000268
       Background.ColorOpacity = 255
@@ -358,7 +358,7 @@ object FormSelectDatabase: TFormSelectDatabase
       Rounding.RoundOptions = []
       TabOrder = 0
       object SpeedButtonClose: TSpeedButton
-        Left = 536
+        Left = 538
         Height = 40
         Hint = 'Fechar'
         Top = 6

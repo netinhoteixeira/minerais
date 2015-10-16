@@ -95,6 +95,7 @@ procedure TFormSelectDatabase.ActionApplyExecute(Sender: TObject);
 begin
   if Dados.ChooseDatabase('mineral', Edit1.Text) then
    begin
+    { to do: adaptar para frameficha
     Dados.SetDatabase(Edit1.Text);
     FormFichaEspecie.AtualizarLista;
     FormFichaEspecie.Preenche_Classes;
@@ -103,6 +104,7 @@ begin
     FormFichaEspecie.Preenche_SubGrupos;
     FormFichaEspecie.RefreshImages;
     FormSelectDatabase.Hide;
+    }
    end
   else
     ShowMessage(Lang.TheSelectedDatabaseIsNotValid);

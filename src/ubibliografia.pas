@@ -41,8 +41,6 @@ var
   FormBibliografia: TFormBibliografia;
   Bibliografia: TextFile;
   Diretorio, Texto:String;
-  DatabaseMinerals: TSQLiteDatabase;
-  TableMinerals: TSQLiteTable;
   Config:TIniFile;
 
 implementation
@@ -59,13 +57,13 @@ begin
     if FileExists(Dados.DatabaseMineralFileName) then
       if Dados.ChooseDatabase('mineral',Dados.DatabaseMineralFileName) then
         begin
-          DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
-          TableMinerals:= DatabaseMinerals.GetTable(
+          Dados.DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
+          Dados.TableMineralogy:= Dados.DatabaseMinerals.GetTable(
             'SELECT campo FROM mineralogia WHERE campo="bibliografia" ;');
-          if TableMinerals.Count>0 then
-            if TableMinerals.MoveFirst then
+          if Dados.TableMineralogy.Count>0 then
+            if Dados.TableMineralogy.MoveFirst then
               begin
-                Memo1.Append(Dados.TableMinerals.Fields[0]);
+                Memo1.Append(Dados.TableMineralogy.Fields[0]);
               end;
         end;
 
@@ -103,17 +101,17 @@ begin
     if FileExists(Dados.DatabaseMineralFileName) then
       if Dados.ChooseDatabase('mineral',Dados.DatabaseMineralFileName) then
         begin
-          DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
-          TableMinerals:= DatabaseMinerals.GetTable(
+          Dados.DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
+          Dados.TableMineralogy:= Dados.DatabaseMinerals.GetTable(
             'SELECT texto FROM mineralogia WHERE campo="bibliografia" ;');
-          if TableMinerals.Count >0 then
+          if Dados.TableMineralogy.Count >0 then
           begin
-            DatabaseMinerals.ExecSQL('UPDATE mineralogia SET texto = "'+
+            Dados.DatabaseMinerals.ExecSQL('UPDATE mineralogia SET texto = "'+
             Memo1.Text+'" WHERE campo="bibliografia"');
           end
           else
           begin
-            DatabaseMinerals.ExecSQL(
+            Dados.DatabaseMinerals.ExecSQL(
               'INSERT INTO mineralogia (campo, texto) VALUES ("bibliografia", "'+
               Memo1.Text+'") ; ');
           end;
@@ -132,21 +130,20 @@ begin
     if FileExists(Dados.DatabaseMineralFileName) then
       if Dados.ChooseDatabase('mineral',Dados.DatabaseMineralFileName) then
         begin
-          DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
-          TableMinerals:= DatabaseMinerals.GetTable(
+          Dados.DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
+          Dados.TableMineralogy:= Dados.DatabaseMinerals.GetTable(
             'SELECT campo FROM mineralogia WHERE campo="bibliografia" ;');
-          if TableMinerals.Count>0 then
-            if TableMinerals.MoveFirst then
+          if Dados.TableMineralogy.Count>0 then
+            if Dados.TableMineralogy.MoveFirst then
               begin
-                Memo1.Append(Dados.TableMinerals.Fields[0]);
+                Memo1.Append(Dados.TableMineralogy.Fields[0]);
               end;
         end;
 end;
 
 procedure TFormBibliografia.FormDestroy(Sender: TObject);
 begin
-  TableMinerals.Free;
-  DatabaseMinerals.Free;
+
 end;
 
 procedure TFormBibliografia.ActionEditExecute(Sender: TObject);

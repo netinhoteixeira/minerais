@@ -1,0 +1,60 @@
+object Form2: TForm2
+  Left = 690
+  Height = 601
+  Top = 85
+  Width = 250
+  Caption = 'Form2'
+  ClientHeight = 601
+  ClientWidth = 250
+  LCLVersion = '1.4.2.0'
+  object LabelName: TLabel
+    Left = 11
+    Height = 21
+    Top = 11
+    Width = 72
+    Caption = 'LabelName'
+    ParentColor = False
+  end
+  object EditName: TEdit
+    Left = 11
+    Height = 33
+    Top = 39
+    Width = 206
+    TabOrder = 0
+    Text = 'EditName'
+  end
+  object LabelClass: TLabel
+    Left = 15
+    Height = 21
+    Top = 83
+    Width = 69
+    Caption = 'LabelClass'
+    ParentColor = False
+  end
+  object ComboBoxClass: TComboBox
+    Left = 15
+    Height = 33
+    Top = 106
+    Width = 202
+    ItemHeight = 0
+    TabOrder = 1
+    Text = 'ComboBoxClass'
+  end
+  object LabelSubclass: TLabel
+    Left = 15
+    Height = 21
+    Top = 148
+    Width = 91
+    Caption = 'LabelSubclass'
+    ParentColor = False
+  end
+  object ComboBoxSubclass: TComboBox
+    Left = 16
+    Height = 33
+    Top = 176
+    Width = 196
+    ItemHeight = 0
+    TabOrder = 2
+    Text = 'ComboBoxSubclass'
+  end
+end

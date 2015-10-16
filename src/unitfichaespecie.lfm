@@ -1,1016 +1,22 @@
 object FormFichaEspecie: TFormFichaEspecie
-  Left = 0
-  Height = 702
-  Top = 27
-  Width = 1366
+  Left = 1280
+  Height = 635
+  Top = 32
+  Width = 1198
   Caption = 'Guia de Minerais'
-  ClientHeight = 675
-  ClientWidth = 1366
+  ClientHeight = 608
+  ClientWidth = 1198
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
   ShowInTaskBar = stAlways
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.4.2.0'
   Visible = True
-  object PageControlFicha: TPageControl
-    Left = 598
-    Height = 629
-    Top = 26
-    Width = 768
-    ActivePage = TabSheetInf_Gerais
-    Align = alClient
-    TabIndex = 0
-    TabOrder = 1
-    OnChange = PageControlFichaChange
-    object TabSheetInf_Gerais: TTabSheet
-      Caption = 'Informações Gerais'
-      ClientHeight = 594
-      ClientWidth = 758
-      object ScrollBox3: TScrollBox
-        Left = 10
-        Height = 550
-        Top = 10
-        Width = 730
-        HorzScrollBar.Page = 599
-        HorzScrollBar.Range = 150
-        VertScrollBar.Page = 536
-        VertScrollBar.Range = 650
-        Anchors = [akTop, akLeft, akRight, akBottom]
-        AutoScroll = False
-        ClientHeight = 548
-        ClientWidth = 715
-        TabOrder = 0
-        object EditSubGrupo: TEdit
-          Left = 220
-          Height = 33
-          Top = 260
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = EditSubGrupoEditingDone
-          OnKeyUp = EditSubGrupoKeyUp
-          TabOrder = 0
-          Text = ' '
-        end
-        object LabelComposicao: TLabel
-          Left = 15
-          Height = 21
-          Top = 65
-          Width = 78
-          Caption = 'Composição'
-          ParentColor = False
-        end
-        object LabelNome: TLabel
-          Left = 15
-          Height = 21
-          Top = 15
-          Width = 39
-          Caption = 'Nome'
-          ParentColor = False
-        end
-        object LabelClasse: TLabel
-          Left = 15
-          Height = 21
-          Top = 115
-          Width = 43
-          Caption = 'Classe'
-          ParentColor = False
-        end
-        object LabelSubClasse: TLabel
-          Left = 15
-          Height = 21
-          Top = 165
-          Width = 65
-          Caption = 'Subclasse'
-          ParentColor = False
-        end
-        object LabelGrupo: TLabel
-          Left = 15
-          Height = 21
-          Top = 215
-          Width = 39
-          Caption = 'Grupo'
-          ParentColor = False
-        end
-        object LabelSubGrupo: TLabel
-          Left = 15
-          Height = 21
-          Top = 260
-          Width = 62
-          Caption = 'Subgrupo'
-          ParentColor = False
-        end
-        object LabelOcorrencia: TLabel
-          Left = 15
-          Height = 21
-          Top = 314
-          Width = 69
-          Caption = 'Ocorrência'
-          ParentColor = False
-        end
-        object LabelAssociacao: TLabel
-          Left = 15
-          Height = 21
-          Top = 389
-          Width = 70
-          Caption = 'Associação'
-          ParentColor = False
-        end
-        object LabelDistincao: TLabel
-          Left = 15
-          Height = 21
-          Top = 464
-          Width = 59
-          Caption = 'Distinção'
-          ParentColor = False
-        end
-        object LabelAlteracao: TLabel
-          Left = 15
-          Height = 21
-          Top = 539
-          Width = 61
-          Caption = 'Alteração'
-          ParentColor = False
-        end
-        object LabelAplicacao: TLabel
-          Left = 15
-          Height = 21
-          Top = 609
-          Width = 60
-          Caption = 'Aplicação'
-          ParentColor = False
-        end
-        object MemoOcorrencia: TMemo
-          Left = 220
-          Height = 60
-          Top = 314
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoOcorrenciaEditingDone
-          OnKeyUp = MemoOcorrenciaKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 1
-        end
-        object MemoAssociacao: TMemo
-          Left = 220
-          Height = 60
-          Top = 389
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoAssociacaoEditingDone
-          OnKeyUp = MemoAssociacaoKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 2
-        end
-        object MemoDistincao: TMemo
-          Left = 220
-          Height = 60
-          Top = 464
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoDistincaoEditingDone
-          OnKeyUp = MemoDistincaoKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 3
-        end
-        object MemoAlteracao: TMemo
-          Left = 220
-          Height = 60
-          Top = 539
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoAlteracaoEditingDone
-          OnKeyUp = MemoAlteracaoKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 4
-        end
-        object MemoAplicacao: TMemo
-          Left = 220
-          Height = 60
-          Top = 609
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoAplicacaoEditingDone
-          OnKeyUp = MemoAplicacaoKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 5
-        end
-        object EditFormula: TEdit
-          Left = 220
-          Height = 33
-          Top = 65
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = EditFormulaEditingDone
-          OnKeyUp = EditFormulaKeyUp
-          TabOrder = 6
-          Text = ' '
-        end
-        object EditNomeMineral: TEdit
-          Left = 220
-          Height = 33
-          Top = 15
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          Font.Style = [fsBold]
-          ParentFont = False
-          ReadOnly = True
-          TabOrder = 7
-          Text = ' '
-        end
-        object EditClasse: TEdit
-          Left = 220
-          Height = 33
-          Top = 115
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = EditClasseEditingDone
-          OnKeyUp = EditClasseKeyUp
-          TabOrder = 8
-          Text = ' '
-        end
-        object EditSubClasse: TEdit
-          Left = 220
-          Height = 33
-          Top = 165
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = EditSubClasseEditingDone
-          OnKeyUp = EditSubClasseKeyUp
-          TabOrder = 9
-          Text = ' '
-        end
-        object EditGrupo: TEdit
-          Left = 220
-          Height = 33
-          Top = 215
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = EditGrupoEditingDone
-          OnKeyUp = EditGrupoKeyUp
-          TabOrder = 10
-          Text = ' '
-        end
-      end
-    end
-    object TabSheetProp_Fisicas: TTabSheet
-      Caption = 'Propriedades Físicas'
-      ClientHeight = 594
-      ClientWidth = 758
-      object ScrollBox4: TScrollBox
-        Left = 10
-        Height = 550
-        Top = 10
-        Width = 730
-        HorzScrollBar.Page = 599
-        HorzScrollBar.Range = 506
-        VertScrollBar.Page = 536
-        VertScrollBar.Range = 650
-        Anchors = [akTop, akLeft, akRight, akBottom]
-        AutoScroll = False
-        ClientHeight = 548
-        ClientWidth = 715
-        TabOrder = 0
-        object MemoLuminescencia: TMemo
-          Left = 220
-          Height = 33
-          Top = 565
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoLuminescenciaEditingDone
-          OnKeyUp = MemoLuminescenciaKeyUp
-          TabOrder = 0
-        end
-        object MemoCor: TMemo
-          Left = 220
-          Height = 60
-          Top = 159
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoCorEditingDone
-          OnKeyUp = MemoCorKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 1
-        end
-        object MemoTraco: TMemo
-          Left = 220
-          Height = 60
-          Top = 236
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoTracoEditingDone
-          OnKeyUp = MemoTracoKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 2
-        end
-        object MemoBrilho: TMemo
-          Left = 220
-          Height = 60
-          Top = 308
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoBrilhoEditingDone
-          OnKeyUp = MemoBrilhoKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 3
-        end
-        object MemoClivagem: TMemo
-          Left = 220
-          Height = 60
-          Top = 380
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoClivagemEditingDone
-          OnKeyUp = MemoClivagemKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 4
-        end
-        object MemoFratura: TMemo
-          Left = 220
-          Height = 60
-          Top = 452
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoFraturaEditingDone
-          OnKeyUp = MemoFraturaKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 5
-        end
-        object MemoMagnetismo: TMemo
-          Left = 220
-          Height = 33
-          Top = 524
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoMagnetismoEditingDone
-          OnKeyUp = MemoMagnetismoKeyUp
-          TabOrder = 6
-        end
-        object EditDureza: TEdit
-          Left = 220
-          Height = 33
-          Top = 18
-          Width = 100
-          OnClick = EditDurezaClick
-          ReadOnly = True
-          TabOrder = 7
-          Text = ' '
-        end
-        object EditDensidade: TEdit
-          Left = 220
-          Height = 33
-          Top = 87
-          Width = 100
-          OnClick = EditDensidadeClick
-          ReadOnly = True
-          TabOrder = 8
-          Text = ' '
-        end
-        object LabelHardness: TLabel
-          Left = 15
-          Height = 21
-          Top = 15
-          Width = 45
-          Caption = 'Dureza'
-          ParentColor = False
-        end
-        object LabelDensity: TLabel
-          Left = 15
-          Height = 21
-          Top = 87
-          Width = 67
-          Caption = 'Densidade'
-          ParentColor = False
-        end
-        object LabelCor: TLabel
-          Left = 15
-          Height = 21
-          Top = 159
-          Width = 23
-          Caption = 'Cor'
-          ParentColor = False
-        end
-        object LabelTraco: TLabel
-          Left = 15
-          Height = 21
-          Top = 236
-          Width = 35
-          Caption = 'Traço'
-          ParentColor = False
-        end
-        object LabelBrilho: TLabel
-          Left = 15
-          Height = 21
-          Top = 308
-          Width = 37
-          Caption = 'Brilho'
-          ParentColor = False
-        end
-        object LabelClivagem: TLabel
-          Left = 15
-          Height = 21
-          Top = 380
-          Width = 59
-          Caption = 'Clivagem'
-          ParentColor = False
-        end
-        object LabelFratura: TLabel
-          Left = 15
-          Height = 21
-          Top = 452
-          Width = 46
-          Caption = 'Fratura'
-          ParentColor = False
-        end
-        object LabelMagnetismo: TLabel
-          Left = 15
-          Height = 21
-          Top = 524
-          Width = 79
-          Caption = 'Magnetismo'
-          ParentColor = False
-        end
-        object LabelLuminescencia: TLabel
-          Left = 15
-          Height = 21
-          Top = 565
-          Width = 93
-          Caption = 'Luminescência'
-          ParentColor = False
-        end
-        object GroupBoxDureza: TGroupBox
-          Left = 362
-          Height = 64
-          Top = 2
-          Width = 234
-          Caption = 'Editar'
-          ClientHeight = 42
-          ClientWidth = 232
-          TabOrder = 9
-          Visible = False
-          object EditDurezaMin: TEdit
-            Left = 24
-            Height = 33
-            Top = 9
-            Width = 80
-            OnEditingDone = EditDurezaMinEditingDone
-            OnKeyUp = EditDurezaMinKeyUp
-            TabOrder = 0
-            Text = ' '
-          end
-          object EditDurezaMax: TEdit
-            Left = 124
-            Height = 33
-            Top = 8
-            Width = 80
-            OnEditingDone = EditDurezaMaxEditingDone
-            OnKeyUp = EditDurezaMaxKeyUp
-            TabOrder = 1
-            Text = ' '
-          end
-        end
-        object GroupBoxDensidade: TGroupBox
-          Left = 362
-          Height = 64
-          Top = 72
-          Width = 234
-          Caption = 'Editar'
-          ClientHeight = 42
-          ClientWidth = 232
-          TabOrder = 10
-          Visible = False
-          object EditDensidadeMin: TEdit
-            Left = 27
-            Height = 33
-            Top = 7
-            Width = 80
-            OnEditingDone = EditDensidadeMinEditingDone
-            OnKeyUp = EditDensidadeMinKeyUp
-            TabOrder = 0
-            Text = ' '
-          end
-          object EditDensidadeMax: TEdit
-            Left = 125
-            Height = 33
-            Top = 5
-            Width = 80
-            OnEditingDone = EditDensidadeMaxEditingDone
-            OnKeyUp = EditDensidadeMaxKeyUp
-            TabOrder = 1
-            Text = ' '
-          end
-        end
-      end
-    end
-    object TabSheetOticas: TTabSheet
-      Caption = 'Propriedades Óticas'
-      ClientHeight = 594
-      ClientWidth = 758
-      object ScrollBox5: TScrollBox
-        Left = 10
-        Height = 550
-        Top = 10
-        Width = 730
-        HorzScrollBar.Page = 599
-        HorzScrollBar.Range = 150
-        VertScrollBar.Page = 536
-        VertScrollBar.Range = 650
-        Anchors = [akTop, akLeft, akRight, akBottom]
-        AutoScroll = False
-        ClientHeight = 548
-        ClientWidth = 715
-        TabOrder = 0
-        object MemoExtincao: TMemo
-          Left = 220
-          Height = 45
-          Top = 751
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoExtincaoEditingDone
-          OnKeyUp = MemoExtincaoKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 0
-        end
-        object LabelExtincao: TLabel
-          Left = 15
-          Height = 21
-          Top = 751
-          Width = 55
-          Caption = 'Extinção'
-          ParentColor = False
-        end
-        object LabelDiafaneidade: TLabel
-          Left = 15
-          Height = 21
-          Top = 234
-          Width = 82
-          Caption = 'Diafaneidade'
-          ParentColor = False
-        end
-        object LabelSinal_optico: TLabel
-          Left = 15
-          Height = 21
-          Top = 295
-          Width = 78
-          Caption = 'Sinal Óptico'
-          ParentColor = False
-        end
-        object LabelIndice_Refracao: TLabel
-          Left = 15
-          Height = 21
-          Top = 356
-          Width = 98
-          Caption = 'Índice Refração'
-          ParentColor = False
-        end
-        object LabelAngulo_2V: TLabel
-          Left = 15
-          Height = 21
-          Top = 416
-          Width = 67
-          Caption = 'Ângulo 2V'
-          ParentColor = False
-        end
-        object LabelCor_Interferencia: TLabel
-          Left = 15
-          Height = 21
-          Top = 476
-          Width = 129
-          Caption = 'Cor de Interferência'
-          ParentColor = False
-        end
-        object LabelSInal_Elongacao: TLabel
-          Left = 15
-          Height = 21
-          Top = 586
-          Width = 120
-          Caption = 'Sinal de Elongação'
-          ParentColor = False
-        end
-        object LabelBirrefringencia: TLabel
-          Left = 15
-          Height = 21
-          Top = 641
-          Width = 92
-          Caption = 'Birrefringência'
-          ParentColor = False
-        end
-        object LabelRelevo: TLabel
-          Left = 15
-          Height = 21
-          Top = 696
-          Width = 44
-          Caption = 'Relevo'
-          ParentColor = False
-        end
-        object LabelCor_Lamina: TLabel
-          Left = 15
-          Height = 21
-          Top = 531
-          Width = 90
-          Caption = 'Cor da Lâmina'
-          ParentColor = False
-        end
-        object MemoDiafaneidade: TMemo
-          Left = 220
-          Height = 45
-          Top = 234
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoDiafaneidadeEditingDone
-          OnKeyUp = MemoDiafaneidadeKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 1
-        end
-        object MemoSinalOptico: TMemo
-          Left = 220
-          Height = 45
-          Top = 295
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoSinalOpticoEditingDone
-          OnKeyUp = MemoSinalOpticoKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 2
-        end
-        object MemoIndiceRefracao: TMemo
-          Left = 220
-          Height = 45
-          Top = 356
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoIndiceRefracaoEditingDone
-          OnKeyUp = MemoIndiceRefracaoKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 3
-        end
-        object MemoAngulo: TMemo
-          Left = 220
-          Height = 45
-          Top = 416
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoAnguloEditingDone
-          OnKeyUp = MemoAnguloKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 4
-        end
-        object MemoInterferencia: TMemo
-          Left = 220
-          Height = 45
-          Top = 476
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoInterferenciaEditingDone
-          OnKeyUp = MemoInterferenciaKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 5
-        end
-        object MemoCorLamina: TMemo
-          Left = 220
-          Height = 45
-          Top = 531
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoCorLaminaEditingDone
-          OnKeyUp = MemoCorLaminaKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 6
-        end
-        object MemoSinalElongacao: TMemo
-          Left = 220
-          Height = 45
-          Top = 586
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoSinalElongacaoEditingDone
-          OnKeyUp = MemoSinalElongacaoKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 7
-        end
-        object MemoBirrefringencia: TMemo
-          Left = 220
-          Height = 45
-          Top = 641
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoBirrefringenciaEditingDone
-          OnKeyUp = MemoBirrefringenciaKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 8
-        end
-        object MemoRelevo: TMemo
-          Left = 220
-          Height = 45
-          Top = 696
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoRelevoEditingDone
-          OnKeyUp = MemoRelevoKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 9
-        end
-        object GroupBoxOptica1: TGroupBox
-          Left = 220
-          Height = 200
-          Top = 20
-          Width = 200
-          Anchors = [akTop, akRight]
-          ClientHeight = 198
-          ClientWidth = 198
-          TabOrder = 10
-          object ImageOptica1: TImage
-            Left = 0
-            Height = 198
-            Top = 0
-            Width = 198
-            Align = alClient
-            OnDblClick = ActionAddImage3Execute
-            Proportional = True
-          end
-        end
-        object GroupBoxOptica2: TGroupBox
-          Left = 450
-          Height = 200
-          Top = 20
-          Width = 200
-          Anchors = [akTop, akRight]
-          ClientHeight = 198
-          ClientWidth = 198
-          TabOrder = 11
-          object ImageOptica2: TImage
-            Left = 0
-            Height = 198
-            Top = 0
-            Width = 198
-            Align = alClient
-            OnDblClick = ActionAddImage5Execute
-            Proportional = True
-          end
-        end
-      end
-    end
-    object TabSheetCristalografia: TTabSheet
-      Caption = 'Cristalografia'
-      ClientHeight = 594
-      ClientWidth = 758
-      object ScrollBox6: TScrollBox
-        Left = 10
-        Height = 550
-        Top = 10
-        Width = 730
-        HorzScrollBar.Page = 593
-        HorzScrollBar.Range = 200
-        VertScrollBar.Page = 600
-        VertScrollBar.Range = 650
-        Anchors = [akTop, akLeft, akRight, akBottom]
-        AutoScroll = False
-        ClientHeight = 548
-        ClientWidth = 715
-        TabOrder = 0
-        object GroupBoxCristalografia2: TGroupBox
-          Left = 220
-          Height = 200
-          Top = 20
-          Width = 200
-          Anchors = [akTop, akRight]
-          ClientHeight = 198
-          ClientWidth = 198
-          TabOrder = 0
-          object ImageCristalografia2: TImage
-            Left = 0
-            Height = 198
-            Top = 0
-            Width = 198
-            Align = alClient
-            OnDblClick = ActionAddImage6Execute
-            Proportional = True
-          end
-        end
-        object GroupBoxCristalografia1: TGroupBox
-          Left = 450
-          Height = 200
-          Top = 20
-          Width = 200
-          Anchors = [akTop, akRight]
-          ClientHeight = 198
-          ClientWidth = 198
-          TabOrder = 1
-          object ImageCristalografia1: TImage
-            Left = 0
-            Height = 198
-            Top = 0
-            Width = 198
-            Align = alClient
-            OnDblClick = ActionAddImage7Execute
-            Proportional = True
-          end
-        end
-        object LabelSistema_Cristalino: TLabel
-          Left = 15
-          Height = 21
-          Top = 298
-          Width = 117
-          Caption = 'Sistema Cristalino'
-          ParentColor = False
-        end
-        object LabelClasse_Cristalina: TLabel
-          Left = 15
-          Height = 21
-          Top = 348
-          Width = 107
-          Caption = 'Classe Cristalina'
-          ParentColor = False
-        end
-        object LabelSimbologia: TLabel
-          Left = 15
-          Height = 21
-          Top = 398
-          Width = 70
-          Caption = 'Simbologia'
-          ParentColor = False
-        end
-        object LabelHabito: TLabel
-          Left = 15
-          Height = 21
-          Top = 448
-          Width = 43
-          Caption = 'Hábito'
-          ParentColor = False
-        end
-        object EditSistema: TEdit
-          Left = 220
-          Height = 33
-          Top = 298
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = EditSistemaEditingDone
-          OnKeyUp = EditSistemaKeyUp
-          TabOrder = 2
-        end
-        object EditClasse_Cristalina: TEdit
-          Left = 220
-          Height = 33
-          Top = 348
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = EditClasse_CristalinaEditingDone
-          OnKeyUp = EditClasse_CristalinaKeyUp
-          TabOrder = 3
-        end
-        object EditH_M: TEdit
-          Left = 220
-          Height = 33
-          Top = 398
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = EditH_MEditingDone
-          OnKeyUp = EditH_MKeyUp
-          TabOrder = 4
-        end
-        object MemoHabito: TMemo
-          Left = 220
-          Height = 78
-          Top = 448
-          Width = 490
-          Anchors = [akTop, akLeft, akRight]
-          OnEditingDone = MemoHabitoEditingDone
-          OnKeyUp = MemoHabitoKeyUp
-          ScrollBars = ssAutoVertical
-          TabOrder = 5
-        end
-      end
-    end
-    object TabSheetImagem: TTabSheet
-      Caption = 'Imagem'
-      ClientHeight = 594
-      ClientWidth = 758
-      object GroupBoxImagemAmpliada: TGroupBox
-        Left = 0
-        Height = 594
-        Top = 0
-        Width = 758
-        Align = alClient
-        ClientHeight = 592
-        ClientWidth = 756
-        TabOrder = 0
-        object ImagemAmpliada: TImage
-          Left = 0
-          Height = 536
-          Top = 56
-          Width = 756
-          AntialiasingMode = amOn
-          Align = alClient
-          Center = True
-          Proportional = True
-        end
-        object ToolBar1: TToolBar
-          Left = 0
-          Height = 26
-          Top = 0
-          Width = 756
-          Caption = 'ToolBar1'
-          Images = ImageList1
-          TabOrder = 0
-          object ToolButtonAddImage: TToolButton
-            Left = 1
-            Hint = 'Adicionar imagem'
-            Top = 2
-            Caption = 'ToolButtonAddImage'
-            ImageIndex = 14
-            OnClick = ToolButtonAddImageClick
-            ParentShowHint = False
-            ShowHint = True
-          end
-          object ToolButton2: TToolButton
-            Left = 24
-            Top = 2
-            Width = 5
-            Caption = 'ToolButton2'
-            Style = tbsDivider
-          end
-          object ToolButtonRemoveImage: TToolButton
-            Left = 29
-            Hint = 'Remover imagem'
-            Top = 2
-            Caption = 'ToolButtonRemoveImage'
-            ImageIndex = 15
-            OnClick = ToolButtonRemoveImageClick
-            ParentShowHint = False
-            ShowHint = True
-          end
-        end
-        object HeaderControl1: THeaderControl
-          Left = 0
-          Height = 30
-          Top = 26
-          Width = 756
-          DragReorder = False
-          Images = ImageListHeaderControl
-          Sections = <          
-            item
-              Alignment = taLeftJustify
-              ImageIndex = 1
-              Width = 30
-              Visible = True
-            end          
-            item
-              Alignment = taLeftJustify
-              ImageIndex = 2
-              Width = 30
-              Visible = True
-            end          
-            item
-              Alignment = taLeftJustify
-              ImageIndex = 3
-              Width = 30
-              Visible = True
-            end          
-            item
-              Alignment = taLeftJustify
-              ImageIndex = 4
-              Width = 30
-              Visible = True
-            end          
-            item
-              Alignment = taLeftJustify
-              ImageIndex = 5
-              Width = 30
-              Visible = True
-            end          
-            item
-              Alignment = taLeftJustify
-              ImageIndex = 6
-              Width = 30
-              Visible = True
-            end          
-            item
-              Alignment = taLeftJustify
-              ImageIndex = 7
-              Width = 30
-              Visible = True
-            end>
-          OnSectionClick = HeaderControl1SectionClick
-          Align = alTop
-        end
-        object Memo1: TMemo
-          Left = 32
-          Height = 177
-          Top = 351
-          Width = 480
-          Lines.Strings = (
-            'Memo1'
-          )
-          TabOrder = 2
-          Visible = False
-        end
-      end
-    end
-  end
   object BCPanel1: TBCPanel
     Left = 0
-    Height = 629
+    Height = 562
     Top = 26
     Width = 200
     Align = alLeft
@@ -1073,12 +79,11 @@ object FormFichaEspecie: TFormFichaEspecie
     TabOrder = 0
     object ListBoxMinerais: TListBox
       Left = 12
-      Height = 393
+      Height = 326
       Top = 200
       Width = 162
       Anchors = [akTop, akLeft, akBottom]
       ItemHeight = 0
-      OnClick = ListBoxMineraisClick
       ScrollWidth = 160
       TabOrder = 0
       TopIndex = -1
@@ -1259,7 +264,7 @@ object FormFichaEspecie: TFormFichaEspecie
     object BCLabelRegistros: TBCLabel
       Left = 8
       Height = 35
-      Top = 593
+      Top = 526
       Width = 69
       Anchors = [akLeft, akBottom]
       Background.Color = clBlack
@@ -1318,19 +323,19 @@ object FormFichaEspecie: TFormFichaEspecie
   end
   object ScrollBoxFiltro: TScrollBox
     Left = 200
-    Height = 629
+    Height = 562
     Top = 26
     Width = 200
-    HorzScrollBar.Page = 185
-    VertScrollBar.Page = 627
+    HorzScrollBar.Page = 179
+    VertScrollBar.Page = 560
     Align = alLeft
-    ClientHeight = 627
+    ClientHeight = 560
     ClientWidth = 185
-    TabOrder = 2
+    TabOrder = 1
     Visible = False
     object BCPanel2: TBCPanel
       Left = 0
-      Height = 706
+      Height = 737
       Top = 0
       Width = 179
       Align = alLeft
@@ -1904,7 +909,7 @@ object FormFichaEspecie: TFormFichaEspecie
         Text = '0.0'
       end
       object BCLabelOcorrencia: TBCLabel
-        Left = 12
+        Left = 14
         Height = 37
         Top = 501
         Width = 81
@@ -1963,17 +968,16 @@ object FormFichaEspecie: TFormFichaEspecie
         Rounding.RoundOptions = []
       end
       object EditFiltroOcorrencia: TEdit
-        Left = 10
+        Left = 9
         Height = 33
-        Top = 525
+        Top = 528
         Width = 145
-        OnEditingDone = EditFiltroOcorrenciaEditingDone
         TabOrder = 8
       end
       object BCLabelAssociacao: TBCLabel
         Left = 16
         Height = 37
-        Top = 549
+        Top = 560
         Width = 80
         Background.Color = clBlack
         Background.ColorOpacity = 255
@@ -2032,13 +1036,13 @@ object FormFichaEspecie: TFormFichaEspecie
       object EditFiltroAssociacao: TEdit
         Left = 12
         Height = 33
-        Top = 581
+        Top = 592
         Width = 145
         OnEditingDone = EditFiltroAssociacaoEditingDone
         TabOrder = 9
       end
       object BCLabelCor: TBCLabel
-        Left = 14
+        Left = 19
         Height = 37
         Top = 613
         Width = 40
@@ -2105,9 +1109,9 @@ object FormFichaEspecie: TFormFichaEspecie
         TabOrder = 10
       end
       object BCLabelBrilho: TBCLabel
-        Left = 12
+        Left = 16
         Height = 37
-        Top = 658
+        Top = 672
         Width = 53
         Background.Color = clBlack
         Background.ColorOpacity = 255
@@ -2164,9 +1168,9 @@ object FormFichaEspecie: TFormFichaEspecie
         Rounding.RoundOptions = []
       end
       object EditFiltroBrilho: TEdit
-        Left = 10
+        Left = 9
         Height = 33
-        Top = 673
+        Top = 704
         Width = 145
         OnEditingDone = EditFiltroBrilhoEditingDone
         TabOrder = 11
@@ -2176,7 +1180,6 @@ object FormFichaEspecie: TFormFichaEspecie
         Height = 33
         Top = 34
         Width = 145
-        OnEditingDone = EditNomeEditingDone
         TabOrder = 12
       end
       object BCLabelName: TBCLabel
@@ -2242,34 +1245,34 @@ object FormFichaEspecie: TFormFichaEspecie
   end
   object ScrollBox8: TScrollBox
     Left = 400
-    Height = 629
+    Height = 562
     Top = 26
     Width = 198
-    HorzScrollBar.Page = 196
-    VertScrollBar.Page = 627
+    HorzScrollBar.Page = 1
+    VertScrollBar.Page = 1
     Align = alLeft
     Color = clHighlightText
     ParentColor = False
-    TabOrder = 3
+    TabOrder = 2
   end
   object ProgressBar1: TProgressBar
     Left = 0
     Height = 20
-    Top = 655
-    Width = 1366
+    Top = 588
+    Width = 1198
     Align = alBottom
-    TabOrder = 4
+    TabOrder = 3
   end
   object ToolBar2: TToolBar
     Left = 0
     Height = 26
     Top = 0
-    Width = 1366
+    Width = 1198
     Caption = 'ToolBar2'
     Color = 5000268
     Images = ImageList1
     ParentColor = False
-    TabOrder = 5
+    TabOrder = 4
     object ToolButtonAdd: TToolButton
       Left = 29
       Hint = 'Adicionar'
@@ -2292,6 +1295,7 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object ToolButton5: TToolButton
       Left = 75
+      Height = 22
       Top = 2
       Width = 5
       Caption = 'ToolButton5'
@@ -2309,6 +1313,7 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object ToolButton7: TToolButton
       Left = 103
+      Height = 22
       Top = 2
       Width = 5
       Caption = 'ToolButton7'
@@ -2346,6 +1351,7 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object ToolButton1: TToolButton
       Left = 187
+      Height = 22
       Top = 2
       Width = 5
       Caption = 'ToolButton1'
@@ -2363,13 +1369,14 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object ToolButton6: TToolButton
       Left = 215
+      Height = 22
       Top = 2
       Width = 5
       Caption = 'ToolButton6'
       Style = tbsDivider
     end
     object Mineralogy_Name: TLabel
-      Left = 1365
+      Left = 1197
       Height = 24
       Top = 2
       Width = 1
@@ -2390,6 +1397,7 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object ToolButton3: TToolButton
       Left = 159
+      Height = 22
       Top = 2
       Width = 5
       Caption = 'ToolButton3'
@@ -2407,6 +1415,7 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object ToolButton8: TToolButton
       Left = 131
+      Height = 22
       Top = 2
       Width = 5
       Caption = 'ToolButton8'
@@ -2415,6 +1424,7 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object ToolButton4: TToolButton
       Left = 24
+      Height = 22
       Top = 2
       Width = 5
       Caption = 'ToolButton4'
@@ -2437,31 +1447,24 @@ object FormFichaEspecie: TFormFichaEspecie
     top = 376
     object ActionAddImage1: TAction
       Caption = 'ActionAddImage1'
-      OnExecute = ActionAddImage1Execute
     end
     object ActionAddImage2: TAction
       Caption = 'ActionAddImage2'
-      OnExecute = ActionAddImage2Execute
     end
     object ActionAddImage3: TAction
       Caption = 'ActionAddImage3'
-      OnExecute = ActionAddImage3Execute
     end
     object ActionAddImage4: TAction
       Caption = 'ActionAddImage4'
-      OnExecute = ActionAddImage4Execute
     end
     object ActionAddImage5: TAction
       Caption = 'ActionAddImage5'
-      OnExecute = ActionAddImage5Execute
     end
     object ActionAddImage6: TAction
       Caption = 'ActionAddImage6'
-      OnExecute = ActionAddImage6Execute
     end
     object ActionAddImage7: TAction
       Caption = 'ActionAddImage7'
-      OnExecute = ActionAddImage7Execute
     end
     object ActionRefreshList: TAction
       Caption = 'ActionRefreshList'
@@ -2499,6 +1502,22 @@ object FormFichaEspecie: TFormFichaEspecie
     object ActionMenuHelp: TAction
       Caption = 'ActionMenuHelp'
       OnExecute = ActionMenuHelpExecute
+    end
+    object ActionSpinBMin: TAction
+      Category = 'SpinEdits'
+      Caption = 'ActionSpinBMin'
+    end
+    object ActionSpinBMax: TAction
+      Category = 'SpinEdits'
+      Caption = 'ActionSpinBMax'
+    end
+    object ActionSpinRMin: TAction
+      Category = 'SpinEdits'
+      Caption = 'ActionSpinRMin'
+    end
+    object ActionSpinRMax: TAction
+      Category = 'SpinEdits'
+      Caption = 'ActionSpinRMax'
     end
   end
   object ImageList1: TImageList
@@ -3197,68 +2216,6 @@ object FormFichaEspecie: TFormFichaEspecie
     end
     object MenuItem2: TMenuItem
       Caption = 'Editar'
-      object MenuItemAddImage: TMenuItem
-        Caption = 'Adicionar'
-        object MenuItemAddImage1: TMenuItem
-          Caption = 'Imagem 1'
-          OnClick = ActionAddImage1Execute
-        end
-        object MenuItemAddImage2: TMenuItem
-          Caption = 'Imagem 2'
-          OnClick = ActionAddImage2Execute
-        end
-        object MenuItem14: TMenuItem
-          Caption = 'Imagem 3'
-          OnClick = ActionAddImage3Execute
-        end
-        object MenuItem15: TMenuItem
-          Caption = 'Imagem 4'
-          OnClick = ActionAddImage4Execute
-        end
-        object MenuItem16: TMenuItem
-          Caption = 'Imagem 5'
-          OnClick = ActionAddImage5Execute
-        end
-        object MenuItem17: TMenuItem
-          Caption = 'Imagem 6'
-          OnClick = ActionAddImage6Execute
-        end
-        object MenuItem18: TMenuItem
-          Caption = 'Imagem 7'
-          OnClick = ActionAddImage7Execute
-        end
-      end
-      object MenuItemRemoveImage: TMenuItem
-        Caption = 'Remover'
-        object MenuItemRemImage1: TMenuItem
-          Caption = 'Imagem 1'
-          OnClick = MenuItemRemImage1Click
-        end
-        object MenuItemRemImage2: TMenuItem
-          Caption = 'Imagem 2'
-          OnClick = MenuItemRemImage2Click
-        end
-        object MenuItem21: TMenuItem
-          Caption = 'Imagem 3'
-          OnClick = MenuItem21Click
-        end
-        object MenuItem22: TMenuItem
-          Caption = 'Imagem 4'
-          OnClick = MenuItem22Click
-        end
-        object MenuItem23: TMenuItem
-          Caption = 'Imagem 5'
-          OnClick = MenuItem23Click
-        end
-        object MenuItem24: TMenuItem
-          Caption = 'Imagem 6'
-          OnClick = MenuItem24Click
-        end
-        object MenuItem25: TMenuItem
-          Caption = 'Imagem 7'
-          OnClick = MenuItem25Click
-        end
-      end
     end
     object MenuItem3: TMenuItem
       Caption = 'Exibir'
@@ -3293,267 +2250,4 @@ object FormFichaEspecie: TFormFichaEspecie
       OnClick = ActionMenuHelpExecute
     end
   end
-  object ImageListHeaderControl: TImageList
-    left = 851
-    top = 78
-    Bitmap = {
-      4C69080000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF0068C774FF67C673FF65C270FF62BE6DFFFFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF0066C572FFA2D8ABFFA0D7A9FF5DB868FFFFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF0063C06FFF9ED6A7FF9CD4A5FF59B263FFFFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF005FBB6AFF9AD4A3FF98D3A1FF53AA5DFFFFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF005BB465FF96D29FFF94D09CFF4EA257FFFFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF0056AD5FFF93CF9AFF90CE98FF489A50FFFFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF0050A659FF8ECC95FF8BCB93FF42924AFFFFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF004A9E53FF8ACA91FF87C98EFF3C8A43FFFFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF0045954CFF85C78CFF82C689FF36823DFFFFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF0043944B384E9A55FF81C587FF7EC385FF317A36FFFFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF004292
-      4AB83D8C45F765AD6CFF7DC282FF7AC180FF4B9250FF276D2CF7246828BBFFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF003C8A
-      430638833ED9519957FF79C07EFF76BF7CFF468D4BFF236627DB20622306FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF002D7533CF488F4DFF458C4AFF226526D1FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00256929C4216425C9FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
-      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
-      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
-      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
-      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFDB896DFFF0AE
-      98FFFFFFFFFFFFFFFFFFDB896DFFDB896DFFF0AE98FFFFEFE4FF000000000000
-      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFF0AE98FFFFFF
-      FFFFF0AE98FFFFFFFFFFD1785AFFD1785AFFE09076FFE69B83FF000000000000
-      0000000000000000000000000000DB896DFFD07658FFD07658FFFFFFFFFFD076
-      58FFF0AE98FFFFFFFFFFD07658FFD07658FFD07658FFD07658FF000000000000
-      0000000000000000000000000000CF7556FFC56545FFC56545FFC56545FFC565
-      45FFF0AE98FFFFFFFFFFC56545FFC56545FFC46444FFC66747FF000000000000
-      0000000000000000000000000000D47B5FFFC66747FFC8694AFFC8694AFFC869
-      4AFFF0AE98FFFFFFFFFFC8694AFFC66747FFC8694AFFCA6C4DFF000000000000
-      0000000000000000000000000000EEAA94FFC56545FFBB5736FFBB5736FFBB57
-      36FFF0AE98FFFFFFFFFFBB5736FFBB5736FFCE7255FFE2947AFF000000000000
-      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFB85231FFBB57
-      36FFF0AE98FFFFFFFFFFB85231FFBB5736FFE09076FFFFF4EAFF000000000000
-      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
-      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
-      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
-      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
-      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
-      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
-      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
-      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFF0AE98FFFFFF
-      FFFFFFFFFFFFFFFFFFFFF0AE98FFDB896DFFF0AE98FFFFEFE4FF000000000000
-      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFFFFFFFFFF0AE
-      98FFD1785AFFF0AE98FFFFFFFFFFD1785AFFE09076FFE69B83FF000000000000
-      0000000000000000000000000000DB896DFFD07658FFD07658FFD07658FFD076
-      58FFD07658FFD07658FFFFFFFFFFD07658FFD07658FFD07658FF000000000000
-      0000000000000000000000000000CF7556FFC56545FFC56545FFC56545FFC565
-      45FFF0AE98FFFFFFFFFFF0AE98FFC56545FFC46444FFC66747FF000000000000
-      0000000000000000000000000000D47B5FFFC8694AFFC8694AFFF0AE98FFFFFF
-      FFFFFFFFFFFFF0AE98FFC8694AFFC8694AFFC8694AFFCA6C4DFF000000000000
-      0000000000000000000000000000EEAA94FFC56545FFBB5736FFFFFFFFFFF0AE
-      98FFBB5736FFBB5736FFBB5736FFBB5736FFCE7255FFE2947AFF000000000000
-      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFF0AE98FFFFFF
-      FFFFFFFFFFFFFFFFFFFFFFFFFFFFBB5736FFE09076FFFFF4EAFF000000000000
-      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
-      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
-      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
-      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
-      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
-      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
-      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
-      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFF0AE98FFFFFF
-      FFFFFFFFFFFFFFFFFFFFF0AE98FFDB896DFFF0AE98FFFFEFE4FF000000000000
-      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFFFFFFFFFF0AE
-      98FFD1785AFFF0AE98FFFFFFFFFFD1785AFFE09076FFE69B83FF000000000000
-      0000000000000000000000000000DB896DFFD07658FFD07658FFD07658FFD076
-      58FFD07658FFD07658FFFFFFFFFFD07658FFD07658FFD07658FF000000000000
-      0000000000000000000000000000CF7556FFC56545FFC56545FFC56545FFC565
-      45FFFFFFFFFFFFFFFFFFF0AE98FFC56545FFC46444FFC66747FF000000000000
-      0000000000000000000000000000D47B5FFFC66747FFC8694AFFC8694AFFC869
-      4AFFC8694AFFC8694AFFFFFFFFFFC66747FFC8694AFFCA6C4DFF000000000000
-      0000000000000000000000000000EEAA94FFC56545FFBB5736FFFFFFFFFFF0AE
-      98FFBB5736FFF0AE98FFFFFFFFFFBB5736FFCE7255FFE2947AFF000000000000
-      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFF0AE98FFFFFF
-      FFFFFFFFFFFFFFFFFFFFF0AE98FFBB5736FFE09076FFFFF4EAFF000000000000
-      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
-      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
-      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
-      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
-      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
-      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
-      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
-      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFDB896DFFDB89
-      6DFFF0AE98FFFFFFFFFFDB896DFFDB896DFFF0AE98FFFFEFE4FF000000000000
-      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFD1785AFFF0AE
-      98FFFFFFFFFFFFFFFFFFD1785AFFD1785AFFE09076FFE69B83FF000000000000
-      0000000000000000000000000000DB896DFFD07658FFD07658FFF0AE98FFFFFF
-      FFFFD07658FFFFFFFFFFD07658FFD07658FFD07658FFD07658FF000000000000
-      0000000000000000000000000000CF7556FFC56545FFC56545FFFFFFFFFFC565
-      45FFC56545FFFFFFFFFFC56545FFC56545FFC46444FFC66747FF000000000000
-      0000000000000000000000000000D47B5FFFC66747FFC8694AFFFFFFFFFFFFFF
-      FFFFFFFFFFFFFFFFFFFFFFFFFFFFC66747FFC8694AFFCA6C4DFF000000000000
-      0000000000000000000000000000EEAA94FFC56545FFBB5736FFBB5736FFBB57
-      36FFBB5736FFFFFFFFFFBB5736FFBB5736FFCE7255FFE2947AFF000000000000
-      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFB85231FFB852
-      31FFB85231FFFFFFFFFFB85231FFBB5736FFE09076FFFFF4EAFF000000000000
-      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
-      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
-      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
-      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
-      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
-      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
-      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
-      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFFFFFFFFFFFFF
-      FFFFFFFFFFFFFFFFFFFFFFFFFFFFDB896DFFF0AE98FFFFEFE4FF000000000000
-      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFFFFFFFFFD178
-      5AFFD1785AFFD1785AFFD1785AFFD1785AFFE09076FFE69B83FF000000000000
-      0000000000000000000000000000DB896DFFD07658FFD07658FFFFFFFFFFD076
-      58FFD07658FFD07658FFD07658FFD07658FFD07658FFD07658FF000000000000
-      0000000000000000000000000000CF7556FFC56545FFC56545FFFFFFFFFFFFFF
-      FFFFFFFFFFFFFFFFFFFFC56545FFC56545FFC46444FFC66747FF000000000000
-      0000000000000000000000000000D47B5FFFC66747FFC8694AFFC8694AFFC869
-      4AFFC8694AFFE69B83FFFFFFFFFFC66747FFC8694AFFCA6C4DFF000000000000
-      0000000000000000000000000000EEAA94FFC56545FFBB5736FFBB5736FFBB57
-      36FFBB5736FFE69B83FFFFFFFFFFBB5736FFCE7255FFE2947AFF000000000000
-      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFFFFFFFFFFFFF
-      FFFFFFFFFFFFFFFFFFFFBB5736FFBB5736FFE09076FFFFF4EAFF000000000000
-      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
-      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
-      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
-      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
-      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
-      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
-      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
-      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFF0AE98FFFFFF
-      FFFFFFFFFFFFFFFFFFFFF0AE98FFDB896DFFF0AE98FFFFEFE4FF000000000000
-      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFFFFFFFFFF0AE
-      98FFD1785AFFF0AE98FFFFFFFFFFD1785AFFE09076FFE69B83FF000000000000
-      0000000000000000000000000000DB896DFFD07658FFD07658FFFFFFFFFFD076
-      58FFD07658FFD07658FFD07658FFD07658FFD07658FFD07658FF000000000000
-      0000000000000000000000000000CF7556FFC56545FFC56545FFF0AE98FFFFFF
-      FFFFFFFFFFFFFFFFFFFFF0AE98FFC56545FFC46444FFC66747FF000000000000
-      0000000000000000000000000000D47B5FFFC66747FFC8694AFFFFFFFFFFC869
-      4AFFC8694AFFC8694AFFFFFFFFFFC66747FFC8694AFFCA6C4DFF000000000000
-      0000000000000000000000000000EEAA94FFC56545FFBB5736FFFFFFFFFFF0AE
-      98FFBB5736FFF0AE98FFFFFFFFFFBB5736FFCE7255FFE2947AFF000000000000
-      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFF0AE98FFFFFF
-      FFFFFFFFFFFFFFFFFFFFF0AE98FFBB5736FFE09076FFFFF4EAFF000000000000
-      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
-      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
-      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
-      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
-      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
-      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
-      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
-      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFFFFFFFFFFFFF
-      FFFFFFFFFFFFFFFFFFFFFFFFFFFFDB896DFFF0AE98FFFFEFE4FF000000000000
-      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFD1785AFFD178
-      5AFFD1785AFFD1785AFFFFFFFFFFD1785AFFE09076FFE69B83FF000000000000
-      0000000000000000000000000000DB896DFFD07658FFD07658FFD07658FFD076
-      58FFD07658FFF0AE98FFFFFFFFFFD07658FFD07658FFD07658FF000000000000
-      0000000000000000000000000000CF7556FFC56545FFC56545FFC56545FFC565
-      45FFC56545FFFFFFFFFFC56545FFC56545FFC46444FFC66747FF000000000000
-      0000000000000000000000000000D47B5FFFC66747FFC8694AFFC8694AFFC869
-      4AFFFFFFFFFFF0AE98FFC8694AFFC66747FFC8694AFFCA6C4DFF000000000000
-      0000000000000000000000000000EEAA94FFC56545FFBB5736FFBB5736FFFFFF
-      FFFFF0AE98FFBB5736FFBB5736FFBB5736FFCE7255FFE2947AFF000000000000
-      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFB85231FFFFFF
-      FFFFB85231FFB85231FFB85231FFBB5736FFE09076FFFFF4EAFF000000000000
-      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
-      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
-      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
-      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000
-    }
-  end
-end
+end

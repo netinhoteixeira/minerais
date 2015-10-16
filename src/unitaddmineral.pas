@@ -5,8 +5,8 @@ unit unitaddmineral;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics,
-  Dialogs, ComCtrls, StdCtrls, ExtCtrls, DBCtrls, Buttons, ActnList, IniFiles,
+  Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
+  ComCtrls, StdCtrls, ExtCtrls, DBCtrls, Buttons, ActnList, Spin, IniFiles,
   SQLite3tablemod, unitLanguage;
 
 type
@@ -19,6 +19,7 @@ type
     ActionAdd: TAction;
     ActionList1: TActionList;
     BCPanel1: TBCPanel;
+    ComboBoxSinalOptico: TComboBox;
     EditClasse: TEdit;
     EditClasse_Cristalina: TEdit;
     EditDensidadeMax: TEdit;
@@ -75,7 +76,7 @@ type
     MemoClivagem: TMemo;
     MemoCor: TMemo;
     MemoCorLamina: TMemo;
-    MemoDifaneidade: TMemo;
+    MemoDiafaneidade: TMemo;
     MemoDistincao: TMemo;
     MemoExtincao: TMemo;
     MemoFratura: TMemo;
@@ -97,12 +98,19 @@ type
     SpeedButtonAdd: TSpeedButton;
     SpeedButtonClear: TSpeedButton;
     SpeedButtonClose: TSpeedButton;
+    SpinEditBMax: TFloatSpinEdit;
+    SpinEditBMin: TFloatSpinEdit;
+    SpinEditDensidadeMax: TFloatSpinEdit;
+    SpinEditDensidadeMin: TFloatSpinEdit;
+    SpinEditDurezaMax: TFloatSpinEdit;
+    SpinEditDurezaMin: TFloatSpinEdit;
+    SpinEditRMax: TFloatSpinEdit;
+    SpinEditRMin: TFloatSpinEdit;
     TabSheetCristalografia: TTabSheet;
     TabSheetInf_Gerais: TTabSheet;
     TabSheetOticas: TTabSheet;
     TabSheetProp_Fisicas: TTabSheet;
     procedure Action1Execute(Sender: TObject);
-    procedure ActionAddExecute(Sender: TObject);
     procedure ActionClearFieldsExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -131,59 +139,35 @@ uses udatamodule, unitformconfigurations;
 { TFormAddMineral }
 
 procedure TFormAddMineral.ToolButtonSaveClick(Sender: TObject);
-var
-  Erro: boolean;
 begin
-  Erro := False;
-  if ((Trim(EditDurezaMin.Text) = EmptyStr) or (Trim(EditDurezaMax.Text) = EmptyStr)) then
-    Erro := True;
-  if ((Trim(EditDensidadeMin.Text) = EmptyStr) or (Trim(EditDensidadeMax.Text) = EmptyStr)) then
-    Erro := True;
   if (Trim(EditNomeMineral.Text) = EmptyStr) then
-    Erro := True;
-  if Erro then
-    ShowMessage('Preencha os campos "nome", "dureza" e "densidade" para salvar' +
+    ShowMessage('Preencha o campo "nome" para salvar' +
       ' no banco de dados.')
   else
   begin
     if FileExists(Dados.DatabaseMineralFileName) then
     begin
-      Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
-        'SELECT nome FROM minerais WHERE nome="' + EditNomeMineral.Text + '" ; ');
-      if Dados.TableMinerals.Count > 0 then
-        ShowMessage('Já existe um mineral com esse nome.')
-      else
+      if Dados.AddMineral(EditNomeMineral.Text) = 0 then
       begin
-        EditDurezaMin.Text := StringReplace(EditDurezaMin.Text, ',', '.', []);
-        EditDurezaMax.Text := StringReplace(EditDurezaMax.Text, ',', '.', []);
-        EditDensidadeMin.Text := StringReplace(EditDensidadeMin.Text, ',', '.', []);
-        EditDensidadeMax.Text := StringReplace(EditDensidadeMax.Text, ',', '.', []);
-        DatabaseMInerals := TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
-        TableMinerals := DatabaseMinerals.GetTable(
-          'INSERT INTO minerais (nome, dureza_min, dureza_max, densidade_min, ' +
-          'densidade_max ) VALUES ("' + EditNomeMineral.Text + '", "' + EditDurezaMin.Text + '",' +
-          ' "' + EditDurezaMax.Text + '", "' + EditDensidadeMin.Text + '", "' + EditDensidadeMax.Text + '");');
-
-        TableMinerals := DatabaseMinerals.GetTable('UPDATE minerais SET ' +
-          'formula="' + EditFormula.Text + '", classe="' + EditClasse.Text +
-          '", subclasse="' + EditSubclasse.Text + '", grupo="' + EditGrupo.Text +
-          '", subgrupo="' + EditSubgrupo.Text + '", ocorrencia="' +
-          MemoOcorrencia.Text + '", associacao="' + MemoAssociacao.Text +
-          '", distincao=' + '"' + MemoDistincao.Text + '", alteracao="' +
-          MemoAlteracao.Text + '", aplicacao="' + MemoAplicacao.Text + '", cor="' +
-          MemoCor.Text + '", brilho="' + MemoBrilho.Text + '", clivagem="' +
-          MemoClivagem.Text + '", fratura="' + MemoFratura.Text + '", ' +
-          'magnetismo="' + MemoMagnetismo.Text + '", luminescencia="' +
-          MemoLuminescencia.Text + '", difaneidade="' + MemoDifaneidade.Text + '", sinal_optico="' +
-          MemoSinalOptico.Text + '", indice_refracao="' + MemoIndiceRefracao.Text + '", ' +
-          'angulo ="' + MemoAngulo.Text + '", cor_interferencia="' + MemoInterferencia.Text +
-          '", cor_lamina="' + MemoCorLamina.Text + '", sinal_elongacao="' +
-          MemoSinalElongacao.Text + '", birrefringencia="' + MemoBirrefringencia.Text +
-          '", relevo="' + MemoRelevo.Text + '", extincao="' + MemoExtincao.Text +
-          '", sistema="' + EditSistema.Text + '", classe_cristalina="' +
-          EditClasse_Cristalina.Text + '", h_m="' + EditH_M.Text + '", habito="' +
-          MemoHabito.Text + '"  WHERE nome="' + EditNomeMineral.Text + '" ;');
-      end;
+        Dados.UpdateGeneralInfo(EditNomeMineral.Text, EditFormula.Text,
+          EditClasse.Text, EditSubclasse.Text, EditGrupo.Text, EditSubgrupo.Text,
+          MemoOcorrencia.Text, MemoAssociacao.Text, MemoDistincao.Text,
+          MemoAlteracao.Text, MemoAplicacao.Text);
+        Dados.UpdatePhysicalProp(SpinEditDurezaMin.Value, SpinEditDurezaMax.Value,
+          SpinEditDensidadeMin.Value, SpinEditDensidadeMax.Value, MemoCor.Text,
+          MemoTraco.Text, MemoBrilho.Text, MemoClivagem.Text, MemoFratura.Text,
+          MemoMagnetismo.Text, MemoLuminescencia.Text, MemoDiafaneidade.Text,
+          EditNomeMineral.Text);
+        Dados.UpdateOpticalProp(SpinEditRMin.Value, SpinEditRMax.Value,
+          SpinEditBMin.Value, SpinEditBMax.Value, ComboboxSinalOptico.Text,
+          MemoSinalOptico.Text, MemoIndiceRefracao.Text, MemoBirrefringencia.Text,
+          MemoInterferencia.Text, MemoCorLamina.Text, MemoSinalElongacao.Text,
+          MemoRelevo.Text, MemoAngulo.Text, MemoExtincao.Text, EditNomeMineral.Text);
+        Dados.UpdateCrystallography(EditSistema.Text, EditClasse_Cristalina.Text,
+          EditH_M.Text, MemoHabito.Text, EditNomeMIneral.Text);
+      end
+      else
+        ShowMessage('Já existe um mineral com esse nome.')
     end;
   end;
 end;
@@ -197,62 +181,6 @@ end;
 procedure TFormAddMineral.ToolButtonClearFieldsClick(Sender: TObject);
 begin
 
-end;
-
-procedure TFormAddMineral.ActionAddExecute(Sender: TObject);
-begin
-  Erro := False;
-  if ((Trim(EditDurezaMin.Text) = EmptyStr) or (Trim(EditDurezaMax.Text) = EmptyStr)) then
-    Erro := True;
-  if ((Trim(EditDensidadeMin.Text) = EmptyStr) or (Trim(EditDensidadeMax.Text) = EmptyStr)) then
-    Erro := True;
-  if (Trim(EditNomeMineral.Text) = EmptyStr) then
-    Erro := True;
-  if Erro then
-    ShowMessage('Preencha os campos "nome", "dureza" e "densidade" para salvar' +
-      ' no banco de dados.')
-  else
-  begin
-    if FileExists(Dados.DatabaseMineralFileName) then
-    begin
-      Dados.TableMinerals := Dados.DatabaseMinerals.GetTable(
-        'SELECT nome FROM minerais WHERE nome="' + EditNomeMineral.Text + '" ; ');
-      if Dados.TableMinerals.Count > 0 then
-        ShowMessage('Já existe um mineral com esse nome.')
-      else
-      begin
-        EditDurezaMin.Text := StringReplace(EditDurezaMin.Text, ',', '.', []);
-        EditDurezaMax.Text := StringReplace(EditDurezaMax.Text, ',', '.', []);
-        EditDensidadeMin.Text := StringReplace(EditDensidadeMin.Text, ',', '.', []);
-        EditDensidadeMax.Text := StringReplace(EditDensidadeMax.Text, ',', '.', []);
-        DatabaseMInerals := TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
-        TableMinerals := DatabaseMinerals.GetTable(
-          'INSERT INTO minerais (nome, dureza_min, dureza_max, densidade_min, ' +
-          'densidade_max ) VALUES ("' + EditNomeMineral.Text + '", "' + EditDurezaMin.Text + '",' +
-          ' "' + EditDurezaMax.Text + '", "' + EditDensidadeMin.Text + '", "' + EditDensidadeMax.Text + '");');
-
-        TableMinerals := DatabaseMinerals.GetTable('UPDATE minerais SET ' +
-          'formula="' + EditFormula.Text + '", classe="' + EditClasse.Text +
-          '", subclasse="' + EditSubclasse.Text + '", grupo="' + EditGrupo.Text +
-          '", subgrupo="' + EditSubgrupo.Text + '", ocorrencia="' +
-          MemoOcorrencia.Text + '", associacao="' + MemoAssociacao.Text +
-          '", distincao=' + '"' + MemoDistincao.Text + '", alteracao="' +
-          MemoAlteracao.Text + '", aplicacao="' + MemoAplicacao.Text + '", cor="' +
-          MemoCor.Text + '", brilho="' + MemoBrilho.Text + '", clivagem="' +
-          MemoClivagem.Text + '", fratura="' + MemoFratura.Text + '", ' +
-          'magnetismo="' + MemoMagnetismo.Text + '", luminescencia="' +
-          MemoLuminescencia.Text + '", difaneidade="' + MemoDifaneidade.Text + '", sinal_optico="' +
-          MemoSinalOptico.Text + '", indice_refracao="' + MemoIndiceRefracao.Text + '", ' +
-          'angulo ="' + MemoAngulo.Text + '", cor_interferencia="' + MemoInterferencia.Text +
-          '", cor_lamina="' + MemoCorLamina.Text + '", sinal_elongacao="' +
-          MemoSinalElongacao.Text + '", birrefringencia="' + MemoBirrefringencia.Text +
-          '", relevo="' + MemoRelevo.Text + '", extincao="' + MemoExtincao.Text +
-          '", sistema="' + EditSistema.Text + '", classe_cristalina="' +
-          EditClasse_Cristalina.Text + '", h_m="' + EditH_M.Text + '", habito="' +
-          MemoHabito.Text + '"  WHERE nome="' + EditNomeMineral.Text + '" ;');
-      end;
-    end;
-  end;
 end;
 
 procedure TFormAddMineral.Action1Execute(Sender: TObject);
@@ -287,7 +215,7 @@ begin
     MemoMagnetismo.Text:=EmptyStr;
     MemoLuminescencia.Text:=EmptyStr;
 
-    MemoDifaneidade.Text:=EmptyStr;
+    MemoDiafaneidade.Text:=EmptyStr;
     MemoSinalOptico.Text:=EmptyStr;
     MemoIndiceRefracao.Text:=EmptyStr;
     MemoAngulo.Text:=EmptyStr;
@@ -307,7 +235,7 @@ end;
 procedure TFormAddMineral.FormCreate(Sender: TObject);
 begin
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'Português')) then
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
   begin
     FormAddMineral.Caption:=Lang.AddMineral;
     TabSheetInf_Gerais.Caption:=Lang.GeneralInformation;
@@ -354,4 +282,4 @@ begin
   Config.Free;
 end;
 
-end.
+end.

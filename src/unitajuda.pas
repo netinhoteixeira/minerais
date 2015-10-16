@@ -25,14 +25,16 @@ type
   public
     procedure ChangeLanguage;
     { public declarations }
-  end; 
+  end;
+
+  const nome_arq: String = '\doc\index.html';
 
 var
   FormAjuda: TFormAjuda;
   Config:TIniFile;
 
 implementation
-uses udatamodule, unitformconfigurations;
+uses udatamodule;
 
 {$R *.lfm}
 
@@ -50,9 +52,11 @@ end;
 
 procedure TFormAjuda.FormCreate(Sender: TObject);
 begin
-  if FileExists(GetCurrentDir+'\Ajuda\index.html') then
-    Iphtmlpanel1.OpenURL(GetCurrentDir+'\Ajuda\index.html');
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  if FileExists(GetCurrentDir+nome_arq) then
+  begin
+    Iphtmlpanel1.OpenURL(GetCurrentDir+nome_arq);
+  end;
   if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
   begin
     ChangeLanguage;

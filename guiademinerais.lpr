@@ -8,13 +8,14 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms,  udatamodule, sqlite3laz,
-  tachartlazaruspkg, sdflaz, lazreport, ubibliografia,
+  tachartlazaruspkg, sdflaz, bgrabitmappack, lazreport, ubibliografia,
   uformimpressao, UnitAjuda, unitSplash, crt,
   unitfichaespecie,
   unitBlobFields, unitaddmineral,
   unitselectdatabase, unitadddatabase,
   unitremovemineral, unittranslatefile,
-unitformconfigurations;
+unitformconfigurations, frameficha, unitformimages, formminerallist,
+formquickfilter;
 
 {$R *.res}
 
@@ -28,6 +29,7 @@ begin
   Delay(1000);
   FormSplash.Hide;
   FormSplash.Free;
+  //to do: forms criados em tempo real
   Application.CreateForm(TFormFichaEspecie, FormFichaEspecie);
   Application.CreateForm(TFormSelectDatabase, FormSelectDatabase);
   Application.CreateForm(TFormBibliografia, FormBibliografia);
@@ -38,6 +40,9 @@ begin
   Application.CreateForm(TFormRemoveMineral, FormRemoveMineral);
   //Application.CreateForm(TFormTranslate, FormTranslate);
   Application.CreateForm(TFormConfigurations, FormConfigurations);
+  Application.CreateForm(TFormImages, FormImages);
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TForm2, Form2);
   Application.Run;
 end.
 

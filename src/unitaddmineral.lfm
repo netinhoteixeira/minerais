@@ -1,14 +1,14 @@
 object FormAddMineral: TFormAddMineral
-  Left = 28
+  Left = 258
   Height = 573
-  Top = 46
+  Top = 144
   Width = 665
   Caption = 'Adicionar Mineral'
   ClientHeight = 573
   ClientWidth = 665
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.4.2.0'
   object BCPanel1: TBCPanel
     Left = 0
     Height = 50
@@ -212,9 +212,9 @@ object FormAddMineral: TFormAddMineral
     Height = 523
     Top = 0
     Width = 665
-    ActivePage = TabSheetInf_Gerais
+    ActivePage = TabSheetOticas
     Align = alClient
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 1
     object TabSheetInf_Gerais: TTabSheet
       Caption = 'Informações Gerais'
@@ -225,7 +225,7 @@ object FormAddMineral: TFormAddMineral
         Height = 474
         Top = 15
         Width = 655
-        HorzScrollBar.Page = 640
+        HorzScrollBar.Page = 150
         VertScrollBar.Page = 472
         Anchors = [akTop, akLeft, akRight, akBottom]
         ClientHeight = 472
@@ -429,17 +429,17 @@ object FormAddMineral: TFormAddMineral
         Height = 495
         Top = 15
         Width = 657
-        HorzScrollBar.Page = 657
-        VertScrollBar.Page = 495
+        HorzScrollBar.Page = 508
+        VertScrollBar.Page = 493
         Anchors = [akTop, akLeft, akRight, akBottom]
-        ClientHeight = 491
-        ClientWidth = 650
+        ClientHeight = 493
+        ClientWidth = 642
         TabOrder = 0
         object MemoLuminescencia: TMemo
           Left = 150
-          Height = 27
+          Height = 33
           Top = 560
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           TabOrder = 0
         end
@@ -447,7 +447,7 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 60
           Top = 159
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 1
@@ -456,7 +456,7 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 60
           Top = 231
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 2
@@ -465,7 +465,7 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 60
           Top = 303
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 3
@@ -474,7 +474,7 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 60
           Top = 375
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 4
@@ -483,94 +483,94 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 60
           Top = 447
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 5
         end
         object MemoMagnetismo: TMemo
           Left = 150
-          Height = 27
+          Height = 33
           Top = 519
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           TabOrder = 6
         end
         object LabelDureza: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 15
-          Width = 36
+          Width = 45
           Caption = 'Dureza'
           ParentColor = False
         end
         object LabelDensidade: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 87
-          Width = 55
+          Width = 67
           Caption = 'Densidade'
           ParentColor = False
         end
         object LabelCor: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 159
-          Width = 19
+          Width = 23
           Caption = 'Cor'
           ParentColor = False
         end
         object LabelTraco: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 231
-          Width = 30
+          Width = 35
           Caption = 'Traço'
           ParentColor = False
         end
         object LabelBrilho: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 303
-          Width = 31
+          Width = 37
           Caption = 'Brilho'
           ParentColor = False
         end
         object LabelClivagem: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 375
-          Width = 50
+          Width = 59
           Caption = 'Clivagem'
           ParentColor = False
         end
         object LabelFratura: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 447
-          Width = 37
+          Width = 46
           Caption = 'Fratura'
           ParentColor = False
         end
         object LabelMagnetismo: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 519
-          Width = 67
+          Width = 79
           Caption = 'Magnetismo'
           ParentColor = False
         end
         object LabelLuminescencia: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 560
-          Width = 79
+          Width = 93
           Caption = 'Luminescência'
           ParentColor = False
         end
         object EditDurezaMin: TEdit
           Left = 150
-          Height = 23
+          Height = 33
           Top = 15
           Width = 80
           TabOrder = 7
@@ -578,7 +578,7 @@ object FormAddMineral: TFormAddMineral
         end
         object EditDurezaMax: TEdit
           Left = 256
-          Height = 23
+          Height = 33
           Top = 15
           Width = 80
           TabOrder = 8
@@ -586,7 +586,7 @@ object FormAddMineral: TFormAddMineral
         end
         object EditDensidadeMin: TEdit
           Left = 150
-          Height = 23
+          Height = 33
           Top = 87
           Width = 80
           TabOrder = 9
@@ -594,11 +594,55 @@ object FormAddMineral: TFormAddMineral
         end
         object EditDensidadeMax: TEdit
           Left = 256
-          Height = 23
+          Height = 33
           Top = 87
           Width = 80
           TabOrder = 10
           Text = ' '
+        end
+        object SpinEditDurezaMin: TFloatSpinEdit
+          Left = 353
+          Height = 33
+          Top = 15
+          Width = 70
+          Increment = 0.5
+          MaxValue = 10
+          MinValue = 0
+          TabOrder = 11
+          Value = 0
+        end
+        object SpinEditDurezaMax: TFloatSpinEdit
+          Left = 438
+          Height = 33
+          Top = 15
+          Width = 70
+          Increment = 0.5
+          MaxValue = 10
+          MinValue = 0
+          TabOrder = 12
+          Value = 0
+        end
+        object SpinEditDensidadeMax: TFloatSpinEdit
+          Left = 438
+          Height = 33
+          Top = 87
+          Width = 70
+          Increment = 0.01
+          MaxValue = 10
+          MinValue = 0
+          TabOrder = 13
+          Value = 0
+        end
+        object SpinEditDensidadeMin: TFloatSpinEdit
+          Left = 353
+          Height = 33
+          Top = 87
+          Width = 70
+          Increment = 0.01
+          MaxValue = 10
+          MinValue = 0
+          TabOrder = 14
+          Value = 0
         end
       end
     end
@@ -611,106 +655,106 @@ object FormAddMineral: TFormAddMineral
         Height = 495
         Top = 15
         Width = 657
-        HorzScrollBar.Page = 657
-        VertScrollBar.Page = 495
+        HorzScrollBar.Page = 394
+        VertScrollBar.Page = 493
         Anchors = [akTop, akLeft, akRight, akBottom]
-        ClientHeight = 491
-        ClientWidth = 650
+        ClientHeight = 493
+        ClientWidth = 642
         TabOrder = 0
         object MemoExtincao: TMemo
           Left = 152
           Height = 45
           Top = 528
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 0
         end
         object LabelExtincao: TLabel
           Left = 16
-          Height = 15
+          Height = 21
           Top = 528
-          Width = 44
+          Width = 55
           Caption = 'Extinção'
           ParentColor = False
         end
         object LabelDifaneidade: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 23
-          Width = 63
+          Width = 75
           Caption = 'Difaneidade'
           ParentColor = False
         end
         object LabelSinal_optico: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 79
-          Width = 64
+          Width = 78
           Caption = 'Sinal Óptico'
           ParentColor = False
         end
         object LabelIndice_Refracao: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 135
-          Width = 81
+          Width = 98
           Caption = 'Índice Refração'
           ParentColor = False
         end
         object LabelAngulo_2V: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 191
-          Width = 55
+          Width = 67
           Caption = 'Ângulo 2V'
           ParentColor = False
         end
         object LabelCor_Interferencia: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 247
-          Width = 104
+          Width = 129
           Caption = 'Cor de Interferência'
           ParentColor = False
         end
         object LabelSInal_Elongacao: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 359
-          Width = 99
+          Width = 120
           Caption = 'Sinal de Elongação'
           ParentColor = False
         end
         object LabelBirrefringencia: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 415
-          Width = 77
+          Width = 92
           Caption = 'Birrefringência'
           ParentColor = False
         end
         object LabelRelevo: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 471
-          Width = 35
+          Width = 44
           Caption = 'Relevo'
           ParentColor = False
         end
         object LabelCor_Lamina: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 303
-          Width = 77
+          Width = 90
           Caption = 'Cor da Lâmina'
           ParentColor = False
         end
-        object MemoDifaneidade: TMemo
+        object MemoDiafaneidade: TMemo
           Left = 150
           Height = 45
           Top = 23
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 1
@@ -719,7 +763,7 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 45
           Top = 79
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 2
@@ -728,7 +772,7 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 45
           Top = 135
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 3
@@ -737,7 +781,7 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 45
           Top = 191
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 4
@@ -746,7 +790,7 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 45
           Top = 247
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 5
@@ -755,7 +799,7 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 45
           Top = 303
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 6
@@ -764,7 +808,7 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 45
           Top = 359
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 7
@@ -773,7 +817,7 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 45
           Top = 415
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 8
@@ -782,10 +826,69 @@ object FormAddMineral: TFormAddMineral
           Left = 150
           Height = 45
           Top = 471
-          Width = 474
+          Width = 466
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 9
+        end
+        object ComboBoxSinalOptico: TComboBox
+          Left = 220
+          Height = 33
+          Top = 264
+          Width = 172
+          ItemHeight = 0
+          Items.Strings = (
+            'Isotrópico'
+            'Uniaxial (+)'
+            'Uniaxial (-)'
+            'Biaxial (+)'
+            'Biaxial (-)'
+          )
+          TabOrder = 10
+        end
+        object SpinEditBMin: TFloatSpinEdit
+          Left = 220
+          Height = 33
+          Top = 328
+          Width = 84
+          Increment = 0.01
+          MaxValue = 100
+          MinValue = 0
+          TabOrder = 11
+          Value = 0
+        end
+        object SpinEditBMax: TFloatSpinEdit
+          Left = 320
+          Height = 33
+          Top = 328
+          Width = 72
+          Increment = 0.01
+          MaxValue = 100
+          MinValue = 0
+          TabOrder = 12
+          Value = 0
+        end
+        object SpinEditRMax: TFloatSpinEdit
+          Left = 320
+          Height = 33
+          Top = 384
+          Width = 74
+          Increment = 0.01
+          MaxValue = 100
+          MinValue = 0
+          TabOrder = 13
+          Value = 0
+        end
+        object SpinEditRMin: TFloatSpinEdit
+          Left = 220
+          Height = 33
+          Top = 384
+          Width = 84
+          Increment = 0.01
+          MaxValue = 100
+          MinValue = 0
+          TabOrder = 14
+          Value = 0
         end
       end
     end
@@ -798,65 +901,65 @@ object FormAddMineral: TFormAddMineral
         Height = 495
         Top = 15
         Width = 657
-        HorzScrollBar.Page = 657
-        VertScrollBar.Page = 495
+        HorzScrollBar.Page = 150
+        VertScrollBar.Page = 183
         Anchors = [akTop, akLeft, akRight, akBottom]
-        ClientHeight = 491
-        ClientWidth = 653
+        ClientHeight = 493
+        ClientWidth = 655
         TabOrder = 0
         object LabelSistema_Cristalino: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 40
-          Width = 94
+          Width = 117
           Caption = 'Sistema Cristalino'
           ParentColor = False
         end
         object LabelClasse_Cristalina: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 80
-          Width = 85
+          Width = 107
           Caption = 'Classe Cristalina'
           ParentColor = False
         end
         object LabelSimbologia: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 120
-          Width = 60
+          Width = 70
           Caption = 'Simbologia'
           ParentColor = False
         end
         object LabelHabito: TLabel
           Left = 15
-          Height = 15
+          Height = 21
           Top = 162
-          Width = 36
+          Width = 43
           Caption = 'Hábito'
           ParentColor = False
         end
         object EditSistema: TEdit
           Left = 160
-          Height = 23
+          Height = 33
           Top = 40
-          Width = 469
+          Width = 471
           Anchors = [akTop, akLeft, akRight]
           TabOrder = 0
         end
         object EditClasse_Cristalina: TEdit
           Left = 160
-          Height = 23
+          Height = 33
           Top = 80
-          Width = 469
+          Width = 471
           Anchors = [akTop, akLeft, akRight]
           TabOrder = 1
         end
         object EditH_M: TEdit
           Left = 160
-          Height = 23
+          Height = 33
           Top = 120
-          Width = 469
+          Width = 471
           Anchors = [akTop, akLeft, akRight]
           TabOrder = 2
         end
@@ -864,7 +967,7 @@ object FormAddMineral: TFormAddMineral
           Left = 160
           Height = 78
           Top = 162
-          Width = 469
+          Width = 471
           Anchors = [akTop, akLeft, akRight]
           ScrollBars = ssAutoVertical
           TabOrder = 3
@@ -885,4 +988,4 @@ object FormAddMineral: TFormAddMineral
       Caption = 'Action1'
     end
   end
-end
+end
