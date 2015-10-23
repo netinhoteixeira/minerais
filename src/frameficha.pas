@@ -8,27 +8,31 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, StdCtrls,
   Spin, Buttons, ActnList, unitblobfields, Dialogs, ExtDlgs, unitlanguage;
 
+type Mode = (Edit, Filter, Visualize);
+
 type
 
   { TFrameFicha }
 
   TFrameFicha = class(TFrame)
+    ActionSEDens: TAction;
+    ActionSEHard: TAction;
     ActionSaveMod: TAction;
     ActionList1: TActionList;
     BitBtnModifications: TBitBtn;
     BtnSaveMod: TBitBtn;
-    ComboBoxSinalOptico: TComboBox;
-    EditClasse: TEdit;
+    ComboBoxClass: TComboBox;
+    ComboBoxSubclass: TComboBox;
+    ComboBoxGroup: TComboBox;
+    ComboBoxSubgroup: TComboBox;
+    ComboBoxOpticSign: TComboBox;
     EditClasse_Cristalina: TEdit;
     EditDensidade: TEdit;
     EditDureza: TEdit;
     EditFormula: TEdit;
-    EditGrupo: TEdit;
     EditH_M: TEdit;
     EditNomeMineral: TEdit;
     EditSistema: TEdit;
-    EditSubClasse: TEdit;
-    EditSubGrupo: TEdit;
     GroupBoxCristalografia1: TGroupBox;
     GroupBoxCristalografia2: TGroupBox;
     GroupBoxImagemAmpliada: TGroupBox;
@@ -113,10 +117,10 @@ type
     ScrollBox6: TScrollBox;
     SpinEditBMax: TFloatSpinEdit;
     SpinEditBMin: TFloatSpinEdit;
-    SpinEditDensidadeMax: TFloatSpinEdit;
-    SpinEditDensidadeMin: TFloatSpinEdit;
-    SpinEditDurezaMax: TFloatSpinEdit;
-    SpinEditDurezaMin: TFloatSpinEdit;
+    SpinEditDensMax: TFloatSpinEdit;
+    SpinEditDensMin: TFloatSpinEdit;
+    SpinEditHardMax: TFloatSpinEdit;
+    SpinEditHardMin: TFloatSpinEdit;
     SpinEditRMax: TFloatSpinEdit;
     SpinEditRMin: TFloatSpinEdit;
     TabSheetCristalografia: TTabSheet;
@@ -129,20 +133,40 @@ type
     ToolButtonAddImage: TToolButton;
     ToolButtonRemoveImage: TToolButton;
     procedure ActionSaveModExecute(Sender: TObject);
+    procedure ActionSEDensExecute(Sender: TObject);
+    procedure ActionSEHardExecute(Sender: TObject);
+    procedure ComboBoxOpticSignEditingDone(Sender: TObject);
+    procedure EditFormulaEditingDone(Sender: TObject);
+    procedure EditNomeMineralEditingDone(Sender: TObject);
     procedure HeaderControl1SectionClick(HeaderControl: TCustomHeaderControl;
       Section: THeaderSection);
+    procedure MemoAnguloEditingDone(Sender: TObject);
+    procedure MemoBirrefringenciaEditingDone(Sender: TObject);
+    procedure MemoCorLaminaEditingDone(Sender: TObject);
+    procedure MemoExtincaoEditingDone(Sender: TObject);
+    procedure MemoIndiceRefracaoEditingDone(Sender: TObject);
+    procedure MemoInterferenciaEditingDone(Sender: TObject);
+    procedure MemoRelevoEditingDone(Sender: TObject);
+    procedure MemoSinalElongacaoEditingDone(Sender: TObject);
+    procedure MemoSinalOpticoEditingDone(Sender: TObject);
     procedure PageControlFichaChange(Sender: TObject);
+    procedure SpinEditBMaxChange(Sender: TObject);
+    procedure SpinEditBMinChange(Sender: TObject);
+    procedure SpinEditRMaxChange(Sender: TObject);
+    procedure SpinEditRMinChange(Sender: TObject);
     procedure ToolButtonAddImageClick(Sender: TObject);
     procedure ToolButtonRemoveImageClick(Sender: TObject);
   private
     { private declarations }
   public
+    FormMode:Mode;
     SelectedImage:Char;
     constructor Create(AOwner:TComponent); override;
     procedure AddMineralImage(strType:String; Number:Char);
     procedure ChangeLanguage;
     procedure ClearFields;
     procedure EditingMode(Mode:Boolean);
+    procedure RefreshComboboxes;
     procedure RefreshHeaderControl(ImageNumber:Char);
     procedure RefreshImages;
     procedure RemoveImage(Selected:Char);
@@ -152,9 +176,10 @@ type
 
 var MineralName:String;
     MineralogyName:String; //Usado no banco de dados de Mineralogia Sistemática
+    SelectedImage: String;
 
 implementation
-uses udatamodule;
+uses udatamodule, unitframelist;
 
 {$R *.lfm}
 
@@ -195,6 +220,58 @@ begin
   end;
 end;
 
+procedure TFrameFicha.SpinEditBMaxChange(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3,'birr_max', FloatToStr(SpinEditBMax.Value),
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
+procedure TFrameFicha.SpinEditBMinChange(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'birr_min', FloatToStr(SpinEditBMin.Value),
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
+procedure TFrameFicha.SpinEditRMaxChange(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'refracao_max', FloatTostr(SpinEditRmax.Value),
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
+procedure TFrameFicha.SpinEditRMinChange(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'refracao_min', FloatTostr(SpinEditRmin.Value),
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
 procedure TFrameFicha.ToolButtonAddImageClick(Sender: TObject);
 begin
   if Dados.DatabaseMineralFileName <> EmptyStr then
@@ -218,21 +295,94 @@ end;
 
 procedure TFrameFicha.ActionSaveModExecute(Sender: TObject);
 begin
-  Dados.UpdateGeneralInfo(EditNomeMineral.Text, EditFormula.Text, EditClasse.Text,
-    EditSubClasse.Text, EditGrupo.Text, EditSubGrupo.Text, MemoOcorrencia.Text,
+  Dados.UpdateGeneralInfo(EditNomeMineral.Text, EditFormula.Text, ComboboxClass.Text,
+    ComboboxSubclass.Text, ComboboxGroup.Text, ComboboxSubgroup.Text, MemoOcorrencia.Text,
     MemoAssociacao.Text, MemoDIstincao.Text, MemoAlteracao.Text, MemoAplicacao.Text);
-  Dados.UpdatePhysicalProp(SpinEditDurezaMin.Value, SpinEditDurezaMax.Value,
-    SpinEditDensidadeMin.Value, SpinEditDensidadeMax.Value, MemoCor.Text,
+  Dados.UpdatePhysicalProp(SpinEditHardMin.Value, SpinEditHardMax.Value,
+    SpinEditDensMin.Value, SpinEditDensMax.Value, MemoCor.Text,
     MemoTraco.Text, MemoBrilho.Text, MemoClivagem.Text, MemoFratura.Text,
     MemoMagnetismo.Text, MemoLuminescencia.Text, MemoDiafaneidade.Text,
     EditNomeMineral.Text);
   Dados.UpdateOpticalProp(SpinEditRMin.Value, SpinEditRMax.Value, SpinEditBMin.Value, SpinEditBMax.Value,
-    ComboboxSinalOptico.Text, MemoSinalOptico.Text, MemoIndiceRefracao.Text,
+    ComboBoxOpticSign.Text, MemoSinalOptico.Text, MemoIndiceRefracao.Text,
     MemoBirrefringencia.Text, MemoInterferencia.Text, MemoCorLamina.Text,
     MemoSinalElongacao.Text, MemoRelevo.Text, MemoAngulo.Text, MemoExtincao.Text,
     EditNomeMineral.Text);
   Dados.UpdateCrystallography(EditSistema.Text, EditClasse_Cristalina.Text,
     EditH_M.Text, MemoHabito.Text, EditNomeMineral.Text);
+end;
+
+procedure TFrameFicha.ActionSEDensExecute(Sender: TObject);
+begin
+  if  SpinEditDensMin.Value = SpinEditDensMax.Value then
+  begin
+    EditDensidade.Text:=FloatToStr(SpinEditDensMin.Value);
+  end
+  else
+  begin
+    EditDensidade.Text:=FloatToStr(SpinEditDensMin.Value) + ' - '+
+    FloatToStr(SpinEditDensMax.Value);
+  end;
+end;
+
+procedure TFrameFicha.ActionSEHardExecute(Sender: TObject);
+begin
+  if SpinEditHardMin.Value = SpinEditHardMin.Value then
+  begin
+    EditDureza.Text:=FloatToStr(SpinEditHardMin.Value);
+  end
+  else
+  begin
+    EditDureza.Text:=FloatToStr(SpinEditHardMin.Value) + ' - '+
+      FloatToStr(SpinEditHardMax.Value);
+  end;
+end;
+
+procedure TFrameFicha.ComboBoxOpticSignEditingDone(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'sinal_optico', ComboboxOpticSign.Text,
+        EditNomeMineral.Text)
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
+procedure TFrameFicha.EditFormulaEditingDone(Sender: TObject);
+var Minerals:TStrings;
+    I:Integer;
+begin
+  case FormMode of
+    Edit:begin
+
+    end;
+    Filter:begin
+      Minerals:=FrameList.ListBoxMinerals.Items;
+      for I:=0 to Minerals.Count-1 do
+      begin
+        if Dados.MineralFiltered(Minerals[I], Dados.Table1, EditFormula.Text,
+        'formula') = True then
+        begin
+          FrameList.ListBoxMinerals.Items.Delete(I);
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure TFrameFicha.EditNomeMineralEditingDone(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+
+    end;
+    Filter:begin
+      //Dados.MineralFiltered();
+    end;
+  end;
 end;
 
 procedure TFrameFicha.HeaderControl1SectionClick(
@@ -349,6 +499,123 @@ begin
   RefreshHeaderControl(SelectedImage);
 end;
 
+procedure TFrameFicha.MemoAnguloEditingDone(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'angulo', MemoAngulo.Text,
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
+procedure TFrameFicha.MemoBirrefringenciaEditingDone(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'desc_birr', MemoBirrefringencia.Text,
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
+procedure TFrameFicha.MemoCorLaminaEditingDone(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'cor_lamina', MemoCorLamina.Text,
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
+procedure TFrameFicha.MemoExtincaoEditingDone(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'extincao', MemoExtincao.Text,
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
+procedure TFrameFicha.MemoIndiceRefracaoEditingDone(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'desc_refracao', MemoIndiceRefracao.Text,
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
+procedure TFrameFicha.MemoInterferenciaEditingDone(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'cor_interferencia', MemoInterferencia.Text,
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
+procedure TFrameFicha.MemoRelevoEditingDone(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'relevo', MemoRelevo.Text,
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
+procedure TFrameFicha.MemoSinalElongacaoEditingDone(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'sinal_elongacao', MemoSinalElongacao.Text,
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
+procedure TFrameFicha.MemoSinalOpticoEditingDone(Sender: TObject);
+begin
+  case FormMode of
+    Edit:begin
+      Dados.UpdateField(Dados.Table3, 'desc_sinal_optico', MemoSinalOptico.Text,
+        EditNomeMineral.Text);
+    end;
+    Filter:begin
+
+    end;
+  end;
+end;
+
 constructor TFrameFicha.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -379,6 +646,10 @@ end;
 
 procedure TFrameFicha.ChangeLanguage;
 begin
+  {Config:=TIniFile.Create(Dados.Caminho+'config.ini');
+  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
+  begin
+  end; Config.Free;}
   TabSheetInf_Gerais.Caption:=Lang.GeneralInformation;
     TabSheetProp_fisicas.Caption:=Lang.PhysicalProperties;
     TabSheetOticas.Caption:=Lang.OpticalProperties;
@@ -427,23 +698,23 @@ end;
 
 procedure TFrameFicha.ClearFields;
 begin
-  //to do: colocar os campos novos: ComboboxSinalOptico, etc
+  //to do: colocar os campos novos: ComboBoxOpticSign, etc
   EditNomeMineral.Text:='';
   EditFormula.Text:='';
-  EditClasse.Text:='';
-  EditSubClasse.Text:='';
-  EditGrupo.Text:='';
-  EditSubgrupo.Text:='';
+  ComboboxClass.Text:='';
+  ComboboxSubclass.Text:='';
+  ComboboxGroup.Text:='';
+  ComboboxSubgroup.Text:='';
   MemoOcorrencia.Text:='';
   MemoAssociacao.Text:='';
   MemoDistincao.Text:='';
   MemoAlteracao.Text:='';
   MemoAplicacao.Text:='';
   EditDureza.Text:='';
-  SpinEditDurezaMin.Value:=0.;
-  SpinEditDurezaMax.Value:=0.;
-  SpinEditDensidadeMin.Value:=0.;
-  SpinEditDensidadeMax.Value:=0.;
+  SpinEditHardMin.Value:=0.;
+  SpinEditHardMax.Value:=0.;
+  SpinEditDensMin.Value:=0.;
+  SpinEditDensMax.Value:=0.;
   EditDensidade.Text:='';
   MemoCor.Text:='';
   MemoTraco.Text:='';
@@ -478,20 +749,20 @@ begin
   //to do: verificar se há campos nao incluidos
   EditFormula.Enabled := Mode;
   EditNomeMineral.Enabled := Mode;
-  EditClasse.Enabled := Mode;
-  EditSubClasse.Enabled := Mode;
-  EditGrupo.Enabled := Mode;
-  EditSubGrupo.Enabled := Mode;
+  ComboboxClass.Enabled := Mode;
+  ComboboxSubclass.Enabled := Mode;
+  ComboboxGroup.Enabled := Mode;
+  ComboboxSubgroup.Enabled := Mode;
   MemoOcorrencia.Enabled := Mode;
   MemoAssociacao.Enabled := Mode;
   MemoDistincao.Enabled := Mode;
   MemoAlteracao.Enabled := Mode;
   MemoAplicacao.Enabled := Mode;
 
-  SpinEditDurezaMin.Enabled := Mode;
-  SpinEditDurezaMax.Enabled := Mode;
-  SpinEditDensidadeMin.Enabled := Mode;
-  SpinEditDensidadeMax.Enabled := Mode;
+  SpinEditHardMin.Enabled := Mode;
+  SpinEditHardMax.Enabled := Mode;
+  SpinEditDensMin.Enabled := Mode;
+  SpinEditDensMax.Enabled := Mode;
 
   MemoCor.Enabled := Mode;
   MemoTraco.Enabled := Mode;
@@ -506,7 +777,7 @@ begin
   SpinEditBMax.Enabled:=Mode;
   SpinEditRMin.Enabled:=Mode;
   SpinEditRMax.Enabled:=Mode;
-  ComboboxSinalOptico.Enabled:=Mode;
+  ComboBoxOpticSign.Enabled:=Mode;
   MemoSinalOptico.Enabled := Mode;
   MemoIndiceRefracao.Enabled := Mode;
   MemoAngulo.Enabled := Mode;
@@ -521,6 +792,16 @@ begin
   EditClasse_Cristalina.Enabled := Mode;
   EditH_M.Enabled := Mode;
   MemoHabito.Enabled := Mode;
+end;
+
+procedure TFrameFicha.RefreshComboboxes;
+begin
+  //to do:substituir editexts de classe, subclasse, etc para comboboxes com readonly:=false
+  ComboboxOpticSign.Items:= Dados.ReturnDistinctField('sinal_optico', Dados.Table3);
+  ComboboxClass.Items:=Dados.ReturnDistinctField('classe', Dados.Table1);
+  ComboboxSubclass.Items:=Dados.ReturnDistinctField('subclasse', Dados.Table1);
+  ComboboxGroup.Items:=Dados.ReturnDistinctField('grupo', Dados.Table1);
+  ComboboxSubgroup.Items:=Dados.ReturnDistinctField('subgrupo', Dados.Table1);
 end;
 
 procedure TFrameFicha.RefreshHeaderControl(ImageNumber: Char);
@@ -635,18 +916,18 @@ var
   SelectSQL: string;
 begin
   //NomeMineral é usado no editingdone do EditNomeMineral
-  MineralName := EditNomeMineral.Text;
+  MineralName := strName;
   if MineralName <> EmptyStr then
   begin
     //Mineralogy_Name.Caption:='';
-    SelectSQL:= Dados.SelectSQL(Dados.Table1, EditNomeMineral.Text);
+    SelectSQL:= Dados.SelectSQL(Dados.Table1, strName);
     Dados.TableGeneral := Dados.DatabaseMinerals.GetTable(SelectSQL);
     EditNomeMineral.Text := Dados.TableGeneral.FieldByName['nome'];
     EditFormula.Text := Dados.TableGeneral.FieldByName['formula'];
-    EditClasse.Text := Dados.TableGeneral.FieldByName['classe'];
-    EditSubClasse.Text := Dados.TableGeneral.FieldByName['subclasse'];
-    EditGrupo.Text := Dados.TableGeneral.FieldByName['grupo'];
-    EditSubGrupo.Text := Dados.TableGeneral.FieldByName['subgrupo'];
+    ComboboxClass.Text := Dados.TableGeneral.FieldByName['classe'];
+    ComboboxSubclass.Text := Dados.TableGeneral.FieldByName['subclasse'];
+    ComboboxGroup.Text := Dados.TableGeneral.FieldByName['grupo'];
+    ComboboxSubgroup.Text := Dados.TableGeneral.FieldByName['subgrupo'];
     MemoOcorrencia.Text := Dados.TableGeneral.FieldByName['ocorrencia'];
     MemoAssociacao.Text := Dados.TableGeneral.FieldByName['associacao'];
     MemoDistincao.Text := Dados.TableGeneral.FieldByName['distincao'];
@@ -655,20 +936,20 @@ begin
 
     SelectSQL:= Dados.SelectSQL(Dados.Table2, EditNomeMineral.Text);
     Dados.TablePhysical := Dados.DatabaseMinerals.GetTable(SelectSQL);
-        SpinEditDurezaMin.Value:=StrToFloat(Dados.TablePhysical.FieldByName['dureza_min']);
-    SpinEditDurezaMax.Value:=StrToFloat(Dados.TablePhysical.FieldByName['dureza_max']);
-    SpinEditDensidadeMin.Value:=StrToFLoat(Dados.TablePhysical.FieldByName['densidade_min']);
-    SpinEditDensidadeMax.Value:=StrToFLoat(Dados.TablePhysical.FieldByName['densidade_max']);
-    if SpinEditDurezaMin.Value = SpinEditDurezaMax.Value then
-      EditDureza.Text := FloatToStr(SpinEditDurezaMin.Value)
+        SpinEditHardMin.Value:=StrToFloat(Dados.TablePhysical.FieldByName['dureza_min']);
+    SpinEditHardMax.Value:=StrToFloat(Dados.TablePhysical.FieldByName['dureza_max']);
+    SpinEditDensMin.Value:=StrToFLoat(Dados.TablePhysical.FieldByName['densidade_min']);
+    SpinEditDensMax.Value:=StrToFLoat(Dados.TablePhysical.FieldByName['densidade_max']);
+    if SpinEditHardMin.Value = SpinEditHardMax.Value then
+      EditDureza.Text := FloatToStr(SpinEditHardMin.Value)
     else
-      EditDureza.Text := FloatToStr(SpinEditDurezaMin.Value)+' - '+
-      FloatToStr(SpinEditDurezaMax.Value);
-    if SpinEditDensidadeMin.Value = SpinEditDensidadeMax.Value then
-      EditDensidade.Text := FloatToStr(SpinEditDensidadeMin.Value)
+      EditDureza.Text := FloatToStr(SpinEditHardMin.Value)+' - '+
+      FloatToStr(SpinEditHardMax.Value);
+    if SpinEditDensMin.Value = SpinEditDensMax.Value then
+      EditDensidade.Text := FloatToStr(SpinEditDensMin.Value)
     else
-      EditDensidade.Text := FloatToStr(SpinEditDensidadeMin.Value) + ' - ' +
-      FloatToStr(SpinEditDensidadeMax.Value);
+      EditDensidade.Text := FloatToStr(SpinEditDensMin.Value) + ' - ' +
+      FloatToStr(SpinEditDensMax.Value);
     MemoCor.Text := Dados.TablePhysical.FieldByName['cor'];
     MemoTraco.Text := Dados.TablePhysical.FieldByName['traco'];
     MemoBrilho.Text := Dados.TablePhysical.FieldByName['brilho'];
@@ -676,7 +957,7 @@ begin
     MemoFratura.Text := Dados.TablePhysical.FieldByName['fratura'];
     MemoMagnetismo.Text := Dados.TablePhysical.FieldByName['magnetismo'];
     MemoLuminescencia.Text := Dados.TablePhysical.FieldByName['luminescencia'];
-    MemoDiafaneidade.Text := Dados.TablePhysical.FieldByName['difaneidade'];
+    MemoDiafaneidade.Text := Dados.TablePhysical.FieldByName['diafaneidade'];
 
     SelectSQL:= Dados.SelectSQL(Dados.Table3, EditNomeMineral.Text);
     Dados.TableOptics := Dados.DatabaseMinerals.GetTable(SelectSQL);
@@ -684,7 +965,7 @@ begin
     SpinEditBMax.Value := StrToFloat(Dados.TableOptics.FieldByName['birr_max']);
     SpinEditRMin.Value := StrToFloat(Dados.TableOptics.FieldByName['refracao_min']);
     SpinEditRMax.Value := StrToFloat(Dados.TableOptics.FieldByName['refracao_max']);
-    ComboboxSinalOptico.Text:= Dados.TableOptics.FieldByName['sinal_optico'];
+    ComboBoxOpticSign.Text:= Dados.TableOptics.FieldByName['sinal_optico'];
     MemoSinalOptico.Text := Dados.TableOptics.FieldByName['desc_sinal_optico'];
     MemoIndiceRefracao.Text := Dados.TableOptics.FieldByName['desc_refracao'];
     MemoAngulo.Text := Dados.TableOptics.FieldByName['angulo'];

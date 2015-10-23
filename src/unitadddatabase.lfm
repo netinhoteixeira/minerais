@@ -10,7 +10,7 @@ object FormAddDatabase: TFormAddDatabase
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poMainFormCenter
-  LCLVersion = '1.2.2.0'
+  LCLVersion = '1.4.2.0'
   object BCPanel1: TBCPanel
     Left = 0
     Height = 164
@@ -77,9 +77,9 @@ object FormAddDatabase: TFormAddDatabase
     TabOrder = 1
     object BCLabelSetDatabaseName: TBCLabel
       Left = 16
-      Height = 25
+      Height = 26
       Top = 24
-      Width = 279
+      Width = 268
       Background.Color = clBlack
       Background.ColorOpacity = 255
       Background.Gradient1.StartColor = clWhite
@@ -136,7 +136,7 @@ object FormAddDatabase: TFormAddDatabase
     end
     object Edit1: TEdit
       Left = 16
-      Height = 38
+      Height = 41
       Top = 57
       Width = 296
       Font.Height = -21

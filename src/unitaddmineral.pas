@@ -5,118 +5,31 @@ unit unitaddmineral;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
-  ComCtrls, StdCtrls, ExtCtrls, DBCtrls, Buttons, ActnList, Spin, IniFiles,
-  SQLite3tablemod, unitLanguage;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  ExtCtrls, DBCtrls, Buttons, ActnList, IniFiles,
+  SQLite3tablemod, unitLanguage, frameficha;
 
 type
 
   { TFormAddMineral }
 
   TFormAddMineral = class(TForm)
-    Action1: TAction;
+    ActionApply: TAction;
     ActionClearFields: TAction;
     ActionAdd: TAction;
     ActionList1: TActionList;
-    BCPanel1: TBCPanel;
-    ComboBoxSinalOptico: TComboBox;
-    EditClasse: TEdit;
-    EditClasse_Cristalina: TEdit;
-    EditDensidadeMax: TEdit;
-    EditDensidadeMin: TEdit;
-    EditDurezaMax: TEdit;
-    EditDurezaMin: TEdit;
-    EditFormula: TEdit;
-    EditGrupo: TEdit;
-    EditH_M: TEdit;
-    EditNomeMineral: TEdit;
-    EditSistema: TEdit;
-    EditSubClasse: TEdit;
-    EditSubGrupo: TEdit;
-    LabelComposicao: TLabel;
-    LabelDureza: TLabel;
-    LabelDensidade: TLabel;
-    LabelAlteracao: TLabel;
-    LabelAngulo_2V: TLabel;
-    LabelAplicacao: TLabel;
-    LabelAssociacao: TLabel;
-    LabelBirrefringencia: TLabel;
-    LabelBrilho: TLabel;
-    LabelClasse: TLabel;
-    LabelClasse_Cristalina: TLabel;
-    LabelClivagem: TLabel;
-    LabelCor: TLabel;
-    LabelCor_Interferencia: TLabel;
-    LabelCor_Lamina: TLabel;
-    LabelDifaneidade: TLabel;
-    LabelDistincao: TLabel;
-    LabelExtincao: TLabel;
-    LabelFratura: TLabel;
-    LabelGrupo: TLabel;
-    LabelHabito: TLabel;
-    LabelIndice_Refracao: TLabel;
-    LabelLuminescencia: TLabel;
-    LabelMagnetismo: TLabel;
-    LabelNome: TLabel;
-    LabelOcorrencia: TLabel;
-    LabelRelevo: TLabel;
-    LabelSimbologia: TLabel;
-    LabelSInal_Elongacao: TLabel;
-    LabelSinal_optico: TLabel;
-    LabelSistema_Cristalino: TLabel;
-    LabelSubClasse: TLabel;
-    LabelSubGrupo: TLabel;
-    LabelTraco: TLabel;
-    MemoAlteracao: TMemo;
-    MemoAngulo: TMemo;
-    MemoAplicacao: TMemo;
-    MemoAssociacao: TMemo;
-    MemoBirrefringencia: TMemo;
-    MemoBrilho: TMemo;
-    MemoClivagem: TMemo;
-    MemoCor: TMemo;
-    MemoCorLamina: TMemo;
-    MemoDiafaneidade: TMemo;
-    MemoDistincao: TMemo;
-    MemoExtincao: TMemo;
-    MemoFratura: TMemo;
-    MemoHabito: TMemo;
-    MemoIndiceRefracao: TMemo;
-    MemoInterferencia: TMemo;
-    MemoLuminescencia: TMemo;
-    MemoMagnetismo: TMemo;
-    MemoOcorrencia: TMemo;
-    MemoRelevo: TMemo;
-    MemoSinalElongacao: TMemo;
-    MemoSinalOptico: TMemo;
-    MemoTraco: TMemo;
-    PageControlFicha: TPageControl;
-    ScrollBox3: TScrollBox;
-    ScrollBox4: TScrollBox;
-    ScrollBox5: TScrollBox;
-    ScrollBox6: TScrollBox;
+    Panel1: TPanel;
     SpeedButtonAdd: TSpeedButton;
     SpeedButtonClear: TSpeedButton;
     SpeedButtonClose: TSpeedButton;
-    SpinEditBMax: TFloatSpinEdit;
-    SpinEditBMin: TFloatSpinEdit;
-    SpinEditDensidadeMax: TFloatSpinEdit;
-    SpinEditDensidadeMin: TFloatSpinEdit;
-    SpinEditDurezaMax: TFloatSpinEdit;
-    SpinEditDurezaMin: TFloatSpinEdit;
-    SpinEditRMax: TFloatSpinEdit;
-    SpinEditRMin: TFloatSpinEdit;
-    TabSheetCristalografia: TTabSheet;
-    TabSheetInf_Gerais: TTabSheet;
-    TabSheetOticas: TTabSheet;
-    TabSheetProp_Fisicas: TTabSheet;
-    procedure Action1Execute(Sender: TObject);
+    procedure ActionApplyExecute(Sender: TObject);
+    procedure ActionAddExecute(Sender: TObject);
     procedure ActionClearFieldsExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure ToolButtonClearFieldsClick(Sender: TObject);
-    procedure ToolButtonSaveClick(Sender: TObject);
   private
+    FrameFicha: TFrameFicha;
     { private declarations }
   public
     { public declarations }
@@ -132,45 +45,11 @@ var
 
 implementation
 
-uses udatamodule, unitformconfigurations;
+uses udatamodule, unitformconfigurations, unitfichaespecie;
 
 {$R *.lfm}
 
 { TFormAddMineral }
-
-procedure TFormAddMineral.ToolButtonSaveClick(Sender: TObject);
-begin
-  if (Trim(EditNomeMineral.Text) = EmptyStr) then
-    ShowMessage('Preencha o campo "nome" para salvar' +
-      ' no banco de dados.')
-  else
-  begin
-    if FileExists(Dados.DatabaseMineralFileName) then
-    begin
-      if Dados.AddMineral(EditNomeMineral.Text) = 0 then
-      begin
-        Dados.UpdateGeneralInfo(EditNomeMineral.Text, EditFormula.Text,
-          EditClasse.Text, EditSubclasse.Text, EditGrupo.Text, EditSubgrupo.Text,
-          MemoOcorrencia.Text, MemoAssociacao.Text, MemoDistincao.Text,
-          MemoAlteracao.Text, MemoAplicacao.Text);
-        Dados.UpdatePhysicalProp(SpinEditDurezaMin.Value, SpinEditDurezaMax.Value,
-          SpinEditDensidadeMin.Value, SpinEditDensidadeMax.Value, MemoCor.Text,
-          MemoTraco.Text, MemoBrilho.Text, MemoClivagem.Text, MemoFratura.Text,
-          MemoMagnetismo.Text, MemoLuminescencia.Text, MemoDiafaneidade.Text,
-          EditNomeMineral.Text);
-        Dados.UpdateOpticalProp(SpinEditRMin.Value, SpinEditRMax.Value,
-          SpinEditBMin.Value, SpinEditBMax.Value, ComboboxSinalOptico.Text,
-          MemoSinalOptico.Text, MemoIndiceRefracao.Text, MemoBirrefringencia.Text,
-          MemoInterferencia.Text, MemoCorLamina.Text, MemoSinalElongacao.Text,
-          MemoRelevo.Text, MemoAngulo.Text, MemoExtincao.Text, EditNomeMineral.Text);
-        Dados.UpdateCrystallography(EditSistema.Text, EditClasse_Cristalina.Text,
-          EditH_M.Text, MemoHabito.Text, EditNomeMIneral.Text);
-      end
-      else
-        ShowMessage('Já existe um mineral com esse nome.')
-    end;
-  end;
-end;
 
 procedure TFormAddMineral.FormShow(Sender: TObject);
 begin
@@ -178,108 +57,114 @@ begin
     Dados.DatabaseMineralFileName;
 end;
 
-procedure TFormAddMineral.ToolButtonClearFieldsClick(Sender: TObject);
-begin
-
-end;
-
-procedure TFormAddMineral.Action1Execute(Sender: TObject);
+procedure TFormAddMineral.ActionApplyExecute(Sender: TObject);
 begin
   FormAddMineral.Visible:=False;
 end;
 
+procedure TFormAddMineral.ActionAddExecute(Sender: TObject);
+begin
+ if (Trim(FrameFicha.EditNomeMineral.Text) = EmptyStr) then
+    ShowMessage('Preencha o campo "nome" para salvar' +
+      ' no banco de dados.')
+  else
+  begin
+    if FileExists(Dados.DatabaseMineralFileName) then
+    begin
+      if Dados.AddMineral(FrameFicha.EditNomeMineral.Text) = 0 then
+      begin
+        Dados.UpdateGeneralInfo(FrameFicha.EditNomeMineral.Text,
+          FrameFicha.EditFormula.Text, FrameFicha.ComboboxClass.Text,
+          FrameFicha.ComboboxSubclass.Text, FrameFicha.ComboboxGroup.Text,
+          FrameFicha.ComboboxSubgroup.Text, FrameFicha.MemoOcorrencia.Text,
+          FrameFicha.MemoAssociacao.Text, FrameFicha.MemoDistincao.Text,
+          FrameFicha.MemoAlteracao.Text, FrameFicha.MemoAplicacao.Text);
+        Dados.UpdatePhysicalProp(FrameFicha.SpinEditHardMin.Value,
+          FrameFicha.SpinEditHardMax.Value, FrameFicha.SpinEditDensMin.Value,
+          FrameFicha.SpinEditDensMax.Value, FrameFicha.MemoCor.Text,
+          FrameFicha.MemoTraco.Text, FrameFicha.MemoBrilho.Text,
+          FrameFicha.MemoClivagem.Text, FrameFicha.MemoFratura.Text,
+          FrameFicha.MemoMagnetismo.Text, FrameFicha.MemoLuminescencia.Text,
+          FrameFicha.MemoDiafaneidade.Text, FrameFicha.EditNomeMineral.Text);
+        Dados.UpdateOpticalProp(FrameFicha.SpinEditRMin.Value,
+          FrameFicha.SpinEditRMax.Value, FrameFicha.SpinEditBMin.Value,
+          FrameFicha.SpinEditBMax.Value, FrameFicha.ComboboxOpticSign.Text,
+          FrameFicha.MemoSinalOptico.Text, FrameFicha.MemoIndiceRefracao.Text,
+          FrameFicha.MemoBirrefringencia.Text, FrameFicha.MemoInterferencia.Text,
+          FrameFicha.MemoCorLamina.Text, FrameFicha.MemoSinalElongacao.Text,
+          FrameFicha.MemoRelevo.Text, FrameFicha.MemoAngulo.Text,
+          FrameFicha.MemoExtincao.Text, FrameFicha.EditNomeMineral.Text);
+        Dados.UpdateCrystallography(FrameFicha.EditSistema.Text,
+          FrameFicha.EditClasse_Cristalina.Text, FrameFicha.EditH_M.Text,
+          FrameFicha.MemoHabito.Text, FrameFicha.EditNomeMIneral.Text);
+        FormFichaEspecie.FrameList.RefreshList;
+      end
+      else
+        ShowMessage(Lang.ThereIsAlreadyARecordWithThatName)
+    end;
+  end;
+end;
+
 procedure TFormAddMineral.ActionClearFieldsExecute(Sender: TObject);
 begin
-    EditFormula.Caption:=EmptyStr;
-    EditNomeMineral.Caption:=EmptyStr;
-    EditClasse.Caption:= EmptyStr;
-    EditSubClasse.Caption:= EmptyStr;
-    EditGrupo.Caption:= EmptyStr;
-    EditSubGrupo.Caption:= EmptyStr;
-    MemoOcorrencia.Text:=EmptyStr;
-    MemoAssociacao.Text:=EmptyStr;
-    MemoDistincao.Text:=EmptyStr;
-    MemoAlteracao.Text:=EmptyStr;
-    MemoAplicacao.Text:=EmptyStr;
+    FrameFicha.EditFormula.Caption:=EmptyStr;
+    FrameFicha.EditNomeMineral.Caption:=EmptyStr;
+    FrameFicha.ComboboxClass.Caption:= EmptyStr;
+    FrameFicha.ComboboxSubclass.Caption:= EmptyStr;
+    FrameFicha.ComboboxGroup.Caption:= EmptyStr;
+    FrameFicha.ComboboxSubgroup.Caption:= EmptyStr;
+    FrameFicha.MemoOcorrencia.Text:=EmptyStr;
+    FrameFicha.MemoAssociacao.Text:=EmptyStr;
+    FrameFicha.MemoDistincao.Text:=EmptyStr;
+    FrameFicha.MemoAlteracao.Text:=EmptyStr;
+    FrameFicha.MemoAplicacao.Text:=EmptyStr;
 
-    EditDurezaMin.Text:=EmptyStr;
-    EditDurezaMax.Text:=EmptyStr;
-    EditDensidadeMin.Text:=EmptyStr;
-    EditDensidadeMax.Text:=EmptyStr;
+    FrameFicha.SpinEditHardMin.Value:=0;
+    FrameFicha.SpinEditHardMax.Value:=10;
+    FrameFicha.SpinEditDensMin.Value:=0.;
+    FrameFIcha.SpinEditDensMax.Value:=30.;
+    {to do: Colocar os campos novos de optica}
 
-    MemoCor.Text:=EmptyStr;
-    MemoTraco.Text:=EmptyStr;
-    MemoBrilho.Text:=EmptyStr;
-    MemoClivagem.Text:=EmptyStr;
-    MemoFratura.Text:=EmptyStr;
-    MemoMagnetismo.Text:=EmptyStr;
-    MemoLuminescencia.Text:=EmptyStr;
+    FrameFicha.MemoCor.Text:=EmptyStr;
+    FrameFicha.MemoTraco.Text:=EmptyStr;
+    FrameFicha.MemoBrilho.Text:=EmptyStr;
+    FrameFicha.MemoClivagem.Text:=EmptyStr;
+    FrameFicha.MemoFratura.Text:=EmptyStr;
+    FrameFicha.MemoMagnetismo.Text:=EmptyStr;
+    FrameFicha.MemoLuminescencia.Text:=EmptyStr;
 
-    MemoDiafaneidade.Text:=EmptyStr;
-    MemoSinalOptico.Text:=EmptyStr;
-    MemoIndiceRefracao.Text:=EmptyStr;
-    MemoAngulo.Text:=EmptyStr;
-    MemoInterferencia.Text:=EmptyStr;
-    MemoCorLamina.Text:=EmptyStr;
-    MemoSinalElongacao.Text:=EmptyStr;
-    MemoBirrefringencia.Text:=EmptyStr;
-    MemoRelevo.Text:=EmptyStr;
-    MemoExtincao.Text:=EmptyStr;
+    FrameFicha.MemoDiafaneidade.Text:=EmptyStr;
+    FrameFicha.MemoSinalOptico.Text:=EmptyStr;
+    FrameFicha.MemoIndiceRefracao.Text:=EmptyStr;
+    FrameFicha.MemoAngulo.Text:=EmptyStr;
+    FrameFicha.MemoInterferencia.Text:=EmptyStr;
+    FrameFicha.MemoCorLamina.Text:=EmptyStr;
+    FrameFicha.MemoSinalElongacao.Text:=EmptyStr;
+    FrameFicha.MemoBirrefringencia.Text:=EmptyStr;
+    FrameFicha.MemoRelevo.Text:=EmptyStr;
+    FrameFicha.MemoExtincao.Text:=EmptyStr;
 
-    EditSistema.Text:=EmptyStr;
-    EditClasse_Cristalina.Text:=EmptyStr;
-    EditH_M.Text:=EmptyStr;
-    MemoHabito.Text:=EmptyStr;
+    FrameFicha.EditSistema.Text:=EmptyStr;
+    FrameFicha.EditClasse_Cristalina.Text:=EmptyStr;
+    FrameFicha.EditH_M.Text:=EmptyStr;
+    FrameFicha.MemoHabito.Text:=EmptyStr;
 end;
 
 procedure TFormAddMineral.FormCreate(Sender: TObject);
 begin
-  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
+  FrameFicha:= TFrameFicha.Create(FormAddMineral);
+  with FrameFIcha do
   begin
-    FormAddMineral.Caption:=Lang.AddMineral;
-    TabSheetInf_Gerais.Caption:=Lang.GeneralInformation;
-    TabSheetProp_Fisicas.Caption:=Lang.PhysicalProperties;
-    TabSheetOticas.Caption:=Lang.OpticalProperties;
-    TabSheetCristalografia.Caption:=Lang.Crystallography;
-    LabelNome.Caption:=Lang.Name;
-    LabelComposicao.Caption:=Lang.Composition;
-    LabelClasse.Caption:=Lang.MineralClass;
-    LabelSubClasse.Caption:=Lang.Subclass;
-    LabelGrupo.Caption:=Lang.Group;
-    LabelSubgrupo.Caption:=Lang.Subgroup;
-    LabelOcorrencia.Caption:=Lang.Occurrence;
-    LabelAssociacao.Caption:=Lang.Association;
-    LabelDistincao.Caption:=Lang.Distinction;
-    LabelAlteracao.Caption:=Lang.Alteration;
-    LabelAplicacao.Caption:=Lang.Usage;
-    LabelDureza.Caption:=Lang.Hardness;
-    LabelDensidade.Caption:=Lang.Density;
-    LabelCor.Caption:=Lang.Color;
-    LabelTraco.Caption:=Lang.Streak;
-    LabelBrilho.Caption:=Lang.Luster;
-    LabelClivagem.Caption:=Lang.Cleavage;
-    LabelFratura.Caption:=Lang.Fracture;
-    LabelMagnetismo.Caption:=Lang.Magnetism;
-    LabelLuminescencia.Caption:=Lang.Luminescence;
-    LabelDifaneidade.Caption:=Lang.Diaphanousness;
-    LabelSinal_Optico.Caption:=Lang.OpticalSignal;
-    LabelIndice_Refracao.Caption:=Lang.RefractiveIndex;
-    LabelAngulo_2V.Caption:=Lang.Angle2V;
-    LabelCor_Interferencia.Caption:=Lang.InterferenceColor;
-    LabelCor_Lamina.Caption:=Lang.BladeColor;
-    LabelSinal_Elongacao.Caption:=Lang.SignElongation;
-    LabelBirrefringencia.Caption:=Lang.Birefringence;
-    LabelRelevo.Caption:=Lang.Relief;
-    LabelSistema_Cristalino.Caption:=Lang.CrystallineSystem;
-    LabelClasse_Cristalina.Caption:=Lang.CrystalineClass;
-    LabelSimbologia.Caption:=Lang.Symbology;
-    LabelHabito.Caption:=Lang.Habit;
-    SpeedButtonAdd.Hint:=Lang.Add;
-    SpeedButtonClear.Hint:=Lang.Clear;
-    SpeedButtonClose.Hint:=Lang.Close;
+    PanelButtonSave.Visible:=False;
+    Parent:= FormAddMineral;
   end;
-  Config.Free;
+  FrameFicha.EditingMode(True);
+  FrameFicha.ChangeLanguage;
+end;
+
+procedure TFormAddMineral.FormDestroy(Sender: TObject);
+begin
+  FrameFicha.Free;
 end;
 
 end.

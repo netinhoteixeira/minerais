@@ -54,7 +54,7 @@ var
   Config:TIniFile;
 
 implementation
- uses unitadddatabase, udatamodule, unitfichaespecie, unitlanguage;
+ uses unitadddatabase, udatamodule, unitfichaespecie, unitlanguage, unitframelist;
 {$R *.lfm}
 
 { TFormSelectDatabase }
@@ -95,16 +95,16 @@ procedure TFormSelectDatabase.ActionApplyExecute(Sender: TObject);
 begin
   if Dados.ChooseDatabase('mineral', Edit1.Text) then
    begin
-    { to do: adaptar para frameficha
     Dados.SetDatabase(Edit1.Text);
-    FormFichaEspecie.AtualizarLista;
-    FormFichaEspecie.Preenche_Classes;
-    FormFichaEspecie.Preenche_Subclasses;
-    FormFichaEspecie.Preenche_Grupos;
-    FormFichaEspecie.Preenche_SubGrupos;
-    FormFichaEspecie.RefreshImages;
+    //FormFichaEspecie.AtualizarLista;
+    FormFichaEspecie.FrameSimpleFilter.AddClasses;
+    FormFichaEspecie.FrameSimpleFilter.AddSubclasses;
+    FormFichaEspecie.FrameSimpleFilter.AddGroups;
+    FormFichaEspecie.FrameSimpleFilter.AddSubgroups;
+    FormFichaEspecie.FormFrameFicha.RefreshComboboxes;
+    //FormFichaEspecie.RefreshImages;
+    FrameList.RefreshList;
     FormSelectDatabase.Hide;
-    }
    end
   else
     ShowMessage(Lang.TheSelectedDatabaseIsNotValid);

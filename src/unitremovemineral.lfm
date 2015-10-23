@@ -8,81 +8,9 @@ object FormRemoveMineral: TFormRemoveMineral
   ClientHeight = 424
   ClientWidth = 320
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '1.2.2.0'
-  object BCPanel1: TBCPanel
-    Left = 0
-    Height = 374
-    Top = 0
-    Width = 320
-    Align = alClient
-    Background.Color = clBtnFace
-    Background.ColorOpacity = 255
-    Background.Gradient1.StartColor = clWhite
-    Background.Gradient1.StartColorOpacity = 255
-    Background.Gradient1.DrawMode = dmSet
-    Background.Gradient1.EndColor = 16119285
-    Background.Gradient1.EndColorOpacity = 255
-    Background.Gradient1.ColorCorrection = True
-    Background.Gradient1.GradientType = gtLinear
-    Background.Gradient1.Point1XPercent = 0
-    Background.Gradient1.Point1YPercent = 0
-    Background.Gradient1.Point2XPercent = 0
-    Background.Gradient1.Point2YPercent = 100
-    Background.Gradient1.Sinus = False
-    Background.Gradient2.StartColor = 15722194
-    Background.Gradient2.StartColorOpacity = 255
-    Background.Gradient2.DrawMode = dmSet
-    Background.Gradient2.EndColor = 13137169
-    Background.Gradient2.EndColorOpacity = 255
-    Background.Gradient2.ColorCorrection = True
-    Background.Gradient2.GradientType = gtLinear
-    Background.Gradient2.Point1XPercent = 0
-    Background.Gradient2.Point1YPercent = 0
-    Background.Gradient2.Point2XPercent = 0
-    Background.Gradient2.Point2YPercent = 100
-    Background.Gradient2.Sinus = False
-    Background.Gradient1EndPercent = 100
-    Background.Style = bbsGradient
-    BevelInner = bvNone
-    BevelOuter = bvNone
-    BevelWidth = 1
-    Border.Color = clBlack
-    Border.ColorOpacity = 255
-    Border.LightColor = clWhite
-    Border.LightOpacity = 255
-    Border.LightWidth = 0
-    Border.Style = bboNone
-    Border.Width = 1
-    BorderBCStyle = bpsBorder
-    FontEx.Color = clDefault
-    FontEx.EndEllipsis = False
-    FontEx.FontQuality = fqSystemClearType
-    FontEx.Height = 0
-    FontEx.SingleLine = True
-    FontEx.Shadow = False
-    FontEx.ShadowColor = clBlack
-    FontEx.ShadowColorOpacity = 255
-    FontEx.ShadowRadius = 5
-    FontEx.ShadowOffsetX = 5
-    FontEx.ShadowOffsetY = 5
-    FontEx.Style = []
-    FontEx.TextAlignment = bcaCenter
-    FontEx.WordBreak = False
-    Rounding.RoundX = 1
-    Rounding.RoundY = 1
-    Rounding.RoundOptions = []
-    TabOrder = 1
-    object ListBox1: TListBox
-      Left = 20
-      Height = 337
-      Top = 12
-      Width = 281
-      Anchors = [akTop, akLeft, akRight, akBottom]
-      ItemHeight = 0
-      TabOrder = 0
-    end
-  end
+  LCLVersion = '1.4.2.0'
   object BCPanel2: TBCPanel
     Left = 0
     Height = 50
@@ -280,6 +208,14 @@ object FormRemoveMineral: TFormRemoveMineral
       ShowHint = True
       ParentShowHint = False
     end
+  end
+  object PanelList: TPanel
+    Left = 0
+    Height = 374
+    Top = 0
+    Width = 320
+    Align = alClient
+    TabOrder = 1
   end
   object ActionList1: TActionList
     left = 144

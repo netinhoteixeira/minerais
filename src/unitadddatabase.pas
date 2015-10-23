@@ -37,7 +37,7 @@ type
 
 var
   FormAddDatabase: TFormAddDatabase;
-  COnfig:TIniFile;
+  Config:TIniFile;
 
 implementation
 
@@ -48,63 +48,60 @@ uses udatamodule, unitselectdatabase;
 { TFormAddDatabase }
 
 procedure TFormAddDatabase.ActionCreateDatabaseExecute(Sender: TObject);
-var CurrentPath:String; Config:TIniFile;
+var Config: TIniFile;
 begin
   if Trim(Edit1.Text) <> EmptyStr then
   begin
     if Tipo <> EmptyStr then
-      if DirectoryExists(GetCurrentDir + '\Data') then
+      if DirectoryExists(Dados.Caminho+'Data') then
       begin
-        CurrentPath:=GetCurrentDir + '\Data';
-        if FileExists(CurrentPath +'\' +Edit1.Text+'.s3db') then
+        if FileExists(Dados.caminho+Edit1.Text+'.s3db') then
         begin
-          if Dados.ChooseDatabase(Tipo, CurrentPath +'\'+Edit1.Text+
+          if Dados.ChooseDatabase(Tipo, Dados.Caminho+Edit1.Text+
             '.s3db') then
             ShowMessage(Lang.ThereIsAlreadyARecordWithThatName)
           else
           begin
-            Dados.CreateDatabase(Tipo, CurrentPath + '\'+Edit1.Text+
+            Dados.CreateDatabase(Tipo, Dados.Caminho+Edit1.Text+
               '.s3db');
-            FormSelectDatabase.Edit1.Text:= CurrentPath + '\'+Edit1.Text+
+            FormSelectDatabase.Edit1.Text:= Dados.Caminho+Edit1.Text+
               '.s3db';
           end;
         end
         else
         begin
-          Dados.CreateDatabase(Tipo, CurrentPath +'\'+ Edit1.Text+'.s3db');
-          FormSelectDatabase.Edit1.Text:= CurrentPath + '\'+Edit1.Text+
+          Dados.CreateDatabase(Tipo, Dados.Caminho+ Edit1.Text+'.s3db');
+          FormSelectDatabase.Edit1.Text:= Dados.Caminho+Edit1.Text+
               '.s3db';
         end;
       end
       else
       begin
-        //MkDir(GetCurrentDir + '\Data');
-        CurrentPath:=GetCurrentDir ;
-        if FileExists(CurrentPath + '\'+Edit1.Text+'.s3db') then
+        if FileExists(Dados.Caminho+Edit1.Text+'.s3db') then
         begin
-          if Dados.ChooseDatabase(Tipo, CurrentPath +'\' +Edit1.Text+
+          if Dados.ChooseDatabase(Tipo, Dados.Caminho+Edit1.Text+
             '.s3db') then
             ShowMessage(Lang.ThereIsAlreadyARecordWithThatName)
           else
           begin
-            Dados.CreateDatabase(Tipo, CurrentPath +'\'+ Edit1.Text+
+            Dados.CreateDatabase(Tipo, Dados.Caminho+ Edit1.Text+
               '.s3db');
-            FormSelectDatabase.Edit1.Text:= CurrentPath + '\'+Edit1.Text+
+            FormSelectDatabase.Edit1.Text:= Dados.Caminho+Edit1.Text+
               '.s3db';
           end;
         end
         else
         begin
-          Dados.CreateDatabase(Tipo, CurrentPath + '\'+Edit1.Text+'.s3db');
-          FormSelectDatabase.Edit1.Text:= CurrentPath + '\'+Edit1.Text+
+          Dados.CreateDatabase(Tipo, Dados.Caminho+Edit1.Text+'.s3db');
+          FormSelectDatabase.Edit1.Text:= Dados.Caminho+Edit1.Text+
               '.s3db';
         end;
       end;
 
-    Config:=TIniFIle.Create(Dados.Caminho+'\config.ini');
+    Config:=TIniFIle.Create(Dados.Caminho+'config.ini');
     if Tipo = 'mineral' then
     begin
-      Dados.DatabaseMineralFileName := CurrentPath +'\'+ Edit1.Text+'.s3db';
+      Dados.DatabaseMineralFileName := Dados.Caminho+ Edit1.Text+'.s3db';
       config.WriteString('Database', 'Mineral', Dados.DatabaseMineralFileName);
     end;
     Config.Free;
@@ -116,7 +113,7 @@ end;
 
 procedure TFormAddDatabase.FormCreate(Sender: TObject);
 begin
-  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  Config:=TIniFile.Create(Dados.Caminho+'config.ini');
   if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
   begin
     ChangeLanguage;

@@ -59,7 +59,7 @@ begin
         begin
           Dados.DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
           Dados.TableMineralogy:= Dados.DatabaseMinerals.GetTable(
-            'SELECT campo FROM mineralogia WHERE campo="bibliografia" ;');
+            'SELECT campo FROM '+Dados.Table6+' WHERE campo="bibliografia" ;');
           if Dados.TableMineralogy.Count>0 then
             if Dados.TableMineralogy.MoveFirst then
               begin
@@ -103,7 +103,7 @@ begin
         begin
           Dados.DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
           Dados.TableMineralogy:= Dados.DatabaseMinerals.GetTable(
-            'SELECT texto FROM mineralogia WHERE campo="bibliografia" ;');
+            'SELECT texto FROM '+Dados.Table6+' WHERE campo="bibliografia" ;');
           if Dados.TableMineralogy.Count >0 then
           begin
             Dados.DatabaseMinerals.ExecSQL('UPDATE mineralogia SET texto = "'+
@@ -112,7 +112,7 @@ begin
           else
           begin
             Dados.DatabaseMinerals.ExecSQL(
-              'INSERT INTO mineralogia (campo, texto) VALUES ("bibliografia", "'+
+              'INSERT INTO '+Dados.Table6+' (campo, texto) VALUES ("bibliografia", "'+
               Memo1.Text+'") ; ');
           end;
         end;
@@ -132,7 +132,7 @@ begin
         begin
           Dados.DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
           Dados.TableMineralogy:= Dados.DatabaseMinerals.GetTable(
-            'SELECT campo FROM mineralogia WHERE campo="bibliografia" ;');
+            'SELECT campo FROM '+Dados.Table6+' WHERE campo="bibliografia" ;');
           if Dados.TableMineralogy.Count>0 then
             if Dados.TableMineralogy.MoveFirst then
               begin

@@ -23,13 +23,14 @@ type
     BCPanel1: TBCPanel;
     BCPanel2: TBCPanel;
     BCPanel3: TBCPanel;
-    CheckBox1: TCheckBox;
-    CheckBox2: TCheckBox;
-    CheckGroup1: TCheckGroup;
+    BitBtnAddReport: TBitBtn;
+    BitBtnRemoveReport: TBitBtn;
     frPreview1: TfrPreview;
     GroupBox1: TGroupBox;
+    GroupBoxListReports: TGroupBox;
     ImageList1: TImageList;
     Label1: TLabel;
+    ListBoxReports: TListBox;
     OpenDialog1: TOpenDialog;
     RadioButtonLista: TRadioButton;
     RadioButtonSelecionado: TRadioButton;
@@ -76,8 +77,8 @@ begin
       numPags := EmptyStr;
       for i := 1 to Dados.frReport1.Pages.Count do
       begin
-        //////// A vírgula pode gerar erro:
-        if ((i) mod (2) > 0) then
+        //retirado em 20/10/15
+        {if ((i) mod (2) > 0) then
         begin
           if CheckBox1.Checked then
             numPags := numPags + IntToStr(i);
@@ -90,7 +91,7 @@ begin
             numPags := numPags + IntToStr(i);
           if i < Dados.frReport1.Pages.Count then
             numPags := numPags + ', ';
-        end;
+        end;}
       end;
       Dados.frReport1.PrepareReport;
       Dados.frReport1.PrintPreparedReport(numPags, SpinEdit1.Value);
@@ -147,8 +148,6 @@ begin
     ToolButtonOpenFileReport.Hint:=Lang.OpenFileReport;
     RadioButtonLista.Caption := Lang.AllFromTheList;
     RadioButtonSelecionado.Caption := Lang.SelectedMineral;
-    Checkbox1.Caption := Lang.GeneralAndPhysicalProperties;
-    Checkbox2.Caption:=Lang.OpticalAndCrystProperties;
     Label1.Caption := Lang.NumberOfCopies;
     SpeedButton1.Hint := Lang.Print;
     SpeedButton2.Hint := Lang.Close;
@@ -178,4 +177,4 @@ end;
 
 {$R *.lfm}
 
-end.
+end.

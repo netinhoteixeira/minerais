@@ -1,7 +1,7 @@
 object FormImpressao: TFormImpressao
-  Left = 151
+  Left = 133
   Height = 545
-  Top = 45
+  Top = 171
   Width = 1035
   Caption = 'Impressão'
   ClientHeight = 545
@@ -10,7 +10,7 @@ object FormImpressao: TFormImpressao
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poDesktopCenter
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.4.2.0'
   object ToolBar1: TToolBar
     Left = 0
     Height = 26
@@ -222,60 +222,58 @@ object FormImpressao: TFormImpressao
         TabOrder = 1
       end
     end
-    object CheckGroup1: TCheckGroup
-      Left = 8
-      Height = 144
-      Top = 136
-      Width = 248
-      AutoFill = True
-      ChildSizing.LeftRightSpacing = 6
-      ChildSizing.TopBottomSpacing = 6
-      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-      ChildSizing.EnlargeVertical = crsHomogenousChildResize
-      ChildSizing.ShrinkHorizontal = crsScaleChilds
-      ChildSizing.ShrinkVertical = crsScaleChilds
-      ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 1
-      ClientHeight = 142
-      ClientWidth = 246
-      TabOrder = 1
-      object CheckBox1: TCheckBox
-        Left = 6
-        Height = 65
-        Top = 6
-        Width = 234
-        Caption = 'Propriedades Gerais e Físicas '
-        Checked = True
-        State = cbChecked
-        TabOrder = 0
-      end
-      object CheckBox2: TCheckBox
-        Left = 6
-        Height = 65
-        Top = 71
-        Width = 234
-        Caption = 'Propriedades Ópticas e Cristalográficas'
-        Checked = True
-        State = cbChecked
-        TabOrder = 1
-      end
-    end
     object SpinEdit1: TSpinEdit
       Left = 192
       Height = 33
-      Top = 304
+      Top = 416
       Width = 58
       MinValue = 1
-      TabOrder = 2
-      Value = 1
+      TabOrder = 1
+      Value = 3
     end
     object Label1: TLabel
       Left = 8
       Height = 21
-      Top = 304
+      Top = 416
       Width = 119
       Caption = 'Número de Cópias'
       ParentColor = False
+    end
+    object BitBtnAddReport: TBitBtn
+      Left = 16
+      Height = 40
+      Top = 264
+      Width = 40
+      Caption = 'BitBtnAddReport'
+      TabOrder = 2
+    end
+    object BitBtnRemoveReport: TBitBtn
+      Left = 87
+      Height = 40
+      Top = 264
+      Width = 40
+      Caption = 'BitBtnRemoveReport'
+      TabOrder = 3
+    end
+    object GroupBoxListReports: TGroupBox
+      Left = 16
+      Height = 108
+      Top = 147
+      Width = 238
+      ClientHeight = 106
+      ClientWidth = 236
+      TabOrder = 4
+      object ListBoxReports: TListBox
+        Left = 0
+        Height = 106
+        Top = 0
+        Width = 236
+        Align = alClient
+        ItemHeight = 0
+        ScrollWidth = 234
+        TabOrder = 0
+        TopIndex = -1
+      end
     end
   end
   object BCPanel3: TBCPanel
@@ -426,4 +424,4 @@ object FormImpressao: TFormImpressao
     left = 304
     top = 245
   end
-end
+end
