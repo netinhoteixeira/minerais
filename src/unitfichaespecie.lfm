@@ -1,11 +1,11 @@
 object FormFichaEspecie: TFormFichaEspecie
-  Left = 1280
-  Height = 635
-  Top = 32
-  Width = 1198
+  Left = 160
+  Height = 539
+  Top = 91
+  Width = 958
   Caption = 'Guia de Minerais'
-  ClientHeight = 608
-  ClientWidth = 1198
+  ClientHeight = 512
+  ClientWidth = 958
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
@@ -17,8 +17,8 @@ object FormFichaEspecie: TFormFichaEspecie
   object ProgressBar1: TProgressBar
     Left = 0
     Height = 20
-    Top = 588
-    Width = 1198
+    Top = 492
+    Width = 958
     Align = alBottom
     TabOrder = 0
   end
@@ -26,7 +26,7 @@ object FormFichaEspecie: TFormFichaEspecie
     Left = 0
     Height = 26
     Top = 0
-    Width = 1198
+    Width = 958
     Caption = 'ToolBar2'
     Color = 5000268
     Images = ImageList1
@@ -88,7 +88,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButtonShowFilter: TToolButton
-      Left = 136
+      Left = 159
       Hint = 'Filtro'
       Top = 2
       Caption = 'ToolButtonShowFilter'
@@ -98,7 +98,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButtonShowImages: TToolButton
-      Left = 164
+      Left = 187
       Hint = 'Imagens'
       Top = 2
       Caption = 'ToolButtonShowImages'
@@ -108,7 +108,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButton1: TToolButton
-      Left = 187
+      Left = 210
       Height = 22
       Top = 2
       Width = 5
@@ -116,7 +116,7 @@ object FormFichaEspecie: TFormFichaEspecie
       Style = tbsDivider
     end
     object ToolButtonBibliografia: TToolButton
-      Left = 192
+      Left = 215
       Hint = 'Bibliografia'
       Top = 2
       Caption = 'ToolButtonBibliografia'
@@ -126,7 +126,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButton6: TToolButton
-      Left = 215
+      Left = 238
       Height = 22
       Top = 2
       Width = 5
@@ -134,7 +134,7 @@ object FormFichaEspecie: TFormFichaEspecie
       Style = tbsDivider
     end
     object Mineralogy_Name: TLabel
-      Left = 1197
+      Left = 957
       Height = 24
       Top = 2
       Width = 1
@@ -144,7 +144,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ParentFont = False
     end
     object ToolButtonHelp: TToolButton
-      Left = 243
+      Left = 266
       Hint = 'Ajuda'
       Top = 2
       Caption = 'ToolButtonHelp'
@@ -154,7 +154,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButton3: TToolButton
-      Left = 159
+      Left = 182
       Height = 22
       Top = 2
       Width = 5
@@ -172,7 +172,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButton8: TToolButton
-      Left = 131
+      Left = 154
       Height = 22
       Top = 2
       Width = 5
@@ -189,16 +189,23 @@ object FormFichaEspecie: TFormFichaEspecie
       Style = tbsDivider
     end
     object ToolButton9: TToolButton
-      Left = 220
+      Left = 243
       Top = 2
       Caption = 'ToolButton9'
       ImageIndex = 20
       OnClick = ActionMenuConfExecute
     end
+    object ToolButtonAdvancedFilter: TToolButton
+      Left = 131
+      Top = 2
+      Caption = 'ToolButtonAdvancedFilter'
+      ImageIndex = 4
+      OnClick = ActionShowAdvancedFilterExecute
+    end
   end
   object Panel2: TPanel
     Left = 0
-    Height = 562
+    Height = 466
     Top = 26
     Width = 200
     Align = alLeft
@@ -207,7 +214,7 @@ object FormFichaEspecie: TFormFichaEspecie
   end
   object Panel3: TPanel
     Left = 200
-    Height = 562
+    Height = 466
     Top = 26
     Width = 200
     Align = alLeft
@@ -216,9 +223,9 @@ object FormFichaEspecie: TFormFichaEspecie
   end
   object Panel4: TPanel
     Left = 400
-    Height = 562
+    Height = 466
     Top = 26
-    Width = 798
+    Width = 558
     Align = alClient
     TabOrder = 4
   end
@@ -265,21 +272,10 @@ object FormFichaEspecie: TFormFichaEspecie
       Caption = 'ActionMenuHelp'
       OnExecute = ActionMenuHelpExecute
     end
-    object ActionSpinBMin: TAction
-      Category = 'SpinEdits'
-      Caption = 'ActionSpinBMin'
-    end
-    object ActionSpinBMax: TAction
-      Category = 'SpinEdits'
-      Caption = 'ActionSpinBMax'
-    end
-    object ActionSpinRMin: TAction
-      Category = 'SpinEdits'
-      Caption = 'ActionSpinRMin'
-    end
-    object ActionSpinRMax: TAction
-      Category = 'SpinEdits'
-      Caption = 'ActionSpinRMax'
+    object ActionShowAdvancedFilter: TAction
+      Category = 'ToolButtons'
+      Caption = 'ActionShowAdvancedFilter'
+      OnExecute = ActionShowAdvancedFilterExecute
     end
   end
   object ImageList1: TImageList

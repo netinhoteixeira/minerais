@@ -7,8 +7,8 @@ object FrameImages: TFrameImages
   ClientHeight = 637
   ClientWidth = 200
   TabOrder = 0
-  DesignLeft = 1744
-  DesignTop = 136
+  DesignLeft = 1078
+  DesignTop = 123
   object PanelImages: TPanel
     Left = 0
     Height = 637

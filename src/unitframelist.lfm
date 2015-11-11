@@ -8,8 +8,8 @@ object FrameList: TFrameList
   ClientWidth = 200
   Constraints.MinHeight = 250
   TabOrder = 0
-  DesignLeft = 1304
-  DesignTop = 145
+  DesignLeft = 145
+  DesignTop = 78
   object Panel1: TPanel
     Left = 0
     Height = 643
@@ -23,9 +23,10 @@ object FrameList: TFrameList
     TabOrder = 0
     object RadioGroupOrdem: TRadioGroup
       Left = 12
-      Height = 96
+      Height = 144
       Top = 32
       Width = 160
+      Anchors = [akTop, akLeft, akRight]
       AutoFill = True
       ChildSizing.LeftRightSpacing = 6
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -34,51 +35,59 @@ object FrameList: TFrameList
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 1
-      ClientHeight = 94
+      ClientHeight = 142
       ClientWidth = 158
+      OnSelectionChanged = RadioGroupOrdemSelectionChanged
       TabOrder = 0
-      object RadioButton1: TRadioButton
+      object RadioButtonAscii: TRadioButton
         Left = 6
-        Height = 32
+        Height = 36
         Top = 0
         Width = 146
         Caption = 'Alfabeto'
         Checked = True
         Font.Quality = fqAntialiased
-        Font.Style = [fsBold, fsItalic]
         ParentFont = False
         TabOrder = 2
         TabStop = True
       end
-      object RadioButton2: TRadioButton
+      object RadioButtonHard: TRadioButton
         Left = 6
-        Height = 32
-        Top = 32
+        Height = 36
+        Top = 36
         Width = 146
         Caption = 'Dureza'
         Font.Quality = fqAntialiased
-        Font.Style = [fsBold, fsItalic]
         ParentFont = False
         TabOrder = 0
       end
-      object RadioButton3: TRadioButton
+      object RadioButtonDens: TRadioButton
         Left = 6
-        Height = 30
-        Top = 64
+        Height = 36
+        Top = 72
         Width = 146
         Caption = 'Densidade'
         Font.Quality = fqAntialiased
-        Font.Style = [fsBold, fsItalic]
         ParentFont = False
         TabOrder = 1
+      end
+      object RadioButtonBirr: TRadioButton
+        Left = 6
+        Height = 34
+        Top = 108
+        Width = 146
+        Caption = 'RadioButtonBirr'
+        Font.Quality = fqAntialiased
+        ParentFont = False
+        TabOrder = 3
       end
     end
     object ListBoxMinerals: TListBox
       Left = 12
-      Height = 425
-      Top = 168
+      Height = 385
+      Top = 208
       Width = 162
-      Anchors = [akTop, akLeft, akBottom]
+      Anchors = [akTop, akLeft, akRight, akBottom]
       ItemHeight = 0
       OnClick = ActionListClickExecute
       ScrollWidth = 160
@@ -94,9 +103,9 @@ object FrameList: TFrameList
       ParentColor = False
     end
     object LabelMinerals: TLabel
-      Left = 16
+      Left = 12
       Height = 21
-      Top = 144
+      Top = 184
       Width = 88
       Caption = 'LabelMinerals'
       ParentColor = False

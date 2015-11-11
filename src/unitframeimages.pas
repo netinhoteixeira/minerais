@@ -25,6 +25,7 @@ type
     procedure Image7Click(Sender: TObject);
     { private declarations }
   public
+    SelectedImage:Char;
     procedure RefreshImages(MineralName:String);
     { public declarations }
   end;
@@ -41,13 +42,14 @@ type
   SeparadorImagens: integer = 140;
   ImagesWidth: integer = 140;
   ImagesHeight: integer = 120;
+  MineralogyName:String = ''; //to do: colocar funcao que devolve o mineralogyname
 
 var
   Image1, Image2, Image3, Image4, Image5, Image6, Image7: TImage;
   Image: array[1..7] of PropertyImages;
 
 implementation
-uses frameficha;
+uses unitfichaespecie, unitframelist, unitframesimplefilter;
 
 {$R *.lfm}
 
@@ -56,57 +58,52 @@ uses frameficha;
 procedure TFrameImages.Image1Click(Sender: TObject);
 begin
   SelectedImage:='1';
-  //self.ImagemAmpliada.Picture.Graphic := Image1.Picture.Graphic;
-  //FormFrameFicha.ImagemAmpliada.Picture.Graphic := Image1.Picture.Graphic;
-  //FormFrameFicha.RefreshHeaderControl(SelectedImage);
+  FormFichaEspecie.FormFrameFicha.ImagemAmpliada.Picture.Graphic :=
+    Image1.Picture.Graphic;
+  FormFichaEspecie.FormFrameFicha.RefreshHeaderControl(SelectedImage);
 end;
 
 procedure TFrameImages.Image2Click(Sender: TObject);
 begin
   SelectedImage := '2';
-//  self.ImagemAmpliada.Picture.Graphic := Image2.Picture.Graphic;
-  //FormFrameFicha.ImagemAmpliada.Picture.Graphic := Image2.Picture.Graphic;
-  //FormFrameFicha.RefreshHeaderControl(SelectedImage);
+  FormFichaEspecie.FormFrameFicha.ImagemAmpliada.Picture.Graphic :=
+    Image2.Picture.Graphic;
+  FormFichaEspecie.FormFrameFicha.RefreshHeaderControl(SelectedImage);
 end;
 
 procedure TFrameImages.Image3Click(Sender: TObject);
 begin
   SelectedImage := '3';
-  //self.ImagemAmpliada.Picture.Graphic := Image3.Picture.Graphic;
-  //FormFrameFicha.ImagemAmpliada.Picture.Graphic := Image3.Picture.Graphic;
-  //FormFrameFicha.RefreshHeaderControl(SelectedImage);
+  FormFichaEspecie.FormFrameFicha.ImagemAmpliada.Picture.Graphic := Image3.Picture.Graphic;
+  FormFichaEspecie.FormFrameFicha.RefreshHeaderControl(SelectedImage);
 end;
 
 procedure TFrameImages.Image4Click(Sender: TObject);
 begin
   SelectedImage := '4';
-//  self.ImagemAmpliada.Picture.Graphic := Image4.Picture.Graphic;
-  //FormFrameFicha.ImagemAmpliada.Picture.Graphic := Image4.Picture.Graphic;
-  //FormFrameFicha.RefreshHeaderControl(SelectedImage);
+  FormFichaEspecie.FormFrameFicha.ImagemAmpliada.Picture.Graphic := Image4.Picture.Graphic;
+  FormFichaEspecie.FormFrameFicha.RefreshHeaderControl(SelectedImage);
 end;
 
 procedure TFrameImages.Image5Click(Sender: TObject);
 begin
   SelectedImage := '5';
-//  self.ImagemAmpliada.Picture.Graphic := Image5.Picture.Graphic;
-  //FormFrameFicha.ImagemAmpliada.Picture.Graphic := Image5.Picture.Graphic;
-  //FormFrameFicha.RefreshHeaderControl(SelectedImage);
+  FormFichaEspecie.FormFrameFicha.ImagemAmpliada.Picture.Graphic := Image5.Picture.Graphic;
+  FormFichaEspecie.FormFrameFicha.RefreshHeaderControl(SelectedImage);
 end;
 
 procedure TFrameImages.Image6Click(Sender: TObject);
 begin
   SelectedImage := '6';
-  //self.ImagemAmpliada.Picture.Graphic := Image6.Picture.Graphic;
-  //FormFrameFicha.ImagemAmpliada.Picture.Graphic := Image6.Picture.Graphic;
-  //FormFrameFicha.RefreshHeaderControl(SelectedImage);
+  FormFichaEspecie.FormFrameFicha.ImagemAmpliada.Picture.Graphic := Image6.Picture.Graphic;
+  FormFichaEspecie.FormFrameFicha.RefreshHeaderControl(SelectedImage);
 end;
 
 procedure TFrameImages.Image7Click(Sender: TObject);
 begin
   SelectedImage := '7';
- //  self.ImagemAmpliada.Picture.Graphic := Image7.Picture.Graphic;
-  //FormFrameFicha.ImagemAmpliada.Picture.Graphic := Image7.Picture.Graphic;
-  //FormFrameFicha.RefreshHeaderControl(SelectedImage);
+  FormFichaEspecie.FormFrameFicha.ImagemAmpliada.Picture.Graphic := Image7.Picture.Graphic;
+  FormFichaEspecie.FormFrameFicha.RefreshHeaderControl(SelectedImage);
 end;
 
 procedure TFrameImages.RefreshImages(MineralName: String);
@@ -149,7 +146,7 @@ begin
         begin
           Image1.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem1',
-            MineralName, EmptyStr, EmptyStr, EmptyStr)
+            MineralName, EmptyStr)
         end
         else
         begin
@@ -167,7 +164,7 @@ begin
             OnClick := @Image1Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem1',
-              MineralName, EmptyStr, EmptyStr, EmptyStr);
+              MineralName, EmptyStr);
             Image[1].Created := True;
           end;
         end;
@@ -187,7 +184,7 @@ begin
         begin
           Image2.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem2',
-            MineralName, EmptyStr, EmptyStr, EmptyStr)
+            MineralName, EmptyStr)
         end
         else
         begin
@@ -205,7 +202,7 @@ begin
             OnClick := @Image2Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem2',
-              MineralName, EmptyStr, EmptyStr, EmptyStr);
+              MineralName, EmptyStr);
             Image[2].Created := True;
           end;
         end;
@@ -224,7 +221,7 @@ begin
         if Image[3].Created then
           Image3.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem3',
-            MineralName, EmptyStr, EmptyStr, EmptyStr)
+            MineralName, EmptyStr)
         else
         begin
           Image3 := TImage.Create(nil);
@@ -241,7 +238,7 @@ begin
             OnClick := @Image3Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem3',
-              MineralName, EmptyStr, EmptyStr, EmptyStr);
+              MineralName, EmptyStr);
             Image[3].Created := True;
           end;
         end;
@@ -260,7 +257,7 @@ begin
         if Image[4].Created then
           Image4.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem4',
-            MineralName, EmptyStr, EmptyStr, EmptyStr)
+            MineralName, EmptyStr)
         else
         begin
           Image4 := TImage.Create(nil);
@@ -277,7 +274,7 @@ begin
             OnClick := @Image4Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem4',
-              MineralName, EmptyStr, EmptyStr, EmptyStr);
+              MineralName,EmptyStr);
             Image[4].Created := True;
           end;
         end;
@@ -296,7 +293,7 @@ begin
         if Image[5].Created then
           Image5.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem5',
-            MineralName, EmptyStr, EmptyStr, EmptyStr)
+            MineralName, EmptyStr)
         else
         begin
           Image5 := TImage.Create(nil);
@@ -313,7 +310,7 @@ begin
             OnClick := @Image5Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem5',
-              MineralName, EmptyStr, EmptyStr, EmptyStr);
+              MineralName, EmptyStr);
             Image[5].Created := True;
           end;
         end;
@@ -332,7 +329,7 @@ begin
         if Image[6].Created then
           Image6.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem6',
-            MineralName, EmptyStr, EmptyStr, EmptyStr)
+            MineralName, EmptyStr)
         else
         begin
           Image6 := TImage.Create(nil);
@@ -349,7 +346,7 @@ begin
             OnClick := @Image6Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem6',
-              MineralName, EmptyStr, EmptyStr, EmptyStr);
+              MineralName, EmptyStr);
             Image[6].Created := True;
           end;
         end;
@@ -368,7 +365,7 @@ begin
         if Image[7].Created then
           Image7.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem7',
-            MineralName, EmptyStr, EmptyStr, EmptyStr)
+            MineralName, EmptyStr)
         else
         begin
           Image7 := TImage.Create(nil);
@@ -385,7 +382,7 @@ begin
             OnClick := @Image7Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem7',
-              MineralName, EmptyStr, EmptyStr, EmptyStr);
+              MineralName, EmptyStr);
             Image[7].Created := True;
           end;
         end;
@@ -429,7 +426,7 @@ begin
         if Image[1].Created then
           Image1.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem1',
-            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+            EmptyStr, MineralogyName)
         else
         begin
           Image1 := TImage.Create(nil);
@@ -446,7 +443,7 @@ begin
             OnClick := @Image1Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem1',
-              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+              EmptyStr, MineralogyName);
             Image[1].Created := True;
           end;
         end;
@@ -465,7 +462,7 @@ begin
         if Image[2].Created then
           Image2.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem2',
-            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+            EmptyStr, MineralogyName)
         else
         begin
           Image2 := TImage.Create(nil);
@@ -482,7 +479,7 @@ begin
             OnClick := @Image2Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem2',
-              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+              EmptyStr,MineralogyName);
             Image[2].Created := True;
           end;
         end;
@@ -501,7 +498,7 @@ begin
         if Image[3].Created then
           Image3.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem3',
-            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+            EmptyStr, MineralogyName)
         else
         begin
           Image3 := TImage.Create(nil);
@@ -518,7 +515,7 @@ begin
             OnClick := @Image3Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem3',
-              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+              EmptyStr, MineralogyName);
             Image[3].Created := True;
           end;
         end;
@@ -537,7 +534,7 @@ begin
         if Image[4].Created then
           Image4.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem4',
-            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+            EmptyStr, MineralogyName)
         else
         begin
           Image4 := TImage.Create(nil);
@@ -554,7 +551,7 @@ begin
             OnClick := @Image4Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem4',
-              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+              EmptyStr, MineralogyName);
             Image[4].Created := True;
           end;
         end;
@@ -572,7 +569,7 @@ begin
         if Image[5].Created then
           Image5.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem5',
-            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+            EmptyStr, MineralogyName)
         else
         begin
           Image5 := TImage.Create(nil);
@@ -589,7 +586,7 @@ begin
             OnClick := @Image5Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem5',
-              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+              EmptyStr, MineralogyName);
             Image[5].Created := True;
           end;
         end;
@@ -608,7 +605,7 @@ begin
         if Image[6].Created then
           Image6.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem6',
-            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+            EmptyStr, MineralogyName)
         else
         begin
           Image6 := TImage.Create(nil);
@@ -625,7 +622,7 @@ begin
             OnClick := @Image6Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem6',
-              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+              EmptyStr, MineralogyName);
             Image[6].Created := True;
           end;
         end;
@@ -644,7 +641,7 @@ begin
         if Image[7].Created then
           Image7.Picture.Graphic :=
             SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem7',
-            EmptyStr, EmptyStr, EmptyStr, MineralogyName)
+            EmptyStr, MineralogyName)
         else
         begin
           Image7 := TImage.Create(nil);
@@ -661,7 +658,7 @@ begin
             OnClick := @Image7Click;
             Picture.Graphic :=
               SelectBlobFieldToJPEGImage(Dados.Table6, 'imagem7',
-              EmptyStr, EmptyStr, EmptyStr, MineralogyName);
+              EmptyStr, MineralogyName);
             Image[7].Created := True;
           end;
         end;

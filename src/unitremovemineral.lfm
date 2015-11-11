@@ -1,7 +1,7 @@
 object FormRemoveMineral: TFormRemoveMineral
-  Left = 192
+  Left = 773
   Height = 424
-  Top = 139
+  Top = 173
   Width = 320
   BorderStyle = bsSizeToolWin
   Caption = 'Remover'
@@ -115,6 +115,7 @@ object FormRemoveMineral: TFormRemoveMineral
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
+      OnClick = ActionRemoveExecute
       ShowHint = True
       ParentShowHint = False
     end
@@ -160,6 +161,7 @@ object FormRemoveMineral: TFormRemoveMineral
         7CDA004A7BE300487847FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
+      OnClick = ActionRemoveAllExecute
       ShowHint = True
       ParentShowHint = False
     end
@@ -205,6 +207,7 @@ object FormRemoveMineral: TFormRemoveMineral
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00069A4EFF069A4EFF
       }
+      OnClick = ActionCloseExecute
       ShowHint = True
       ParentShowHint = False
     end

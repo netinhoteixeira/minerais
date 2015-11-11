@@ -25,7 +25,7 @@ var
   FFicha: TFrameFicha;
 
 implementation
-
+uses unitfichaespecie;
 {$R *.lfm}
 
 { TFormAdvancedFilter }
@@ -33,10 +33,14 @@ implementation
 procedure TFormAdvancedFilter.FormCreate(Sender: TObject);
 begin
   FFicha := TFrameFicha.Create(FormAdvancedFilter);
-  with FFicha do Parent := FormAdvancedFilter;
-  FFicha.PanelButtonSave.Visible:=False;
-  FFicha.EditingMode(True);
-  FFicha.FormMode:=Filter;
+  with FFicha do
+  begin
+    Parent := FormAdvancedFilter;
+    PanelButtonSave.Visible:=False;
+    EditingMode(True);
+    FormMode:= Filter;
+    PageControlFIcha.Pages[4].Visible:= False;
+  end;
 end;
 
 procedure TFormAdvancedFilter.FormDestroy(Sender: TObject);

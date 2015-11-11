@@ -6,9 +6,9 @@ unit UnitAjuda;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, IpHtml,  INIFiles,
+  Classes, SysUtils, FileUtil, IpHtml,
   Ipfilebroker, Forms, Controls, Dialogs, ExtCtrls,
-  unitLanguage;
+  unitLanguage, unitconfigfile;
 
 type
 
@@ -31,7 +31,6 @@ type
 
 var
   FormAjuda: TFormAjuda;
-  Config:TIniFile;
 
 implementation
 uses udatamodule;
@@ -52,16 +51,14 @@ end;
 
 procedure TFormAjuda.FormCreate(Sender: TObject);
 begin
-  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
   if FileExists(GetCurrentDir+nome_arq) then
   begin
     Iphtmlpanel1.OpenURL(GetCurrentDir+nome_arq);
   end;
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
+  if SetLanguage(ConfigGetLanguage) then
   begin
     ChangeLanguage;
   end;
-  Config.Free;
 end;
 
 end.

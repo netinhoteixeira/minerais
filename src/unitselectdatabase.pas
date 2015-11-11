@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, BCLabel, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, Buttons, ActnList, ExtCtrls, INIFiles;
+  Dialogs, StdCtrls, Buttons, ActnList, ExtCtrls, unitconfigfile;
 
 type
 
@@ -51,7 +51,6 @@ type
 var
   FormSelectDatabase: TFormSelectDatabase;
   ConfigFilePath:String;
-  Config:TIniFile;
 
 implementation
  uses unitadddatabase, udatamodule, unitfichaespecie, unitlanguage, unitframelist;
@@ -77,7 +76,6 @@ end;
 
 procedure TFormSelectDatabase.ActionNewMineralDatabaseExecute(Sender: TObject);
 begin
-  FormAddDatabase.Tipo:='mineral';
   FormAddDatabase.Show;
 end;
 
@@ -93,17 +91,15 @@ end;
 
 procedure TFormSelectDatabase.ActionApplyExecute(Sender: TObject);
 begin
-  if Dados.ChooseDatabase('mineral', Edit1.Text) then
+  if Dados.ValidateDatabase(Edit1.Text) then
    begin
-    Dados.SetDatabase(Edit1.Text);
-    //FormFichaEspecie.AtualizarLista;
+    //Dados.SetDatabase(Edit1.Text);
     FormFichaEspecie.FrameSimpleFilter.AddClasses;
     FormFichaEspecie.FrameSimpleFilter.AddSubclasses;
     FormFichaEspecie.FrameSimpleFilter.AddGroups;
     FormFichaEspecie.FrameSimpleFilter.AddSubgroups;
     FormFichaEspecie.FormFrameFicha.RefreshComboboxes;
-    //FormFichaEspecie.RefreshImages;
-    FrameList.RefreshList;
+    FormFichaEspecie.FrameList.RefreshList;
     FormSelectDatabase.Hide;
    end
   else
@@ -122,14 +118,12 @@ begin
    if OpenDialog1.FileName <> EmptyStr then
     begin
       if FileExists(OpenDialog1.FileName) then
-       if Dados.ChooseDatabase('mineral', OpenDialog1.FileName) then
+       if Dados.ValidateDatabase(OpenDialog1.FileName) then
         begin
           Dados.DatabaseMineralFileName:= OpenDialog1.FileName;
           Edit1.Text:=Dados.DatabaseMineralFileName;
-          Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
-          Config.WriteString('Database', 'Mineral',
-            Dados.DatabaseMineralFileName);
-          Config.Free;
+          ConfigSetDatabase(Dados.DatabaseMineralFileName);
+          FormFichaEspecie.FormFrameFicha.EditingMode(True);
         end
         else
           ShowMessage(Lang.TheSelectedDatabaseIsNotValid);

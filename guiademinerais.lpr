@@ -12,7 +12,7 @@ uses
   unitfichaespecie, unitBlobFields, unitaddmineral, unitselectdatabase,
   unitadddatabase, unitremovemineral, unittranslatefile, unitformconfigurations,
   frameficha, unitframelist, unitframesimplefilter, unitframeimages,
-  unitadvancedfilter, unitformmodifications;
+  unitadvancedfilter, unitformmodifications, unitconfigfile;
 
 {$R *.res}
 

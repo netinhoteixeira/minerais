@@ -260,7 +260,7 @@ end;
 
 procedure TFormTranslate.ComboBox1Change(Sender: TObject);
 begin
-  SetLanguage(Trim(LowerCase(Combobox1.Text)));
+  //SetLanguage(Trim(LowerCase(Combobox1.Text)));
   MemoAppend;
 end;
 

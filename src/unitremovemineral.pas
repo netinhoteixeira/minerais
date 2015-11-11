@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
-  Buttons, StdCtrls, ActnList, ExtCtrls, INIFiles, UnitLanguage, unitframelist;
+  Buttons, ActnList, ExtCtrls, UnitLanguage, unitframelist, unitconfigfile;
 
 type
 
@@ -38,19 +38,18 @@ type
 
 var
   FormRemoveMineral: TFormRemoveMineral;
-  Config: TIniFile;
   FrameList : TFrameList;
 
 implementation
-uses udatamodule, unitformconfigurations;
+uses udatamodule, unitfichaespecie;
 {$R *.lfm}
 
 { TFormRemoveMineral }
 
 procedure TFormRemoveMineral.FormShow(Sender: TObject);
 begin
-  //Listbox1.Clear; funcao transferida para frame
-  //Listbox1.Items.AddStrings(Dados.ReturnAllMinerals);
+  FrameList.ListBoxMinerals.Items.Clear;
+  FrameList.ListBoxMinerals.Items.AddStrings(Dados.ReturnAllMinerals(FrameList.SetOrder));
 end;
 
 procedure TFormRemoveMineral.ChangeLanguage;
@@ -63,26 +62,30 @@ end;
 
 procedure TFormRemoveMineral.ActionRemoveExecute(Sender: TObject);
 begin
-  {if Trim(Listbox1.GetSelectedText) <> EmptyStr then
+//  if Trim(FrameList.ListBoxMinerals.GetSelectedText) <> EmptyStr then
   begin
-    Dados.ExcluiMineral(Listbox1.GetSelectedText);
-    Listbox1.Items.Delete(Listbox1.Items.IndexOf(
-      Listbox1.GetSelectedText));
+    Dados.ExcluiMineral(FrameList.ListBoxMinerals.GetSelectedText);
+    FrameList.ListBoxMinerals.Items.Delete(
+      FrameList.ListBoxMinerals.Items.IndexOf(
+      FrameList.ListBoxMinerals.GetSelectedText));
+    FormFichaEspecie.FrameList.RefreshList;
   end
-  else
-  ShowMessage('Selecione um registro para excluir.');     }
+  //else
+  //ShowMessage(Lang.SelectRecordToExclude);
 end;
 
 procedure TFormRemoveMineral.FormCreate(Sender: TObject);
 begin
-  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
   FrameList := TFrameList.Create(PanelList);
-  with FrameList do Parent:=PanelList;
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
+  with FrameList do
+  begin
+    Parent:=PanelList;
+    Align:=alClient;
+  end;
+  if SetLanguage(ConfigGetLanguage) then
   begin
     ChangeLanguage;
   end;
-  Config.Free;
 end;
 
 procedure TFormRemoveMineral.FormDestroy(Sender: TObject);
@@ -95,7 +98,11 @@ begin
   if (QuestionDlg('Confirmação', 'Deseja remover todos os registros?',
     mtConfirmation, [mrNo, mrYes], 0) = mrYes) then
   begin
-    Dados.DatabaseMinerals.ExecSQL('DELETE FROM minerais');
+    Dados.DatabaseMinerals.ExecSQL('DELETE FROM '+Dados.Table1+' ');
+    Dados.DatabaseMinerals.ExecSQL('DELETE FROM '+Dados.Table2+' ');
+    Dados.DatabaseMinerals.ExecSQL('DELETE FROM '+Dados.Table3+' ');
+    Dados.DatabaseMinerals.ExecSQL('DELETE FROM '+Dados.Table4+' ');
+    Dados.DatabaseMinerals.ExecSQL('DELETE FROM '+Dados.Table5+' ');
   end;
 end;
 

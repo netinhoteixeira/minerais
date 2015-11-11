@@ -5,7 +5,7 @@ unit unitLanguage;
 interface
 
 uses
-  Classes, SysUtils, IniFiles, Dialogs;
+  Classes, SysUtils, Dialogs;
 
 type
   Language = record
@@ -172,20 +172,22 @@ type
     //falta colocar estes dois últimos na tradução instantânea
     Configuration:String;
 
+    SelectRecordToExclude:String;
   end;
 
-function SetLanguage(Language: String): Boolean;
+  type WhichLanguage = (english, portuguese);
+
+function SetLanguage(Language: WhichLanguage): Boolean;
 
 var Lang:Language;
-  Config: TIniFile;
+  LangType:WhichLanguage;
 
 implementation
-  uses udatamodule, unitfichaespecie;//, unitremovemineral;
+  uses udatamodule, unitfichaespecie, unitconfigfile;
 
-function SetLanguage(Language: String): Boolean;
-var Aux:String;
+function SetLanguage(Language: WhichLanguage): Boolean;
 begin
-  if (Trim(Lowercase(Language)) = 'português') then
+  if (Language = Portuguese) then
   begin
     Lang.StrFile:='Arquivo';
     Lang.Exhibit:='Exibir';
@@ -324,10 +326,11 @@ begin
     Lang.Records:=' registros';
 
     Lang.Configuration:='Configurações';
+    Lang.SelectRecordToExclude:='Selecione um registro para excluir';
     Result:=True;
   end
   else
-  if Trim(LowerCase(Language)) = 'english' then
+  if (Language = English) then
   begin
     Lang.StrFile:='File';
     Lang.Exhibit:='Exhibit';   //ou seria Show?
@@ -453,11 +456,13 @@ begin
     Lang.Records:=' records';
 
     Lang.Configuration:='Configurations';
+
+    Lang.SelectRecordToExclude:='Selecione um registro para excluir';
     Result:=True;
   end
   else
   begin
-    Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+    {Config:=TIniFile.Create(Dados.Caminho+'config.ini');
     Aux:=Config.ReadString('Configurations', 'Language Path', EmptyStr);
     Config.Free;
     if Aux <> EmptyStr then
@@ -474,13 +479,13 @@ begin
       else
       begin
         ShowMessage('Invalid language file. Setting default language.');
-        SetLanguage('english');
+        SetLanguage(ConfigGetLanguage);
       end;
     end
     else
     begin
       SetLanguage('english');
-    end;
+    end;  }
   end;
 end;
 

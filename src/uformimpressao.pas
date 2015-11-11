@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
   ExtCtrls, Buttons, StdCtrls, Spin, ComCtrls, ActnList, LR_View, UnitLanguage,
-  INIFiles;
+  unitconfigfile;
 
 type
 
@@ -57,7 +57,6 @@ type
 
 var
   FormImpressao: TFormImpressao;
-  Config:TINIFile;
 
 implementation
 
@@ -140,8 +139,7 @@ end;
 
 procedure TFormImpressao.FormCreate(Sender: TObject);
 begin
-  Config := TIniFile.Create(Dados.Caminho + '\config.ini');
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
+  if SetLanguage(ConfigGetLanguage) then
   begin
     FormImpressao.Caption:=Lang.Print;
     ToolButtonChangeReport.Hint:=Lang.ChangePrintReport;
@@ -152,7 +150,6 @@ begin
     SpeedButton1.Hint := Lang.Print;
     SpeedButton2.Hint := Lang.Close;
   end;
-  Config.Free;
 end;
 
 procedure TFormImpressao.FormShow(Sender: TObject);

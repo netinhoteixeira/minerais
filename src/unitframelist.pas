@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, ActnList,
-  udatamodule;
+  udatamodule, unitlanguage;
 
 type
 
@@ -21,16 +21,19 @@ type
     LabelRecordsNumber: TLabel;
     ListBoxMinerals: TListBox;
     Panel1: TPanel;
-    RadioButton1: TRadioButton;
-    RadioButton2: TRadioButton;
-    RadioButton3: TRadioButton;
+    RadioButtonAscii: TRadioButton;
+    RadioButtonHard: TRadioButton;
+    RadioButtonDens: TRadioButton;
+    RadioButtonBirr: TRadioButton;
     RadioGroupOrdem: TRadioGroup;
     procedure ActionListClickExecute(Sender: TObject);
     procedure ActionRBClickExecute(Sender: TObject);
+    procedure RadioGroupOrdemSelectionChanged(Sender: TObject);
   private
     { private declarations }
   public
-    function SetOrder: String;
+    function SetOrder: TOrder;
+    procedure ChangeLanguage;
     procedure RefreshList;
     { public declarations }
   end;
@@ -53,23 +56,43 @@ begin
   RefreshList;
 end;
 
-function TFrameList.SetOrder: String;
+procedure TFrameList.RadioGroupOrdemSelectionChanged(Sender: TObject);
 begin
-  if RadioButton1.Checked then
-    Result := ' nome ASC'
+  RefreshList;
+end;
+
+function TFrameList.SetOrder: TOrder;
+begin
+  if RadioButtonAscii.Checked then
+    Result := ASCII
   else
-  if RadioButton2.Checked then
-    Result := ' dureza_max'
+  if RadioButtonHard.Checked then
+    Result := Hardness
   else
-  if RadioButton3.Checked then
-    Result := ' densidade_max';
+  if RadioButtonDens.Checked then
+    Result := Density
+  else
+  if RadioButtonBirr.Checked then
+    Result := Birrefringence;
+end;
+
+procedure TFrameList.ChangeLanguage;
+begin
+  LabelOrder.Caption:=Lang.Order;
+  RadioButtonAscii.Caption:=Lang.Alphabetical;
+  RadioButtonHard.Caption:=Lang.Hardness;
+  RadioButtonDens.Caption:=Lang.Density;
+  RadioButtonBirr.Caption:=Lang.Birefringence;
+  LabelMinerals.Caption:=Lang.Minerals;
+  LabelRecordsNumber.Caption:=Lang.Records;
 end;
 
 procedure TFrameList.RefreshList;
 begin
-  ListBoxMinerals.Clear;
+  ListBoxMinerals.Items.Clear;
   ListboxMinerals.Items.AddStrings(Dados.ReturnAllMinerals(SetOrder));
-  LabelRecordsNumber.Caption:='Número de Registros: '+IntToStr(ListboxMinerals.Count);
+  LabelRecordsNumber.Caption:=IntToStr(ListboxMinerals.Count)+Lang.Records;
+  FormFichaEspecie.FormFrameFicha.RefreshComboboxes;
 end;
 
 end.

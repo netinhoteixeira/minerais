@@ -1,7 +1,7 @@
 object FormAdvancedFilter: TFormAdvancedFilter
-  Left = 415
+  Left = 339
   Height = 492
-  Top = 141
+  Top = 164
   Width = 640
   Caption = 'FormAdvancedFilter'
   OnCreate = FormCreate

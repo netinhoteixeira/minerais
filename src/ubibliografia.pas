@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, DbCtrls, Buttons, StdCtrls, ActnList, SQLite3tablemod, IniFIles,
-  Unitlanguage;
+  ExtCtrls, DbCtrls, Buttons, StdCtrls, ActnList, SQLite3tablemod,
+  Unitlanguage, unitconfigfile;
 
 type
 
@@ -41,7 +41,6 @@ var
   FormBibliografia: TFormBibliografia;
   Bibliografia: TextFile;
   Diretorio, Texto:String;
-  Config:TIniFile;
 
 implementation
 {$R *.lfm}
@@ -55,7 +54,7 @@ begin
   Memo1.Clear;
   if Dados.DatabaseMineralFileName <> EmptyStr then
     if FileExists(Dados.DatabaseMineralFileName) then
-      if Dados.ChooseDatabase('mineral',Dados.DatabaseMineralFileName) then
+      if Dados.ValidateDatabase(Dados.DatabaseMineralFileName) then
         begin
           Dados.DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
           Dados.TableMineralogy:= Dados.DatabaseMinerals.GetTable(
@@ -99,7 +98,7 @@ procedure TFormBibliografia.ActionSaveExecute(Sender: TObject);
 begin
   if Dados.DatabaseMineralFileName <> EmptyStr then
     if FileExists(Dados.DatabaseMineralFileName) then
-      if Dados.ChooseDatabase('mineral',Dados.DatabaseMineralFileName) then
+      if Dados.ValidateDatabase(Dados.DatabaseMineralFileName) then
         begin
           Dados.DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
           Dados.TableMineralogy:= Dados.DatabaseMinerals.GetTable(
@@ -120,15 +119,13 @@ end;
 
 procedure TFormBibliografia.FormCreate(Sender: TObject);
 begin
-  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
+  if SetLanguage(ConfigGetLanguage) then
   begin
     ChangeLanguage;
   end;
-  Config.Free;
   if Dados.DatabaseMineralFileName <> EmptyStr then
     if FileExists(Dados.DatabaseMineralFileName) then
-      if Dados.ChooseDatabase('mineral',Dados.DatabaseMineralFileName) then
+      if Dados.ValidateDatabase(Dados.DatabaseMineralFileName) then
         begin
           Dados.DatabaseMinerals:= TSQliteDatabase.Create(Dados.DatabaseMineralFileName);
           Dados.TableMineralogy:= Dados.DatabaseMinerals.GetTable(

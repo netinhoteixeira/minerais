@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, BCLabel, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, Buttons, INIFiles, unitLanguage;
+  Dialogs, StdCtrls, Buttons, unitLanguage;
 
 type
 
@@ -35,7 +35,6 @@ type
 
 var
   FormConfigurations: TFormConfigurations;
-  Config:TIniFile;
 
 implementation
 uses ubibliografia, unitajuda, unitfichaespecie, unitremovemineral, udatamodule,
@@ -46,7 +45,7 @@ uses ubibliografia, unitajuda, unitfichaespecie, unitremovemineral, udatamodule,
 
 procedure TFormConfigurations.ComboBox2Change(Sender: TObject);
 begin
-  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  {Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
   if SetLanguage(Combobox2.Text) then
   begin
     Config.WriteString('Configurations', 'Language', Combobox2.Text);
@@ -61,16 +60,16 @@ begin
     FormBIbliografia.ChangeLanguage;
     FormAjuda.ChangeLanguage;
   end;
-  Config.Free;
+  Config.Free;}
 end;
 
 procedure TFormConfigurations.FormCreate(Sender: TObject);
 begin
-  OpenDialog1.Filter:='All Files | *.csv; *.txt; *.dat;';
+  {OpenDialog1.Filter:='All Files | *.csv; *.txt; *.dat;';
   Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
   Combobox2.Text:=Config.ReadString('Configurations', 'Language','English');
   ChangeLanguage;
-  Config.Free;
+  Config.Free;}
 end;
 
 procedure TFormConfigurations.SpeedButtonCloseClick(Sender: TObject);

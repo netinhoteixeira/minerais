@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, BCPanel, BCLabel, Forms, Controls, Graphics,
-  Dialogs, Buttons, StdCtrls, ActnList, INIFiles, unitLanguage,
-  unittranslatefile;
+  Dialogs, Buttons, StdCtrls, ActnList, unitLanguage,
+  unittranslatefile, unitconfigfile;
 
 type
 
@@ -39,7 +39,6 @@ type
 
 var
   FormLanguage: TFormLanguage;
-  Config:TIniFile;
   CurrentLanguage:String;
 
 implementation
@@ -50,10 +49,9 @@ uses udatamodule;
 
 procedure TFormLanguage.ActionRefreshLanguageExecute(Sender: TObject);
 begin
-  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
-  if SetLanguage(Combobox1.Text) then
+  if SetLanguage(ConfigGetLanguage) then
   begin
-    Config.WriteString('Configurations', 'Language', Combobox1.Text);
+    //Config.WriteString('Configurations', 'Language', Combobox1.Text);
     BCLabelCurrentLanguage.Caption:=Lang.CurrentLanguage;
     SpeedButtonSelectLanguageFile.Hint:=Lang.SelectLanguageFile;
     SpeedButtonCreateLanguageFile.Hint:=Lang.CreateLanguageFile;
@@ -64,7 +62,6 @@ begin
       ShowMessage(Lang.YouMustRestartTheProgram);
     end;
   end;
-  Config.Free;
 end;
 
 procedure TFormLanguage.ActionSelectLanguageFileExecute(Sender: TObject);
@@ -87,10 +84,9 @@ end;
 procedure TFormLanguage.FormCreate(Sender: TObject);
 begin
   OpenDialog1.Filter:='All Files | *.csv; *.txt; *.dat;';
-  Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
+  //Config:=TIniFile.Create(Dados.Caminho+'\config.ini');
   CurrentLanguage:= Config.ReadString('Configurations', 'Language','English');
   Combobox1.Text:=CurrentLanguage;
-  Config.Free;
 end;
 
 procedure TFormLanguage.SpeedButtonCloseClick(Sender: TObject);

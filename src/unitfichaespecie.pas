@@ -64,22 +64,18 @@ unit unitfichaespecie;
 interface
 
 uses
-  Classes, SysUtils, BCPanel, BCLabel,
-  Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
-  StdCtrls, DBCtrls, Buttons, Menus, ExtDlgs, ActnList, Spin,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
+  StdCtrls, DBCtrls, Buttons, Menus, ExtDlgs, ActnList,
   SQLite3tablemod, uFormImpressao, unitremovemineral, unitlanguage,
-  IniFiles, uBibliografia, unitajuda, frameficha, unitframelist,
-  unitframesimplefilter, unitframeimages;
+  uBibliografia, unitajuda, frameficha, unitframelist,
+  unitframesimplefilter, unitframeimages, unitconfigfile, unitadvancedfilter;
 
 type
 
   { TFormFichaEspecie }
 
   TFormFichaEspecie = class(TForm)
-    ActionSpinRMax: TAction;
-    ActionSpinRMin: TAction;
-    ActionSpinBMax: TAction;
-    ActionSpinBMin: TAction;
+    ActionShowAdvancedFilter: TAction;
     ActionMenuHelp: TAction;
     ActionMenuConf: TAction;
     ActionOpenDatabaseForm: TAction;
@@ -112,6 +108,7 @@ type
     ProgressBar1: TProgressBar;
     ToolBar2: TToolBar;
     ToolButton1: TToolButton;
+    ToolButtonAdvancedFilter: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
     ToolButton8: TToolButton;
@@ -135,24 +132,17 @@ type
     procedure ActionMenuConfExecute(Sender: TObject);
     procedure ActionMenuHelpExecute(Sender: TObject);
     procedure ActionOpenDatabaseFormExecute(Sender: TObject);
-    //procedure ActionRefreshListExecute(Sender: TObject);
     procedure ActionRemoveMineralExecute(Sender: TObject);
+    procedure ActionShowAdvancedFilterExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    //procedure ListBoxMineraisClick(Sender: TObject);
-    //procedure MenuItemRemImage1Click(Sender: TObject);
-    //procedure MenuItemRemImage2Click(Sender: TObject);
     procedure MenuItemBibliografiaClick(Sender: TObject);
     procedure MenuItemCloseClick(Sender: TObject);
     procedure ToolButtonBibliografiaClick(Sender: TObject);
     procedure ToolButtonLanguageClick(Sender: TObject);
-    //procedure ToolButtonRemoveImageClick(Sender: TObject);
   private
-    //procedure AddMineralImage(Tipo:String;Num: char);
-    procedure ConfigDatabase(config:TIniFile);
-    //procedure RemoveImage(ImagemSelecionada:Char);
     { private declarations }
   public
     FormFrameFicha: TFrameFicha;
@@ -160,8 +150,6 @@ type
     FrameSimpleFilter: TFrameSimpleFilter;
     FrameImages: TFrameImages;
     procedure ChangeLanguage;
-    {procedure RefreshImages;}
-    //function UpdateList: Integer;
     { public declarations }
   end;
 
@@ -169,15 +157,11 @@ var
   FormFichaEspecie: TFormFichaEspecie;
   DatabaseMinerals: TSQLiteDatabase;
   TableMinerals: TSQLiteTable;
-
-  //NomeMineral: string;
-  //SelectedImage: char;
-
-  Config:TIniFile;
+  Panels: PanelsType;
 
 implementation
 
-uses udatamodule, unitblobfields, unitaddmineral, unitselectdatabase,
+uses udatamodule, unitaddmineral, unitselectdatabase,
   unitformlanguage, unitformconfigurations;
 
 {$R *.lfm}
@@ -186,15 +170,11 @@ uses udatamodule, unitblobfields, unitaddmineral, unitselectdatabase,
 
 procedure TFormFichaEspecie.FormCreate(Sender: TObject);
 begin
-  SelectedImage := '1';
   openpicturedialog1.Filter := lista_formatos;
-  Config:=TIniFile.Create(Dados.Caminho+'config.ini');
-  ConfigDatabase(Config);
-  if SetLanguage(Config.ReadString('Configurations', 'Language', 'English')) then
+  if SetLanguage(ConfigGetLanguage) then
   begin
     ChangeLanguage;
   end;
-  Config.Free;
   Mineralogy_Name.Caption:=MineralogyName;
 
   FrameList:= TFrameList.Create(FormFIchaEspecie);
@@ -202,19 +182,34 @@ begin
   begin
     Parent:= FormFichaEspecie;
     Align:=alLeft;
+    ChangeLanguage;
   end;
 
   FrameSimpleFilter:= TFrameSimpleFilter.Create(Panel2);
-  with FrameSimpleFilter do Parent := Panel2;
+  with FrameSimpleFilter do
+  begin
+    Parent := Panel2;
+  end;
+  if IsPanelVisible(Panels.SimpleFilter) then
+    Panel2.Visible:=True
+  else
+    Panel2.Visible:=False;
 
+  //FrameImages deve ser criado antes do FrameFicha
   FrameImages:= TFrameImages.Create(Panel3);
   with FrameImages do Parent := Panel3;
+  if IsPanelVisible(Panels.Images) then
+    Panel3.Visible:=True
+  else
+    Panel3.Visible:=False;
+
 
   FormFrameFicha:= TFrameFicha.Create(Panel4);
   with FormFrameFicha do
   begin
     Parent := Panel4;
     FormMode:=Edit;
+    ChangeLanguage;
   end;
 end;
 
@@ -231,17 +226,16 @@ begin
   if Trim(Dados.DatabaseMineralFileName) <> EmptyStr then
   begin
     if FileExists(Dados.DatabaseMineralFileName) then
-    if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
-    begin
-      Dados.DatabaseMinerals := TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
-      FrameList.RefreshList;
-      FrameSimpleFilter.AddClasses;
-      FrameSimpleFilter.AddSubclasses;
-      FrameSimpleFilter.AddGroups;
-      FrameSimpleFilter.AddSubgroups;
-      FormFrameFicha.EditingMode(True);
+      if Dados.ValidateDatabase(Dados.DatabaseMineralFileName) then
+      begin
+        Dados.DatabaseMinerals := TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
+        FrameList.RefreshList;
+        FrameSimpleFilter.AddClasses;
+        FrameSimpleFilter.AddSubclasses;
+        FrameSimpleFilter.AddGroups;
+        FrameSimpleFilter.AddSubgroups;
+        FormFrameFicha.EditingMode(True);
       //FormFrameFicha.RefreshImages;
-      //RefreshImages;
     end
     else
     begin
@@ -297,60 +291,6 @@ begin
     MenuItemConfiguracao.Caption:=Lang.Configuration;
     MenuItemPrint.Caption:=Lang.Print;
     MenuItemBibliografia.Caption:=Lang.Bibliography;
-
-    {BCLabelOrder.Caption:=Lang.Order;
-    RadioButton1.Caption:=Lang.Alphabetical;
-    RadioButton2.Caption:=Lang.Hardness;
-    RadioButton3.Caption:=Lang.Density;
-    BCLabelMinerals.Caption:=Lang.Minerals;
-    //colocar strings da contagem de registros
-
-    BCLabelName.Caption:=Lang.Name;
-    BCLabelClass.Caption:=Lang.MineralClass;
-    BCLabelSubClass.Caption:=Lang.Subclass;
-    BCLabelGroup.Caption:=Lang.Group;
-    BCLabelSubgroup.Caption:=Lang.Subgroup;
-    BCLabelHardness.Caption:=Lang.Hardness;
-    BCLabelDensity.Caption:=Lang.Density;
-    BCLabelOcorrencia.Caption:=Lang.Occurrence;
-    BCLabelAssociacao.Caption:=Lang.Association;
-    BCLabelCor.Caption:=Lang.Color;
-    Label33.Caption:=Lang.Minimum;
-    Label34.Caption:=Lang.Maximum;
-    Label35.Caption:=Lang.Minimum;
-    Label36.Caption:=Lang.Maximum;}
-end;
-
-procedure TFormFichaEspecie.ConfigDatabase(config:TIniFile);
-var Aux: String;
-begin
-  Aux:=Trim(Config.ReadString('Database','Mineral',EmptyStr));
-  if Aux <> EmptyStr then
-  begin
-    if FileExists(Aux) then
-    begin
-      if Dados.ChooseDatabase('mineral', Aux) then
-      begin
-        Dados.DatabaseMineralFileName:=Aux;
-      end
-      else
-      begin
-        Dados.DatabaseMineralFileName:=EmptyStr;
-        Config.WriteString('Database', 'Mineral', EmptyStr);
-      end;
-    end
-    else
-    begin
-      Config.WriteString('Database', 'Mineral', EmptyStr);
-      Dados.DatabaseMineralFileName:=EmptyStr;
-    end;
-  end
-  else
-  begin
-    Config.WriteString('Database', 'Mineral', EmptyStr);
-    Dados.DatabaseMineralFileName:=EmptyStr;
-  end;
-  //Config.Free;
 end;
 
 procedure TFormFichaEspecie.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -364,7 +304,7 @@ begin
   begin
     if FileExists(Dados.DatabaseMineralFileName) then
     begin
-      if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
+      if Dados.ValidateDatabase(Dados.DatabaseMineralFileName) then
         FormAddMineral.Show
       else
         ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
@@ -379,9 +319,15 @@ end;
 procedure TFormFichaEspecie.ActionFilterVisibleExecute(Sender: TObject);
 begin
   if Panel2.Visible then
-    Panel2.Visible := False
+  begin
+    Panel2.Visible := False;
+    SetPanelVisibility(SimpleFilter, False);
+  end
   else
+  begin
     Panel2.Visible := True;
+    SetPanelVisibility(SimpleFilter, True);
+  end;
 end;
 
 procedure TFormFichaEspecie.ActionFormPrintExecute(Sender: TObject);
@@ -390,7 +336,7 @@ begin
   begin
     if FileExists(Dados.DatabaseMineralFileName) then
     begin
-      if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
+      if Dados.ValidateDatabase( Dados.DatabaseMineralFileName) then
       begin
         FormImpressao.Show;
       end
@@ -406,10 +352,12 @@ begin
   if Panel3.Visible then
   begin
     Panel3.Visible:=False;
+    SetPanelVisibility(Panels.Images, False);
   end
   else
   begin
     Panel3.Visible:=True;
+    SetPanelVisibility(Panels.Images, True);
   end;
 end;
 
@@ -434,7 +382,7 @@ begin
   begin
     if FileExists(Dados.DatabaseMineralFileName) then
     begin
-      if Dados.ChooseDatabase('mineral', Dados.DatabaseMineralFileName) then
+      if Dados.ValidateDatabase( Dados.DatabaseMineralFileName) then
         FormRemoveMineral.Show
       else
         ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
@@ -445,5 +393,9 @@ begin
   ShowMessage(Lang.NoDatabaseSelected);
 end;
 
+procedure TFormFichaEspecie.ActionShowAdvancedFilterExecute(Sender: TObject);
+begin
+  FormAdvancedFilter.Visible:= True;
+end;
 
 end.
