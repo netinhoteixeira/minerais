@@ -1,0 +1,9 @@
+object FrameImage: TFrameImage
+  Left = 0
+  Height = 240
+  Top = 0
+  Width = 320
+  TabOrder = 0
+  DesignLeft = 437
+  DesignTop = 300
+end
