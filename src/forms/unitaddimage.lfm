@@ -17,6 +17,8 @@ object FormAddImage: TFormAddImage
     Align = alLeft
     ClientHeight = 416
     ClientWidth = 216
+    Color = clWhite
+    ParentColor = False
     TabOrder = 0
     object LabelName: TLabel
       Left = 8
@@ -50,7 +52,7 @@ object FormAddImage: TFormAddImage
       ScrollBars = ssAutoVertical
       TabOrder = 0
     end
-    object ComboBox1: TComboBox
+    object ComboBoxCategory: TComboBox
       Left = 10
       Height = 32
       Top = 144
@@ -83,6 +85,8 @@ object FormAddImage: TFormAddImage
       Height = 300
       Top = 64
       Width = 300
+      Center = True
+      Proportional = True
     end
     object BitBtnOpen: TBitBtn
       Left = 34
@@ -99,6 +103,7 @@ object FormAddImage: TFormAddImage
       Top = 374
       Width = 75
       Caption = 'BitBtnClear'
+      OnClick = ActionClearImageExecute
       TabOrder = 1
     end
   end
@@ -110,6 +115,8 @@ object FormAddImage: TFormAddImage
     Align = alBottom
     ClientHeight = 56
     ClientWidth = 580
+    Color = 5000268
+    ParentColor = False
     TabOrder = 2
     object BitBtn1: TBitBtn
       Left = 16
@@ -148,6 +155,10 @@ object FormAddImage: TFormAddImage
     object ActionFormClose: TAction
       Caption = 'ActionFormClose'
       OnExecute = ActionFormCloseExecute
+    end
+    object ActionClearImage: TAction
+      Caption = 'ActionClearImage'
+      OnExecute = ActionClearImageExecute
     end
   end
 end

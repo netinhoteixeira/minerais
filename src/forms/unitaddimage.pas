@@ -6,13 +6,14 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Buttons, ExtDlgs, ActnList, unitblobfields, udatamodule;
+  StdCtrls, Buttons, ExtDlgs, ActnList, unitblobfields, udatamodule, unitlanguage;
 
 type
 
   { TFormAddImage }
 
   TFormAddImage = class(TForm)
+    ActionClearImage: TAction;
     ActionFormClose: TAction;
     ActionSaveImage: TAction;
     ActionOpenDialog: TAction;
@@ -21,7 +22,7 @@ type
     BitBtn2: TBitBtn;
     BitBtnClear: TBitBtn;
     BitBtnOpen: TBitBtn;
-    ComboBox1: TComboBox;
+    ComboBoxCategory: TComboBox;
     ComboBoxMineralsNames: TComboBox;
     Image1: TImage;
     LabelName: TLabel;
@@ -32,6 +33,7 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
+    procedure ActionClearImageExecute(Sender: TObject);
     procedure ActionFormCloseExecute(Sender: TObject);
     procedure ActionOpenDialogExecute(Sender: TObject);
     procedure ActionSaveImageExecute(Sender: TObject);
@@ -76,13 +78,18 @@ begin
   FormAddImage.Visible:=False;
 end;
 
+procedure TFormAddImage.ActionClearImageExecute(Sender: TObject);
+begin
+  Image1.Picture.Clear;
+end;
+
 procedure TFormAddImage.ActionSaveImageExecute(Sender: TObject);
 begin
   if ImageFilename <> EmptyStr then
   begin
     if ComboBoxMineralsNames.Text <> EmptyStr then
     begin
-      AddBlobField(ImageFileName, ComboboxMineralsNames.Text, Combobox1.Text,
+      AddBlobField(ImageFileName, ComboboxMineralsNames.Text, ComboBoxCategory.Text,
         MemoDescription.Text);
     end
     else
@@ -94,6 +101,10 @@ end;
 procedure TFormAddImage.FormCreate(Sender: TObject);
 begin
   OpenPictureDialog1.Filter:='All Files | *.jpg; *.jpeg;';
+  ComboBoxCategory.Items.Add(Lang.GeneralInformation);
+  ComboBoxCategory.Items.Add(Lang.PhysicalProperties);
+  ComboBoxCategory.Items.Add(Lang.OpticalProperties);
+  ComboBoxCategory.Items.Add(Lang.Crystallography);
 end;
 
 procedure TFormAddImage.FormShow(Sender: TObject);
