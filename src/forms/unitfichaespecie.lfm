@@ -71,7 +71,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButtonShowImages: TToolButton
-      Left = 131
+      Left = 154
       Hint = 'Imagens'
       Top = 2
       Caption = 'ToolButtonShowImages'
@@ -81,7 +81,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ShowHint = True
     end
     object ToolButton1: TToolButton
-      Left = 154
+      Left = 177
       Height = 22
       Top = 2
       Width = 5
@@ -99,7 +99,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ParentFont = False
     end
     object ToolButton3: TToolButton
-      Left = 126
+      Left = 149
       Height = 22
       Top = 2
       Width = 5
@@ -125,7 +125,7 @@ object FormFichaEspecie: TFormFichaEspecie
       Style = tbsDivider
     end
     object ToolButton9: TToolButton
-      Left = 159
+      Left = 182
       Top = 2
       Caption = 'ToolButton9'
       ImageIndex = 20
@@ -136,6 +136,12 @@ object FormFichaEspecie: TFormFichaEspecie
       Caption = 'ToolButtonAdvancedFilter'
       ImageIndex = 4
       OnClick = ActionShowAdvancedFilterExecute
+    end
+    object ToolButtonAddImage: TToolButton
+      Left = 126
+      Top = 2
+      Caption = 'ToolButtonAddImage'
+      OnClick = ActionFormAddImageExecute
     end
   end
   object OpenPictureDialog1: TOpenPictureDialog
@@ -174,6 +180,11 @@ object FormFichaEspecie: TFormFichaEspecie
       Category = 'ToolButtons'
       Caption = 'ActionShowAdvancedFilter'
       OnExecute = ActionShowAdvancedFilterExecute
+    end
+    object ActionFormAddImage: TAction
+      Category = 'ToolButtons'
+      Caption = 'ActionFormAddImage'
+      OnExecute = ActionFormAddImageExecute
     end
   end
   object ImageList1: TImageList

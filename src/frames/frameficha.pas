@@ -182,12 +182,12 @@ type
     FormMode: Mode;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure AddMineralImage(strType: string; Number: char);
+    procedure AddMineralImage(Number: Integer);
     procedure ChangeLanguage;
     procedure ClearFields;
     procedure EditingMode(Mode: boolean);
     procedure RefreshComboboxes;
-    procedure RefreshHeaderControl(ImageNumber: char);
+    procedure RefreshHeaderControl(Count:Integer);
     procedure RefreshImages;
     procedure RemoveImage(Selected: char);
     procedure ViewMineralProp(strName: string);
@@ -325,6 +325,10 @@ begin
     begin
       Dados.UpdateField(Dados.Table1, FieldClass, ComboboxClass.Text,
         EditMineralName.Text);
+    end;
+    Filter:
+    begin
+      ActionFilterExecute(Sender);
     end;
   end;
 end;
@@ -854,18 +858,16 @@ begin
   Result := Return;
 end;
 
-procedure TFrameFicha.AddMineralImage(strType: string; Number: char);
+procedure TFrameFicha.AddMineralImage(Number: Integer);
 begin
   OpenPictureDialog1.FileName := emptystr;
   if OpenPictureDialog1.Execute then
     if (OpenPictureDialog1.FileName <> emptystr) then
     begin
-      if strType = 'minerais' then
-      begin
-        AddBlobFieldMineral(OpenPictureDialog1.FileName,
-          Dados.Table5, 'imagem' + Number, EditMineralName.Text);
-      end;
-      FormFichaEspecie.FrameImages.SelectedImage := Number;
+      //InsertBlobField()
+        {AddBlobFieldMineral(OpenPictureDialog1.FileName,
+          Dados.Table5, 'imagem' + Number, EditMineralName.Text);}
+      //FormFichaEspecie.FrameImages.SelectedImage := Number;
       RefreshImages;
     end;
 end;
@@ -1025,35 +1027,32 @@ begin
   ComboboxSubgroup.Items := Dados.ReturnDistinctField(FieldSubGroup, Dados.Table1);
 end;
 
-procedure TFrameFicha.RefreshHeaderControl(ImageNumber: char);
+procedure TFrameFicha.RefreshHeaderControl(Count:Integer);
+var I:Integer;
 begin
-  if (EditMineralName.Text <> EmptyStr) then
+  HeaderControl1.Sections.Clear;
+  For I:=0 to Count do
   begin
-    self.ImagemAmpliada.Picture.Graphic :=
-      SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem' + ImageNumber,
-      EditMineralName.Text, EmptyStr);
+    HeaderControl1.Sections.Add;
   end;
 end;
 
 procedure TFrameFicha.RefreshImages;
+var I, Count:Integer;
 begin
-  self.ImagemAmpliada.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem1',
-    EditMineralName.Text, EmptyStr);
-  self.ImageOptica1.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem4',
-    EditMineralName.Text, EmptyStr);
-  self.ImageOptica2.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem5',
-    EditMineralName.Text, EmptyStr);
-  self.ImageCristalografia1.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem6',
-    EditMineralName.Text, EmptyStr);
-  self.ImageCristalografia2.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem7',
-    EditMineralName.Text, EmptyStr);
-  RefreshHeaderControl(FormFichaEspecie.FrameImages.SelectedImage);
-  FOrmFIchaEspecie.FrameImages.RefreshImages(EditMineralName.Text);
+  Count:=GetImagesCount;
+  if Count >0 then
+  begin
+    self.ImagemAmpliada.Picture.Graphic :=
+    SelectBlobFieldToJPEGImage(Dados.Table5, FieldImage,
+    EditMineralName.Text);
+    for I:=0 to Count-1 do
+    begin
+
+    end;
+  end;
+  RefreshHeaderControl(Count);
+  FormFichaEspecie.FrameImages.RefreshImages(EditMineralName.Text, Count);
 end;
 
 procedure TFrameFicha.RemoveImage(Selected: char);

@@ -76,6 +76,7 @@ type
   { TFormFichaEspecie }
 
   TFormFichaEspecie = class(TForm)
+    ActionFormAddImage: TAction;
     ActionShowAdvancedFilter: TAction;
     ActionMenuConf: TAction;
     ActionOpenDatabaseForm: TAction;
@@ -104,6 +105,7 @@ type
     ProgressBar1: TProgressBar;
     ToolBar2: TToolBar;
     ToolButton1: TToolButton;
+    ToolButtonAddImage: TToolButton;
     ToolButtonAdvancedFilter: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
@@ -116,6 +118,7 @@ type
     ToolButton5: TToolButton;
     procedure ActionAddExecute(Sender: TObject);
     procedure ActionFilterVisibleExecute(Sender: TObject);
+    procedure ActionFormAddImageExecute(Sender: TObject);
     procedure ActionImagesVisibleExecute(Sender: TObject);
     procedure ActionMenuConfExecute(Sender: TObject);
     procedure ActionOpenDatabaseFormExecute(Sender: TObject);
@@ -305,6 +308,11 @@ begin
     FrameSimpleFilter.Visible := True;
     SetPanelVisibility(SimpleFilter, True);
   end;
+end;
+
+procedure TFormFichaEspecie.ActionFormAddImageExecute(Sender: TObject);
+begin
+  FormAddImage.Show;
 end;
 
 procedure TFormFichaEspecie.ActionImagesVisibleExecute(Sender: TObject);

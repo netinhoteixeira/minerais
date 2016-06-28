@@ -18,7 +18,7 @@ type
     SelectedImage:Char;
     constructor Create(AOwner:TComponent);  override;
     destructor Destroy; override;
-    procedure RefreshImages(MineralName:String);
+    procedure RefreshImages(MineralName:String; Count:Integer);
     { public declarations }
   end;
 
@@ -41,8 +41,9 @@ begin
   inherited Destroy;
 end;
 
-procedure TFrameImage.RefreshImages(MineralName: String);
+procedure TFrameImage.RefreshImages(MineralName: String; Count:Integer);
 begin
+
 
 end;
 

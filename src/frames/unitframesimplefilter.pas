@@ -81,7 +81,6 @@ begin
   AddGroups;
   AddSubgroups;
   FormFichaEspecie.FrameList.RefreshList;
-  //Mineralogy_Name.Caption:=MineralogyName;
   //FrameImages.RefreshImages; //RefreshImages deve ficar dentro de RefreshList
 end;
 
@@ -89,7 +88,6 @@ procedure TFrameSimpleFilter.ActionCBGroupChangeExecute(Sender: TObject);
 begin
   AddSubgroups;
   FormFichaEspecie.FrameList.RefreshList;
-  //Mineralogy_Name.Caption:=MineralogyName;
 end;
 
 procedure TFrameSimpleFilter.ActionCBSubclassChangeExecute(Sender: TObject);
@@ -97,13 +95,11 @@ begin
   AddGroups;
   AddSubgroups;
   FormFichaEspecie.FrameList.RefreshList;
-  //Mineralogy_Name.Caption:=MineralogyName;
 end;
 
 procedure TFrameSimpleFilter.ActionCBSubgroupChangeExecute(Sender: TObject);
 begin
   FormFichaEspecie.FrameList.RefreshList;
-  //Mineralogy_Name.Caption:=MineralogyName;
 end;
 
 procedure TFrameSimpleFilter.ActionETAssocEditingDOneExecute(Sender: TObject);
