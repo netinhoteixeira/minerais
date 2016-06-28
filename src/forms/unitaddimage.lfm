@@ -1,13 +1,14 @@
 object FormAddImage: TFormAddImage
-  Left = 407
+  Left = 590
   Height = 472
-  Top = 177
+  Top = 166
   Width = 580
   Caption = 'FormAddImage'
   ClientHeight = 472
   ClientWidth = 580
   OnCreate = FormCreate
-  LCLVersion = '1.4.2.0'
+  OnShow = FormShow
+  LCLVersion = '1.6.0.4'
   object Panel1: TPanel
     Left = 0
     Height = 416
@@ -19,7 +20,7 @@ object FormAddImage: TFormAddImage
     TabOrder = 0
     object LabelName: TLabel
       Left = 8
-      Height = 21
+      Height = 20
       Top = 40
       Width = 72
       Caption = 'LabelName'
@@ -27,7 +28,7 @@ object FormAddImage: TFormAddImage
     end
     object LabelCategory: TLabel
       Left = 8
-      Height = 21
+      Height = 20
       Top = 112
       Width = 94
       Caption = 'LabelCategory'
@@ -35,7 +36,7 @@ object FormAddImage: TFormAddImage
     end
     object LabelDescription: TLabel
       Left = 8
-      Height = 21
+      Height = 20
       Top = 208
       Width = 107
       Caption = 'LabelDescription'
@@ -51,7 +52,7 @@ object FormAddImage: TFormAddImage
     end
     object ComboBox1: TComboBox
       Left = 10
-      Height = 33
+      Height = 32
       Top = 144
       Width = 198
       ItemHeight = 0
@@ -60,7 +61,7 @@ object FormAddImage: TFormAddImage
     end
     object ComboBoxMineralsNames: TComboBox
       Left = 10
-      Height = 33
+      Height = 32
       Top = 65
       Width = 198
       ItemHeight = 0

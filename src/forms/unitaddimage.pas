@@ -36,6 +36,7 @@ type
     procedure ActionOpenDialogExecute(Sender: TObject);
     procedure ActionSaveImageExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { private declarations }
   public
@@ -53,12 +54,20 @@ implementation
 { TFormAddImage }
 
 procedure TFormAddImage.ActionOpenDialogExecute(Sender: TObject);
+var FS:TFileStream;  pic: TJPEGImage;
 begin
   if OpenPictureDialog1.Execute then
     if OpenPictureDialog1.FileName <> EmptyStr then
     begin
-      Image1.Picture.Graphic.LoadFromFile(OpenPictureDialog1.FileName);
+      try
+      FS:=TFileStream.Create(OpenPictureDialog1.FileName,fmOpenRead);
+      pic := TJPEGImage.Create;
+      pic.LoadFromStream(FS);
+      Image1.Picture.Graphic:=pic;
       ImageFileName:= OpenPictureDialog1.FileName;
+      finally
+        FS.Free;
+      end;
     end;
 end;
 
@@ -69,21 +78,28 @@ end;
 
 procedure TFormAddImage.ActionSaveImageExecute(Sender: TObject);
 begin
-  {if ImageFilename <> EmptyStr then
+  if ImageFilename <> EmptyStr then
   begin
-    if EditMineralName.Text <> EmptyStr then
+    if ComboBoxMineralsNames.Text <> EmptyStr then
     begin
       AddBlobField(ImageFileName, ComboboxMineralsNames.Text, Combobox1.Text,
         MemoDescription.Text);
     end
     else
      ShowMessage('');
-  end;}
+  end
+  else ShowMessage('');
 end;
 
 procedure TFormAddImage.FormCreate(Sender: TObject);
 begin
   OpenPictureDialog1.Filter:='All Files | *.jpg; *.jpeg;';
+end;
+
+procedure TFormAddImage.FormShow(Sender: TObject);
+begin
+  ComboBoxMineralsNames.Clear;
+  ComboBoxMineralsNames.Items:=Dados.ReturnDistinctField(FieldName, Dados.Table1);
 end;
 
 end.

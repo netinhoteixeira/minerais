@@ -40,6 +40,7 @@ begin
   Application.CreateForm(TFormAdvancedFilter, FormAdvancedFilter);
   Application.CreateForm(TFormAddDatabase, FormAddDatabase);
   Application.CreateForm(TFormSelectDatabase, FormSelectDatabase);
+  Application.CreateForm(TFormAddImage, FormAddImage);
   Delay(1000);
   FormSplash.Hide;
   FormSplash.Free;
