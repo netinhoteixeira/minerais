@@ -172,9 +172,10 @@ const
   FieldCrystSystem: string = 'system';
   FieldSymbology: string = 'symbology';
   FieldChrystClass: string = 'chryst_class';
-//retirar dois campos abaixo
-  Field2VMin: string = 'angulo_min';
-  Field2VMax: string = 'angulo_max';
+
+  FieldImage: String = 'image';
+  FieldDescription:String = 'description';
+  FieldCategory:String = 'category';
 // end of fields names
 var
   Dados: TDados;
@@ -241,8 +242,9 @@ begin
       '['+FieldHabit+'] TEXT);';
     DatabaseMinerals.ExecSQL(ExecSQL);
     ExecSQL :=
-      'CREATE TABLE ' + Table5 + ' ([id] INTEGER PRIMARY KEY NOT NULL,[nome] TEXT ' +
-      'UNIQUE  NOT NULL, ' + '[imagem1] BLOB, [description] VARCHAR(500), [image_type] VARCHAR(50));';
+      'CREATE TABLE ' + Table5 + ' ([id] INTEGER PRIMARY KEY NOT NULL,['+FieldName+'] TEXT ' +
+      'NOT NULL, ' + '['+FieldImage+'] BLOB, ['+FieldDescription+'] VARCHAR(500), ['+
+      FieldCategory+'] VARCHAR(50));';
     DatabaseMinerals.ExecSQL(ExecSQL);
   finally
 
@@ -338,7 +340,7 @@ begin
   DatabaseMinerals.ExecSQL('DELETE FROM ' + Table2 + ' WHERE ('+FieldName+'="' + Especie + '");');
   DatabaseMinerals.ExecSQL('DELETE FROM ' + Table3 + ' WHERE ('+FieldName+'="' + Especie + '");');
   DatabaseMinerals.ExecSQL('DELETE FROM ' + Table4 + ' WHERE ('+FieldName+'="' + Especie + '");');
-  //DatabaseMinerals.ExecSQL('DELETE FROM ' + Table5 + ' WHERE ('+FieldName+'="' + Especie + '");');
+  DatabaseMinerals.ExecSQL('DELETE FROM ' + Table5 + ' WHERE ('+FieldName+'="' + Especie + '");');
 end;
 
 function TDados.MineralFiltered(strName, Table, FieldStr, Field: string): boolean;
@@ -630,7 +632,7 @@ begin  //to do: formatar valores reais para 3 casas decimais (FloatToStr(valor, 
     {'cor_interferencia = "'+CorInterferencia+'",} FieldColorBlade+' = "' +
     CorLamina + '" , ' + FieldElongationSign+' = "' + Elongacao +
     '" , '+FieldRelief+' = "' + Relevo + '", ' + Field2VAngle+' = "' + Angulo2V +
-    '", '+FieldExtinction+'  = "' + Extincao +' '+
+    '", '+FieldExtinction+'  = "' + Extincao +'" '+
     ' WHERE '+FieldName+' = "' + Nome + '" ; ';
   DatabaseMinerals.ExecSQL(SQlStr);
 end;
