@@ -66,9 +66,7 @@ interface
 uses
   Classes, SysUtils, Graphics, udatamodule;
 
-function SelectBlobFieldToJPEGImage(Table, Field, Especie, Tipo:String):TJPEGImage;
-procedure AddBlobFieldMineral(FileNameImage,Table, Field,
-  Especie_Tipo: String);
+function SelectBlobFieldToJPEGImage(Table, Field, Especie:String):TJPEGImage;
 procedure AddBlobField(ImageFilename, MineralName, Category, Description:String);
 procedure ClearBlobField(Table, Field, Especie, Rruff_id, Digito, Tipo:String);
 function SelectImage(FieldStr: String; Index:Integer): TJpegImage;
@@ -80,14 +78,14 @@ var
 
 implementation
 
-function SelectBlobFieldToJPEGImage(Table, Field, Especie, Tipo: String
+function SelectBlobFieldToJPEGImage(Table, Field, Especie: String
   ): TJPEGImage;
 var I:Boolean; pic: TJPEGImage;
 begin
   if Table = Dados.Table5 then
   begin
     Dados.TableImages := Dados.DatabaseMinerals.GetTable('SELECT '+Field+' FROM '+Table+
-      ' WHERE nome = "' + Especie + '" ;');
+      ' WHERE '+FieldName+' = "' + Especie + '" ;');
     I:=True;
   end
   else
@@ -119,34 +117,16 @@ begin
   end;
 end;
 
-procedure AddBlobFieldMineral(FileNameImage,Table, Field,
-  Especie_Tipo: String);
-var FS: TFileStream;
-begin
-  //Dados.DatabaseMineral:= TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
-  Try
-    FS := TFileStream.Create(FileNameImage, fmOpenRead);
-    if Table = Dados.Table5 then
-    begin
-      Dados.DatabaseMinerals.UpdateBlob('UPDATE '+Table+' set '+Field+' = ? WHERE nome = "'+
-        Especie_Tipo+'"  ;', FS);
-    end;
-
-  finally
-    FS.Free;
-  end;
-end;
-
 procedure AddBlobField(ImageFilename, MineralName, Category, Description: String
   );
 begin
   Try
     Dados.DatabaseMinerals.ExecSQL('INSERT INTO '+Dados.Table5+
-      ' (nome, categoria, descricao) VALUES ("'+MineralName+'","'+Category+
+      ' ('+FieldName+', '+FieldCategory+', '+FieldDescription+') VALUES ("'+MineralName+'","'+Category+
         '","'+Description+'") ;');
     FS := TFileStream.Create(ImageFileName, fmOpenRead);
-    Dados.DatabaseMinerals.UpdateBlob('UPDATE '+Dados.Table5+' set imagem = ? '+
-      'WHERE nome = "'+MineralName+'"  ;', FS);
+    Dados.DatabaseMinerals.UpdateBlob('UPDATE '+Dados.Table5+' set '+FieldImage+' = ? '+
+      'WHERE '+FieldName+' = "'+MineralName+'"  ;', FS);
   finally
     FS.Free;
   end;
@@ -159,7 +139,7 @@ begin
   if Table = Dados.Table5 then
   begin
     Dados.DatabaseMinerals.ExecSQL('Update ' + Table + ' set ' + Field +' = null '+
-      'WHERE nome="'+Especie+'" ;');
+      'WHERE '+FieldName+'="'+Especie+'" ;');
   end;
 
   finally
@@ -173,12 +153,12 @@ var SQlstr:String;
 begin
   if Fieldstr = EmptyStr then
   begin
-    SQlstr:= 'SELECT * FROM images ; ';
+    SQlstr:= 'SELECT * FROM '+FieldImage+' ; ';
     Dados.TableImages := Dados.DatabaseMinerals.GetTable(SQLstr);
   end
   else
   begin
-    SQLstr:='SELECT * FROM images WHERE name = "'+FieldStr+ '" ; ';
+    SQLstr:='SELECT * FROM '+FieldImage+' WHERE '+FieldName+' = "'+FieldStr+ '" ; ';
     Dados.TableImages := Dados.DatabaseMinerals.GetTable(SQLstr);
   end;
   if Dados.TableImages.Count>0 then
@@ -204,7 +184,7 @@ end;
 function GetImagesCount: Integer;
 var SQLStr: String;
 begin
-     SQlstr:= 'SELECT * FROM images ; ';
+     SQlstr:= 'SELECT * FROM '+Images+' ; ';
      Dados.TableImages := Dados.DatabaseMinerals.GetTable(SQLstr);
      Result:=Dados.TableImages.Count;
 end;
