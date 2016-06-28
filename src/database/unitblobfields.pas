@@ -66,9 +66,8 @@ interface
 uses
   Classes, SysUtils, Graphics, udatamodule;
 
-function SelectBlobFieldToJPEGImage(Table, Field, Especie:String):TJPEGImage;
 procedure AddBlobField(ImageFilename, MineralName, Category, Description:String);
-procedure ClearBlobField(Table, Field, Especie, Rruff_id, Digito, Tipo:String);
+procedure ClearBlobField(Table, Field, Especie:String);
 function SelectImage(FieldStr: String; Index:Integer): TJpegImage;
 function GetImagesCount:Integer;
 
@@ -77,45 +76,6 @@ var
   FS:TFileStream;
 
 implementation
-
-function SelectBlobFieldToJPEGImage(Table, Field, Especie: String
-  ): TJPEGImage;
-var I:Boolean; pic: TJPEGImage;
-begin
-  if Table = Dados.Table5 then
-  begin
-    Dados.TableImages := Dados.DatabaseMinerals.GetTable('SELECT '+Field+' FROM '+Table+
-      ' WHERE '+FieldName+' = "' + Especie + '" ;');
-    I:=True;
-  end
-  else
-    Result:=nil;
-
-  if I then
-  begin
-   if Dados.TableImages.Count > 0 then
-    begin
-    Try
-      MS := Dados.TableImages.FieldAsBlob(Dados.TableImages.
-        FieldIndex[Field]);
-      if (MS <> nil) then
-      begin
-        MS.Position := 0;
-        pic := TJPEGImage.Create;
-        pic.LoadFromStream(MS);
-        Result := pic;
-      end
-      else
-      begin
-        Result := nil;
-      end;
-    finally
-    end;
-    end
-    else
-      Result:=nil;
-  end;
-end;
 
 procedure AddBlobField(ImageFilename, MineralName, Category, Description: String
   );
@@ -132,7 +92,7 @@ begin
   end;
 end;
 
-procedure ClearBlobField(Table, Field, Especie, Rruff_id, Digito, Tipo: String);
+procedure ClearBlobField(Table, Field, Especie: String);
 begin
   //DatabaseMinerals:=TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
   Try
@@ -148,23 +108,22 @@ end;
 
 function SelectImage(FieldStr:String; Index:Integer): TJpegImage;
 var SQlstr:String;
-  counter, columns:Integer;
   pic: TJPEGImage;
 begin
   if Fieldstr = EmptyStr then
   begin
-    SQlstr:= 'SELECT * FROM '+FieldImage+' ; ';
+    SQlstr:= 'SELECT '+FieldImage+' FROM '+Dados.Table5+' ; ';
     Dados.TableImages := Dados.DatabaseMinerals.GetTable(SQLstr);
   end
   else
   begin
-    SQLstr:='SELECT * FROM '+FieldImage+' WHERE '+FieldName+' = "'+FieldStr+ '" ; ';
+    SQLstr:='SELECT '+FieldImage+' FROM '+Dados.Table5+' WHERE '+FieldName+' = "'+FieldStr+ '" ; ';
     Dados.TableImages := Dados.DatabaseMinerals.GetTable(SQLstr);
   end;
   if Dados.TableImages.Count>0 then
   begin
        try
-          MS := Dados.TableImages.FieldAsBlob(Index);
+          MS := Dados.TableImages.FieldAsBlob(0);
           if (MS <> nil) then
           begin
                MS.Position := 0;
@@ -184,7 +143,7 @@ end;
 function GetImagesCount: Integer;
 var SQLStr: String;
 begin
-     SQlstr:= 'SELECT * FROM '+Images+' ; ';
+     SQlstr:= 'SELECT '+FieldName+' FROM '+Dados.Table5+' ; ';
      Dados.TableImages := Dados.DatabaseMinerals.GetTable(SQLstr);
      Result:=Dados.TableImages.Count;
 end;
