@@ -22,8 +22,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   unitaddimage,
   uformselectdatabase,
   uformadddatabase,
-  uformimages,
-  uframeimages;
+  uframeimages, uformrmimage, unitconfigfile;
 
 {$R *.res}
 
@@ -34,15 +33,18 @@ begin
   FormSplash.Show;
   FormSplash.Update;
   Application.CreateForm(TDados, Dados);
-  Application.CreateForm(TFormFichaEspecie, FormFichaEspecie);
+  Application.CreateForm(TFormMain, FormMain);
   Application.CreateForm(TFormAddMineral, FormAddMineral);
   Application.CreateForm(TFormRemoveMineral, FormRemoveMineral);
   Application.CreateForm(TFormAdvancedFilter, FormAdvancedFilter);
   Application.CreateForm(TFormAddDatabase, FormAddDatabase);
   Application.CreateForm(TFormSelectDatabase, FormSelectDatabase);
   Application.CreateForm(TFormAddImage, FormAddImage);
+  Application.CreateForm(TFormRmImage, FormRmImage);
+  Application.CreateForm(TFormHelp, FormHelp);
   Delay(1000);
   FormSplash.Hide;
   FormSplash.Free;
+  Application.CreateForm(TFormRmImage, FormRmImage);
   Application.Run;
 end.
