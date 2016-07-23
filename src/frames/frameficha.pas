@@ -10,7 +10,7 @@ uses
   unitlanguage, unitconfigfile;
 
 type
-  Mode = (Edit, Filter, Visualize);
+  Mode = (Edit, Filter);
 
 type
 
@@ -20,9 +20,6 @@ type
     ActionFilter: TAction;
     ActionSaveMod: TAction;
     ActionList1: TActionList;
-    BitBtnFilter: TBitBtn;
-    BitBtnModifications: TBitBtn;
-    BtnSaveMod: TBitBtn;
     ComboBoxClass: TComboBox;
     ComboBoxSubclass: TComboBox;
     ComboBoxGroup: TComboBox;
@@ -42,10 +39,9 @@ type
     EditSistema: TEdit;
     GroupBoxCristalografia1: TGroupBox;
     GroupBoxCristalografia2: TGroupBox;
-    GroupBoxImagemAmpliada: TGroupBox;
+    GroupBoxImageLarge: TGroupBox;
     GroupBoxOptica1: TGroupBox;
     GroupBoxOptica2: TGroupBox;
-    HeaderControl1: THeaderControl;
     ImageCristalografia1: TImage;
     ImageCristalografia2: TImage;
     ImageListHeaderControl: TImageList;
@@ -86,7 +82,6 @@ type
     LabelSubClasse: TLabel;
     LabelSubGrupo: TLabel;
     LabelTraco: TLabel;
-    Memo1: TMemo;
     MemoAlteracao: TMemo;
     MemoAngulo: TMemo;
     MemoAplicacao: TMemo;
@@ -114,7 +109,7 @@ type
     MenuItemAddImage4: TMenuItem;
     OpenPictureDialog1: TOpenPictureDialog;
     PageControlFicha: TPageControl;
-    PanelButtonSave: TPanel;
+    PanelImageButtons: TPanel;
     PanelFicha: TPanel;
     PopupMenuImage5: TPopupMenu;
     PopupMenuImage4: TPopupMenu;
@@ -122,16 +117,11 @@ type
     ScrollBox4: TScrollBox;
     ScrollBox5: TScrollBox;
     ScrollBox6: TScrollBox;
-    TabSheet1: TTabSheet;
     TabSheetCristalografia: TTabSheet;
     TabSheetImagem: TTabSheet;
     TabSheetInf_Gerais: TTabSheet;
     TabSheetOticas: TTabSheet;
     TabSheetProp_Fisicas: TTabSheet;
-    ToolBar1: TToolBar;
-    ToolButton2: TToolButton;
-    ToolButtonAddImage: TToolButton;
-    ToolButtonRemoveImage: TToolButton;
     procedure ActionFilterExecute(Sender: TObject);
     procedure ActionSaveModExecute(Sender: TObject);
     procedure ComboBoxClassEditingDone(Sender: TObject);
@@ -145,8 +135,6 @@ type
     procedure EditH_MEditingDone(Sender: TObject);
     procedure EditMineralNameEditingDone(Sender: TObject);
     procedure EditSistemaEditingDone(Sender: TObject);
-    //procedure HeaderControl1SectionClick(HeaderControl: TCustomHeaderControl;
-      //Section: THeaderSection);
     procedure MemoAlteracaoEditingDone(Sender: TObject);
     procedure MemoAnguloEditingDone(Sender: TObject);
     procedure MemoAplicacaoEditingDone(Sender: TObject);
@@ -170,8 +158,6 @@ type
     procedure MemoSinalElongacaoEditingDone(Sender: TObject);
     procedure MemoSinalOpticoEditingDone(Sender: TObject);
     procedure MemoTracoEditingDone(Sender: TObject);
-    // procedure ToolButtonAddImageClick(Sender: TObject);
-    // procedure ToolButtonRemoveImageClick(Sender: TObject);
   private
     function FilterGeneralProp(Current: string): boolean;
     function FilterPhysicalProp(Current: string): boolean;
@@ -182,20 +168,33 @@ type
     FormMode: Mode;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure AddMineralImage(Number: Integer);
+    procedure AddMineralImage(Number: integer);
     procedure ChangeLanguage;
     procedure ClearFields;
+    procedure CreateImageButtons(Count: integer);
     procedure EditingMode(Mode: boolean);
+    procedure ClearImageButtons;
     procedure RefreshComboboxes;
-    procedure RefreshHeaderControl(Count:Integer);
     procedure RefreshImages;
     procedure RemoveImage(Selected: char);
     procedure ViewMineralProp(strName: string);
     { public declarations }
   end;
 
+type
+  ImButtons = record
+    ImBt: TImage;
+    Buttons: TButton;
+  end;
+
+const
+  BtSize: integer = 30;
+  BtMargin: integer = 5;
+
 var
   MineralName: string;
+  ImagesBt: array[0..20] of ImButtons;
+  ImBtCount: integer;
 
 implementation
 
@@ -209,30 +208,8 @@ uses udatamodule, unitfichaespecie, unitadvancedfilter;
 constructor TFrameFicha.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  //FormFichaEspecie.FrameImages.SelectedImage:='1';
+  ImBtCount := 0;
 end;
-{procedure TFrameFicha.ToolButtonAddImageClick(Sender: TObject);
-begin
-  if Dados.DatabaseMineralFileName <> EmptyStr then
-  begin
-    if Dados.ValidateDatabase(Dados.DatabaseMineralFileName) then
-    begin
-      if (Trim(EditMineralName.Text) <> EmptyStr) then
-        AddMineralImage('minerais', FormFichaEspecie.FrameImages.SelectedImage)
-      else
-        AddMineralImage('mineralogia', FormFichaEspecie.FrameImages.SelectedImage);
-    end
-    else
-      ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
-  end
-  else
-    ShowMessage(Lang.NoDatabaseSelected);
-end;}
-
-{procedure TFrameFicha.ToolButtonRemoveImageClick(Sender: TObject);
-begin
-  RemoveImage(FormFichaEspecie.FrameImages.SelectedImage);
-end;}
 
 procedure TFrameFicha.ActionSaveModExecute(Sender: TObject);
 begin
@@ -259,13 +236,13 @@ var
   I: integer;
   List: TStringList;
   Current: string;
-  Filter:Boolean;
+  Filter: boolean;
 begin
   List := TStringList.Create;
   Filter := True;
-  for I := 0 to FormFichaEspecie.FrameList.ListBoxMinerals.Items.Count - 1 do
+  for I := 0 to FormMain.FrameList.ListBoxMinerals.Items.Count - 1 do
   begin
-    Current := FormFichaEspecie.FrameList.ListBoxMinerals.Items.Strings[i];
+    Current := FormMain.FrameList.ListBoxMinerals.Items.Strings[i];
     if not FilterPhysicalProp(Current) then
       if not FilterOpticalProp(Current) then
         if not FilterChrystProp(Current) then
@@ -273,7 +250,7 @@ begin
   end;
   for I := 0 to List.Count - 1 do
   begin
-    FormFichaEspecie.FrameList.ListBoxMinerals.Items.Add(List[I]);
+    FormMain.FrameList.ListBoxMinerals.Items.Add(List[I]);
   end;
 end;
 
@@ -286,33 +263,38 @@ begin
     FieldOpticSign) then
     if Dados.MineralFiltered(Current, Dados.Table3, MemoSinalOptico.Text,
       FieldOpticSignDescr) then
-      //if Dados.MineralBiggerThan(Current, Dados.Table3, EditBMin.Text, FieldBirrMin) then
-        if Dados.MineralLessThan(Current, Dados.Table3, EditBMax.Text, FieldBirrMax) then
-          if Dados.MineralFiltered(Current, Dados.Table3, MemoBirrefringencia.Text,
-            FieldBirrefringence) then
-            if Dados.MineralFiltered(Current, Dados.Table3, MemoIndiceRefracao.Text,
-              FieldRefractionIndex) then
-              if Dados.MineralFiltered(Current, Dados.Table3, MemoCorLamina.Text,
-                FieldColorBlade) then
+      if Dados.MineralLessThan(Current, Dados.Table3, EditBMax.Text, FieldBirrMax) then
+        if Dados.MineralFiltered(Current, Dados.Table3, MemoBirrefringencia.Text,
+          FieldBirrefringence) then
+          if Dados.MineralFiltered(Current, Dados.Table3,
+            MemoIndiceRefracao.Text, FieldRefractionIndex) then
+            if Dados.MineralFiltered(Current, Dados.Table3,
+              MemoCorLamina.Text, FieldColorBlade) then
+              if Dados.MineralFiltered(Current, Dados.Table3,
+                MemoSinalElongacao.Text, FieldElongationSign) then
                 if Dados.MineralFiltered(Current, Dados.Table3,
-                  MemoSinalElongacao.Text, FieldElongationSign) then
-                  if Dados.MineralFiltered(Current, Dados.Table3, MemoRelevo.Text, FieldRelief) then
-                    if Dados.MineralFiltered(Current, Dados.Table3, MemoAngulo.Text, Field2VAngle) then
-                      if Dados.MineralFiltered(Current, Dados.Table3, MemoExtincao.Text, FieldExtinction) then
-                            Return := False;
+                  MemoRelevo.Text, FieldRelief) then
+                  if Dados.MineralFiltered(Current, Dados.Table3,
+                    MemoAngulo.Text, Field2VAngle) then
+                    if Dados.MineralFiltered(Current, Dados.Table3,
+                      MemoExtincao.Text, FieldExtinction) then
+                      Return := False;
   Result := Return;
 end;
 
 function TFrameFicha.FilterChrystProp(Current: string): boolean;
-var Return:Boolean;
+var
+  Return: boolean;
 begin
-  Return:=True;
+  Return := True;
   if Dados.MineralFiltered(Current, Dados.Table4, MemoHabito.Text, FieldHabit) then
-    if Dados.MineralFiltered(Current, Dados.Table4, EditSistema.Text, FieldCrystSystem) then
+    if Dados.MineralFiltered(Current, Dados.Table4, EditSistema.Text,
+      FieldCrystSystem) then
       if Dados.MineralFiltered(Current, Dados.Table4, EditH_M.Text, FieldSymbology) then
-        if Dados.MineralFiltered(Current, Dados.Table4, EditSistema.Text, FieldCrystSystem) then
-          Return:=False;
-  Result:=Return;
+        if Dados.MineralFiltered(Current, Dados.Table4, EditSistema.Text,
+          FieldCrystSystem) then
+          Return := False;
+  Result := Return;
 end;
 
 procedure TFrameFicha.ComboBoxClassEditingDone(Sender: TObject);
@@ -400,9 +382,6 @@ begin
 end;
 
 procedure TFrameFicha.EditCompositionEditingDone(Sender: TObject);
-var
-  Minerals: TStringList;
-  I: integer;
 begin
   case FormMode of
     Edit:
@@ -445,66 +424,6 @@ begin
   end;
 end;
 
-{procedure TFrameFicha.HeaderControl1SectionClick(HeaderControl: TCustomHeaderControl;
-  Section: THeaderSection);
-begin
-  if (Trim(EditMineralName.Text) <> Emptystr) then
-  begin
-    case Section.Index of
-      0:
-      begin
-        self.ImagemAmpliada.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem1',
-          EditMineralName.Text, EmptyStr);
-        FormFichaEspecie.FrameImages.SelectedImage := '1';
-      end;
-      1:
-      begin
-        self.ImagemAmpliada.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem2',
-          EditMineralName.Text, EmptyStr);
-        FormFichaEspecie.FrameImages.SelectedImage := '2';
-      end;
-      2:
-      begin
-        self.ImagemAmpliada.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem3',
-          EditMineralName.Text, EmptyStr);
-        FormFichaEspecie.FrameImages.SelectedImage := '3';
-      end;
-      3:
-      begin
-        self.ImagemAmpliada.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem4',
-          EditMineralName.Text, EmptyStr);
-        FormFichaEspecie.FrameImages.SelectedImage := '4';
-      end;
-      4:
-      begin
-        self.ImagemAmpliada.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem5',
-          EditMineralName.Text, EmptyStr);
-        FormFichaEspecie.FrameImages.SelectedImage := '5';
-      end;
-      5:
-      begin
-        self.ImagemAmpliada.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem6',
-          EditMineralName.Text, EmptyStr);
-        FormFichaEspecie.FrameImages.SelectedImage := '6';
-      end;
-      6:
-      begin
-        self.ImagemAmpliada.Picture.Graphic :=
-          SelectBlobFieldToJPEGImage(Dados.Table5, 'imagem7',
-          EditMineralName.Text, EmptyStr);
-        FormFichaEspecie.FrameImages.SelectedImage := '7';
-      end;
-    end;
-  end;
-  RefreshHeaderControl(FormFichaEspecie.FrameImages.SelectedImage);
-end;
- }
 procedure TFrameFicha.MemoAlteracaoEditingDone(Sender: TObject);
 begin
   case FormMode of
@@ -858,7 +777,7 @@ begin
   Result := Return;
 end;
 
-procedure TFrameFicha.AddMineralImage(Number: Integer);
+procedure TFrameFicha.AddMineralImage(Number: integer);
 begin
   OpenPictureDialog1.FileName := emptystr;
   if OpenPictureDialog1.Execute then
@@ -867,64 +786,60 @@ begin
       //InsertBlobField()
         {AddBlobFieldMineral(OpenPictureDialog1.FileName,
           Dados.Table5, 'imagem' + Number, EditMineralName.Text);}
-      //FormFichaEspecie.FrameImages.SelectedImage := Number;
+      //FormMain.FrameImages.SelectedImage := Number;
       RefreshImages;
     end;
 end;
 
 procedure TFrameFicha.ChangeLanguage;
 begin
-  if SetLanguage(ConfigGetLanguage) then
-  begin
-    TabSheetInf_Gerais.Caption:=Lang.GeneralInformation;
-    TabSheetProp_fisicas.Caption:=Lang.PhysicalProperties;
-    TabSheetOticas.Caption:=Lang.OpticalProperties;
-    TabSheetCristalografia.Caption:=Lang.Crystallography;
-    TabSheetImagem.Caption:=Lang.Image;
+  TabSheetInf_Gerais.Caption := Lang.GeneralInformation;
+  TabSheetProp_fisicas.Caption := Lang.PhysicalProperties;
+  TabSheetOticas.Caption := Lang.OpticalProperties;
+  TabSheetCristalografia.Caption := Lang.Crystallography;
+  TabSheetImagem.Caption := Lang.Image;
 
-    LabelNome.Caption:=Lang.Name;
-    LabelComposicao.Caption:=Lang.Composition;
-    LabelClasse.Caption:=Lang.MineralClass;
-    LabelSubClasse.Caption:=Lang.Subclass;
-    LabelGrupo.Caption:=Lang.Group;
-    LabelSubgrupo.Caption:=Lang.Subgroup;
-    LabelOcorrencia.Caption:=Lang.Occurrence;
-    LabelAssociacao.Caption:=Lang.Association;
-    LabelDistincao.Caption:=Lang.Distinction;
-    LabelAlteracao.Caption:=Lang.Alteration;
-    LabelAplicacao.Caption:=Lang.Usage;
+  LabelNome.Caption := Lang.Name;
+  LabelComposicao.Caption := Lang.Composition;
+  LabelClasse.Caption := Lang.MineralClass;
+  LabelSubClasse.Caption := Lang.Subclass;
+  LabelGrupo.Caption := Lang.Group;
+  LabelSubgrupo.Caption := Lang.Subgroup;
+  LabelOcorrencia.Caption := Lang.Occurrence;
+  LabelAssociacao.Caption := Lang.Association;
+  LabelDistincao.Caption := Lang.Distinction;
+  LabelAlteracao.Caption := Lang.Alteration;
+  LabelAplicacao.Caption := Lang.Usage;
 
-    LabelHardness.Caption:=Lang.Hardness;
-    LabelDensity.Caption:=Lang.Density;
-    LabelCor.Caption:=Lang.Color;
-    LabelTraco.Caption:=Lang.Streak;
-    LabelBrilho.Caption:=Lang.Luster;
-    LabelClivagem.Caption:=Lang.Cleavage;
-    LabelFratura.Caption:=Lang.Fracture;
-    LabelMagnetismo.Caption:=Lang.Magnetism;
-    LabelLuminescencia.Caption:=Lang.Luminescence;
+  LabelHardness.Caption := Lang.Hardness;
+  LabelDensity.Caption := Lang.Density;
+  LabelCor.Caption := Lang.Color;
+  LabelTraco.Caption := Lang.Streak;
+  LabelBrilho.Caption := Lang.Luster;
+  LabelClivagem.Caption := Lang.Cleavage;
+  LabelFratura.Caption := Lang.Fracture;
+  LabelMagnetismo.Caption := Lang.Magnetism;
+  LabelLuminescencia.Caption := Lang.Luminescence;
 
-    //LabelDiafaneidade.Caption:=Lang.Diaphanousness;
-    LabelSinal_Optico.Caption:=Lang.OpticalSignal;
-    LabelIndice_Refracao.Caption:=Lang.RefractiveIndex;
-    LabelAngulo_2V.Caption:=Lang.Angle2V;
-    //LabelCor_Interferencia.Caption:=Lang.InterferenceColor;
-    LabelCor_Lamina.Caption:=Lang.BladeColor;
-    LabelSinal_Elongacao.Caption:=Lang.SignElongation;
-    LabelBirrefringencia.Caption:=Lang.Birefringence;
-    LabelRelevo.Caption:=Lang.Relief;
-    LabelSistema_Cristalino.Caption:=Lang.CrystallineSystem;
-    LabelClasse_Cristalina.Caption:=Lang.CrystalineClass;
-    LabelSimbologia.Caption:=Lang.Symbology;
-    LabelHabito.Caption:=Lang.Habit;
+  //LabelDiafaneidade.Caption:=Lang.Diaphanousness;
+  LabelSinal_Optico.Caption := Lang.OpticalSignal;
+  LabelIndice_Refracao.Caption := Lang.RefractiveIndex;
+  LabelAngulo_2V.Caption := Lang.Angle2V;
+  //LabelCor_Interferencia.Caption:=Lang.InterferenceColor;
+  LabelCor_Lamina.Caption := Lang.BladeColor;
+  LabelSinal_Elongacao.Caption := Lang.SignElongation;
+  LabelBirrefringencia.Caption := Lang.Birefringence;
+  LabelRelevo.Caption := Lang.Relief;
+  LabelSistema_Cristalino.Caption := Lang.CrystallineSystem;
+  LabelClasse_Cristalina.Caption := Lang.CrystalineClass;
+  LabelSimbologia.Caption := Lang.Symbology;
+  LabelHabito.Caption := Lang.Habit;
 
-    ToolbuttonAddImage.Hint:=Lang.AddImage;
-    ToolButtonRemoveImage.Hint:=Lang.RemoveImage;
-    MenuItemAddImage4.Caption:=Lang.AddImage;
-    MenuItemAddImage5.Caption:=Lang.AddImage;;
-    MenuItemRemoveImage4.Caption:=Lang.RemoveImage;
-    MenuItemRemoveImage5.Caption:=Lang.RemoveImage;
-  end;
+  MenuItemAddImage4.Caption := Lang.AddImage;
+  MenuItemAddImage5.Caption := Lang.AddImage;
+  ;
+  MenuItemRemoveImage4.Caption := Lang.RemoveImage;
+  MenuItemRemoveImage5.Caption := Lang.RemoveImage;
 end;
 
 procedure TFrameFicha.ClearFields;
@@ -969,6 +884,34 @@ begin
   EditClasse_Cristalina.Text := '';
   EditH_M.Text := '';
   MemoHabito.Text := '';
+end;
+
+procedure TFrameFicha.CreateImageButtons(Count: integer);
+var
+  I: integer;
+begin
+  for I := 0 to ImBtCount - 1 do
+  begin
+    ImagesBt[I].ImBt.Free;
+    ImagesBt[I].Buttons.Free;
+  end;
+  ImBtCount:=Count;
+  if Count > 0 then
+  begin
+    for I := 0 to Count - 1 do
+    begin
+      ImagesBt[I].Buttons:= TButton.Create(self);
+      with ImagesBt[I].Buttons do
+      begin
+        Top := BtMargin;
+        Left := BtMargin + (I * (BtSize + BtMargin));
+        Width := BtSize;
+        Height := BtSize;
+        Visible:=True;
+        Parent:=PanelImageButtons;
+      end;
+    end;
+  end;
 end;
 
 procedure TFrameFicha.EditingMode(Mode: boolean);
@@ -1017,9 +960,19 @@ begin
   MemoHabito.Enabled := Mode;
 end;
 
+procedure TFrameFicha.ClearImageButtons;
+var I:Integer;
+begin
+  for I := 0 to ImBtCount - 1 do
+  begin
+    ImagesBt[I].ImBt.Free;
+    ImagesBt[I].Buttons.Free;
+  end;
+  ImBtCount:=0;
+end;
+
 procedure TFrameFicha.RefreshComboboxes;
 begin
-  //to do:substituir editexts de classe, subclasse, etc para comboboxes com readonly:=false
   ComboboxOpticSign.Items := Dados.ReturnDistinctField(FieldOpticSign, Dados.Table3);
   ComboboxClass.Items := Dados.ReturnDistinctField(FieldClass, Dados.Table1);
   ComboboxSubclass.Items := Dados.ReturnDistinctField(FieldSubClass, Dados.Table1);
@@ -1027,32 +980,21 @@ begin
   ComboboxSubgroup.Items := Dados.ReturnDistinctField(FieldSubGroup, Dados.Table1);
 end;
 
-procedure TFrameFicha.RefreshHeaderControl(Count:Integer);
-var I:Integer;
-begin
-  HeaderControl1.Sections.Clear;
-  For I:=0 to Count do
-  begin
-    HeaderControl1.Sections.Add;
-  end;
-end;
-
 procedure TFrameFicha.RefreshImages;
-var I, Count:Integer;
+var
+  I, Count: integer;
 begin
-  Count:=GetImagesCount;
-  if Count >0 then
+  Count := GetImagesCount;
+  if Count > 0 then
   begin
     self.ImagemAmpliada.Picture.Graphic :=
-    SelectBlobFieldToJPEGImage(Dados.Table5, FieldImage,
-    EditMineralName.Text);
-    for I:=0 to Count-1 do
+      SelectImage(EditMineralName.Text, 0);
+    for I := 0 to Count - 1 do
     begin
 
     end;
   end;
-  RefreshHeaderControl(Count);
-  FormFichaEspecie.FrameImages.RefreshImages(EditMineralName.Text, Count);
+  FormMain.FrameImages.RefreshImages(EditMineralName.Text, Count);
 end;
 
 procedure TFrameFicha.RemoveImage(Selected: char);
@@ -1064,7 +1006,7 @@ begin
       if (Trim(EditMineralName.Text) <> EmptyStr) then
       begin
         ClearBlobField(Dados.Table5, 'imagem' + Selected,
-          EditMineralName.Text, EmptyStr, EmptyStr, EmptyStr);
+          EditMineralName.Text);
       end;
       RefreshImages;
     end
@@ -1073,7 +1015,7 @@ begin
   end
   else
     ShowMessage(Lang.NoDatabaseSelected);
-  FormFichaEspecie.FrameImages.SelectedImage := '1';
+  FormMain.FrameImages.SelectedImage := '1';
 end;
 
 procedure TFrameFicha.ViewMineralProp(strName: string);
@@ -1143,14 +1085,14 @@ begin
     EditH_M.Text := Dados.TableChryst.FieldByName[FieldSymbology];
     MemoHabito.Text := Dados.TableChryst.FieldByName[FieldHabit];
 
-    FormFichaEspecie.FrameImages.SelectedImage := '1';
+    FormMain.FrameImages.SelectedImage := '1';
     RefreshImages;
-    BtnSaveMod.Enabled := False;
   end;
 end;
 
 destructor TFrameFicha.Destroy;
 begin
+  ClearImageButtons;
   inherited Destroy;
 end;
 
