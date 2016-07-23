@@ -43,6 +43,7 @@ type
     { private declarations }
   public
     { public declarations }
+    procedure ChangeLanguage;
   end;
 
 var
@@ -111,6 +112,14 @@ procedure TFormAddImage.FormShow(Sender: TObject);
 begin
   ComboBoxMineralsNames.Clear;
   ComboBoxMineralsNames.Items:=Dados.ReturnDistinctField(FieldName, Dados.Table1);
+end;
+
+procedure TFormAddImage.ChangeLanguage;
+begin
+  self.Caption:=Lang.AddImage;
+  LabelName.Caption:=Lang.Name;
+//  LabelCategory.Caption:=Lang.Category;
+   LabelDescription.Caption:=Lang.Description;
 end;
 
 end.
