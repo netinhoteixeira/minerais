@@ -70,6 +70,7 @@ procedure AddBlobField(ImageFilename, MineralName, Category, Description:String)
 procedure ClearBlobField(Table, Field, Especie:String);
 function SelectImage(FieldStr: String; Index:Integer): TJpegImage;
 function GetImagesCount:Integer;
+function MineralImagesCount(Name:String):Integer;
 
 var
   MS: TMemoryStream;
@@ -146,6 +147,15 @@ begin
      SQlstr:= 'SELECT '+FieldName+' FROM '+Dados.Table5+' ; ';
      Dados.TableImages := Dados.DatabaseMinerals.GetTable(SQLstr);
      Result:=Dados.TableImages.Count;
+end;
+
+function MineralImagesCount(Name: String): Integer;
+var SQLStr: String;
+begin
+   SQlstr:= 'SELECT '+FieldName+' FROM '+Dados.Table5+' WHERE '+FieldName+'="'+
+   Name+'"; ';
+   Dados.TableImages := Dados.DatabaseMinerals.GetTable(SQLstr);
+   Result:=Dados.TableImages.Count;
 end;
 
 end.
