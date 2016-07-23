@@ -94,8 +94,8 @@ type
     TableImages: TSQLiteTable;
 
     DatabaseMineralFileName: string;
+    AppPath:String;
 
-    Caminho: string;
     function AddMineral(Nome: string): integer;
     procedure UpdateField(Table, Field, NewValue, Especie: string);
     procedure CreateDatabase(Diretorio: string);
@@ -119,6 +119,7 @@ type
       DescSinalOptico, DescRefracao, DescBirrefringencia, {CorInterferencia,}
       CorLamina, Elongacao, Relevo, Angulo2V, Extincao, Nome: string);
     procedure UpdateCrystallography(Sistema, Classe, Simbologia, Habito, Nome: string);
+    function GetCount(NameStr:String): Integer;
     function ValidateDatabase(Path: string): boolean;
     { public declarations }
   end;
@@ -204,7 +205,7 @@ begin
   {$IFDEF UNIX}
   Sep := '/';
   {$ENDIF}
-  Caminho := GetCurrentDir + Sep;
+  AppPath := GetCurrentDir + Sep;
   DatabaseMineralFilename := ConfigGetDatabase;
 end;
 
@@ -646,6 +647,15 @@ begin
     '" , '+FieldChrystClass+' = "' + Classe + '" , ' + FieldSymbology+' = "' +
     Simbologia + '" , '+FieldHabit+' = "' + Habito + '" ' + 'WHERE '+FieldName+' = "' + Nome + '"  ; ';
   DatabaseMInerals.ExecSQL(SQlstr);
+end;
+
+function TDados.GetCount(NameStr: String): Integer;
+var
+  SQLstr: string;
+begin
+  SQLstr:= 'SELECT '+FieldName+' FROM '+Table1+' WHERE '+FieldName+'="'+NameStr+'" ;';
+  TableGeneral:=DatabaseMinerals.GetTable(SQLstr);
+  result:=TableGeneral.Count;
 end;
 
 procedure TDados.DataModuleDestroy(Sender: TObject);
