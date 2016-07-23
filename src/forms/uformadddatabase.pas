@@ -48,51 +48,51 @@ procedure TFormAddDatabase.ActionCreateDatabaseExecute(Sender: TObject);
 begin
   if Trim(Edit1.Text) <> EmptyStr then
   begin
-      if DirectoryExists(Dados.Caminho+'Data') then
+      if DirectoryExists(Dados.AppPath+'Data') then
       begin
-        if FileExists(Dados.caminho+Edit1.Text+'.s3db') then
+        if FileExists(Dados.AppPath+Edit1.Text+'.s3db') then
         begin
-          if Dados.ValidateDatabase(Dados.Caminho+Edit1.Text+
+          if Dados.ValidateDatabase(Dados.AppPath+Edit1.Text+
             '.s3db') then
             ShowMessage(Lang.ThereIsAlreadyARecordWithThatName)
           else
           begin
-            Dados.CreateDatabase(Dados.Caminho+Edit1.Text+
+            Dados.CreateDatabase(Dados.AppPath+Edit1.Text+
               '.s3db');
-            FormSelectDatabase.Edit1.Text:= Dados.Caminho+Edit1.Text+
+            FormSelectDatabase.Edit1.Text:= Dados.AppPath+Edit1.Text+
               '.s3db';
           end;
         end
         else
         begin
-          Dados.CreateDatabase( Dados.Caminho+ Edit1.Text+'.s3db');
-          FormSelectDatabase.Edit1.Text:= Dados.Caminho+Edit1.Text+
+          Dados.CreateDatabase( Dados.AppPath+ Edit1.Text+'.s3db');
+          FormSelectDatabase.Edit1.Text:= Dados.AppPath+Edit1.Text+
               '.s3db';
         end;
       end
       else
       begin
-        if FileExists(Dados.Caminho+Edit1.Text+'.s3db') then
+        if FileExists(Dados.AppPath+Edit1.Text+'.s3db') then
         begin
-          if Dados.ValidateDatabase(Dados.Caminho+Edit1.Text+
+          if Dados.ValidateDatabase(Dados.AppPath+Edit1.Text+
             '.s3db') then
             ShowMessage(Lang.ThereIsAlreadyARecordWithThatName)
           else
           begin
-            Dados.CreateDatabase(Dados.Caminho+ Edit1.Text+
+            Dados.CreateDatabase(Dados.AppPath+ Edit1.Text+
               '.s3db');
-            FormSelectDatabase.Edit1.Text:= Dados.Caminho+Edit1.Text+
+            FormSelectDatabase.Edit1.Text:= Dados.AppPath+Edit1.Text+
               '.s3db';
           end;
         end
         else
         begin
-          Dados.CreateDatabase(Dados.Caminho+Edit1.Text+'.s3db');
-          FormSelectDatabase.Edit1.Text:= Dados.Caminho+Edit1.Text+
+          Dados.CreateDatabase(Dados.AppPath+Edit1.Text+'.s3db');
+          FormSelectDatabase.Edit1.Text:= Dados.AppPath+Edit1.Text+
               '.s3db';
         end;
       end;
-      Dados.DatabaseMineralFileName := Dados.Caminho+ Edit1.Text+'.s3db';
+      Dados.DatabaseMineralFileName := Dados.AppPath+ Edit1.Text+'.s3db';
       ConfigSetDatabase(Dados.DatabaseMineralFileName);
     FormAddDatabase.Visible := False;
   end
