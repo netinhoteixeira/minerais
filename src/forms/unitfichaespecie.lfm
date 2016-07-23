@@ -1,7 +1,7 @@
-object FormFichaEspecie: TFormFichaEspecie
+object FormMain: TFormMain
   Left = 160
   Height = 614
-  Top = 91
+  Top = 89
   Width = 967
   Caption = 'Guia de Minerais'
   ClientHeight = 588
@@ -70,16 +70,6 @@ object FormFichaEspecie: TFormFichaEspecie
       ParentShowHint = False
       ShowHint = True
     end
-    object ToolButtonShowImages: TToolButton
-      Left = 154
-      Hint = 'Imagens'
-      Top = 2
-      Caption = 'ToolButtonShowImages'
-      ImageIndex = 5
-      OnClick = ActionImagesVisibleExecute
-      ParentShowHint = False
-      ShowHint = True
-    end
     object ToolButton1: TToolButton
       Left = 177
       Height = 22
@@ -99,7 +89,7 @@ object FormFichaEspecie: TFormFichaEspecie
       ParentFont = False
     end
     object ToolButton3: TToolButton
-      Left = 149
+      Left = 126
       Height = 22
       Top = 2
       Width = 5
@@ -124,12 +114,6 @@ object FormFichaEspecie: TFormFichaEspecie
       Caption = 'ToolButton4'
       Style = tbsDivider
     end
-    object ToolButton9: TToolButton
-      Left = 182
-      Top = 2
-      Caption = 'ToolButton9'
-      ImageIndex = 20
-    end
     object ToolButtonAdvancedFilter: TToolButton
       Left = 80
       Top = 2
@@ -138,10 +122,23 @@ object FormFichaEspecie: TFormFichaEspecie
       OnClick = ActionShowAdvancedFilterExecute
     end
     object ToolButtonAddImage: TToolButton
-      Left = 126
+      Left = 131
       Top = 2
       Caption = 'ToolButtonAddImage'
       OnClick = ActionFormAddImageExecute
+    end
+    object ToolButtonRmImage: TToolButton
+      Left = 154
+      Top = 2
+      Caption = 'ToolButtonRmImage'
+      OnClick = ActionFormRmImageExecute
+    end
+    object ToolButtonShowImages: TToolButton
+      Left = 182
+      Top = 2
+      Caption = 'ToolButtonShowImages'
+      ImageIndex = 14
+      OnClick = ActionImagesVisibleExecute
     end
   end
   object OpenPictureDialog1: TOpenPictureDialog
@@ -185,6 +182,26 @@ object FormFichaEspecie: TFormFichaEspecie
       Category = 'ToolButtons'
       Caption = 'ActionFormAddImage'
       OnExecute = ActionFormAddImageExecute
+    end
+    object ActionEnglish: TAction
+      Category = 'Language'
+      Caption = 'ActionEnglish'
+      OnExecute = ActionEnglishExecute
+    end
+    object ActionPortuguese: TAction
+      Category = 'Language'
+      Caption = 'ActionPortuguese'
+      OnExecute = ActionPortugueseExecute
+    end
+    object ActionFormRmImage: TAction
+      Category = 'ToolButtons'
+      Caption = 'ActionFormRmImage'
+      OnExecute = ActionFormRmImageExecute
+    end
+    object ActionShowHelp: TAction
+      Category = 'Help'
+      Caption = 'ActionShowHelp'
+      OnExecute = ActionShowHelpExecute
     end
   end
   object ImageList1: TImageList
@@ -871,50 +888,54 @@ object FormFichaEspecie: TFormFichaEspecie
     top = 80
     object MenuItem1: TMenuItem
       Caption = 'Arquivo'
-      object MenuItemPrint: TMenuItem
-        Caption = 'Imprimir'
-        Visible = False
+      object MenuItemDatabase: TMenuItem
+        Caption = 'Database'
+        OnClick = ActionOpenDatabaseFormExecute
       end
       object MenuItemClose: TMenuItem
         Caption = 'Sair'
         OnClick = MenuItemCloseClick
       end
     end
-    object MenuItem2: TMenuItem
-      Caption = 'Editar'
-      object MenuItemAddImage: TMenuItem
-        Caption = 'Add Image'
-        OnClick = MenuItemAddImageClick
+    object MenuItemEdit: TMenuItem
+      Caption = 'Edit'
+      object MenuItemAdd: TMenuItem
+        Caption = 'Add'
+        object MenuItemAddMineral: TMenuItem
+          Caption = 'Mineral'
+          OnClick = ActionAddExecute
+        end
+        object MenuItemAddImages: TMenuItem
+          Caption = 'Images'
+          OnClick = ActionFormAddImageExecute
+        end
+      end
+      object MenuItemRemove: TMenuItem
+        Caption = 'Remove'
+        object MenuItemRmMineral: TMenuItem
+          Caption = 'Mineral'
+          OnClick = ActionRemoveMineralExecute
+        end
+        object MenuItemRmImages: TMenuItem
+          Caption = 'Images'
+          OnClick = ActionFormRmImageExecute
+        end
       end
     end
-    object MenuItem3: TMenuItem
-      Caption = 'Exibir'
-      object MenuItemAddMineral: TMenuItem
-        Caption = 'Adicionar Mineral'
-        OnClick = ActionAddExecute
+    object MenuItemLanguage: TMenuItem
+      Caption = 'Language'
+      object MenuItemEnglish: TMenuItem
+        Caption = 'English'
+        OnClick = ActionEnglishExecute
       end
-      object MenuItemRemoveMineral: TMenuItem
-        Caption = 'Remover Minerais'
-        OnClick = ActionRemoveMineralExecute
-      end
-      object MenuItemConfiguracao: TMenuItem
-        Caption = 'Configurações'
-      end
-      object MenuItem5: TMenuItem
-        Caption = 'Filtro'
-        OnClick = ActionFilterVisibleExecute
-      end
-      object MenuItem6: TMenuItem
-        Caption = 'Imagens'
-        OnClick = ActionImagesVisibleExecute
-      end
-      object MenuItemBibliografia: TMenuItem
-        Caption = 'Bibliografia'
-        Visible = False
+      object MenuItemPortuguese: TMenuItem
+        Caption = 'Português'
+        OnClick = ActionPortugueseExecute
       end
     end
-    object MenuItemAjuda: TMenuItem
-      Caption = 'Ajuda'
+    object MenuItemHelp: TMenuItem
+      Caption = 'Help'
+      OnClick = ActionShowHelpExecute
     end
   end
 end
