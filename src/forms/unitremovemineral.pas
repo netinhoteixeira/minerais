@@ -67,7 +67,7 @@ begin
     FrameList.ListBoxMinerals.Items.Delete(
       FrameList.ListBoxMinerals.Items.IndexOf(
       FrameList.ListBoxMinerals.GetSelectedText));
-    FormFichaEspecie.FrameList.RefreshList;
+    FormMain.FrameList.RefreshList;
   end
   //else
   //ShowMessage(Lang.SelectRecordToExclude);

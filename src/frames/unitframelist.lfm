@@ -97,7 +97,7 @@ object FrameList: TFrameList
     end
     object LabelOrder: TLabel
       Left = 12
-      Height = 21
+      Height = 20
       Top = 8
       Width = 71
       Caption = 'LabelOrder'
@@ -105,7 +105,7 @@ object FrameList: TFrameList
     end
     object LabelMinerals: TLabel
       Left = 12
-      Height = 21
+      Height = 20
       Top = 184
       Width = 88
       Caption = 'LabelMinerals'
@@ -113,8 +113,8 @@ object FrameList: TFrameList
     end
     object LabelRecordsNumber: TLabel
       Left = 12
-      Height = 21
-      Top = 603
+      Height = 20
+      Top = 604
       Width = 138
       Anchors = [akLeft, akBottom]
       Caption = 'LabelRecordsNumber'
@@ -133,6 +133,28 @@ object FrameList: TFrameList
       Category = 'RadioButton'
       Caption = 'ActionRBClick'
       OnExecute = ActionRBClickExecute
+    end
+    object ActionAddMineral: TAction
+      Category = 'Popup'
+      Caption = 'ActionAddMineral'
+      OnExecute = ActionAddMineralExecute
+    end
+    object ActionRemoveMineral: TAction
+      Category = 'Popup'
+      Caption = 'ActionRemoveMineral'
+      OnExecute = ActionRemoveMineralExecute
+    end
+  end
+  object PopupMenu1: TPopupMenu
+    left = 49
+    top = 295
+    object MenuItemAdd: TMenuItem
+      Caption = 'New Item1'
+      OnClick = ActionAddMineralExecute
+    end
+    object MenuItemRemove: TMenuItem
+      Caption = 'New Item2'
+      OnClick = ActionRemoveMineralExecute
     end
   end
 end

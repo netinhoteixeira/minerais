@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, Spin,
-  ActnList, udatamodule, unitframelist, uframeimages;
+  ActnList, udatamodule, unitframelist, uframeimages, unitlanguage;
 
 type
 
@@ -60,7 +60,6 @@ type
     procedure AddSubclasses;
     procedure AddSubgroups;
     procedure ChangeLanguage;
-    function MineralogyName:String;
     { public declarations }
   end;
 
@@ -80,26 +79,26 @@ begin
   AddSubclasses;
   AddGroups;
   AddSubgroups;
-  FormFichaEspecie.FrameList.RefreshList;
+  FormMain.FrameList.RefreshList;
   //FrameImages.RefreshImages; //RefreshImages deve ficar dentro de RefreshList
 end;
 
 procedure TFrameSimpleFilter.ActionCBGroupChangeExecute(Sender: TObject);
 begin
   AddSubgroups;
-  FormFichaEspecie.FrameList.RefreshList;
+  FormMain.FrameList.RefreshList;
 end;
 
 procedure TFrameSimpleFilter.ActionCBSubclassChangeExecute(Sender: TObject);
 begin
   AddGroups;
   AddSubgroups;
-  FormFichaEspecie.FrameList.RefreshList;
+  FormMain.FrameList.RefreshList;
 end;
 
 procedure TFrameSimpleFilter.ActionCBSubgroupChangeExecute(Sender: TObject);
 begin
-  FormFichaEspecie.FrameList.RefreshList;
+  FormMain.FrameList.RefreshList;
 end;
 
 procedure TFrameSimpleFilter.ActionETAssocEditingDOneExecute(Sender: TObject);
@@ -107,7 +106,7 @@ begin
   if Dados.DatabaseMineralFileName <> EmptyStr then
   begin
     if (EditAssoc.Text <> strAssoc) then
-       FormFichaEspecie.FrameList.RefreshList;
+       FormMain.FrameList.RefreshList;
     strAssoc := EditAssoc.Text;
   end;
 end;
@@ -117,7 +116,7 @@ begin
   if Dados.DatabaseMineralFileName <> EmptyStr then
   begin
     if (EditName.Text <> strName) then
-      FormFichaEspecie.FrameList.RefreshList;
+      FormMain.FrameList.RefreshList;
     strName := EditName.Text;
   end;
 end;
@@ -127,14 +126,14 @@ begin
   if Dados.DatabaseMineralFileName <> EmptyStr then
   begin
     if (EditAssoc.Text <> strAssoc) then
-       FormFichaEspecie.FrameList.RefreshList;
+       FormMain.FrameList.RefreshList;
     strAssoc := EditAssoc.Text;
   end;
 end;
 
 procedure TFrameSimpleFilter.ActionSpinChangeExecute(Sender: TObject);
 begin
-  FormFichaEspecie.FrameList.RefreshList;
+  FormMain.FrameList.RefreshList;
 end;
 
 procedure TFrameSimpleFilter.AddClasses;
@@ -325,32 +324,15 @@ end;
 
 procedure TFrameSimpleFilter.ChangeLanguage;
 begin
-  //TODO
-end;
-
-function TFrameSimpleFilter.MineralogyName: String;
-begin
-  if (ComboBoxSubgroup.Text = EmptyStr) then
-  begin
-    if (ComboBoxGroup.Text = EmptyStr) then
-    begin
-      if (ComboBoxSubclass.Text = EmptyStr) then
-      begin
-        if (ComboBoxClass.Text = EmptyStr) then
-        begin
-          Result := 'Geral';
-        end
-        else
-          Result := ComboBoxClass.Text;
-      end
-      else
-        Result := ComboBoxSubclass.Text;
-    end
-    else
-      Result := ComboBoxGroup.Text;
-  end
-  else
-    Result := ComboBoxSubgroup.Text;
+  LabelName.Caption:=Lang.Name;
+  LabelClass.Caption:=Lang.MineralClass;
+  LabelSubClass.Caption:=Lang.Subclass;
+  LabelGroup.Caption:=Lang.Group;
+  LabelSubGroup.Caption:=Lang.Subgroup;
+  LabelHard.Caption:=Lang.Hardness;
+  LabelDens.Caption:=Lang.Density;
+  LabelOccur.Caption:=Lang.Occurrence;
+  LabelAssoc.Caption:=Lang.Association;
 end;
 
 end.
