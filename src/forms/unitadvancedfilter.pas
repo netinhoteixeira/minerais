@@ -36,7 +36,6 @@ begin
   with FFicha do
   begin
     Parent := FormAdvancedFilter;
-    PanelButtonSave.Visible:=False;
     EditingMode(True);
     FormMode:= Filter;
     PageControlFIcha.Pages[4].Visible:= False;

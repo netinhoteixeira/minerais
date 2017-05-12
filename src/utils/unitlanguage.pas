@@ -459,33 +459,6 @@ begin
 
     Lang.SelectRecordToExclude:='Selecione um registro para excluir';
     Result:=True;
-  end
-  else
-  begin
-    {Config:=TIniFile.Create(Dados.Caminho+'config.ini');
-    Aux:=Config.ReadString('Configurations', 'Language Path', EmptyStr);
-    Config.Free;
-    if Aux <> EmptyStr then
-    begin
-      if FileExists(Aux) then //getfileextension
-      begin
-        { AssignFile(TranslateFile, SaveDialog1.FileName);
-        While not EOF(TranslateFile) do
-          Read(TranslateFile, Lines);
-        Memo1.Clear;
-        Memo1.Append(Lines);
-        CloseFile(TranslateFile);}
-      end
-      else
-      begin
-        ShowMessage('Invalid language file. Setting default language.');
-        SetLanguage(ConfigGetLanguage);
-      end;
-    end
-    else
-    begin
-      SetLanguage('english');
-    end;  }
   end;
 end;
 

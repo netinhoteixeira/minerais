@@ -15,6 +15,7 @@ type
   TFormSplash = class(TForm)
     Image1: TImage;
     Label1: TLabel;
+    procedure FormDestroy(Sender: TObject);
   private
     { private declarations }
   public
@@ -27,6 +28,13 @@ var
 implementation
 
 {$R *.lfm}
+
+{ TFormSplash }
+
+procedure TFormSplash.FormDestroy(Sender: TObject);
+begin
+
+end;
 
 end.
 

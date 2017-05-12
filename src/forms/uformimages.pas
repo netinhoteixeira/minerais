@@ -6,16 +6,20 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  unitblobfields;
+  unitblobfields, uframeimages;
 
 type
 
   { TFormImages }
 
   TFormImages = class(TForm)
-    ScrollBoxImages: TScrollBox;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     procedure ImageClick(Sender: TObject);
+    Frame: TFrameImage;
     { private declarations }
   public
     procedure AddImages(MineralName: string);
@@ -24,19 +28,31 @@ type
 
 const
   PanelWidth: integer = 300;
-  ImageWidth: integer = 50;
-  ImageHeight : Integer = 50;
-  Border: integer = 10;
 
 var
   FormImages: TFormImages;
-  Image:Array[0..10] of TImage;
 
 implementation
 
 {$R *.lfm}
 
 { TFormImages }
+
+procedure TFormImages.FormCreate(Sender: TObject);
+begin
+   Frame:= TFrameImage.Create(Panel1);
+  with Frame do
+  begin
+    FormMode:Large;
+    Parent := Panel1;
+    Align:= alClient;
+  end;
+end;
+
+procedure TFormImages.FormDestroy(Sender: TObject);
+begin
+   Frame.Free;
+end;
 
 procedure TFormImages.ImageClick(Sender: TObject);
 begin

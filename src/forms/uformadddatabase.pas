@@ -25,6 +25,7 @@ type
     procedure ActionCloseExecute(Sender: TObject);
     procedure ActionCreateDatabaseExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure SpeedButtonCloseClick(Sender: TObject);
   private
@@ -107,6 +108,11 @@ begin
     //ChangeLanguage;
     //SpeedButtonApply.Hint:=Lang.Close;
   end;
+end;
+
+procedure TFormAddDatabase.FormDestroy(Sender: TObject);
+begin
+
 end;
 
 procedure TFormAddDatabase.FormShow(Sender: TObject);

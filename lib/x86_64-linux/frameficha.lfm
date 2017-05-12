@@ -1,0 +1,1158 @@
+object FrameFicha: TFrameFicha
+  Left = 0
+  Height = 733
+  Top = 0
+  Width = 822
+  Align = alClient
+  ClientHeight = 733
+  ClientWidth = 822
+  TabOrder = 0
+  DesignLeft = 422
+  DesignTop = 27
+  object PanelFicha: TPanel
+    Left = 0
+    Height = 733
+    Top = 0
+    Width = 822
+    Align = alClient
+    Caption = 'PanelFicha'
+    ClientHeight = 733
+    ClientWidth = 822
+    Color = clWhite
+    ParentColor = False
+    TabOrder = 0
+    object PageControlFicha: TPageControl
+      Left = 1
+      Height = 731
+      Top = 1
+      Width = 820
+      ActivePage = TabSheetInf_Gerais
+      Align = alClient
+      TabIndex = 0
+      TabOrder = 0
+      object TabSheetInf_Gerais: TTabSheet
+        Caption = 'Informações Gerais'
+        ClientHeight = 697
+        ClientWidth = 810
+        object ScrollBox3: TScrollBox
+          Left = 10
+          Height = 778
+          Top = 10
+          Width = 790
+          HorzScrollBar.Page = 599
+          HorzScrollBar.Range = 150
+          VertScrollBar.Page = 536
+          VertScrollBar.Range = 650
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          AutoScroll = False
+          ClientHeight = 776
+          ClientWidth = 775
+          TabOrder = 0
+          object LabelComposicao: TLabel
+            Left = 15
+            Height = 20
+            Top = 65
+            Width = 78
+            Caption = 'Composição'
+            ParentColor = False
+          end
+          object LabelNome: TLabel
+            Left = 15
+            Height = 20
+            Top = 15
+            Width = 39
+            Caption = 'Nome'
+            ParentColor = False
+          end
+          object LabelClasse: TLabel
+            Left = 15
+            Height = 20
+            Top = 115
+            Width = 43
+            Caption = 'Classe'
+            ParentColor = False
+          end
+          object LabelSubClasse: TLabel
+            Left = 15
+            Height = 20
+            Top = 165
+            Width = 65
+            Caption = 'Subclasse'
+            ParentColor = False
+          end
+          object LabelGrupo: TLabel
+            Left = 15
+            Height = 20
+            Top = 215
+            Width = 39
+            Caption = 'Grupo'
+            ParentColor = False
+          end
+          object LabelSubGrupo: TLabel
+            Left = 15
+            Height = 20
+            Top = 260
+            Width = 62
+            Caption = 'Subgrupo'
+            ParentColor = False
+          end
+          object LabelOcorrencia: TLabel
+            Left = 15
+            Height = 20
+            Top = 314
+            Width = 69
+            Caption = 'Ocorrência'
+            ParentColor = False
+          end
+          object LabelAssociacao: TLabel
+            Left = 15
+            Height = 20
+            Top = 389
+            Width = 70
+            Caption = 'Associação'
+            ParentColor = False
+          end
+          object LabelDistincao: TLabel
+            Left = 15
+            Height = 20
+            Top = 464
+            Width = 59
+            Caption = 'Distinção'
+            ParentColor = False
+          end
+          object LabelAlteracao: TLabel
+            Left = 15
+            Height = 20
+            Top = 539
+            Width = 61
+            Caption = 'Alteração'
+            ParentColor = False
+          end
+          object LabelAplicacao: TLabel
+            Left = 15
+            Height = 20
+            Top = 609
+            Width = 60
+            Caption = 'Aplicação'
+            ParentColor = False
+          end
+          object MemoOccurrence: TMemo
+            Left = 220
+            Height = 60
+            Top = 314
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoOccurrenceEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 6
+          end
+          object MemoAssociation: TMemo
+            Left = 220
+            Height = 60
+            Top = 389
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoAssociationEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 7
+          end
+          object MemoDistinction: TMemo
+            Left = 220
+            Height = 60
+            Top = 464
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoDistinctionEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 8
+          end
+          object MemoAlteracao: TMemo
+            Left = 220
+            Height = 60
+            Top = 539
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoAlteracaoEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 9
+          end
+          object MemoAplicacao: TMemo
+            Left = 220
+            Height = 60
+            Top = 609
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoAplicacaoEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 10
+          end
+          object EditComposition: TEdit
+            Left = 220
+            Height = 32
+            Top = 65
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = EditCompositionEditingDone
+            TabOrder = 1
+            Text = ' '
+          end
+          object EditMineralName: TEdit
+            Left = 220
+            Height = 32
+            Top = 15
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            Font.Style = [fsBold]
+            OnEditingDone = EditMineralNameEditingDone
+            ParentFont = False
+            TabOrder = 0
+          end
+          object ComboBoxClass: TComboBox
+            Left = 220
+            Height = 32
+            Top = 115
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            ItemHeight = 0
+            OnEditingDone = ComboBoxClassEditingDone
+            TabOrder = 2
+            Text = ' '
+          end
+          object ComboBoxSubclass: TComboBox
+            Left = 220
+            Height = 32
+            Top = 165
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            ItemHeight = 0
+            OnEditingDone = ComboBoxSubclassEditingDone
+            TabOrder = 3
+            Text = ' '
+          end
+          object ComboBoxGroup: TComboBox
+            Left = 220
+            Height = 32
+            Top = 215
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            ItemHeight = 0
+            OnEditingDone = ComboBoxGroupEditingDone
+            TabOrder = 4
+            Text = ' '
+          end
+          object ComboBoxSubgroup: TComboBox
+            Left = 220
+            Height = 32
+            Top = 260
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            ItemHeight = 0
+            OnEditingDone = ComboBoxSubgroupEditingDone
+            TabOrder = 5
+            Text = ' '
+          end
+        end
+      end
+      object TabSheetProp_Fisicas: TTabSheet
+        Caption = 'Propriedades Físicas'
+        ClientHeight = 697
+        ClientWidth = 810
+        object ScrollBox4: TScrollBox
+          Left = 10
+          Height = 778
+          Top = 10
+          Width = 790
+          HorzScrollBar.Page = 599
+          HorzScrollBar.Range = 506
+          VertScrollBar.Page = 536
+          VertScrollBar.Range = 650
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          AutoScroll = False
+          ClientHeight = 776
+          ClientWidth = 775
+          TabOrder = 0
+          object MemoLuminescencia: TMemo
+            Left = 220
+            Height = 33
+            Top = 640
+            Width = 470
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoLuminescenciaEditingDone
+            TabOrder = 8
+          end
+          object MemoCor: TMemo
+            Left = 220
+            Height = 60
+            Top = 159
+            Width = 470
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoCorEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 2
+          end
+          object MemoTraco: TMemo
+            Left = 220
+            Height = 60
+            Top = 236
+            Width = 470
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoTracoEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 3
+          end
+          object MemoBrilho: TMemo
+            Left = 220
+            Height = 60
+            Top = 308
+            Width = 470
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoBrilhoEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 4
+          end
+          object MemoClivagem: TMemo
+            Left = 220
+            Height = 60
+            Top = 400
+            Width = 470
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoClivagemEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 5
+          end
+          object MemoFratura: TMemo
+            Left = 220
+            Height = 60
+            Top = 472
+            Width = 470
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoFraturaEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 6
+          end
+          object MemoMagnetismo: TMemo
+            Left = 220
+            Height = 33
+            Top = 568
+            Width = 470
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoMagnetismoEditingDone
+            TabOrder = 7
+          end
+          object EditDureza: TEdit
+            Left = 220
+            Height = 32
+            Top = 15
+            Width = 100
+            ReadOnly = True
+            TabOrder = 0
+            Text = ' '
+          end
+          object EditDensidade: TEdit
+            Left = 220
+            Height = 32
+            Top = 87
+            Width = 100
+            ReadOnly = True
+            TabOrder = 1
+            Text = ' '
+          end
+          object LabelHardness: TLabel
+            Left = 15
+            Height = 20
+            Top = 15
+            Width = 45
+            Caption = 'Dureza'
+            ParentColor = False
+          end
+          object LabelDensity: TLabel
+            Left = 15
+            Height = 20
+            Top = 87
+            Width = 67
+            Caption = 'Densidade'
+            ParentColor = False
+          end
+          object LabelCor: TLabel
+            Left = 15
+            Height = 20
+            Top = 159
+            Width = 23
+            Caption = 'Cor'
+            ParentColor = False
+          end
+          object LabelTraco: TLabel
+            Left = 15
+            Height = 20
+            Top = 236
+            Width = 35
+            Caption = 'Traço'
+            ParentColor = False
+          end
+          object LabelBrilho: TLabel
+            Left = 15
+            Height = 20
+            Top = 308
+            Width = 37
+            Caption = 'Brilho'
+            ParentColor = False
+          end
+          object LabelClivagem: TLabel
+            Left = 15
+            Height = 20
+            Top = 400
+            Width = 59
+            Caption = 'Clivagem'
+            ParentColor = False
+          end
+          object LabelFratura: TLabel
+            Left = 15
+            Height = 20
+            Top = 472
+            Width = 46
+            Caption = 'Fratura'
+            ParentColor = False
+          end
+          object LabelMagnetismo: TLabel
+            Left = 15
+            Height = 20
+            Top = 568
+            Width = 79
+            Caption = 'Magnetismo'
+            ParentColor = False
+          end
+          object LabelLuminescencia: TLabel
+            Left = 15
+            Height = 20
+            Top = 640
+            Width = 93
+            Caption = 'Luminescência'
+            ParentColor = False
+          end
+          object EditHardMin: TEdit
+            Left = 389
+            Height = 32
+            Top = 15
+            Width = 80
+            TabOrder = 9
+            Text = ' '
+          end
+          object EditHardMax: TEdit
+            Left = 512
+            Height = 32
+            Top = 15
+            Width = 80
+            TabOrder = 10
+            Text = ' '
+          end
+          object EditDensMin: TEdit
+            Left = 389
+            Height = 32
+            Top = 87
+            Width = 80
+            TabOrder = 11
+            Text = ' '
+          end
+          object EditDensMax: TEdit
+            Left = 512
+            Height = 32
+            Top = 87
+            Width = 80
+            TabOrder = 12
+            Text = ' '
+          end
+        end
+      end
+      object TabSheetOticas: TTabSheet
+        Caption = 'Propriedades Óticas'
+        ClientHeight = 697
+        ClientWidth = 810
+        object ScrollBox5: TScrollBox
+          Left = 8
+          Height = 673
+          Top = 10
+          Width = 790
+          HorzScrollBar.Page = 599
+          HorzScrollBar.Position = 1
+          HorzScrollBar.Range = 150
+          VertScrollBar.Page = 536
+          VertScrollBar.Range = 850
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          AutoScroll = False
+          ClientHeight = 671
+          ClientWidth = 775
+          TabOrder = 0
+          object MemoExtincao: TMemo
+            Left = 220
+            Height = 45
+            Top = 688
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoExtincaoEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 6
+          end
+          object LabelExtincao: TLabel
+            Left = 15
+            Height = 20
+            Top = 686
+            Width = 55
+            Caption = 'Extinção'
+            ParentColor = False
+          end
+          object LabelSinal_optico: TLabel
+            Left = 15
+            Height = 20
+            Top = 264
+            Width = 78
+            Caption = 'Sinal Óptico'
+            ParentColor = False
+          end
+          object LabelIndice_Refracao: TLabel
+            Left = 15
+            Height = 20
+            Top = 384
+            Width = 98
+            Caption = 'Índice Refração'
+            ParentColor = False
+          end
+          object LabelAngulo_2V: TLabel
+            Left = 16
+            Height = 20
+            Top = 632
+            Width = 67
+            Caption = 'Ângulo 2V'
+            ParentColor = False
+          end
+          object LabelSInal_Elongacao: TLabel
+            Left = 15
+            Height = 20
+            Top = 504
+            Width = 120
+            Caption = 'Sinal de Elongação'
+            ParentColor = False
+          end
+          object LabelBirrefringencia: TLabel
+            Left = 15
+            Height = 20
+            Top = 320
+            Width = 92
+            Caption = 'Birrefringência'
+            ParentColor = False
+          end
+          object LabelRelevo: TLabel
+            Left = 16
+            Height = 20
+            Top = 568
+            Width = 44
+            Caption = 'Relevo'
+            ParentColor = False
+          end
+          object LabelCor_Lamina: TLabel
+            Left = 15
+            Height = 20
+            Top = 445
+            Width = 90
+            Caption = 'Cor na Lâmina'
+            ParentColor = False
+          end
+          object MemoSinalOptico: TMemo
+            Left = 408
+            Height = 45
+            Top = 264
+            Width = 298
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoSinalOpticoEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 1
+          end
+          object MemoIndiceRefracao: TMemo
+            Left = 220
+            Height = 45
+            Top = 384
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoIndiceRefracaoEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 3
+          end
+          object MemoAngulo: TMemo
+            Left = 220
+            Height = 45
+            Top = 632
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoAnguloEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 7
+          end
+          object MemoCorLamina: TMemo
+            Left = 220
+            Height = 45
+            Top = 445
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoCorLaminaEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 4
+          end
+          object MemoSinalElongacao: TMemo
+            Left = 220
+            Height = 45
+            Top = 504
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoSinalElongacaoEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 5
+          end
+          object MemoBirrefringencia: TMemo
+            Left = 408
+            Height = 45
+            Top = 320
+            Width = 298
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoBirrefringenciaEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 2
+          end
+          object MemoRelevo: TMemo
+            Left = 220
+            Height = 45
+            Top = 568
+            Width = 486
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoRelevoEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 8
+          end
+          object GroupBoxOptica1: TGroupBox
+            Left = 200
+            Height = 200
+            Top = 24
+            Width = 200
+            ClientHeight = 198
+            ClientWidth = 198
+            TabOrder = 9
+            object ImageOptica1: TImage
+              Left = 0
+              Height = 198
+              Top = 0
+              Width = 198
+              Align = alClient
+              PopupMenu = PopupMenuImage4
+              Proportional = True
+            end
+          end
+          object GroupBoxOptica2: TGroupBox
+            Left = 450
+            Height = 200
+            Top = 20
+            Width = 200
+            ClientHeight = 198
+            ClientWidth = 198
+            TabOrder = 10
+            object ImageOptica2: TImage
+              Left = 0
+              Height = 198
+              Top = 0
+              Width = 198
+              Align = alClient
+              PopupMenu = PopupMenuImage5
+              Proportional = True
+            end
+          end
+          object Label1: TLabel
+            Left = 16
+            Height = 1
+            Top = 796
+            Width = 1
+            ParentColor = False
+          end
+          object LabelBMax: TLabel
+            Left = 336
+            Height = 20
+            Top = 312
+            Width = 27
+            Caption = 'max'
+            ParentColor = False
+          end
+          object ComboBoxOpticSign: TComboBox
+            Left = 220
+            Height = 32
+            Top = 264
+            Width = 182
+            ItemHeight = 0
+            OnEditingDone = ComboBoxOpticSignEditingDone
+            TabOrder = 0
+          end
+          object EditBMax: TEdit
+            Left = 220
+            Height = 32
+            Top = 332
+            Width = 182
+            OnEditingDone = EditBMaxEditingDone
+            TabOrder = 11
+          end
+        end
+      end
+      object TabSheetCristalografia: TTabSheet
+        Caption = 'Cristalografia'
+        ClientHeight = 697
+        ClientWidth = 810
+        object ScrollBox6: TScrollBox
+          Left = 10
+          Height = 777
+          Top = 10
+          Width = 790
+          HorzScrollBar.Page = 593
+          HorzScrollBar.Range = 200
+          VertScrollBar.Page = 600
+          VertScrollBar.Range = 650
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          AutoScroll = False
+          ClientHeight = 775
+          ClientWidth = 775
+          TabOrder = 0
+          object GroupBoxCristalografia2: TGroupBox
+            Left = 184
+            Height = 200
+            Top = 20
+            Width = 200
+            Anchors = [akTop, akRight]
+            ClientHeight = 198
+            ClientWidth = 198
+            TabOrder = 0
+            object ImageCristalografia2: TImage
+              Left = 0
+              Height = 198
+              Top = 0
+              Width = 198
+              Align = alClient
+              Proportional = True
+            end
+          end
+          object GroupBoxCristalografia1: TGroupBox
+            Left = 414
+            Height = 200
+            Top = 20
+            Width = 200
+            Anchors = [akTop, akRight]
+            ClientHeight = 198
+            ClientWidth = 198
+            TabOrder = 4
+            object ImageCristalografia1: TImage
+              Left = 0
+              Height = 198
+              Top = 0
+              Width = 198
+              Align = alClient
+              Proportional = True
+            end
+          end
+          object LabelSistema_Cristalino: TLabel
+            Left = 15
+            Height = 20
+            Top = 298
+            Width = 117
+            Caption = 'Sistema Cristalino'
+            ParentColor = False
+          end
+          object LabelClasse_Cristalina: TLabel
+            Left = 15
+            Height = 20
+            Top = 348
+            Width = 107
+            Caption = 'Classe Cristalina'
+            ParentColor = False
+          end
+          object LabelSimbologia: TLabel
+            Left = 15
+            Height = 20
+            Top = 398
+            Width = 70
+            Caption = 'Simbologia'
+            ParentColor = False
+          end
+          object LabelHabito: TLabel
+            Left = 15
+            Height = 20
+            Top = 448
+            Width = 43
+            Caption = 'Hábito'
+            ParentColor = False
+          end
+          object EditSistema: TEdit
+            Left = 220
+            Height = 32
+            Top = 298
+            Width = 454
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = EditSistemaEditingDone
+            TabOrder = 5
+          end
+          object EditClasse_Cristalina: TEdit
+            Left = 220
+            Height = 32
+            Top = 348
+            Width = 454
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = EditClasse_CristalinaEditingDone
+            TabOrder = 1
+          end
+          object EditH_M: TEdit
+            Left = 220
+            Height = 32
+            Top = 398
+            Width = 454
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = EditH_MEditingDone
+            TabOrder = 2
+          end
+          object MemoHabito: TMemo
+            Left = 220
+            Height = 78
+            Top = 448
+            Width = 454
+            Anchors = [akTop, akLeft, akRight]
+            OnEditingDone = MemoHabitoEditingDone
+            ScrollBars = ssAutoVertical
+            TabOrder = 3
+          end
+        end
+      end
+      object TabSheetImagem: TTabSheet
+        Caption = 'Imagem'
+        ClientHeight = 697
+        ClientWidth = 810
+        object GroupBoxImageLarge: TGroupBox
+          Left = 0
+          Height = 655
+          Top = 42
+          Width = 810
+          Align = alClient
+          ClientHeight = 653
+          ClientWidth = 808
+          TabOrder = 0
+          object ImagemAmpliada: TImage
+            Left = 0
+            Height = 653
+            Top = 0
+            Width = 808
+            AntialiasingMode = amOn
+            Align = alClient
+            Center = True
+            Proportional = True
+          end
+        end
+        object PanelImageButtons: TPanel
+          Left = 0
+          Height = 42
+          Top = 0
+          Width = 810
+          Align = alTop
+          TabOrder = 1
+        end
+      end
+    end
+  end
+  object ImageListHeaderControl: TImageList
+    left = 312
+    top = 544
+    Bitmap = {
+      4C69080000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0068C774FF67C673FF65C270FF62BE6DFFFFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0066C572FFA2D8ABFFA0D7A9FF5DB868FFFFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0063C06FFF9ED6A7FF9CD4A5FF59B263FFFFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF005FBB6AFF9AD4A3FF98D3A1FF53AA5DFFFFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF005BB465FF96D29FFF94D09CFF4EA257FFFFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0056AD5FFF93CF9AFF90CE98FF489A50FFFFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0050A659FF8ECC95FF8BCB93FF42924AFFFFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF004A9E53FF8ACA91FF87C98EFF3C8A43FFFFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0045954CFF85C78CFF82C689FF36823DFFFFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF0043944B384E9A55FF81C587FF7EC385FF317A36FFFFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF004292
+      4AB83D8C45F765AD6CFF7DC282FF7AC180FF4B9250FF276D2CF7246828BBFFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF003C8A
+      430638833ED9519957FF79C07EFF76BF7CFF468D4BFF236627DB20622306FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF002D7533CF488F4DFF458C4AFF226526D1FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00256929C4216425C9FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
+      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
+      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
+      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
+      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFDB896DFFF0AE
+      98FFFFFFFFFFFFFFFFFFDB896DFFDB896DFFF0AE98FFFFEFE4FF000000000000
+      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFF0AE98FFFFFF
+      FFFFF0AE98FFFFFFFFFFD1785AFFD1785AFFE09076FFE69B83FF000000000000
+      0000000000000000000000000000DB896DFFD07658FFD07658FFFFFFFFFFD076
+      58FFF0AE98FFFFFFFFFFD07658FFD07658FFD07658FFD07658FF000000000000
+      0000000000000000000000000000CF7556FFC56545FFC56545FFC56545FFC565
+      45FFF0AE98FFFFFFFFFFC56545FFC56545FFC46444FFC66747FF000000000000
+      0000000000000000000000000000D47B5FFFC66747FFC8694AFFC8694AFFC869
+      4AFFF0AE98FFFFFFFFFFC8694AFFC66747FFC8694AFFCA6C4DFF000000000000
+      0000000000000000000000000000EEAA94FFC56545FFBB5736FFBB5736FFBB57
+      36FFF0AE98FFFFFFFFFFBB5736FFBB5736FFCE7255FFE2947AFF000000000000
+      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFB85231FFBB57
+      36FFF0AE98FFFFFFFFFFB85231FFBB5736FFE09076FFFFF4EAFF000000000000
+      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
+      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
+      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
+      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
+      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
+      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
+      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
+      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFF0AE98FFFFFF
+      FFFFFFFFFFFFFFFFFFFFF0AE98FFDB896DFFF0AE98FFFFEFE4FF000000000000
+      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFFFFFFFFFF0AE
+      98FFD1785AFFF0AE98FFFFFFFFFFD1785AFFE09076FFE69B83FF000000000000
+      0000000000000000000000000000DB896DFFD07658FFD07658FFD07658FFD076
+      58FFD07658FFD07658FFFFFFFFFFD07658FFD07658FFD07658FF000000000000
+      0000000000000000000000000000CF7556FFC56545FFC56545FFC56545FFC565
+      45FFF0AE98FFFFFFFFFFF0AE98FFC56545FFC46444FFC66747FF000000000000
+      0000000000000000000000000000D47B5FFFC8694AFFC8694AFFF0AE98FFFFFF
+      FFFFFFFFFFFFF0AE98FFC8694AFFC8694AFFC8694AFFCA6C4DFF000000000000
+      0000000000000000000000000000EEAA94FFC56545FFBB5736FFFFFFFFFFF0AE
+      98FFBB5736FFBB5736FFBB5736FFBB5736FFCE7255FFE2947AFF000000000000
+      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFF0AE98FFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFBB5736FFE09076FFFFF4EAFF000000000000
+      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
+      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
+      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
+      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
+      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
+      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
+      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
+      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFF0AE98FFFFFF
+      FFFFFFFFFFFFFFFFFFFFF0AE98FFDB896DFFF0AE98FFFFEFE4FF000000000000
+      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFFFFFFFFFF0AE
+      98FFD1785AFFF0AE98FFFFFFFFFFD1785AFFE09076FFE69B83FF000000000000
+      0000000000000000000000000000DB896DFFD07658FFD07658FFD07658FFD076
+      58FFD07658FFD07658FFFFFFFFFFD07658FFD07658FFD07658FF000000000000
+      0000000000000000000000000000CF7556FFC56545FFC56545FFC56545FFC565
+      45FFFFFFFFFFFFFFFFFFF0AE98FFC56545FFC46444FFC66747FF000000000000
+      0000000000000000000000000000D47B5FFFC66747FFC8694AFFC8694AFFC869
+      4AFFC8694AFFC8694AFFFFFFFFFFC66747FFC8694AFFCA6C4DFF000000000000
+      0000000000000000000000000000EEAA94FFC56545FFBB5736FFFFFFFFFFF0AE
+      98FFBB5736FFF0AE98FFFFFFFFFFBB5736FFCE7255FFE2947AFF000000000000
+      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFF0AE98FFFFFF
+      FFFFFFFFFFFFFFFFFFFFF0AE98FFBB5736FFE09076FFFFF4EAFF000000000000
+      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
+      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
+      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
+      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
+      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
+      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
+      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
+      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFDB896DFFDB89
+      6DFFF0AE98FFFFFFFFFFDB896DFFDB896DFFF0AE98FFFFEFE4FF000000000000
+      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFD1785AFFF0AE
+      98FFFFFFFFFFFFFFFFFFD1785AFFD1785AFFE09076FFE69B83FF000000000000
+      0000000000000000000000000000DB896DFFD07658FFD07658FFF0AE98FFFFFF
+      FFFFD07658FFFFFFFFFFD07658FFD07658FFD07658FFD07658FF000000000000
+      0000000000000000000000000000CF7556FFC56545FFC56545FFFFFFFFFFC565
+      45FFC56545FFFFFFFFFFC56545FFC56545FFC46444FFC66747FF000000000000
+      0000000000000000000000000000D47B5FFFC66747FFC8694AFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFC66747FFC8694AFFCA6C4DFF000000000000
+      0000000000000000000000000000EEAA94FFC56545FFBB5736FFBB5736FFBB57
+      36FFBB5736FFFFFFFFFFBB5736FFBB5736FFCE7255FFE2947AFF000000000000
+      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFB85231FFB852
+      31FFB85231FFFFFFFFFFB85231FFBB5736FFE09076FFFFF4EAFF000000000000
+      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
+      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
+      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
+      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
+      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
+      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
+      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
+      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFDB896DFFF0AE98FFFFEFE4FF000000000000
+      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFFFFFFFFFD178
+      5AFFD1785AFFD1785AFFD1785AFFD1785AFFE09076FFE69B83FF000000000000
+      0000000000000000000000000000DB896DFFD07658FFD07658FFFFFFFFFFD076
+      58FFD07658FFD07658FFD07658FFD07658FFD07658FFD07658FF000000000000
+      0000000000000000000000000000CF7556FFC56545FFC56545FFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFC56545FFC56545FFC46444FFC66747FF000000000000
+      0000000000000000000000000000D47B5FFFC66747FFC8694AFFC8694AFFC869
+      4AFFC8694AFFE69B83FFFFFFFFFFC66747FFC8694AFFCA6C4DFF000000000000
+      0000000000000000000000000000EEAA94FFC56545FFBB5736FFBB5736FFBB57
+      36FFBB5736FFE69B83FFFFFFFFFFBB5736FFCE7255FFE2947AFF000000000000
+      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFBB5736FFBB5736FFE09076FFFFF4EAFF000000000000
+      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
+      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
+      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
+      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
+      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
+      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
+      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
+      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFF0AE98FFFFFF
+      FFFFFFFFFFFFFFFFFFFFF0AE98FFDB896DFFF0AE98FFFFEFE4FF000000000000
+      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFFFFFFFFFF0AE
+      98FFD1785AFFF0AE98FFFFFFFFFFD1785AFFE09076FFE69B83FF000000000000
+      0000000000000000000000000000DB896DFFD07658FFD07658FFFFFFFFFFD076
+      58FFD07658FFD07658FFD07658FFD07658FFD07658FFD07658FF000000000000
+      0000000000000000000000000000CF7556FFC56545FFC56545FFF0AE98FFFFFF
+      FFFFFFFFFFFFFFFFFFFFF0AE98FFC56545FFC46444FFC66747FF000000000000
+      0000000000000000000000000000D47B5FFFC66747FFC8694AFFFFFFFFFFC869
+      4AFFC8694AFFC8694AFFFFFFFFFFC66747FFC8694AFFCA6C4DFF000000000000
+      0000000000000000000000000000EEAA94FFC56545FFBB5736FFFFFFFFFFF0AE
+      98FFBB5736FFF0AE98FFFFFFFFFFBB5736FFCE7255FFE2947AFF000000000000
+      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFF0AE98FFFFFF
+      FFFFFFFFFFFFFFFFFFFFF0AE98FFBB5736FFE09076FFFFF4EAFF000000000000
+      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
+      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
+      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
+      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000962F0D00962F0D00FFF4EAFFFFCFC0FFF0AE
+      98FFEAA28AFFF3B39EFFFFD7C8FFFFF9F0FF962F0D00962F0D00000000000000
+      0000000000000000000000000000962F0D00FFCFC0FFEDA791FFE59981FFE498
+      7FFFE3967CFFE4987FFFE59981FFEFAC96FFFFDED0FF962F0D00000000000000
+      0000000000000000000000000000FFECE1FFE89E85FFDB896DFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFDB896DFFF0AE98FFFFEFE4FF000000000000
+      0000000000000000000000000000F5B7A2FFDA866BFFD1785AFFD1785AFFD178
+      5AFFD1785AFFD1785AFFFFFFFFFFD1785AFFE09076FFE69B83FF000000000000
+      0000000000000000000000000000DB896DFFD07658FFD07658FFD07658FFD076
+      58FFD07658FFF0AE98FFFFFFFFFFD07658FFD07658FFD07658FF000000000000
+      0000000000000000000000000000CF7556FFC56545FFC56545FFC56545FFC565
+      45FFC56545FFFFFFFFFFC56545FFC56545FFC46444FFC66747FF000000000000
+      0000000000000000000000000000D47B5FFFC66747FFC8694AFFC8694AFFC869
+      4AFFFFFFFFFFF0AE98FFC8694AFFC66747FFC8694AFFCA6C4DFF000000000000
+      0000000000000000000000000000EEAA94FFC56545FFBB5736FFBB5736FFFFFF
+      FFFFF0AE98FFBB5736FFBB5736FFBB5736FFCE7255FFE2947AFF000000000000
+      0000000000000000000000000000FFEADFFFD57E60FFBA5635FFB85231FFFFFF
+      FFFFB85231FFB85231FFB85231FFBB5736FFE09076FFFFF4EAFF000000000000
+      0000000000000000000000000000962F0D00FBC4B1FFDB896DFFC96A4BFFC15F
+      3FFFBC5938FFC26140FFCB6E4FFFDF8E74FFFFD1C2FF962F0D00000000000000
+      0000000000000000000000000000962F0D00962F0D00FFE5D8FFE09076FFC667
+      47FFBC5938FFCC6F50FFE4987FFFFFF1E8FF962F0D00962F0D00000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000
+    }
+  end
+  object ActionList1: TActionList
+    left = 352
+    top = 448
+    object ActionSaveMod: TAction
+      Caption = 'ActionSaveMod'
+      OnExecute = ActionSaveModExecute
+    end
+    object ActionFilter: TAction
+      Caption = 'ActionFilter'
+      OnExecute = ActionFilterExecute
+    end
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    left = 402
+    top = 542
+  end
+  object PopupMenuImage4: TPopupMenu
+    left = 240
+    top = 216
+    object MenuItemAddImage4: TMenuItem
+      Caption = 'Add'
+    end
+    object MenuItemRemoveImage4: TMenuItem
+      Caption = 'Remove'
+    end
+  end
+  object PopupMenuImage5: TPopupMenu
+    left = 483
+    top = 208
+    object MenuItemAddImage5: TMenuItem
+      Caption = 'New Item1'
+    end
+    object MenuItemRemoveImage5: TMenuItem
+      Caption = 'New Item2'
+    end
+  end
+end

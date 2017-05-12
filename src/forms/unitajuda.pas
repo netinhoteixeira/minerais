@@ -12,13 +12,14 @@ uses
 
 type
 
-  { TFormAjuda }
+  { TFormHelp }
 
-  TFormAjuda = class(TForm)
+  TFormHelp = class(TForm)
     IpFileDataProvider1: TIpFileDataProvider;
     IpHtmlPanel1: TIpHtmlPanel;
     Panel1: TPanel;
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -30,35 +31,41 @@ type
   const nome_arq: String = '\doc\index.html';
 
 var
-  FormAjuda: TFormAjuda;
+  FormHelp: TFormHelp;
 
 implementation
 uses udatamodule;
 
 {$R *.lfm}
 
-{ TFormAjuda }
+{ TFormHelp }
 
-procedure TFormAjuda.FormShow(Sender: TObject);
+procedure TFormHelp.FormShow(Sender: TObject);
 begin
 
 end;
 
-procedure TFormAjuda.ChangeLanguage;
+procedure TFormHelp.ChangeLanguage;
 begin
-  FormAjuda.Caption:=Lang.Help;
+  FormHelp.Caption:=Lang.Help;
 end;
 
-procedure TFormAjuda.FormCreate(Sender: TObject);
+procedure TFormHelp.FormCreate(Sender: TObject);
 begin
   if FileExists(GetCurrentDir+nome_arq) then
   begin
+    Iphtmlpanel1.DataProvider:=IpFileDataProvider1;
     Iphtmlpanel1.OpenURL(GetCurrentDir+nome_arq);
   end;
   if SetLanguage(ConfigGetLanguage) then
   begin
     ChangeLanguage;
   end;
+end;
+
+procedure TFormHelp.FormDestroy(Sender: TObject);
+begin
+
 end;
 
 end.

@@ -58,8 +58,8 @@ begin
   begin
     if Sender.Equals(Images[I]) then
     begin
-      ClearBlobIdField(Dados.Table5, FieldImage,
-        FormRmImage.ListBox1.GetSelectedText, );
+      //ClearBlobIdField(Dados.Table5, FieldImage,
+        //FormRmImage.ListBox1.GetSelectedText, );
       Images[I].Picture.Clear;
     end;
   end;

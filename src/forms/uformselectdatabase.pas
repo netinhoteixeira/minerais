@@ -37,10 +37,12 @@ type
     procedure ActionRefreshEditsExecute(Sender: TObject);
     procedure ActionSelectMineralDatabaseExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { private declarations }
   public
     { public declarations }
+    procedure ChangeLanguage;
   end;
 
 var
@@ -55,6 +57,17 @@ uses uformadddatabase, udatamodule, unitfichaespecie, unitlanguage, unitframelis
 procedure TFormSelectDatabase.FormCreate(Sender: TObject);
 begin
   OpenDialog1.Filter:='ALL FILES |  *.s3db; *.sqlite; *.db;';
+end;
+
+procedure TFormSelectDatabase.FormDestroy(Sender: TObject);
+begin
+
+end;
+
+procedure TFormSelectDatabase.ChangeLanguage;
+begin
+  self.Caption:=Lang.SelectDatabase;
+  LabelCurrentDatabase.Caption:=Lang.CurrentDatabase;
 end;
 
 procedure TFormSelectDatabase.ActionNewMineralDatabaseExecute(Sender: TObject);
@@ -81,8 +94,9 @@ begin
     FormFichaEspecie.FrameSimpleFilter.AddSubclasses;
     FormFichaEspecie.FrameSimpleFilter.AddGroups;
     FormFichaEspecie.FrameSimpleFilter.AddSubgroups;
-    }FormFichaEspecie.FormFrameFicha.RefreshComboboxes;
-    FormFichaEspecie.FrameList.RefreshList;
+    }
+    FormMain.FormFrameFicha.RefreshComboboxes;
+    FormMain.FrameList.RefreshList;
     FormSelectDatabase.Hide;
    end
   else
@@ -106,7 +120,7 @@ begin
           Dados.DatabaseMineralFileName:= OpenDialog1.FileName;
           Edit1.Text:=Dados.DatabaseMineralFileName;
           ConfigSetDatabase(Dados.DatabaseMineralFileName);
-          FormFichaEspecie.FormFrameFicha.EditingMode(True);
+          FormMain.FormFrameFicha.EditingMode(True);
         end
         else
           ShowMessage(Lang.TheSelectedDatabaseIsNotValid);

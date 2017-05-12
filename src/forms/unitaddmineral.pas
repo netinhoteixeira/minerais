@@ -30,7 +30,7 @@ type
     procedure FormHide(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
-    FrameFicha: TFrameFicha;
+     FrameFicha1: TFrameFicha;
     function AddMineral: Boolean;
     { private declarations }
   public
@@ -42,7 +42,6 @@ var
   TableMinerals: TSQLiteTable;
   Erro:Boolean;
   FormAddMineral: TFormAddMineral;
-
   Config:TIniFile;
 
 implementation
@@ -63,14 +62,12 @@ procedure TFormAddMineral.FormShow(Sender: TObject);
 begin
   FormAddMineral.Caption := 'Adicionar Mineral - Banco de dados: ' +
     Dados.DatabaseMineralFileName;
-  FrameFicha:= TFrameFicha.Create(FormAddMineral);
-  with FrameFIcha do
+  FrameFicha1:= TFrameFicha.Create(FormAddMineral);
+  with FrameFicha1 do
   begin
-    PanelButtonSave.Visible:=False;
     TabSheetImagem.Visible:=False;
     Parent:= FormAddMineral;
     EditingMode(True);
-    //ChangeLanguage;
     RefreshComboboxes;
     PageControlFicha.Pages[4].Visible:= False;
   end;
@@ -78,32 +75,32 @@ end;
 
 function TFormAddMineral.AddMineral: Boolean;
 begin
-  if FrameFicha.EditMineralName.Text <> EmptyStr then
-  if Dados.AddMineral(FrameFicha.EditMineralName.Text) = 0 then
+  if FormAddMineral.FrameFicha1.EditMineralName.Text <> EmptyStr then
+  if Dados.AddMineral(FormAddMineral.FrameFicha1.EditMineralName.Text) = 0 then
   begin
-    Dados.UpdateGeneralInfo(FrameFicha.EditMineralName.Text,
-      FrameFicha.EditComposition.Text, FrameFicha.ComboboxClass.Text,
-      FrameFicha.ComboboxSubclass.Text, FrameFicha.ComboboxGroup.Text,
-      FrameFicha.ComboboxSubgroup.Text, FrameFicha.MemoOccurrence.Text,
-      FrameFicha.MemoAssociation.Text, FrameFicha.MemoDistinction.Text,
-      FrameFicha.MemoAlteracao.Text, FrameFicha.MemoAplicacao.Text);
-    Dados.UpdatePhysicalProp(FrameFicha.EditHardMin.Text,
-      FrameFicha.EditHardMax.Text, FrameFicha.EditDensMin.Text,
-      FrameFicha.EditDensMax.Text, FrameFicha.MemoCor.Text,
-      FrameFicha.MemoTraco.Text, FrameFicha.MemoBrilho.Text,
-      FrameFicha.MemoClivagem.Text, FrameFicha.MemoFratura.Text,
-      FrameFicha.MemoMagnetismo.Text, FrameFicha.MemoLuminescencia.Text,
-      FrameFicha.EditMineralName.Text);
+    Dados.UpdateGeneralInfo(FrameFicha1.EditMineralName.Text,
+      FrameFicha1.EditComposition.Text, FrameFicha1.ComboboxClass.Text,
+      FrameFicha1.ComboboxSubclass.Text, FrameFicha1.ComboboxGroup.Text,
+      FrameFicha1.ComboboxSubgroup.Text, FrameFicha1.MemoOccurrence.Text,
+      FrameFicha1.MemoAssociation.Text, FrameFicha1.MemoDistinction.Text,
+      FrameFicha1.MemoAlteracao.Text, FrameFicha1.MemoAplicacao.Text);
+    Dados.UpdatePhysicalProp(FrameFicha1.EditHardMin.Text,
+      FrameFicha1.EditHardMax.Text, FrameFicha1.EditDensMin.Text,
+      FrameFicha1.EditDensMax.Text, FrameFicha1.MemoCor.Text,
+      FrameFicha1.MemoTraco.Text, FrameFicha1.MemoBrilho.Text,
+      FrameFicha1.MemoClivagem.Text, FrameFicha1.MemoFratura.Text,
+      FrameFicha1.MemoMagnetismo.Text, FrameFicha1.MemoLuminescencia.Text,
+      FrameFicha1.EditMineralName.Text);
     Dados.UpdateOpticalProp(
-      FrameFicha.EditBMax.Text, FrameFicha.ComboboxOpticSign.Text,
-      FrameFicha.MemoSinalOptico.Text, FrameFicha.MemoIndiceRefracao.Text,
-      FrameFicha.MemoBirrefringencia.Text, {FrameFicha.MemoInterferencia.Text,}
-      FrameFicha.MemoCorLamina.Text, FrameFicha.MemoSinalElongacao.Text,
-      FrameFicha.MemoRelevo.Text, FrameFicha.MemoAngulo.Text,
-      FrameFicha.MemoExtincao.Text, FrameFicha.EditMineralName.Text);
-    Dados.UpdateCrystallography(FrameFicha.EditSistema.Text,
-      FrameFicha.EditClasse_Cristalina.Text, FrameFicha.EditH_M.Text,
-      FrameFicha.MemoHabito.Text, FrameFicha.EditMineralName.Text);
+      FrameFicha1.EditBMax.Text, FrameFicha1.ComboboxOpticSign.Text,
+      FrameFicha1.MemoSinalOptico.Text, FrameFicha1.MemoIndiceRefracao.Text,
+      FrameFicha1.MemoBirrefringencia.Text, {FrameFicha1.MemoInterferencia.Text,}
+      FrameFicha1.MemoCorLamina.Text, FrameFicha1.MemoSinalElongacao.Text,
+      FrameFicha1.MemoRelevo.Text, FrameFicha1.MemoAngulo.Text,
+      FrameFicha1.MemoExtincao.Text, FrameFicha1.EditMineralName.Text);
+    Dados.UpdateCrystallography(FrameFicha1.EditSistema.Text,
+      FrameFicha1.EditClasse_Cristalina.Text, FrameFicha1.EditH_M.Text,
+      FrameFicha1.MemoHabito.Text, FrameFicha1.EditMineralName.Text);
     Result:=True;
   end
   else
@@ -114,35 +111,35 @@ procedure TFormAddMineral.ActionApplyExecute(Sender: TObject);
 begin
   FormAddMineral.Visible:=False;
   if AddMineral then
-    FormFichaEspecie.FrameList.RefreshList;
+    FormMain.FrameList.RefreshList;
 end;
 
 procedure TFormAddMineral.ActionAddExecute(Sender: TObject);
 begin
- if (Trim(FrameFicha.EditMineralName.Text) = EmptyStr) then
+ if (Trim(FrameFicha1.EditMineralName.Text) = EmptyStr) then
     ShowMessage('Preencha o campo "nome" para salvar' +
       ' no banco de dados.')
  else
  begin
    if AddMineral then
    begin
-     FrameFicha.ClearFields;
-     FormFichaEspecie.FrameList.RefreshList;
+     FrameFicha1.ClearFields;
+     FormMain.FrameList.RefreshList;
    end
    else
      ShowMessage(Lang.ThereIsAlreadyARecordWithThatName)
  end;
- FrameFicha.ClearFields;
+ FrameFicha1.ClearFields;
 end;
 
 procedure TFormAddMineral.ActionClearFieldsExecute(Sender: TObject);
 begin
-  FrameFicha.ClearFIelds;
+  FrameFicha1.ClearFIelds;
 end;
 
 procedure TFormAddMineral.FormHide(Sender: TObject);
 begin
-  FrameFicha.Free;
+   FrameFicha1.Free;
 end;
 
 procedure TFormAddMineral.FormDestroy(Sender: TObject);

@@ -1,0 +1,160 @@
+object FrameList: TFrameList
+  Left = 0
+  Height = 643
+  Top = 0
+  Width = 200
+  Align = alLeft
+  ClientHeight = 643
+  ClientWidth = 200
+  Constraints.MinHeight = 250
+  TabOrder = 0
+  DesignLeft = 145
+  DesignTop = 78
+  object Panel1: TPanel
+    Left = 0
+    Height = 643
+    Top = 0
+    Width = 200
+    Align = alClient
+    ClientHeight = 643
+    ClientWidth = 200
+    Color = clWhite
+    ParentColor = False
+    TabOrder = 0
+    object RadioGroupOrdem: TRadioGroup
+      Left = 12
+      Height = 144
+      Top = 32
+      Width = 160
+      Anchors = [akTop, akLeft, akRight]
+      AutoFill = True
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 142
+      ClientWidth = 158
+      OnChangeBounds = ActionRBClickExecute
+      OnSelectionChanged = RadioGroupOrdemSelectionChanged
+      TabOrder = 0
+      object RadioButtonAscii: TRadioButton
+        Left = 6
+        Height = 36
+        Top = 0
+        Width = 146
+        Caption = 'Alfabeto'
+        Checked = True
+        Font.Quality = fqAntialiased
+        ParentFont = False
+        TabOrder = 2
+        TabStop = True
+      end
+      object RadioButtonHard: TRadioButton
+        Left = 6
+        Height = 36
+        Top = 36
+        Width = 146
+        Caption = 'Dureza'
+        Font.Quality = fqAntialiased
+        ParentFont = False
+        TabOrder = 0
+      end
+      object RadioButtonDens: TRadioButton
+        Left = 6
+        Height = 36
+        Top = 72
+        Width = 146
+        Caption = 'Densidade'
+        Font.Quality = fqAntialiased
+        ParentFont = False
+        TabOrder = 1
+      end
+      object RadioButtonBirr: TRadioButton
+        Left = 6
+        Height = 34
+        Top = 108
+        Width = 146
+        Caption = 'RadioButtonBirr'
+        Font.Quality = fqAntialiased
+        ParentFont = False
+        TabOrder = 3
+      end
+    end
+    object ListBoxMinerals: TListBox
+      Left = 12
+      Height = 385
+      Top = 208
+      Width = 162
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      ItemHeight = 0
+      OnClick = ActionListClickExecute
+      ScrollWidth = 160
+      TabOrder = 1
+      TopIndex = -1
+    end
+    object LabelOrder: TLabel
+      Left = 12
+      Height = 20
+      Top = 8
+      Width = 71
+      Caption = 'LabelOrder'
+      ParentColor = False
+    end
+    object LabelMinerals: TLabel
+      Left = 12
+      Height = 20
+      Top = 184
+      Width = 88
+      Caption = 'LabelMinerals'
+      ParentColor = False
+    end
+    object LabelRecordsNumber: TLabel
+      Left = 12
+      Height = 20
+      Top = 604
+      Width = 138
+      Anchors = [akLeft, akBottom]
+      Caption = 'LabelRecordsNumber'
+      ParentColor = False
+    end
+  end
+  object ActionList1: TActionList
+    left = 121
+    top = 211
+    object ActionListClick: TAction
+      Category = 'Listbox'
+      Caption = 'ActionListClick'
+      OnExecute = ActionListClickExecute
+    end
+    object ActionRBClick: TAction
+      Category = 'RadioButton'
+      Caption = 'ActionRBClick'
+      OnExecute = ActionRBClickExecute
+    end
+    object ActionAddMineral: TAction
+      Category = 'Popup'
+      Caption = 'ActionAddMineral'
+      OnExecute = ActionAddMineralExecute
+    end
+    object ActionRemoveMineral: TAction
+      Category = 'Popup'
+      Caption = 'ActionRemoveMineral'
+      OnExecute = ActionRemoveMineralExecute
+    end
+  end
+  object PopupMenu1: TPopupMenu
+    left = 49
+    top = 295
+    object MenuItemAdd: TMenuItem
+      Caption = 'New Item1'
+      OnClick = ActionAddMineralExecute
+    end
+    object MenuItemRemove: TMenuItem
+      Caption = 'New Item2'
+      OnClick = ActionRemoveMineralExecute
+    end
+  end
+end

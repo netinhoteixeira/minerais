@@ -119,6 +119,7 @@ type
       DescSinalOptico, DescRefracao, DescBirrefringencia, {CorInterferencia,}
       CorLamina, Elongacao, Relevo, Angulo2V, Extincao, Nome: string);
     procedure UpdateCrystallography(Sistema, Classe, Simbologia, Habito, Nome: string);
+    function FindImageId: Integer;
     function GetCount(NameStr:String): Integer;
     function ValidateDatabase(Path: string): boolean;
     { public declarations }
@@ -178,6 +179,7 @@ const
   FieldDescription:String = 'description';
   FieldCategory:String = 'category';
 // end of fields names
+
 var
   Dados: TDados;
   MS: TMemoryStream;
@@ -647,6 +649,21 @@ begin
     '" , '+FieldChrystClass+' = "' + Classe + '" , ' + FieldSymbology+' = "' +
     Simbologia + '" , '+FieldHabit+' = "' + Habito + '" ' + 'WHERE '+FieldName+' = "' + Nome + '"  ; ';
   DatabaseMInerals.ExecSQL(SQlstr);
+end;
+
+function TDados.FindImageId: Integer;
+var SQLstr:String; I:Integer; Found:Boolean;
+begin
+   I:=0;
+   Found:=False;
+   while not Found do
+   begin
+     Inc(I);
+     SQLstr:='SELECT id FROM '+Table5+' WHERE id="'+IntToStr(I)+'";';
+     TableImages:=DatabaseMinerals.GetTable(SQLstr);
+     if TableImages.Count <=0 then Found:=True;
+   end;
+   Result:=I;
 end;
 
 function TDados.GetCount(NameStr: String): Integer;

@@ -27,6 +27,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
 {$R *.res}
 
 begin
+  //TODO: Language, AdvancedFilter, Layout(icons), RemoveImages, unitblobfields(adicionar, deletar)
   Application.Title := 'Guia de Minerais';
   Application.Initialize;
   FormSplash := TFormSplash.Create(nil);
@@ -41,7 +42,7 @@ begin
   Application.CreateForm(TFormSelectDatabase, FormSelectDatabase);
   Application.CreateForm(TFormAddImage, FormAddImage);
   Application.CreateForm(TFormRmImage, FormRmImage);
-  Application.CreateForm(TFormHelp, FormHelp);
+  //Application.CreateForm(TFormHelp, FormHelp);
   Delay(1000);
   FormSplash.Hide;
   FormSplash.Free;

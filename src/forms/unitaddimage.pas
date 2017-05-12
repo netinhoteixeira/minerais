@@ -38,6 +38,7 @@ type
     procedure ActionOpenDialogExecute(Sender: TObject);
     procedure ActionSaveImageExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -106,6 +107,11 @@ begin
   ComboBoxCategory.Items.Add(Lang.PhysicalProperties);
   ComboBoxCategory.Items.Add(Lang.OpticalProperties);
   ComboBoxCategory.Items.Add(Lang.Crystallography);
+end;
+
+procedure TFormAddImage.FormDestroy(Sender: TObject);
+begin
+
 end;
 
 procedure TFormAddImage.FormShow(Sender: TObject);
