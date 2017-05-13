@@ -1,7 +1,7 @@
 object FormSelectDatabase: TFormSelectDatabase
-  Left = 279
+  Left = 51
   Height = 216
-  Top = 473
+  Top = 342
   Width = 597
   Caption = 'FormSelectDatabase'
   ClientHeight = 216
@@ -9,7 +9,7 @@ object FormSelectDatabase: TFormSelectDatabase
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poDesktopCenter
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '1.6.4.0'
   object Panel1: TPanel
     Left = 0
     Height = 166
@@ -23,7 +23,7 @@ object FormSelectDatabase: TFormSelectDatabase
     TabOrder = 0
     object Edit1: TEdit
       Left = 21
-      Height = 40
+      Height = 45
       Top = 40
       Width = 549
       Anchors = [akTop, akRight]
@@ -74,7 +74,7 @@ object FormSelectDatabase: TFormSelectDatabase
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00E1F2F8007DC3DCFF76C0DCFFDCEF
         F700FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
-      OnClick = ActionNewMineralDatabaseExecute
+      OnClick = ActionNewDatabaseExecute
       ShowHint = True
       ParentShowHint = False
     end
@@ -172,7 +172,7 @@ object FormSelectDatabase: TFormSelectDatabase
       Left = 24
       Height = 20
       Top = 15
-      Width = 144
+      Width = 141
       Caption = 'LabelCurrentDatabase'
       ParentColor = False
     end
@@ -286,10 +286,6 @@ object FormSelectDatabase: TFormSelectDatabase
   object ActionList1: TActionList
     left = 300
     top = 148
-    object ActionNewMineralDatabase: TAction
-      Caption = 'ActionNewMineralDatabase'
-      OnExecute = ActionNewMineralDatabaseExecute
-    end
     object ActionSelectMineralDatabase: TAction
       Caption = 'ActionSelectMineralDatabase'
       OnExecute = ActionSelectMineralDatabaseExecute
@@ -312,6 +308,10 @@ object FormSelectDatabase: TFormSelectDatabase
     object ActionApply: TAction
       Caption = 'ActionApply'
       OnExecute = ActionApplyExecute
+    end
+    object ActionNewDatabase: TAction
+      Caption = 'ActionNewDatabase'
+      OnExecute = ActionNewDatabaseExecute
     end
   end
 end

@@ -1028,25 +1028,29 @@ begin
   begin
     //Mineralogy_Name.Caption:='';
     SelectSQL := Dados.SelectSQL(Dados.Table1, strName);
-    Dados.TableGeneral := Dados.DatabaseMinerals.GetTable(SelectSQL);
-    EditMineralName.Text := Dados.TableGeneral.FieldByName[FieldName];
-    EditComposition.Text := Dados.TableGeneral.FieldByName[FieldComposition];
-    ComboboxClass.Text := Dados.TableGeneral.FieldByName[FieldClass];
-    ComboboxSubclass.Text := Dados.TableGeneral.FieldByName[FieldSubClass];
-    ComboboxGroup.Text := Dados.TableGeneral.FieldByName[FieldGroup];
-    ComboboxSubgroup.Text := Dados.TableGeneral.FieldByName[FieldSubGroup];
-    MemoOccurrence.Text := Dados.TableGeneral.FieldByName[FieldOccurrence];
-    MemoAssociation.Text := Dados.TableGeneral.FieldByName[FieldAssociation];
-    MemoDistinction.Text := Dados.TableGeneral.FieldByName[FieldDistinction];
-    MemoAlteracao.Text := Dados.TableGeneral.FieldByName[FieldAlteration];
-    MemoAplicacao.Text := Dados.TableGeneral.FieldByName[FieldUse];
+    Dados.Query.SQL.Text:=SelectSQL;
+    Dados.Query.ExecSQL;
+    Dados.Transaction.Commit;
+    EditMineralName.Text := Dados.Query.FieldByName(FieldName).AsString;
+    EditComposition.Text := Dados.Query.FieldByName(FieldComposition).AsString;
+    ComboboxClass.Text := Dados.Query.FieldByName(FieldClass).AsString;
+    ComboboxSubclass.Text := Dados.Query.FieldByName(FieldSubClass).AsString;
+    ComboboxGroup.Text := Dados.Query.FieldByName(FieldGroup).AsString;
+    ComboboxSubgroup.Text := Dados.Query.FieldByName(FieldSubGroup).AsString;
+    MemoOccurrence.Text := Dados.Query.FieldByName(FieldOccurrence).AsString;
+    MemoAssociation.Text := Dados.Query.FieldByName(FieldAssociation).AsString;
+    MemoDistinction.Text := Dados.Query.FieldByName(FieldDistinction).AsString;
+    MemoAlteracao.Text := Dados.Query.FieldByName(FieldAlteration).AsString;
+    MemoAplicacao.Text := Dados.Query.FieldByName(FieldUse).AsString;
 
     SelectSQL := Dados.SelectSQL(Dados.Table2, EditMineralName.Text);
-    Dados.TablePhysical := Dados.DatabaseMinerals.GetTable(SelectSQL);
-    EditHardMin.Text := Dados.TablePhysical.FieldByName[FieldHardMin];
-    EditHardMax.Text := Dados.TablePhysical.FieldByName[FieldHardMax];
-    EditDensMin.Text := Dados.TablePhysical.FieldByName[FieldDensMin];
-    EditDensMax.Text := Dados.TablePhysical.FieldByName[FieldDensMax];
+    Dados.Query.SQL.Text:=SelectSQL;
+    Dados.Query.ExecSQL;
+    Dados.Transaction.Commit;
+    EditHardMin.Text := Dados.Query.FieldByName(FieldHardMin).AsString;
+    EditHardMax.Text := Dados.Query.FieldByName(FieldHardMax).AsString;
+    EditDensMin.Text := Dados.Query.FieldByName(FieldDensMin).AsString;
+    EditDensMax.Text := Dados.Query.FieldByName(FieldDensMax).AsString;
     if EditHardMin.Text = EditHardMax.Text then
       EditDureza.Text := EditHardMin.Text
     else
@@ -1055,35 +1059,38 @@ begin
       EditDensidade.Text := EditDensMin.Text
     else
       EditDensidade.Text := EditDensMin.Text + ' - ' + EditDensMax.Text;
-    MemoCor.Text := Dados.TablePhysical.FieldByName[FieldColor];
-    MemoTraco.Text := Dados.TablePhysical.FieldByName[FieldStreak];
-    MemoBrilho.Text := Dados.TablePhysical.FieldByName[FieldBrightness];
-    MemoClivagem.Text := Dados.TablePhysical.FieldByName[FieldCleavage];
-    MemoFratura.Text := Dados.TablePhysical.FieldByName[FieldFracture];
-    MemoMagnetismo.Text := Dados.TablePhysical.FieldByName[FieldMagnetism];
-    MemoLuminescencia.Text := Dados.TablePhysical.FieldByName[FieldLuminescense];
+    MemoCor.Text := Dados.Query.FieldByName(FieldColor).AsString;
+    MemoTraco.Text := Dados.Query.FieldByName(FieldStreak).AsString;
+    MemoBrilho.Text := Dados.Query.FieldByName(FieldBrightness).AsString;
+    MemoClivagem.Text := Dados.Query.FieldByName(FieldCleavage).AsString;
+    MemoFratura.Text := Dados.Query.FieldByName(FieldFracture).AsString;
+    MemoMagnetismo.Text := Dados.Query.FieldByName(FieldMagnetism).AsString;
+    MemoLuminescencia.Text := Dados.Query.FieldByName(FieldLuminescense).AsString;
 
     SelectSQL := Dados.SelectSQL(Dados.Table3, EditMineralName.Text);
-    Dados.TableOptics := Dados.DatabaseMinerals.GetTable(SelectSQL);
-    EditBMax.Text := Dados.TableOptics.FieldByName[FieldBirrMax];
-    ComboBoxOpticSign.Text := Dados.TableOptics.FieldByName[FieldOpticSign];
-    MemoSinalOptico.Text := Dados.TableOptics.FieldByName[FieldOpticSignDescr];
-    MemoIndiceRefracao.Text := Dados.TableOptics.FieldByName[FieldRefractionIndex];
-    MemoAngulo.Text := Dados.TableOptics.FieldByName[Field2VAngle];
-    //MemoInterferencia.Text := Dados.TableOptics.FieldByName[FieldInterference];
-    MemoCorLamina.Text := Dados.TableOptics.FieldByName[FieldColorBlade];
-    MemoSinalElongacao.Text := Dados.TableOptics.FieldByName[FieldElongationSign];
-    MemoBirrefringencia.Text := Dados.TableOptics.FieldByName[FieldBirrefringence];
-    MemoRelevo.Text := Dados.TableOptics.FieldByName[FieldRelief];
-    MemoExtincao.Text := Dados.TableOptics.FieldByName[FieldExtinction];
-
+    Dados.Query.SQL.Text:=SelectSQL;
+    Dados.Query.ExecSQL;
+    Dados.Transaction.Commit;
+    EditBMax.Text := Dados.Query.FieldByName(FieldBirrMax).AsString;
+    ComboBoxOpticSign.Text := Dados.Query.FieldByName(FieldOpticSign).AsString;
+    MemoSinalOptico.Text := Dados.Query.FieldByName(FieldOpticSignDescr).AsString;
+    MemoIndiceRefracao.Text := Dados.Query.FieldByName(FieldRefractionIndex).AsString;
+    MemoAngulo.Text := Dados.Query.FieldByName(Field2VAngle).AsString;
+    //MemoInterferencia.Text := Dados.Query.FieldByName[FieldInterference];
+    MemoCorLamina.Text := Dados.Query.FieldByName(FieldColorBlade).AsString;
+    MemoSinalElongacao.Text := Dados.Query.FieldByName(FieldElongationSign).AsString;
+    MemoBirrefringencia.Text := Dados.Query.FieldByName(FieldBirrefringence).AsString;
+    MemoRelevo.Text := Dados.Query.FieldByName(FieldRelief).AsString;
+    MemoExtincao.Text := Dados.Query.FieldByName(FieldExtinction).AsString;
 
     SelectSQL := Dados.SelectSQL(Dados.Table4, EditMineralName.Text);
-    Dados.TableChryst := Dados.DatabaseMinerals.GetTable(SelectSQL);
-    EditSistema.Text := Dados.TableChryst.FieldByName[FieldCrystSystem];
-    EditClasse_Cristalina.Text := Dados.TableChryst.FieldByName[FieldChrystClass];
-    EditH_M.Text := Dados.TableChryst.FieldByName[FieldSymbology];
-    MemoHabito.Text := Dados.TableChryst.FieldByName[FieldHabit];
+    Dados.Query.SQL.Text:=SelectSQL;
+    Dados.Query.ExecSQL;
+    Dados.Transaction.Commit;
+    EditSistema.Text := Dados.Query.FieldByName(FieldCrystSystem).AsString;
+    EditClasse_Cristalina.Text := Dados.Query.FieldByName(FieldChrystClass).AsString;
+    EditH_M.Text := Dados.Query.FieldByName(FieldSymbology).AsString;
+    MemoHabito.Text := Dados.Query.FieldByName(FieldHabit).AsString;
 
     FormMain.FrameImages.SelectedImage := '1';
     RefreshImages;

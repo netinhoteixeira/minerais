@@ -30,9 +30,9 @@ type
     procedure FormHide(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
-     FrameFicha1: TFrameFicha;
-    function AddMineral: Boolean;
     { private declarations }
+    FrameFicha1: TFrameFicha;
+    function AddMineral: Boolean;
   public
     { public declarations }
   end;

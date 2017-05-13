@@ -55,12 +55,12 @@ type
   private
     { private declarations }
   public
+    { public declarations }
     procedure AddClasses;
     procedure AddGroups;
     procedure AddSubclasses;
     procedure AddSubgroups;
     procedure ChangeLanguage;
-    { public declarations }
   end;
 
 var StrName, StrOccur, StrAssoc:String; //usado para guardar valor da ultima pesquisa e evitar preencher a lista duas vezes seguidas
@@ -138,188 +138,52 @@ end;
 
 procedure TFrameSimpleFilter.AddClasses;
 begin
-  ComboBoxClass.Items.Clear;
-  ComboBoxClass.Items.add(emptystr);
-  Dados.TableGeneral := Dados.DatabaseMinerals.GetTable(
-    'SELECT DISTINCT '+FieldClass+' FROM '+Dados.Table1+' ORDER BY '+FieldClass+' ASC');
-  if (Dados.TableGeneral.Count > 0) then
-    if Dados.TableGeneral.MoveFirst then
-    begin
-      while (not Dados.TableGeneral.EOF) do
-      begin
-        if Trim(Dados.TableGeneral.FieldByName[FieldClass]) <> EmptyStr then
-          ComboBoxClass.Items.Add(Dados.TableGeneral.FieldByName[FieldClass]);
-        Dados.TableGeneral.Next;
-      end;
-    end;
+  ComboBoxClass.Items:=Dados.SelectClasses;
 end;
 
 procedure TFrameSimpleFilter.AddGroups;
 begin
-  ComboBoxGroup.Items.Clear;
-  ComboBoxGroup.Items.add(EmptyStr);
   if (ComboBoxClass.Text = emptystr) then
   begin
     if (ComboBoxSubClass.Text = emptystr) then
     begin
-      Dados.TableGeneral := Dados.DatabaseMinerals.GetTable(
-        'SELECT DISTINCT '+FieldGroup+' FROM '+Dados.Table1+' ORDER BY '+FieldGroup+' ASC');
+      ComboBoxGroup.Items:=Dados.SelectGroups;
     end
     else
     begin
-      Dados.TableGeneral := Dados.DatabaseMinerals.GetTable(
-        'SELECT DISTINCT '+FieldGroup+' FROM '+Dados.Table1+' WHERE ('+FieldSubclass+' = "' +
-        ComboBoxSubClass.Text + '")ORDER BY '+FieldGroup+' ASC');
+      ComboBoxGroup.Items:=Dados.SelectGroups_(ComboBoxSubClass.Text);
     end;
   end
   else
   begin
     if (ComboBoxSubClass.Text = EmptyStr) then
     begin
-      Dados.TableGeneral := Dados.DatabaseMinerals.GetTable(
-        'SELECT DISTINCT '+FieldGroup+' FROM '+Dados.Table1+' WHERE ('+FieldClass+' = "' +
-        ComboBoxClass.Text + '") ORDER BY '+FieldGroup+' ASC');
+      ComboBoxGroup.Items:=Dados.SelectGroups(ComboBoxClass.Text);
     end
     else
     begin
-      Dados.TableGeneral := Dados.DatabaseMinerals.GetTable(
-        'SELECT DISTINCT '+FieldGroup+' FROM '+Dados.Table1+' WHERE( '+FieldClass+' = "' +
-        ComboBoxClass.Text + '" AND '+FieldSubclass+' = "' + ComboBoxSubClass.Text +
-        '")ORDER BY '+FieldGroup+' ASC');
+      ComboBoxGroup.Items:=Dados.SelectGroups(
+          ComboBoxClass.Text, ComboBoxSubclass.Text);
     end;
   end;
-
-  if (Dados.TableGeneral.Count > 0) then
-    if Dados.TableGeneral.MoveFirst then
-    begin
-      while (not Dados.TableGeneral.EOF) do
-      begin
-        if Trim(Dados.TableGeneral.FieldByName[FieldGroup]) <> EmptyStr then
-          ComboBoxGroup.Items.Add(Dados.TableGeneral.FieldByName[FieldGroup]);
-        Dados.TableGeneral.Next;
-      end;
-    end;
 end;
 
 procedure TFrameSimpleFilter.AddSubclasses;
 begin
-  ComboBoxSubClass.Items.Clear;
-  ComboBoxSubClass.Items.Add(EmptyStr);
   if (ComboBoxClass.Text = emptystr) then
   begin
-    Dados.TableGeneral := Dados.DatabaseMinerals.GetTable(
-      'SELECT DISTINCT '+FieldSubclass+' FROM '+Dados.Table1+' ORDER BY '+FieldSubclass+' ASC');
+    ComboBoxSubclass.Items:=Dados.SelectSubclasses;
   end
   else
   begin
-    Dados.TableGeneral := Dados.DatabaseMinerals.GetTable(
-      'SELECT DISTINCT '+FieldSubclass+' FROM '+Dados.Table1+' WHERE( '+FieldClass+' = "' +
-      ComboBoxClass.Text + '") ORDER BY '+FieldSubclass+' ASC');
+    ComboBoxSubclass.Items:=Dados.SelectSubclasses(ComboBoxClass.Text);
   end;
-  if (Dados.TableGeneral.Count > 0) then
-    if Dados.TableGeneral.MoveFirst then
-    begin
-      while (not Dados.TableGeneral.EOF) do
-      begin
-        if Trim(Dados.TableGeneral.FieldByName[FieldSubclass]) <> EmptyStr then
-          ComboBoxSubClass.Items.Add(Dados.TableGeneral.FieldByName[FieldSubclass]);
-        Dados.TableGeneral.Next;
-      end;
-    end;
 end;
 
 procedure TFrameSimpleFilter.AddSubgroups;
 begin
- ComboboxSubgroup.Items.Clear;
-  ComboBoxSubgroup.Items.add(EmptyStr);
-  if ComboBoxClass.Text = emptystr then
-  begin
-    if (ComboBoxSubclass.Text = emptystr) then
-    begin
-      if (ComboBoxGroup.Text = emptystr) then
-      begin
-        Dados.TableGeneral :=
-          Dados.DatabaseMinerals.GetTable(
-          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' ORDER BY '+FieldSubGroup+' ASC');
-      end
-      else
-      begin
-        Dados.TableGeneral :=
-          Dados.DatabaseMinerals.GetTable(
-          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldGroup+' = "' +
-          ComboBoxGroup.Text + '") ORDER BY '+FieldSubGroup+' ASC');
-      end;
-    end
-    else
-    begin
-      if (ComboBoxGroup.Text = emptystr) then
-      begin
-        Dados.TableGeneral :=
-          Dados.DatabaseMinerals.GetTable(
-          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldSubClass+' = "' +
-          ComboBoxSubclass.Text + '") ORDER BY '+FieldSubGroup+' ASC');
-      end
-      else
-      begin
-        Dados.TableGeneral :=
-          Dados.DatabaseMinerals.GetTable(
-          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldSubClass+' = "' +
-          ComboBoxSubclass.Text + '" and '+FieldGroup+' = "' + ComboBoxGroup.Text +
-          '") ORDER BY '+FieldSubGroup+' ASC');
-      end;
-    end;
-  end
-  else
-  begin
-    if (ComboBoxSubclass.Text = emptystr) then
-    begin
-      if (ComboBoxGroup.Text = emptystr) then
-      begin
-        Dados.TableGeneral :=
-          Dados.DatabaseMinerals.GetTable(
-          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldClass+' = "' +
-          ComboBoxClass.Text + '") ORDER BY '+FieldSubGroup+' ASC');
-      end
-      else
-      begin
-        Dados.TableGeneral :=
-          Dados.DatabaseMinerals.GetTable(
-          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldClass+'= "' +
-          ComboBoxClass.Text + '" and '+FieldGroup+'= "' + ComboBoxGroup.Text +
-          '") ORDER BY '+FieldSubGroup+' ASC');
-      end;
-    end
-    else
-    begin
-      if (ComboBoxGroup.Text = emptystr) then
-      begin
-        Dados.TableGeneral :=
-          Dados.DatabaseMinerals.GetTable(
-          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldClass+' = "' +
-          ComboBoxClass.Text + '" and '+FieldSubClass+' = "' + ComboBoxSubclass.Text +
-          '") ORDER BY '+FieldSubGroup+' ASC');
-      end
-      else
-      begin
-        Dados.TableGeneral :=
-          Dados.DatabaseMinerals.GetTable(
-          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldClass+' = "' +
-          ComboBoxClass.Text + '" and '+FieldSubclass+' = "' + ComboBoxSubclass.Text +
-          '" and '+FieldGroup+' = "' + ComboBoxGroup.Text + '")ORDER BY '+FieldSubGroup+' ASC');
-      end;
-    end;
-  end;
-
-  if (Dados.TableGeneral.Count > 0) then
-    if Dados.TableGeneral.MoveFirst then
-    begin
-      while (not Dados.TableGeneral.EOF) do
-      begin
-        if Trim(Dados.TableGeneral.FieldByName[FieldSubGroup]) <> EmptyStr then
-          ComboBoxSubgroup.Items.Add(Dados.TableGeneral.FieldByName[FieldSubGroup]);
-        Dados.TableGeneral.Next;
-      end;
-    end;
+  ComboBoxSubGroup.Items:=Dados.SelectSubGroups(
+      ComboBoxClass.Text, ComboBoxSubclass.Text, ComboBoxGroup.Text);
 end;
 
 procedure TFrameSimpleFilter.ChangeLanguage;

@@ -21,7 +21,6 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   unitadvancedfilter,
   unitaddimage,
   uformselectdatabase,
-  uformadddatabase,
   uframeimages, uformrmimage, unitconfigfile;
 
 {$R *.res}
@@ -38,7 +37,6 @@ begin
   Application.CreateForm(TFormAddMineral, FormAddMineral);
   Application.CreateForm(TFormRemoveMineral, FormRemoveMineral);
   Application.CreateForm(TFormAdvancedFilter, FormAdvancedFilter);
-  Application.CreateForm(TFormAddDatabase, FormAddDatabase);
   Application.CreateForm(TFormSelectDatabase, FormSelectDatabase);
   Application.CreateForm(TFormAddImage, FormAddImage);
   Application.CreateForm(TFormRmImage, FormRmImage);

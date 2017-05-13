@@ -142,12 +142,12 @@ type
   private
     { private declarations }
   public
+    { public declarations }
     FormFrameFicha: TFrameFicha;
     FrameList : TFrameList;
     FrameSimpleFilter: TFrameSimpleFilter;
     FrameImages: TFrameImage;
     procedure ChangeLanguage;
-    { public declarations }
   end;
 
   const SlimPanelsWidth:Integer = 200;
@@ -228,14 +228,13 @@ begin
   if Trim(Dados.DatabaseMineralFileName) <> EmptyStr then
   begin
     if FileExists(Dados.DatabaseMineralFileName) then
-      if Dados.ValidateDatabase(Dados.DatabaseMineralFileName) then
-      begin
-        Dados.DatabaseMinerals := TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
-        FrameList.RefreshList;
-        FrameSimpleFilter.AddClasses;
-        FrameSimpleFilter.AddSubclasses;
-        FrameSimpleFilter.AddGroups;
-        FrameSimpleFilter.AddSubgroups;
+    begin
+      Dados.DatabaseMinerals := TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
+      FrameList.RefreshList;
+      FrameSimpleFilter.AddClasses;
+      FrameSimpleFilter.AddSubclasses;
+      FrameSimpleFilter.AddGroups;
+      FrameSimpleFilter.AddSubgroups;
         //FormFrameFicha.EditingMode(True);
       //FormFrameFicha.RefreshImages;
     end
@@ -295,10 +294,7 @@ begin
   begin
     if FileExists(Dados.DatabaseMineralFileName) then
     begin
-      if Dados.ValidateDatabase(Dados.DatabaseMineralFileName) then
-        FormAddMineral.Show
-      else
-        ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
+      FormAddMineral.Show
     end
     else
       ShowMessage(Lang.TheSelectedDatabaseIsNotValid);

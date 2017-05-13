@@ -66,7 +66,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil,
-  SQLite3tablemod, unitconfigfile, Dialogs, unitlanguage;
+  SQLite3tablemod, unitconfigfile, Dialogs, unitlanguage, sqldb, sqlite3conn;
 
 type
 
@@ -79,7 +79,12 @@ type
     procedure DataModuleDestroy(Sender: TObject);
   private
     { private declarations }
+    Connector: TSQLConnector;
   public
+    { public declarations }
+    Query: TSQLQuery;
+    Transaction: TSQLTransaction;
+
     Table1: string;
     Table2: string;
     Table3: string;
@@ -87,10 +92,6 @@ type
     Table5: string;
 
     DatabaseMinerals: TSQLiteDatabase;
-    TableGeneral: TSQLiteTable;
-    TablePhysical: TSQLiteTable;
-    TableOptics: TSQLiteTable;
-    TableChryst: TSQLiteTable;
     TableImages: TSQLiteTable;
 
     DatabaseMineralFileName: string;
@@ -110,6 +111,17 @@ type
       Group, Subgroup, Occurrence, Association, MinHard, MaxHard: string;
       MinDens, MaxDens: real; Order: TOrder): TStrings;
     function SelectSQL(Table, Mineral: string): string;
+
+    function SelectClasses:TStrings;
+    function SelectSubclasses:TStrings;
+    function SelectSubclasses(Classe: String):TStrings;
+    function SelectGroups:TStrings;
+    function SelectGroups(Classe:String):TStrings;
+    function SelectGroups_(SubClasse:String):TStrings;
+    function SelectGroups(Classe, SubClass:String):TStrings;
+    function SelectSubGroups(Classe, Subclass, Group:String):TStrings;
+    //TODO função para selecionar database
+
     procedure UpdateGeneralInfo(Nome, Composicao, Classe, Subclasse,
       Grupo, Subgrupo, Ocorrencia, Associacao, Distincao, Alteracao, Aplicacao: string);
     procedure UpdatePhysicalProp(DurezaMin, DurezaMax, DensidadeMin,
@@ -122,7 +134,6 @@ type
     function FindImageId: Integer;
     function GetCount(NameStr:String): Integer;
     function ValidateDatabase(Path: string): boolean;
-    { public declarations }
   end;
 
 const
@@ -208,7 +219,33 @@ begin
   Sep := '/';
   {$ENDIF}
   AppPath := GetCurrentDir + Sep;
-  DatabaseMineralFilename := ConfigGetDatabase;
+  if ValidateDatabase(ConfigGetDatabase) then
+    DatabaseMineralFilename := ConfigGetDatabase
+  else
+  begin
+    DatabaseMineralFilename:=EmptyStr;
+    //ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
+  end;
+  //Create Components
+  Connector:= TSQLConnector.Create(nil);
+  Query:= TSQLQuery.Create(nil);
+  Transaction:= TSQLTransaction.Create(nil);
+  //
+  Connector.Transaction:=Transaction;
+  Connector.ConnectorType:='SQLite3';
+  //Connector.ConnectorType:='Firebird';
+  Query.DataBase:=Connector;
+
+
+    //excluir abaixoo, so para testes
+  Connector.DatabaseName:='teste.s3db';
+  Transaction.StartTransaction;
+  //
+  if DatabaseMineralFileName <> EmptyStr then
+  begin
+    //Connector.DatabaseName:=DatabaseMineralFilename;
+    //Transaction.StartTransaction;
+  end;
 end;
 
 procedure TDados.CreateDatabase(Diretorio: string);
@@ -216,20 +253,29 @@ var
   ExecSQL: string;
 begin
   try
-    DatabaseMinerals := TSQLiteDatabase.Create(Diretorio);
+    if Connector.Connected then
+    begin
+      //TODO
+    end;
+    Connector.DatabaseName:=Diretorio;
+    Transaction.StartTransaction;
     ExecSQL :=
       'CREATE TABLE ' + Table1 + ' ([id] INTEGER PRIMARY KEY NOT NULL,['+FieldName+'] TEXT ' +
       'UNIQUE  NOT NULL, ['+FieldComposition+'] TEXT, ['+FieldClass+'] TEXT, ['+FieldSubClass+'] TEXT, ' +
       '['+FieldGroup+'] TEXT, ['+FieldSubGroup+'] TEXT, ['+FieldOccurrence+'] TEXT, ['+FieldAssociation+'] TEXT,' +
       '['+FieldDistinction+'] TEXT, ['+FieldUse+'] TEXT,['+FieldAlteration+'] TEXT);';
-    DatabaseMinerals.ExecSQL(ExecSQL);
+    Query.SQL.Text:=ExecSQL;
+    Query.ExecSQL;
+    Transaction.Commit;
     ExecSQL :=
       'CREATE TABLE ' + Table2 + ' ([id] INTEGER PRIMARY KEY NOT NULL,['+FieldName+'] TEXT ' +
       'UNIQUE  NOT NULL, ' + '['+FieldHardMin+'] FLOAT DEFAULT 0, ['+FieldHardMax+'] FLOAT DEFAULT 10, ' +
       '['+FieldDensMin+'] FLOAT, ['+FieldDensMax+'] FLOAT, ['+FieldColor+'] TEXT,' +
       '['+FieldBrightness+'] TEXT, ['+FieldStreak+'] TEXT, ['+FieldFracture+'] TEXT, ['+FieldCleavage+'] TEXT, ' +
       '['+FieldLuminescense+'] TEXT, ['+FieldMagnetism+'] TEXT);';
-    DatabaseMinerals.ExecSQL(ExecSQL);
+    Query.SQL.Text:=ExecSQL;
+    Query.ExecSQL;
+    Transaction.Commit;
     ExecSQL := 'CREATE TABLE ' + Table3 + ' ([id] INTEGER PRIMARY KEY NOT NULL, ' +
       '['+FieldName+'] TEXT UNIQUE NOT NULL,' +
       '['+FieldOpticSign+'] TEXT, ['+FieldOpticSignDescr+'] TEXT, ' +
@@ -238,17 +284,23 @@ begin
       '['+FieldColorBlade+'] TEXT, ['+FieldElongationSign+'] TEXT, ['+FieldRelief+'] TEXT, ' +
       '['+Field2VAngle+'] TEXT,  ' +
       '['+FieldExtinction+'] TEXT) ; ';
-    DatabaseMinerals.ExecSQL(ExecSQL);
+    Query.SQL.Text:=ExecSQL;
+    Query.ExecSQL;
+    Transaction.Commit;
     ExecSQL :=
       'CREATE TABLE ' + Table4 + ' ([id] INTEGER PRIMARY KEY NOT NULL,['+FieldName+'] TEXT ' +
       'UNIQUE  NOT NULL, ' + '['+FieldChrystClass+'] TEXT, ['+FieldCrystSystem+'] TEXT, ['+FieldSymbology+'] TEXT,' +
       '['+FieldHabit+'] TEXT);';
-    DatabaseMinerals.ExecSQL(ExecSQL);
+    Query.SQL.Text:=ExecSQL;
+    Query.ExecSQL;
+    Transaction.Commit;
     ExecSQL :=
       'CREATE TABLE ' + Table5 + ' ([id] INTEGER PRIMARY KEY NOT NULL,['+FieldName+'] TEXT ' +
       'NOT NULL, ' + '['+FieldImage+'] BLOB, ['+FieldDescription+'] VARCHAR(500), ['+
       FieldCategory+'] VARCHAR(50));';
-    DatabaseMinerals.ExecSQL(ExecSQL);
+    Query.SQL.Text:=ExecSQL;
+    Query.ExecSQL;
+    Transaction.Commit;
   finally
 
   end;
@@ -258,49 +310,66 @@ function TDados.AddMineral(Nome: string): integer;
 var
   SQLstr: string;
 begin
-  Dados.TableGeneral := Dados.DatabaseMinerals.GetTable(
-    'SELECT '+FieldName+' FROM ' + Table1 + ' WHERE '+FieldName+'="' + Nome + '" ; ');
-  if Dados.TableGeneral.Count > 0 then
+  SQLstr:='SELECT '+FieldName+' FROM ' + Table1 + ' WHERE '+FieldName+'="' + Nome + '" ; ';
+  Query.SQL.Text:=SQLstr;
+  Query.ExecSQL;
+  Transaction.Commit;
+  if Query.RecordCount > 0 then
   begin
     Result := 1;
   end
   else
   begin
     SQLstr := 'INSERT INTO ' + Dados.Table1 + ' ('+FieldName+') VALUES ("' + Nome + '") ; ';
-    Dados.DatabaseMinerals.ExecSQL(SQLstr);
+    Query.SQL.Text:=SQLstr;
+    Query.ExecSQL;
+    Transaction.Commit;
     SQLstr := 'INSERT INTO ' + Dados.Table2 +
       ' ('+FieldName+', '+FieldHardMin+', '+FieldHardMax+', '+FieldDensMin+',' + FieldDensMax+') VALUES ("' +
       Nome + '","1","10","0","30") ;';
-    Dados.DatabaseMinerals.ExecSQL(SQLstr);
+    Query.SQL.Text:=SQLstr;
+    Query.ExecSQL;
+    Transaction.Commit;
     SQLstr := 'INSERT INTO ' + Table3 + ' ('+FieldName+', ' +
-      FieldBirrMax+') VALUES ("' + Nome + '", "0") ;';
-    Dados.DatabaseMinerals.ExecSQL(SQLstr);
+       FieldBirrMax+') VALUES ("' + Nome + '", "0") ;';
+    Query.SQL.Text:=SQLstr;
+    Query.ExecSQL;
+    Transaction.Commit;
     SQLstr := 'INSERT INTO ' + Dados.Table4 + ' ('+FieldName+') VALUES ("' + Nome + '") ; ';
-    Dados.DatabaseMinerals.ExecSQL(SQLstr);
+    Query.SQL.Text:=SQLstr;
+    Query.ExecSQL;
+    Transaction.Commit;
     SQLstr := 'INSERT INTO ' + Dados.Table5 + ' ('+FieldName+') VALUES ("' + Nome + '") ; ';
-    Dados.DatabaseMinerals.ExecSQL(SQLstr);
+    Query.SQL.Text:=SQLstr;
+    Query.ExecSQL;
+    Transaction.Commit;
     Result := 0;
   end;
 end;
 
 procedure TDados.UpdateField(Table, Field, NewValue, Especie: string);
+var SQLstr:String;
 begin
   if DatabaseMineralFilename <> EmptyStr then
   begin
     if FileExists(DatabaseMineralFilename) then
     begin
-      TableGeneral := DatabaseMinerals.GetTable('UPDATE ' + Table +
-        ' SET ' + Field + ' = "' + NewValue + '" WHERE '+FieldName+' = "' + Especie + '" ; ');
+      SQLstr:='UPDATE ' + Table +
+        ' SET ' + Field + ' = "' + NewValue + '" WHERE '+FieldName+' = "' + Especie + '" ; ';
+    Query.SQL.Text:=SQLstr;
+    Query.ExecSQL;
+    Transaction.Commit;
     end;
   end;
 end;
 
 //Verifica se o Banco de dados é compatível
+//TODO
 function TDados.ValidateDatabase(Path: string): boolean;
 var
   Compatible: boolean;
 begin
-  Compatible := False;
+  {Compatible := False;
   if Path <> EmptyStr then
   begin
     if FileExists(Path) then
@@ -335,15 +404,22 @@ begin
     Result := False;
   end;
   Result := Compatible;
+  }
+  Result:=True;
 end;
 
 procedure TDados.ExcluiMineral(Especie: string);
+var SQLs:TStringList;
 begin
-  DatabaseMinerals.ExecSQL('DELETE FROM ' + Table1 + ' WHERE ('+FieldName+'="' + Especie + '");');
-  DatabaseMinerals.ExecSQL('DELETE FROM ' + Table2 + ' WHERE ('+FieldName+'="' + Especie + '");');
-  DatabaseMinerals.ExecSQL('DELETE FROM ' + Table3 + ' WHERE ('+FieldName+'="' + Especie + '");');
-  DatabaseMinerals.ExecSQL('DELETE FROM ' + Table4 + ' WHERE ('+FieldName+'="' + Especie + '");');
-  DatabaseMinerals.ExecSQL('DELETE FROM ' + Table5 + ' WHERE ('+FieldName+'="' + Especie + '");');
+  SQLs:=TStringList.Create;
+  SQLs.Add('DELETE FROM ' + Table1 + ' WHERE ('+FieldName+'="' + Especie + '");');
+  SQLs.Add('DELETE FROM ' + Table2 + ' WHERE ('+FieldName+'="' + Especie + '");');
+  SQLs.Add('DELETE FROM ' + Table3 + ' WHERE ('+FieldName+'="' + Especie + '");');
+  SQLs.Add('DELETE FROM ' + Table4 + ' WHERE ('+FieldName+'="' + Especie + '");');
+  SQLs.Add('DELETE FROM ' + Table5 + ' WHERE ('+FieldName+'="' + Especie + '");');
+  Query.SQL:=SQLs;
+  Query.ExecSQL;
+  Transaction.Commit;
 end;
 
 function TDados.MineralFiltered(strName, Table, FieldStr, Field: string): boolean;
@@ -351,6 +427,7 @@ var
   eliminar: boolean;
   I, K: integer;
   StrAux: string;
+  SQLstr:String;
 begin
   Eliminar := True;
   if (Trim(FieldStr) = Emptystr) then
@@ -359,20 +436,26 @@ begin
   end
   else
   begin
-    TableGeneral := DatabaseMinerals.GetTable('SELECT ' + Field +
-      ' FROM ' + Table + ' WHERE ' + FieldName + ' = "' + strName + '" ;');
-    if TableGeneral.Count > 0 then
-      if TableGeneral.MoveFirst then
-        if (TableGeneral.FieldByName[Field] <> EmptyStr) then
+    SQLstr:='SELECT ' + Field +
+      ' FROM ' + Table + ' WHERE ' + FieldName + ' = "' + strName + '" ;';
+    Query.SQL.Text:=SQLstr;
+    Transaction.StartTransaction;
+    Query.ExecSQL;
+    Transaction.Commit;
+    Query.Open;
+    if Query.RecordCount > 0 then
+      if Query.FindFirst then
+        if Query.FieldByName(Field).AsString <> EmptyStr then
         begin
           K := (Length(FieldStr));
           for I := 0 to K do
           begin
-            StrAux := Copy(TableGeneral.FieldByName[Field], I, K);
+            StrAux := Copy(Query.FieldByName(Field).AsString, I, K);
             if (UpCase(StrAux) = UpCase(FieldStr)) then
               Eliminar := False;
           end;
         end;
+    Query.Close;
   end;
   Result := Eliminar;
 end;
@@ -380,6 +463,7 @@ end;
 function TDados.MineralBiggerThan(strName, Table, Value, Field: string): boolean;
 var
   eliminar: boolean;
+  SQLstr:String;
 begin
   Eliminar := True;
   if (trim(Value) = Emptystr) then
@@ -388,13 +472,18 @@ begin
   end
   else
   begin
-    TableGeneral := DatabaseMinerals.GetTable('SELECT ' + FieldName +', '+Field+
-      ' FROM ' + Table + ' WHERE ' + FieldName + ' = "' + strName + '" ;');
-    if TableGeneral.Count > 0 then
+    SQLstr:='SELECT ' + FieldName +', '+Field+
+      ' FROM ' + Table + ' WHERE ' + FieldName + ' = "' + strName + '" ;';
+    Query.SQL.Text:=SQLstr;
+    Query.ExecSQL;
+    Transaction.Commit;
+    Query.Open;
+    if Query.RecordCount > 0 then
     begin
-      if StrToInt(TableGeneral.FieldByName[Field]) >= StrToInt(Value) then
+      if StrToInt(Query.FieldByName(Field).AsString) >= StrToInt(Value) then
         Eliminar := False;
     end;
+    Query.Close;
   end;
   Result := Eliminar;
 end;
@@ -402,6 +491,7 @@ end;
 function TDados.MineralLessThan(strName, Table, Value, Field: string): boolean;
 var
   eliminar: boolean;
+  SQLstr:String;
 begin
   Eliminar := True;
   if (trim(Value) = Emptystr) then
@@ -410,13 +500,18 @@ begin
   end
   else
   begin
-    TableGeneral := DatabaseMinerals.GetTable('SELECT ' + FieldName +', '+Field+
-      ' FROM ' + Table + ' WHERE ' + FieldName + ' = "' + strName + '" ;');
-    if TableGeneral.Count > 0 then
+    SQLstr:='SELECT ' + FieldName +', '+Field+
+      ' FROM ' + Table + ' WHERE ' + FieldName + ' = "' + strName + '" ;';
+    Query.SQL.Text:=SQLstr;
+    Query.ExecSQL;
+    Transaction.Commit;
+    Query.Open;
+    if Query.RecordCount > 0 then
     begin
-      if StrToInt(TableGeneral.FieldByName[Field]) <= StrToInt(Value) then
+      if StrToInt(Query.FieldByName(FIeld).AsString) <= StrToInt(Value) then
         Eliminar := False;
     end;
+    Query.Close;
   end;
   Result := Eliminar;
 end;
@@ -427,18 +522,22 @@ var
   List: TStrings;
 begin
   List := TStringList.Create;
-  if ValidateDatabase(DatabaseMineralFilename) then
+  if (DatabaseMineralFilename <> EmptyStr) then
   begin
     SQLstr := 'SELECT DISTINCT ' + Field + ' FROM ' + Table + ' ;';
-    TableGeneral := DatabaseMinerals.GetTable(SQLStr);
-    if TableGeneral.Count > 0 then
-      if TableGeneral.MoveFirst then
-        while not TableGeneral.EOF do
+    Query.SQL.Text:=SQLstr;
+    Query.ExecSQL;
+    Transaction.Commit;
+    Query.Open;
+    if Query.RecordCount > 0 then
+      if Query.FindFirst then
+        while not Query.EOF do
         begin
-          if Trim(TableGeneral.FIelds[0]) <> EmptyStr then
-            List.Append(TableGeneral.Fields[0]);
-          TableGeneral.Next;
+          if Trim(Query.Fields[0].AsString) <> EmptyStr then
+            List.Append(Query.Fields[0].AsString);
+          Query.FindNext;
         end;
+    Query.Close;
   end;
   Result := List;
 end;
@@ -467,14 +566,18 @@ begin
       SQLstr := 'SELECT '+FieldName+' FROM ' + Table3 + ' ORDER BY '+FieldBirrMax+' ; ';
     end;
   end;
-  TableGeneral := DatabaseMinerals.GetTable(SQLstr);
-  if TableGeneral.Count > 0 then
-    if TableGeneral.MoveFirst then
-      while (not TableGeneral.EOF) do
+  Query.SQL.Text:=SQLstr;
+  Query.ExecSQL;
+  Transaction.Commit;
+  Query.Open;
+  if Query.RecordCount > 0 then
+    if Query.FindFirst then
+      while (not Query.EOF) do
       begin
-        List.Append(TableGeneral.Fields[0]);
-        TableGeneral.Next;
+        List.Append(Query.Fields[0].AsString);
+        Query.FindNext;
       end;
+  Query.Close;
   Result := List;
 end;
 
@@ -591,6 +694,256 @@ begin
   Result := SQLstr;
 end;
 
+function TDados.SelectClasses: TStrings;
+var SQLstr:String;
+  Strings:TStrings;
+begin
+  Strings:=TStringList.Create;
+  SQLstr:='SELECT DISTINCT '+FieldClass+' FROM '+Dados.Table1+' ORDER BY '+FieldClass+' ASC';
+  Query.SQL.Text:=SQLstr;
+  Transaction.Commit;
+  Query.Open;
+  if (Query.RecordCount > 0) then
+    if Query.FindFirst then
+    begin
+      while (not Query.EOF) do
+      begin
+        if Trim(Query.FieldByName(FieldClass).AsString) <> EmptyStr then
+          Strings.Add(Query.FieldByName(FieldClass).AsString);
+        Query.FindNext;
+      end;
+    end;
+  Result:=Strings;
+end;
+
+function TDados.SelectSubclasses: TStrings;
+var SQLStr:String;
+  Strings:TStrings;
+begin
+  Strings:=TStringlist.Create;
+  SQLStr:='SELECT DISTINCT '+FieldSubclass+' FROM '+Dados.Table1+' ORDER BY '+FieldSubclass+' ASC';
+  Query.SQL.Text:=SQLStr;
+  Transaction.Commit;
+  Query.Open;
+  if (Query.RecordCount > 0) then
+    if Query.FindFirst then
+    begin
+      while (not Query.EOF) do
+      begin
+        if Trim(Query.FieldByName(FieldSubClass).AsString) <> EmptyStr then
+          Strings.Add(Query.FieldByName(FieldSubClass).AsString);
+        Query.FindNext;
+      end;
+    end;
+  Result:=Strings;
+end;
+
+function TDados.SelectSubclasses(Classe: String): TStrings;
+var SQLStr:String;
+  Strings:TStrings;
+begin
+  Strings:=TStringlist.Create;
+  SQLStr:='SELECT DISTINCT '+FieldSubclass+' FROM '+Dados.Table1+' WHERE( '+FieldClass+' = "' +
+      Classe + '") ORDER BY '+FieldSubclass+' ASC';
+  Query.SQL.Text:=SQLStr;
+  Transaction.Commit;
+  Query.Open;
+  if (Query.RecordCount > 0) then
+    if Query.FindFirst then
+    begin
+      while (not Query.EOF) do
+      begin
+        if Trim(Query.FieldByName(FieldSubClass).AsString) <> EmptyStr then
+          Strings.Add(Query.FieldByName(FieldSubClass).AsString);
+        Query.FindNext;
+      end;
+    end;
+  Result:=Strings;
+end;
+
+function TDados.SelectGroups: TStrings;
+var SQLstr:String;
+  Strings:TStrings;
+begin
+  Strings:=TStringList.Create;
+  SQLstr:= 'SELECT DISTINCT '+FieldGroup+' FROM '+Dados.Table1+' ORDER BY '+FieldGroup+' ASC';
+  Query.SQL.Text:=SQLstr;
+  Transaction.Commit;
+  Query.Open;
+  if (Query.RecordCount > 0) then
+    if Query.FindFirst then
+    begin
+      while (not Query.EOF) do
+      begin
+        if Trim(Query.FieldByName(FieldGroup).AsString) <> EmptyStr then
+          Strings.Add(Query.FieldByName(FieldGroup).AsString);
+        Query.FindNext;
+      end;
+    end;
+  Result:=Strings;
+end;
+
+function TDados.SelectGroups(Classe: String): TStrings;
+var SQLstr:String;
+  Strings:TStrings;
+begin
+  Strings:=TStringList.Create;
+  SQLstr:= 'SELECT DISTINCT '+FieldGroup+' FROM '+Dados.Table1+' WHERE ('+FieldClass+' = "' +
+        Classe + '") ORDER BY '+FieldGroup+' ASC';
+  Query.SQL.Text:=SQLstr;
+  Transaction.Commit;
+  Query.Open;
+  if (Query.RecordCount > 0) then
+    if Query.FindFirst then
+    begin
+      while (not Query.EOF) do
+      begin
+        if Trim(Query.FieldByName(FieldGroup).AsString) <> EmptyStr then
+          Strings.Add(Query.FieldByName(FieldGroup).AsString);
+        Query.FindNext;
+      end;
+    end;
+  Result:=Strings;
+end;
+
+function TDados.SelectGroups_(SubClasse: String): TStrings;
+var SQLstr:String;
+  Strings:TStrings;
+begin
+  Strings:=TStringList.Create;
+  SQLstr:= 'SELECT DISTINCT '+FieldGroup+' FROM '+Dados.Table1+' WHERE ('+FieldSubclass+' = "' +
+        SubClasse + '")ORDER BY '+FieldGroup+' ASC';
+  Query.SQL.Text:=SQLstr;
+  Transaction.Commit;
+  Query.Open;
+  if (Query.RecordCount > 0) then
+    if Query.FindFirst then
+    begin
+      while (not Query.EOF) do
+      begin
+        if Trim(Query.FieldByName(FieldGroup).AsString) <> EmptyStr then
+          Strings.Add(Query.FieldByName(FieldGroup).AsString);
+        Query.FindNext;
+      end;
+    end;
+  Result:=Strings;
+end;
+
+function TDados.SelectGroups(Classe, SubClass: String): TStrings;
+var SQLstr:String;
+  Strings:TStrings;
+begin
+  Strings:=TStringList.Create;
+  SQLstr:= 'SELECT DISTINCT '+FieldGroup+' FROM '+Dados.Table1+' WHERE( '+FieldClass+' = "' +
+        Classe + '" AND '+FieldSubclass+' = "' + SubClass +
+        '")ORDER BY '+FieldGroup+' ASC';
+  Query.SQL.Text:=SQLstr;
+  Transaction.Commit;
+  Query.Open;
+  if (Query.RecordCount > 0) then
+    if Query.FindFirst then
+    begin
+      while (not Query.EOF) do
+      begin
+        if Trim(Query.FieldByName(FieldGroup).AsString) <> EmptyStr then
+          Strings.Add(Query.FieldByName(FieldGroup).AsString);
+        Query.FindNext;
+      end;
+    end;
+  Result:=Strings;
+end;
+
+function TDados.SelectSubGroups(Classe, Subclass, Group: String): TStrings;
+var SQLstr:String;
+  Strings:TStrings;
+begin
+  Strings:=TStringList.Create;
+  if Classe = EmptyStr then
+  begin
+    if (Subclass = EmptyStr) then
+    begin
+      if (Group = EmptyStr) then
+      begin
+        SQLStr:=
+          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' ORDER BY '+FieldSubGroup+' ASC';
+      end
+      else
+      begin
+        SQLStr:=
+          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldGroup+' = "' +
+          Group + '") ORDER BY '+FieldSubGroup+' ASC';
+      end;
+    end
+    else
+    begin
+      if (Group = EmptyStr) then
+      begin
+        SQLstr:=
+          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldSubClass+' = "' +
+          Subclass + '") ORDER BY '+FieldSubGroup+' ASC';
+      end
+      else
+      begin
+        SQLstr:=
+          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldSubClass+' = "' +
+          Subclass + '" and '+FieldGroup+' = "' + Group +
+          '") ORDER BY '+FieldSubGroup+' ASC';
+      end;
+    end;
+  end
+  else
+  begin
+    if (Subclass = EmptyStr) then
+    begin
+      if (Group = EmptyStr) then
+      begin
+        SQLstr:=
+          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldClass+' = "' +
+          Classe + '") ORDER BY '+FieldSubGroup+' ASC';
+      end
+      else
+      begin
+        SQLstr:=
+          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldClass+'= "' +
+          Classe + '" and '+FieldGroup+'= "' + Group +
+          '") ORDER BY '+FieldSubGroup+' ASC';
+      end;
+    end
+    else
+    begin
+      if (Group = EmptyStr) then
+      begin
+        SQLstr:=
+          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldClass+' = "' +
+          Classe + '" and '+FieldSubClass+' = "' + Subclass +
+          '") ORDER BY '+FieldSubGroup+' ASC';
+      end
+      else
+      begin
+        SQLstr:=
+          'SELECT DISTINCT '+FieldSubGroup+' FROM '+Dados.Table1+' WHERE('+FieldClass+' = "' +
+          Classe + '" and '+FieldSubclass+' = "' + Subclass +
+          '" and '+FieldGroup+' = "' + Group + '")ORDER BY '+FieldSubGroup+' ASC';
+      end;
+    end;
+  end;
+  Query.SQL.Text:=SQLstr;
+  Transaction.Commit;
+  Query.Open;
+  if (Query.RecordCount > 0) then
+    if Query.FindFirst then
+    begin
+      while (not Query.EOF) do
+      begin
+        if Trim(Query.FieldByName(FieldSubGroup).AsString) <> EmptyStr then
+          Strings.Add(Query.FieldByName(FieldSubGroup).AsString);
+        Query.FindNext;
+      end;
+    end;
+  Result:=Strings;
+
+end;
+
 procedure TDados.UpdateGeneralInfo(Nome, Composicao, Classe, Subclasse,
   Grupo, Subgrupo, Ocorrencia, Associacao, Distincao, Alteracao, Aplicacao: string);
 var
@@ -602,7 +955,9 @@ begin
     '", '+FieldOccurrence+' = "' + Ocorrencia + '", ' + FieldAssociation+' = "' +
     Associacao + '", '+FieldDistinction+' = "' + Distincao + '", ' + FieldAlteration+' = "' +
     Alteracao + '", '+FieldUse+' = "' + Aplicacao + '" ' + 'WHERE '+FieldName+' ="' + Nome + '" ;';
-  DatabaseMinerals.ExecSQL(SQLstr);
+  Query.SQL.Text:=SQLstr;
+  Query.ExecSQL;
+  Transaction.Commit;
 end;
 
 procedure TDados.UpdatePhysicalProp(DurezaMin, DurezaMax, DensidadeMin,
@@ -618,7 +973,9 @@ begin  //to do: formatar valores reais para apenas uma casa decimal
     Brilho + '" , '+FieldCleavage+' = "' + Clivagem + '" , '+FieldFracture+' = "' + Fratura +
     '" ,' + FieldMagnetism+' = "' + Magnetismo + '" , '+FieldLuminescense+' = "' +
     Luminescencia + '"  ' + ' WHERE '+FieldName+' = "' + Nome + '" ;';
-  DatabaseMinerals.ExecSQL(SQLstr);
+  Query.SQL.Text:=SQLstr;
+  Query.ExecSQL;
+  Transaction.Commit;
 end;
 
 procedure TDados.UpdateOpticalProp(BirrMax, SinalOptico,
@@ -637,7 +994,9 @@ begin  //to do: formatar valores reais para 3 casas decimais (FloatToStr(valor, 
     '" , '+FieldRelief+' = "' + Relevo + '", ' + Field2VAngle+' = "' + Angulo2V +
     '", '+FieldExtinction+'  = "' + Extincao +'" '+
     ' WHERE '+FieldName+' = "' + Nome + '" ; ';
-  DatabaseMinerals.ExecSQL(SQlStr);
+  Query.SQL.Text:=SQLstr;
+  Query.ExecSQL;
+  Transaction.Commit;
 end;
 
 procedure TDados.UpdateCrystallography(Sistema, Classe, Simbologia,
@@ -648,7 +1007,9 @@ begin
   SQLstr := 'UPDATE ' + Table4 + ' SET ' + FieldCrystSystem+' = "' + Sistema +
     '" , '+FieldChrystClass+' = "' + Classe + '" , ' + FieldSymbology+' = "' +
     Simbologia + '" , '+FieldHabit+' = "' + Habito + '" ' + 'WHERE '+FieldName+' = "' + Nome + '"  ; ';
-  DatabaseMInerals.ExecSQL(SQlstr);
+  Query.SQL.Text:=SQLstr;
+  Query.ExecSQL;
+  Transaction.Commit;
 end;
 
 function TDados.FindImageId: Integer;
@@ -660,8 +1021,16 @@ begin
    begin
      Inc(I);
      SQLstr:='SELECT id FROM '+Table5+' WHERE id="'+IntToStr(I)+'";';
-     TableImages:=DatabaseMinerals.GetTable(SQLstr);
-     if TableImages.Count <=0 then Found:=True;
+     Query.SQL.Text:=SQLstr;
+     Query.ExecSQL;
+     Transaction.Commit;
+     Query.Open;
+     if Query.RecordCount <= 0 then
+     begin
+       Query.Close;
+       Found:=True;
+     end;
+     Query.Close;
    end;
    Result:=I;
 end;
@@ -671,13 +1040,18 @@ var
   SQLstr: string;
 begin
   SQLstr:= 'SELECT '+FieldName+' FROM '+Table1+' WHERE '+FieldName+'="'+NameStr+'" ;';
-  TableGeneral:=DatabaseMinerals.GetTable(SQLstr);
-  result:=TableGeneral.Count;
+  Query.SQL.Text:=SQLstr;
+  Query.ExecSQL;
+  Transaction.Commit;
+  Query.Open;
+  result:=Query.RecordCount;
 end;
 
 procedure TDados.DataModuleDestroy(Sender: TObject);
 begin
-  DatabaseMinerals.Free;
+  Connector.Free;
+  Transaction.Free;
+  Query.Free;
 end;
 
 end.

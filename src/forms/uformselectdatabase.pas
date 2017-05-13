@@ -13,13 +13,14 @@ type
   { TFormSelectDatabase }
 
   TFormSelectDatabase = class(TForm)
+    ActionNewDatabase: TAction;
     ActionApply: TAction;
     ActionClearMineral: TAction;
     ActionFormClose: TAction;
     ActionList1: TActionList;
-    ActionNewMineralDatabase: TAction;
     ActionRefreshEdits: TAction;
     ActionSelectMineralDatabase: TAction;
+    ActionSelectSampleDatabase: TAction;
     Edit1: TEdit;
     LabelCurrentDatabase: TLabel;
     OpenDialog1: TOpenDialog;
@@ -30,10 +31,10 @@ type
     SpeedButtonClose: TSpeedButton;
     SpeedButtonMineralNew: TSpeedButton;
     SpeedButtonMineralSelect: TSpeedButton;
+    procedure ActionNewDatabaseExecute(Sender: TObject);
     procedure ActionApplyExecute(Sender: TObject);
     procedure ActionClearMineralExecute(Sender: TObject);
     procedure ActionFormCloseExecute(Sender: TObject);
-    procedure ActionNewMineralDatabaseExecute(Sender: TObject);
     procedure ActionRefreshEditsExecute(Sender: TObject);
     procedure ActionSelectMineralDatabaseExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -49,7 +50,7 @@ var
   FormSelectDatabase: TFormSelectDatabase;
 
 implementation
-uses uformadddatabase, udatamodule, unitfichaespecie, unitlanguage, unitframelist;
+uses udatamodule, unitfichaespecie, unitlanguage, unitframelist;
 {$R *.lfm}
 
 { TFormSelectDatabase }
@@ -68,11 +69,6 @@ procedure TFormSelectDatabase.ChangeLanguage;
 begin
   self.Caption:=Lang.SelectDatabase;
   LabelCurrentDatabase.Caption:=Lang.CurrentDatabase;
-end;
-
-procedure TFormSelectDatabase.ActionNewMineralDatabaseExecute(Sender: TObject);
-begin
-  FormAddDatabase.Show;
 end;
 
 procedure TFormSelectDatabase.ActionFormCloseExecute(Sender: TObject);
@@ -101,6 +97,61 @@ begin
    end
   else
     ShowMessage(Lang.TheSelectedDatabaseIsNotValid);
+end;
+
+procedure TFormSelectDatabase.ActionNewDatabaseExecute(Sender: TObject);
+begin
+    if Trim(Edit1.Text) <> EmptyStr then
+  begin
+      if DirectoryExists(Dados.AppPath+'Data') then
+      begin
+        if FileExists(Dados.AppPath+Edit1.Text+'.s3db') then
+        begin
+          if Dados.ValidateDatabase(Dados.AppPath+Edit1.Text+
+            '.s3db') then
+            ShowMessage(Lang.ThereIsAlreadyARecordWithThatName)
+          else
+          begin
+            Dados.CreateDatabase(Dados.AppPath+Edit1.Text+
+              '.s3db');
+            FormSelectDatabase.Edit1.Text:= Dados.AppPath+Edit1.Text+
+              '.s3db';
+          end;
+        end
+        else
+        begin
+          Dados.CreateDatabase( Dados.AppPath+ Edit1.Text+'.s3db');
+          FormSelectDatabase.Edit1.Text:= Dados.AppPath+Edit1.Text+
+              '.s3db';
+        end;
+      end
+      else
+      begin
+        if FileExists(Dados.AppPath+Edit1.Text+'.s3db') then
+        begin
+          if Dados.ValidateDatabase(Dados.AppPath+Edit1.Text+
+            '.s3db') then
+            ShowMessage(Lang.ThereIsAlreadyARecordWithThatName)
+          else
+          begin
+            Dados.CreateDatabase(Dados.AppPath+ Edit1.Text+
+              '.s3db');
+            FormSelectDatabase.Edit1.Text:= Dados.AppPath+Edit1.Text+
+              '.s3db';
+          end;
+        end
+        else
+        begin
+          Dados.CreateDatabase(Dados.AppPath+Edit1.Text+'.s3db');
+          FormSelectDatabase.Edit1.Text:= Dados.AppPath+Edit1.Text+
+              '.s3db';
+        end;
+      end;
+      Dados.DatabaseMineralFileName := Dados.AppPath+ Edit1.Text+'.s3db';
+      ConfigSetDatabase(Dados.DatabaseMineralFileName);
+  end
+  else
+  ShowMessage(Lang.TypeTheNameOfDatabase);
 end;
 
 procedure TFormSelectDatabase.ActionRefreshEditsExecute(Sender: TObject);
