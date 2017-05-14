@@ -12,7 +12,6 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   unitSplash,
   crt,
   unitfichaespecie,
-  unitBlobFields,
   unitaddmineral,
   unitremovemineral,
   frameficha,
@@ -20,8 +19,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   unitframesimplefilter,
   unitadvancedfilter,
   unitaddimage,
-  uformselectdatabase,
-  uframeimages, uformrmimage, unitconfigfile;
+  uformselectdatabase, uformrmimage,
+  uframeimages, unitconfigfile;
 
 {$R *.res}
 
@@ -44,6 +43,5 @@ begin
   Delay(1000);
   FormSplash.Hide;
   FormSplash.Free;
-  Application.CreateForm(TFormRmImage, FormRmImage);
   Application.Run;
 end.

@@ -66,7 +66,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
   StdCtrls, DBCtrls, Buttons, Menus, ExtDlgs, ActnList,
-  SQLite3tablemod, unitremovemineral, unitlanguage,
+  unitremovemineral, unitlanguage,
   unitajuda, frameficha, unitframelist,
   uframeimages, unitconfigfile, unitadvancedfilter,
   unitaddimage,unitframesimplefilter, unitaddmineral, uformrmimage;
@@ -154,8 +154,6 @@ type
 
 var
   FormMain: TFormMain;
-  DatabaseMinerals: TSQLiteDatabase;
-  TableMinerals: TSQLiteTable;
   Panels: PanelsType;
 
 implementation
@@ -229,7 +227,7 @@ begin
   begin
     if FileExists(Dados.DatabaseMineralFileName) then
     begin
-      Dados.DatabaseMinerals := TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
+      //Dados.DatabaseMinerals := TSQLiteDatabase.Create(Dados.DatabaseMineralFileName);
       FrameList.RefreshList;
       FrameSimpleFilter.AddClasses;
       FrameSimpleFilter.AddSubclasses;

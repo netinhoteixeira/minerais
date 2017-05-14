@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, udatamodule,
-  unitBlobFields, Dialogs;
+  Dialogs;
 
 type
 
@@ -108,7 +108,7 @@ begin
       Center := True;
       //AntialiasingMode := amOn;
       OnClick := @ImageClick;
-      Picture.Graphic := SelectImage(MineralName, I);
+      Picture.Graphic := Dados.SelectImage(MineralName, I);
     end;
   end;
 
@@ -138,7 +138,7 @@ begin
         Center := True;
         //AntialiasingMode := amOn;
         OnClick := @DeleteImage;
-        Picture.Graphic := SelectImage(MineralName, I);
+        Picture.Graphic := Dados.SelectImage(MineralName, I);
         Tag:=I;
       end;
       Inc(Column);

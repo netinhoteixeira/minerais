@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Buttons, ExtDlgs, ActnList, unitblobfields, udatamodule, unitlanguage;
+  StdCtrls, Buttons, ExtDlgs, ActnList, udatamodule, unitlanguage;
 
 type
 
@@ -91,7 +91,7 @@ begin
   begin
     if ComboBoxMineralsNames.Text <> EmptyStr then
     begin
-      AddBlobField(ImageFileName, ComboboxMineralsNames.Text, ComboBoxCategory.Text,
+      Dados.AddBlobField(ImageFileName, ComboboxMineralsNames.Text, ComboBoxCategory.Text,
         MemoDescription.Text);
     end
     else
@@ -117,7 +117,8 @@ end;
 procedure TFormAddImage.FormShow(Sender: TObject);
 begin
   ComboBoxMineralsNames.Clear;
-  ComboBoxMineralsNames.Items:=Dados.ReturnDistinctField(FieldName, Dados.Table1);
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+    ComboBoxMineralsNames.Items:=Dados.ReturnDistinctField(FieldName, Dados.Table1);
 end;
 
 procedure TFormAddImage.ChangeLanguage;

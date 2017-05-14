@@ -20,7 +20,6 @@ type
     ActionList1: TActionList;
     ActionRefreshEdits: TAction;
     ActionSelectMineralDatabase: TAction;
-    ActionSelectSampleDatabase: TAction;
     Edit1: TEdit;
     LabelCurrentDatabase: TLabel;
     OpenDialog1: TOpenDialog;
@@ -83,7 +82,7 @@ end;
 
 procedure TFormSelectDatabase.ActionApplyExecute(Sender: TObject);
 begin
-  if Dados.ValidateDatabase(Edit1.Text) then
+  if Dados.SetDatabase(Edit1.Text) then
    begin
     //Dados.SetDatabase(Edit1.Text);
     {FormFichaEspecie.FrameSimpleFilter.AddClasses;

@@ -97,11 +97,7 @@ begin
   if (QuestionDlg('Confirmação', 'Deseja remover todos os registros?',
     mtConfirmation, [mrNo, mrYes], 0) = mrYes) then
   begin
-    Dados.DatabaseMinerals.ExecSQL('DELETE FROM '+Dados.Table1+' ');
-    Dados.DatabaseMinerals.ExecSQL('DELETE FROM '+Dados.Table2+' ');
-    Dados.DatabaseMinerals.ExecSQL('DELETE FROM '+Dados.Table3+' ');
-    Dados.DatabaseMinerals.ExecSQL('DELETE FROM '+Dados.Table4+' ');
-    Dados.DatabaseMinerals.ExecSQL('DELETE FROM '+Dados.Table5+' ');
+    Dados.ExcludeAllMinerals;
   end;
 end;
 

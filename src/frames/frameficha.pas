@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, StdCtrls,
-  Buttons, ActnList, unitblobfields, Dialogs, ExtDlgs, Menus,
+  Buttons, ActnList, Dialogs, ExtDlgs, Menus,
   unitlanguage, unitconfigfile;
 
 type
@@ -236,10 +236,8 @@ var
   I: integer;
   List: TStringList;
   Current: string;
-  Filter: boolean;
 begin
   List := TStringList.Create;
-  Filter := True;
   for I := 0 to FormMain.FrameList.ListBoxMinerals.Items.Count - 1 do
   begin
     Current := FormMain.FrameList.ListBoxMinerals.Items.Strings[i];
@@ -255,10 +253,7 @@ begin
 end;
 
 function TFrameFicha.FilterOpticalProp(Current: string): boolean;
-var
-  Return: boolean;
 begin
-  Return := True;
   if Dados.MineralFiltered(Current, Dados.Table3, ComboBoxOpticSign.Text,
     FieldOpticSign) then
     if Dados.MineralFiltered(Current, Dados.Table3, MemoSinalOptico.Text,
@@ -278,29 +273,23 @@ begin
                     MemoAngulo.Text, Field2VAngle) then
                     if Dados.MineralFiltered(Current, Dados.Table3,
                       MemoExtincao.Text, FieldExtinction) then
-                      Return := False;
-  Result := Return;
+                      Result := False;
+  Result := True;
 end;
 
 function TFrameFicha.FilterChrystProp(Current: string): boolean;
-var
-  Return: boolean;
 begin
-  Return := True;
   if Dados.MineralFiltered(Current, Dados.Table4, MemoHabito.Text, FieldHabit) then
     if Dados.MineralFiltered(Current, Dados.Table4, EditSistema.Text,
       FieldCrystSystem) then
       if Dados.MineralFiltered(Current, Dados.Table4, EditH_M.Text, FieldSymbology) then
         if Dados.MineralFiltered(Current, Dados.Table4, EditSistema.Text,
           FieldCrystSystem) then
-          Return := False;
-  Result := Return;
+          Result := False;
+  Result := True;
 end;
 
 procedure TFrameFicha.ComboBoxClassEditingDone(Sender: TObject);
-var
-  i: integer;
-  List: TStringList;
 begin
   case FormMode of
     Edit:
@@ -630,10 +619,7 @@ begin
 end;
 
 function TFrameFicha.FilterPhysicalProp(Current: string): boolean;
-var
-  Return: boolean;
 begin
-  Return := True;
   if Dados.MineralBiggerThan(Current, Dados.Table2, EditHardMin.Text,
     FieldHardMin) then
   begin
@@ -662,7 +648,7 @@ begin
                   if Dados.MineralFiltered(Current, Dados.Table2,
                     MemoLuminescencia.Text, FieldLuminescense) then
                   begin
-                    Return := False;
+                    Result := False;
                   end;
 
                 end;
@@ -673,7 +659,7 @@ begin
       end;
     end;
   end;
-  Result := Return;
+  Result := True;
 end;
 
 procedure TFrameFicha.MemoRelevoEditingDone(Sender: TObject);
@@ -721,10 +707,7 @@ begin
 end;
 
 function TFrameFicha.FilterGeneralProp(Current: string): boolean;
-var
-  Return: boolean;
 begin
-  Return := True;
   if Dados.MineralFiltered(Current, Dados.Table1, EditMineralName.Text,
     FieldName) then
   begin
@@ -761,7 +744,7 @@ begin
                         if Dados.MineralFiltered(Current, Dados.Table1,
                           MemoAplicacao.Text, FieldUse) then
                         begin
-                          Return := False;
+                          Result := False;
                         end;
                       end;
                     end;
@@ -774,7 +757,7 @@ begin
       end;
     end;
   end;
-  Result := Return;
+  Result := True;
 end;
 
 procedure TFrameFicha.AddMineralImage(Number: integer);
@@ -982,13 +965,13 @@ end;
 
 procedure TFrameFicha.RefreshImages;
 var
-  I, Count: integer;
+  I, Count: Integer;
 begin
-  Count := GetImagesCount;
+  Count := Dados.GetImagesCount;
   if Count > 0 then
   begin
     self.ImagemAmpliada.Picture.Graphic :=
-      SelectImage(EditMineralName.Text, 0);
+      Dados.SelectImage(EditMineralName.Text, 0);
     for I := 0 to Count - 1 do
     begin
 
@@ -1005,7 +988,7 @@ begin
     begin
       if (Trim(EditMineralName.Text) <> EmptyStr) then
       begin
-        ClearBlobField(Dados.Table5, 'imagem' + Selected,
+        Dados.ClearBlobField(Dados.Table5, 'imagem' + Selected,
           EditMineralName.Text);
       end;
       RefreshImages;

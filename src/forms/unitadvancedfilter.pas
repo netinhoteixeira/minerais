@@ -17,8 +17,8 @@ type
   private
     { private declarations }
   public
-    FFicha: TFrameFicha;
     { public declarations }
+    FFicha: TFrameFicha;
   end;
 
 var

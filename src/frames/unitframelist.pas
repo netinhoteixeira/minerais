@@ -58,7 +58,7 @@ uses unitframesimplefilter, unitfichaespecie, unitaddmineral, unitremovemineral;
 
 procedure TFrameList.ActionListClickExecute(Sender: TObject);
 var
-  I, ImCount: integer;
+  ImCount: integer;
 begin
   FormMain.FormFrameFicha.ViewMineralProp(ListboxMinerals.GetSelectedText);
   ImCount := Dados.GetCount(ListBoxMinerals.GetSelectedText);
@@ -116,6 +116,8 @@ end;
 procedure TFrameList.RefreshList;
 begin
   ListBoxMinerals.Clear;
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+  begin
   ListboxMinerals.Items.AddStrings(Dados.ReturnSimpleFiltered(
     FormMain.FrameSimpleFilter.EditName.Text,
     FormMain.FrameSimpleFilter.ComboBoxClass.Text,
@@ -130,6 +132,7 @@ begin
     FormMain.FrameSimpleFilter.FloatSpinEditFilterDensMax2.Value, setOrder));
   LabelRecordsNumber.Caption := IntToStr(ListboxMinerals.Count) + Lang.Records;
   FormMain.FormFrameFicha.RefreshComboboxes;
+  end;
 end;
 
 end.

@@ -66,7 +66,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil,
-  SQLite3tablemod, unitconfigfile, Dialogs, unitlanguage, sqldb, sqlite3conn;
+  unitconfigfile, Dialogs, unitlanguage, sqldb, sqlite3conn,
+  Graphics, db;
 
 type
 
@@ -91,21 +92,29 @@ type
     Table4: string;
     Table5: string;
 
-    DatabaseMinerals: TSQLiteDatabase;
-    TableImages: TSQLiteTable;
-
     DatabaseMineralFileName: string;
     AppPath:String;
 
+    procedure AddBlobField(ImageFilename, MineralName, Category, Description: string);
     function AddMineral(Nome: string): integer;
     procedure UpdateField(Table, Field, NewValue, Especie: string);
+
+    procedure ClearBlobField(Table, Field, Especie: string);
+    procedure ClearBlobIdField(Table, Field, Specie: String; Num: integer);
+
     procedure CreateDatabase(Diretorio: string);
     procedure ExcluiMineral(Especie: string);
+    procedure ExcludeAllMinerals;
+
+    function GetImagesCount: integer;
 
     function MineralFiltered(strName, Table, FieldStr, Field: string): boolean;
     function MineralBiggerThan(strName, Table, Value, Field: string): boolean;
+
+    function MineralImagesCount(Specie: String): integer;
+
     function MineralLessThan(strName, Table, Value, Field: string): boolean;
-    function ReturnDistinctField(Field, Table: string): TStrings;
+    function ReturnDistinctField(Field, Table: String): TStrings;
     function ReturnAllMinerals(Order: TOrder): TStrings;
     function ReturnSimpleFiltered(strName, ClassStr, SubclassStr,
       Group, Subgroup, Occurrence, Association, MinHard, MaxHard: string;
@@ -113,6 +122,9 @@ type
     function SelectSQL(Table, Mineral: string): string;
 
     function SelectClasses:TStrings;
+
+    function SelectImage(FieldStr: string; Index: integer): TJpegImage;
+
     function SelectSubclasses:TStrings;
     function SelectSubclasses(Classe: String):TStrings;
     function SelectGroups:TStrings;
@@ -120,7 +132,8 @@ type
     function SelectGroups_(SubClasse:String):TStrings;
     function SelectGroups(Classe, SubClass:String):TStrings;
     function SelectSubGroups(Classe, Subclass, Group:String):TStrings;
-    //TODO função para selecionar database
+
+    function SetDatabase(Filename:String):Boolean;
 
     procedure UpdateGeneralInfo(Nome, Composicao, Classe, Subclasse,
       Grupo, Subgrupo, Ocorrencia, Associacao, Distincao, Alteracao, Aplicacao: string);
@@ -143,6 +156,8 @@ const
   Optics: string = 'optical';
   Chryst: string = 'chrystaline';
   Images: string = 'images';
+
+  FieldId = 'id';
   ////Fields Names
   FieldName: string = 'name';
   FieldComposition: string = 'composition';
@@ -236,15 +251,10 @@ begin
   //Connector.ConnectorType:='Firebird';
   Query.DataBase:=Connector;
 
-
-    //excluir abaixoo, so para testes
-  Connector.DatabaseName:='teste.s3db';
-  Transaction.StartTransaction;
-  //
   if DatabaseMineralFileName <> EmptyStr then
   begin
-    //Connector.DatabaseName:=DatabaseMineralFilename;
-    //Transaction.StartTransaction;
+    Connector.DatabaseName:=DatabaseMineralFilename;
+    Transaction.StartTransaction;
   end;
 end;
 
@@ -264,18 +274,14 @@ begin
       'UNIQUE  NOT NULL, ['+FieldComposition+'] TEXT, ['+FieldClass+'] TEXT, ['+FieldSubClass+'] TEXT, ' +
       '['+FieldGroup+'] TEXT, ['+FieldSubGroup+'] TEXT, ['+FieldOccurrence+'] TEXT, ['+FieldAssociation+'] TEXT,' +
       '['+FieldDistinction+'] TEXT, ['+FieldUse+'] TEXT,['+FieldAlteration+'] TEXT);';
-    Query.SQL.Text:=ExecSQL;
-    Query.ExecSQL;
-    Transaction.Commit;
+    Query.SQL.Add(ExecSQL);
     ExecSQL :=
       'CREATE TABLE ' + Table2 + ' ([id] INTEGER PRIMARY KEY NOT NULL,['+FieldName+'] TEXT ' +
       'UNIQUE  NOT NULL, ' + '['+FieldHardMin+'] FLOAT DEFAULT 0, ['+FieldHardMax+'] FLOAT DEFAULT 10, ' +
       '['+FieldDensMin+'] FLOAT, ['+FieldDensMax+'] FLOAT, ['+FieldColor+'] TEXT,' +
       '['+FieldBrightness+'] TEXT, ['+FieldStreak+'] TEXT, ['+FieldFracture+'] TEXT, ['+FieldCleavage+'] TEXT, ' +
       '['+FieldLuminescense+'] TEXT, ['+FieldMagnetism+'] TEXT);';
-    Query.SQL.Text:=ExecSQL;
-    Query.ExecSQL;
-    Transaction.Commit;
+    Query.SQL.Add(ExecSQL);
     ExecSQL := 'CREATE TABLE ' + Table3 + ' ([id] INTEGER PRIMARY KEY NOT NULL, ' +
       '['+FieldName+'] TEXT UNIQUE NOT NULL,' +
       '['+FieldOpticSign+'] TEXT, ['+FieldOpticSignDescr+'] TEXT, ' +
@@ -284,25 +290,22 @@ begin
       '['+FieldColorBlade+'] TEXT, ['+FieldElongationSign+'] TEXT, ['+FieldRelief+'] TEXT, ' +
       '['+Field2VAngle+'] TEXT,  ' +
       '['+FieldExtinction+'] TEXT) ; ';
-    Query.SQL.Text:=ExecSQL;
-    Query.ExecSQL;
-    Transaction.Commit;
+    Query.SQL.Add(ExecSQL);
     ExecSQL :=
       'CREATE TABLE ' + Table4 + ' ([id] INTEGER PRIMARY KEY NOT NULL,['+FieldName+'] TEXT ' +
       'UNIQUE  NOT NULL, ' + '['+FieldChrystClass+'] TEXT, ['+FieldCrystSystem+'] TEXT, ['+FieldSymbology+'] TEXT,' +
       '['+FieldHabit+'] TEXT);';
-    Query.SQL.Text:=ExecSQL;
-    Query.ExecSQL;
-    Transaction.Commit;
+    Query.SQL.Add(ExecSQL);
     ExecSQL :=
       'CREATE TABLE ' + Table5 + ' ([id] INTEGER PRIMARY KEY NOT NULL,['+FieldName+'] TEXT ' +
       'NOT NULL, ' + '['+FieldImage+'] BLOB, ['+FieldDescription+'] VARCHAR(500), ['+
       FieldCategory+'] VARCHAR(50));';
-    Query.SQL.Text:=ExecSQL;
-    Query.ExecSQL;
-    Transaction.Commit;
+    Query.SQL.Add(ExecSQL);
   finally
-
+    Query.ExecSQL;
+    //Query.ApplyUpdates;
+    Transaction.Commit;
+    //Query.Close;
   end;
 end;
 
@@ -352,29 +355,63 @@ var SQLstr:String;
 begin
   if DatabaseMineralFilename <> EmptyStr then
   begin
-    if FileExists(DatabaseMineralFilename) then
-    begin
-      SQLstr:='UPDATE ' + Table +
+    SQLstr:='UPDATE ' + Table +
         ' SET ' + Field + ' = "' + NewValue + '" WHERE '+FieldName+' = "' + Especie + '" ; ';
     Query.SQL.Text:=SQLstr;
     Query.ExecSQL;
     Transaction.Commit;
+  end;
+end;
+
+procedure TDados.ClearBlobField(Table, Field, Especie: string);
+var SQLstr: String;
+begin
+  SQLstr:='Update ' + Table + ' set ' +
+        Field + ' = null ' + 'WHERE ' + FieldName + '="' + Especie + '" ;';
+  try
+    if Table = Dados.Table5 then
+    begin
+      Query.SQL.Text:= SQLstr;
+      Query.ExecSQL;
+      Query.ApplyUpdates;
     end;
+
+  finally
+  end;
+end;
+
+procedure TDados.ClearBlobIdField(Table, Field, Specie: String; Num: integer);
+var
+  SQLstr: string;
+begin
+  if Table = Dados.Table5 then
+  begin
+    SQLStr := 'SELECT '+FieldId+' FROM ' + Dados.Table5 + ' WHERE ' +
+        FieldName + '="' + Specie + '" AND '+FieldId+' = "'+IntToStr(Num)+'";';
+    try
+      Query.SQL.Text:=SQLstr;
+      Query.ExecSQL;
+      Query.Open;
+      SQLstr:='UPDATE ' + Table + ' SET ' +
+      Field + ' = null ' + 'WHERE id="' + Query.FieldByName(FieldId).AsString + '" ;';
+      Query.ExecSQL;
+      Query.ApplyUpdates;
+    finally
+      Query.Close;
+    end
   end;
 end;
 
 //Verifica se o Banco de dados é compatível
 //TODO
 function TDados.ValidateDatabase(Path: string): boolean;
-var
-  Compatible: boolean;
 begin
-  {Compatible := False;
   if Path <> EmptyStr then
   begin
     if FileExists(Path) then
     begin
-      DatabaseMinerals := TSQLiteDatabase.Create(Path);
+      Result:=True;
+      {DatabaseMinerals := TSQLiteDatabase.Create(Path);
       if DatabaseMinerals.TableExists(Table1) then
       begin
         if DatabaseMinerals.TableExists(Table2) then
@@ -390,7 +427,7 @@ begin
             end;
           end;
         end;
-      end;
+      end;}
     end
     else
     begin
@@ -403,9 +440,6 @@ begin
     //ShowMessage(Lang.NoDatabaseSelected);
     Result := False;
   end;
-  Result := Compatible;
-  }
-  Result:=True;
 end;
 
 procedure TDados.ExcluiMineral(Especie: string);
@@ -420,6 +454,31 @@ begin
   Query.SQL:=SQLs;
   Query.ExecSQL;
   Transaction.Commit;
+end;
+
+procedure TDados.ExcludeAllMinerals;
+var SQLs:TStringList;
+begin
+  SQLs:=TStringList.Create;
+  SQLs.Add('DELETE FROM '+Dados.Table1+' ');
+  SQLs.Add('DELETE FROM '+Dados.Table2+' ');
+  SQLs.Add('DELETE FROM '+Dados.Table3+' ');
+  SQLs.Add('DELETE FROM '+Dados.Table4+' ');
+  SQLs.Add('DELETE FROM '+Dados.Table5+' ');
+  Query.SQL:=SQLs;
+  Query.ExecSQL;
+  Transaction.Commit;
+end;
+
+function TDados.GetImagesCount: integer;
+var
+  SQLStr: string;
+begin
+  SQlstr := 'SELECT ' + FieldName + ' FROM ' + Dados.Table5 + ' ; ';
+  Query.SQL.Text:=SQLStr;
+  Query.ExecSQL;
+  Query.Open;
+  Result := Query.RecordCount;
 end;
 
 function TDados.MineralFiltered(strName, Table, FieldStr, Field: string): boolean;
@@ -488,6 +547,18 @@ begin
   Result := Eliminar;
 end;
 
+function TDados.MineralImagesCount(Specie: String): integer;
+var
+  SQLStr: string;
+begin
+  SQlstr := 'SELECT ' + FieldName + ' FROM ' + Dados.Table5 + ' WHERE ' +
+    FieldName + '="' + Specie + '"; ';
+  Query.SQL.Text:=SQLStr;
+  Query.ExecSQL;
+  Query.Open;
+  Result:=Query.RecordCount;
+end;
+
 function TDados.MineralLessThan(strName, Table, Value, Field: string): boolean;
 var
   eliminar: boolean;
@@ -516,7 +587,7 @@ begin
   Result := Eliminar;
 end;
 
-function TDados.ReturnDistinctField(Field, Table: string): TStrings;
+function TDados.ReturnDistinctField(Field, Table: String): TStrings;
 var
   SQLstr: string;
   List: TStrings;
@@ -714,6 +785,58 @@ begin
       end;
     end;
   Result:=Strings;
+end;
+
+function TDados.SelectImage(FieldStr: string; Index: integer): TJpegImage;
+var
+  SQlstr: string;
+  pic: TJPEGImage;
+  I: integer;
+begin
+  if Fieldstr = EmptyStr then
+  begin
+    SQlstr := 'SELECT ' + FieldImage + ' FROM ' + Dados.Table5 + ' ; ';
+  end
+  else
+  begin
+    SQLstr := 'SELECT ' + FieldImage + ' FROM ' + Dados.Table5 +
+      ' WHERE ' + FieldName + ' = "' + FieldStr + '" ; ';
+  end;
+  Query.SQL.Text:=SQlstr;
+  try
+    Query.ExecSQL;
+    Query.Open;
+    if Query.RecordCount > 0 then
+    begin
+      if Query.FindFirst then
+      begin
+        for I := 0 to Index - 1 do
+        begin
+          Query.FindNext;
+        end;
+        try
+          //#MS := Query.Fields[0];
+          (Query.FieldByName(FieldImage) as TBlobField).SaveToStream(MS);
+          if (MS <> nil) then
+          begin
+            MS.Position := 0;
+            pic := TJPEGImage.Create;
+            pic.LoadFromStream(MS);
+            Result := pic;
+         end
+         else
+        begin
+          Result := nil;
+        end;
+      finally
+      end;
+    end
+      else Result:=nil;
+  end
+  else Result:=nil;
+  finally
+    Query.Close;
+  end;
 end;
 
 function TDados.SelectSubclasses: TStrings;
@@ -944,6 +1067,18 @@ begin
 
 end;
 
+function TDados.SetDatabase(Filename: String): Boolean;
+begin
+  if ValidateDatabase(Filename) then
+  begin
+    Connector.DatabaseName:=Filename;
+    Transaction.StartTransaction;
+    Result:=True;
+  end
+  else
+    Result:=False;
+end;
+
 procedure TDados.UpdateGeneralInfo(Nome, Composicao, Classe, Subclasse,
   Grupo, Subgrupo, Ocorrencia, Associacao, Distincao, Alteracao, Aplicacao: string);
 var
@@ -1052,6 +1187,44 @@ begin
   Connector.Free;
   Transaction.Free;
   Query.Free;
+end;
+
+procedure TDados.AddBlobField(ImageFilename, MineralName, Category,
+  Description: string);
+var
+  ID: string;
+  SQLstr:String;
+  BlobStream: TMemoryStream;
+begin
+  ID := IntToStr(Dados.FindImageId);
+  try
+    SQLstr:='SELECT * FROM '+Dados.Table5; //ver se precisa
+    Query.SQL.Text:=SQLstr;          //
+    Query.ExecSQL;                   //
+    Query.Open;                      //
+    Query.Edit;                      //
+    SQLstr:='INSERT INTO ' + Dados.Table5 +
+      ' (id,' + FieldName + ', ' + FieldCategory + ', ' + FieldDescription +
+      ') VALUES ("' + ID + '", "' + MineralName + '","' + Category +
+      '","' + Description + '") ;';
+    Query.SQL.Text:=SQLstr;
+    Query.ExecSQL;
+    Query.ApplyUpdates;
+
+    SQLstr:='SELECT '+FieldImage+' FROM '+Dados.Table5+' WHERE '+FIeldId+
+        ' = "'+ID+'"';
+    Query.ExecSQL;
+
+    BlobStream:=TMemoryStream.Create;
+    BlobStream.LoadFromFile(ImageFilename);
+    BlobStream.Position:=0;
+
+    (Query.FieldByName(FieldImage) as TBlobField).LoadFromStream(BlobStream);
+    Query.ApplyUpdates;
+  finally
+    Query.Close;
+    BlobStream.Free;
+  end;
 end;
 
 end.

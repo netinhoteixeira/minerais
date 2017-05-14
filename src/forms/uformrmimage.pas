@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, ActnList, uframeimages, udatamodule, unitblobfields;
+  StdCtrls, ActnList, uframeimages, udatamodule;
 
 type
 
@@ -44,13 +44,14 @@ begin
     Parent:=FormRmImage;
     Align:=alClient;
   end;
-  ListBox1.Items.AddStrings(Dados.ReturnAllMinerals(ASCII));
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+    ListBox1.Items.AddStrings(Dados.ReturnAllMinerals(ASCII));
 end;
 
 procedure TFormRmImage.ActionListClickExecute(Sender: TObject);
 begin
    Frame.RefreshLarge(ListBox1.GetSelectedText,
-     MineralImagesCount(ListBox1.GetSelectedText));
+     Dados.MineralImagesCount(ListBox1.GetSelectedText));
 end;
 
 procedure TFormRmImage.FormDestroy(Sender: TObject);

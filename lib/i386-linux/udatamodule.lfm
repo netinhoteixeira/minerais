@@ -1,9 +1,0 @@
-object Dados: TDados
-  OnCreate = DataModuleCreate
-  OnDestroy = DataModuleDestroy
-  OldCreateOrder = False
-  Height = 341
-  HorizontalOffset = 437
-  VerticalOffset = 262
-  Width = 252
-end

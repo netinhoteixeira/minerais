@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
   ExtCtrls, DBCtrls, Buttons, ActnList, IniFiles,
-  SQLite3tablemod, unitLanguage, frameficha;
+  unitLanguage, frameficha;
 
 type
 
@@ -38,8 +38,6 @@ type
   end;
 
 var
-  DatabaseMinerals: TSQLiteDatabase;
-  TableMinerals: TSQLiteTable;
   Erro:Boolean;
   FormAddMineral: TFormAddMineral;
   Config:TIniFile;
