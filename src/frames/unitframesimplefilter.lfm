@@ -7,8 +7,8 @@ object FrameSimpleFilter: TFrameSimpleFilter
   ClientHeight = 652
   ClientWidth = 200
   TabOrder = 0
-  DesignLeft = 1078
-  DesignTop = 108
+  DesignLeft = 1080
+  DesignTop = 41
   object Panel1: TPanel
     Left = 0
     Height = 652
@@ -26,14 +26,14 @@ object FrameSimpleFilter: TFrameSimpleFilter
       Top = 1
       Width = 198
       HorzScrollBar.Page = 169
-      VertScrollBar.Page = 616
+      VertScrollBar.Page = 621
       Align = alClient
       ClientHeight = 648
       ClientWidth = 196
       TabOrder = 0
       object EditAssoc: TEdit
         Left = 10
-        Height = 32
+        Height = 37
         Top = 584
         Width = 150
         OnChange = ActionETAssocEditingDOneExecute
@@ -52,7 +52,7 @@ object FrameSimpleFilter: TFrameSimpleFilter
         Left = 10
         Height = 20
         Top = 80
-        Width = 69
+        Width = 68
         Caption = 'LabelClass'
         ParentColor = False
       end
@@ -60,7 +60,7 @@ object FrameSimpleFilter: TFrameSimpleFilter
         Left = 10
         Height = 20
         Top = 136
-        Width = 94
+        Width = 93
         Caption = 'LabelSubClass'
         ParentColor = False
       end
@@ -114,7 +114,7 @@ object FrameSimpleFilter: TFrameSimpleFilter
       end
       object EditName: TEdit
         Left = 10
-        Height = 32
+        Height = 37
         Top = 40
         Width = 159
         OnChange = ActionETNameEditingDoneExecute
@@ -123,7 +123,7 @@ object FrameSimpleFilter: TFrameSimpleFilter
       end
       object ComboBoxClass: TComboBox
         Left = 10
-        Height = 32
+        Height = 36
         Top = 104
         Width = 150
         ItemHeight = 0
@@ -133,7 +133,7 @@ object FrameSimpleFilter: TFrameSimpleFilter
       end
       object ComboBoxSubclass: TComboBox
         Left = 10
-        Height = 32
+        Height = 36
         Top = 166
         Width = 150
         ItemHeight = 0
@@ -143,7 +143,7 @@ object FrameSimpleFilter: TFrameSimpleFilter
       end
       object ComboBoxGroup: TComboBox
         Left = 10
-        Height = 32
+        Height = 36
         Top = 234
         Width = 150
         ItemHeight = 0
@@ -153,7 +153,7 @@ object FrameSimpleFilter: TFrameSimpleFilter
       end
       object ComboBoxSubGroup: TComboBox
         Left = 10
-        Height = 32
+        Height = 36
         Top = 297
         Width = 150
         ItemHeight = 0
@@ -163,7 +163,7 @@ object FrameSimpleFilter: TFrameSimpleFilter
       end
       object SpinEditFilterHardMin: TSpinEdit
         Left = 10
-        Height = 32
+        Height = 37
         Top = 376
         Width = 70
         MaxValue = 9
@@ -172,7 +172,7 @@ object FrameSimpleFilter: TFrameSimpleFilter
       end
       object SpinEditFilterMaxHard: TSpinEdit
         Left = 90
-        Height = 32
+        Height = 37
         Top = 376
         Width = 70
         MaxValue = 10
@@ -182,7 +182,7 @@ object FrameSimpleFilter: TFrameSimpleFilter
       end
       object FloatSpinEditFilterDensMin: TFloatSpinEdit
         Left = 10
-        Height = 32
+        Height = 37
         Top = 440
         Width = 70
         Increment = 0.02
@@ -194,7 +194,7 @@ object FrameSimpleFilter: TFrameSimpleFilter
       end
       object FloatSpinEditFilterDensMax2: TFloatSpinEdit
         Left = 90
-        Height = 32
+        Height = 37
         Top = 440
         Width = 70
         Increment = 0.02
@@ -206,7 +206,7 @@ object FrameSimpleFilter: TFrameSimpleFilter
       end
       object EditOccur: TEdit
         Left = 10
-        Height = 32
+        Height = 37
         Top = 511
         Width = 150
         OnChange = ActionETOccurEditingDoneExecute

@@ -4,7 +4,7 @@ object FormMain: TFormMain
   Top = 89
   Width = 967
   Caption = 'Guia de Minerais'
-  ClientHeight = 588
+  ClientHeight = 586
   ClientWidth = 967
   Menu = MainMenu1
   OnClose = FormClose
@@ -12,12 +12,12 @@ object FormMain: TFormMain
   OnDestroy = FormDestroy
   OnShow = FormShow
   ShowInTaskBar = stAlways
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '1.6.4.0'
   Visible = True
   object ProgressBar1: TProgressBar
     Left = 0
     Height = 20
-    Top = 568
+    Top = 566
     Width = 967
     Align = alBottom
     TabOrder = 0

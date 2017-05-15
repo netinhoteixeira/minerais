@@ -30,7 +30,6 @@ object FormSelectDatabase: TFormSelectDatabase
       Font.Height = -21
       ParentFont = False
       TabOrder = 0
-      Text = ' '
     end
     object SpeedButtonMineralNew: TSpeedButton
       Left = 19
@@ -120,6 +119,7 @@ object FormSelectDatabase: TFormSelectDatabase
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00EAC39DFFE6BF96FFE4BB92FFE4BB
         92FFD1A06CF5D09E6DF6CC965FDAC479427EB2673C09FFFFFF00
       }
+      OnClick = ActionSelectMineralDatabaseExecute
       ShowHint = True
       ParentShowHint = False
     end
@@ -289,9 +289,6 @@ object FormSelectDatabase: TFormSelectDatabase
     object ActionSelectMineralDatabase: TAction
       Caption = 'ActionSelectMineralDatabase'
       OnExecute = ActionSelectMineralDatabaseExecute
-    end
-    object ActionSelectSampleDatabase: TAction
-      Caption = 'ActionSelectSampleDatabase'
     end
     object ActionFormClose: TAction
       Caption = 'ActionFormClose'
