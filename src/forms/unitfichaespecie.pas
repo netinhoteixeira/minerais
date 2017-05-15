@@ -148,6 +148,7 @@ type
     FrameSimpleFilter: TFrameSimpleFilter;
     FrameImages: TFrameImage;
     procedure ChangeLanguage;
+    procedure refresh;
   end;
 
   const SlimPanelsWidth:Integer = 200;
@@ -279,6 +280,11 @@ begin
     ToolButtonAdd.Hint:=Lang.Add;
     ToolButtonRemove.Hint:=Lang.Remove;
     ToolButtonShowFilter.Hint:=Lang.ShowFilter;
+end;
+
+procedure TFormMain.refresh;
+begin
+  FrameList.RefreshList;
 end;
 
 procedure TFormMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);

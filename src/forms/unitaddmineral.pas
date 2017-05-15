@@ -44,7 +44,7 @@ var
 
 implementation
 
-uses udatamodule, unitfichaespecie;
+uses udatamodule, unitfichaespecie, unitframesimplefilter;
 
 {$R *.lfm}
 
@@ -63,6 +63,7 @@ begin
   FrameFicha1:= TFrameFicha.Create(FormAddMineral);
   with FrameFicha1 do
   begin
+    FormMode:=Add;
     TabSheetImagem.Visible:=False;
     Parent:= FormAddMineral;
     EditingMode(True);
@@ -74,7 +75,7 @@ end;
 function TFormAddMineral.AddMineral: Boolean;
 begin
   if FormAddMineral.FrameFicha1.EditMineralName.Text <> EmptyStr then
-  if Dados.AddMineral(FormAddMineral.FrameFicha1.EditMineralName.Text) = 0 then
+  if Dados.AddMineral(FormAddMineral.FrameFicha1.EditMineralName.Text) then
   begin
     Dados.UpdateGeneralInfo(FrameFicha1.EditMineralName.Text,
       FrameFicha1.EditComposition.Text, FrameFicha1.ComboboxClass.Text,
@@ -107,9 +108,10 @@ end;
 
 procedure TFormAddMineral.ActionApplyExecute(Sender: TObject);
 begin
-  FormAddMineral.Visible:=False;
   if AddMineral then
-    FormMain.FrameList.RefreshList;
+    //FormMain.FrameList.RefreshList;
+    FormMain.refresh;
+  FormAddMineral.Visible:=False;
 end;
 
 procedure TFormAddMineral.ActionAddExecute(Sender: TObject);

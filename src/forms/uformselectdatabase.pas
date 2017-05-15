@@ -84,7 +84,6 @@ procedure TFormSelectDatabase.ActionApplyExecute(Sender: TObject);
 begin
   if Dados.SetDatabase(Edit1.Text) then
    begin
-    //Dados.SetDatabase(Edit1.Text);
     {FormFichaEspecie.FrameSimpleFilter.AddClasses;
     FormFichaEspecie.FrameSimpleFilter.AddSubclasses;
     FormFichaEspecie.FrameSimpleFilter.AddGroups;
@@ -93,6 +92,7 @@ begin
     FormMain.FormFrameFicha.RefreshComboboxes;
     FormMain.FrameList.RefreshList;
     FormSelectDatabase.Hide;
+    ConfigSetDatabase(Edit1.Text);
    end
   else
     ShowMessage(Lang.TheSelectedDatabaseIsNotValid);

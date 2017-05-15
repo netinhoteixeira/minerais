@@ -10,7 +10,7 @@ uses
   unitlanguage, unitconfigfile;
 
 type
-  Mode = (Edit, Filter);
+  Mode = (Add, Edit, Filter);
 
 type
 
