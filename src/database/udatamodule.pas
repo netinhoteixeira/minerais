@@ -313,6 +313,7 @@ begin
     Transaction.Commit;
   finally
     Transaction.EndTransaction;
+    ConfigSetDatabase(Diretorio);
   end;
 end;
 
@@ -553,17 +554,19 @@ begin
       //Transaction.Commit;
       Query.Open;
     if Query.RecordCount > 0 then
-      if Query.FindFirst then
-        if Query.FieldByName(Field).AsString <> EmptyStr then
+    begin
+      Query.First;
+      if Query.FieldByName(Field).AsString <> EmptyStr then
+      begin
+        K := (Length(FieldStr));
+        for I := 0 to K do
         begin
-          K := (Length(FieldStr));
-          for I := 0 to K do
-          begin
-            StrAux := Copy(Query.FieldByName(Field).AsString, I, K);
-            if (UpCase(StrAux) = UpCase(FieldStr)) then
-              Eliminar := False;
-          end;
+          StrAux := Copy(Query.FieldByName(Field).AsString, I, K);
+          if (UpCase(StrAux) = UpCase(FieldStr)) then
+            Eliminar := False;
         end;
+      end;
+    end;
     finally
       Query.Close;
       //Transaction.EndTransaction;
@@ -665,13 +668,15 @@ begin
     //Transaction.Commit;
       Query.Open;
       if Query.RecordCount > 0 then
-        if Query.FindFirst then
-          while not Query.EOF do
-          begin
-            if Trim(Query.Fields[0].AsString) <> EmptyStr then
-              List.Append(Query.Fields[0].AsString);
-            Query.FindNext;
-          end;
+      begin
+        Query.First;
+        while not Query.EOF do
+        begin
+          if Trim(Query.Fields[0].AsString) <> EmptyStr then
+            List.Append(Query.Fields[0].AsString);
+          Query.Next;
+        end;
+      end;
     finally
       Query.Close;
     end;
@@ -708,12 +713,14 @@ begin
     Query.ExecSQL;
     Query.Open;
     if Query.RecordCount > 0 then
-      if Query.FindFirst then
-        while (not Query.EOF) do
-        begin
-          List.Append(Query.Fields[0].AsString);
-          Query.FindNext;
-        end;
+    begin
+      Query.First;
+      while (not Query.EOF) do
+      begin
+        List.Append(Query.Fields[0].AsString);
+        Query.Next;
+      end;
+    end;
   finally
     Query.Close;
   end;
@@ -844,15 +851,17 @@ begin
     Query.ExecSQL;
     Query.Open;
     if (Query.RecordCount > 0) then
-      if Query.FindFirst then
+    begin
+      Query.First;
       begin
         while (not Query.EOF) do
         begin
           if Trim(Query.FieldByName(FieldClass).AsString) <> EmptyStr then
             Strings.Add(Query.FieldByName(FieldClass).AsString);
-          Query.FindNext;
+          Query.Next;
         end;
       end;
+    end;
   finally
     Query.Close;
   end;
@@ -880,32 +889,29 @@ begin
     Query.Open;
     if Query.RecordCount > 0 then
     begin
-      if Query.FindFirst then
+      Query.First;
+      for I := 0 to Index - 1 do
       begin
-        for I := 0 to Index - 1 do
-        begin
-          Query.FindNext;
-        end;
-        try
+        Query.Next;
+      end;
+      try
           //#MS := Query.Fields[0];
-          (Query.FieldByName(FieldImage) as TBlobField).SaveToStream(MS);
-          if (MS <> nil) then
-          begin
-            MS.Position := 0;
-            pic := TJPEGImage.Create;
-            pic.LoadFromStream(MS);
-            Result := pic;
-         end
-         else
+        (Query.FieldByName(FieldImage) as TBlobField).SaveToStream(MS);
+        if (MS <> nil) then
+        begin
+          MS.Position := 0;
+          pic := TJPEGImage.Create;
+          pic.LoadFromStream(MS);
+          Result := pic;
+        end
+        else
         begin
           Result := nil;
         end;
       finally
       end;
     end
-      else Result:=nil;
-  end
-  else Result:=nil;
+    else Result:=nil;
   finally
     Query.Close;
   end;
@@ -922,15 +928,15 @@ begin
     Query.ExecSQL;
     Query.Open;
     if (Query.RecordCount > 0) then
-      if Query.FindFirst then
+    begin
+      Query.First;
+      while (not Query.EOF) do
       begin
-        while (not Query.EOF) do
-        begin
-          if Trim(Query.FieldByName(FieldSubClass).AsString) <> EmptyStr then
-            Strings.Add(Query.FieldByName(FieldSubClass).AsString);
-          Query.FindNext;
-        end;
+        if Trim(Query.FieldByName(FieldSubClass).AsString) <> EmptyStr then
+          Strings.Add(Query.FieldByName(FieldSubClass).AsString);
+        Query.Next;
       end;
+    end;
   finally
     Query.Close;
   end;

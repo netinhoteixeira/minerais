@@ -1011,9 +1011,10 @@ begin
   begin
     //Mineralogy_Name.Caption:='';
     SelectSQL := Dados.SelectSQL(Dados.Table1, strName);
+    Dados.Query.Close;
     Dados.Query.SQL.Text:=SelectSQL;
     Dados.Query.ExecSQL;
-    Dados.Transaction.Commit;
+    Dados.Query.Open;
     EditMineralName.Text := Dados.Query.FieldByName(FieldName).AsString;
     EditComposition.Text := Dados.Query.FieldByName(FieldComposition).AsString;
     ComboboxClass.Text := Dados.Query.FieldByName(FieldClass).AsString;
@@ -1026,10 +1027,11 @@ begin
     MemoAlteracao.Text := Dados.Query.FieldByName(FieldAlteration).AsString;
     MemoAplicacao.Text := Dados.Query.FieldByName(FieldUse).AsString;
 
+    Dados.Query.Close;
     SelectSQL := Dados.SelectSQL(Dados.Table2, EditMineralName.Text);
     Dados.Query.SQL.Text:=SelectSQL;
     Dados.Query.ExecSQL;
-    Dados.Transaction.Commit;
+    Dados.Query.Open;
     EditHardMin.Text := Dados.Query.FieldByName(FieldHardMin).AsString;
     EditHardMax.Text := Dados.Query.FieldByName(FieldHardMax).AsString;
     EditDensMin.Text := Dados.Query.FieldByName(FieldDensMin).AsString;
@@ -1050,10 +1052,11 @@ begin
     MemoMagnetismo.Text := Dados.Query.FieldByName(FieldMagnetism).AsString;
     MemoLuminescencia.Text := Dados.Query.FieldByName(FieldLuminescense).AsString;
 
+    Dados.Query.Close;
     SelectSQL := Dados.SelectSQL(Dados.Table3, EditMineralName.Text);
     Dados.Query.SQL.Text:=SelectSQL;
     Dados.Query.ExecSQL;
-    Dados.Transaction.Commit;
+    Dados.Query.Open;
     EditBMax.Text := Dados.Query.FieldByName(FieldBirrMax).AsString;
     ComboBoxOpticSign.Text := Dados.Query.FieldByName(FieldOpticSign).AsString;
     MemoSinalOptico.Text := Dados.Query.FieldByName(FieldOpticSignDescr).AsString;
@@ -1066,10 +1069,11 @@ begin
     MemoRelevo.Text := Dados.Query.FieldByName(FieldRelief).AsString;
     MemoExtincao.Text := Dados.Query.FieldByName(FieldExtinction).AsString;
 
+    Dados.Query.Close;
     SelectSQL := Dados.SelectSQL(Dados.Table4, EditMineralName.Text);
     Dados.Query.SQL.Text:=SelectSQL;
     Dados.Query.ExecSQL;
-    Dados.Transaction.Commit;
+    Dados.Query.Open;
     EditSistema.Text := Dados.Query.FieldByName(FieldCrystSystem).AsString;
     EditClasse_Cristalina.Text := Dados.Query.FieldByName(FieldChrystClass).AsString;
     EditH_M.Text := Dados.Query.FieldByName(FieldSymbology).AsString;
