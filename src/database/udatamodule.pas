@@ -97,6 +97,9 @@ type
 
     procedure AddBlobField(ImageFilename, MineralName, Category, Description: string);
     function AddMineral(Nome: string): Boolean;
+
+    function FindPossibleImageId: Integer;
+
     procedure UpdateField(Table, Field, NewValue, Especie: string);
 
     procedure ClearBlobField(Table, Field, Especie: string);
@@ -144,7 +147,6 @@ type
       DescSinalOptico, DescRefracao, DescBirrefringencia, {CorInterferencia,}
       CorLamina, Elongacao, Relevo, Angulo2V, Extincao, Nome: string);
     procedure UpdateCrystallography(Sistema, Classe, Simbologia, Habito, Nome: string);
-    function FindImageId: Integer;
     function GetCount(NameStr:String): Integer;
     function ValidateDatabase(Path: string): boolean;
   end;
@@ -275,21 +277,19 @@ begin
     if not Transaction.Active then
       Transaction.StartTransaction;
     ExecSQL :=
-      'CREATE TABLE ' + Table1 + ' ([id] INTEGER PRIMARY KEY NOT NULL,['+FieldName+'] TEXT ' +
+      'CREATE TABLE ' + Table1 + ' ([id] INTEGER PRIMARY KEY AUTOINCREMENT,['+FieldName+'] TEXT ' +
       'UNIQUE  NOT NULL, ['+FieldComposition+'] TEXT, ['+FieldClass+'] TEXT, ['+FieldSubClass+'] TEXT, ' +
       '['+FieldGroup+'] TEXT, ['+FieldSubGroup+'] TEXT, ['+FieldOccurrence+'] TEXT, ['+FieldAssociation+'] TEXT,' +
       '['+FieldDistinction+'] TEXT, ['+FieldUse+'] TEXT,['+FieldAlteration+'] TEXT);';
     Connector.ExecuteDirect(ExecSQL);
-    //Transaction.Commit;
     ExecSQL :=
-      'CREATE TABLE ' + Table2 + ' ([id] INTEGER PRIMARY KEY NOT NULL,['+FieldName+'] TEXT ' +
+      'CREATE TABLE ' + Table2 + ' ([id] INTEGER PRIMARY KEY AUTOINCREMENT,['+FieldName+'] TEXT ' +
       'UNIQUE  NOT NULL, ' + '['+FieldHardMin+'] FLOAT DEFAULT 0, ['+FieldHardMax+'] FLOAT DEFAULT 10, ' +
       '['+FieldDensMin+'] FLOAT, ['+FieldDensMax+'] FLOAT, ['+FieldColor+'] TEXT,' +
       '['+FieldBrightness+'] TEXT, ['+FieldStreak+'] TEXT, ['+FieldFracture+'] TEXT, ['+FieldCleavage+'] TEXT, ' +
       '['+FieldLuminescense+'] TEXT, ['+FieldMagnetism+'] TEXT);';
     Connector.ExecuteDirect(ExecSQL);
-    //Transaction.Commit;
-    ExecSQL := 'CREATE TABLE ' + Table3 + ' ([id] INTEGER PRIMARY KEY NOT NULL, ' +
+    ExecSQL := 'CREATE TABLE ' + Table3 + ' ([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
       '['+FieldName+'] TEXT UNIQUE NOT NULL,' +
       '['+FieldOpticSign+'] TEXT, ['+FieldOpticSignDescr+'] TEXT, ' +
       '['+FieldBirrMax+'] FLOAT DEFAULT 0, ' +
@@ -298,22 +298,19 @@ begin
       '['+Field2VAngle+'] TEXT,  ' +
       '['+FieldExtinction+'] TEXT) ; ';
     Connector.ExecuteDirect(ExecSQL);
-    //Transaction.Commit;
     ExecSQL :=
-      'CREATE TABLE ' + Table4 + ' ([id] INTEGER PRIMARY KEY NOT NULL,['+FieldName+'] TEXT ' +
+      'CREATE TABLE ' + Table4 + ' ([id] INTEGER PRIMARY KEY AUTOINCREMENT,['+FieldName+'] TEXT ' +
       'UNIQUE  NOT NULL, ' + '['+FieldChrystClass+'] TEXT, ['+FieldCrystSystem+'] TEXT, ['+FieldSymbology+'] TEXT,' +
       '['+FieldHabit+'] TEXT);';
     Connector.ExecuteDirect(ExecSQL);
-    //Transaction.Commit;
     ExecSQL :=
-      'CREATE TABLE ' + Table5 + ' ([id] INTEGER PRIMARY KEY NOT NULL,['+FieldName+'] TEXT ' +
+      'CREATE TABLE ' + Table5 + ' ([id] INTEGER PRIMARY KEY,['+FieldName+'] TEXT ' +
       'NOT NULL, ' + '['+FieldImage+'] BLOB, ['+FieldDescription+'] VARCHAR(500), ['+
       FieldCategory+'] VARCHAR(50));';
     Connector.ExecuteDirect(ExecSQL);
     Transaction.Commit;
   finally
     Transaction.EndTransaction;
-    ConfigSetDatabase(Diretorio);
   end;
 end;
 
@@ -362,9 +359,9 @@ begin
     Query.SQL.Text:=SQLstr;
     Query.ExecSQL;
 
-    SQLstr := 'INSERT INTO ' + Dados.Table5 + ' ('+FieldName+') VALUES ("' + Nome + '") ; ';
-    Query.SQL.Text:=SQLstr;
-    Query.ExecSQL;
+    //SQLstr := 'INSERT INTO ' + Dados.Table5 + ' ('+FieldName+') VALUES ("' + Nome + '") ; ';
+    //Query.SQL.Text:=SQLstr;
+    //Query.ExecSQL;
     try
       Transaction.Commit;
     finally
@@ -372,6 +369,28 @@ begin
     end;
   end;
   Result:=True;
+end;
+
+function TDados.FindPossibleImageId: Integer;
+var SQLstr:String; I:Integer; Found:Boolean;
+begin
+   I:=0;
+   Found:=False;
+   while not Found do
+   begin
+     Inc(I);
+     SQLstr:='SELECT id FROM '+Table5+' WHERE id="'+IntToStr(I)+'";';
+     Query.SQL.Text:=SQLstr;
+     Query.ExecSQL;
+     Query.Open;
+     if Query.RecordCount <= 0 then
+     begin
+       Query.Close;
+       Found:=True;
+     end;
+     Query.Close;
+   end;
+   Result:=I;
 end;
 
 procedure TDados.UpdateField(Table, Field, NewValue, Especie: string);
@@ -416,17 +435,20 @@ var
 begin
   if Table = Dados.Table5 then
   begin
-    SQLStr := 'SELECT '+FieldId+' FROM ' + Dados.Table5 + ' WHERE ' +
+    SQLStr := 'SELECT '+FieldId+', '+Field+' FROM ' + Dados.Table5 + ' WHERE ' +
         FieldName + '="' + Specie + '" AND '+FieldId+' = "'+IntToStr(Num)+'";';
     Query.SQL.Text:=SQLstr;
     try
-      Transaction.StartTransaction;
+      if not Transaction.Active then
+        Transaction.StartTransaction;
       Query.ExecSQL;
       Query.Open;
+      Query.Edit;
       SQLstr:='UPDATE ' + Table + ' SET ' +
       Field + ' = null ' + 'WHERE id="' + Query.FieldByName(FieldId).AsString + '" ;';
       Query.ExecSQL;
       Query.ApplyUpdates;
+      Transaction.Commit;
     finally
       Query.Close;
       Transaction.EndTransaction;
@@ -485,7 +507,8 @@ begin
   SQLs.Add('DELETE FROM ' + Table5 + ' WHERE ('+FieldName+'="' + Especie + '");');
   Query.SQL:=SQLs;
   try
-    Transaction.StartTransaction;
+    if not Transaction.Active then
+      Transaction.StartTransaction;
     Query.ExecSQL;
     Transaction.Commit;
   finally
@@ -504,13 +527,13 @@ begin
   SQLs.Add('DELETE FROM '+Dados.Table5+' ');
   Query.SQL:=SQLs;
   try
-    Transaction.StartTransaction;
+    if not Transaction.Active then
+      Transaction.StartTransaction;
     Query.ExecSQL;
     Transaction.Commit;
   finally
     Transaction.EndTransaction;
   end;
-
 end;
 
 function TDados.GetImagesCount: integer;
@@ -527,7 +550,6 @@ begin
   finally
     Query.Close;
   end;
-
   Result := Count;
 end;
 
@@ -549,9 +571,7 @@ begin
       ' FROM ' + Table + ' WHERE ' + FieldName + ' = "' + strName + '" ;';
     Query.SQL.Text:=SQLstr;
     try
-      //Transaction.StartTransaction;
       Query.ExecSQL;
-      //Transaction.Commit;
       Query.Open;
     if Query.RecordCount > 0 then
     begin
@@ -595,7 +615,7 @@ begin
       Query.Open;
     if Query.RecordCount > 0 then
     begin
-      if StrToInt(Query.FieldByName(Field).AsString) >= StrToInt(Value) then
+      if StrToFloat(Query.FieldByName(Field).AsString) >= StrToFloat(Value) then
         Eliminar := False;
     end;
     finally
@@ -643,7 +663,7 @@ begin
       Query.Open;
       if Query.RecordCount > 0 then
       begin
-        if StrToInt(Query.FieldByName(FIeld).AsString) <= StrToInt(Value) then
+        if StrToFloat(Query.FieldByName(Field).AsString) <= StrToFloat(Value) then
           Eliminar := False;
       end;
     finally
@@ -845,6 +865,7 @@ var SQLstr:String;
   Strings:TStrings;
 begin
   Strings:=TStringList.Create;
+  Strings.Add(EmptyStr);
   SQLstr:='SELECT DISTINCT '+FieldClass+' FROM '+Dados.Table1+' ORDER BY '+FieldClass+' ASC';
   Query.SQL.Text:=SQLstr;
   try
@@ -873,7 +894,12 @@ var
   SQlstr: string;
   pic: TJPEGImage;
   I: integer;
+  MS:TMemoryStream;
 begin
+  try
+    pic := TJPEGImage.Create;
+  finally
+  end;
   if Fieldstr = EmptyStr then
   begin
     SQlstr := 'SELECT ' + FieldImage + ' FROM ' + Dados.Table5 + ' ; ';
@@ -895,14 +921,12 @@ begin
         Query.Next;
       end;
       try
-          //#MS := Query.Fields[0];
+        MS:=TMemoryStream.Create;
         (Query.FieldByName(FieldImage) as TBlobField).SaveToStream(MS);
         if (MS <> nil) then
         begin
           MS.Position := 0;
-          pic := TJPEGImage.Create;
           pic.LoadFromStream(MS);
-          Result := pic;
         end
         else
         begin
@@ -915,6 +939,7 @@ begin
   finally
     Query.Close;
   end;
+  Result:=pic;
 end;
 
 function TDados.SelectSubclasses: TStrings;
@@ -922,6 +947,7 @@ var SQLStr:String;
   Strings:TStrings;
 begin
   Strings:=TStringlist.Create;
+  Strings.Add(EmptyStr);
   SQLStr:='SELECT DISTINCT '+FieldSubclass+' FROM '+Dados.Table1+' ORDER BY '+FieldSubclass+' ASC';
   Query.SQL.Text:=SQLStr;
   try
@@ -948,6 +974,7 @@ var SQLStr:String;
   Strings:TStrings;
 begin
   Strings:=TStringlist.Create;
+  Strings.Add(EmptyStr);
   SQLStr:='SELECT DISTINCT '+FieldSubclass+' FROM '+Dados.Table1+' WHERE( '+FieldClass+' = "' +
       Classe + '") ORDER BY '+FieldSubclass+' ASC';
   Query.SQL.Text:=SQLStr;
@@ -975,6 +1002,7 @@ var SQLstr:String;
   Strings:TStrings;
 begin
   Strings:=TStringList.Create;
+  Strings.Add(EmptyStr);
   SQLstr:= 'SELECT DISTINCT '+FieldGroup+' FROM '+Dados.Table1+' ORDER BY '+FieldGroup+' ASC';
   Query.SQL.Text:=SQLstr;
   try
@@ -1001,6 +1029,7 @@ var SQLstr:String;
   Strings:TStrings;
 begin
   Strings:=TStringList.Create;
+  Strings.Add(EmptyStr);
   SQLstr:= 'SELECT DISTINCT '+FieldGroup+' FROM '+Dados.Table1+' WHERE ('+FieldClass+' = "' +
         Classe + '") ORDER BY '+FieldGroup+' ASC';
   Query.SQL.Text:=SQLstr;
@@ -1028,6 +1057,7 @@ var SQLstr:String;
   Strings:TStrings;
 begin
   Strings:=TStringList.Create;
+  Strings.Add(EmptyStr);
   SQLstr:= 'SELECT DISTINCT '+FieldGroup+' FROM '+Dados.Table1+' WHERE ('+FieldSubclass+' = "' +
         SubClasse + '")ORDER BY '+FieldGroup+' ASC';
   Query.SQL.Text:=SQLstr;
@@ -1055,6 +1085,7 @@ var SQLstr:String;
   Strings:TStrings;
 begin
   Strings:=TStringList.Create;
+  Strings.Add(EmptyStr);
   SQLstr:= 'SELECT DISTINCT '+FieldGroup+' FROM '+Dados.Table1+' WHERE( '+FieldClass+' = "' +
         Classe + '" AND '+FieldSubclass+' = "' + SubClass +
         '")ORDER BY '+FieldGroup+' ASC';
@@ -1083,6 +1114,7 @@ var SQLstr:String;
   Strings:TStrings;
 begin
   Strings:=TStringList.Create;
+  Strings.Add(EmptyStr);
   if Classe = EmptyStr then
   begin
     if (Subclass = EmptyStr) then
@@ -1179,6 +1211,8 @@ begin
   begin
     DatabaseMineralFileName:=Filename;
     Connector.DatabaseName:=Filename;
+    Dados.DatabaseMineralFileName := Filename;
+    ConfigSetDatabase(Filename);
     Result:=True;
   end
   else
@@ -1274,29 +1308,6 @@ begin
   end;
 end;
 
-function TDados.FindImageId: Integer;
-var SQLstr:String; I:Integer; Found:Boolean;
-begin
-   I:=0;
-   Found:=False;
-   while not Found do
-   begin
-     Inc(I);
-     SQLstr:='SELECT id FROM '+Table5+' WHERE id="'+IntToStr(I)+'";';
-     Query.SQL.Text:=SQLstr;
-     Query.ExecSQL;
-     Transaction.Commit;
-     Query.Open;
-     if Query.RecordCount <= 0 then
-     begin
-       Query.Close;
-       Found:=True;
-     end;
-     Query.Close;
-   end;
-   Result:=I;
-end;
-
 function TDados.GetCount(NameStr: String): Integer;
 var
   SQLstr: string;
@@ -1328,24 +1339,25 @@ var
   SQLstr:String;
   BlobStream: TMemoryStream;
 begin
-  ID := IntToStr(Dados.FindImageId);
+  ID := IntToStr(Dados.FindPossibleImageId);
   try
-    SQLstr:='SELECT * FROM '+Dados.Table5; //ver se precisa
-    Query.SQL.Text:=SQLstr;          //
-    Query.ExecSQL;                   //
-    Query.Open;                      //
-    Query.Edit;                      //
+    if not Transaction.Active then
+      Transaction.StartTransaction;
+    Query.Close;
     SQLstr:='INSERT INTO ' + Dados.Table5 +
       ' (id,' + FieldName + ', ' + FieldCategory + ', ' + FieldDescription +
       ') VALUES ("' + ID + '", "' + MineralName + '","' + Category +
       '","' + Description + '") ;';
     Query.SQL.Text:=SQLstr;
     Query.ExecSQL;
-    Query.ApplyUpdates;
+    Transaction.Commit;
 
-    SQLstr:='SELECT '+FieldImage+' FROM '+Dados.Table5+' WHERE '+FIeldId+
+    SQLstr:='SELECT id, '+FieldImage+' FROM '+Dados.Table5+' WHERE '+FieldId+
         ' = "'+ID+'"';
+    Query.SQL.Text:=SQLstr;
     Query.ExecSQL;
+    Query.Open;
+    Query.Edit;
 
     BlobStream:=TMemoryStream.Create;
     BlobStream.LoadFromFile(ImageFilename);
@@ -1353,7 +1365,9 @@ begin
 
     (Query.FieldByName(FieldImage) as TBlobField).LoadFromStream(BlobStream);
     Query.ApplyUpdates;
+    Transaction.Commit;
   finally
+    Transaction.EndTransaction;
     Query.Close;
     BlobStream.Free;
   end;

@@ -57,12 +57,12 @@ uses unitframesimplefilter, unitfichaespecie, unitaddmineral, unitremovemineral;
 { TFrameList }
 
 procedure TFrameList.ActionListClickExecute(Sender: TObject);
-var
-  ImCount: integer;
 begin
   FormMain.FormFrameFicha.ViewMineralProp(ListboxMinerals.GetSelectedText);
-  ImCount := Dados.GetCount(ListBoxMinerals.GetSelectedText);
-  FormMain.FormFrameFicha.CreateImageButtons(ImCount);
+  FormMain.FormFrameFicha.CreateImageButtons(Dados.MineralImagesCount(
+      ListBoxMinerals.GetSelectedText));
+  FormMain.FrameImages.RefreshImages(ListBoxMinerals.GetSelectedText,
+      Dados.MineralImagesCount(ListBoxMinerals.GetSelectedText));
 end;
 
 procedure TFrameList.ActionAddMineralExecute(Sender: TObject);

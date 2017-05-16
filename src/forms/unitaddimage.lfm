@@ -9,7 +9,7 @@ object FormAddImage: TFormAddImage
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '1.6.4.0'
   object Panel1: TPanel
     Left = 0
     Height = 416
@@ -33,7 +33,7 @@ object FormAddImage: TFormAddImage
       Left = 8
       Height = 20
       Top = 112
-      Width = 94
+      Width = 91
       Caption = 'LabelCategory'
       ParentColor = False
     end
@@ -41,7 +41,7 @@ object FormAddImage: TFormAddImage
       Left = 8
       Height = 20
       Top = 208
-      Width = 107
+      Width = 106
       Caption = 'LabelDescription'
       ParentColor = False
     end
@@ -51,11 +51,11 @@ object FormAddImage: TFormAddImage
       Top = 230
       Width = 200
       ScrollBars = ssAutoVertical
-      TabOrder = 0
+      TabOrder = 2
     end
     object ComboBoxCategory: TComboBox
       Left = 10
-      Height = 32
+      Height = 36
       Top = 144
       Width = 198
       ItemHeight = 0
@@ -64,11 +64,11 @@ object FormAddImage: TFormAddImage
     end
     object ComboBoxMineralsNames: TComboBox
       Left = 10
-      Height = 32
+      Height = 37
       Top = 65
       Width = 198
       ItemHeight = 0
-      TabOrder = 2
+      TabOrder = 0
       Text = 'ComboBoxMineralsNames'
     end
   end
@@ -86,25 +86,25 @@ object FormAddImage: TFormAddImage
     object Image1: TImage
       Left = 32
       Height = 300
-      Top = 64
+      Top = 48
       Width = 300
       Center = True
       Proportional = True
     end
     object BitBtnOpen: TBitBtn
-      Left = 34
-      Height = 30
-      Top = 374
-      Width = 75
+      Left = 32
+      Height = 40
+      Top = 364
+      Width = 40
       Caption = 'BitBtnOpen'
       OnClick = ActionOpenDialogExecute
       TabOrder = 0
     end
     object BitBtnClear: TBitBtn
-      Left = 257
-      Height = 30
-      Top = 374
-      Width = 75
+      Left = 292
+      Height = 40
+      Top = 364
+      Width = 40
       Caption = 'BitBtnClear'
       OnClick = ActionClearImageExecute
       TabOrder = 1
@@ -121,8 +121,8 @@ object FormAddImage: TFormAddImage
     Color = 5000268
     ParentColor = False
     TabOrder = 2
-    object BitBtn1: TBitBtn
-      Left = 16
+    object BitBtnApply: TBitBtn
+      Left = 24
       Height = 40
       Top = 8
       Width = 40
@@ -130,7 +130,7 @@ object FormAddImage: TFormAddImage
       OnClick = ActionSaveImageExecute
       TabOrder = 0
     end
-    object BitBtn2: TBitBtn
+    object BitBtnClose: TBitBtn
       Left = 508
       Height = 40
       Top = 8

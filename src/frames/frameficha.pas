@@ -159,12 +159,14 @@ type
     procedure MemoSinalOpticoEditingDone(Sender: TObject);
     procedure MemoTracoEditingDone(Sender: TObject);
   private
+    { private declarations }
     function FilterGeneralProp(Current: string): boolean;
     function FilterPhysicalProp(Current: string): boolean;
     function FilterOpticalProp(Current: string): boolean;
     function FilterChrystProp(Current: string): boolean;
-    { private declarations }
+    procedure ImageButtonClick(Sender:TObject);
   public
+    { public declarations }
     FormMode: Mode;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -178,7 +180,6 @@ type
     procedure RefreshImages;
     procedure RemoveImage(Selected: char);
     procedure ViewMineralProp(strName: string);
-    { public declarations }
   end;
 
 type
@@ -289,6 +290,20 @@ begin
   Result := True;
 end;
 
+procedure TFrameFicha.ImageButtonClick(Sender: TObject);
+var I:Integer;
+begin
+  for I:=0 to ImBtCount -1 do
+  begin
+    if Sender.Equals(ImagesBt[I].Buttons) then
+      begin
+        self.ImagemAmpliada.Picture.Graphic :=
+        Dados.SelectImage(EditMineralName.Text, I);
+        Exit;
+      end;
+  end;
+end;
+
 procedure TFrameFicha.ComboBoxClassEditingDone(Sender: TObject);
 begin
   case FormMode of
@@ -397,7 +412,14 @@ begin
   case FormMode of
     Edit:
     begin
-
+      if Dados.GetCount(EditMineralName.Text) > 0 then
+      begin
+        ShowMessage(Lang.ThereIsAlreadyARecordWithThatName);
+      end
+      else
+      begin
+        //TODO
+      end;
     end;
   end;
 end;
@@ -512,17 +534,6 @@ begin
   end;
 end;
 
-{procedure TFrameFicha.MemoDiafaneidadeEditingDone(Sender: TObject);
-begin
-  case FormMode of
-    Edit:
-    begin
-      Dados.UpdateField(Dados.Table2, 'diafaneidade', MemoDiafaneidade.Text,
-        EditMineralName.Text);
-    end;
-  end;
-end;
- }
 procedure TFrameFicha.MemoDistinctionEditingDone(Sender: TObject);
 begin
   case FormMode of
@@ -615,7 +626,13 @@ end;
 
 procedure TFrameFicha.MemoOccurrenceEditingDone(Sender: TObject);
 begin
-
+  case FormMode of
+    Edit:
+    begin
+      Dados.UpdateField(Dados.Table1, FieldOccurrence, MemoOccurrence.Text,
+        EditMineralName.Text);
+    end;
+  end;
 end;
 
 function TFrameFicha.FilterPhysicalProp(Current: string): boolean;
@@ -711,8 +728,8 @@ begin
   if Dados.MineralFiltered(Current, Dados.Table1, EditMineralName.Text,
     FieldName) then
   begin
-    if Dados.MineralFiltered(Current, Dados.Table1, EditComposition.Text,
-      FieldComposition) then
+    //if Dados.MineralFiltered(Current, Dados.Table1, EditComposition.Text,
+     // FieldComposition) then
     begin
       if Dados.MineralFiltered(Current, Dados.Table1, EditComposition.Text,
         FieldComposition) then
@@ -892,6 +909,8 @@ begin
         Height := BtSize;
         Visible:=True;
         Parent:=PanelImageButtons;
+        OnClick:=@ImageButtonClick;
+        Tag:=I;
       end;
     end;
   end;
@@ -967,7 +986,8 @@ procedure TFrameFicha.RefreshImages;
 var
   I, Count: Integer;
 begin
-  Count := Dados.GetImagesCount;
+  //Count := Dados.GetImagesCount;
+  Count:=Dados.MineralImagesCount(EditMineralName.Text);
   if Count > 0 then
   begin
     self.ImagemAmpliada.Picture.Graphic :=
@@ -977,7 +997,6 @@ begin
 
     end;
   end;
-  FormMain.FrameImages.RefreshImages(EditMineralName.Text, Count);
 end;
 
 procedure TFrameFicha.RemoveImage(Selected: char);
@@ -1081,6 +1100,7 @@ begin
 
     FormMain.FrameImages.SelectedImage := '1';
     RefreshImages;
+    Dados.Query.Close;
   end;
 end;
 

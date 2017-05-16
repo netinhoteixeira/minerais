@@ -53,7 +53,7 @@ end;
 
 procedure TFormRemoveMineral.ChangeLanguage;
 begin
-  FormRemoveMineral.Caption:=Lang.Remove;
+  self.Caption:=Lang.Remove;
   SpeedButtonRemove.Hint:=Lang.Remove;
   SpeedButtonRemoveAll.Hint:=Lang.RemoveAll;
   SpeedButtonClose.Hint:=Lang.Close;
@@ -61,7 +61,7 @@ end;
 
 procedure TFormRemoveMineral.ActionRemoveExecute(Sender: TObject);
 begin
-//  if Trim(FrameList.ListBoxMinerals.GetSelectedText) <> EmptyStr then
+  if Trim(FrameList.ListBoxMinerals.GetSelectedText) <> EmptyStr then
   begin
     Dados.ExcluiMineral(FrameList.ListBoxMinerals.GetSelectedText);
     FrameList.ListBoxMinerals.Items.Delete(
@@ -69,8 +69,8 @@ begin
       FrameList.ListBoxMinerals.GetSelectedText));
     FormMain.FrameList.RefreshList;
   end
-  //else
-  //ShowMessage(Lang.SelectRecordToExclude);
+  else
+    ShowMessage(Lang.SelectRecordToExclude);
 end;
 
 procedure TFormRemoveMineral.FormCreate(Sender: TObject);

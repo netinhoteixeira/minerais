@@ -1,29 +1,29 @@
 object FrameFicha: TFrameFicha
   Left = 0
-  Height = 733
+  Height = 704
   Top = 0
   Width = 822
   Align = alClient
-  ClientHeight = 733
+  ClientHeight = 704
   ClientWidth = 822
   TabOrder = 0
   DesignLeft = 422
   DesignTop = 27
   object PanelFicha: TPanel
     Left = 0
-    Height = 733
+    Height = 704
     Top = 0
     Width = 822
     Align = alClient
     Caption = 'PanelFicha'
-    ClientHeight = 733
+    ClientHeight = 704
     ClientWidth = 822
     Color = clWhite
     ParentColor = False
     TabOrder = 0
     object PageControlFicha: TPageControl
       Left = 1
-      Height = 731
+      Height = 702
       Top = 1
       Width = 820
       ActivePage = TabSheetInf_Gerais
@@ -32,11 +32,11 @@ object FrameFicha: TFrameFicha
       TabOrder = 0
       object TabSheetInf_Gerais: TTabSheet
         Caption = 'Informações Gerais'
-        ClientHeight = 697
+        ClientHeight = 668
         ClientWidth = 810
         object ScrollBox3: TScrollBox
           Left = 10
-          Height = 778
+          Height = 749
           Top = 10
           Width = 790
           HorzScrollBar.Page = 599
@@ -45,14 +45,14 @@ object FrameFicha: TFrameFicha
           VertScrollBar.Range = 650
           Anchors = [akTop, akLeft, akRight, akBottom]
           AutoScroll = False
-          ClientHeight = 776
+          ClientHeight = 747
           ClientWidth = 775
           TabOrder = 0
           object LabelComposicao: TLabel
             Left = 15
             Height = 20
             Top = 65
-            Width = 78
+            Width = 77
             Caption = 'Composição'
             ParentColor = False
           end
@@ -68,7 +68,7 @@ object FrameFicha: TFrameFicha
             Left = 15
             Height = 20
             Top = 115
-            Width = 43
+            Width = 42
             Caption = 'Classe'
             ParentColor = False
           end
@@ -116,7 +116,7 @@ object FrameFicha: TFrameFicha
             Left = 15
             Height = 20
             Top = 464
-            Width = 59
+            Width = 58
             Caption = 'Distinção'
             ParentColor = False
           end
@@ -124,7 +124,7 @@ object FrameFicha: TFrameFicha
             Left = 15
             Height = 20
             Top = 539
-            Width = 61
+            Width = 60
             Caption = 'Alteração'
             ParentColor = False
           end
@@ -188,7 +188,7 @@ object FrameFicha: TFrameFicha
           end
           object EditComposition: TEdit
             Left = 220
-            Height = 32
+            Height = 37
             Top = 65
             Width = 486
             Anchors = [akTop, akLeft, akRight]
@@ -198,7 +198,7 @@ object FrameFicha: TFrameFicha
           end
           object EditMineralName: TEdit
             Left = 220
-            Height = 32
+            Height = 37
             Top = 15
             Width = 486
             Anchors = [akTop, akLeft, akRight]
@@ -209,7 +209,7 @@ object FrameFicha: TFrameFicha
           end
           object ComboBoxClass: TComboBox
             Left = 220
-            Height = 32
+            Height = 37
             Top = 115
             Width = 486
             Anchors = [akTop, akLeft, akRight]
@@ -220,7 +220,7 @@ object FrameFicha: TFrameFicha
           end
           object ComboBoxSubclass: TComboBox
             Left = 220
-            Height = 32
+            Height = 37
             Top = 165
             Width = 486
             Anchors = [akTop, akLeft, akRight]
@@ -231,7 +231,7 @@ object FrameFicha: TFrameFicha
           end
           object ComboBoxGroup: TComboBox
             Left = 220
-            Height = 32
+            Height = 37
             Top = 215
             Width = 486
             Anchors = [akTop, akLeft, akRight]
@@ -242,7 +242,7 @@ object FrameFicha: TFrameFicha
           end
           object ComboBoxSubgroup: TComboBox
             Left = 220
-            Height = 32
+            Height = 37
             Top = 260
             Width = 486
             Anchors = [akTop, akLeft, akRight]
@@ -255,7 +255,7 @@ object FrameFicha: TFrameFicha
       end
       object TabSheetProp_Fisicas: TTabSheet
         Caption = 'Propriedades Físicas'
-        ClientHeight = 697
+        ClientHeight = 668
         ClientWidth = 810
         object ScrollBox4: TScrollBox
           Left = 10
@@ -268,8 +268,8 @@ object FrameFicha: TFrameFicha
           VertScrollBar.Range = 650
           Anchors = [akTop, akLeft, akRight, akBottom]
           AutoScroll = False
-          ClientHeight = 776
-          ClientWidth = 775
+          ClientHeight = 774
+          ClientWidth = 783
           TabOrder = 0
           object MemoLuminescencia: TMemo
             Left = 220
@@ -465,7 +465,7 @@ object FrameFicha: TFrameFicha
       end
       object TabSheetOticas: TTabSheet
         Caption = 'Propriedades Óticas'
-        ClientHeight = 697
+        ClientHeight = 668
         ClientWidth = 810
         object ScrollBox5: TScrollBox
           Left = 8
@@ -479,8 +479,8 @@ object FrameFicha: TFrameFicha
           VertScrollBar.Range = 850
           Anchors = [akTop, akLeft, akRight, akBottom]
           AutoScroll = False
-          ClientHeight = 671
-          ClientWidth = 775
+          ClientHeight = 669
+          ClientWidth = 783
           TabOrder = 0
           object MemoExtincao: TMemo
             Left = 220
@@ -631,7 +631,7 @@ object FrameFicha: TFrameFicha
             Height = 200
             Top = 24
             Width = 200
-            ClientHeight = 198
+            ClientHeight = 179
             ClientWidth = 198
             TabOrder = 9
             object ImageOptica1: TImage
@@ -649,7 +649,7 @@ object FrameFicha: TFrameFicha
             Height = 200
             Top = 20
             Width = 200
-            ClientHeight = 198
+            ClientHeight = 179
             ClientWidth = 198
             TabOrder = 10
             object ImageOptica2: TImage
@@ -698,7 +698,7 @@ object FrameFicha: TFrameFicha
       end
       object TabSheetCristalografia: TTabSheet
         Caption = 'Cristalografia'
-        ClientHeight = 697
+        ClientHeight = 668
         ClientWidth = 810
         object ScrollBox6: TScrollBox
           Left = 10
@@ -711,8 +711,8 @@ object FrameFicha: TFrameFicha
           VertScrollBar.Range = 650
           Anchors = [akTop, akLeft, akRight, akBottom]
           AutoScroll = False
-          ClientHeight = 775
-          ClientWidth = 775
+          ClientHeight = 773
+          ClientWidth = 783
           TabOrder = 0
           object GroupBoxCristalografia2: TGroupBox
             Left = 184
@@ -720,7 +720,7 @@ object FrameFicha: TFrameFicha
             Top = 20
             Width = 200
             Anchors = [akTop, akRight]
-            ClientHeight = 198
+            ClientHeight = 179
             ClientWidth = 198
             TabOrder = 0
             object ImageCristalografia2: TImage
@@ -738,7 +738,7 @@ object FrameFicha: TFrameFicha
             Top = 20
             Width = 200
             Anchors = [akTop, akRight]
-            ClientHeight = 198
+            ClientHeight = 179
             ClientWidth = 198
             TabOrder = 4
             object ImageCristalografia1: TImage
@@ -823,7 +823,7 @@ object FrameFicha: TFrameFicha
       end
       object TabSheetImagem: TTabSheet
         Caption = 'Imagem'
-        ClientHeight = 697
+        ClientHeight = 668
         ClientWidth = 810
         object GroupBoxImageLarge: TGroupBox
           Left = 0

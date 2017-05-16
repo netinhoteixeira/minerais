@@ -69,13 +69,21 @@ uses
   unitremovemineral, unitlanguage,
   unitajuda, frameficha, unitframelist,
   uframeimages, unitconfigfile, unitadvancedfilter,
-  unitaddimage,unitframesimplefilter, unitaddmineral, uformrmimage;
+  unitaddimage,unitframesimplefilter, unitaddmineral, uformrmimage,
+  uformcreatedatabase, uformloaddatabase;
+
+type
+  PanelVisible = record
+    Filter:Boolean;
+    Images:Boolean;
+  end;
 
 type
 
   { TFormMain }
 
   TFormMain = class(TForm)
+    ActionLoadDatabase: TAction;
     ActionShowHelp: TAction;
     ActionFormRmImage: TAction;
     ActionPortuguese: TAction;
@@ -83,13 +91,14 @@ type
     ActionFormAddImage: TAction;
     ActionShowAdvancedFilter: TAction;
     ActionMenuConf: TAction;
-    ActionOpenDatabaseForm: TAction;
+    ActionCreateDatabase: TAction;
     ActionImagesVisible: TAction;
     ActionFilterVisible: TAction;
     ActionAdd: TAction;
     ActionRemoveMineral: TAction;
     ActionList1: TActionList;
     ImageList1: TImageList;
+    MenuItemLoadDatabase: TMenuItem;
     MenuItemEnglish: TMenuItem;
     MenuItemPortuguese: TMenuItem;
     MenuItemLanguage: TMenuItem;
@@ -100,7 +109,7 @@ type
     MenuItemAddImages: TMenuItem;
     MenuItemRmImages: TMenuItem;
     MenuItemEdit: TMenuItem;
-    MenuItemDatabase: TMenuItem;
+    MenuItemNewDatabase: TMenuItem;
     MenuItemHelp: TMenuItem;
     Mineralogy_Name: TLabel;
     MainMenu1: TMainMenu;
@@ -110,6 +119,10 @@ type
     ProgressBar1: TProgressBar;
     ToolBar2: TToolBar;
     ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButtonHelp: TToolButton;
+    ToolButtonConfig: TToolButton;
+    ToolButtonLoadDB: TToolButton;
     ToolButtonShowImages: TToolButton;
     ToolButtonRmImage: TToolButton;
     ToolButtonAddImage: TToolButton;
@@ -127,8 +140,9 @@ type
     procedure ActionFormAddImageExecute(Sender: TObject);
     procedure ActionFormRmImageExecute(Sender: TObject);
     procedure ActionImagesVisibleExecute(Sender: TObject);
+    procedure ActionLoadDatabaseExecute(Sender: TObject);
     procedure ActionMenuConfExecute(Sender: TObject);
-    procedure ActionOpenDatabaseFormExecute(Sender: TObject);
+    procedure ActionCreateDatabaseExecute(Sender: TObject);
     procedure ActionPortugueseExecute(Sender: TObject);
     procedure ActionRemoveMineralExecute(Sender: TObject);
     procedure ActionShowAdvancedFilterExecute(Sender: TObject);
@@ -143,23 +157,23 @@ type
     { private declarations }
   public
     { public declarations }
+    Panel:PanelVisible;
     FormFrameFicha: TFrameFicha;
     FrameList : TFrameList;
     FrameSimpleFilter: TFrameSimpleFilter;
     FrameImages: TFrameImage;
     procedure ChangeLanguage;
-    procedure refresh;
+    procedure RefreshList;
   end;
 
   const SlimPanelsWidth:Integer = 200;
 
 var
   FormMain: TFormMain;
-  Panels: PanelsType;
 
 implementation
 
-uses udatamodule, uformselectdatabase;
+uses udatamodule;
 
 {$R *.lfm}
 
@@ -181,8 +195,7 @@ begin
     Align:= alLeft;
     Width:=SlimPanelsWidth;
   end;
-  //Panels:=PanelsType.Images;
-  FrameImages.Visible:=IsPanelVisible(PanelImages);
+  Panel.Images:=IsPanelVisible(PanelImages);
 
   FrameList:= TFrameList.Create(FormMain);
   with Framelist do
@@ -201,7 +214,7 @@ begin
     Width:=SlimPanelsWidth;
     ChangeLanguage;
   end;
-  FrameSimpleFilter.Visible:=IsPanelVisible(SimpleFilter);
+  Panel.Filter:=IsPanelVisible(SimpleFilter);
 
   FormFrameFicha:= TFrameFicha.Create(FormMain);
   with FormFrameFicha do
@@ -265,24 +278,33 @@ procedure TFormMain.ChangeLanguage;
 begin
   self.Caption:=Lang.Minerals;
   //menuitems
-    MenuItemAdd.Caption:=Lang.Add;
-    MenuItemRemove.Caption:=Lang.Remove;
-    MenuItemEdit.Caption:=Lang.Edit;
-    MenuItemAddImages.Caption:=Lang.Images;
-    MenuItemRmImages.Caption:=Lang.Images;
-    MenuItemAddMineral.Caption:=Lang.Minerals;
-    MenuItemRmMineral.Caption:=Lang.Minerals;
+  MenuItemNewDatabase.Caption:=Lang.CreateMineralDatabase;
+  MenuItemLoadDatabase.Caption:=Lang.OpenDatabase;
+  MenuItemAdd.Caption:=Lang.Add;
+  MenuItemRemove.Caption:=Lang.Remove;
+  MenuItemEdit.Caption:=Lang.Edit;
+  MenuItemAddImages.Caption:=Lang.Images;
+  MenuItemRmImages.Caption:=Lang.Images;
+  MenuItemAddMineral.Caption:=Lang.Minerals;
+  MenuItemRmMineral.Caption:=Lang.Minerals;
   MenuItemClose.Caption:=Lang.Close;
 
+
   //toolbuttons
-   ToolButtonDatabase.Hint:=Lang.Database;
-//    ToolButtonHelp.Hint:=Lang.Help;
-    ToolButtonAdd.Hint:=Lang.Add;
-    ToolButtonRemove.Hint:=Lang.Remove;
-    ToolButtonShowFilter.Hint:=Lang.ShowFilter;
+  ToolButtonDatabase.Hint:=Lang.Database;
+  ToolButtonLoadDB.Hint:=Lang.OpenDatabase;
+  ToolButtonAdd.Hint:=Lang.Add;
+  ToolButtonRemove.Hint:=Lang.Remove;
+  ToolButtonShowFilter.Hint:=Lang.ShowFilter;
+  ToolButtonAdvancedFilter.Hint:=Lang.AdvFilter;
+  ToolButtonAddImage.Hint:=Lang.AddImage;
+  ToolButtonRmImage.Hint:=Lang.RemoveImage;
+  ToolButtonShowImages.Hint:=Lang.ShowImages;
+  ToolButtonConfig.Hint:=Lang.Configuration;
+  ToolButtonHelp.Hint:=Lang.Help;
 end;
 
-procedure TFormMain.refresh;
+procedure TFormMain.RefreshList;
 begin
   FrameList.RefreshList;
 end;
@@ -323,9 +345,10 @@ procedure TFormMain.ActionFilterVisibleExecute(Sender: TObject);
 begin
   if FrameSimpleFilter.Visible then
   begin
+    FrameSimpleFilter.ClearFields;
     FrameSimpleFilter.Visible := False;
     SetPanelVisibility(SimpleFilter, False);
-
+    RefreshList;
   end
   else
   begin
@@ -356,14 +379,19 @@ begin
   end;
 end;
 
+procedure TFormMain.ActionLoadDatabaseExecute(Sender: TObject);
+begin
+  FormSelectDB.Show;
+end;
+
 procedure TFormMain.ActionMenuConfExecute(Sender: TObject);
 begin
   //TODO re-add unitformconfigurations
 end;
 
-procedure TFormMain.ActionOpenDatabaseFormExecute(Sender: TObject);
+procedure TFormMain.ActionCreateDatabaseExecute(Sender: TObject);
 begin
-  FormSelectDatabase.Show;
+  FormCreateDB.Show;
 end;
 
 procedure TFormMain.ActionPortugueseExecute(Sender: TObject);
@@ -380,14 +408,14 @@ end;
 
 procedure TFormMain.ActionRemoveMineralExecute(Sender: TObject);
 begin
-  if Dados.ValidateDatabase( Dados.DatabaseMineralFileName) then
+  if Dados.DatabaseMineralFileName <> EmptyStr then
      FormRemoveMineral.Show
 end;
 
 procedure TFormMain.ActionShowAdvancedFilterExecute(Sender: TObject);
 begin
-  if Dados.ValidateDatabase( Dados.DatabaseMineralFileName) then
-  FormAdvancedFilter.Visible:= True;
+  if Dados.DatabaseMineralFileName <> EmptyStr then
+    FormAdvancedFilter.Visible:= True;
 end;
 
 procedure TFormMain.ActionShowHelpExecute(Sender: TObject);

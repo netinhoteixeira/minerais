@@ -1,14 +1,14 @@
 object FormHelp: TFormHelp
-  Left = 4
+  Left = 275
   Height = 376
-  Top = 27
+  Top = 124
   Width = 505
   ClientHeight = 376
   ClientWidth = 505
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '1.6.4.0'
   object Panel1: TPanel
     Left = 0
     Height = 376
@@ -32,6 +32,10 @@ object FormHelp: TFormHelp
       PrintSettings.MarginTop = 0.5
       PrintSettings.MarginRight = 0.5
       PrintSettings.MarginBottom = 0.5
+      PrintSettings.Preview.Left = 341
+      PrintSettings.Preview.Top = 192
+      PrintSettings.Preview.Width = 1024
+      PrintSettings.Preview.Height = 576
       TabOrder = 0
     end
   end

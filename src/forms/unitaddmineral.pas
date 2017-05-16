@@ -35,6 +35,7 @@ type
     function AddMineral: Boolean;
   public
     { public declarations }
+    procedure ChangeLanguage;
   end;
 
 var
@@ -106,11 +107,16 @@ begin
     result:=False;
 end;
 
+procedure TFormAddMineral.ChangeLanguage;
+begin
+  self.Caption:=Lang.AddMineral;
+end;
+
 procedure TFormAddMineral.ActionApplyExecute(Sender: TObject);
 begin
   if AddMineral then
-    //FormMain.FrameList.RefreshList;
-    FormMain.refresh;
+    FormMain.RefreshList;
+  ShowMessage(Lang.MineralSucessfullyAdded);
   FormAddMineral.Visible:=False;
 end;
 
@@ -125,6 +131,13 @@ begin
    begin
      FrameFicha1.ClearFields;
      FormMain.FrameList.RefreshList;
+     if FormMain.Panel.Filter then
+     begin
+       FormMain.FrameSimpleFilter.AddClasses;
+       FormMain.FrameSimpleFilter.AddSubclasses;
+       FormMain.FrameSimpleFilter.AddGroups;
+       FormMain.FrameSimpleFilter.AddSubgroups;
+     end;
    end
    else
      ShowMessage(Lang.ThereIsAlreadyARecordWithThatName)

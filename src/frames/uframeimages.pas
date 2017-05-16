@@ -58,9 +58,10 @@ begin
   begin
     if Sender.Equals(Images[I]) then
     begin
-      //ClearBlobIdField(Dados.Table5, FieldImage,
-        //FormRmImage.ListBox1.GetSelectedText, );
+      Dados.ClearBlobIdField(Dados.Table5, FieldImage,
+        FormRmImage.ListBox1.GetSelectedText, Images[I].Tag);
       Images[I].Picture.Clear;
+      Exit;
     end;
   end;
 end;
@@ -74,6 +75,7 @@ begin
     begin
       FormMain.FormFrameFicha.ImagemAmpliada.Picture.Graphic:=
         Images[I].Picture.Graphic;
+      Exit;
     end;
   end;
 end;
@@ -111,7 +113,7 @@ begin
       Picture.Graphic := Dados.SelectImage(MineralName, I);
     end;
   end;
-
+  imCount:=Count-1;
 end;
 
 procedure TFrameImage.RefreshLarge(MineralName: string; Count: integer);

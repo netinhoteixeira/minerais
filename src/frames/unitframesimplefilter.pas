@@ -61,6 +61,7 @@ type
     procedure AddSubclasses;
     procedure AddSubgroups;
     procedure ChangeLanguage;
+    procedure ClearFields;
   end;
 
 var StrName, StrOccur, StrAssoc:String; //usado para guardar valor da ultima pesquisa e evitar preencher a lista duas vezes seguidas
@@ -197,6 +198,21 @@ begin
   LabelDens.Caption:=Lang.Density;
   LabelOccur.Caption:=Lang.Occurrence;
   LabelAssoc.Caption:=Lang.Association;
+end;
+
+procedure TFrameSimpleFilter.ClearFields;
+begin
+  EditName.Text:='';
+  ComboBoxClass.Text:='';
+  ComboBoxSubclass.Text:='';
+  ComboBoxGroup.Text:='';
+  ComboBoxSubGroup.Text:='';
+  SpinEditFilterHardMin.Value:=1;
+  SpinEditFilterMaxHard.Value:=10;
+  FloatSpinEditFilterDensMin.Value:=0;
+  FloatSpinEditFilterDensMax2.Value:=30;
+  EditOccur.Text:='';
+  EditAssoc.Text:='';
 end;
 
 end.

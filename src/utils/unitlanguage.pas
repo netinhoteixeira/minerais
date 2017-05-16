@@ -9,6 +9,8 @@ uses
 
 type
   Language = record
+    AppLicationName:String;
+
     StrFile:String;
     Exhibit:String;
 
@@ -56,6 +58,7 @@ type
     AddImage:String;
     RemoveImage:String;
 
+    Category:String;
 
     Order:String;
     Alphabetical: String;
@@ -173,6 +176,12 @@ type
     Configuration:String;
 
     SelectRecordToExclude:String;
+
+    DatabaseCreatedAt:String;
+
+    MineralSucessfullyAdded:String;
+    OpenDatabase:String;
+    AdvFilter:String;
   end;
 
   type WhichLanguage = (english, portuguese);
@@ -189,6 +198,8 @@ function SetLanguage(Language: WhichLanguage): Boolean;
 begin
   if (Language = Portuguese) then
   begin
+    Lang.AppLicationName:='Guia de Minerais';
+
     Lang.StrFile:='Arquivo';
     Lang.Exhibit:='Exibir';
     Lang.Filter:='Filtro';
@@ -235,6 +246,8 @@ begin
 
     Lang.AddImage:='Adicionar imagem';
     Lang.RemoveImage:='Remover imagem';
+
+    Lang.Category:='Categoria';
 
     Lang.Order:='Ordem';
     Lang.Alphabetical:='Alfabética';
@@ -327,11 +340,18 @@ begin
 
     Lang.Configuration:='Configurações';
     Lang.SelectRecordToExclude:='Selecione um registro para excluir';
+
+    Lang.DatabaseCreatedAt:='Banco de dados criado em: ';
+    Lang.MineralSucessfullyAdded:='Mineral adicionado com sucesso';
+    Lang.OpenDatabase:='Abrir banco de dados';
+    Lang.AdvFilter:='Filtro avançado';
     Result:=True;
   end
   else
   if (Language = English) then
   begin
+    Lang.AppLicationName:='Guia de Minerais';
+
     Lang.StrFile:='File';
     Lang.Exhibit:='Exhibit';   //ou seria Show?
     Lang.Filter:='Filter';
@@ -366,6 +386,11 @@ begin
     Lang.Add:='Add';
     Lang.Remove:='Remove';
     Lang.RemoveAll:='Remove all';
+
+    Lang.AddImage:='Add image';
+    Lang.RemoveImage:='Remove image';
+
+    Lang.Category:='Category';
 
     Lang.Order:='Order';
     Lang.Alphabetical:='Alphabetical';//ou seria alphabetic ????
@@ -458,6 +483,11 @@ begin
     Lang.Configuration:='Configurations';
 
     Lang.SelectRecordToExclude:='Selecione um registro para excluir';
+
+    Lang.DatabaseCreatedAt:='Database creatd at: ';
+    Lang.MineralSucessfullyAdded:='Mineral sucessfully added ';
+    Lang.OpenDatabase:='Open database';
+    Lang.AdvFilter:='Advanced filter';
     Result:=True;
   end;
 end;

@@ -18,8 +18,8 @@ type
     ActionSaveImage: TAction;
     ActionOpenDialog: TAction;
     ActionList1: TActionList;
-    BitBtn1: TBitBtn;
-    BitBtn2: TBitBtn;
+    BitBtnApply: TBitBtn;
+    BitBtnClose: TBitBtn;
     BitBtnClear: TBitBtn;
     BitBtnOpen: TBitBtn;
     ComboBoxCategory: TComboBox;
@@ -125,8 +125,10 @@ procedure TFormAddImage.ChangeLanguage;
 begin
   self.Caption:=Lang.AddImage;
   LabelName.Caption:=Lang.Name;
-//  LabelCategory.Caption:=Lang.Category;
-   LabelDescription.Caption:=Lang.Description;
+  LabelCategory.Caption:=Lang.Category;
+  LabelDescription.Caption:=Lang.Description;
+  BitBtnApply.Hint:=Lang.Confirm;
+  BitBtnClose.Hint:=Lang.Close;
 end;
 
 end.

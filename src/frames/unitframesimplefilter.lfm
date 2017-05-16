@@ -7,8 +7,8 @@ object FrameSimpleFilter: TFrameSimpleFilter
   ClientHeight = 652
   ClientWidth = 200
   TabOrder = 0
-  DesignLeft = 1080
-  DesignTop = 41
+  DesignLeft = 1118
+  DesignTop = 44
   object Panel1: TPanel
     Left = 0
     Height = 652

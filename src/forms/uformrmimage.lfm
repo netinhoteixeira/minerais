@@ -1,28 +1,29 @@
 object FormRmImage: TFormRmImage
-  Left = 253
+  Left = 405
   Height = 341
-  Top = 249
+  Top = 268
   Width = 589
   Caption = 'FormRmImage'
   ClientHeight = 341
   ClientWidth = 589
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnResize = ActionListClickExecute
   OnShow = ActionListClickExecute
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '1.6.4.0'
   object Panel1: TPanel
     Left = 0
-    Height = 341
+    Height = 291
     Top = 0
     Width = 200
     Align = alLeft
     Caption = 'Panel1'
-    ClientHeight = 341
+    ClientHeight = 291
     ClientWidth = 200
     TabOrder = 0
     object ListBox1: TListBox
       Left = 8
-      Height = 322
+      Height = 272
       Top = 8
       Width = 184
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -33,12 +34,35 @@ object FormRmImage: TFormRmImage
       TopIndex = -1
     end
   end
+  object Panel2: TPanel
+    Left = 0
+    Height = 50
+    Top = 291
+    Width = 589
+    Align = alBottom
+    ClientHeight = 50
+    ClientWidth = 589
+    Color = 5000268
+    ParentColor = False
+    TabOrder = 1
+    object SpeedButton1: TSpeedButton
+      Left = 528
+      Height = 40
+      Top = 8
+      Width = 40
+      OnClick = ActionCloseExecute
+    end
+  end
   object ActionList1: TActionList
     left = 179
     top = 109
     object ActionListClick: TAction
       Caption = 'ActionListClick'
       OnExecute = ActionListClickExecute
+    end
+    object ActionClose: TAction
+      Caption = 'ActionClose'
+      OnExecute = ActionCloseExecute
     end
   end
 end

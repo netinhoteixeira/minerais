@@ -11,7 +11,7 @@ object FormRemoveMineral: TFormRemoveMineral
   OnDestroy = FormDestroy
   OnShow = FormShow
   Position = poDesktopCenter
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '1.6.4.0'
   object Panel2: TPanel
     Left = 0
     Height = 50

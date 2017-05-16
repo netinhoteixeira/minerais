@@ -6,25 +6,30 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, ActnList, uframeimages, udatamodule;
+  StdCtrls, ActnList, Buttons, uframeimages, udatamodule, unitlanguage;
 
 type
 
   { TFormRmImage }
 
   TFormRmImage = class(TForm)
+    ActionClose: TAction;
     ActionListClick: TAction;
     ActionList1: TActionList;
     ListBox1: TListBox;
     Panel1: TPanel;
+    Panel2: TPanel;
+    SpeedButton1: TSpeedButton;
+    procedure ActionCloseExecute(Sender: TObject);
     procedure ActionListClickExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
-    Frame:TFrameImage;
     { private declarations }
+    Frame:TFrameImage;
   public
     { public declarations }
+    procedure ChangeLanguage;
   end;
 
 var
@@ -54,9 +59,19 @@ begin
      Dados.MineralImagesCount(ListBox1.GetSelectedText));
 end;
 
+procedure TFormRmImage.ActionCloseExecute(Sender: TObject);
+begin
+  self.Hide;
+end;
+
 procedure TFormRmImage.FormDestroy(Sender: TObject);
 begin
    Frame.Free;
+end;
+
+procedure TFormRmImage.ChangeLanguage;
+begin
+  self.Caption:=Lang.RemoveImage;
 end;
 
 end.

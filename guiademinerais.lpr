@@ -19,8 +19,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   unitframesimplefilter,
   unitadvancedfilter,
   unitaddimage,
-  uformselectdatabase, uformrmimage,
-  uframeimages, unitconfigfile;
+  uformrmimage,
+  uframeimages, unitconfigfile, uformloaddatabase, uformcreatedatabase;
 
 {$R *.res}
 
@@ -36,9 +36,10 @@ begin
   Application.CreateForm(TFormAddMineral, FormAddMineral);
   Application.CreateForm(TFormRemoveMineral, FormRemoveMineral);
   Application.CreateForm(TFormAdvancedFilter, FormAdvancedFilter);
-  Application.CreateForm(TFormSelectDatabase, FormSelectDatabase);
   Application.CreateForm(TFormAddImage, FormAddImage);
   Application.CreateForm(TFormRmImage, FormRmImage);
+  Application.CreateForm(TFormSelectDB, FormSelectDB);
+  Application.CreateForm(TFormCreateDB, FormCreateDB);
   //Application.CreateForm(TFormHelp, FormHelp);
   Delay(1000);
   FormSplash.Hide;
